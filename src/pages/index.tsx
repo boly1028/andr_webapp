@@ -2,13 +2,13 @@ import {
   Box,
   Circle,
   Flex,
+  Spacer,
   Text,
   Stack,
   List,
   ListItem,
   ListIcon,
   Button,
-  Spacer,
   Icon,
   useColorModeValue,
   Heading,
@@ -139,6 +139,7 @@ export default function Index() {
           >
             <Flex
               direction="column"
+              height="100%"
               bg={useColorModeValue("white", "gray.900")}
               p={4}
             >
@@ -171,7 +172,10 @@ export default function Index() {
                   ))}
                 </List>
               </Box>
+              <Spacer />
               <Button
+                fontWeight={500}
+                fontSize="md"
                 mt={10}
                 w={"full"}
                 bg={"purple.600"}
