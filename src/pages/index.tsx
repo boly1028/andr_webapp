@@ -1,10 +1,11 @@
+import React, { FC } from "react";
+
 import {
   Box,
   Circle,
   Flex,
   Spacer,
   Text,
-  Stack,
   List,
   ListItem,
   ListIcon,
@@ -118,6 +119,80 @@ const ADOS: Array<AdoProps> = [
   },
 ];
 
+type Props = {
+  ado: AdoProps;
+};
+
+const Card: FC<Props> = ({ ado }) => {
+  return (
+    <Box
+      bg={useColorModeValue("white", "gray.800")}
+      border="1px"
+      borderColor={"gray.300"}
+      rounded={"xl"}
+      overflow={"hidden"}
+    >
+      <Flex
+        direction="column"
+        height="100%"
+        bg={useColorModeValue("white", "gray.900")}
+        p={4}
+      >
+        <Box>
+          <HStack spacing={4}>
+            <Circle size="36px" bg="purple.600" color="white">
+              <Icon as={ImageIcon} color="white" />
+            </Circle>
+            <Heading
+              color={useColorModeValue("gray.700", "white")}
+              fontSize={"xl"}
+              fontFamily={"body"}
+              fontWeight={600}
+            >
+              {ado.name}
+            </Heading>
+          </HStack>
+          <Text color={"gray.500"} fontSize="sm" my={4}>
+            {ado.description}
+          </Text>
+
+          <List spacing={3}>
+            {ado.opts.map((opt) => (
+              <ListItem key={opt}>
+                <Text color={"gray.500"} fontSize="sm">
+                  <ListIcon as={CheckIcon} color="purple.400" />
+                  {opt}
+                </Text>
+              </ListItem>
+            ))}
+          </List>
+        </Box>
+        <Spacer />
+        <Button
+          fontWeight={500}
+          fontSize="md"
+          mt={10}
+          w={"full"}
+          bg={"purple.600"}
+          color={"white"}
+          rounded={"xl"}
+          size="lg"
+          rightIcon={ado.disabled ? undefined : <ArrowRightIcon />}
+          _hover={{
+            bg: "purple.700",
+          }}
+          _focus={{
+            bg: "purple.800",
+          }}
+          isActive={ado.disabled}
+        >
+          {ado.disabled ? "Coming Soon" : "Get Started"}
+        </Button>
+      </Flex>
+    </Box>
+  );
+};
+
 export default function Index() {
   return (
     <Box maxW="960px" mx="auto" px={{ base: 4, md: 8 }}>
@@ -130,71 +205,7 @@ export default function Index() {
       </Text>
       <SimpleGrid minChildWidth="240px" spacing="20px" my={8}>
         {ADOS.map((ado) => (
-          <Box
-            bg={useColorModeValue("white", "gray.800")}
-            border="1px"
-            borderColor={"gray.300"}
-            rounded={"xl"}
-            overflow={"hidden"}
-          >
-            <Flex
-              direction="column"
-              height="100%"
-              bg={useColorModeValue("white", "gray.900")}
-              p={4}
-            >
-              <Box>
-                <HStack spacing={4}>
-                  <Circle size="36px" bg="purple.600" color="white">
-                    <Icon as={ImageIcon} color="white" />
-                  </Circle>
-                  <Heading
-                    color={useColorModeValue("gray.700", "white")}
-                    fontSize={"xl"}
-                    fontFamily={"body"}
-                    fontWeight={600}
-                  >
-                    {ado.name}
-                  </Heading>
-                </HStack>
-                <Text color={"gray.500"} fontSize="sm" my={4}>
-                  {ado.description}
-                </Text>
-
-                <List spacing={3}>
-                  {ado.opts.map((opt) => (
-                    <ListItem>
-                      <Text color={"gray.500"} fontSize="sm">
-                        <ListIcon as={CheckIcon} color="purple.400" />
-                        {opt}
-                      </Text>
-                    </ListItem>
-                  ))}
-                </List>
-              </Box>
-              <Spacer />
-              <Button
-                fontWeight={500}
-                fontSize="md"
-                mt={10}
-                w={"full"}
-                bg={"purple.600"}
-                color={"white"}
-                rounded={"xl"}
-                size="lg"
-                rightIcon={ado.disabled ? undefined : <ArrowRightIcon />}
-                _hover={{
-                  bg: "purple.700",
-                }}
-                _focus={{
-                  bg: "purple.800",
-                }}
-                isActive={ado.disabled}
-              >
-                {ado.disabled ? "Coming Soon" : "Get Started"}
-              </Button>
-            </Flex>
-          </Box>
+          <Card key={ado.name} ado={ado} />
         ))}
       </SimpleGrid>
     </Box>
