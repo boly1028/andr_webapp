@@ -1,26 +1,13 @@
 import React, { FC } from "react";
 import {
   Flex,
-  Box,
   HStack,
   useColorModeValue,
   IconButton,
-  Text,
-  Menu,
-  MenuButton,
-  VStack,
-  Avatar,
   FlexProps,
-  MenuDivider,
-  MenuItem,
-  MenuList,
 } from "@chakra-ui/react";
 
-import {
-  Menu as MenuIcon,
-  ChevronDown as ChevronDownIcon,
-  Bell as BellIcon,
-} from "lucide-react";
+import { Menu as MenuIcon } from "lucide-react";
 import TerraWallet from "./TerraWallet";
 
 type Props = {

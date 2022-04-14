@@ -3,7 +3,6 @@ import {
   Box,
   Drawer,
   DrawerContent,
-  useColorModeValue,
   useDisclosure,
   FlexProps,
 } from "@chakra-ui/react";
