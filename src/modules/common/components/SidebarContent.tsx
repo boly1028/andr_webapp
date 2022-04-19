@@ -21,7 +21,7 @@ import Logo from "./Logo";
 interface LinkItemProps {
   name: string;
   icon: any;
-  path: String;
+  path: string;
 }
 const LinkItems: LinkItemProps[] = [
   { name: "Overview", icon: CompassIcon, path: "/" },

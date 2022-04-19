@@ -3,14 +3,14 @@ import { Flex, Link, Icon, FlexProps } from "@chakra-ui/react";
 
 type Props = {
   icon: any;
-  path: String;
+  path: string;
   children: ReactText;
 } & FlexProps;
 
 const NavItem: FC<Props> = ({ icon, path, children, ...props }) => {
   return (
     <Link
-      href="#"
+      href={path}
       style={{ textDecoration: "none" }}
       _focus={{ boxShadow: "none" }}
     >

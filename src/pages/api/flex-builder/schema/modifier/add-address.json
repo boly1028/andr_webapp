@@ -1,0 +1,20 @@
+{
+  "schema": {
+    "title": "Add Address",
+    "description": "Adds an adress to the address list. Applying to Address List#16312",
+    "$id": "/schemas/add-address",
+    "type": "object",
+    "required": [
+      "address_to_add"
+    ],
+    "properties": {
+      "address_to_add": {
+        "type": "string",
+        "title": "Address to Add",
+        "ui:help": "the description of address to add."
+      }
+    }
+  },
+  "ui-schema": {},
+  "form-data": {}
+}
