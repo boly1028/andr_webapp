@@ -1,6 +1,8 @@
 import { extendTheme } from "@chakra-ui/react";
 
 import Heading from "./heading";
+import Button from "./button";
+import Tabs from "./tabs";
 
 export default extendTheme({
   fonts: {
@@ -11,6 +13,8 @@ export default extendTheme({
   },
   components: {
     Heading,
+    Button,
+    Tabs,
   },
   colors: {},
 });

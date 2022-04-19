@@ -1,6 +1,6 @@
 import absoluteUrl from "next-absolute-url";
 import { NextPage } from "next";
-
+import { JSONSchema7 } from "json-schema";
 import {
   Box,
   Circle,
@@ -15,7 +15,7 @@ import Form from "@rjsf/chakra-ui";
 
 import { Image as ImageIcon } from "lucide-react";
 
-import { FlexBuilderTemplateProps } from "@/types";
+import { FlexBuilderTemplateProps } from "@/modules/flex-builder";
 
 type Props = {
   template: FlexBuilderTemplateProps;
@@ -40,7 +40,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => (
       <Text color={"gray.500"} fontSize="sm" my={4}>
         {template.description}
       </Text>
-      <Form schema={template.schema} />
+      <Form schema={template.schema as JSONSchema7} />
     </Box>
   </Box>
 );

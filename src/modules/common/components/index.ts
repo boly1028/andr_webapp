@@ -3,6 +3,6 @@ export { default as Layout } from "./Layout";
 export { default as Logo } from "./Logo";
 export { default as NavItem } from "./NavItem";
 export { default as Sidebar } from "./Sidebar";
+export { default as PageHeader } from "./PageHeader";
 export { default as SidebarContent } from "./SidebarContent";
 export { default as TerraWallet } from "./TerraWallet";
-export { default as WalletModal } from "./WalletModal";
