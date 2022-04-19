@@ -6,7 +6,7 @@ import {
 } from "@terra-money/wallet-provider";
 import { Text, HStack, useDisclosure, Box, Button } from "@chakra-ui/react";
 
-import WalletModal from "./WalletModal";
+import { WalletModal } from "@/modules/modals";
 
 const TerraWallet: FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();

@@ -5,4 +5,3 @@ export { default as NavItem } from "./NavItem";
 export { default as Sidebar } from "./Sidebar";
 export { default as SidebarContent } from "./SidebarContent";
 export { default as TerraWallet } from "./TerraWallet";
-export { default as WalletModal } from "./WalletModal";
