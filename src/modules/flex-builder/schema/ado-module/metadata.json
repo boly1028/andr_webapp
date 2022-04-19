@@ -1,0 +1,81 @@
+{
+  "schema": {
+    "title": "Metadata",
+    "description": "Add metadata information for your NFT Collectible.",
+    "$id": "/schemas/metadata",
+    "type": "object",
+    "required": ["url", "data_type"],
+    "properties": {
+      "url": {
+        "type": "string",
+        "format": "uri",
+        "title": "External link / url to NFT asset.",
+        "ui:help": "Link to source data for the NFT."
+      },
+      "external_url": {
+        "type": "string",
+        "format": "uri",
+        "title": "External link to asset.",
+        "ui:help": "The source URI of the NFT."
+      },
+      "data_type": {
+        "type": "string",
+        "title": "Type of NFT",
+        "enum": ["image", "video", "audio", "domain", "json", "other"],
+        "enumNames": ["Image", "Video", "Audio", "Domain", "JSON", "Other"],
+        "default": "image"
+      },
+      "data_url": {
+        "type": "string",
+        "title": "External link to information about NFT.",
+        "ui:help": "An external link to information about NFT."
+      },
+      "attributes": {
+        "title": "Attributes",
+        "type": "array",
+        "items": {
+          "properties": {
+            "key": {
+              "type": "string",
+              "title": "Trait Type",
+              "ui:help": "The type of trait."
+            },
+            "value": {
+              "type": "string",
+              "title": "Trait Value",
+              "ui:help": "The value of the trait."
+            },
+            "display_label": {
+              "type": "string",
+              "title": "Display Label (replaces Trait Type label when displaying)",
+              "ui:help": "An optional value for how to display the trait. (defaults to Trait Type if ommitted)"
+            }
+          }
+        }
+      },
+      "marketplace": {
+        "title": "Available in Marketplace",
+        "type": "boolean",
+        "ui:help": " "
+      },
+      "marketplace_price": {
+        "type": "number",
+        "minimum": 0,
+        "title": "Price to sell for in marketplace?",
+        "ui:help": "Price you are asking others to offer in marketplace."
+      },
+      "marketplace_denom": {
+        "type": "string",
+        "title": "Denomination",
+        "enum": ["usd"],
+        "enumNames": ["USD"],
+        "default": "usd",
+        "ui:group": true
+      }
+    }
+  },
+  "ui-schema": {
+    "marketplace": { "ui:widget": "checkbox" }
+  },
+  "form-data": {}
+}

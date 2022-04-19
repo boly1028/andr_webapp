@@ -1,5 +1,9 @@
 import React, { FC } from "react";
 
+import NextLink from "next/link";
+
+import { FlexBuilderTemplateProps } from "@/modules/flex-builder/types";
+
 import {
   Box,
   Circle,
@@ -22,19 +26,13 @@ import {
   ArrowRight as ArrowRightIcon,
 } from "lucide-react";
 
-type AdoProps = {
-  name: string;
-  icon: string;
-  description: string;
-  opts: string[];
-  disabled?: boolean;
+type FlexBuilderTemplateListItemProps = {
+  template: FlexBuilderTemplateProps;
 };
 
-type Props = {
-  ado: AdoProps;
-};
-
-const BuilderListItem: FC<Props> = ({ ado }) => {
+const FlexBuilderTemplateListItem: FC<FlexBuilderTemplateListItemProps> = ({
+  template,
+}) => {
   const wrapperBg = useColorModeValue("white", "gray.800");
   const containerBg = useColorModeValue("white", "gray.900");
   const titleColor = useColorModeValue("gray.700", "white");
@@ -59,15 +57,15 @@ const BuilderListItem: FC<Props> = ({ ado }) => {
               fontFamily={"body"}
               fontWeight={600}
             >
-              {ado.name}
+              {template.name}
             </Heading>
           </HStack>
           <Text color="gray.500" fontSize="sm" my={4}>
-            {ado.description}
+            {template.description}
           </Text>
 
           <List spacing={3}>
-            {ado.opts.map((opt) => (
+            {template.opts.map((opt) => (
               <ListItem key={opt}>
                 <Text color={"gray.500"} fontSize="sm">
                   <ListIcon as={CheckIcon} color="purple.400" />
@@ -78,19 +76,21 @@ const BuilderListItem: FC<Props> = ({ ado }) => {
           </List>
         </Box>
         <Spacer />
-        <Button
-          mt={10}
-          isFullWidth
-          size="lg"
-          colorScheme="purple"
-          rightIcon={ado.disabled ? undefined : <ArrowRightIcon />}
-          isDisabled={ado.disabled}
-        >
-          {ado.disabled ? "Coming Soon" : "Get Started"}
-        </Button>
+        <NextLink href={`flex-builder/${template.id}`} passHref>
+          <Button
+            mt={10}
+            isFullWidth
+            size="lg"
+            colorScheme="purple"
+            rightIcon={template.disabled ? undefined : <ArrowRightIcon />}
+            isDisabled={template.disabled}
+          >
+            {template.disabled ? "Coming Soon" : "Get Started"}
+          </Button>
+        </NextLink>
       </Flex>
     </Box>
   );
 };
 
-export default BuilderListItem;
+export default FlexBuilderTemplateListItem;

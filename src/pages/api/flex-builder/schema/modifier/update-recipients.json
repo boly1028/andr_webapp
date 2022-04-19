@@ -1,0 +1,30 @@
+{
+  "schema": {
+    "title": "Update Recipients",
+    "description": "Updates the recipeints of the splitter ADO. Applying to Splitter ADO #16312",
+    "$id": "/schemas/update-recipients",
+    "type": "object",
+    "properties": {
+      "attributes": {
+        "title": "Recipients",
+        "type": "array",
+        "items": {
+          "properties": {
+            "key": {
+              "type": "string",
+              "title": "Address",
+              "ui:help": "description of recipient address."
+            },
+            "value": {
+              "type": "string",
+              "title": "Percentage",
+              "ui:help": "description of recipient percentage."
+            }
+          }
+        }
+      }
+    }
+  },
+  "ui-schema": {},
+  "form-data": {}
+}
