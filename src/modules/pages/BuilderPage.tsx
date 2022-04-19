@@ -1,6 +1,7 @@
 import React from "react";
-import { Box, Text, Heading, SimpleGrid } from "@chakra-ui/react";
+import { Box, SimpleGrid } from "@chakra-ui/react";
 
+import { PageHeader } from "@/modules/common";
 import { BuilderListItem, AdoProps } from "@/modules/builder";
 
 const ADOS: Array<AdoProps> = [
@@ -94,13 +95,11 @@ const ADOS: Array<AdoProps> = [
 const BuilderPage = () => {
   return (
     <Box maxW="container.lg" mx="auto" px={{ base: 4, md: 8 }}>
-      <Heading fontWeight="600" fontSize="xl" my={2}>
-        ADO & NFT Builder Templates
-      </Heading>
-      <Text fontSize="sm" color="gray.500">
-        Quickly create and publish NFT collectibles, DeFi instruments and
-        generic ADOs from starter templates!
-      </Text>
+      <PageHeader
+        title="ADO & NFT Builder Templates"
+        desc="Quickly create and publish NFT collectibles, DeFi instruments and
+        generic ADOs from starter templates!"
+      />
       <SimpleGrid columns={3} spacing="4" my={8}>
         {ADOS.map((ado) => (
           <BuilderListItem key={ado.name} ado={ado} />
