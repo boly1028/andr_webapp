@@ -1,4 +1,5 @@
-import { FlexBuilderTemplateProps } from "@/types";
+import { FlexBuilderTemplateProps } from "@/modules/flex-builder/types";
+
 export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
   {
     id: "nft-collectible",

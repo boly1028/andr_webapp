@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
-import { FlexBuilderTemplateProps } from "@/types";
+import { FlexBuilderTemplateProps } from "@/modules/flex-builder/types";
 
 import { TEMPLATES } from "./constants";
 
