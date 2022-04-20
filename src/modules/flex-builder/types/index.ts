@@ -6,6 +6,14 @@ export type FlexBuilderTemplateProps = {
   icon: string;
   description: string;
   opts: string[];
+  ados: FlexBuilderTemplateADOProps[];
   schema?: JSONSchema7;
   disabled?: boolean;
+};
+
+export type FlexBuilderTemplateADOProps = {
+  id: string;
+  path: string;
+  required?: boolean;
+  enabled?: boolean;
 };

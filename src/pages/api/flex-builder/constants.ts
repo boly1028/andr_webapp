@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from "uuid";
+
 import { FlexBuilderTemplateProps } from "@/modules/flex-builder/types";
 
 export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
@@ -8,26 +10,12 @@ export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
     description:
       "Create the most advanced and feature rich NFT Collectible in the world.",
     opts: ["Add royalties", "Black/White list", "Taxes", "Robust metadata"],
-    schema: {
-      type: "object",
-      required: ["firstName", "lastName"],
-      properties: {
-        firstName: {
-          type: "string",
-          title: "First name",
-          default: "Chuck",
-        },
-        lastName: {
-          type: "string",
-          title: "Last name",
-        },
-        telephone: {
-          type: "string",
-          title: "Telephone",
-          minLength: 10,
-        },
-      },
-    },
+    ados: [
+      { path: "ado-base/nft-details", id: uuidv4(), required: true },
+      { path: "ado-module/whitelist", id: uuidv4() },
+      { path: "ado-module/taxes", id: uuidv4() },
+      { path: "ado-module/royalties", id: uuidv4() },
+    ],
   },
   {
     id: "splitter-ado",
@@ -36,6 +24,10 @@ export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
     description:
       "When funds are sent to this ADO, they will be split among specified address.",
     opts: ["Multi-Address Routing", "Whitelisting"],
+    ados: [
+      { path: "ado-base/splitter", id: uuidv4(), required: true },
+      { path: "ado-module/whitelist", id: uuidv4() },
+    ],
   },
   {
     id: "timelock-ado",
@@ -44,14 +36,19 @@ export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
     description:
       "An escrow styled ADO allowing users to lock funds until a specified time or block height.",
     opts: ["Hold till date", "Hold till block height", "Whitelisting"],
+    ados: [
+      { path: "ado-base/timelock", id: uuidv4(), required: true },
+      { path: "ado-module/whitelist", id: uuidv4() },
+    ],
   },
   {
     id: "publish-token",
     name: "Publish Token",
     icon: "",
     description:
-      "Some tempaltes are also designated for modifying pre-existing ADOs",
+      "Some templates are also designated for modifying pre-existing ADOs",
     opts: ["Shows a modifier panel"],
+    ados: [],
   },
   {
     id: "new",
@@ -65,6 +62,7 @@ export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
       "Save as a template",
       "Publish and use!",
     ],
+    ados: [],
   },
   {
     id: "address-list-ado",
@@ -78,6 +76,7 @@ export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
       "Assignable to Splitters",
       "Assignable to Timelocks",
     ],
+    ados: [],
     disabled: true,
   },
   {
@@ -92,6 +91,7 @@ export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
       "Use other's templates",
       "Pre-entered data supported",
     ],
+    ados: [],
     disabled: true,
   },
   {
@@ -100,6 +100,7 @@ export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
     icon: "",
     description: "Setup components for financial automation",
     opts: ["MIR", "ANC", "MIR & ANC", "(more in dev)"],
+    ados: [],
     disabled: true,
   },
   {
@@ -113,6 +114,7 @@ export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
       "Primitive functions",
       "(more in dev)",
     ],
+    ados: [],
     disabled: true,
   },
 ];
