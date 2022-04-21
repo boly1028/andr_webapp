@@ -8,6 +8,8 @@ export type FlexBuilderTemplateProps = {
   opts: string[];
   ados: FlexBuilderTemplateADOProps[];
   schema?: JSONSchema7;
+  uiSchema?: any;
+  formData?: any;
   disabled?: boolean;
 };
 

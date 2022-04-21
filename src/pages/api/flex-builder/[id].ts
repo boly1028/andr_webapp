@@ -19,10 +19,20 @@ export default async function handler(
     const schemaDefinitions: any = {};
     const schemaProperties: any = {};
 
+    const uiSchema: any = {};
+    const formData: any = {};
+
     for (const ado of template.ados) {
+      // schema
       const schemaADO = await import(`./schema/${ado.path}.json`);
       schemaDefinitions[`${ado.id}`] = schemaADO["schema"];
       schemaProperties[`${ado.id}`] = { $ref: `#/definitions/${ado.id}` };
+
+      // ui-schema
+      uiSchema[`${ado.id}`] = schemaADO["ui-schema"];
+
+      // form-data
+      formData[`${ado.id}`] = schemaADO["form-data"];
     }
 
     template.schema = {
@@ -30,6 +40,9 @@ export default async function handler(
       type: "object",
       properties: schemaProperties,
     };
+
+    template.uiSchema = uiSchema;
+    template.formData = formData;
   }
 
   res.status(200).json(template);

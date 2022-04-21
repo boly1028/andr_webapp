@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import absoluteUrl from "next-absolute-url";
 import { NextPage } from "next";
 import { JSONSchema7 } from "json-schema";
@@ -11,39 +12,46 @@ import {
   HStack,
 } from "@chakra-ui/react";
 
-import Form from "@rjsf/chakra-ui";
-
 import { Image as ImageIcon } from "lucide-react";
 
-import { FlexBuilderTemplateProps } from "@/modules/flex-builder";
+import {
+  FlexBuilderForm,
+  FlexBuilderTemplateProps,
+} from "@/modules/flex-builder";
 
 type Props = {
   template: FlexBuilderTemplateProps;
 };
 
-const TemplatePage: NextPage<Props> = ({ template }) => (
-  <Box maxW="960px" mx="auto" px={{ base: 4, md: 8 }}>
-    <Box>
-      <HStack spacing={4}>
-        <Circle size="36px" bg="purple.600" color="white">
-          <Icon as={ImageIcon} color="white" />
-        </Circle>
-        <Heading
-          color={useColorModeValue("gray.700", "white")}
-          fontSize={"xl"}
-          fontFamily={"body"}
-          fontWeight={600}
-        >
-          {template.name}
-        </Heading>
-      </HStack>
-      <Text color={"gray.500"} fontSize="sm" my={4}>
-        {template.description}
-      </Text>
-      <Form schema={template.schema as JSONSchema7} />
+const TemplatePage: NextPage<Props> = ({ template }) => {
+  return (
+    <Box maxW="960px" mx="auto" px={{ base: 4, md: 8 }}>
+      <Box>
+        <HStack spacing={4}>
+          <Circle size="36px" bg="purple.600" color="white">
+            <Icon as={ImageIcon} color="white" />
+          </Circle>
+          <Heading
+            color={useColorModeValue("gray.700", "white")}
+            fontSize={"xl"}
+            fontFamily={"body"}
+            fontWeight={600}
+          >
+            {template.name}
+          </Heading>
+        </HStack>
+        <Text color={"gray.500"} fontSize="sm" my={4}>
+          {template.description}
+        </Text>
+        <FlexBuilderForm
+          schema={template.schema as JSONSchema7}
+          uiSchema={template.uiSchema}
+          formData={template.formData}
+        />
+      </Box>
     </Box>
-  </Box>
-);
+  );
+};
 
 TemplatePage.getInitialProps = async ({ req, query }) => {
   const { origin } = absoluteUrl(req);
