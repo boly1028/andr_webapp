@@ -25,11 +25,18 @@ export default async function handler(
     for (const ado of template.ados) {
       // schema
       const schemaADO = await import(`./schema/${ado.path}.json`);
+
       schemaDefinitions[`${ado.id}`] = schemaADO["schema"];
+      schemaDefinitions[`${ado.id}`]["properties"]["$removable"] = {
+        type: "boolean",
+        default: !ado.required,
+      };
+
       schemaProperties[`${ado.id}`] = { $ref: `#/definitions/${ado.id}` };
 
       // ui-schema
       uiSchema[`${ado.id}`] = schemaADO["ui-schema"];
+      uiSchema[`${ado.id}`]["$removable"] = { "ui:widget": "hidden" };
 
       // form-data
       formData[`${ado.id}`] = schemaADO["form-data"];
