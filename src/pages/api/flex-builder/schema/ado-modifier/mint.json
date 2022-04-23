@@ -1,26 +1,31 @@
 {
   "schema": {
+    "$id": "/schemas/nft-mint",
+    "class": "modifier",
     "title": "Mint",
     "description": "Tell us about what you're creating.",
-    "$id": "/schemas/ado-base/nft-mint",
     "type": "object",
     "required": ["token_id"],
     "properties": {
       "token_id": {
         "type": "string",
-        "title": "Token ID"
+        "title": "Token ID",
+        "ui:help": ""
       },
       "name": {
         "type": "string",
-        "title": "name"
+        "title": "name",
+        "ui:help": ""
       },
       "symbol": {
         "type": "string",
-        "title": "symbol"
+        "title": "symbol",
+        "ui:help": ""
       },
       "description": {
         "type": "string",
-        "title": "desc"
+        "title": "desc",
+        "ui:help": ""
       }
     }
   },

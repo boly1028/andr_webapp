@@ -1,0 +1,34 @@
+{
+  "schema": {
+    "$id": "/schemas/nft-collectible",
+    "class": "baseADO",
+    "classifier": "NFT Collectibles",
+    "title": "Details",
+    "description": "Tell us about what you're creating.",
+    "type": "object",
+    "required": ["name", "symbol"],
+    "properties": {
+      "name": {
+        "type": "string",
+        "title": "Name your NFT",
+        "ui:help": "Give your creation a name you’ll easily identify it  with."
+      },
+      "symbol": {
+        "type": "string",
+        "title": "Create a NFT symbol",
+        "ui:help": "A publicly searchable identifier."
+      },
+      "description": {
+        "type": "string",
+        "title": "Message",
+        "ui:help": "This will be included on the item's detail page. - Markdown syntax is supported."
+      }
+    }
+  },
+  "ui-schema": {
+    "description": {
+      "ui:widget": "markdown"
+    }
+  },
+  "form-data": {}
+}

@@ -9,18 +9,18 @@ interface SchemaPanel {
 }
 
 type SchemaPanelType =
-  | 'add-address'
-  | 'blacklist'
-  | 'metadata'
-  | 'mint'
-  | 'nft-details'
-  | 'royalties'
-  | 'splitter'
-  | 'taxes'
-  | 'timelock'
-  | 'transfer-nft-collectible'
-  | 'update-lock'
-  | 'update-owner'
-  | 'update-pricing'
-  | 'update-recipients'
-  | 'whitelist';
+  | "add-address"
+  | "blacklist"
+  | "metadata"
+  | "mint"
+  | "nft-collectible"
+  | "royalties"
+  | "splitter"
+  | "taxes"
+  | "timelock"
+  | "transfer-nft-collectible"
+  | "update-lock"
+  | "update-owner"
+  | "update-pricing"
+  | "update-recipients"
+  | "whitelist";
