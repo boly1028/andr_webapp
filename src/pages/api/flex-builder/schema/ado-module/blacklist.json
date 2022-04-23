@@ -2,7 +2,7 @@
   "schema": {
     "title": "Blacklist Addressess",
     "description": "Set Wallet Addresses that are not allowed to interact with the ADO.",
-    "$id": "/schemas/blacklist",
+    "$id": "/schemas/ado-module/blacklist",
     "type": "object",
     "properties": {
       "address": {
@@ -10,11 +10,12 @@
         "items": {
           "type": "string"
         },
-        "title": "Alphanumeric Terra Address",
-        "ui:help": "Address blacklisted to interact with your NFT."
+        "title": "Alphanumeric Terra Address"
       }
     }
   },
-  "ui-schema": {},
+  "ui-schema": {
+    "address": { "ui:help": "Address blacklisted to interact with your NFT." }
+  },
   "form-data": {}
 }

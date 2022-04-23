@@ -2,21 +2,19 @@
   "schema": {
     "title": "Metadata",
     "description": "Add metadata information for your NFT Collectible.",
-    "$id": "/schemas/metadata",
+    "$id": "/schemas/ado-module/metadata",
     "type": "object",
     "required": ["url", "data_type"],
     "properties": {
       "url": {
         "type": "string",
         "format": "uri",
-        "title": "External link / url to NFT asset.",
-        "ui:help": "Link to source data for the NFT."
+        "title": "External link / url to NFT asset."
       },
       "external_url": {
         "type": "string",
         "format": "uri",
-        "title": "External link to asset.",
-        "ui:help": "The source URI of the NFT."
+        "title": "External link to asset."
       },
       "data_type": {
         "type": "string",
@@ -27,8 +25,7 @@
       },
       "data_url": {
         "type": "string",
-        "title": "External link to information about NFT.",
-        "ui:help": "An external link to information about NFT."
+        "title": "External link to information about NFT."
       },
       "attributes": {
         "title": "Attributes",
@@ -37,32 +34,27 @@
           "properties": {
             "key": {
               "type": "string",
-              "title": "Trait Type",
-              "ui:help": "The type of trait."
+              "title": "Trait Type"
             },
             "value": {
               "type": "string",
-              "title": "Trait Value",
-              "ui:help": "The value of the trait."
+              "title": "Trait Value"
             },
             "display_label": {
               "type": "string",
-              "title": "Display Label (replaces Trait Type label when displaying)",
-              "ui:help": "An optional value for how to display the trait. (defaults to Trait Type if ommitted)"
+              "title": "Display Label (replaces Trait Type label when displaying)"
             }
           }
         }
       },
       "marketplace": {
         "title": "Available in Marketplace",
-        "type": "boolean",
-        "ui:help": " "
+        "type": "boolean"
       },
       "marketplace_price": {
         "type": "number",
         "minimum": 0,
-        "title": "Price to sell for in marketplace?",
-        "ui:help": "Price you are asking others to offer in marketplace."
+        "title": "Price to sell for in marketplace?"
       },
       "marketplace_denom": {
         "type": "string",
@@ -75,7 +67,18 @@
     }
   },
   "ui-schema": {
-    "marketplace": { "ui:widget": "checkbox" }
+    "url": { "ui:help": "Link to source data for the NFT." },
+    "external_url": { "ui:help": "The source URI of the NFT." },
+    "data_url": { "ui:help": "An external link to information about NFT." },
+    "key": { "ui:help": "The type of trait." },
+    "value": { "ui:help": "The value of the trait." },
+    "display_label": {
+      "ui:help": "An optional value for how to display the trait. (defaults to Trait Type if ommitted)"
+    },
+    "marketplace": { "ui:widget": "checkbox" },
+    "marketplace_price": {
+      "ui:help": "Price you are asking others to offer in marketplace."
+    }
   },
   "form-data": {}
 }

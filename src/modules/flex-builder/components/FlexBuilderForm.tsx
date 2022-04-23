@@ -1,5 +1,5 @@
-import React, { FC, useEffect, useState } from "react";
-
+import React, { FC, useEffect } from "react";
+import { Button, HStack, Flex } from "@chakra-ui/react";
 import { JSONSchema7 } from "json-schema";
 
 import Form from "@rjsf/chakra-ui";
@@ -34,7 +34,23 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
       onError={onError}
       ObjectFieldTemplate={ObjectFieldTemplate}
       widgets={{ ...widgets }}
-    />
+    >
+      <Flex my={16} justify="right">
+        <HStack spacing={4}>
+          <Button
+            variant="outline"
+            onClick={() => {
+              console.log("estimate Fees");
+            }}
+          >
+            Estimate Fees
+          </Button>
+          <Button type="submit" colorScheme="purple">
+            Publish
+          </Button>
+        </HStack>
+      </Flex>
+    </Form>
   );
 };
 

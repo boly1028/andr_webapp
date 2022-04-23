@@ -3,7 +3,7 @@ import ReactDOMServer from "react-dom/server";
 import { FormControl, FormLabel } from "@chakra-ui/react";
 import rehypeRaw from "rehype-raw";
 import { WidgetProps, utils } from "@rjsf/core";
-import { Table, Text, Link } from "@chakra-ui/react";
+import { Table, Text, Link, FormHelperText } from "@chakra-ui/react";
 import ChakraUIRenderer from "chakra-ui-markdown-renderer";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -37,6 +37,8 @@ export const MarkdownWidget = (props: WidgetProps) => {
   } = props;
   // const chakraProps = getChakra({ uiSchema });
 
+  console.log("uiSchema", uiSchema, options);
+
   const _onBlur = ({ target: { value } }: React.FocusEvent<HTMLInputElement>) =>
     onBlur(id, value);
   const _onFocus = ({
@@ -45,6 +47,8 @@ export const MarkdownWidget = (props: WidgetProps) => {
 
   const displayLabel =
     getDisplayLabel(schema, uiSchema) && (!!label || !!schema.title);
+
+  const rawHelp = schema["ui:help"];
 
   return (
     <FormControl
@@ -132,6 +136,11 @@ export const MarkdownWidget = (props: WidgetProps) => {
             })}
         </datalist>
       ) : null}
+      {rawHelp && (
+        <FormHelperText my={0} id={id}>
+          {rawHelp}
+        </FormHelperText>
+      )}
     </FormControl>
   );
 };

@@ -2,7 +2,7 @@
   "schema": {
     "title": "Timelock",
     "description": "Set a time or block height at which funds are released.",
-    "$id": "/schemas/timmelock",
+    "$id": "/schemas/ado-base/timmelock",
     "type": "object",
     "properties": {
       "payment_address": {
@@ -10,8 +10,7 @@
         "items": {
           "type": "string"
         },
-        "title": "Alphanumeric Terra Address",
-        "ui:help": "Address for distribution recipients. *(Defaults to sender if undeclared.)"
+        "title": "Alphanumeric Terra Address"
       },
       "expiration-type": {
         "type": "object",
@@ -25,7 +24,6 @@
               "date": {
                 "type": "string",
                 "title": "Time & Date to Unlock",
-                "ui:help": "The time and date to be reached for funds to be available for release.",
                 "format": "date-time"
               }
             }
@@ -37,8 +35,7 @@
             "properties": {
               "block-height": {
                 "type": "string",
-                "title": "Height to Unlock",
-                "ui:help": "The height to be reached for funds to be available for release."
+                "title": "Height to Unlock"
               }
             }
           }
@@ -46,6 +43,16 @@
       }
     }
   },
-  "ui-schema": {},
+  "ui-schema": {
+    "payment_address": {
+      "ui:help": "Address for distribution recipients. *(Defaults to sender if undeclared.)"
+    },
+    "date": {
+      "ui:help": "The time and date to be reached for funds to be available for release."
+    },
+    "block-height": {
+      "ui:help": "The height to be reached for funds to be available for release."
+    }
+  },
   "form-data": {}
 }

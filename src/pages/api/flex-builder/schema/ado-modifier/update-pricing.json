@@ -2,16 +2,13 @@
   "schema": {
     "title": "Update Pricing",
     "description": "Allows an ADO owner to update or remove the listing price of their ADO. Token # 3787sd78543",
-    "$id": "/schemas/update-pricing",
+    "$id": "/schemas/ado-modifier/update-pricing",
     "type": "object",
-    "required": [
-      "token_id"
-    ],
+    "required": ["token_id"],
     "properties": {
       "token_id": {
         "type": "string",
-        "title": "Token Id",
-        "ui:help": ""
+        "title": "Token Id"
       },
       "boolean": {
         "type": "object",
@@ -19,28 +16,25 @@
         "properties": {
           "amount": {
             "type": "string",
-            "title": "Amount",
-            "ui:help": "description of price amount"
+            "title": "Amount"
           },
           "denom": {
             "type": "string",
             "title": "Currency Type",
-            "enum": [
-              "ust",
-              "luna"
-            ],
-            "enumNames": [
-              "UST",
-              "LUNA"
-            ],
+            "enum": ["ust", "luna"],
+            "enumNames": ["UST", "LUNA"],
             "default": "ust",
-            "ui:group": true,
-            "ui:help": "description of price currency type"
+            "ui:group": true
           }
         }
       }
     }
   },
-  "ui-schema": {},
+  "ui-schema": {
+    "amount": {
+      "ui:help": "description of price amount",
+      "denom": { "ui:help": "description of price currency type" }
+    }
+  },
   "form-data": {}
 }
