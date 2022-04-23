@@ -2,22 +2,21 @@
   "schema": {
     "title": "Royalties",
     "description": "Set Royalties for your ADO, paid to specified Wallet Addresses.",
-    "$id": "/schemas/royalties",
+    "$id": "/schemas/ado-module/royalties",
     "type": "object",
     "properties": {
       "description": {
         "type": "string",
-        "title": "Royalty Description",
-        "ui:help": "*Optional - Information is solely for organizational use."
+        "title": "Royalty Description"
       },
       "distribution_type": {
         "type": "object",
         "title": "Distribution Type",
-        "anyOf": [
+        "oneOf": [
           {
             "title": "By Percentage",
             "type": "object",
-            "ui:group": true,
+            "ui:options": { "group": true },
             "properties": {
               "distribution_percentage": {
                 "title": "% fee of sale price",
@@ -28,7 +27,7 @@
           {
             "title": "By Flat Fee",
             "type": "object",
-            "ui:group": true,
+            "ui:options": { "group": true },
             "properties": {
               "distribution_flat_fee": {
                 "type": "number",
@@ -50,11 +49,17 @@
         "items": {
           "type": "string"
         },
-        "title": "Alphanumeric Terra Address",
-        "ui:help": "Address for royalty distributions to be provided."
+        "title": "Alphanumeric Terra Address"
       }
     }
   },
-  "ui-schema": {},
+  "ui-schema": {
+    "description": {
+      "ui:help": "*Optional - Information is solely for organizational use."
+    },
+    "payment_address": {
+      "ui:help": "Address for royalty distributions to be provided."
+    }
+  },
   "form-data": {}
 }

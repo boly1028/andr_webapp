@@ -48,7 +48,6 @@ export const MarkdownWidget = (props: WidgetProps) => {
 
   return (
     <FormControl
-      mb={1}
       // {...chakraProps}
       isDisabled={disabled || readonly}
       isRequired={required}

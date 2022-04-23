@@ -2,14 +2,13 @@
   "schema": {
     "title": "Splitter",
     "description": "Set a percentage of funds to be distributed to specified Wallet Addresses.",
-    "$id": "/schemas/splitter",
+    "$id": "/schemas/ado-base/splitter",
     "type": "object",
     "required": ["percentage"],
     "properties": {
       "percentage": {
         "type": "string",
         "title": "Percentage",
-        "ui:help": "The percentage to distribute to addresses.",
         "maximum": 100
       },
       "address": {
@@ -17,11 +16,13 @@
         "items": {
           "type": "string"
         },
-        "title": "Alphanumeric Terra Address",
-        "ui:help": "Address to distribute funds amongst."
+        "title": "Alphanumeric Terra Address"
       }
     }
   },
-  "ui-schema": {},
+  "ui-schema": {
+    "percentage": { "ui:help": "The percentage to distribute to addresses." },
+    "address": { "ui:help": "Address to distribute funds amongst." }
+  },
   "form-data": {}
 }

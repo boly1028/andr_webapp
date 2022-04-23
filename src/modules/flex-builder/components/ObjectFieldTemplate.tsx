@@ -26,6 +26,7 @@ import { utils } from "@rjsf/core";
 import { Trash2 as DeleteIcon } from "lucide-react";
 
 import AddButton from "./AddButton";
+import { has } from "lodash";
 
 const { canExpand } = utils;
 
@@ -47,6 +48,8 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateProps) => {
   } = props;
 
   const hasWrapper = formData["$removable"] !== undefined;
+  console.log(properties);
+  const hasGroup = schema["ui:options"]?.["group"];
 
   if (hasWrapper) {
     const defaultIndex = formData["$removable"] ? -1 : 0;
@@ -93,7 +96,7 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateProps) => {
               </AccordionButton>
             </h2>
             <AccordionPanel p={8}>
-              <Grid gap={description ? 2 : 6} mb={4}>
+              <Grid gap={8}>
                 {properties.map((element, index) =>
                   element.hidden ? (
                     element.content
@@ -115,7 +118,7 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateProps) => {
      */
     return (
       <>
-        {(uiSchema["ui:title"] || title) && (
+        {(uiSchema["ui:title"] || title) && !hasGroup && (
           <TitleField
             id={`${idSchema.$id}-title`}
             title={title}
@@ -128,7 +131,7 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateProps) => {
             description={description}
           />
         )}
-        <Grid gap={description ? 2 : 6} mb={4}>
+        <Grid gap={description ? 2 : 6} mb={4} mt={hasGroup ? 6 : 0}>
           {properties.map((element, index) =>
             element.hidden ? (
               element.content

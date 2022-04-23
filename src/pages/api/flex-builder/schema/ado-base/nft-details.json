@@ -2,30 +2,34 @@
   "schema": {
     "title": "Details",
     "description": "Tell us about what you're creating.",
-    "$id": "/schemas/nft-detail",
+    "$id": "/schemas/ado-base/nft-detail",
     "type": "object",
     "required": ["name", "symbol"],
     "properties": {
       "name": {
         "type": "string",
-        "title": "Name your NFT",
-        "ui:help": "Give your creation a name you’ll easily identify it  with."
+        "title": "Name your NFT"
       },
       "symbol": {
         "type": "string",
-        "title": "Create a NFT symbol",
-        "ui:help": "A publicly searchable identifier."
+        "title": "Create a NFT symbol"
       },
       "description": {
         "type": "string",
-        "title": "Message",
-        "ui:help": "This will be included on the item's detail page. - Markdown syntax is supported."
+        "title": "Messagee"
       }
     }
   },
   "ui-schema": {
+    "name": {
+      "ui:help": "Give your creation a name you’ll easily identify it  with."
+    },
+    "symbol": {
+      "ui:help": "A publicly searchable identifier."
+    },
     "description": {
-      "ui:widget": "markdown"
+      "ui:widget": "markdown",
+      "ui:help": "This will be included on the item's detail page. - Markdown syntax is supported."
     }
   },
   "form-data": {}

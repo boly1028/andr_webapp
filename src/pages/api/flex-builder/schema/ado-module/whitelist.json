@@ -2,7 +2,7 @@
   "schema": {
     "title": "Whitelist Addressess",
     "description": "Set Wallet Addresses that are allowed to interact with the ADO.",
-    "$id": "/schemas/whitelist",
+    "$id": "/schemas/ado-module/whitelist",
     "type": "object",
     "properties": {
       "address": {
@@ -10,11 +10,12 @@
         "items": {
           "type": "string"
         },
-        "title": "Alphanumeric Terra Address",
-        "ui:help": "Address allowed to interact with your NFT."
+        "title": "Alphanumeric Terra Address"
       }
     }
   },
-  "ui-schema": {},
+  "ui-schema": {
+    "address": { "ui:help": "Address allowed to interact with your NFT." }
+  },
   "form-data": {}
 }
