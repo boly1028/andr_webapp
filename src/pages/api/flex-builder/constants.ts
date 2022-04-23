@@ -48,7 +48,7 @@ export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
     description:
       "Some templates are also designated for modifying pre-existing ADOs",
     opts: ["Shows a modifier panel"],
-    ados: [],
+    ados: [{ path: "cw20/cw20", id: uuidv4(), required: true }],
   },
   {
     id: "new",
@@ -119,7 +119,7 @@ export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
   },
   {
     id: "panel-inventory",
-    name: "Panel Inventory Test",
+    name: "Complete Panel Inventory for Review",
     icon: "",
     description: "Shows all panels for ",
     opts: ["ADOs", "Modules", "Classifiers"],
@@ -130,6 +130,7 @@ export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
       { path: "ado-base/timelock", id: uuidv4() },
       { path: "ado-module/whitelist", id: uuidv4() },
       { path: "ado-module/blacklist", id: uuidv4() },
+      { path: "cw20/cw20", id: uuidv4() },
       { path: "ado-module/taxes", id: uuidv4() },
       { path: "ado-module/royalties", id: uuidv4() },
       { path: "ado-modifier/add-address", id: uuidv4() },

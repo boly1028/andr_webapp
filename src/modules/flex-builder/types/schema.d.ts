@@ -12,6 +12,7 @@ type SchemaPanelType =
   | "address-list"
   | "add-address"
   | "blacklist"
+  | "cw20"
   | "metadata"
   | "mint"
   | "nft-collectible"
