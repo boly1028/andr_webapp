@@ -12,10 +12,11 @@
       "distribution_type": {
         "type": "object",
         "title": "Distribution Type",
-        "anyOf": [
+        "oneOf": [
           {
             "title": "By Percentage",
             "type": "object",
+            "ui:options": { "group": true },
             "properties": {
               "distribution_percentage": {
                 "title": "% fee of sale price",
@@ -26,6 +27,7 @@
           {
             "title": "By Flat Fee",
             "type": "object",
+            "ui:options": { "group": true },
             "properties": {
               "distribution_flat_fee": {
                 "type": "number",
