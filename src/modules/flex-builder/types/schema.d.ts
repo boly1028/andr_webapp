@@ -9,12 +9,14 @@ interface SchemaPanel {
 }
 
 type SchemaPanelType =
+  | "address-list"
   | "add-address"
   | "blacklist"
   | "metadata"
   | "mint"
   | "nft-collectible"
   | "royalties"
+  | "remove-address"
   | "splitter"
   | "taxes"
   | "timelock"

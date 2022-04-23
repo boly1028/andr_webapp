@@ -2,6 +2,7 @@
   "schema": {
     "$id": "/schemas/nft-mint",
     "class": "modifier",
+    "classifier": "collectible",
     "title": "Mint",
     "description": "Tell us about what you're creating.",
     "type": "object",
@@ -10,29 +11,129 @@
       "token_id": {
         "type": "string",
         "title": "Token ID",
-        "ui:help": ""
+        "ui:help": "The ID of the ADO to be minted."
       },
-      "name": {
+      "owner": {
         "type": "string",
-        "title": "name",
-        "ui:help": ""
+        "title": "Owner",
+        "ui:help": "The address of the ADO owner."
       },
-      "symbol": {
+      "token_uri": {
         "type": "string",
-        "title": "symbol",
-        "ui:help": ""
+        "format": "uri",
+        "title": "Token URI",
+        "ui:help": "A link to a JSON file that conforms to the ERC721 Metadata JSON Schema"
       },
-      "description": {
-        "type": "string",
-        "title": "desc",
-        "ui:help": ""
+      "extension": {
+        "type": "object",
+        "title": "Token Extension",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name of Token",
+            "ui:help": "The name of the token."
+          },
+          "Publisher": {
+            "type": "string",
+            "title": "Publisher",
+            "ui:help": "The original publisher of the token.(Immutable)"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description",
+            "ui:help": "This will be included on the item's detail page. - Markdown syntax is supported."
+          },
+          "TokenMetadata": {
+            "title": "Token Metadata",
+            "type": "object",
+            "properties": {
+              "data_type": {
+                "title": "Data Type",
+                "type": "object",
+                "properties": {
+                  "data_type": {
+                    "type": "string",
+                    "title": "Type of NFT",
+                    "enum": [
+                      "image",
+                      "video",
+                      "audio",
+                      "domain",
+                      "json",
+                      "other"
+                    ],
+                    "enumNames": [
+                      "Image",
+                      "Video",
+                      "Audio",
+                      "Domain",
+                      "JSON",
+                      "Other"
+                    ],
+                    "default": "image"
+                  }
+                }
+              },
+              "external_url": {
+                "type": "string",
+                "format": "uri",
+                "title": "External link to asset.",
+                "ui:help": "The source URI of the NFT."
+              },
+              "data_url": {
+                "type": "string",
+                "title": "External link to information about NFT.",
+                "ui:help": "An external link to information about NFT."
+              },
+              "MetadataAttribute": {
+                "title": "Metadata Traits",
+                "type": "array",
+                "items": {
+                  "properties": {
+                    "key": {
+                      "type": "string",
+                      "title": "Trait Type",
+                      "ui:help": "The type of trait."
+                    },
+                    "value": {
+                      "type": "string",
+                      "title": "Trait Value",
+                      "ui:help": "The value of the trait."
+                    },
+                    "display_label": {
+                      "type": "string",
+                      "title": "Display Label (replaces Trait Type label when displaying)",
+                      "ui:help": "An optional value for how to display the trait. (defaults to Trait Type if ommitted)"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "archived": {
+            "type": "boolean",
+            "title": "Archived",
+            "ui:help": "Whether the token is archived or not.",
+            "default": false
+          }
+        }
       }
     }
   },
   "ui-schema": {
-    "description": {
-      "ui:widget": "textarea"
+    "extension": {
+      "description": {
+        "ui:widget": "markdown"
+      },
+      "archived": {
+        "ui:widget": "select"
+      }
+    },
+    "token_id": {
+      "ui:widget": "hidden"
     }
   },
-  "form-data": {}
+  "form-data": {
+    "token_id": "data should be replaced prior to form post with UUID"
+  }
 }
