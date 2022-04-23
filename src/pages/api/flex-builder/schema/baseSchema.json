@@ -1,0 +1,13 @@
+{
+  "schema": {
+    "$id": "/schemas/",
+    "class": "",
+    "classifier": "",
+    "title": "",
+    "type": "object",
+    "required": [],
+    "properties": {}
+  },
+  "ui-schema": {},
+  "form-data": {}
+}

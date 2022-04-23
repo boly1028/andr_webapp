@@ -1,0 +1,35 @@
+{
+  "schema": {
+    "$id": "/schemas/cw20/transfer",
+    "class": "modifier",
+    "classifier": "",
+    "title": "Token Transfer",
+    "description": "Move tokens to another account without triggering actions.",
+    "type": "object",
+    "required": ["transfer"],
+    "properties": {
+      "transfer": {
+        "type": "object",
+        "title": "Token Transfer",
+        "description": "!The amount sent might be affected depending on the attached modules.!",
+        "required": ["amount", "recipient"],
+        "properties": {
+          "amount": {
+            "type": "integer",
+            "title": "Amount to Transfer",
+            "description": "The amount of tokens to transfer.",
+            "format": "uint128",
+            "minimum": 0.0
+          },
+          "recipient": {
+            "type": "string",
+            "title": "Recipient of Transfer",
+            "description": "The address to transfer the tokens to."
+          }
+        }
+      }
+    }
+  },
+  "ui-schema": {},
+  "form-data": {}
+}
