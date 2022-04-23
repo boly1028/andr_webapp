@@ -4,8 +4,11 @@ import { JSONSchema7 } from "json-schema";
 
 import Form from "@rjsf/chakra-ui";
 
-import ObjectFieldTemplate from "./ObjectFieldTemplate";
 import widgets from "./widgets";
+import FieldTemplate from "./FieldTemplate";
+import TitleField from "./TitleField";
+import ObjectFieldTemplate from "./ObjectFieldTemplate";
+import ArrayFieldTemplate from "./ArrayFieldTemplate";
 
 type FlexBuilderFormProps = {
   schema: JSONSchema7;
@@ -32,6 +35,9 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
       onChange={onChange}
       onSubmit={onSubmit}
       onError={onError}
+      fields={{ TitleField }}
+      FieldTemplate={FieldTemplate}
+      ArrayFieldTemplate={ArrayFieldTemplate}
       ObjectFieldTemplate={ObjectFieldTemplate}
       widgets={{ ...widgets }}
     >

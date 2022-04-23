@@ -93,7 +93,7 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateProps) => {
               </AccordionButton>
             </h2>
             <AccordionPanel p={8}>
-              <Grid gap={description ? 2 : 6} mb={4}>
+              <Grid gap={8}>
                 {properties.map((element, index) =>
                   element.hidden ? (
                     element.content

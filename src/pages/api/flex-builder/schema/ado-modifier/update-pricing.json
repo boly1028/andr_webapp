@@ -23,8 +23,7 @@
             "title": "Currency Type",
             "enum": ["ust", "luna"],
             "enumNames": ["UST", "LUNA"],
-            "default": "ust",
-            "ui:group": true
+            "default": "ust"
           }
         }
       }

@@ -19,7 +19,6 @@
           {
             "title": "By Date",
             "type": "object",
-            "ui:group": true,
             "properties": {
               "date": {
                 "type": "string",
@@ -31,7 +30,6 @@
           {
             "title": "By Block Height",
             "type": "object",
-            "ui:group": true,
             "properties": {
               "block-height": {
                 "type": "string",

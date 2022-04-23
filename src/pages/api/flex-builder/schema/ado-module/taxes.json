@@ -16,7 +16,6 @@
           {
             "title": "By Percentage",
             "type": "object",
-            "ui:group": true,
             "properties": {
               "distribution_percentage": {
                 "title": "% fee of sale price",
@@ -27,7 +26,6 @@
           {
             "title": "By Flat Fee",
             "type": "object",
-            "ui:group": true,
             "properties": {
               "distribution_flat_fee": {
                 "type": "number",
