@@ -48,7 +48,6 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateProps) => {
   } = props;
 
   const hasWrapper = formData["$removable"] !== undefined;
-  console.log(properties);
   const hasGroup = schema["ui:options"]?.["group"];
 
   if (hasWrapper) {

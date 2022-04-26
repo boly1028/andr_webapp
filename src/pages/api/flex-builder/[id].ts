@@ -52,7 +52,5 @@ export default async function handler(
     template.formData = formData;
   }
 
-  console.log(template);
-
   res.status(200).json(template);
 }

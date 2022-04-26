@@ -1,3 +1,4 @@
+import { useState } from "react";
 import absoluteUrl from "next-absolute-url";
 import { NextPage } from "next";
 import { JSONSchema7 } from "json-schema";
@@ -20,12 +21,14 @@ import {
   FlexBuilderTemplateProps,
 } from "@/modules/flex-builder";
 import { useContracts } from "@/modules/common";
+import { TransactionModal } from "@/modules/modals";
 
 type Props = {
   template: FlexBuilderTemplateProps;
 };
 
 const TemplatePage: NextPage<Props> = ({ template }) => {
+  const [txHash, setTxHash] = useState<string | null>(null);
   const client = useLCDClient();
   const address = useAddress();
   const { builder } = useContracts();
@@ -34,8 +37,8 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
     onPosting: () => {
       console.log("onPosting");
     },
-    onBroadcasting: () => {
-      console.log("onBroadcasting");
+    onBroadcasting: (txHash) => {
+      setTxHash(txHash);
     },
     onError: () => {
       console.log("onError");
@@ -95,6 +98,11 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
           onSubmit={handleSubmit}
         />
       </Box>
+      <TransactionModal
+        isOpen={txHash != null}
+        txHash={txHash}
+        onClose={() => setTxHash(null)}
+      />
     </Box>
   );
 };

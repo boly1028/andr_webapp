@@ -10,7 +10,7 @@ const contracts: { [key: string]: any } = {
     builder: "",
   },
   testnet: {
-    builder: "terra1k6mk75ez5kedymp34u8eqsu3jp94pa0h60q4wz",
+    builder: "terra1rxm6y5638m6n44gmprml5d89yrjmpsjg6syvkk",
   },
 };
 

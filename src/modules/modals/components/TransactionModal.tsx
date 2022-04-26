@@ -1,72 +1,59 @@
 import React, { FC } from "react";
-import { useWallet, WalletStatus } from "@terra-money/wallet-provider";
 import {
   Modal,
   ModalOverlay,
+  Box,
+  Link,
   Text,
-  HStack,
   ModalContent,
-  Flex,
   ModalBody,
   ModalCloseButton,
-  Heading,
-  chakra,
+  VStack,
 } from "@chakra-ui/react";
+import { truncate } from "@/modules/common";
 
 type Props = {
   isOpen: boolean;
+  txHash: string | null;
   onClose: () => void;
 };
 
-const TransactionModal: FC<Props> = ({ isOpen, onClose }) => {
-  const { status, availableConnections, connect } = useWallet();
-
+const TransactionModal: FC<Props> = ({ txHash, isOpen, onClose }) => {
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={isOpen} onClose={onClose} size="lg">
       <ModalOverlay />
       <ModalContent>
         <ModalCloseButton />
-        <ModalBody>
-          <Flex
-            direction="column"
-            justify="center"
-            align="center"
-            textAlign="center"
+        <ModalBody p={12}>
+          <VStack mb={6}>
+            <Text fontWeight={600} color="gray.700">
+              Your transaction has been broadcasted
+            </Text>
+            <Text color="gray.500" textAlign="center">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. In velit
+              nullam condimentum massa dictumst.
+            </Text>
+          </VStack>
+          <Box
+            border="1px solid"
+            borderColor="gray.300"
+            p={4}
+            borderRadius="xl"
           >
-            <Heading size="md" mb="6">
-              Connect to a wallet
-            </Heading>
-            {status === WalletStatus.WALLET_NOT_CONNECTED && (
-              <>
-                {availableConnections.map(
-                  ({ type, name, icon, identifier = "" }) => (
-                    <chakra.button
-                      transition="0.2s all"
-                      p="6"
-                      borderRadius="xl"
-                      bg="brand.900"
-                      width="100%"
-                      mb="4"
-                      _hover={{
-                        bg: "blue.100",
-                      }}
-                      key={"connection-" + type + identifier}
-                      onClick={() => connect(type, identifier)}
-                    >
-                      <HStack spacing="6">
-                        <img
-                          src={icon}
-                          alt={name}
-                          style={{ width: "1.5rem", height: "1.5rem" }}
-                        />
-                        <Text>{name}</Text>
-                      </HStack>
-                    </chakra.button>
-                  ),
-                )}
-              </>
+            <Text fontWeight={500} color="gray.700">
+              Transaction ID
+            </Text>
+            {txHash != null && (
+              <Link
+                color="primary.600"
+                href={`https://terrasco.pe/testnet/tx/${txHash}`}
+                isExternal
+                fontSize="sm"
+              >
+                {truncate(txHash)}
+              </Link>
             )}
-          </Flex>
+          </Box>
         </ModalBody>
       </ModalContent>
     </Modal>
