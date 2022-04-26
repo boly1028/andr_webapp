@@ -6,24 +6,29 @@ import {
   useColorModeValue,
   BoxProps,
 } from "@chakra-ui/react";
-import {
-  Compass as CompassIcon,
-  Wand as WandIcon,
-  FolderOpen as FolderOpenIcon,
-} from "lucide-react";
 
 import NavItem from "./NavItem";
 import Logo from "./Logo";
+import {
+  CompassIcon,
+  BookOpenIcon,
+  CubeIcon,
+  SparklesIcon,
+  FolderOpenIcon,
+} from "./icons";
 
 interface LinkItemProps {
   name: string;
-  icon: any;
+  icon: React.ReactNode;
   href: string;
 }
+
 const LinkItems: LinkItemProps[] = [
-  { name: "Overview", icon: CompassIcon, href: "/" },
-  { name: "Market", icon: WandIcon, href: "/market" },
-  { name: "Assets", icon: FolderOpenIcon, href: "/assets" },
+  { name: "Overview", icon: <CompassIcon boxSize={6} />, href: "/" },
+  { name: "Market", icon: <SparklesIcon boxSize={6} />, href: "/market" },
+  { name: "Assets", icon: <FolderOpenIcon boxSize={6} />, href: "/assets" },
+  { name: "Missions", icon: <CubeIcon boxSize={6} />, href: "/missions" },
+  { name: "Learn", icon: <BookOpenIcon boxSize={6} />, href: "/learn" },
 ];
 
 type Props = {
@@ -34,13 +39,14 @@ const SidebarContent: FC<Props> = ({ onClose, ...props }) => {
   return (
     <Box
       transition="3s ease"
-      bg={useColorModeValue("gray.100", "gray.900")}
+      bg="#F9FAFB"
       w={{ base: "full", md: 60 }}
       pos="fixed"
       h="full"
+      px={4}
       {...props}
     >
-      <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
+      <Flex h="20" alignItems="center" justifyContent="space-between">
         <Logo />
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>

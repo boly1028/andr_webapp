@@ -3,6 +3,7 @@ import { extendTheme } from "@chakra-ui/react";
 import Heading from "./heading";
 import Button from "./button";
 import Tabs from "./tabs";
+import Popover from "./popover";
 
 export default extendTheme({
   fonts: {
@@ -15,6 +16,17 @@ export default extendTheme({
     Heading,
     Button,
     Tabs,
+    Popover,
   },
-  colors: {},
+  colors: {
+    primary: {
+      600: "#7F56D9",
+    },
+    gray: {
+      200: "#EAECF0",
+      300: "#D0D5DD",
+      500: "#667085",
+      700: "#344054",
+    },
+  },
 });

@@ -6,3 +6,4 @@ export { default as Sidebar } from "./Sidebar";
 export { default as PageHeader } from "./PageHeader";
 export { default as SidebarContent } from "./SidebarContent";
 export { default as TerraWallet } from "./TerraWallet";
+export * from "./icons";

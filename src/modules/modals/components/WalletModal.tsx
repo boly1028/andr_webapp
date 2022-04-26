@@ -1,12 +1,11 @@
 import React, { FC } from "react";
 import { useWallet, WalletStatus } from "@terra-money/wallet-provider";
 import {
+  Box,
+  Button,
   Modal,
   ModalOverlay,
-  Text,
-  HStack,
   ModalContent,
-  Flex,
   ModalBody,
   ModalCloseButton,
   Heading,
@@ -22,51 +21,37 @@ const WalletModal: FC<Props> = ({ isOpen, onClose }) => {
   const { status, availableConnections, connect } = useWallet();
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={isOpen} onClose={onClose} size="xl">
       <ModalOverlay />
       <ModalContent>
         <ModalCloseButton />
-        <ModalBody>
-          <Flex
-            direction="column"
-            justify="center"
-            align="center"
-            textAlign="center"
-          >
-            <Heading size="md" mb="6">
-              Connect to a wallet
-            </Heading>
+        <ModalBody px={16} py={12}>
+          <Heading size="md" mb="6">
+            Select Wallet
+          </Heading>
+          <Box>
             {status === WalletStatus.WALLET_NOT_CONNECTED && (
               <>
                 {availableConnections.map(
                   ({ type, name, icon, identifier = "" }) => (
-                    <chakra.button
-                      transition="0.2s all"
-                      p="6"
-                      borderRadius="xl"
-                      bg="brand.900"
-                      width="100%"
-                      mb="4"
-                      _hover={{
-                        bg: "blue.100",
-                      }}
+                    <Button
                       key={"connection-" + type + identifier}
+                      variant="outline"
+                      leftIcon={
+                        <chakra.img src={icon} alt={name} boxSize={6} />
+                      }
+                      isFullWidth
+                      mb={4}
+                      py={8}
                       onClick={() => connect(type, identifier)}
                     >
-                      <HStack spacing="6">
-                        <img
-                          src={icon}
-                          alt={name}
-                          style={{ width: "1.5rem", height: "1.5rem" }}
-                        />
-                        <Text>{name}</Text>
-                      </HStack>
-                    </chakra.button>
+                      {name}
+                    </Button>
                   ),
                 )}
               </>
             )}
-          </Flex>
+          </Box>
         </ModalBody>
       </ModalContent>
     </Modal>
