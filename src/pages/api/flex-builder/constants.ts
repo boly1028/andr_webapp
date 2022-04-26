@@ -48,7 +48,7 @@ export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
     description:
       "Some templates are also designated for modifying pre-existing ADOs",
     opts: ["Shows a modifier panel"],
-    ados: [{ path: "cw20/cw20", id: uuidv4(), required: true }],
+    ados: [{ path: "cw20/0.1.0/cw20", id: uuidv4(), required: true }],
   },
   {
     id: "new",
