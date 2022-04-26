@@ -24,10 +24,7 @@ export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
     description:
       "When funds are sent to this ADO, they will be split among specified address.",
     opts: ["Multi-Address Routing", "Whitelisting"],
-    ados: [
-      { path: "ado-base/splitter", id: uuidv4(), required: true },
-      { path: "ado-module/whitelist", id: uuidv4() },
-    ],
+    ados: [{ path: "ado-base/splitter", id: "splitter", required: true }],
   },
   {
     id: "timelock-ado",
@@ -36,10 +33,7 @@ export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
     description:
       "An escrow styled ADO allowing users to lock funds until a specified time or block height.",
     opts: ["Hold till date", "Hold till block height", "Whitelisting"],
-    ados: [
-      { path: "ado-base/timelock", id: uuidv4(), required: true },
-      { path: "ado-module/whitelist", id: uuidv4() },
-    ],
+    ados: [{ path: "ado-base/timelock", id: "timelock", required: true }],
   },
   {
     id: "publish-token",

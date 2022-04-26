@@ -50,10 +50,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
       return;
     }
 
-    const msgs = createBuilderMsgs(
-      { contract: builder, data: formData },
-      address,
-    );
+    const msgs = createBuilderMsgs({ data: formData }, address);
 
     if (msgs == null) {
       return;
@@ -62,11 +59,13 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
     const fee = await estimateFee({
       client,
       address,
+      // @ts-expect-error - TODO
       msgs,
       opts: {},
     });
 
     submit({
+      // @ts-expect-error - TODO
       msgs,
       fee,
     });

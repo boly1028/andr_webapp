@@ -1,12 +1,12 @@
 import React, { FC, ReactText } from "react";
-import { HStack, Link, HStackProps, Text } from "@chakra-ui/react";
+import { HStack, StackProps, Text } from "@chakra-ui/react";
 import NextLink from "next/link";
 
 type Props = {
   icon: React.ReactNode;
   href: string;
   children: ReactText;
-} & HStackProps;
+} & StackProps;
 
 const NavItem: FC<Props> = ({ icon, href, children, ...props }) => {
   return (
