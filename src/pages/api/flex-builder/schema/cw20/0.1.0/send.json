@@ -1,0 +1,40 @@
+{
+  "schema": {
+    "$id": "/schemas/cw20/send",
+    "class": "modifier",
+    "classifier": "",
+    "title": "Send Tokens",
+    "description": "Send tokens to an ADO and trigger an action on the receiving ADO.",
+    "type": "object",
+    "required": ["send"],
+    "properties": {
+      "send": {
+        "type": "object",
+        "title": "Send Tokens",
+        "required": ["amount"],
+        "properties": {
+          "amount": {
+            "type": "integer",
+            "title": "Amount to Transfer",
+            "description": "The amount of tokens to send.",
+            "format": "uint128",
+            "minimum": 0.0
+          },
+          "contract": {
+            "type": "string",
+            "title": "Recieving ADO",
+            "description": "The address of the receiving ADO."
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message",
+            "description": "A message to be sent to the recieving ADO.",
+            "format": "binary"
+          }
+        }
+      }
+    }
+  },
+  "ui-schema": {},
+  "form-data": {}
+}

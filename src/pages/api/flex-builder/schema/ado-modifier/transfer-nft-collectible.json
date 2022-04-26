@@ -1,24 +1,24 @@
 {
   "schema": {
+    "$id": "/schemas/transfer-nft-collectible",
+    "class": "modifier",
     "title": "Transfer NFT Collectible",
     "description": "Transfers ownership of a published token. Only available to the ADO owner, an approved operator or the purchaser in a TransferAgreement for the given ADO. Token ID # 3787sd78543",
-    "$id": "/schemas/ado-modifier/transfer-nft-collectible",
     "type": "object",
     "required": ["token_id"],
     "properties": {
       "token_id": {
         "type": "string",
-        "title": "Token ID"
+        "title": "Token ID",
+        "ui:help": "the description of token id."
       },
       "recipient address": {
         "type": "string",
-        "title": "Recipient Address"
+        "title": "Recipient Address",
+        "ui:help": "the description of recipient address."
       }
     }
   },
-  "ui-schema": {
-    "token_id": { "ui:help": "the description of token id." },
-    "recipient address": { "ui:help": "the description of recipient address." }
-  },
+  "ui-schema": {},
   "form-data": {}
 }

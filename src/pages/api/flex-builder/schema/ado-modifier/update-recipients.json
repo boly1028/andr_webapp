@@ -1,8 +1,9 @@
 {
   "schema": {
+    "$id": "/schemas/update-recipients",
+    "class": "modifier",
     "title": "Update Recipients",
     "description": "Updates the recipeints of the splitter ADO. Applying to Splitter ADO #16312",
-    "$id": "/schemas/ado-modifier/update-recipients",
     "type": "object",
     "properties": {
       "attributes": {
@@ -12,20 +13,19 @@
           "properties": {
             "key": {
               "type": "string",
-              "title": "Address"
+              "title": "Address",
+              "ui:help": "description of recipient address."
             },
             "value": {
               "type": "string",
-              "title": "Percentage"
+              "title": "Percentage",
+              "ui:help": "description of recipient percentage."
             }
           }
         }
       }
     }
   },
-  "ui-schema": {
-    "key": { "ui:help": "description of recipient address." },
-    "value": { "ui:help": "description of recipient percentage." }
-  },
+  "ui-schema": {},
   "form-data": {}
 }

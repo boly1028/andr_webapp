@@ -1,0 +1,92 @@
+{
+  "schema": {
+    "$id": "/schemas/cw20/decrease-allowance",
+    "class": "modifier",
+    "classifier": "",
+    "title": "Decrease Token Allowance",
+    "description": "Lowers the spender's access of tokens from the owner's account by amount.",
+    "type": "object",
+    "required": ["decrease_allowance"],
+    "properties": {
+      "decrease_allowance": {
+        "type": "object",
+        "title": "Decrease Token Allowance",
+        "required": ["amount", "spender"],
+        "properties": {
+          "amount": {
+            "type": "integer",
+            "title": "Amount to Tokens",
+            "description": "The amount to decrease the allowance by.",
+            "format": "uint128",
+            "minimum": 0.0
+          },
+          "recipient": {
+            "type": "string",
+            "title": "Spender",
+            "description": "The address to have their allowance decreased."
+          },
+          "expiration-label": {
+            "type": "object",
+            "title": "Expiration Type",
+            "description": "Optional expiration for the allowance of the spender.",
+            "properties": {}
+          },
+          "expiration-warning": {
+            "type": "object",
+            "description": "The amount specified in DecreaseAllowance does not replace the old amount but is subtracted from it. If the result is 0 or less, then the spender no longer has an Allowance from the owner. If an Expiration is set, it will overwrite previously set Expiration !If expires is Some(), overwrites current allowance expiration with this one.!",
+            "properties": {}
+          },
+          "Expiration": {
+            "description": "Expiration represents a point in time when some event happens. It can compare with a BlockInfo and will return is_expired() == true once the condition is hit (and for every block in the future)",
+            "oneOf": [
+              {
+                "title": "At Height",
+                "description": "Will expire when `env.block.height` >= height",
+                "type": "object",
+                "required": ["at_height"],
+                "properties": {
+                  "at_height": {
+                    "type": "integer",
+                    "format": "uint64",
+                    "title": "At Height",
+                    "minimum": 0.0
+                  }
+                },
+                "additionalProperties": false
+              },
+              {
+                "title": "At Time",
+                "description": "Will expire when `env.block.time` >= time",
+                "type": "object",
+                "required": ["at_time"],
+                "properties": {
+                  "at_time": {
+                    "type": "string",
+                    "format": "uint64",
+                    "title": "At Time",
+                    "description": "The time to expire when env.block.time. (As uint64)"
+                  }
+                },
+                "additionalProperties": false
+              },
+              {
+                "title": "Never",
+                "description": "Will never expire.",
+                "type": "object",
+                "required": ["never"],
+                "properties": {
+                  "never": {
+                    "type": "object"
+                  }
+                },
+                "additionalProperties": false
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "ui-schema": {},
+  "form-data": {}
+}

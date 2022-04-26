@@ -1,0 +1,35 @@
+{
+  "schema": {
+    "$id": "/schemas/cw20/update-marketing",
+    "class": "modifier",
+    "classifier": "",
+    "title": "Update Token Marketing Information",
+    "description": "Updates the token's marketing information (if added). ",
+    "type": "object",
+    "required": [],
+    "properties": {
+      "excluded-value-warning": {
+        "type": "object",
+        "description": "Leaving any of these fields blank will leave the original values unchanged.",
+        "properties": {}
+      },
+      "project": {
+        "type": ["string", "null"],
+        "title": "Project URL",
+        "description": "A URL pointing to the project behind this token."
+      },
+      "description": {
+        "type": ["string", "null"],
+        "title": "Token Description",
+        "description": "A longer description of the token and it's utility. Designed for tooltips or such."
+      },
+      "marketing": {
+        "type": ["string", "null"],
+        "title": "Authorized Marketing Address",
+        "description": "The address (if any) who can update this data structure."
+      }
+    }
+  },
+  "ui-schema": {},
+  "form-data": {}
+}

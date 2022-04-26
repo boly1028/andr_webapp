@@ -1,0 +1,44 @@
+{
+  "schema": {
+    "$id": "/schemas/cw20/transfer-from",
+    "class": "modifier",
+    "classifier": "",
+    "title": "Transfer Tokens From",
+    "description": "Transfers the amount of tokens from the owner address to the recipient.",
+    "type": "object",
+    "required": ["transfer_from"],
+    "properties": {
+      "transfer_from": {
+        "type": "object",
+        "title": "Transfer From",
+        "required": ["amount", "owner", "recipient"],
+        "properties": {
+          "owner": {
+            "type": "string",
+            "title": "Owner of Tokens",
+            "description": "The owner address that has the tokens to transfer."
+          },
+          "amount-warning": {
+            "type": "object",
+            "description": "The amount specified cannot exceed the allowance of the address executing TransferFrom. ",
+            "properties": {}
+          },
+          "amount": {
+            "type": "integer",
+            "title": "Amount to Transfer",
+            "description": "The amount of tokens to transfer.",
+            "format": "uint128",
+            "minimum": 0.0
+          },
+          "recipient": {
+            "type": "string",
+            "title": "Recipient of Transfer",
+            "description": "The address to transfer the tokens to."
+          }
+        }
+      }
+    }
+  },
+  "ui-schema": {},
+  "form-data": {}
+}

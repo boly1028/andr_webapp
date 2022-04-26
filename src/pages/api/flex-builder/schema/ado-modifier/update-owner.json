@@ -1,26 +1,24 @@
 {
   "schema": {
+    "$id": "/schemas/update-owner",
+    "class": "modifier",
     "title": "Update Owner",
     "description": "Updates the ADO owner. Appliying to ADO#16312",
-    "$id": "/schemas/ado-modifier/update-owner",
     "type": "object",
     "required": ["current_owner_address"],
     "properties": {
       "current_owner_address": {
         "type": "string",
-        "title": "Current Owner Address"
+        "title": "Current Owner Address",
+        "ui:help": "the description of current owner address."
       },
       "new_owner_address": {
         "type": "string",
-        "title": "New Owner Address"
+        "title": "New Owner Address",
+        "ui:help": "the description of new owner address."
       }
     }
   },
-  "ui-schema": {
-    "current_owner_address": {
-      "ui:help": "the description of current owner address."
-    },
-    "new_owner_address": { "ui:help": "the description of new owner address." }
-  },
+  "ui-schema": {},
   "form-data": {}
 }

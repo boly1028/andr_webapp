@@ -1,14 +1,16 @@
 {
   "schema": {
+    "$id": "/schemas/update-lock",
+    "class": "modifier",
     "title": "Update Lock",
     "description": "Sets a lock on the ADO. Preventing editing of any configuration fields. Applying to Splitter ADO #16312",
-    "$id": "/schemas/ado-modifier/update-lock",
     "type": "object",
     "required": ["locked"],
     "properties": {
       "locked": {
         "type": "boolean",
-        "title": "Locked"
+        "title": "Locked",
+        "ui:help": ""
       }
     }
   },
