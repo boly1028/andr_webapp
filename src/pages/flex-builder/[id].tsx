@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import absoluteUrl from "next-absolute-url";
 import { NextPage } from "next";
 import { JSONSchema7 } from "json-schema";
@@ -11,19 +10,65 @@ import {
   Heading,
   HStack,
 } from "@chakra-ui/react";
-
+import { useLCDClient } from "@terra-money/wallet-provider";
+import { estimateFee, useTx, useAddress } from "@arthuryeti/terra";
 import { Image as ImageIcon } from "lucide-react";
 
 import {
+  createBuilderMsgs,
   FlexBuilderForm,
   FlexBuilderTemplateProps,
 } from "@/modules/flex-builder";
+import { useContracts } from "@/modules/common";
 
 type Props = {
   template: FlexBuilderTemplateProps;
 };
 
 const TemplatePage: NextPage<Props> = ({ template }) => {
+  const client = useLCDClient();
+  const address = useAddress();
+  const { builder } = useContracts();
+
+  const { submit } = useTx({
+    onPosting: () => {
+      console.log("onPosting");
+    },
+    onBroadcasting: () => {
+      console.log("onBroadcasting");
+    },
+    onError: () => {
+      console.log("onError");
+    },
+  });
+
+  const handleSubmit = async ({ formData }: any) => {
+    if (client == null || formData == null || address == null) {
+      return;
+    }
+
+    const msgs = createBuilderMsgs(
+      { contract: builder, data: formData },
+      address,
+    );
+
+    if (msgs == null) {
+      return;
+    }
+
+    const fee = await estimateFee({
+      client,
+      address,
+      msgs,
+      opts: {},
+    });
+
+    submit({
+      msgs,
+      fee,
+    });
+  };
+
   return (
     <Box maxW="960px" mx="auto" px={{ base: 4, md: 8 }}>
       <Box>
@@ -47,9 +92,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
           schema={template.schema as JSONSchema7}
           uiSchema={template.uiSchema}
           formData={template.formData}
-          onChange={({ formData }, e) => {
-            console.log("formData", formData);
-          }}
+          onSubmit={handleSubmit}
         />
       </Box>
     </Box>

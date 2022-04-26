@@ -9,14 +9,13 @@ import FieldTemplate from "./FieldTemplate";
 import TitleField from "./TitleField";
 import ObjectFieldTemplate from "./ObjectFieldTemplate";
 import ArrayFieldTemplate from "./ArrayFieldTemplate";
-import useBuilder from "../hooks/useBuilder";
 
 type FlexBuilderFormProps = {
   schema: JSONSchema7;
   uiSchema: any;
   formData?: any;
-  onChange?: (val: any) => void;
-  onSubmit?: () => void;
+  onChange?: (data: any) => void;
+  onSubmit?: (data: any) => void;
   onError?: () => void;
 };
 
