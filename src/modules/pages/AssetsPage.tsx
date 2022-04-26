@@ -2,6 +2,7 @@ import React from "react";
 import { Box, Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 
 import { PageHeader } from "@/modules/common";
+import { NFTsList } from "@/modules/assets";
 
 const AssetsPage = () => {
   return (
@@ -24,7 +25,7 @@ const AssetsPage = () => {
             <p>one!</p>
           </TabPanel>
           <TabPanel>
-            <p>two!</p>
+            <NFTsList />
           </TabPanel>
           <TabPanel>
             <p>three!</p>

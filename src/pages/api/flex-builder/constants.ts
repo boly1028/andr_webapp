@@ -11,10 +11,10 @@ export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
       "Create the most advanced and feature rich NFT Collectible in the world.",
     opts: ["Add royalties", "Black/White list", "Taxes", "Robust metadata"],
     ados: [
-      { path: "ado-base/nft-details", id: uuidv4(), required: true },
-      { path: "ado-module/whitelist", id: uuidv4() },
-      { path: "ado-module/taxes", id: uuidv4() },
-      { path: "ado-module/royalties", id: uuidv4() },
+      { path: "ado-base/nft-details", id: "details", required: true },
+      { path: "ado-module/whitelist", id: "whitelist" },
+      { path: "ado-module/taxes", id: "taxes" },
+      { path: "ado-module/royalties", id: "royalties" },
     ],
   },
   {
@@ -25,8 +25,8 @@ export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
       "When funds are sent to this ADO, they will be split among specified address.",
     opts: ["Multi-Address Routing", "Whitelisting"],
     ados: [
-      { path: "ado-base/splitter", id: uuidv4(), required: true },
-      { path: "ado-module/whitelist", id: uuidv4() },
+      { path: "ado-base/splitter", id: "splitter", required: true },
+      { path: "ado-module/whitelist", id: "whitelist" },
     ],
   },
   {
@@ -37,8 +37,8 @@ export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
       "An escrow styled ADO allowing users to lock funds until a specified time or block height.",
     opts: ["Hold till date", "Hold till block height", "Whitelisting"],
     ados: [
-      { path: "ado-base/timelock", id: uuidv4(), required: true },
-      { path: "ado-module/whitelist", id: uuidv4() },
+      { path: "ado-base/timelock", id: "timelock", required: true },
+      { path: "ado-module/whitelist", id: "whitelist" },
     ],
   },
   {

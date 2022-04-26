@@ -78,6 +78,7 @@ const FlexBuilderTemplateListItem: FC<FlexBuilderTemplateListItemProps> = ({
         <Spacer />
         <NextLink href={`flex-builder/${template.id}`} passHref>
           <Button
+            as="a"
             mt={10}
             isFullWidth
             size="lg"

@@ -5,10 +5,12 @@ import {
   useColorModeValue,
   IconButton,
   FlexProps,
+  Button,
 } from "@chakra-ui/react";
 
 import { Menu as MenuIcon } from "lucide-react";
-import TerraWallet from "./TerraWallet";
+
+import { PlusIcon, TerraWallet } from "@/modules/common";
 
 type Props = {
   onOpen: () => void;
@@ -33,10 +35,16 @@ const Header: FC<Props> = ({ onOpen, ...props }) => {
         icon={<MenuIcon />}
       />
 
-      <HStack spacing={{ base: "0", md: "6" }}>
-        <Flex alignItems={"center"}>
-          <TerraWallet />
-        </Flex>
+      <HStack spacing={{ base: "0", md: "2" }}>
+        <Button
+          leftIcon={<PlusIcon boxSize={5} />}
+          variant="outline"
+          size="lg"
+          borderRadius="xl"
+        >
+          Create
+        </Button>
+        <TerraWallet />
       </HStack>
     </Flex>
   );

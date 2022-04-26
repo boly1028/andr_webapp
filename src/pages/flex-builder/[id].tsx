@@ -47,6 +47,9 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
           schema={template.schema as JSONSchema7}
           uiSchema={template.uiSchema}
           formData={template.formData}
+          onChange={({ formData }, e) => {
+            console.log("formData", formData);
+          }}
         />
       </Box>
     </Box>

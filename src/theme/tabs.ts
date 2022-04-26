@@ -6,6 +6,7 @@ import type {
 
 const baseStyleTabpanel: SystemStyleObject = {
   p: 0,
+  pt: 10,
 };
 
 const baseStyle: PartsStyleFunction<typeof parts> = () => ({

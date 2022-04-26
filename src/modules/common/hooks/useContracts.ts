@@ -2,15 +2,15 @@ import { useMemo } from "react";
 import { useWallet } from "@terra-money/wallet-provider";
 
 type Contracts = {
-  pair: string;
+  builder: string;
 };
 
 const contracts: { [key: string]: any } = {
   mainnet: {
-    pair: "",
+    builder: "",
   },
   testnet: {
-    pair: "terra1mxy8lmf2jeyr7js7xvm046fssyfa5a9pm78fpn",
+    builder: "terra1k6mk75ez5kedymp34u8eqsu3jp94pa0h60q4wz",
   },
 };
 
