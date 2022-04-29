@@ -71,6 +71,7 @@ export const MarkdownWidget = (props: WidgetProps) => {
               <div className="markdown">
                 <ReactMarkdown
                   skipHtml
+                  components={{}}
                   // components={ChakraUIRenderer({
                   //   h1: ({ children }) => (
                   //     <h1 className="text-3xl font-bold my-6">{children}</h1>

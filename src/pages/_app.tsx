@@ -10,7 +10,6 @@ import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
 import { ChakraProvider, CSSReset } from "@chakra-ui/react";
 
 import theme from "@/theme";
-import { Layout } from "@/modules/common";
 
 const MyApp = ({
   Component,

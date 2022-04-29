@@ -1,13 +1,18 @@
-import React, { FC } from "react";
+import React from "react";
+import { NextPage } from "next";
 
 import { Layout } from "@/modules/common";
 import { AssetPage, NftAsset, NFT_ITEMS } from "@/modules/assets";
 
 interface AssetProps {
-  data: NftAsset;
+  data?: NftAsset;
 }
 
-const Asset: FC<AssetProps> = ({ data }) => {
+const Asset: NextPage<AssetProps> = ({ data }) => {
+  if (data == null) {
+    return null;
+  }
+
   return (
     <Layout>
       <AssetPage data={data} />
@@ -15,16 +20,11 @@ const Asset: FC<AssetProps> = ({ data }) => {
   );
 };
 
-interface AssetParams {
-  params: {
-    slug: string;
-  };
-}
+Asset.getInitialProps = async ({ query }) => {
+  const { slug } = query;
+  const data = NFT_ITEMS.find((item) => item.slug === slug);
 
-export function getServerSideProps({ params }: AssetParams) {
-  const data = NFT_ITEMS.find((item) => item.slug === params.slug);
-
-  return { props: { data } };
-}
+  return { data };
+};
 
 export default Asset;

@@ -1,5 +1,3 @@
-import { menuAnatomy as parts } from "@chakra-ui/anatomy";
-
 const baseStyleList = {
   boxShadow: "lg",
   minW: "9rem",
@@ -24,7 +22,6 @@ const baseStyle = {
 };
 
 const styles = {
-  parts: parts.keys,
   baseStyle,
 };
 

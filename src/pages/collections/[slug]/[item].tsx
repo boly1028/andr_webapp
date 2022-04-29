@@ -1,4 +1,5 @@
-import React, { FC } from "react";
+import React from "react";
+import { NextPage } from "next";
 
 import { Layout } from "@/modules/common";
 import {
@@ -8,10 +9,14 @@ import {
 } from "@/modules/marketplace";
 
 interface ItemProps {
-  data: CollectionItem;
+  data?: CollectionItem;
 }
 
-const Item: FC<ItemProps> = ({ data }) => {
+const Item: NextPage<ItemProps> = ({ data }) => {
+  if (data == null) {
+    return <div />;
+  }
+
   return (
     <Layout maxW="container.xl" px={0}>
       <ItemPage data={data} />
@@ -19,17 +24,11 @@ const Item: FC<ItemProps> = ({ data }) => {
   );
 };
 
-interface ItemParams {
-  params: {
-    slug: string;
-    item: string;
-  };
-}
+Item.getInitialProps = async ({ query }) => {
+  const { item } = query;
+  const data = COLLECTION_ITEMS.find((i) => i.slug === item);
 
-export function getServerSideProps({ params }: ItemParams) {
-  const data = COLLECTION_ITEMS.find((item) => item.slug === params.item);
-
-  return { props: { data } };
-}
+  return { data };
+};
 
 export default Item;

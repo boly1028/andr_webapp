@@ -66,7 +66,7 @@ interface TransactionModalTxIdProps {
 
 const TransactionModalTxId: FC<TransactionModalTxIdProps> = ({ txHash }) => {
   if (txHash == null) {
-    return null;
+    return <div />;
   }
 
   return (
@@ -108,7 +108,7 @@ const TransactionModal: FC<TransactionModalProps> = ({
   onClose,
 }) => {
   return (
-    <Modal isOpen={true} onClose={onClose} size="lg">
+    <Modal isOpen={isOpen} onClose={onClose} size="lg">
       <ModalOverlay />
       <ModalContent>
         <ModalCloseButton />

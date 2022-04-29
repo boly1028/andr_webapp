@@ -100,6 +100,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
       <TransactionModal
         isOpen={txHash != null}
         txHash={txHash}
+        txStep="POSTING"
         onClose={() => setTxHash(null)}
       />
     </Layout>

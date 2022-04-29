@@ -13,7 +13,7 @@ const Layout: FC<BoxProps> = ({
   const isInitializing = wallet.status == WalletStatus.INITIALIZING;
 
   if (isInitializing) {
-    return null;
+    return <Flex h="100vh" />;
   }
 
   return (
