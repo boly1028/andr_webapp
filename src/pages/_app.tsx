@@ -26,9 +26,7 @@ const MyApp = ({
         <Hydrate state={pageProps.dehydratedState}>
           <ChakraProvider theme={theme}>
             <CSSReset />
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
+            <Component {...pageProps} />
           </ChakraProvider>
         </Hydrate>
       </QueryClientProvider>

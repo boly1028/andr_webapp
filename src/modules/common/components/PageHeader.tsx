@@ -9,7 +9,7 @@ interface PageHeaderProps {
 const PageHeader: FC<PageHeaderProps> = ({ title, desc }) => {
   return (
     <Box>
-      <Heading fontWeight="600" fontSize="xl" my={2}>
+      <Heading fontWeight="600" fontSize="xl" my={2} letterSpacing={0.5}>
         {title}
       </Heading>
       <Text fontSize="sm" color="gray.500">

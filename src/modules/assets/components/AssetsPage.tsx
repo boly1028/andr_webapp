@@ -2,11 +2,11 @@ import React from "react";
 import { Box, Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 
 import { PageHeader } from "@/modules/common";
-import { NFTsList } from "@/modules/assets";
+import { NftsList, AdosList } from "@/modules/assets";
 
 const AssetsPage = () => {
   return (
-    <Box maxW="container.lg" mx="auto" px={{ base: 4, md: 8 }}>
+    <Box>
       <PageHeader
         title="Assets"
         desc="Locate and interact with your ADOs, NFTs, tokens, currencies, and more"
@@ -22,13 +22,16 @@ const AssetsPage = () => {
 
         <TabPanels>
           <TabPanel>
-            <p>one!</p>
+            <Box mb={5}>
+              <AdosList />
+            </Box>
+            <NftsList />
           </TabPanel>
           <TabPanel>
-            <NFTsList />
+            <NftsList />
           </TabPanel>
           <TabPanel>
-            <p>three!</p>
+            <AdosList />
           </TabPanel>
         </TabPanels>
       </Tabs>

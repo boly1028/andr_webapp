@@ -20,11 +20,9 @@ import {
   HStack,
 } from "@chakra-ui/react";
 
-import {
-  Check as CheckIcon,
-  Image as ImageIcon,
-  ArrowRight as ArrowRightIcon,
-} from "lucide-react";
+import { Image as ImageIcon } from "lucide-react";
+
+import { CheckIcon, ChevronRightIcon } from "@/modules/common";
 
 type FlexBuilderTemplateListItemProps = {
   template: FlexBuilderTemplateProps;
@@ -48,27 +46,24 @@ const FlexBuilderTemplateListItem: FC<FlexBuilderTemplateListItemProps> = ({
       <Flex direction="column" height="100%" bg={containerBg} p={4}>
         <Box>
           <HStack spacing={4}>
-            <Circle size="36px" bg="purple.600" color="white">
-              <Icon as={ImageIcon} color="white" />
+            <Circle size="36px" bg="primary.600" color="white">
+              <Icon as={ImageIcon} />
             </Circle>
-            <Heading
-              color={titleColor}
-              fontSize={"xl"}
-              fontFamily={"body"}
-              fontWeight={600}
-            >
+
+            <Text color={titleColor} fontSize="lg" fontWeight={600}>
               {template.name}
-            </Heading>
+            </Text>
           </HStack>
+
           <Text color="gray.500" fontSize="sm" my={4}>
             {template.description}
           </Text>
 
-          <List spacing={3}>
+          <List spacing={2}>
             {template.opts.map((opt) => (
               <ListItem key={opt}>
                 <Text color={"gray.500"} fontSize="sm">
-                  <ListIcon as={CheckIcon} color="purple.400" />
+                  <ListIcon as={CheckIcon} color="purple.400" boxSize={5} />
                   {opt}
                 </Text>
               </ListItem>
@@ -83,7 +78,9 @@ const FlexBuilderTemplateListItem: FC<FlexBuilderTemplateListItemProps> = ({
             isFullWidth
             size="lg"
             colorScheme="purple"
-            rightIcon={template.disabled ? undefined : <ArrowRightIcon />}
+            rightIcon={
+              !template.disabled ? <ChevronRightIcon boxSize={5} /> : undefined
+            }
             isDisabled={template.disabled}
           >
             {template.disabled ? "Coming Soon" : "Get Started"}

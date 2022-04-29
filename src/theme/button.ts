@@ -5,7 +5,8 @@ import {
 } from "@chakra-ui/theme-tools";
 
 const baseStyle: SystemStyleObject = {
-  fontWeight: 400,
+  fontWeight: 500,
+  borderRadius: "xl",
   _disabled: {
     cursor: "not-allowed",
     boxShadow: "none",
@@ -17,6 +18,9 @@ const variantOutline: SystemStyleFunction = (props) => {
   const borderColor = mode(`gray.300`, `whiteAlpha.300`)(props);
   return {
     borderColor: c === "gray" ? borderColor : "currentColor",
+    _focus: {
+      boxShadow: "none",
+    },
   };
 };
 
@@ -32,10 +36,14 @@ const sizes: Record<string, SystemStyleObject> = {
     fontSize: "sm",
   },
   lg: {
-    fontSize: "md",
+    h: "44px",
+    fontSize: "sm",
+    px: "2.5",
   },
   xl: {
+    h: "48px",
     fontSize: "md",
+    px: "3",
   },
   "2xl": {
     fontSize: "lg",

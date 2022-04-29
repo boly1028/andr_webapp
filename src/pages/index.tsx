@@ -2,15 +2,20 @@ import React from "react";
 import { NextPage } from "next";
 import absoluteUrl from "next-absolute-url";
 
-import { FlexBuilderTemplateProps } from "@/modules/flex-builder";
-import { BuilderPage } from "@/modules/pages";
+import { Layout } from "@/modules/common";
+import {
+  FlexBuilderTemplateProps,
+  FlexBuilderPage,
+} from "@/modules/flex-builder";
 
 type Props = {
   templateList: Array<FlexBuilderTemplateProps>;
 };
 
 const Index: NextPage<Props> = ({ templateList }) => (
-  <BuilderPage templateList={templateList} />
+  <Layout>
+    <FlexBuilderPage templateList={templateList} />
+  </Layout>
 );
 
 Index.getInitialProps = async ({ req }) => {

@@ -7,13 +7,13 @@ import {
   FlexBuilderTemplateProps,
 } from "@/modules/flex-builder";
 
-type BuilderPageProps = {
+type FlexBuilderPageProps = {
   templateList: Array<FlexBuilderTemplateProps>;
 };
 
-const BuilderPage: FC<BuilderPageProps> = ({ templateList }) => {
+const FlexBuilderPage: FC<FlexBuilderPageProps> = ({ templateList }) => {
   return (
-    <Box maxW="container.lg" mx="auto" px={{ base: 4, md: 8 }}>
+    <Box>
       <PageHeader
         title="ADO & NFT Builder Templates"
         desc="Quickly create and publish NFT collectibles, DeFi instruments and
@@ -28,4 +28,4 @@ const BuilderPage: FC<BuilderPageProps> = ({ templateList }) => {
   );
 };
 
-export default BuilderPage;
+export default FlexBuilderPage;

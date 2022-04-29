@@ -1,10 +1,14 @@
 import React, { FC } from "react";
-import { Box } from "@chakra-ui/react";
+import { Flex, Box, BoxProps } from "@chakra-ui/react";
 import { useWallet, WalletStatus } from "@terra-money/wallet-provider";
 
-import { Sidebar } from "@/modules/common";
+import { Sidebar, Header } from "@/modules/common";
 
-const Layout: FC = ({ children }) => {
+const Layout: FC<BoxProps> = ({
+  children,
+  maxW = "container.lg",
+  ...props
+}) => {
   const wallet = useWallet();
   const isInitializing = wallet.status == WalletStatus.INITIALIZING;
 
@@ -13,7 +17,15 @@ const Layout: FC = ({ children }) => {
   }
 
   return (
-    <Box minH="100vh">{!isInitializing && <Sidebar>{children}</Sidebar>}</Box>
+    <Flex h="100vh">
+      <Sidebar />
+      <Box flex={1}>
+        <Box maxW={maxW} ml={20} px={{ base: 4, md: 8 }} {...props}>
+          <Header />
+          <Box>{children}</Box>
+        </Box>
+      </Box>
+    </Flex>
   );
 };
 

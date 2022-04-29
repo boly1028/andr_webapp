@@ -9,8 +9,15 @@ const baseStyleTabpanel: SystemStyleObject = {
   pt: 10,
 };
 
+const baseStyleTab: SystemStyleObject = {
+  _focus: {
+    boxShadow: "none",
+  },
+};
+
 const baseStyle: PartsStyleFunction<typeof parts> = () => ({
   tabpanel: baseStyleTabpanel,
+  tab: baseStyleTab,
 });
 
 const styles = {

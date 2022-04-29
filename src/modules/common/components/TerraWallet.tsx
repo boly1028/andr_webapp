@@ -72,15 +72,13 @@ const TerraWalletConnected = () => {
           <PopoverTrigger>
             <Button
               variant="outline"
-              h="auto"
-              borderRadius="xl"
-              p={2}
+              size="lg"
               borderColor={isOpen ? "primary.600" : "gray.300"}
               _focus={{
                 outline: "none",
               }}
             >
-              <HStack mr={16}>
+              <HStack mr={8}>
                 <ProfilIcon boxSize={8} />
                 <Text>{address}</Text>
               </HStack>

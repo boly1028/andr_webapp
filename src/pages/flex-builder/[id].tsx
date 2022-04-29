@@ -15,12 +15,12 @@ import { useLCDClient } from "@terra-money/wallet-provider";
 import { estimateFee, useTx, useAddress } from "@arthuryeti/terra";
 import { Image as ImageIcon } from "lucide-react";
 
+import { Layout } from "@/modules/common";
 import {
   createBuilderMsgs,
   FlexBuilderForm,
   FlexBuilderTemplateProps,
 } from "@/modules/flex-builder";
-import { useContracts } from "@/modules/common";
 import { TransactionModal } from "@/modules/modals";
 
 type Props = {
@@ -28,10 +28,10 @@ type Props = {
 };
 
 const TemplatePage: NextPage<Props> = ({ template }) => {
+  const [txStep, setTxStep] = useState<string | null>(null);
   const [txHash, setTxHash] = useState<string | null>(null);
   const client = useLCDClient();
   const address = useAddress();
-  const { builder } = useContracts();
 
   const { submit } = useTx({
     onPosting: () => {
@@ -72,7 +72,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
   };
 
   return (
-    <Box maxW="960px" mx="auto" px={{ base: 4, md: 8 }}>
+    <Layout>
       <Box>
         <HStack spacing={4}>
           <Circle size="36px" bg="purple.600" color="white">
@@ -102,7 +102,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
         txHash={txHash}
         onClose={() => setTxHash(null)}
       />
-    </Box>
+    </Layout>
   );
 };
 

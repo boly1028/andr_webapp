@@ -1,43 +1,46 @@
-import React, { FC, ReactNode } from "react";
+import React, { FC } from "react";
+import { Box, Flex } from "@chakra-ui/react";
+
+import NavItem from "./NavItem";
+import Logo from "./Logo";
 import {
-  Box,
-  Drawer,
-  DrawerContent,
-  useDisclosure,
-  FlexProps,
-} from "@chakra-ui/react";
+  CompassIcon,
+  BookOpenIcon,
+  CubeIcon,
+  SparklesIcon,
+  FolderOpenIcon,
+} from "./icons";
 
-import Header from "./Header";
-import SidebarContent from "./SidebarContent";
+interface LinkItemProps {
+  name: string;
+  icon: React.ReactNode;
+  href: string;
+}
 
-type Props = {
-  children: ReactNode;
-} & FlexProps;
+const LinkItems: LinkItemProps[] = [
+  { name: "Overview", icon: <CompassIcon boxSize={5} />, href: "/" },
+  {
+    name: "Market",
+    icon: <SparklesIcon boxSize={5} />,
+    href: "/collections/generic/4037",
+  },
+  { name: "Assets", icon: <FolderOpenIcon boxSize={5} />, href: "/assets" },
+  { name: "Missions", icon: <CubeIcon boxSize={5} />, href: "/missions" },
+  { name: "Learn", icon: <BookOpenIcon boxSize={5} />, href: "/learn" },
+];
 
-const Sidebar: FC<Props> = ({ children }) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-
+const Sidebar: FC = () => {
   return (
-    <Box minH="100vh">
-      <SidebarContent
-        onClose={() => onClose}
-        display={{ base: "none", md: "block" }}
-      />
-      <Drawer
-        autoFocus={false}
-        isOpen={isOpen}
-        placement="left"
-        onClose={onClose}
-        returnFocusOnClose={false}
-        onOverlayClick={onClose}
-        size="full"
-      >
-        <DrawerContent>
-          <SidebarContent onClose={onClose} />
-        </DrawerContent>
-      </Drawer>
-      <Header onOpen={onOpen} />
-      <Box ml={{ base: 0, md: 60 }}>{children}</Box>
+    <Box transition="3s ease" bg="gray.50" w={60} h="full" px={4}>
+      <Flex h={20} alignItems="center" justifyContent="space-between">
+        <Logo />
+      </Flex>
+
+      {LinkItems.map((link) => (
+        <NavItem key={link.name} href={link.href} icon={link.icon}>
+          {link.name}
+        </NavItem>
+      ))}
     </Box>
   );
 };
