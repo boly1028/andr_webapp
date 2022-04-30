@@ -1,0 +1,81 @@
+{
+  "schema": {
+    "$schema": "receipt/0.1.0/edit-receipt",
+    "class": "modifier",
+    "classifier": "",
+    "title": "Edit Receipt",
+    "description": "Edit a receipt by Receipt ID.",
+    "type": "object",
+    "required": ["edit_receipt"],
+    "properties": {
+      "warning-label": {
+        "title": "",
+        "description": "Only executable by the assigned `minter` address or a valid `operator`.",
+        "type": "object",
+        "properties": {}
+      },
+      "edit_receipt": {
+        "type": "object",
+        "title": "",
+        "required": ["receipt", "receipt_id"],
+        "properties": {
+          "receipt": {
+            "title": "",
+            "description": "",
+            "type": "object",
+            "required": ["events"],
+            "properties": {
+              "events": {
+                "title": "Events",
+                "description": "The events to make the receipt.",
+                "type": "array",
+                "items": {
+                  "title": "",
+                  "description": "",
+                  "type": "object",
+                  "required": ["attributes", "type"],
+                  "properties": {
+                    "attributes": {
+                      "title": "Attributes",
+                      "description": "The attributes to be included in the event.\n\nYou can learn more about these from: https://docs.cosmos.network/v0.42/core/events.html",
+                      "type": "array",
+                      "items": {
+                        "title": "Attribute Definition",
+                        "description": "A key value pair that is used in the context of event attributes in logs",
+                        "type": "object",
+                        "required": ["key", "value"],
+                        "properties": {
+                          "key": {
+                            "title": "Name of Attribute",
+                            "type": "string"
+                          },
+                          "value": {
+                            "title": "Attribute Value",
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "type": {
+                      "type": "string",
+                      "title": "Event Type",
+                      "description": "The event type."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "receipt_id": {
+            "title": "Receipt ID",
+            "description": "The ID of the receipt to edit.",
+            "type": "string"
+          }
+        }
+      }
+    },
+    "additionalProperties": false
+  },
+  "ui-schema": {},
+  "form-data": {}
+}

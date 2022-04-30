@@ -94,6 +94,20 @@ export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
       { path: "ado-modifier/update-recipients", id: uuidv4() },
     ],
   },
+
+  {
+    id: "new-panel-inventory",
+    name: "New Panel Inventory",
+    icon: "",
+    description: "Shows all new panels for ",
+    opts: ["ADOs", "Modules", "Classifiers"],
+    ados: [
+      { path: "receipt/0.1.0/receipt", id: uuidv4() },
+      { path: "receipt/0.1.0/store-receipt", id: uuidv4() },
+      { path: "receipt/0.1.0/edit-receipt", id: uuidv4() },
+    ],
+  },
+
   {
     id: "address-list-ado",
     name: "Address List ADO",
