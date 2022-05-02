@@ -1,1 +1,1 @@
-export type TxStep = "POSTING" | "BROADCASTING" | "SUCCESS" | "FAILED";
+export type TxStep = "IDLE" | "POSTING" | "BROADCASTING" | "SUCCESS" | "FAILED";

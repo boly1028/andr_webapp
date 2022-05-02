@@ -15,7 +15,7 @@ import { useLCDClient } from "@terra-money/wallet-provider";
 import { estimateFee, useTx, useAddress } from "@arthuryeti/terra";
 import { Image as ImageIcon } from "lucide-react";
 
-import { Layout } from "@/modules/common";
+import { Layout, TxStep } from "@/modules/common";
 import {
   createBuilderMsgs,
   FlexBuilderForm,
@@ -28,20 +28,16 @@ type Props = {
 };
 
 const TemplatePage: NextPage<Props> = ({ template }) => {
-  const [txStep, setTxStep] = useState<string | null>(null);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [txStep, setTxStep] = useState<TxStep>("IDLE");
   const [txHash, setTxHash] = useState<string | null>(null);
   const client = useLCDClient();
   const address = useAddress();
 
   const { submit } = useTx({
-    onPosting: () => {
-      console.log("onPosting");
-    },
     onBroadcasting: (txHash) => {
       setTxHash(txHash);
-    },
-    onError: () => {
-      console.log("onError");
+      setTxStep("BROADCASTING");
     },
   });
 
@@ -49,6 +45,9 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
     if (client == null || formData == null || address == null) {
       return;
     }
+
+    setTxStep("POSTING");
+    setIsOpen(true);
 
     const msgs = createBuilderMsgs({ data: formData }, address);
 
@@ -98,10 +97,11 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
         />
       </Box>
       <TransactionModal
-        isOpen={txHash != null}
+        isOpen={isOpen}
+        txStep={txStep}
         txHash={txHash}
-        txStep="POSTING"
-        onClose={() => setTxHash(null)}
+        onTxStepChange={setTxStep}
+        onClose={() => setIsOpen(false)}
       />
     </Layout>
   );

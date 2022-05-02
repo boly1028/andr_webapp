@@ -1,11 +1,11 @@
 import { Icon, type IconProps } from "@chakra-ui/react";
 
 const CheckIcon = (props: IconProps) => (
-  <Icon viewBox="0 0 21 20" fill="none" {...props}>
+  <Icon viewBox="0 0 140 140" fill="none" {...props}>
     <path
-      d="M4.83301 10.8334L8.16634 14.1667L16.4997 5.83337"
+      d="M29.1666 75.8334L52.5 99.1667L110.833 40.8334"
       stroke="currentColor"
-      strokeWidth="2"
+      strokeWidth="6"
       strokeLinecap="round"
       strokeLinejoin="round"
     />

@@ -14,6 +14,7 @@ type FlexBuilderFormProps = {
   schema: JSONSchema7;
   uiSchema: any;
   formData?: any;
+  isLoading?: boolean;
   onChange?: (data: any) => void;
   onSubmit?: (data: any) => void;
   onError?: () => void;
@@ -26,6 +27,7 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
   onChange,
   onSubmit,
   onError,
+  isLoading,
 }) => {
   return (
     <Form
@@ -51,7 +53,7 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
           >
             Estimate Fees
           </Button>
-          <Button type="submit" colorScheme="purple">
+          <Button type="submit" colorScheme="purple" isLoading={isLoading}>
             Publish
           </Button>
         </HStack>

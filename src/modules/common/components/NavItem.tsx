@@ -13,7 +13,7 @@ const NavItem: FC<Props> = ({ icon, href, children, ...props }) => {
     <NextLink href={href} passHref>
       <a>
         <HStack
-          p="4"
+          p="3"
           borderRadius="lg"
           color="gray.500"
           _hover={{
@@ -23,7 +23,7 @@ const NavItem: FC<Props> = ({ icon, href, children, ...props }) => {
           {...props}
         >
           {icon}
-          <Text>{children}</Text>
+          <Text fontWeight={500}>{children}</Text>
         </HStack>
       </a>
     </NextLink>

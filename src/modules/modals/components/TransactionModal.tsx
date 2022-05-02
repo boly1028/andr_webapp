@@ -15,15 +15,66 @@ import {
   Spinner,
 } from "@chakra-ui/react";
 
-import { truncate, type TxStep } from "@/modules/common";
+import { CheckIcon, truncate, type TxStep } from "@/modules/common";
+import { useTxInfo } from "@arthuryeti/terra";
 
 const TITLES = {
+  IDLE: "Waiting for confirmation",
   POSTING: "Waiting for confirmation",
   BROADCASTING: "Brodcasting",
   SUCCESS: "Your transaction has been approved",
   FAILED: "There was a problem with that action",
 };
 
+const SUB_TITLES = {
+  IDLE: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In velit nullam condimentum massa dictumst.",
+  POSTING:
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In velit nullam condimentum massa dictumst.",
+  BROADCASTING:
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In velit nullam condimentum massa dictumst.",
+  SUCCESS:
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In velit nullam condimentum massa dictumst.",
+  FAILED:
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In velit nullam condimentum massa dictumst.",
+};
+
+interface TransactionModalHeaderProps {
+  txStep: TxStep;
+}
+
+const TransactionModalHeader: FC<TransactionModalHeaderProps> = ({
+  txStep,
+}) => {
+  const isSuccess = txStep === "SUCCESS";
+  const isFailed = txStep === "FAILED";
+  const showSpinner = !isSuccess && !isFailed;
+
+  return (
+    <>
+      <Center>
+        {showSpinner && (
+          <Spinner
+            size="2xl"
+            thickness="6px"
+            color="primary.600"
+            mb={8}
+            mt={8}
+          />
+        )}
+        {isSuccess && <CheckIcon boxSize={32} color="primary.600" />}
+      </Center>
+
+      <VStack mb={12}>
+        <Text fontWeight={600} color="gray.700">
+          {TITLES[txStep]}
+        </Text>
+        <Text color="gray.500" textAlign="center">
+          {SUB_TITLES[txStep]}
+        </Text>
+      </VStack>
+    </>
+  );
+};
 interface TransactionModalStepsItemProps {
   isActive?: boolean;
   isPending?: boolean;
@@ -47,16 +98,23 @@ const TransactionModalStepsItem: FC<TransactionModalStepsItemProps> = ({
 };
 
 interface TransactionModalStepsProps {
-  txStep: TxStep | null;
+  txStep: TxStep;
 }
 
 const TransactionModalSteps: FC<TransactionModalStepsProps> = ({ txStep }) => {
   return (
     <HStack spacing={2}>
-      <TransactionModalStepsItem isActive />
-      <TransactionModalStepsItem isPending />
-      <TransactionModalStepsItem />
-      <TransactionModalStepsItem />
+      <TransactionModalStepsItem
+        isPending={txStep == "POSTING"}
+        isActive={["BROADCASTING", "SUCCESS", "FAILED"].includes(txStep)}
+      />
+      <TransactionModalStepsItem
+        isPending={["BROADCASTING"].includes(txStep)}
+        isActive={["SUCCESS", "FAILED"].includes(txStep)}
+      />
+      <TransactionModalStepsItem
+        isActive={["SUCCESS", "FAILED"].includes(txStep)}
+      />
     </HStack>
   );
 };
@@ -96,43 +154,43 @@ const TransactionModalTxId: FC<TransactionModalTxIdProps> = ({ txHash }) => {
 
 interface TransactionModalProps {
   isOpen: boolean;
-  txStep: TxStep | null;
   txHash: string | null;
+  txStep: TxStep;
+  onTxStepChange: (txStep: TxStep) => void;
   onClose: () => void;
 }
 
 const TransactionModal: FC<TransactionModalProps> = ({
-  txStep,
   txHash,
+  txStep,
   isOpen,
+  onTxStepChange,
   onClose,
 }) => {
+  useTxInfo({
+    txHash,
+    onSuccess: () => {
+      onTxStepChange("SUCCESS");
+    },
+    onError: () => {
+      onTxStepChange("FAILED");
+    },
+  });
+
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="lg">
       <ModalOverlay />
       <ModalContent>
         <ModalCloseButton />
         <ModalBody p={12}>
-          <Center mb={8} mt={8}>
-            <Spinner size="2xl" thickness="6px" color="primary.600" />
-          </Center>
-
-          <VStack mb={12}>
-            <Text fontWeight={600} color="gray.700">
-              Your transaction has been approved
-            </Text>
-            <Text color="gray.500" textAlign="center">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. In velit
-              nullam condimentum massa dictumst.
-            </Text>
-          </VStack>
+          <TransactionModalHeader txStep={txStep} />
 
           <TransactionModalSteps txStep={txStep} />
 
           <TransactionModalTxId txHash={txHash} />
 
           <Center mt={12}>
-            <Button variant="outline" size="lg" px={8}>
+            <Button variant="outline" size="lg" px={8} onClick={onClose}>
               Cancel
             </Button>
           </Center>
