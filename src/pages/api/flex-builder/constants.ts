@@ -113,6 +113,10 @@ export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
       { path: "primitives/0.1.0/boolean", id: uuidv4() },
       { path: "primitives/0.1.0/array", id: uuidv4() },
       { path: "primitives/0.1.0/delete-value", id: uuidv4() },
+      { path: "cw721-offers/0.1.0/cw721-offers", id: uuidv4() },
+      { path: "cw721-offers/0.1.0/place-offer", id: uuidv4() },
+      { path: "cw721-offers/0.1.0/accept-offer", id: uuidv4() },
+      { path: "cw721-offers/0.1.0/cancel-offer", id: uuidv4() },
     ],
   },
 

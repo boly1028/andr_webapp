@@ -1,0 +1,19 @@
+{
+  "schema": {
+    "$schema": "cw721-offers/0.1.0/cw721-offers",
+    "class": "module",
+    "classifier": "Sale",
+    "title": "Accept Offers",
+    "description": "Allow buyers to place offers on NFT Collectibles.",
+    "type": "object",
+    "required": ["andromeda_cw721_contract"],
+    "properties": {
+      "andromeda_cw721_contract": {
+        "type": "string",
+        "title": "andromeda_cw721_contract"
+      }
+    }
+  },
+  "ui-schema": {},
+  "form-data": {}
+}
