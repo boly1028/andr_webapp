@@ -29,10 +29,11 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
   onError,
   isLoading,
 }) => {
-  const [downloadText, setDownloadText] = useState("");
+  const [downloadText, setDownloadText] = useState(""); //Text link for exported file downloading
+
   const saveFlexTemplate = () => {
-    //Concatinate schema, ui-schema, and form data into flexExport to be provided as a blob for download
-    const flexExport = {};
+    //Concatenate schema, ui-schema, and form data into flexExport to be provided as a blob for download
+    const flexExport: Record<string, any> = {};
     flexExport["schema"] = schema;
     flexExport["ui-schema"] = uiSchema;
     flexExport["formData"] = formData;
@@ -44,7 +45,11 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
     });
     const url = window.URL.createObjectURL(flexBlob);
     //document.location.assign(url);
-    document.getElementById("flexDownload").href = url;
+    //document.getElementById("flexDownload")!.href as HTMLAnchorElement} =
+    const HTMLObj: HTMLAnchorElement = document.getElementById(
+      "flexDownload",
+    )! as HTMLAnchorElement;
+    HTMLObj.href = url;
     setDownloadText("Download .Flex File");
   };
 
