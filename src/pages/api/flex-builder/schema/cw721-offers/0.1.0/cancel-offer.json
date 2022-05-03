@@ -1,0 +1,28 @@
+{
+  "schema": {
+    "$schema": "cw721-offers/0.1.0/cancel-offer",
+    "class": "modifier",
+    "classifier": "Sale",
+    "title": "Cancel Offer",
+    "description": "Cancels an offer previously placed.",
+    "type": "object",
+    "required": ["cancel_offer"],
+    "properties": {
+      "cancel_offer": {
+        "title": "",
+        "type": "object",
+        "required": ["token_id"],
+        "properties": {
+          "token_id": {
+            "type": "string",
+            "title": "Token ID",
+            "description": "The ID of the ADO to remove an offer on. "
+          }
+        }
+      }
+    },
+    "additionalProperties": false
+  },
+  "ui-schema": {},
+  "form-data": {}
+}

@@ -1,0 +1,7 @@
+{
+  "value": "ADOP Structure for cw721-offers module needs to be declared here.",
+  "restrictions": {
+    "assosciation": "Must be attached to CW721",
+    "Place Offer": "Cannot be called by ADO owner"
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "schema": {
+    "$schema": "cw721-offers/0.1.0/place-offer",
+    "class": "modifier",
+    "classifier": "Sale",
+    "title": "Place Offer",
+    "description": "Places an offer on the ADO with the specified token_id.",
+    "type": "object",
+    "required": ["place_offer"],
+    "properties": {
+      "place_offer": {
+        "title": "",
+        "type": "object",
+        "required": ["expiration", "offer_amount", "token_id"],
+        "properties": {
+          "expiration": {
+            "title": "Expiration",
+            "description": "Expiration represents a point in time when some event happens. It can compare with a BlockInfo and will return is_expired() == true once the condition is hit (and for every block in the future)",
+            "oneOf": [
+              {
+                "title": "At Height",
+                "type": "object",
+                "required": ["at_height"],
+                "properties": {
+                  "at_height": {
+                    "title": "At Height",
+                    "description": "Will expire at the specified block height.",
+                    "type": "integer",
+                    "format": "uint64",
+                    "minimum": 0
+                  }
+                },
+                "additionalProperties": false
+              },
+              {
+                "title": "At Time",
+                "description": "Offer will expire when `env.block.time` >= time",
+                "type": "object",
+                "required": ["at_time"],
+                "properties": {
+                  "at_time": {
+                    "title": "At Time",
+                    "description": "A point in time in nanosecond precision.\n\nThis type can represent times from 1970-01-01T00:00:00Z to 2554-07-21T23:34:33Z.",
+                    "allOf": [
+                      {
+                        "type": "string"
+                      }
+                    ]
+                  }
+                },
+                "additionalProperties": false
+              },
+              {
+                "title": "Never",
+                "description": "Offer will never expire.",
+                "type": "object",
+                "required": ["never"],
+                "properties": {
+                  "warning": {
+                    "type": "object",
+                    "title": "",
+                    "description": "If an offer is canceled this will close a \"never\" expires option!",
+                    "properties": {}
+                  },
+                  "never": {
+                    "title": "",
+                    "type": "object"
+                  }
+                },
+                "additionalProperties": false
+              }
+            ]
+          },
+          "offer_amount": {
+            "title": "Offer Amount",
+            "description": "The amount of tokens to offer for the ADO.",
+            "type": "string"
+          },
+          "token_id": {
+            "title": "Token ID",
+            "description": "The token id of the ADO to buy.",
+            "type": "string"
+          }
+        }
+      }
+    },
+    "additionalProperties": false
+  },
+  "ui-schema": {},
+  "form-data": {}
+}

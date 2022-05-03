@@ -1,0 +1,28 @@
+{
+  "schema": {
+    "$schema": "receipt/0.1.0/receipt",
+    "class": "module",
+    "classifier": "sale",
+    "title": "Support Receipts",
+    "type": "object",
+    "description": "Add the ability to generate receipts which store event history.",
+    "required": ["minter"],
+    "properties": {
+      "minter": {
+        "type": "string",
+        "title": "Minter",
+        "description": "The address authorized to generate new receipts."
+      },
+      "operators": {
+        "type": ["array", "null"],
+        "title": "Operators",
+        "description": "Optional list of moderating addresses authorized to update receipts. (Defaults as empty.)",
+        "items": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "ui-schema": {},
+  "form-data": {}
+}
