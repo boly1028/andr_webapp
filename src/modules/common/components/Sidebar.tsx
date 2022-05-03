@@ -25,7 +25,7 @@ const LinkItems: LinkItemProps[] = [
     href: "/collections/generic/4037",
   },
   { name: "Assets", icon: <FolderOpenIcon boxSize={5} />, href: "/assets" },
-  { name: "Missions", icon: <CubeIcon boxSize={5} />, href: "/missions" },
+  { name: "Apps", icon: <CubeIcon boxSize={5} />, href: "/app-builder" },
   { name: "Learn", icon: <BookOpenIcon boxSize={5} />, href: "/learn" },
 ];
 
