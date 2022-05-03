@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Flex, Box, BoxProps } from "@chakra-ui/react";
+import { Flex, Box, BoxProps, VStack } from "@chakra-ui/react";
 import { useWallet, WalletStatus } from "@terra-money/wallet-provider";
 
 import { Sidebar, Header } from "@/modules/common";
@@ -17,12 +17,23 @@ const Layout: FC<BoxProps> = ({
   }
 
   return (
-    <Flex h="100vh">
+    <Flex h="99vh">
       <Sidebar />
-      <Box flex={1}>
-        <Box maxW={maxW} ml={20} px={{ base: 4, md: 8 }} {...props}>
-          <Header />
-          <Box>{children}</Box>
+      <Box h="100%" w="100%">
+        <Box
+          maxW={maxW}
+          ml={20}
+          px={{ base: 4, md: 8 }}
+          h="100%"
+          w="100%"
+          {...props}
+        >
+          <Flex direction="column" w="100%" h="100%">
+            <Header />
+            <Box h="100%" w="100%">
+              {children}
+            </Box>
+          </Flex>
         </Box>
       </Box>
     </Flex>
