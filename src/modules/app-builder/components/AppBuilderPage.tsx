@@ -1,12 +1,9 @@
-import React, { FC } from "react";
 import NextLink from "next/link";
 import { Box, Center, Button, Heading, VStack } from "@chakra-ui/react";
 
 import { PageHeader, PlusIcon, CubeIcon } from "@/modules/common";
 
-interface AppBuilderPageProps {}
-
-const AppBuilderPage: FC<AppBuilderPageProps> = ({}) => {
+const AppBuilderPage = () => {
   return (
     <Box h="100%">
       <PageHeader

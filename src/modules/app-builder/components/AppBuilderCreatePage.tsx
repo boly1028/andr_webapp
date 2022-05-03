@@ -1,10 +1,4 @@
-import React, { FC, useState } from "react";
-import ReactFlow, {
-  Controls,
-  MiniMap,
-  Background,
-  addEdge,
-} from "react-flow-renderer";
+import ReactFlow, { Controls, MiniMap, Background } from "react-flow-renderer";
 import {
   Box,
   Button,
@@ -19,36 +13,11 @@ import {
 } from "@chakra-ui/react";
 import { PlusIcon } from "@/modules/common";
 
-const defaultElements = [
-  {
-    id: 1,
-    type: "input",
-    data: { label: "ADO" },
-    position: { x: 100, y: 100 },
-  },
-];
-
-interface AppBuilderCreatePageProps {}
-
-const AppBuilderCreatePage: FC<AppBuilderCreatePageProps> = ({}) => {
+const AppBuilderCreatePage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [elements, Setelements] = useState(defaultElements);
 
-  const onConnect = (params) => {
-    Setelements((e) => addEdge(params, e));
-  };
-
-  const handleAddNode = () => {
-    Setelements((e) =>
-      e.concat({
-        id: (e.length + 1).toString(),
-        data: { label: `ado` },
-        position: {
-          x: Math.random() * window.innerWidth,
-          y: Math.random() * window.innerHeight,
-        },
-      }),
-    );
+  const onConnect = () => {
+    console.log("connect");
   };
 
   return (
