@@ -1,0 +1,40 @@
+{
+  "schema": {
+    "$schema": "primitives/0.1.0/string",
+    "class": "primitive",
+    "classifier": "",
+    "type": "object",
+    "title": "String",
+    "description": "Store values of a string to reference when needed.",
+    "required": ["set_value"],
+    "properties": {
+      "set_value": {
+        "type": "object",
+        "title": "Set Value",
+        "description": "Description of a string",
+        "required": ["value"],
+        "properties": {
+          "key": {
+            "type": ["string", "null"],
+            "title": "Field Name"
+          },
+          "value": {
+            "title": "Field Value",
+            "type": "object",
+            "required": ["string"],
+            "properties": {
+              "string": {
+                "title": "",
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      }
+    },
+    "additionalProperties": false
+  },
+  "ui-schema": {},
+  "form-data": {}
+}

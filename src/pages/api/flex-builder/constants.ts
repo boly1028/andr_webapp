@@ -94,6 +94,32 @@ export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
       { path: "ado-modifier/update-recipients", id: uuidv4() },
     ],
   },
+
+  {
+    id: "new-panel-inventory",
+    name: "New Panel Inventory",
+    icon: "",
+    description: "Shows all new panels for ",
+    opts: ["ADOs", "Modules", "Classifiers"],
+    ados: [
+      { path: "receipt/0.1.0/receipt", id: uuidv4() },
+      { path: "receipt/0.1.0/store-receipt", id: uuidv4() },
+      { path: "receipt/0.1.0/edit-receipt", id: uuidv4() },
+      { path: "primitives/0.1.0/set-value", id: uuidv4() },
+      { path: "primitives/0.1.0/uint128", id: uuidv4() },
+      { path: "primitives/0.1.0/decimal", id: uuidv4() },
+      { path: "primitives/0.1.0/coin", id: uuidv4() },
+      { path: "primitives/0.1.0/string", id: uuidv4() },
+      { path: "primitives/0.1.0/boolean", id: uuidv4() },
+      { path: "primitives/0.1.0/array", id: uuidv4() },
+      { path: "primitives/0.1.0/delete-value", id: uuidv4() },
+      { path: "cw721-offers/0.1.0/cw721-offers", id: uuidv4() },
+      { path: "cw721-offers/0.1.0/place-offer", id: uuidv4() },
+      { path: "cw721-offers/0.1.0/accept-offer", id: uuidv4() },
+      { path: "cw721-offers/0.1.0/cancel-offer", id: uuidv4() },
+    ],
+  },
+
   {
     id: "address-list-ado",
     name: "Address List ADO",

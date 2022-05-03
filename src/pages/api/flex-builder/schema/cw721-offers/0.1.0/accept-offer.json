@@ -1,0 +1,39 @@
+{
+  "schema": {
+    "$schema": "cw721-offers/0.1.0/accept-offer",
+    "class": "modifier",
+    "classifier": "Sale",
+    "title": "Accept Offer",
+    "description": "Accepts an offer that is placed on your ADO. ",
+    "type": "object",
+    "required": ["accept_offer"],
+    "properties": {
+      "offer-warning": {
+        "type": "object",
+        "title": "",
+        "description": "The ADO owner is not allowed to place an offer on their ADO!",
+        "properties": {}
+      },
+      "accept_offer": {
+        "title": "Accept Offer",
+        "type": "object",
+        "required": ["recipient", "token_id"],
+        "properties": {
+          "recipient": {
+            "title": "Recipient",
+            "description": "The address to receive the funds of the offer.",
+            "type": "string"
+          },
+          "token_id": {
+            "title": "Token ID",
+            "description": "The ID of the token to accept the offer on.",
+            "type": "string"
+          }
+        }
+      }
+    },
+    "additionalProperties": false
+  },
+  "ui-schema": {},
+  "form-data": {}
+}

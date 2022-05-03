@@ -1,0 +1,70 @@
+{
+  "schema": {
+    "$schema": "receipt/0.1.0/store-receipt",
+    "class": "modifier",
+    "classifier": "",
+    "title": "Store Receipt",
+    "description": "Generate and store a new receipt.",
+    "type": "object",
+    "required": ["store_receipt"],
+    "properties": {
+      "store_receipt": {
+        "type": "object",
+        "title": "",
+        "required": ["receipt"],
+        "properties": {
+          "receipt": {
+            "title": "",
+            "description": "",
+            "type": "object",
+            "required": ["events"],
+            "properties": {
+              "events": {
+                "title": "Events",
+                "description": "The events to make the receipt from.",
+                "type": "array",
+                "items": {
+                  "title": "",
+                  "description": "",
+                  "type": "object",
+                  "required": ["attributes", "type"],
+                  "properties": {
+                    "attributes": {
+                      "title": "Attributes",
+                      "description": "The attributes to be included in the event.\n\nYou can learn more about these from https://docs.cosmos.network/v0.42/core/events.html",
+                      "type": "array",
+                      "items": {
+                        "title": "Attribute Definition",
+                        "description": "A key value pair that is used in the context of event attributes in logs",
+                        "type": "object",
+                        "required": ["key", "value"],
+                        "properties": {
+                          "key": {
+                            "title": "Name of Attribute",
+                            "type": "string"
+                          },
+                          "value": {
+                            "title": "Attribute Value",
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "type": {
+                      "title": "Event Type",
+                      "description": "The event type.",
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "additionalProperties": false
+  },
+  "ui-schema": {},
+  "form-data": {}
+}
