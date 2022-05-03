@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from "react";
+import React, { FC, useState, useEffect } from "react";
 import { Button, HStack, Flex } from "@chakra-ui/react";
 import { JSONSchema7 } from "json-schema";
 
@@ -29,6 +29,30 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
   onError,
   isLoading,
 }) => {
+  const [downloadText, setDownloadText] = useState(""); //Text link for exported file downloading
+
+  const saveFlexTemplate = () => {
+    //Concatenate schema, ui-schema, and form data into flexExport to be provided as a blob for download
+    const flexExport: Record<string, any> = {};
+    flexExport["schema"] = schema;
+    flexExport["ui-schema"] = uiSchema;
+    flexExport["formData"] = formData;
+    console.log(flexExport);
+
+    //Load data to be exported by the browser
+    const flexBlob = new Blob([JSON.stringify(flexExport)], {
+      type: "text/plain",
+    });
+    const url = window.URL.createObjectURL(flexBlob);
+    //document.location.assign(url);
+    //document.getElementById("flexDownload")!.href as HTMLAnchorElement} =
+    const HTMLObj: HTMLAnchorElement = document.getElementById(
+      "flexDownload",
+    )! as HTMLAnchorElement;
+    HTMLObj.href = url;
+    setDownloadText("Download .Flex File");
+  };
+
   return (
     <Form
       schema={schema}
@@ -45,6 +69,17 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
     >
       <Flex my={16} justify="right">
         <HStack spacing={4}>
+          <a id="flexDownload" download="template.flex" href="" target="_blank">
+            {downloadText}
+          </a>
+          <Button
+            variant="outline"
+            onClick={() => {
+              saveFlexTemplate();
+            }}
+          >
+            Save as .Flex
+          </Button>
           <Button
             variant="outline"
             onClick={() => {
