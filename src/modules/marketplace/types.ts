@@ -1,4 +1,4 @@
-export interface CollectionItem {
+export interface CollectionItemData {
   id: number;
   image: string;
   name: string;

@@ -74,9 +74,6 @@ const TerraWalletConnected = () => {
               variant="outline"
               size="lg"
               borderColor={isOpen ? "primary.600" : "gray.300"}
-              _focus={{
-                outline: "none",
-              }}
             >
               <HStack mr={8}>
                 <ProfilIcon boxSize={8} />

@@ -22,7 +22,7 @@ const LinkItems: LinkItemProps[] = [
   {
     name: "Market",
     icon: <SparklesIcon boxSize={5} />,
-    href: "/collections/generic/4037",
+    href: "/explore",
   },
   { name: "Assets", icon: <FolderOpenIcon boxSize={5} />, href: "/assets" },
   { name: "Apps", icon: <CubeIcon boxSize={5} />, href: "/app-builder" },
