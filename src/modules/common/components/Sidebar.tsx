@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Box, Flex } from "@chakra-ui/react";
+import { Box, BoxProps, Flex, CloseButton } from "@chakra-ui/react";
 
 import NavItem from "./NavItem";
 import Logo from "./Logo";
@@ -29,11 +29,24 @@ const LinkItems: LinkItemProps[] = [
   { name: "Learn", icon: <BookOpenIcon boxSize={5} />, href: "/learn" },
 ];
 
-const Sidebar: FC = () => {
+interface SidebarProps extends BoxProps {
+  onClose: () => void;
+}
+
+const Sidebar = ({ onClose, ...props }: SidebarProps) => {
   return (
-    <Box transition="3s ease" bg="gray.50" w={60} h="full" px={4}>
+    <Box
+      transition="3s ease"
+      bg="gray.50"
+      w={60}
+      pos="fixed"
+      h="full"
+      px={4}
+      {...props}
+    >
       <Flex h={20} alignItems="center" justifyContent="space-between">
         <Logo />
+        <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
 
       {LinkItems.map((link) => (

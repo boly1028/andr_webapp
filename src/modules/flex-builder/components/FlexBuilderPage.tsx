@@ -19,7 +19,7 @@ const FlexBuilderPage: FC<FlexBuilderPageProps> = ({ templateList }) => {
         desc="Quickly create and publish NFT collectibles, DeFi instruments and
         generic ADOs from starter templates!"
       />
-      <SimpleGrid columns={3} spacing="4" my={8}>
+      <SimpleGrid columns={{ sm: 1, md: 2, lg: 3 }} spacing="4" my={8}>
         {templateList.map((template: FlexBuilderTemplateProps) => (
           <FlexBuilderTemplateListItem key={template.id} template={template} />
         ))}

@@ -19,6 +19,7 @@ export { default as FilePlusIcon } from "./FilePlusIcon";
 export { default as HeartIcon } from "./HeartIcon";
 export { default as LayoutGridIcon } from "./LayoutGridIcon";
 export { default as LogOutIcon } from "./LogOutIcon";
+export { default as MenuIcon } from "./MenuIcon";
 export { default as MoreHorizontalIcon } from "./MoreHorizontalIcon";
 export { default as PlusIcon } from "./PlusIcon";
 export { default as ProfilIcon } from "./ProfilIcon";
