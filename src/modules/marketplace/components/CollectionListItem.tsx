@@ -6,6 +6,7 @@ interface Props {
   data: {
     id: number;
     image: string;
+    slug: string;
     chain: string;
     name: string;
     marketcap: string;
@@ -13,7 +14,7 @@ interface Props {
 }
 
 const CollectionListItem: FC<Props> = ({ data }) => {
-  const { id, image, name, marketcap } = data;
+  const { id, image, name, slug, marketcap } = data;
 
   return (
     <Box>
@@ -21,7 +22,7 @@ const CollectionListItem: FC<Props> = ({ data }) => {
         <Text textStyle="light" fontWeight={500} minW={4} textAlign="center">
           {id}
         </Text>
-        <Link href={`/assets/${name}`} passHref>
+        <Link href={`/collections/${slug}`} passHref>
           <a>
             <Image src={image} alt="Image" boxSize={16} borderRadius="full" />
           </a>
