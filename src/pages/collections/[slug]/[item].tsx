@@ -2,14 +2,11 @@ import React from "react";
 import { NextPage } from "next";
 
 import { Layout } from "@/modules/common";
-import {
-  ItemPage,
-  CollectionItem,
-  COLLECTION_ITEMS,
-} from "@/modules/marketplace";
+import { NFT_ITEMS } from "@/modules/assets";
+import { ItemPage, CollectionItemData } from "@/modules/marketplace";
 
 interface ItemProps {
-  data?: CollectionItem;
+  data?: CollectionItemData;
 }
 
 const Item: NextPage<ItemProps> = ({ data }) => {
@@ -26,7 +23,7 @@ const Item: NextPage<ItemProps> = ({ data }) => {
 
 Item.getInitialProps = async ({ query }) => {
   const { item } = query;
-  const data = COLLECTION_ITEMS.find((i) => i.slug === item);
+  const data = NFT_ITEMS.find((i) => i.slug === item);
 
   return { data };
 };

@@ -24,13 +24,13 @@ import {
   TagIcon,
 } from "@/modules/common";
 import {
-  type CollectionItem,
+  type CollectionItemData,
   ItemSummary,
   ItemProperties,
 } from "@/modules/marketplace";
 
 interface ItemPageProps {
-  data: CollectionItem;
+  data: CollectionItemData;
 }
 
 const ItemPage: FC<ItemPageProps> = ({ data }) => {

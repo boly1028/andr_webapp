@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Box, Text, Heading } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 
 interface PageHeaderProps {
   title: string;
@@ -9,9 +9,7 @@ interface PageHeaderProps {
 const PageHeader: FC<PageHeaderProps> = ({ title, desc }) => {
   return (
     <Box>
-      <Heading fontWeight="600" fontSize="xl" my={2} letterSpacing={0.5}>
-        {title}
-      </Heading>
+      <Text textStyle="h1">{title}</Text>
       <Text fontSize="sm" color="gray.500">
         {desc}
       </Text>
