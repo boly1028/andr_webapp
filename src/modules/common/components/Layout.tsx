@@ -7,6 +7,7 @@ import {
   DrawerContent,
   useDisclosure,
   FlexProps,
+  Center,
 } from "@chakra-ui/react";
 import { useWallet, WalletStatus } from "@terra-money/wallet-provider";
 
@@ -23,7 +24,7 @@ const Layout: FC<BoxProps> = ({
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   if (isInitializing) {
-    return <Flex h="100vh" />;
+    return <Box h="100vh" />;
   }
 
   return (
@@ -45,13 +46,27 @@ const Layout: FC<BoxProps> = ({
           <Sidebar onClose={onClose} />
         </DrawerContent>
       </Drawer>
-      <Flex ml={{ base: 0, md: 60 }} justify="center">
-        <Box px={{ base: 4, md: 8 }} maxW={maxW} w="full">
-          <Box>
+      <Flex justify="center" w={"full"} minH="100vh">
+        <Flex ml={{ base: 0, md: 60 }} direction={"column"} w="full">
+          <Box
+            px={{ base: 4, md: 8 }}
+            maxW="container.lg"
+            w="full"
+            margin="0 auto"
+          >
             <Header onOpen={onOpen} />
+          </Box>
+          <Box
+            flex={1}
+            px={{ base: 4, md: 8 }}
+            maxW={maxW}
+            w="full"
+            {...props}
+            margin="0 auto"
+          >
             {children}
           </Box>
-        </Box>
+        </Flex>
       </Flex>
     </Box>
   );
