@@ -24,6 +24,7 @@ export { default as PlusIcon } from "./PlusIcon";
 export { default as ProfilIcon } from "./ProfilIcon";
 export { default as SearchIcon } from "./SearchIcon";
 export { default as ShareIcon } from "./ShareIcon";
+export { default as SlidersIcon } from "./SlidersIcon";
 export { default as SortDescIcon } from "./SortDescIcon";
 export { default as SparklesIcon } from "./SparklesIcon";
 export { default as TagIcon } from "./TagIcon";

@@ -1,5 +1,6 @@
 export { default as AuctionListItem } from "./AuctionListItem";
 export { default as CollectionListItem } from "./CollectionListItem";
+export { default as CollectionPage } from "./CollectionPage";
 export { default as ItemPage } from "./ItemPage";
 export { default as ExplorePage } from "./ExplorePage";
 export { default as ItemProperties } from "./ItemProperties";

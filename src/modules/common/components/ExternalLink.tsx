@@ -14,7 +14,7 @@ const ExternalLink: FC<Props> = ({ href, label, color = "primary.600" }) => {
     <chakra.a href={href} target="_blank" display="inline-block">
       <HStack color={color}>
         <Text fontWeight={500}>{label}</Text>
-        <ExternalLinkIcon />
+        <ExternalLinkIcon boxSize={5} />
       </HStack>
     </chakra.a>
   );

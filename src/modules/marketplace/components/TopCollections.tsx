@@ -14,7 +14,7 @@ import {
 import { BoxIcon, ClockIcon, ChevronDownIcon } from "@/modules/common";
 import { CollectionListItem, COLLECTIONS } from "@/modules/marketplace";
 
-const TopCollections: FC = () => {
+function TopCollections() {
   return (
     <Box>
       <Text textStyle="h1" mt={16} mb={7}>
@@ -57,6 +57,6 @@ const TopCollections: FC = () => {
       </SimpleGrid>
     </Box>
   );
-};
+}
 
 export default TopCollections;

@@ -6,7 +6,7 @@ import type {
 
 const baseStyleTabpanel: SystemStyleObject = {
   p: 0,
-  pt: 10,
+  pt: 8,
 };
 
 const baseStyleTab: SystemStyleObject = {
