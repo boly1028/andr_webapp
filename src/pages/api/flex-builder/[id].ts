@@ -27,6 +27,18 @@ export default async function handler(
       const schemaADO = await import(`./schema/${ado.path}.json`);
 
       schemaDefinitions[`${ado.id}`] = schemaADO["schema"];
+      schemaDefinitions[`${ado.id}`]["properties"]["$type"] = {
+        type: "string",
+        default: schemaADO["schema"]["$id"],
+      };
+      schemaDefinitions[`${ado.id}`]["properties"]["$class"] = {
+        type: "string",
+        default: schemaADO["schema"]["class"],
+      };
+      schemaDefinitions[`${ado.id}`]["properties"]["$classifier"] = {
+        type: "string",
+        default: schemaADO["schema"]["classifier"],
+      };
       schemaDefinitions[`${ado.id}`]["properties"]["$removable"] = {
         type: "boolean",
         default: !ado.required,
@@ -36,7 +48,10 @@ export default async function handler(
 
       // ui-schema
       uiSchema[`${ado.id}`] = schemaADO["ui-schema"];
+      uiSchema[`${ado.id}`]["$class"] = { "ui:widget": "hidden" };
+      uiSchema[`${ado.id}`]["$classifier"] = { "ui:widget": "hidden" };
       uiSchema[`${ado.id}`]["$removable"] = { "ui:widget": "hidden" };
+      uiSchema[`${ado.id}`]["$type"] = { "ui:widget": "hidden" };
 
       // form-data
       formData[`${ado.id}`] = schemaADO["form-data"];

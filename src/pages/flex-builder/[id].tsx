@@ -46,6 +46,10 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
       return;
     }
 
+    console.log("formData", formData);
+    return;
+
+    /** 
     setTxStep("POSTING");
     setIsOpen(true);
 
@@ -67,7 +71,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
       // @ts-expect-error - TODO
       msgs,
       fee,
-    });
+    });*/
   };
 
   return (
