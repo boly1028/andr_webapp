@@ -7,11 +7,23 @@ import {
   AccordionButton,
   AccordionPanel,
   AccordionIcon,
-  VStack,
+  Divider,
+  Image,
   Flex,
+  HStack,
+  IconButton,
 } from "@chakra-ui/react";
 
-import { ExternalLink } from "@/modules/common";
+import {
+  ListIcon,
+  TagIcon,
+  BarChartIcon,
+  GlobeIcon,
+  ExternalLinkIcon,
+  TwitterIcon,
+  DiscordIcon,
+  ExternalLink,
+} from "@/modules/common";
 
 interface NftPropertiesItemProps {
   label: string;
@@ -45,56 +57,105 @@ const ItemSummary = () => {
       <AccordionItem>
         <h2>
           <AccordionButton>
-            <Box flex="1" textAlign="left">
-              Details
-            </Box>
+            <HStack flex="1">
+              <ListIcon boxSize={6} />
+              <Text>Details</Text>
+            </HStack>
             <AccordionIcon />
           </AccordionButton>
         </h2>
         <AccordionPanel pb={4}>
-          <VStack spacing={1} align="none">
-            <ExternalLink
-              label="terra11zr62cdwl5x5ktg9l7ramjwzfrvnw0mv25t03x"
-              href="#"
-              color="gray.500"
+          <HStack mb={4}>
+            <Image
+              boxSize={10}
+              borderRadius="full"
+              src="https://lh3.googleusercontent.com/lfLT98fGLJ_vgblkfwE6sttMVSqVTdf8oWIKEbTi7Y_TejgNUKoNDps07fjRMHdyX3Fy1azhUZ5zJG_As98UGq7BwSAs8GeME1T_9w=w600"
+              alt="Collection Logo"
             />
-            <ExternalLink
-              label="terra11zr62cdwl5x5ktg9l7ramjwzfrvnw0mv25t03x"
-              href="#"
-              color="gray.500"
+            <Text color="gray.700" fontWeight={600}>
+              Generic
+            </Text>
+          </HStack>
+          <Text fontSize="sm">
+            A collection of 10,000 utility-enabled PFPs that feature a richly
+            diverse and unique pool of rarity-powered traits. What's more, each
+            Moonbird unlocks private club membership and additional benefits the
+            longer you hold them. We call it nesting – because, obviously.. Read
+            more
+          </Text>
+          <HStack mt={5}>
+            <IconButton
+              aria-label="Explore"
+              icon={<GlobeIcon color="gray.500" boxSize={5} />}
+              variant="outline"
             />
-            <ExternalLink
-              label="terra11zr62cdwl5x5ktg9l7ramjwzfrvnw0mv25t03x"
-              href="#"
-              color="gray.500"
+            <IconButton
+              aria-label="Twitter"
+              icon={<TwitterIcon color="gray.500" boxSize={5} />}
+              variant="outline"
             />
-          </VStack>
+            <IconButton
+              aria-label="Discord"
+              icon={<DiscordIcon color="gray.500" boxSize={5} />}
+              variant="outline"
+            />
+            <IconButton
+              aria-label="External"
+              icon={<ExternalLinkIcon color="gray.500" boxSize={5} />}
+              variant="outline"
+            />
+          </HStack>
+
+          <Divider my={5} color="gray.300" opacity={1} />
+
+          <Flex justify="space-between" mb={4}>
+            <Text textStyle="light">Contract Address</Text>
+            <Box>
+              <ExternalLink label="terra10x405.." href="https://google.com" />
+            </Box>
+          </Flex>
+          <Flex justify="space-between" mb={4}>
+            <Text textStyle="light">Token ID</Text>
+            <Text color="gray.700" fontWeight={500}>
+              2403
+            </Text>
+          </Flex>
+          <Flex justify="space-between">
+            <Text textStyle="light">Blockchain</Text>
+            <Text color="gray.700" fontWeight={500}>
+              Terra
+            </Text>
+          </Flex>
         </AccordionPanel>
       </AccordionItem>
 
       <AccordionItem>
         <h2>
           <AccordionButton>
-            <Box flex="1" textAlign="left">
-              Price History
-            </Box>
+            <HStack flex="1">
+              <BarChartIcon boxSize={6} />
+              <Text>Price History</Text>
+            </HStack>
             <AccordionIcon />
           </AccordionButton>
         </h2>
         <AccordionPanel pb={4}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat.
+          <Text>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat.
+          </Text>
         </AccordionPanel>
       </AccordionItem>
 
       <AccordionItem>
         <h2>
           <AccordionButton>
-            <Box flex="1" textAlign="left">
-              Offers
-            </Box>
+            <HStack flex="1">
+              <TagIcon boxSize={6} />
+              <Text>Offers</Text>
+            </HStack>
             <AccordionIcon />
           </AccordionButton>
         </h2>
