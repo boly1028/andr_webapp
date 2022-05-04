@@ -121,6 +121,56 @@ export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
   },
 
   {
+    id: "crowdfund-ado",
+    name: "Crowdfund",
+    icon: "",
+    description: "Crowdfund",
+    opts: [],
+    ados: [
+      { path: "crowdfund/0.1.0/andr_receive", id: uuidv4() },
+      { path: "crowdfund/0.1.0/mint", id: uuidv4() },
+      { path: "crowdfund/0.1.0/claim_refund", id: uuidv4() },
+      { path: "crowdfund/0.1.0/purchase", id: uuidv4() },
+      { path: "crowdfund/0.1.0/crowdfund", id: uuidv4() },
+      { path: "crowdfund/0.1.0/purchase_by_token_id", id: uuidv4() },
+      { path: "crowdfund/0.1.0/end_sale", id: uuidv4() },
+      { path: "crowdfund/0.1.0/start_sale", id: uuidv4() },
+    ],
+  },
+
+  {
+    id: "auction",
+    name: "Auction",
+    icon: "",
+    description: "Auction",
+    opts: [],
+    ados: [
+      { path: "auction/0.1.0/cancel_auction", id: uuidv4() },
+      { path: "auction/0.1.0/receive_nft", id: uuidv4() },
+      { path: "auction/0.1.0/claim", id: uuidv4() },
+      { path: "auction/0.1.0/update_auction", id: uuidv4() },
+
+      { path: "auction/0.1.0/place_bid", id: uuidv4() },
+      { path: "auction/0.1.0/update_owner", id: uuidv4() },
+    ],
+  },
+
+  {
+    id: "vault",
+    name: "Vault",
+    icon: "",
+    description: "Vault",
+    opts: [],
+    ados: [
+      { path: "vault/0.1.0/andr_receive", id: uuidv4() },
+      { path: "vault/0.1.0/update_strategy", id: uuidv4() },
+      { path: "vault/0.1.0/withdraw", id: uuidv4() },
+      { path: "vault/0.1.0/deposit", id: uuidv4() },
+      { path: "vault/0.1.0/vault", id: uuidv4() },
+    ],
+  },
+
+  {
     id: "address-list-ado",
     name: "Address List ADO",
     icon: "",
