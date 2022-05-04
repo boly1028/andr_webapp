@@ -6,7 +6,7 @@
     "title": "Splitter",
     "description": "Set a percentage of funds to be distributed to specified Wallet Addresses.",
     "type": "object",
-    "required": ["percentage"],
+    "required": ["percentage", "address"],
     "properties": {
       "percentage": {
         "type": "string",
