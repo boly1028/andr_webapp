@@ -14,6 +14,7 @@ import { v4 as uuidv4 } from "uuid";
 import {
   Box,
   Button,
+  Circle,
   Drawer,
   DrawerBody,
   DrawerFooter,
@@ -21,9 +22,20 @@ import {
   DrawerOverlay,
   DrawerContent,
   DrawerCloseButton,
+  Icon,
   useDisclosure,
 } from "@chakra-ui/react";
 import { PlusIcon } from "@/modules/common";
+import {
+  Aperture,
+  Binary,
+  Codepen,
+  Codesandbox,
+  Image as ImageIcon,
+  Link2,
+  PackageCheck,
+  Server,
+} from "lucide-react";
 
 // Import sample JSON data returns
 import loadPanelJSON from "@/modules/app-builder/functions/load-panel-data";
@@ -541,29 +553,45 @@ const AppBuilderCreatePage = () => {
           </div>
           <li style={{ "--i": 0 } as React.CSSProperties}>
             <a href="#" onClick={toggleADOSelector}>
-              B
+              <Circle size="36px" bg="blue.400" color="white">
+                <Icon as={PackageCheck} />
+              </Circle>
             </a>
           </li>
           <li style={{ "--i": 1 } as React.CSSProperties}>
             <a href="#" onClick={toggleModuleSelector}>
-              M
+              <Circle size="36px" bg="primary.500" color="white">
+                <Icon as={Server} />
+              </Circle>
             </a>
           </li>
           <li style={{ "--i": 2 } as React.CSSProperties}>
             <a href="#" onClick={togglePrimitiveSelector}>
-              P
+              <Circle size="36px" bg="pink.200" color="white">
+                <Icon as={Codepen} />
+              </Circle>
             </a>
           </li>
           <li style={{ "--i": 3 } as React.CSSProperties}>
-            <a>O</a>
+            <a>
+              <Circle size="36px" bg="pink.300" color="white">
+                <Icon as={Link2} />
+              </Circle>
+            </a>
           </li>
           <li style={{ "--i": 4 } as React.CSSProperties}>
             <a href="#" onClick={toggleModifierSelector}>
-              m
+              <Circle size="36px" bg="teal.200" color="white">
+                <Icon as={Codesandbox} />
+              </Circle>
             </a>
           </li>
           <li style={{ "--i": 5 } as React.CSSProperties}>
-            <a>A</a>
+            <a>
+              <Circle size="36px" bg="orange.300" color="white">
+                <Icon as={Binary} />
+              </Circle>
+            </a>
           </li>
         </div>
       </div>
