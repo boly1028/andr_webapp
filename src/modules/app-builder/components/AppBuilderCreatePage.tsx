@@ -351,6 +351,7 @@ const AppBuilderCreatePage = () => {
         id: newId,
         type: nodeType,
         data: {
+          id: `id`,
           title: `${title}`,
           description: `${description}`,
         },

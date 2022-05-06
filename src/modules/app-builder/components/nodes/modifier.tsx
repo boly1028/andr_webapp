@@ -1,6 +1,9 @@
 import { useCallback } from "react";
 import { Handle, Position } from "react-flow-renderer";
 
+import { Box, Circle, Text, Icon, HStack } from "@chakra-ui/react";
+import { Codesandbox } from "lucide-react";
+
 const handleStyle = {
   background: "#15B79E",
   width: 8,
@@ -24,8 +27,17 @@ function ModifierNode({ data }) {
         id="left"
       />
       <div>
-        <p className="title">{data.title}</p>
-        <p className="nodeId">{data.id}</p>
+        <HStack spacing={4} padding={2}>
+          <Circle size="26px" paddingRight={0} bg="teal.200" color="white">
+            <Icon as={Codesandbox} />
+          </Circle>
+          <Text color="grey.700" fontSize="md" fontWeight={200}>
+            {data.title}
+          </Text>
+          <Text color="gray.500" fontSize="xs" fontWeight={100}>
+            "{data.id}"
+          </Text>
+        </HStack>
       </div>
       <Handle
         type="source"

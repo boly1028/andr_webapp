@@ -1,6 +1,10 @@
 import { useCallback } from "react";
 import { Handle, Position } from "react-flow-renderer";
 
+// Import Visual Elements
+import { Box, Button, Circle, Text, Icon, HStack } from "@chakra-ui/react";
+import { PackageCheck } from "lucide-react";
+
 const handleStyle = {
   background: "#004AFF",
   width: 8,
@@ -24,9 +28,28 @@ function BaseADONode({ data }) {
         id="left"
       />
       <div>
-        <p className="title">{data.title}</p>
-        <p className="nodeId">{data.id}</p>
-        <button>Add Module</button>
+        <div>
+          <HStack spacing={4} padding={2}>
+            <Circle size="26px" paddingRight={0} bg="blue.400" color="white">
+              <Icon as={PackageCheck} />
+            </Circle>
+            <Text color="grey.700" fontSize="md" fontWeight={200}>
+              {data.title}
+            </Text>
+            <Text color="gray.500" fontSize="xs" fontWeight={100}>
+              "{data.id}"
+            </Text>
+          </HStack>
+        </div>
+        <Button
+          bg="white"
+          color="primary.600"
+          fontSize="xs"
+          fontWeight={100}
+          size="xs"
+        >
+          Add Module
+        </Button>
       </div>
       <Handle
         type="source"
