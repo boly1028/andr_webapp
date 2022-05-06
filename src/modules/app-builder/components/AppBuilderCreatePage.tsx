@@ -101,6 +101,7 @@ const AppBuilderCreatePage = () => {
 
   const nodeDimensions = {
     width: 300,
+    startY: 150,
   };
   const nodeStartX = 1;
   const nodeStartY = 10;
@@ -108,7 +109,7 @@ const AppBuilderCreatePage = () => {
   //Background Configurations
   const bgConfig = {
     backgroundVariant: "dots",
-    gap: 10,
+    gap: 20,
     size: 0.75,
     color: "#0000ff",
   };
@@ -229,9 +230,9 @@ const AppBuilderCreatePage = () => {
       const processData = arrData[key]["items"];
       let spaceY = 0;
       processData.map((currData) => {
-        alert(
-          "Object" + JSON.stringify(currData) + "| Type: " + currData["type"],
-        );
+        // alert(
+        //   "Object" + JSON.stringify(currData) + "| Type: " + currData["type"],
+        // );
         // if (currData["type"] === "object") {
         //   //Revcursively Call Self for Additional Processing
         //   const tmpObj = {};
@@ -240,10 +241,10 @@ const AppBuilderCreatePage = () => {
         // }
 
         if (currData[key] === "array") {
-          alert("Type Array");
+          // alert("Type Array");
         }
         if (currData["type"] === "string") {
-          alert("Type String");
+          // alert("Type String");
           // console.log("Load Child " + currData["type"] + currData["title"]);
           // //Load Child Nodes to Environment
           // spaceY += 40;
@@ -268,7 +269,7 @@ const AppBuilderCreatePage = () => {
 
       //swap sources when a properties option is not declared correctly
       if (!objData[key]["properties"]) {
-        alert("Not a properties line!");
+        // alert("Not a properties line!");
       } else {
       }
 
@@ -316,11 +317,11 @@ const AppBuilderCreatePage = () => {
         //console.log(key + ":" + currData[key]);
 
         if (currData[key] === "array") {
-          alert("Type Array");
+          // alert("Type Array");
         }
 
         if (currData[key] === "object") {
-          alert("Type Object");
+          // alert("Type Object");
           //const parentName = prompt("New ID?");
           const parentName = getPanelId();
           //Call addParent()
@@ -343,42 +344,6 @@ const AppBuilderCreatePage = () => {
     });
   };
 
-  const loadSample = (jsonData) => {
-    console.clear();
-    console.log(jsonData);
-    const processData = _.toArray(jsonData); //convert object to array for easier map usage
-    processData.map((currData) => {
-      for (const key in currData) {
-        //console.log(key + ":" + currData[key]);
-
-        if (currData[key] === "object") {
-          const parentName = prompt("New ID?");
-          //Call addParent()
-          addParent(
-            currData["class"],
-            parentName,
-            currData["title"],
-            currData["description"],
-          );
-          //Loop through children
-          //console.log(currData["properties"]);
-          let spaceY = 0;
-          for (const childKey in currData["properties"]) {
-            console.log(currData["properties"][childKey]["title"]);
-            spaceY += 40;
-            AddChild(
-              currData["properties"][childKey]["type"],
-              uuidv4(),
-              parentName,
-              spaceY,
-              currData["properties"][childKey]["title"],
-            );
-          }
-        }
-      }
-    });
-  };
-
   // Add a node (called on click)
   const addParent = useCallback(
     (nodeType, newId, title, description) => {
@@ -390,8 +355,8 @@ const AppBuilderCreatePage = () => {
           description: `${description}`,
         },
         position: {
-          x: self.innerWidth - nodeStartX,
-          y: self.innerHeight - nodeStartY,
+          x: window.innerWidth / 2 - nodeDimensions.width,
+          y: window.innerHeight / 2 - nodeDimensions.startY,
         },
         style: {
           width: nodeDimensions.width,
@@ -560,7 +525,11 @@ const AppBuilderCreatePage = () => {
           </li>
           <li style={{ "--i": 1 } as React.CSSProperties}>
             <a href="#" onClick={toggleModuleSelector}>
-              <Circle size="36px" bg="primary.500" color="white">
+              <Circle
+                size="36px"
+                bgGradient="radial(primary.500, primary.400)"
+                color="white"
+              >
                 <Icon as={Server} />
               </Circle>
             </a>
@@ -596,16 +565,12 @@ const AppBuilderCreatePage = () => {
         </div>
       </div>
 
+      {/* Placeholder Panel Selection System Menus */}
       <div className="ado-selection-panel">
         <h2>ADO Selection Modal</h2>
         <li>
           <a href="#" onClick={() => selectADO("ado-base/nft-collectible")}>
             NFT Collectible
-          </a>
-        </li>
-        <li>
-          <a href="#" onClick={() => selectADO("cw721/0.1.0/cw721")}>
-            CW721
           </a>
         </li>
         <li>
@@ -621,7 +586,124 @@ const AppBuilderCreatePage = () => {
           <a onClick={() => selectADO("ado-base/address-list")}>Address List</a>
         </li>
         <li>
-          <a onClick={() => selectADO("transfer")}>Transfer</a>
+          <a onClick={() => selectADO("crowdfund/0.1.0/crowdfund")}>
+            Crowdfund
+          </a>
+        </li>
+      </div>
+
+      <div className="module-selection-panel">
+        <h2>Module Selection Modal</h2>
+        <li>
+          <a href="#" onClick={() => selectModule("ado-module/whitelist")}>
+            Whitelist
+          </a>
+        </li>
+        <li>
+          <a onClick={() => selectModule("ado-module/blacklist")}>Blacklist</a>
+        </li>
+        <li>
+          <a onClick={() => selectModule("ado-module/royalties")}>Royalties</a>
+        </li>
+        <li>
+          <a onClick={() => selectModule("ado-module/taxes")}>Taxes</a>
+        </li>
+
+        <li>
+          <a onClick={() => selectModule("cw721-offers/0.1.0/cw721-offers")}>
+            Offers
+          </a>
+        </li>
+
+        <li>
+          <a onClick={() => selectModule("receipt/0.1.0/receipt")}>Receipts</a>
+        </li>
+      </div>
+
+      <div className="modifier-selection-panel">
+        <h2>Modifier Selection Modal</h2>
+        <li>
+          <a href="#" onClick={() => selectModifier("cw20/0.1.0/send")}>
+            Send
+          </a>
+        </li>
+        <li>
+          <a onClick={() => selectModifier("cw20/0.1.0/transfer")}>Transfer</a>
+        </li>
+        <li>
+          <a onClick={() => selectModifier("cw20/0.1.0/transfer-from")}>
+            Transfer From
+          </a>
+        </li>
+
+        <li>
+          <a href="#" onClick={() => selectModifier("cw20/0.1.0/burn")}>
+            Burn
+          </a>
+        </li>
+
+        <li>
+          <a href="#" onClick={() => selectModifier("cw20/0.1.0/burn-from")}>
+            Burn-From
+          </a>
+        </li>
+
+        <li>
+          <a
+            href="#"
+            onClick={() => selectModifier("cw20/0.1.0/increase-allowance")}
+          >
+            Increase Allowance
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
+            onClick={() => selectModifier("cw20/0.1.0/decrease-allowance")}
+          >
+            Decrease Allowance
+          </a>
+        </li>
+      </div>
+
+      <div className="primitive-selection-panel">
+        <h2>Primitive Selection Modal</h2>
+        <li>
+          <a
+            href="#"
+            onClick={() => selectPrimitive("primitives/0.1.0/string")}
+          >
+            String
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
+            onClick={() => selectPrimitive("primitives/0.1.0/decimal")}
+          >
+            Decimal
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
+            onClick={() => selectPrimitive("primitives/0.1.0/uint128")}
+          >
+            uInt128
+          </a>
+        </li>
+        <li>
+          <a href="#" onClick={() => selectPrimitive("primitives/0.1.0/coin")}>
+            Coin
+          </a>
+        </li>
+        <li>
+          <a
+            href="#"
+            onClick={() => selectPrimitive("primitives/0.1.0/string")}
+          >
+            Binary Blob
+          </a>
         </li>
       </div>
 

@@ -26,7 +26,6 @@ function ModifierNode({ data }) {
       <div>
         <p className="title">{data.title}</p>
         <p className="nodeId">{data.id}</p>
-        <button>edit</button>
       </div>
       <Handle
         type="source"

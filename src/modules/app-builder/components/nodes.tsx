@@ -1,7 +1,6 @@
-//const initialNodes = [];
+const initialNodes = [];
 
-//const samplelNodes = [
-const initialNodes = [
+const samplelNodes = [
   {
     id: "ADO-1",
     type: "module",
