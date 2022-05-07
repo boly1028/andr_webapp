@@ -45,6 +45,7 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateProps) => {
     schema,
     formData,
     onAddClick,
+    formContext,
   } = props;
 
   const hasWrapper = formData["$removable"] !== undefined;
@@ -84,19 +85,38 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateProps) => {
                 </Box>
                 {formData["$removable"] && (
                   <HStack spacing={4}>
-                    <Switch id={idSchema.$id} />
+                    <Switch
+                      id={idSchema.$id}
+                      isChecked={!!formData["$enabled"]}
+                      onChange={() => {
+                        formContext.toggleModule(
+                          idSchema.$id,
+                          !formData["$enabled"],
+                        );
+                      }}
+                    />
                     <IconButton
                       size={"sm"}
                       variant="outline"
                       aria-label="open menu"
+                      onClick={() => {
+                        formContext.deleteModule(idSchema.$id);
+                      }}
                       icon={<DeleteIcon width={16} height={16} />}
                     />
                   </HStack>
                 )}
               </AccordionButton>
             </h2>
-            <AccordionPanel p={8}>
-              <Grid gap={8}>
+            <AccordionPanel
+              p={8}
+              cursor={formData["$enabled"] ? "default" : "not-allowed"}
+            >
+              <Grid
+                gap={8}
+                opacity={formData["$enabled"] ? 1 : 0.3}
+                pointerEvents={formData["$enabled"] ? "auto" : "none"}
+              >
                 {properties.map((element, index) =>
                   element.hidden ? (
                     element.content

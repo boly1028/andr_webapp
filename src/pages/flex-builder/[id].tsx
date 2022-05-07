@@ -93,12 +93,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
         <Text color={"gray.500"} fontSize="sm" my={4}>
           {template.description}
         </Text>
-        <FlexBuilderForm
-          schema={template.schema as JSONSchema7}
-          uiSchema={template.uiSchema}
-          formData={template.formData}
-          onSubmit={handleSubmit}
-        />
+        <FlexBuilderForm template={template} onSubmit={handleSubmit} />
       </Box>
       <TransactionModal
         isOpen={isOpen}

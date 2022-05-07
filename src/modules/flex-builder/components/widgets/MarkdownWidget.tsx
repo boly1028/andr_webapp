@@ -33,6 +33,7 @@ export const MarkdownWidget = (props: WidgetProps) => {
     autofocus,
     placeholder,
     disabled,
+    formContext,
   } = props;
   // const chakraProps = getChakra({ uiSchema });
 

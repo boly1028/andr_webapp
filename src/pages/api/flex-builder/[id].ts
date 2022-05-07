@@ -43,6 +43,10 @@ export default async function handler(
         type: "boolean",
         default: !ado.required,
       };
+      schemaDefinitions[`${ado.id}`]["properties"]["$enabled"] = {
+        type: "boolean",
+        default: !!ado.required,
+      };
 
       schemaProperties[`${ado.id}`] = { $ref: `#/definitions/${ado.id}` };
 
@@ -51,6 +55,7 @@ export default async function handler(
       uiSchema[`${ado.id}`]["$class"] = { "ui:widget": "hidden" };
       uiSchema[`${ado.id}`]["$classifier"] = { "ui:widget": "hidden" };
       uiSchema[`${ado.id}`]["$removable"] = { "ui:widget": "hidden" };
+      uiSchema[`${ado.id}`]["$enabled"] = { "ui:widget": "hidden" };
       uiSchema[`${ado.id}`]["$type"] = { "ui:widget": "hidden" };
 
       // form-data
