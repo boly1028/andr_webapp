@@ -23,7 +23,7 @@ import {
 import { WalletModal } from "@/modules/modals";
 import {
   truncate,
-  ProfilIcon,
+  ProfileIcon,
   ChevronDownIcon,
   CopyIcon,
   ExternalLinkIcon,
@@ -76,7 +76,7 @@ const TerraWalletConnected = () => {
               borderColor={isOpen ? "primary.600" : "gray.300"}
             >
               <HStack mr={8}>
-                <ProfilIcon boxSize={8} />
+                <ProfileIcon boxSize={8} />
                 <Text>{address}</Text>
               </HStack>
               <ChevronDownIcon boxSize={4} />

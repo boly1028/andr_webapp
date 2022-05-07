@@ -1,16 +1,21 @@
 import React, { FC, useState, useRef, useCallback } from "react";
-import { Button, HStack, Flex } from "@chakra-ui/react";
+import { Button, HStack, Flex, IconButton } from "@chakra-ui/react";
 import { JSONSchema7 } from "json-schema";
-
 import Form from "@rjsf/chakra-ui";
+
+import { GasIcon } from "@/modules/common";
+import {
+  AddModuleModal,
+  DownloadButton,
+  StagingDocumentsModal,
+  type FlexBuilderTemplateProps,
+} from "@/modules/flex-builder";
 
 import widgets from "./widgets";
 import FieldTemplate from "./FieldTemplate";
 import TitleField from "./TitleField";
 import ObjectFieldTemplate from "./ObjectFieldTemplate";
 import ArrayFieldTemplate from "./ArrayFieldTemplate";
-
-import { FlexBuilderTemplateProps } from "../types";
 
 type FlexBuilderFormProps = {
   template: FlexBuilderTemplateProps;
@@ -30,8 +35,6 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
   const [uiSchema, setUiSchema] = useState(template.uiSchema);
   const [formData, setFormData] = useState(template.formData);
   const [dirty, setDirty] = useState(false);
-
-  const [downloadText, setDownloadText] = useState(""); //Text link for exported file downloading
 
   const formDataRef = useRef(template.formData);
 
@@ -93,28 +96,6 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
     [schema, uiSchema, formData],
   );
 
-  const saveFlexTemplate = () => {
-    //Concatenate schema, ui-schema, and form data into flexExport to be provided as a blob for download
-    const flexExport: Record<string, any> = {};
-    flexExport["schema"] = schema;
-    flexExport["ui-schema"] = uiSchema;
-    flexExport["formData"] = formData;
-    console.log(flexExport);
-
-    //Load data to be exported by the browser
-    const flexBlob = new Blob([JSON.stringify(flexExport)], {
-      type: "text/plain",
-    });
-    const url = window.URL.createObjectURL(flexBlob);
-    //document.location.assign(url);
-    //document.getElementById("flexDownload")!.href as HTMLAnchorElement} =
-    const HTMLObj: HTMLAnchorElement = document.getElementById(
-      "flexDownload",
-    )! as HTMLAnchorElement;
-    HTMLObj.href = url;
-    setDownloadText("Download .Flex File");
-  };
-
   return (
     <Form
       schema={schema as JSONSchema7}
@@ -138,28 +119,24 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
       ObjectFieldTemplate={ObjectFieldTemplate}
       widgets={{ ...widgets }}
     >
-      <Flex my={16} justify="right">
+      <AddModuleModal />
+      <Flex mt={8} justify="right">
         <HStack spacing={4}>
-          <a id="flexDownload" download="template.flex" href="" target="_blank">
-            {downloadText}
-          </a>
-          <Button
+          <IconButton
+            aria-label="Estimate gas cost"
             variant="outline"
-            onClick={() => {
-              saveFlexTemplate();
-            }}
-          >
-            Save as .Flex
-          </Button>
-          <Button
-            variant="outline"
+            icon={<GasIcon boxSize={5} color="gray.500" />}
             onClick={() => {
               console.log("estimate Fees");
             }}
-          >
-            Estimate Fees
-          </Button>
-          <Button type="submit" colorScheme="purple" isLoading={isLoading}>
+          />
+
+          <DownloadButton
+            schema={schema as JSONSchema7}
+            uiSchema={uiSchema}
+            formData={formData}
+          />
+          <Button type="submit" colorScheme="primary" isLoading={isLoading}>
             Publish
           </Button>
         </HStack>

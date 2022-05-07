@@ -1,25 +1,16 @@
 import { useState } from "react";
 import absoluteUrl from "next-absolute-url";
 import { NextPage } from "next";
-import { JSONSchema7 } from "json-schema";
-import {
-  Box,
-  Circle,
-  Text,
-  Icon,
-  useColorModeValue,
-  Heading,
-  HStack,
-} from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import { useLCDClient } from "@terra-money/wallet-provider";
-import { estimateFee, useTx, useAddress } from "@arthuryeti/terra";
-import { Image as ImageIcon } from "lucide-react";
+import { useTx, useAddress, estimateFee } from "@arthuryeti/terra";
 
-import { Layout, TxStep } from "@/modules/common";
+import { Layout, PageHeader, TxStep, FileCheckIcon } from "@/modules/common";
 import {
   createBuilderMsgs,
   FlexBuilderForm,
   FlexBuilderTemplateProps,
+  StagingDocumentsModal,
 } from "@/modules/flex-builder";
 import { TransactionModal } from "@/modules/modals";
 
@@ -46,10 +37,6 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
       return;
     }
 
-    console.log("formData", formData);
-    return;
-
-    /** 
     setTxStep("POSTING");
     setIsOpen(true);
 
@@ -71,30 +58,49 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
       // @ts-expect-error - TODO
       msgs,
       fee,
-    });*/
+    });
   };
 
   return (
     <Layout>
-      <Box>
-        <HStack spacing={4}>
-          <Circle size="36px" bg="purple.600" color="white">
-            <Icon as={ImageIcon} color="white" />
-          </Circle>
-          <Heading
-            color={useColorModeValue("gray.700", "white")}
-            fontSize={"xl"}
-            fontFamily={"body"}
-            fontWeight={600}
-          >
-            {template.name}
-          </Heading>
-        </HStack>
-        <Text color={"gray.500"} fontSize="sm" my={4}>
-          {template.description}
-        </Text>
+      <PageHeader title={template.name} desc={template.description} />
+
+      <Box mt={10}>
+        <Flex
+          align="center"
+          border="1px solid"
+          borderColor="primary.300"
+          borderRadius="lg"
+          bg="primary.25"
+          mb={4}
+          p={3}
+        >
+          <Box mr={4}>
+            <Flex
+              justify="center"
+              align="center"
+              bg="primary.100"
+              color="primary.700"
+              borderRadius="full"
+              p={3}
+            >
+              <FileCheckIcon boxSize={6} />
+            </Flex>
+          </Box>
+          <Box flex={1}>
+            <Text color="primary.700" fontWeight={500}>
+              Staging Available
+            </Text>
+            <Text color="primary.600" fontSize="sm">
+              Need to perform this operation multiple times? Staging documents
+              are available.
+            </Text>
+          </Box>
+          <StagingDocumentsModal />
+        </Flex>
         <FlexBuilderForm template={template} onSubmit={handleSubmit} />
       </Box>
+
       <TransactionModal
         isOpen={isOpen}
         txStep={txStep}
