@@ -5,12 +5,37 @@ import Button from "./button";
 import Heading from "./heading";
 import Input from "./input";
 import Menu from "./menu";
+import Modal from "./modal";
 import Popover from "./popover";
 import Spinner from "./spinner";
 import Tabs from "./tabs";
 import Tooltip from "./tooltip";
 
+import shadows from "./shadows";
+
 export default extendTheme({
+  styles: {
+    global: {
+      "*": {
+        scrollbarWidth: "6px",
+        scrollbarColor: "#7F56D9 transparent",
+      },
+
+      "*::-webkit-scrollbar": {
+        width: "6px",
+      },
+
+      "*::-webkit-scrollbar-track": {
+        bg: "transparent",
+      },
+
+      "*::-webkit-scrollbar-thumb": {
+        bg: "#7F56D9",
+        borderRadius: "1.5rem",
+      },
+    },
+  },
+  shadows,
   fonts: {
     heading:
       "Inter,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji",
@@ -23,6 +48,7 @@ export default extendTheme({
     Heading,
     Input,
     Menu,
+    Modal,
     Popover,
     Spinner,
     Tabs,
@@ -93,6 +119,45 @@ export default extendTheme({
       700: "#027A48",
       800: "#05603A",
       900: "#054F31",
+    },
+    classifier: {
+      25: "#F6FEFC",
+      50: "#F0FDF9",
+      100: "#CCFBEF",
+      200: "#99F6E0",
+      300: "#5FE9D0",
+      400: "#2ED3B7",
+      500: "#15B79E",
+      600: "#0E9384",
+      700: "#107569",
+      800: "#125D56",
+      900: "#134E48",
+    },
+    ado: {
+      25: "#F5FBFF",
+      50: "#F0F9FF",
+      100: "#E0F2FE",
+      200: "#B9E6FE",
+      300: "#7CD4FD",
+      400: "#36BFFA",
+      500: "#0BA5EC",
+      600: "#0086C9",
+      700: "#026AA2",
+      800: "#065986",
+      900: "#0B4A6F",
+    },
+    module: {
+      25: "#F5F8FF",
+      50: "#EFF4FF",
+      100: "#D1E0FF",
+      200: "#B2CCFF",
+      300: "#84ADFF",
+      400: "#528BFF",
+      500: "#2970FF",
+      600: "#155EEF",
+      700: "#004EEB",
+      800: "#0040C1",
+      900: "#00359E",
     },
   },
   textStyles: {
