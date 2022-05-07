@@ -11,7 +11,6 @@ import ObjectFieldTemplate from "./ObjectFieldTemplate";
 import ArrayFieldTemplate from "./ArrayFieldTemplate";
 
 import { FlexBuilderTemplateProps } from "../types";
-import useWarnIfUnsavedChanges from "../hooks/useWarnIfUnsavedChanges";
 
 type FlexBuilderFormProps = {
   template: FlexBuilderTemplateProps;
@@ -36,10 +35,12 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
 
   const formDataRef = useRef(template.formData);
 
+  /**
   useWarnIfUnsavedChanges(
     dirty,
     "Any configurations you have made will be lost.\nAre you sure that you want to leave?",
   );
+  **/
 
   const updateForm = (form: any) => {
     setSchema(form.schema);
@@ -71,9 +72,6 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
 
   const toggleModule = useCallback((uuid: string, enabled: boolean) => {
     const id = uuid.split("_").pop();
-    //const cloneFormData = { ...formData };
-    //formDataRef.current[`${id}`]["$enabled"] = enabled;
-    //setFormData(cloneFormData);
     if (formDataRef.current) {
       const cloneFormData = { ...formDataRef.current };
       cloneFormData[`${id}`]["$enabled"] = enabled;
