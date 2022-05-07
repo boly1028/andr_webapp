@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from "react";
+import React, { FC, useState, useRef, useCallback } from "react";
 import { Button, HStack, Flex } from "@chakra-ui/react";
 import { JSONSchema7 } from "json-schema";
 
@@ -10,10 +10,11 @@ import TitleField from "./TitleField";
 import ObjectFieldTemplate from "./ObjectFieldTemplate";
 import ArrayFieldTemplate from "./ArrayFieldTemplate";
 
+import { FlexBuilderTemplateProps } from "../types";
+import useWarnIfUnsavedChanges from "../hooks/useWarnIfUnsavedChanges";
+
 type FlexBuilderFormProps = {
-  schema: JSONSchema7;
-  uiSchema: any;
-  formData?: any;
+  template: FlexBuilderTemplateProps;
   isLoading?: boolean;
   onChange?: (data: any) => void;
   onSubmit?: (data: any) => void;
@@ -21,15 +22,78 @@ type FlexBuilderFormProps = {
 };
 
 const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
-  schema,
-  uiSchema,
-  formData,
-  onChange,
+  template,
   onSubmit,
   onError,
   isLoading,
 }) => {
+  const [schema, setSchema] = useState(template.schema);
+  const [uiSchema, setUiSchema] = useState(template.uiSchema);
+  const [formData, setFormData] = useState(template.formData);
+  const [dirty, setDirty] = useState(false);
+
   const [downloadText, setDownloadText] = useState(""); //Text link for exported file downloading
+
+  const formDataRef = useRef(template.formData);
+
+  useWarnIfUnsavedChanges(
+    dirty,
+    "Any configurations you have made will be lost.\nAre you sure that you want to leave?",
+  );
+
+  const updateForm = (form: any) => {
+    setSchema(form.schema);
+    setUiSchema(form.uiSchema);
+    setFormData(form.formData);
+  };
+
+  const deleteSchemaModule = (uuid: string, defaults?: any): any => {
+    const schemaDefinitions = defaults?.schemaDefinitions || {};
+    const schemaProperties = defaults?.schemaProperties || {};
+
+    const uiSchema = defaults?.uiSchema || {};
+    const formData = defaults?.formData || {};
+
+    const id = uuid.split("_").pop();
+    delete schemaDefinitions[`${id}`];
+    delete schemaProperties[`${id}`];
+    delete uiSchema[`${id}`];
+    delete formData[`${id}`];
+
+    const schema = {
+      definitions: schemaDefinitions,
+      type: "object",
+      properties: schemaProperties,
+    };
+
+    return { schema, uiSchema, formData };
+  };
+
+  const toggleModule = useCallback((uuid: string, enabled: boolean) => {
+    const id = uuid.split("_").pop();
+    //const cloneFormData = { ...formData };
+    //formDataRef.current[`${id}`]["$enabled"] = enabled;
+    //setFormData(cloneFormData);
+    if (formDataRef.current) {
+      const cloneFormData = { ...formDataRef.current };
+      cloneFormData[`${id}`]["$enabled"] = enabled;
+      setFormData(cloneFormData);
+    }
+  }, []);
+
+  const deleteModule = useCallback(
+    (uuid: string) => {
+      const form = deleteSchemaModule(uuid, {
+        schemaDefinitions: schema?.definitions,
+        schemaProperties: schema?.properties,
+        uiSchema: uiSchema,
+        formData: formData,
+      });
+
+      updateForm(form);
+    },
+    [schema, uiSchema, formData],
+  );
 
   const saveFlexTemplate = () => {
     //Concatenate schema, ui-schema, and form data into flexExport to be provided as a blob for download
@@ -55,10 +119,19 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
 
   return (
     <Form
-      schema={schema}
+      schema={schema as JSONSchema7}
       uiSchema={uiSchema}
       formData={formData}
-      onChange={onChange}
+      formContext={{
+        toggleModule: toggleModule,
+        deleteModule: deleteModule,
+      }}
+      onChange={({ formData }) => {
+        if (!dirty && formDataRef.current) {
+          setDirty(true);
+        }
+        formDataRef.current = formData;
+      }}
       onSubmit={onSubmit}
       onError={onError}
       fields={{ TitleField }}
