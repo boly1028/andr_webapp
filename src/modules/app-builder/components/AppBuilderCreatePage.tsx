@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import NextLink from "next/link";
 import ReactFlow, {
   addEdge,
   applyEdgeChanges,
@@ -22,13 +23,22 @@ import {
   DrawerOverlay,
   DrawerContent,
   DrawerCloseButton,
+  Flex,
+  HStack,
   Icon,
+  List,
+  ListItem,
+  ListIcon,
+  Spacer,
+  Text,
+  useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
 import { PlusIcon } from "@/modules/common";
 import {
   Aperture,
   Binary,
+  Check as CheckIcon,
   Codepen,
   Codesandbox,
   Image as ImageIcon,
@@ -61,6 +71,11 @@ const nodeTypes = {
 
 const AppBuilderCreatePage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const template = { disabled: true };
+  const wrapperBg = useColorModeValue("white", "gray.800");
+  const containerBg = useColorModeValue("white", "gray.900");
+  const titleColor = useColorModeValue("gray.700", "white");
 
   // Load Starter Samples
   const [nodes, setNodes] = useState(initialNodes);
@@ -715,14 +730,111 @@ const AppBuilderCreatePage = () => {
           size="lg"
           onClick={onOpen}
         >
-          Add ADO
+          Starters
         </Button>
         <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
           <DrawerOverlay />
           <DrawerContent>
             <DrawerCloseButton />
-            <DrawerHeader>Add ADO</DrawerHeader>
-            <DrawerBody>ADOs List</DrawerBody>
+            <DrawerHeader>App Starters</DrawerHeader>
+            <DrawerBody>
+              <Flex direction="column" width="100%" p={4}>
+                <Box>
+                  <HStack spacing={4}>
+                    <Circle size="36px" bg="primary.600" color="white">
+                      <Icon as={ImageIcon} />
+                    </Circle>
+
+                    <Text color={titleColor} fontSize="lg" fontWeight={600}>
+                      Name
+                    </Text>
+                  </HStack>
+
+                  <Text color="gray.500" fontSize="sm" my={4}>
+                    Description
+                  </Text>
+
+                  <List spacing={2}>
+                    <ListItem>
+                      <Text color={"gray.500"} fontSize="sm">
+                        <ListIcon
+                          as={CheckIcon}
+                          color="purple.400"
+                          boxSize={5}
+                        />
+                        Option
+                      </Text>
+                    </ListItem>
+                  </List>
+                </Box>
+                <Spacer />
+                <NextLink href="#" passHref>
+                  <Button
+                    as="a"
+                    mt={10}
+                    isFullWidth
+                    size="lg"
+                    colorScheme="purple"
+                    rightIcon={
+                      !template.disabled ? (
+                        <ChevronRightIcon boxSize={5} />
+                      ) : undefined
+                    }
+                    isDisabled={template.disabled}
+                  >
+                    {template.disabled ? "Coming Soon" : "Get Started"}
+                  </Button>
+                </NextLink>
+              </Flex>
+              <Flex direction="column" width="100%" p={4}>
+                <Box>
+                  <HStack spacing={4}>
+                    <Circle size="36px" bg="primary.600" color="white">
+                      <Icon as={ImageIcon} />
+                    </Circle>
+
+                    <Text color={titleColor} fontSize="lg" fontWeight={600}>
+                      Name
+                    </Text>
+                  </HStack>
+
+                  <Text color="gray.500" fontSize="sm" my={4}>
+                    Description
+                  </Text>
+
+                  <List spacing={2}>
+                    <ListItem>
+                      <Text color={"gray.500"} fontSize="sm">
+                        <ListIcon
+                          as={CheckIcon}
+                          color="purple.400"
+                          boxSize={5}
+                        />
+                        Option
+                      </Text>
+                    </ListItem>
+                  </List>
+                </Box>
+                <Spacer />
+                <NextLink href="#" passHref>
+                  <Button
+                    as="a"
+                    mt={10}
+                    isFullWidth
+                    size="lg"
+                    colorScheme="purple"
+                    rightIcon={
+                      !template.disabled ? (
+                        <ChevronRightIcon boxSize={5} />
+                      ) : undefined
+                    }
+                    isDisabled={template.disabled}
+                  >
+                    {template.disabled ? "Coming Soon" : "Get Started"}
+                  </Button>
+                </NextLink>
+              </Flex>
+            </DrawerBody>
             <DrawerFooter></DrawerFooter>
           </DrawerContent>
         </Drawer>
