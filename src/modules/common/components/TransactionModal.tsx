@@ -6,6 +6,7 @@ import {
   Button,
   Link,
   Text,
+  Circle,
   ModalContent,
   ModalBody,
   ModalCloseButton,
@@ -15,11 +16,12 @@ import {
   Spinner,
 } from "@chakra-ui/react";
 
-import { CheckIcon, truncate, type TxStep, PostTx } from "@/modules/common";
+import { CheckIcon, truncate, PostTx, AlertCircleIcon } from "@/modules/common";
 
 const TITLES: Record<string, string> = {
   idle: "Waiting for confirmation",
   posting: "Waiting for confirmation",
+  postError: "There was a problem with that action",
   broadcasting: "Brodcasting",
   broadcastSuccess: "Your transaction has been approved",
   broadcastError: "There was a problem with that action",
@@ -28,6 +30,8 @@ const TITLES: Record<string, string> = {
 const SUB_TITLES: Record<string, string> = {
   idle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In velit nullam condimentum massa dictumst.",
   posting:
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In velit nullam condimentum massa dictumst.",
+  postError:
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In velit nullam condimentum massa dictumst.",
   broadcasting:
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In velit nullam condimentum massa dictumst.",
@@ -43,7 +47,7 @@ interface TransactionModalHeaderProps {
 
 const TransactionModalHeader: FC<TransactionModalHeaderProps> = ({ state }) => {
   const isSuccess = state.step === "broadcastSuccess";
-  const isError = state.step === "broadcastError";
+  const isError = ["postError", "broadcastError"].includes(state.step);
   const showSpinner = !isSuccess && !isError;
 
   return (
@@ -59,13 +63,18 @@ const TransactionModalHeader: FC<TransactionModalHeaderProps> = ({ state }) => {
           />
         )}
         {isSuccess && <CheckIcon boxSize={32} color="primary.600" />}
+        {isError && (
+          <Circle bg="error.100" p={6} mb={8}>
+            <AlertCircleIcon boxSize={10} color="error.600" />
+          </Circle>
+        )}
       </Center>
 
       <VStack mb={12}>
-        <Text fontWeight={600} color="gray.700">
+        <Text fontWeight={600} color={isError ? "error.700" : "gray.700"}>
           {TITLES[state.step]}
         </Text>
-        <Text color="gray.500" textAlign="center">
+        <Text color={isError ? "error.500" : "gray.500"} textAlign="center">
           {SUB_TITLES[state.step]}
         </Text>
       </VStack>
@@ -99,6 +108,12 @@ interface TransactionModalStepsProps {
 }
 
 const TransactionModalSteps: FC<TransactionModalStepsProps> = ({ state }) => {
+  const isError = ["postError", "broadcastError"].includes(state.step);
+
+  if (isError) {
+    return null;
+  }
+
   return (
     <HStack spacing={2}>
       <TransactionModalStepsItem
