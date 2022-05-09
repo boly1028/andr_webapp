@@ -1,13 +1,16 @@
+import { useLCDClient } from "@terra-money/wallet-provider";
+import { useTx, useAddress, estimateFee } from "@arthuryeti/terra";
 import { MsgInstantiateContract } from "@terra-money/terra.js";
 
-export const constructMsg = (data: any) => {
+import { useAndromedaContext } from "@/modules/common";
+
+const constructMsg = (data: any) => {
   let msg = "";
   let objData = {};
 
   for (const key in data) {
     switch (key) {
       case "splitter":
-        console.log(data[key]);
         msg = `{
           "recipients": [
             {
@@ -47,46 +50,38 @@ export const constructMsg = (data: any) => {
         return objData;
       case "timelock":
         return msg;
-        break;
     }
   }
 };
 
-type CreateBuilderMsgsOpts = {
-  data: any;
-};
+export default function usePublishContract() {
+  const { postTx } = useAndromedaContext();
+  const client = useLCDClient();
+  const address = useAddress();
 
-export const createBuilderMsgs = (
-  options: CreateBuilderMsgsOpts,
-  sender: string,
-) => {
-  const { data } = options;
+  const publishContract = async (formData: any) => {
+    if (
+      !postTx.canPost ||
+      client == null ||
+      formData == null ||
+      address == null
+    ) {
+      return;
+    }
 
-  // @ts-expect-error - TODO
-  const msg = new MsgInstantiateContract(sender, "", 66251, constructMsg(data));
+    const msgs = [
+      // @ts-expect-error - TODO
+      new MsgInstantiateContract(address, "", 66251, constructMsg(formData)),
+    ];
 
-  return [msg];
-};
+    if (msgs == null) {
+      return;
+    }
 
-// export const createBuilderMsgs = (
-//   options: CreateBuilderMsgsOpts,
-//   sender: string,
-// ) => {
-//   const { data } = options;
+    await postTx.post({ msgs });
+  };
 
-//   const msg = new MsgInstantiateContract(sender, "", 66251, {
-//     name: "splitter-mission",
-//     mission: [
-//       {
-//         name: "splitter",
-//         ado_type: "splitter",
-//         instantiate_msg:
-//           "eyJyZWNpcGllbnRzIjpbeyJyZWNpcGllbnQiOnsiYWRkciI6InRlcnJhZmQ4OThkZjdmZDk4ZmRzOWZkczk4ZGYifSwicGVyY2VudCI6IjAuMiJ9XX0=",
-//       },
-//     ],
-//     operators: [],
-//     primitive_contract: "terra1k6mk75ez5kedymp34u8eqsu3jp94pa0h60q4wz",
-//   });
-
-//   return [msg];
-// };
+  return {
+    publishContract,
+  };
+}

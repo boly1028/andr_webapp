@@ -1,1 +1,7 @@
-export type TxStep = "IDLE" | "POSTING" | "BROADCASTING" | "SUCCESS" | "FAILED";
+export type TxStep =
+  | "idle"
+  | "posting"
+  | "postError"
+  | "broadcasting"
+  | "broadcastError"
+  | "broadcastSuccess";

@@ -9,6 +9,7 @@ import App, { AppProps, AppContext } from "next/app";
 import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
 import { ChakraProvider, CSSReset } from "@chakra-ui/react";
 
+import { AndromedaContextProvider } from "@/modules/common";
 import theme from "@/theme";
 
 const MyApp = ({
@@ -25,7 +26,9 @@ const MyApp = ({
         <Hydrate state={pageProps.dehydratedState}>
           <ChakraProvider theme={theme}>
             <CSSReset />
-            <Component {...pageProps} />
+            <AndromedaContextProvider>
+              <Component {...pageProps} />
+            </AndromedaContextProvider>
           </ChakraProvider>
         </Hydrate>
       </QueryClientProvider>

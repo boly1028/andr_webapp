@@ -2,63 +2,24 @@ import { useState } from "react";
 import absoluteUrl from "next-absolute-url";
 import { NextPage } from "next";
 import { Box, Flex, Text } from "@chakra-ui/react";
-import { useLCDClient } from "@terra-money/wallet-provider";
-import { useTx, useAddress, estimateFee } from "@arthuryeti/terra";
 
-import { Layout, PageHeader, TxStep, FileCheckIcon } from "@/modules/common";
+import { Layout, PageHeader, FileCheckIcon } from "@/modules/common";
 import {
-  createBuilderMsgs,
   FlexBuilderForm,
   FlexBuilderTemplateProps,
   StagingDocumentsModal,
 } from "@/modules/flex-builder";
-import { TransactionModal } from "@/modules/modals";
+import usePublishContract from "@/modules/sdk/hooks/usePublishContract";
 
 type Props = {
   template: FlexBuilderTemplateProps;
 };
 
 const TemplatePage: NextPage<Props> = ({ template }) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [txStep, setTxStep] = useState<TxStep>("IDLE");
-  const [txHash, setTxHash] = useState<string | null>(null);
-  const client = useLCDClient();
-  const address = useAddress();
-
-  const { submit } = useTx({
-    onBroadcasting: (txHash) => {
-      setTxHash(txHash);
-      setTxStep("BROADCASTING");
-    },
-  });
+  const { publishContract } = usePublishContract();
 
   const handleSubmit = async ({ formData }: any) => {
-    if (client == null || formData == null || address == null) {
-      return;
-    }
-
-    setTxStep("POSTING");
-    setIsOpen(true);
-
-    const msgs = createBuilderMsgs({ data: formData }, address);
-
-    if (msgs == null) {
-      return;
-    }
-
-    const fee = await estimateFee({
-      client,
-      address,
-      // @ts-expect-error - TODO
-      msgs,
-      opts: {},
-    });
-
-    submit({
-      // @ts-expect-error - TODO
-      msgs,
-      fee,
-    });
+    await publishContract(formData);
   };
 
   return (
@@ -100,14 +61,6 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
         </Flex>
         <FlexBuilderForm template={template} onSubmit={handleSubmit} />
       </Box>
-
-      <TransactionModal
-        isOpen={isOpen}
-        txStep={txStep}
-        txHash={txHash}
-        onTxStepChange={setTxStep}
-        onClose={() => setIsOpen(false)}
-      />
     </Layout>
   );
 };

@@ -15,39 +15,36 @@ import {
   Spinner,
 } from "@chakra-ui/react";
 
-import { CheckIcon, truncate, type TxStep } from "@/modules/common";
-import { useTxInfo } from "@arthuryeti/terra";
+import { CheckIcon, truncate, type TxStep, PostTx } from "@/modules/common";
 
-const TITLES = {
-  IDLE: "Waiting for confirmation",
-  POSTING: "Waiting for confirmation",
-  BROADCASTING: "Brodcasting",
-  SUCCESS: "Your transaction has been approved",
-  FAILED: "There was a problem with that action",
+const TITLES: Record<string, string> = {
+  idle: "Waiting for confirmation",
+  posting: "Waiting for confirmation",
+  broadcasting: "Brodcasting",
+  broadcastSuccess: "Your transaction has been approved",
+  broadcastError: "There was a problem with that action",
 };
 
-const SUB_TITLES = {
-  IDLE: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In velit nullam condimentum massa dictumst.",
-  POSTING:
+const SUB_TITLES: Record<string, string> = {
+  idle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In velit nullam condimentum massa dictumst.",
+  posting:
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In velit nullam condimentum massa dictumst.",
-  BROADCASTING:
+  broadcasting:
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In velit nullam condimentum massa dictumst.",
-  SUCCESS:
+  broadcastSuccess:
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In velit nullam condimentum massa dictumst.",
-  FAILED:
+  broadcastError:
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In velit nullam condimentum massa dictumst.",
 };
 
 interface TransactionModalHeaderProps {
-  txStep: TxStep;
+  state: PostTx["state"];
 }
 
-const TransactionModalHeader: FC<TransactionModalHeaderProps> = ({
-  txStep,
-}) => {
-  const isSuccess = txStep === "SUCCESS";
-  const isFailed = txStep === "FAILED";
-  const showSpinner = !isSuccess && !isFailed;
+const TransactionModalHeader: FC<TransactionModalHeaderProps> = ({ state }) => {
+  const isSuccess = state.step === "broadcastSuccess";
+  const isError = state.step === "broadcastError";
+  const showSpinner = !isSuccess && !isError;
 
   return (
     <>
@@ -66,10 +63,10 @@ const TransactionModalHeader: FC<TransactionModalHeaderProps> = ({
 
       <VStack mb={12}>
         <Text fontWeight={600} color="gray.700">
-          {TITLES[txStep]}
+          {TITLES[state.step]}
         </Text>
         <Text color="gray.500" textAlign="center">
-          {SUB_TITLES[txStep]}
+          {SUB_TITLES[state.step]}
         </Text>
       </VStack>
     </>
@@ -98,32 +95,36 @@ const TransactionModalStepsItem: FC<TransactionModalStepsItemProps> = ({
 };
 
 interface TransactionModalStepsProps {
-  txStep: TxStep;
+  state: PostTx["state"];
 }
 
-const TransactionModalSteps: FC<TransactionModalStepsProps> = ({ txStep }) => {
+const TransactionModalSteps: FC<TransactionModalStepsProps> = ({ state }) => {
   return (
     <HStack spacing={2}>
       <TransactionModalStepsItem
-        isPending={txStep == "POSTING"}
-        isActive={["BROADCASTING", "SUCCESS", "FAILED"].includes(txStep)}
+        isPending={["posting"].includes(state.step)}
+        isActive={[
+          "broadcasting",
+          "broadcastSuccess",
+          "broadcastError",
+        ].includes(state.step)}
       />
       <TransactionModalStepsItem
-        isPending={["BROADCASTING"].includes(txStep)}
-        isActive={["SUCCESS", "FAILED"].includes(txStep)}
+        isPending={["broadcasting"].includes(state.step)}
+        isActive={["broadcastSuccess", "broadcastError"].includes(state.step)}
       />
       <TransactionModalStepsItem
-        isActive={["SUCCESS", "FAILED"].includes(txStep)}
+        isActive={["broadcastSuccess", "broadcastError"].includes(state.step)}
       />
     </HStack>
   );
 };
 interface TransactionModalTxIdProps {
-  txHash: string | null;
+  state: PostTx["state"];
 }
 
-const TransactionModalTxId: FC<TransactionModalTxIdProps> = ({ txHash }) => {
-  if (txHash == null) {
+const TransactionModalTxId: FC<TransactionModalTxIdProps> = ({ state }) => {
+  if (state.txHash == null) {
     return <div />;
   }
 
@@ -138,14 +139,14 @@ const TransactionModalTxId: FC<TransactionModalTxIdProps> = ({ txHash }) => {
       <Text fontWeight={500} color="gray.700">
         Transaction ID
       </Text>
-      {txHash != null && (
+      {state.txHash != null && (
         <Link
           color="primary.600"
-          href={`https://terrasco.pe/testnet/tx/${txHash}`}
+          href={`https://terrasco.pe/testnet/tx/${state.txHash}`}
           isExternal
           fontSize="sm"
         >
-          {truncate(txHash)}
+          {truncate(state.txHash)}
         </Link>
       )}
     </Box>
@@ -153,41 +154,24 @@ const TransactionModalTxId: FC<TransactionModalTxIdProps> = ({ txHash }) => {
 };
 
 interface TransactionModalProps {
-  isOpen: boolean;
-  txHash: string | null;
-  txStep: TxStep;
-  onTxStepChange: (txStep: TxStep) => void;
+  postTx: PostTx;
   onClose: () => void;
 }
 
-const TransactionModal: FC<TransactionModalProps> = ({
-  txHash,
-  txStep,
-  isOpen,
-  onTxStepChange,
-  onClose,
-}) => {
-  useTxInfo({
-    txHash,
-    onSuccess: () => {
-      onTxStepChange("SUCCESS");
-    },
-    onError: () => {
-      onTxStepChange("FAILED");
-    },
-  });
+const TransactionModal: FC<TransactionModalProps> = ({ postTx, onClose }) => {
+  const { state } = postTx;
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size="lg">
+    <Modal onClose={onClose} isOpen={state.step !== "idle"} size="lg">
       <ModalOverlay />
       <ModalContent>
         <ModalCloseButton />
         <ModalBody p={12}>
-          <TransactionModalHeader txStep={txStep} />
+          <TransactionModalHeader state={state} />
 
-          <TransactionModalSteps txStep={txStep} />
+          <TransactionModalSteps state={state} />
 
-          <TransactionModalTxId txHash={txHash} />
+          <TransactionModalTxId state={state} />
 
           <Center mt={12}>
             <Button variant="outline" size="lg" px={8} onClick={onClose}>
