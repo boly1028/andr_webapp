@@ -1,4 +1,4 @@
-const initialNodes = [];
+const initialNodes: any = [];
 
 const samplelNodes = [
   {

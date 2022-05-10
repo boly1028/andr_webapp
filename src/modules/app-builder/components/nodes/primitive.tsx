@@ -13,7 +13,7 @@ const handleStyle = {
 };
 
 //Data = Prop declared for content loading
-function PrimitiveNode({ data }) {
+function PrimitiveNode({ data }: any) {
   //Triggered on Change Event
   const onChange = useCallback((evt) => {
     console.log(evt.target.value);
@@ -36,7 +36,7 @@ function PrimitiveNode({ data }) {
             {data.title}
           </Text>
           <Text color="gray.500" fontSize="xs" fontWeight={100}>
-            "{data.id}"
+            &quot;{data.id}&quot;
           </Text>
         </HStack>
       </div>

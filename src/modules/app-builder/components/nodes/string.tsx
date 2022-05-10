@@ -9,7 +9,7 @@ const handleStyle = {
 };
 
 //Data = Prop declared for content loading
-function StringNode({ data }) {
+function StringNode({ data }: any) {
   //Triggered on Change Event
   const onChange = useCallback((evt) => {
     console.log(evt.target.value);

@@ -13,7 +13,7 @@ const handleStyle = {
 };
 
 //Data = Prop declared for content loading
-function BaseADONode({ data }) {
+function BaseADONode({ data }: any) {
   //Triggered on Change Event
   const onChange = useCallback((evt) => {
     console.log(evt.target.value);
@@ -37,7 +37,7 @@ function BaseADONode({ data }) {
               {data.title}
             </Text>
             <Text color="gray.500" fontSize="xs" fontWeight={100}>
-              "{data.id}"
+              &quote;{data.id}&quote;
             </Text>
           </HStack>
         </div>

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { FC, useCallback, useEffect, useState } from "react";
 import NextLink from "next/link";
 import ReactFlow, {
   addEdge,
@@ -36,9 +36,7 @@ import {
 } from "@chakra-ui/react";
 import { PlusIcon } from "@/modules/common";
 import {
-  Aperture,
   Binary,
-  Check as CheckIcon,
   Codepen,
   Codesandbox,
   Image as ImageIcon,
@@ -46,6 +44,7 @@ import {
   PackageCheck,
   Server,
 } from "lucide-react";
+import { CheckIcon, ChevronRightIcon } from "@/modules/common";
 
 // Import sample JSON data returns
 import loadPanelJSON from "@/modules/app-builder/functions/load-panel-data";
@@ -88,14 +87,14 @@ const AppBuilderCreatePage = () => {
   let controlButtonHeld = false;
   //const [controlButtonHeld, setControlButtonHeld] = useState(false);
 
-  function downKeyHandler({ key }) {
+  function downKeyHandler({ key }: any) {
     // "Control" is a case sensitive check
     if (key === "Control") {
       controlButtonHeld = true;
       //alert("Control Down & " + controlButtonHeld);
     }
   }
-  function upKeyHandler({ key }) {
+  function upKeyHandler({ key }: any) {
     if (key === "Control") {
       //alert("ControlUp");
       controlButtonHeld = false;
@@ -138,7 +137,7 @@ const AppBuilderCreatePage = () => {
 
   //MiniMap Configurations
   //Returns a node color to many map based on node type
-  const miniMapNodeColor = (node) => {
+  const miniMapNodeColor = (node: any) => {
     switch (node.type) {
       case "input":
         return "red";
@@ -170,71 +169,69 @@ const AppBuilderCreatePage = () => {
   // Menu Selection Toggles & Action Calls /////////////////////////////////////////////////////
   //Toggles the primary panel selecor fly wheel menu
   function toggleMenu() {
-    let toggle = document.querySelector(".toggle");
-    let menu = document.querySelector(".menu");
+    //let toggle = document.querySelector(".toggle");
+    const menu = document.querySelector(".menu");
     menu?.classList.toggle("active");
   }
 
   //ADO Selector Menu
-  function toggleADOSelector(opt?) {
+  function toggleADOSelector(opt?: any) {
     if (opt !== "close") {
       toggleMenu();
     }
-    let toggle = document.querySelector(".toggle");
-    let adoSelector = document.querySelector(".ado-selection-panel");
+    const adoSelector = document.querySelector(".ado-selection-panel");
     adoSelector?.classList.toggle("active");
   }
-  function selectADO(selection) {
+  function selectADO(selection: any) {
     loadPanel(selection);
     toggleADOSelector("close");
   }
 
   //Module Selector Menu
-  function toggleModuleSelector(opt) {
+  function toggleModuleSelector(opt: any) {
     if (opt !== "close") {
       toggleMenu();
     }
-    let toggle = document.querySelector(".toggle");
-    let moduleSelector = document.querySelector(".module-selection-panel");
+    const moduleSelector = document.querySelector(".module-selection-panel");
     moduleSelector?.classList.toggle("active");
   }
-  function selectModule(selection) {
+  function selectModule(selection: any) {
     loadPanel(selection);
     toggleModuleSelector("close");
   }
 
   //Modifier Selector Menu
-  function toggleModifierSelector(opt) {
+  function toggleModifierSelector(opt: any) {
     if (opt !== "close") {
       toggleMenu();
     }
-    let toggle = document.querySelector(".toggle");
-    let modifierSelector = document.querySelector(".modifier-selection-panel");
+    const modifierSelector = document.querySelector(
+      ".modifier-selection-panel",
+    );
     modifierSelector?.classList.toggle("active");
   }
-  function selectModifier(selection) {
+  function selectModifier(selection: any) {
     loadPanel(selection);
     toggleModifierSelector("close");
   }
 
   //Primitive Selector Menu
-  function togglePrimitiveSelector(opt) {
+  function togglePrimitiveSelector(opt: any) {
     if (opt !== "close") {
       toggleMenu();
     }
-    let toggle = document.querySelector(".toggle");
-    let primitiveSelector = document.querySelector(
+    const primitiveSelector = document.querySelector(
       ".primitive-selection-panel",
     );
     primitiveSelector?.classList.toggle("active");
   }
-  function selectPrimitive(selection) {
+  function selectPrimitive(selection: any) {
     loadPanel(selection);
     togglePrimitiveSelector("close");
   }
 
   //Operation Calls //////////////////////////////////////////////////////
-  const loadArray = (arrData, parentName) => {
+  const loadArray = (arrData: any, parentName: any) => {
     console.log(arrData);
     //alert(JSON.stringify(arrData));
     for (const key in arrData) {
@@ -243,8 +240,8 @@ const AppBuilderCreatePage = () => {
 
       //Process Children to add to parent
       const processData = arrData[key]["items"];
-      let spaceY = 0;
-      processData.map((currData) => {
+      //let spaceY = 0;
+      processData.map((currData: any) => {
         // alert(
         //   "Object" + JSON.stringify(currData) + "| Type: " + currData["type"],
         // );
@@ -275,7 +272,12 @@ const AppBuilderCreatePage = () => {
     }
   };
 
-  const loadObject = (objData, parentName) => {
+  type LoadObjectProps = {
+    objData: any;
+    parentName: any;
+  };
+
+  const loadObject = (objData: any, parentName: any) => {
     console.log(objData);
     //alert(JSON.stringify(objData));
     for (const key in objData) {
@@ -286,6 +288,7 @@ const AppBuilderCreatePage = () => {
       if (!objData[key]["properties"]) {
         // alert("Not a properties line!");
       } else {
+        // codeset used for testing
       }
 
       //Process Children to add to parent
@@ -297,7 +300,7 @@ const AppBuilderCreatePage = () => {
         // );
         if (currData["type"] === "object") {
           //Revcursively Call Self for Additional Processing
-          const tmpObj = {};
+          const tmpObj: any = {};
           tmpObj[currData["type"]] = currData;
           loadObject(tmpObj, parentName);
         }
@@ -320,7 +323,7 @@ const AppBuilderCreatePage = () => {
   };
 
   //Loads Panel Data from .json files
-  const loadPanel = async (jsonRef) => {
+  const loadPanel = async (jsonRef: any) => {
     //Load related JSON Data from provided jsonRef value
     const jsonData = await loadPanelJSON(jsonRef);
 
@@ -350,7 +353,7 @@ const AppBuilderCreatePage = () => {
           loadObject(currData["properties"], parentName);
           //Loop through children
           //console.log(currData["properties"]);
-          let spaceY = 0;
+          //let spaceY = 0;
           for (const childKey in currData["properties"]) {
             //console.log(currData["properties"][childKey]);
           }
@@ -362,7 +365,7 @@ const AppBuilderCreatePage = () => {
   // Add a node (called on click)
   const addParent = useCallback(
     (nodeType, newId, title, description) => {
-      let newNode = {
+      const newNode = {
         id: newId,
         type: nodeType,
         data: {
@@ -378,7 +381,7 @@ const AppBuilderCreatePage = () => {
           width: nodeDimensions.width,
         },
       };
-      setNodes((nds) => nds.concat(newNode));
+      setNodes((nds: any) => nds.concat(newNode));
     },
     [setNodes],
   );
@@ -387,7 +390,7 @@ const AppBuilderCreatePage = () => {
   const getPanelId = () => `panelname_${+new Date()}`;
 
   const onNodesChange = useCallback(
-    (changes) => setNodes((nds) => applyNodeChanges(changes, nds)),
+    (changes) => setNodes((nds: any) => applyNodeChanges(changes, nds)),
     [setNodes],
   );
 
@@ -414,7 +417,7 @@ const AppBuilderCreatePage = () => {
           y: self.innerHeight / 2,
         },
       };
-      setNodes((nds) => nds.concat(newNode));
+      setNodes((nds: any) => nds.concat(newNode));
     },
     [setNodes],
   );
@@ -436,7 +439,7 @@ const AppBuilderCreatePage = () => {
           y: y,
         },
       };
-      setNodes((nds) => nds.concat(newNode));
+      setNodes((nds: any) => nds.concat(newNode));
     },
     [setNodes],
   );
@@ -444,7 +447,7 @@ const AppBuilderCreatePage = () => {
   // Add a node (called on click)
   const onAddModule = useCallback(
     (nodeType, newId) => {
-      let newNode = {
+      const newNode = {
         id: newId,
         type: nodeType,
         data: { label: `${newId}` },
@@ -456,7 +459,7 @@ const AppBuilderCreatePage = () => {
           width: nodeDimensions.width,
         },
       };
-      setNodes((nds) => nds.concat(newNode));
+      setNodes((nds: any) => nds.concat(newNode));
       AddChild(
         "string",
         newId + "newChild" + Math.random() * 1000,

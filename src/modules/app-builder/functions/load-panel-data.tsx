@@ -1,5 +1,5 @@
 // PanelName = Prop declared for content loading
-async function fetchPanelSchema(panelName) {
+async function fetchPanelSchema(panelName: any) {
   //const res = await fetch(`@/pages/api/flex-builder/schema/${panelName}.json`);
   const res = await import(`@/pages/api/flex-builder/schema/${panelName}.json`);
 
@@ -10,7 +10,7 @@ async function fetchPanelSchema(panelName) {
 }
 
 //Load the submited responses to retrieve and load the JSONSchema
-async function loadPanelJSON(data) {
+async function loadPanelJSON(data: any) {
   const response = await fetchPanelSchema(data);
   //console.log(response);
   return response;
