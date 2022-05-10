@@ -1,0 +1,33 @@
+{
+  "schema": {
+    "$id": "publish-settings",
+    "class": "system",
+    "classifier": "",
+    "title": "Publish as an App",
+    "description": "Optional publishing configurations to publish the ADO as an App",
+    "type": "object",
+    "required": ["percentage", "address"],
+    "properties": {
+      "name": {
+        "type": "string",
+        "title": "App Name",
+        "description": "The desired name of the app."
+      },
+      "primitive": {
+        "type": "string",
+        "title": "Primitive ADO Address",
+        "description": "The address of the primitve ADO used to supply data to the App."
+      },
+      "operators": {
+        "type": ["array", "null"],
+        "title": "Operators",
+        "description": "Optional list of moderating addresses authorized to update the published App (Defaults as empty.)",
+        "items": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "ui-schema": {},
+  "form-data": {}
+}
