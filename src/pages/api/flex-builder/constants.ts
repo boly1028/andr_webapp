@@ -257,4 +257,14 @@ export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
     ados: [],
     disabled: true,
   },
+
+  {
+    id: "mint",
+    name: "Mint an NFT Collectible",
+    icon: "",
+    description: "Ignore: Temporary Proof on Call Structure",
+    opts: [],
+    ados: [{ path: "ado-modifier/mint", id: uuidv4(), required: true }],
+    disabled: true,
+  },
 ];
