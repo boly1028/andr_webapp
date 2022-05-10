@@ -15,9 +15,9 @@ const FlexBuilderPage: FC<FlexBuilderPageProps> = ({ templateList }) => {
   return (
     <Box>
       <PageHeader
-        title="ADO & NFT Builder Templates"
-        desc="Quickly create and publish NFT collectibles, DeFi instruments and
-        generic ADOs from starter templates!"
+        title="Flex Builder Starter Templates"
+        desc="You can custom build a variety of combinations with our Flex Builder, but we offer the following pre-configured starter templates to make things easier. Quickly setup NFT collectibles, DeFi instruments,
+        generic ADOs and more in just a click of a button!"
       />
       <SimpleGrid columns={{ sm: 1, md: 2, lg: 3 }} spacing="4" my={8}>
         {templateList.map((template: FlexBuilderTemplateProps) => (

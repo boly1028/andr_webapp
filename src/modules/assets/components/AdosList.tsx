@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import NextLink from "next/link";
 import {
   Flex,
   Box,
@@ -91,8 +92,12 @@ const AdosListItem: FC<AdosListItemProps> = ({ data }) => {
           variant="link"
         />
         <MenuList>
-          <MenuItem icon={<EyeIcon boxSize={5} />}>View</MenuItem>
-          <MenuItem icon={<FilePlusIcon boxSize={4} />}>Mint</MenuItem>
+          <NextLink href={`/collections/moonbirds-3`} passHref>
+            <MenuItem icon={<EyeIcon boxSize={5} />}>View</MenuItem>
+          </NextLink>
+          <NextLink href={`flex-builder/mint`} passHref>
+            <MenuItem icon={<FilePlusIcon boxSize={4} />}>Mint</MenuItem>
+          </NextLink>
           <MenuItem icon={<UnlockIcon boxSize={4} />}>Lock/Unlock</MenuItem>
           <MenuItem icon={<EditIcon boxSize={4} />}>Edit</MenuItem>
           <MenuItem icon={<CheckCircleIcon boxSize={4} />}>Sell</MenuItem>

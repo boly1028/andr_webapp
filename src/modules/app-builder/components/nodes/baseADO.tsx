@@ -37,7 +37,7 @@ function BaseADONode({ data }: any) {
               {data.title}
             </Text>
             <Text color="gray.500" fontSize="xs" fontWeight={100}>
-              &quote;{data.id}&quote;
+              &quot;{data.id}&quot;
             </Text>
           </HStack>
         </div>
