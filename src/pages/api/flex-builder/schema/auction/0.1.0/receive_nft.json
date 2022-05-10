@@ -1,0 +1,27 @@
+{
+  "schema": {
+    "title": "Recieve NFT",
+    "description": "Receives a token from a Send and starts an auction based on the given parameters in the StartAuction struct.",
+    "type": "object",
+    "required": ["receive_nft"],
+    "properties": {
+      "receive_nft": {
+        "description": "Cw721ReceiveMsg should be de/serialized under `Receive()` variant in a ExecuteMsg",
+        "type": "object",
+        "required": ["msg", "sender", "token_id"],
+        "properties": {
+          "msg": {
+            "description": "Binary is a wrapper around Vec<u8> to add base64 de/serialization with serde. It also adds some helper methods to help encode inline.\n\nThis is only needed as serde-json-{core,wasm} has a horrible encoding for Vec<u8>",
+            "type": "string",
+            "title": "msg"
+          },
+          "sender": { "type": "string", "title": "sender" },
+          "token_id": { "type": "string", "title": "token_id" }
+        }
+      }
+    },
+    "additionalProperties": false
+  },
+  "ui-schema": {},
+  "form-data": {}
+}
