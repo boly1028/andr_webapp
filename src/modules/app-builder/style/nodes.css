@@ -1,0 +1,56 @@
+.module-node {
+  border: 1px solid #000;
+  padding: 1px;
+  border-radius: 5px;
+  background: white;
+  height: 170px;
+}
+
+.module-node .title {
+  font-size: small;
+  margin: 5px;
+}
+
+.module-node .nodeid {
+  font-size: small;
+  display: inline-block;
+}
+
+.module-node button {
+  position: absolute;
+  bottom: 0;
+  right: 50%;
+  transform: translate(70%, 0);
+  margin: 10px;
+}
+
+.modifier-node {
+  border: 1px solid #000;
+  padding: 1px;
+  border-radius: 5px;
+  background: white;
+  height: 135px;
+}
+
+.primitive-node {
+  border: 1px solid #000;
+  padding: 1px;
+  border-radius: 5px;
+  background: white;
+  height: 135px;
+}
+
+.string-node {
+  border-left: 1px solid #000;
+  border-right: 1px solid #000;
+  padding: 8px;
+  border-radius: 0px;
+  background: white;
+}
+
+.string-node label {
+  display: inline-block;
+  padding-right: 4px;
+  color: #000;
+  font-size: 12px;
+}

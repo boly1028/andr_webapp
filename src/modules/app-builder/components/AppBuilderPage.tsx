@@ -7,8 +7,8 @@ const AppBuilderPage = () => {
   return (
     <Flex h="100%" direction="column">
       <PageHeader
-        title="Apps"
-        desc="Missions will allow chained ADOs to execute complex sets of events."
+        title="Build Apps"
+        desc="The App Builder helps create complex sets of ADO configurations and interactions."
       />
       <Box flex={1} bg="gray.50" my={10}>
         <Center w={"100%"} h={"100%"}>

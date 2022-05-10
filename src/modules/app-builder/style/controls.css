@@ -1,0 +1,196 @@
+.horizontal-controls {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  z-index: 10;
+  font-size: 12px;
+}
+
+.horizontal-controls button {
+  background-color: #fff;
+  border: 1px solid #b2bebf;
+}
+.horizontal-controls button:hover {
+  background-color: #d1dfe0;
+}
+
+.horizontal-controls button:first-child {
+  margin-right: 0px;
+}
+
+/* Temporary-Popup Panel Selection Modals */
+.ado-selection-panel.active {
+  position: absolute;
+  /* Offset by negative values to move closer */
+  right: 25%;
+  top: 25%;
+  z-index: 11;
+
+  min-width: 50vw;
+  background: linear-gradient(175deg, #fff, #0ba5ec);
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15);
+
+  justify-content: center;
+  align-items: center;
+  padding: 5%;
+}
+.ado-selection-panel.active li {
+  margin-bottom: 1em;
+}
+.ado-selection-panel.active a {
+  cursor: pointer;
+}
+
+/* Module Selector Menu */
+.module-selection-panel.active {
+  position: absolute;
+  /* Offset by negative values to move closer */
+  right: 25%;
+  top: 25%;
+  z-index: 11;
+
+  min-width: 50vw;
+  background: linear-gradient(175deg, #fff, #9360fb);
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15);
+
+  justify-content: center;
+  align-items: center;
+  padding: 5%;
+}
+.module-selection-panel.active li {
+  margin-bottom: 1em;
+}
+.module-selection-panel.active a {
+  cursor: pointer;
+}
+
+/* Modifier Selector Menu */
+.modifier-selection-panel.active {
+  position: absolute;
+  /* Offset by negative values to move closer */
+  right: 25%;
+  top: 25%;
+  z-index: 11;
+
+  min-width: 50vw;
+  background: linear-gradient(175deg, #fff, #15b79e);
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15);
+
+  justify-content: center;
+  align-items: center;
+  padding: 5%;
+}
+.modifier-selection-panel.active li {
+  margin-bottom: 1em;
+}
+.modifier-selection-panel.active a {
+  cursor: pointer;
+}
+
+/* Primitive Selector Menu */
+.primitive-selection-panel.active {
+  position: absolute;
+  /* Offset by negative values to move closer */
+  right: 25%;
+  top: 25%;
+  z-index: 11;
+
+  min-width: 50vw;
+  background: linear-gradient(175deg, #fff, #feb9f9);
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15);
+
+  justify-content: center;
+  align-items: center;
+  padding: 5%;
+}
+.primitive-selection-panel.active li {
+  margin-bottom: 1em;
+}
+.primitive-selection-panel.active a {
+  cursor: pointer;
+}
+
+/* Panel Selection Popout Menu  */
+.select-menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 50vw;
+  background: linear-gradient(45deg, #fff, #ddd);
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15);
+}
+
+.select-menu .menu {
+  position: absolute;
+  /* Offset by negative values to move closer */
+  right: 1%;
+  top: 50%;
+  z-index: 11;
+  width: 200px;
+  height: 200px;
+
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.select-menu .menu.active {
+  background: rgba(0, 2, 2, 0.02);
+  padding: 10px;
+  justify-content: center;
+  align-items: center;
+  /* The speed at which to show animation */
+  transition: 0.5s;
+}
+
+.select-menu .menu li {
+  position: absolute;
+  left: 0;
+  list-style: none;
+  /* Reduce origin by 1/2 of menu height */
+  transform-origin: 100px;
+  /* Translate X to the same as transform orgin */
+  transform: rotate(0deg) translateX(80px);
+  /* The speed at which to show animation */
+  transition: 0.5s;
+  transition-delay: calc(0.1s / 6 * var(--i));
+}
+
+.select-menu .menu.active li {
+  /* Divide the number of degrees by how many menu item elements */
+  transform: rotate(calc(360deg / 6 * var(--i)));
+}
+
+.select-menu .menu li a {
+  /* Divide the number of degrees by how many menu item elements */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  transform: rotate(calc(360deg / -6 * var(--i)));
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15);
+}
+
+.toggle {
+  position: absolute;
+  z-index: 1000000;
+  width: 60px;
+  height: 60px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2em;
+  /* The speed at which to show animation */
+  transition: 0.5s;
+}
+
+.menu.active .toggle {
+  transform: rotate(315deg);
+}

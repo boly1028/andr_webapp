@@ -12,6 +12,10 @@ import { ChakraProvider, CSSReset } from "@chakra-ui/react";
 import { AndromedaContextProvider } from "@/modules/common";
 import theme from "@/theme";
 
+//Import stylization setups for use in App-Builder
+import "@/modules/app-builder/style/controls.css";
+import "@/modules/app-builder/style/nodes.css";
+
 const MyApp = ({
   Component,
   pageProps,
