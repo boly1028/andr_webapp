@@ -26,14 +26,27 @@ import {
   Flex,
   HStack,
   Icon,
+  IconButton,
   List,
   ListItem,
   ListIcon,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
   Spacer,
   Text,
   useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
+import {
+  CheckCircleIcon,
+  EditIcon,
+  EyeIcon,
+  FilePlusIcon,
+  MoreHorizontalIcon,
+  UnlockIcon,
+} from "@/modules/common";
 import { PlusIcon } from "@/modules/common";
 import {
   Binary,
@@ -168,6 +181,7 @@ const AppBuilderCreatePage = () => {
 
   // Menu Selection Toggles & Action Calls /////////////////////////////////////////////////////
   //Toggles the primary panel selecor fly wheel menu
+
   function toggleMenu() {
     //let toggle = document.querySelector(".toggle");
     const menu = document.querySelector(".menu");
@@ -585,7 +599,7 @@ const AppBuilderCreatePage = () => {
       </div>
 
       {/* Placeholder Panel Selection System Menus */}
-      <div className="ado-selection-panel">
+      {/* <div className="ado-selection-panel">
         <h2>ADO Selection Modal</h2>
         <li>
           <a href="#" onClick={() => selectADO("ado-base/nft-collectible")}>
@@ -609,9 +623,9 @@ const AppBuilderCreatePage = () => {
             Crowdfund
           </a>
         </li>
-      </div>
+      </div> */}
 
-      <div className="module-selection-panel">
+      {/* <div className="module-selection-panel">
         <h2>Module Selection Modal</h2>
         <li>
           <a href="#" onClick={() => selectModule("ado-module/whitelist")}>
@@ -637,7 +651,7 @@ const AppBuilderCreatePage = () => {
         <li>
           <a onClick={() => selectModule("receipt/0.1.0/receipt")}>Receipts</a>
         </li>
-      </div>
+      </div> */}
 
       <div className="modifier-selection-panel">
         <h2>Modifier Selection Modal</h2>
@@ -685,7 +699,7 @@ const AppBuilderCreatePage = () => {
         </li>
       </div>
 
-      <div className="primitive-selection-panel">
+      {/* <div className="primitive-selection-panel">
         <h2>Primitive Selection Modal</h2>
         <li>
           <a
@@ -724,9 +738,190 @@ const AppBuilderCreatePage = () => {
             Binary Blob
           </a>
         </li>
-      </div>
+      </div> */}
 
-      <Box position="absolute" top="0" right="0" zIndex={10} m={8}>
+      <Box
+        position="absolute"
+        top="0"
+        right="0"
+        zIndex={10}
+        m={8}
+        alignItems="center"
+      >
+        <Menu id="baseADO-menu" placement="bottom-end">
+          <MenuButton
+            as={IconButton}
+            icon={<PackageCheck />}
+            variant="link"
+            mr={2}
+          />
+          <MenuList>
+            <MenuItem onClick={() => selectADO("cw721/0.1.0/cw721")}>
+              CW721
+            </MenuItem>
+
+            <MenuItem onClick={() => selectADO("timelock/0.1.0/timelock")}>
+              Timelock
+            </MenuItem>
+            <MenuItem onClick={() => selectADO("auction/0.1.0/auction")}>
+              Auction
+            </MenuItem>
+
+            <MenuItem
+              onClick={() => selectADO("merkle-airdrop/0.1.0/merkle-airdrop")}
+            >
+              Merkle Airdrop
+            </MenuItem>
+            <MenuItem onClick={() => selectADO("splitter/0.1.0/splitter")}>
+              Splitter
+            </MenuItem>
+            <MenuItem onClick={() => selectADO("mission/0.1.0/mission")}>
+              Mission
+            </MenuItem>
+            <MenuItem onClick={() => selectADO("cw20/0.1.0/cw20")}>
+              CW20
+            </MenuItem>
+
+            <MenuItem onClick={() => selectADO("crowdfund/0.1.0/crowdfund")}>
+              Crowdfund
+            </MenuItem>
+            <MenuItem onClick={() => selectADO("swapper/0.1.0/swapper")}>
+              Swapper
+            </MenuItem>
+            <MenuItem onClick={() => selectADO("ado-base/nft-collectible")}>
+              NFT Collectible
+            </MenuItem>
+            <MenuItem onClick={() => selectADO("ado-base/splitter")}>
+              Splitter (deprecated)
+            </MenuItem>
+            <MenuItem onClick={() => selectADO("ado-base/timelock")}>
+              Timelock (deprecated)
+            </MenuItem>
+            <MenuItem
+              onClick={() => selectADO("wrapped-cw721/0.1.0/wrapped_cw721")}
+            >
+              Wrapped CW721
+            </MenuItem>
+            <MenuItem onClick={() => selectADO("vault/0.1.0/vault")}>
+              Vault
+            </MenuItem>
+          </MenuList>
+        </Menu>
+
+        <Menu id="external-menu" placement="bottom-end">
+          <MenuButton as={IconButton} icon={<Link2 />} variant="link" mr={2} />
+          <MenuList>
+            <MenuItem onClick={() => selectADO("astroport/0.1.0/astroport")}>
+              Astroport
+            </MenuItem>
+
+            <MenuItem onClick={() => selectADO("anchor/0.1.0/anchor")}>
+              Anchor
+            </MenuItem>
+            <MenuItem onClick={() => selectADO("swapper/0.1.0/swapper")}>
+              Swapper
+            </MenuItem>
+            <MenuItem onClick={() => selectADO("lockdrop/0.1.0/lockdrop")}>
+              Lockdrop
+            </MenuItem>
+            <MenuItem
+              onClick={() =>
+                selectADO("mirror-wrapped-cdp/0.1.0/mirror_wrapped_cdp")
+              }
+            >
+              Mirror
+            </MenuItem>
+          </MenuList>
+        </Menu>
+
+        <Menu id="module-menu" placement="bottom-end">
+          <MenuButton as={IconButton} icon={<Server />} variant="link" mr={2} />
+          <MenuList>
+            <MenuItem onClick={() => selectModule("rates/0.1.0/rates")}>
+              Royalties (Flat Fee)
+            </MenuItem>
+            <MenuItem onClick={() => selectModule("rates/0.1.0/rates")}>
+              Royalties (Percent)
+            </MenuItem>
+            <MenuItem onClick={() => selectModule("ado-module/royalties")}>
+              Royalties (deprecated)
+            </MenuItem>
+            <MenuItem onClick={() => selectModule("rates/0.1.0/rates")}>
+              Taxes (Flat Fee)
+            </MenuItem>
+            <MenuItem onClick={() => selectModule("rates/0.1.0/rates")}>
+              Taxes (Percent)
+            </MenuItem>
+            <MenuItem onClick={() => selectModule("ado-module/taxes")}>
+              Taxes (deprecated)
+            </MenuItem>
+            <MenuItem
+              onClick={() => selectModule("addresslist/0.1.0/addresslist")}
+            >
+              Whitelist
+            </MenuItem>
+            <MenuItem onClick={() => selectModule("ado-module/whitelist")}>
+              Whitelist (deprecated)
+            </MenuItem>
+            <MenuItem
+              onClick={() => selectModule("addresslist/0.1.0/addresslist")}
+            >
+              Blacklist
+            </MenuItem>
+            <MenuItem onClick={() => selectModule("ado-module/blacklist")}>
+              Blacklist (deprecated)
+            </MenuItem>
+
+            <MenuItem onClick={() => selectModule("receipt/0.1.0/receipt")}>
+              Receipt
+            </MenuItem>
+
+            <MenuItem
+              onClick={() => selectModule("cw721-offers/0.1.0/cw721-offers")}
+            >
+              CW721 Offers
+            </MenuItem>
+          </MenuList>
+        </Menu>
+
+        <Menu id="primitive-menu" placement="bottom-end">
+          <MenuButton
+            as={IconButton}
+            icon={<Codepen />}
+            variant="link"
+            mr={8}
+          />
+          <MenuList>
+            <MenuItem
+              onClick={() => selectPrimitive("primitives/0.1.0/boolean")}
+            >
+              Boolean
+            </MenuItem>
+            <MenuItem onClick={() => selectPrimitive("primitives/0.1.0/array")}>
+              Array
+            </MenuItem>
+            <MenuItem
+              onClick={() => selectPrimitive("primitives/0.1.0/string")}
+            >
+              String
+            </MenuItem>
+            <MenuItem
+              onClick={() => selectPrimitive("primitives/0.1.0/decimal")}
+            >
+              Decimal
+            </MenuItem>
+            <MenuItem
+              onClick={() => selectPrimitive("primitives/0.1.0/uint128")}
+            >
+              Unsigned Integer (128)
+            </MenuItem>
+            <MenuItem onClick={() => selectPrimitive("primitives/0.1.0/coin")}>
+              Coin
+            </MenuItem>
+            <MenuItem>Binary Blob</MenuItem>
+          </MenuList>
+        </Menu>
+
         <Button
           leftIcon={<PlusIcon boxSize={4} />}
           colorScheme="purple"
