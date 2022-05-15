@@ -52,10 +52,16 @@ import {
   Binary,
   Codepen,
   Codesandbox,
+  Columns,
+  Download,
+  FileCheck,
+  FileCheck2,
   Image as ImageIcon,
   Link2,
   PackageCheck,
   Server,
+  Terminal,
+  Terminal2,
 } from "lucide-react";
 import { CheckIcon, ChevronRightIcon } from "@/modules/common";
 
@@ -85,6 +91,8 @@ const AppBuilderCreatePage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const template = { disabled: true };
+  const [ibc, setIbc] = useState(0.0);
+  const [ibc3, setIbc3] = useState(0.0);
   const wrapperBg = useColorModeValue("white", "gray.800");
   const containerBg = useColorModeValue("white", "gray.900");
   const titleColor = useColorModeValue("gray.700", "white");
@@ -179,6 +187,21 @@ const AppBuilderCreatePage = () => {
     maskColor: "rgb(140, 142, 343, 0.05)",
   };
 
+  function ibcToggle() {
+    if (ibc == 0) {
+      setIbc(0.19);
+    } else {
+      setIbc(0);
+    }
+  }
+  function ibc3Toggle() {
+    if (ibc3 == 0) {
+      setIbc3(0.19);
+    } else {
+      setIbc3(0);
+    }
+  }
+
   // Menu Selection Toggles & Action Calls /////////////////////////////////////////////////////
   //Toggles the primary panel selecor fly wheel menu
 
@@ -243,6 +266,12 @@ const AppBuilderCreatePage = () => {
     loadPanel(selection);
     togglePrimitiveSelector("close");
   }
+
+  // App-Builder Control Functions
+  const pushCLI = () => {
+    const cliMessage = "cli message";
+    alert(cliMessage);
+  };
 
   //Operation Calls //////////////////////////////////////////////////////
   const loadArray = (arrData: any, parentName: any) => {
@@ -542,6 +571,48 @@ const AppBuilderCreatePage = () => {
             </svg>
           </ControlButton>
         </Controls>
+
+        {/* IBC Overlays */}
+        <div className="IBC1">
+          <Box
+            position="absolute"
+            top="0"
+            left="0"
+            zIndex={-10}
+            m={8}
+            height="100%"
+            width="50%"
+            alignItems="center"
+            bg="#63B3ED"
+            opacity={ibc}
+          ></Box>
+        </div>
+        <div className="IBC3">
+          <Box
+            position="absolute"
+            top="0"
+            left="0"
+            zIndex={-10}
+            m={8}
+            height="100%"
+            width="32%"
+            alignItems="center"
+            bg="#63B3ED"
+            opacity={ibc3}
+          ></Box>
+          <Box
+            position="absolute"
+            top="0"
+            right="0"
+            zIndex={-10}
+            m={8}
+            height="100%"
+            width="32%"
+            alignItems="center"
+            bg="pink"
+            opacity={ibc3}
+          ></Box>
+        </div>
       </ReactFlow>
 
       <div className="select-menu">
@@ -747,6 +818,7 @@ const AppBuilderCreatePage = () => {
         zIndex={10}
         m={8}
         alignItems="center"
+        bg="#ffffff"
       >
         <Menu id="baseADO-menu" placement="bottom-end">
           <MenuButton
@@ -1028,11 +1100,67 @@ const AppBuilderCreatePage = () => {
           </MenuList>
         </Menu>
 
-        <Button
+        {/* <Button
           leftIcon={<PlusIcon boxSize={4} />}
           colorScheme="purple"
           size="lg"
           onClick={onOpen}
+        ></Button> */}
+        {/* <MenuButton
+          as={IconButton}
+          icon={<PackageCheck />}
+          variant="link"
+          mr={2}
+        /> */}
+
+        {/* IBC Overlays */}
+        <Button
+          id="ibc1"
+          as={IconButton}
+          colorScheme="blue"
+          icon={<Columns />}
+          onClick={ibcToggle}
+          ml={6}
+          mr={2}
+          px={1}
+        ></Button>
+        <Button
+          id="ibc3"
+          as={IconButton}
+          colorScheme="pink"
+          icon={<Columns />}
+          onClick={ibc3Toggle}
+          mr={2}
+          px={1}
+        ></Button>
+
+        {/* Export COntrols */}
+        <Button
+          id="cli"
+          as={IconButton}
+          colorScheme="cyan"
+          icon={<Terminal />}
+          onClick={pushCLI}
+          ml={6}
+          mr={2}
+          px={1}
+        ></Button>
+        <Button
+          as={IconButton}
+          colorScheme="yellow"
+          icon={<FileCheck />}
+          onClick={onOpen}
+          mr={2}
+          px={1}
+        ></Button>
+        <Button
+          id="starters"
+          as={IconButton}
+          colorScheme="purple"
+          icon={<PlusIcon />}
+          onClick={onOpen}
+          ml={4}
+          mr={2}
         >
           Starters
         </Button>
