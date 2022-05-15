@@ -653,7 +653,7 @@ const AppBuilderCreatePage = () => {
         </li>
       </div> */}
 
-      <div className="modifier-selection-panel">
+      {/* <div className="modifier-selection-panel">
         <h2>Modifier Selection Modal</h2>
         <li>
           <a href="#" onClick={() => selectModifier("cw20/0.1.0/send")}>
@@ -697,7 +697,7 @@ const AppBuilderCreatePage = () => {
             Decrease Allowance
           </a>
         </li>
-      </div>
+      </div> */}
 
       {/* <div className="primitive-selection-panel">
         <h2>Primitive Selection Modal</h2>
@@ -889,7 +889,7 @@ const AppBuilderCreatePage = () => {
             as={IconButton}
             icon={<Codepen />}
             variant="link"
-            mr={8}
+            mr={2}
           />
           <MenuList>
             <MenuItem
@@ -919,6 +919,112 @@ const AppBuilderCreatePage = () => {
               Coin
             </MenuItem>
             <MenuItem>Binary Blob</MenuItem>
+          </MenuList>
+        </Menu>
+
+        <Menu id="modifier-menu" placement="bottom-end">
+          <MenuButton
+            as={IconButton}
+            icon={<Codesandbox />}
+            variant="link"
+            mr={8}
+          />
+          <MenuList>
+            <MenuItem onClick={() => selectModifier("cw20/0.1.0/transfer")}>
+              Transfer
+            </MenuItem>
+            <MenuItem onClick={() => selectModifier("cw20/0.1.0/burn-from")}>
+              Burn From
+            </MenuItem>
+            <MenuItem
+              onClick={() => selectModifier("cw20/0.1.0/decrease-allowance")}
+            >
+              Decreae Allowance
+            </MenuItem>
+            <MenuItem onClick={() => selectModifier("cw20/0.1.0/send")}>
+              Send
+            </MenuItem>
+            <MenuItem onClick={() => selectModifier("cw20/0.1.0/mint")}>
+              Mint
+            </MenuItem>
+            <MenuItem
+              onClick={() => selectModifier("cw20/0.1.0/transfer-from")}
+            >
+              Transfer From
+            </MenuItem>
+            <MenuItem onClick={() => selectModifier("cw20/0.1.0/burn")}>
+              Burn
+            </MenuItem>
+            <MenuItem
+              onClick={() => selectModifier("cw20/0.1.0/increase-allowance")}
+            >
+              Increase Allowance
+            </MenuItem>
+            <MenuItem onClick={() => selectModifier("cw721/0.1.0/approve_all")}>
+              Approve All
+            </MenuItem>
+            <MenuItem
+              onClick={() => selectModifier("cw721/0.1.0/transfer_agreement")}
+            >
+              Transfer Agreement
+            </MenuItem>
+            <MenuItem onClick={() => selectModifier("cw721/0.1.0/archive")}>
+              Archive
+            </MenuItem>
+            <MenuItem onClick={() => selectModifier("cw721/0.1.0/revoke")}>
+              Revoke
+            </MenuItem>
+            <MenuItem
+              onClick={() => selectModifier("cw721/0.1.0/transfer_nft")}
+            >
+              Transfer NFT
+            </MenuItem>
+            {/* <MenuItem onClick={() => selectModifier("cw721/0.1.0/approve")}>
+              Approve
+            </MenuItem>
+            <MenuItem onClick={() => selectModifier("cw721/0.1.0/revoke_all")}>
+              Revoke All
+            </MenuItem>
+            <MenuItem onClick={() => selectModifier("cw721/0.1.0/mint")}>
+              Mint
+            </MenuItem>
+            <MenuItem onClick={() => selectModifier("cw721/0.1.0/send_nft")}>
+              Send NFT
+            </MenuItem>
+            <MenuItem onClick={() => selectModifier("cw721/0.1.0/burn")}>
+              Burn
+            </MenuItem> */}
+            <MenuItem
+              onClick={() => selectModifier("cw721-offers/0.1.0/place-offer")}
+            >
+              Place Offer
+            </MenuItem>
+            {/* <MenuItem
+              onClick={() => selectModifier("rates/0.1.0/update_rates")}
+            >
+              Update Rates
+            </MenuItem> */}
+            <MenuItem
+              onClick={() => selectModifier("timelock/0.1.0/hold_funds")}
+            >
+              Hold Funds
+            </MenuItem>
+            <MenuItem
+              onClick={() => selectModifier("timelock/0.1.0/release_funds")}
+            >
+              Release Funds
+            </MenuItem>
+            {/* <MenuItem onClick={() => selectModifier("auction/0.1.0/place_bid")}>
+              Place Bid
+            </MenuItem> */}
+            <MenuItem
+              onClick={() => selectModifier("auction/0.1.0/update_owner")}
+            >
+              Update Owner
+            </MenuItem>
+            <MenuItem onClick={() => selectModifier("auction/0.1.0/claim")}>
+              Claim
+            </MenuItem>
           </MenuList>
         </Menu>
 
