@@ -1,0 +1,1 @@
+{"schema":{"description":"Repays any existing loan with sent stable coins.","type":"object","required":["repay_loan"],"properties":{"repay_loan":{"type":"object","title":"repay_loan"}},"additionalProperties":false},"ui-schema":{},"form-data":{}}

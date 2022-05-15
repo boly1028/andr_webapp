@@ -1,0 +1,1 @@
+{"schema":{"description":"Remove previously granted ApproveAll permission","type":"object","required":["revoke_all"],"properties":{"revoke_all":{"type":"object","required":["operator"],"properties":{"operator":{"type":"string","title":"operator"}}}},"additionalProperties":false},"ui-schema":{},"form-data":{}}

@@ -1,0 +1,1 @@
+{"schema":{"description":"Function to deposit native fund in the contract in exchange for recieving a proportion of the TOKEN.","type":"object","required":["deposit_native"],"properties":{"deposit_native":{"type":"object","title":"deposit_native"}},"additionalProperties":false},"ui-schema":{},"form-data":{}}
