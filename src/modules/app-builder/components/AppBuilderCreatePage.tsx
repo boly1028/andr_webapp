@@ -8,6 +8,8 @@ import ReactFlow, {
   Controls,
   ControlButton,
   Background,
+  useNodesState,
+  useEdgesState,
 } from "react-flow-renderer";
 import _ from "lodash";
 import { v4 as uuidv4 } from "uuid";
@@ -69,8 +71,8 @@ import { CheckIcon, ChevronRightIcon } from "@/modules/common";
 import loadPanelJSON from "@/modules/app-builder/functions/load-panel-data";
 
 //Import Custom Node Declarations
-import initialNodes from "../components/nodes";
-import initialEdges from "../components/edges";
+import initialNodes, { minervaNodes } from "../components/nodes";
+import initialEdges, { minervaEdges } from "../components/edges";
 // Node Type Declaration
 import StringNode from "@/modules/app-builder/components/nodes/string";
 // Custom Panel Class Type Handlers
@@ -201,6 +203,18 @@ const AppBuilderCreatePage = () => {
       setIbc3(0);
     }
   }
+
+  // Save / Restore Options ///////////////////////////////////////////////////////////////////////
+  const saveRestore = () => {
+    console.log(JSON.stringify(nodes));
+    console.log(JSON.stringify(edges));
+  };
+
+  const loadMinerva = () => {
+    setNodes(minervaNodes);
+    setEdges(minervaEdges);
+    onClose();
+  };
 
   // Menu Selection Toggles & Action Calls /////////////////////////////////////////////////////
   //Toggles the primary panel selecor fly wheel menu
@@ -818,7 +832,6 @@ const AppBuilderCreatePage = () => {
         zIndex={10}
         m={8}
         alignItems="center"
-        bg="#ffffff"
       >
         <Menu id="baseADO-menu" placement="bottom-end">
           <MenuButton
@@ -1133,6 +1146,15 @@ const AppBuilderCreatePage = () => {
           mr={2}
           px={1}
         ></Button>
+        {/* <Button
+          id="save"
+          as={IconButton}
+          colorScheme="orange"
+          icon={<Columns />}
+          onClick={saveRestore}
+          mr={2}
+          px={1}
+        ></Button> */}
 
         {/* Export COntrols */}
         <Button
@@ -1178,12 +1200,12 @@ const AppBuilderCreatePage = () => {
                     </Circle>
 
                     <Text color={titleColor} fontSize="lg" fontWeight={600}>
-                      Name
+                      Crowdfund Build
                     </Text>
                   </HStack>
 
                   <Text color="gray.500" fontSize="sm" my={4}>
-                    Description
+                    Sample Connection Load
                   </Text>
 
                   <List spacing={2}>
@@ -1194,7 +1216,27 @@ const AppBuilderCreatePage = () => {
                           color="purple.400"
                           boxSize={5}
                         />
-                        Option
+                        Crowdfund
+                      </Text>
+                    </ListItem>
+                    <ListItem>
+                      <Text color={"gray.500"} fontSize="sm">
+                        <ListIcon
+                          as={CheckIcon}
+                          color="purple.400"
+                          boxSize={5}
+                        />
+                        NFT Collectible
+                      </Text>
+                    </ListItem>
+                    <ListItem>
+                      <Text color={"gray.500"} fontSize="sm">
+                        <ListIcon
+                          as={CheckIcon}
+                          color="purple.400"
+                          boxSize={5}
+                        />
+                        Yield Vault
                       </Text>
                     </ListItem>
                   </List>
@@ -1207,17 +1249,14 @@ const AppBuilderCreatePage = () => {
                     isFullWidth
                     size="lg"
                     colorScheme="purple"
-                    rightIcon={
-                      !template.disabled ? (
-                        <ChevronRightIcon boxSize={5} />
-                      ) : undefined
-                    }
-                    isDisabled={template.disabled}
+                    onClick={loadMinerva}
+                    rightIcon={<ChevronRightIcon boxSize={5} />}
                   >
-                    {template.disabled ? "Coming Soon" : "Get Started"}
+                    {"Get Started"}
                   </Button>
                 </NextLink>
               </Flex>
+
               <Flex direction="column" width="100%" p={4}>
                 <Box>
                   <HStack spacing={4}>
@@ -1226,7 +1265,7 @@ const AppBuilderCreatePage = () => {
                     </Circle>
 
                     <Text color={titleColor} fontSize="lg" fontWeight={600}>
-                      Name
+                      Additional Starters
                     </Text>
                   </HStack>
 
