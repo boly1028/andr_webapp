@@ -1,1 +1,21 @@
-{"schema":{"$schema":"http://json-schema.org/draft-07/schema#","title":"InstantiateMsg","type":"object","required":["primitive_contract"],"properties":{"operators":{"type":["array","null"],"items":{"type":"string"},"title":"operators"},"primitive_contract":{"type":"string","title":"primitive_contract"}}},"ui-schema":{},"form-data":{}}
+{
+  "schema": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "mirror",
+    "class": "baseADO",
+    "classifier": "external",
+    "title": "Mirror",
+    "type": "object",
+    "required": ["primitive_contract"],
+    "properties": {
+      "operators": {
+        "type": ["array", "null"],
+        "items": { "type": "string" },
+        "title": "operators"
+      },
+      "primitive_contract": { "type": "string", "title": "primitive_contract" }
+    }
+  },
+  "ui-schema": {},
+  "form-data": {}
+}

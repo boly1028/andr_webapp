@@ -1,1 +1,48 @@
-{"schema":{"$schema":"http://json-schema.org/draft-07/schema#","title":"InstantiateMsg","description":"Instantiate Message for Swapper contract.","type":"object","required":["primitive_contract","swapper_impl"],"properties":{"primitive_contract":{"type":"string","title":"primitive_contract"},"swapper_impl":{"type":"object","required":["instantiate_type","name"],"properties":{"instantiate_type":{"oneOf":[{"type":"object","required":["new"],"properties":{"new":{"description":"Binary is a wrapper around Vec<u8> to add base64 de/serialization with serde. It also adds some helper methods to help encode inline.\n\nThis is only needed as serde-json-{core,wasm} has a horrible encoding for Vec<u8>","type":"string"}},"additionalProperties":false},{"type":"object","required":["address"],"properties":{"address":{"type":"string"}},"additionalProperties":false}]},"name":{"type":"string"}},"title":"swapper_impl"}}},"ui-schema":{},"form-data":{}}
+{
+  "schema": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "swapper",
+    "class": "baseADO",
+    "classifier": "external",
+    "title": "Swapper",
+    "description": "Instantiate Message for Swapper contract.",
+    "type": "object",
+    "required": ["primitive_contract", "swapper_impl"],
+    "properties": {
+      "primitive_contract": { "type": "string", "title": "primitive_contract" },
+      "swapper_impl": {
+        "type": "object",
+        "required": ["instantiate_type", "name"],
+        "properties": {
+          "instantiate_type": {
+            "oneOf": [
+              {
+                "type": "object",
+                "required": ["new"],
+                "properties": {
+                  "new": {
+                    "description": "Binary is a wrapper around Vec<u8> to add base64 de/serialization with serde. It also adds some helper methods to help encode inline.\n\nThis is only needed as serde-json-{core,wasm} has a horrible encoding for Vec<u8>",
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "required": ["address"],
+                "properties": {
+                  "address": { "type": "string", "title": "Address" }
+                },
+                "additionalProperties": false
+              }
+            ]
+          },
+          "name": { "type": "string", "title": "Name" }
+        },
+        "title": "swapper_impl"
+      }
+    }
+  },
+  "ui-schema": {},
+  "form-data": {}
+}
