@@ -91,7 +91,9 @@ function AddModuleModalItem({
           <Text textStyle="light" my={1}>
             {description}
           </Text>
-          <Text textStyle="light">{documentation}</Text>
+          <a href={documentation} target="_blank" rel="noreferrer">
+            <Text textStyle="light">{documentation}</Text>
+          </a>
         </Box>
         <Text textStyle="light">{version}</Text>
       </Flex>
@@ -109,8 +111,9 @@ const ITEMS = [
     description: "Rates descriptions",
     icon: <TimeIcon />,
     source: "rates/0.1.0/rates",
-    documentation: "",
-    version: "",
+    documentation:
+      "https://docs.andromedaprotocol.io/andromeda/ado-classes/rates",
+    version: "0.1.0",
     "estimated-cost": "",
     "estimated-cost-denom": "",
     "coming-soon": "",
@@ -124,7 +127,7 @@ const ITEMS = [
       "Set Royalties for your ADO, paid to specified Wallet Addresses.",
     source: "ado-module/royalties",
     documentation: "",
-    version: "",
+    version: "0.1.0",
     "estimated-cost": "",
     "estimated-cost-denom": "",
     "coming-soon": "",
@@ -138,7 +141,7 @@ const ITEMS = [
       "Fees built into tax the ADO at point of sale, paid to specified Wallet Addresses.",
     source: "ado-module/taxes",
     documentation: "",
-    version: "",
+    version: "0.1.0",
     "estimated-cost": "",
     "estimated-cost-denom": "",
     "coming-soon": "",
@@ -151,7 +154,7 @@ const ITEMS = [
     description: "descriptions",
     source: "addresslist/0.1.0/addresslist",
     documentation: "",
-    version: "",
+    version: "0.1.0",
     "estimated-cost": "",
     "estimated-cost-denom": "",
     "coming-soon": "",
@@ -165,7 +168,7 @@ const ITEMS = [
       "Set Wallet Addresses that are allowed to interact with the ADO.",
     source: "ado-module/whitelist",
     documentation: "",
-    version: "",
+    version: "0.1.0",
     "estimated-cost": "",
     "estimated-cost-denom": "",
     "coming-soon": "",
@@ -179,7 +182,7 @@ const ITEMS = [
       "Set Wallet Addresses that are not allowed to interact with the ADO.",
     source: "ado-module/blacklist",
     documentation: "",
-    version: "",
+    version: "0.1.0",
     "estimated-cost": "",
     "estimated-cost-denom": "",
     "coming-soon": "",
@@ -193,7 +196,7 @@ const ITEMS = [
     $id: "receipt",
     source: "receipt/0.1.0/receipt",
     documentation: "",
-    version: "",
+    version: "0.1.0",
     "estimated-cost": "",
     "estimated-cost-denom": "",
     "coming-soon": "",
@@ -206,7 +209,7 @@ const ITEMS = [
     $id: "cw721-offers",
     source: "cw721-offers/0.1.0/cw721-offers",
     documentation: "",
-    version: "",
+    version: "0.1.0",
     "estimated-cost": "",
     "estimated-cost-denom": "",
     "coming-soon": "",
@@ -288,7 +291,7 @@ function AddModuleModal(props: any) {
       <a href="#">
         <Circle
           size="36px"
-          bgGradient="radial(primary.500, primary.400)"
+          bgGradient="radial(primary.500, module.600)"
           color="white"
           onClick={onOpen}
         >
@@ -314,11 +317,11 @@ function AddModuleModal(props: any) {
             </Box>
 
             <HStack mb={4} spacing={4} pl={6} pr={7}>
-              <InputGroup flex={1} placeholder="Collection, item or user">
+              <InputGroup flex={1} placeholder="Search names and descriptions">
                 <InputLeftElement pointerEvents="none">
                   <SearchIcon />
                 </InputLeftElement>
-                <Input placeholder="Collection, item or user" />
+                <Input placeholder="Search names and descriptions" />
               </InputGroup>
               <Menu placement="bottom-end">
                 <CustomMenuButton>Classifier</CustomMenuButton>
@@ -348,7 +351,7 @@ function AddModuleModal(props: any) {
                     <AddModuleModalItem
                       key={item.$id}
                       data={item}
-                      isActive={selected == item.$id}
+                      isActive={selected == item.source}
                       onClick={() => setSelected(item.source)}
                     />
                   );
@@ -358,13 +361,13 @@ function AddModuleModal(props: any) {
             <Flex
               p={6}
               justify="space-between"
-              boxShadow="0px -1px 20px rgba(10, 10, 31, 0.2);"
+              // boxShadow="0px -1px 20px rgba(10, 10, 31, 0.2);"
             >
               <Box textAlign="right">
-                <Text textStyle="light">Estimated Fee</Text>
+                {/* <Text textStyle="light">Estimated Fee</Text>
                 <Text textStyle="light" color="module.600">
                   0.15 UST
-                </Text>
+                </Text> */}
               </Box>
               <Button
                 colorScheme="module"
