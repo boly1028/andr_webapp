@@ -8,6 +8,8 @@ import ReactFlow, {
   Controls,
   ControlButton,
   Background,
+  useNodesState,
+  useEdgesState,
 } from "react-flow-renderer";
 import _ from "lodash";
 import { v4 as uuidv4 } from "uuid";
@@ -26,23 +28,41 @@ import {
   Flex,
   HStack,
   Icon,
+  IconButton,
   List,
   ListItem,
   ListIcon,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
   Spacer,
   Text,
   useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
+import {
+  CheckCircleIcon,
+  EditIcon,
+  EyeIcon,
+  FilePlusIcon,
+  MoreHorizontalIcon,
+  UnlockIcon,
+} from "@/modules/common";
 import { PlusIcon } from "@/modules/common";
 import {
   Binary,
   Codepen,
   Codesandbox,
+  Columns,
+  Download,
+  FileCheck,
+  FileCheck2,
   Image as ImageIcon,
   Link2,
   PackageCheck,
   Server,
+  Terminal,
 } from "lucide-react";
 import { CheckIcon, ChevronRightIcon } from "@/modules/common";
 
@@ -50,8 +70,8 @@ import { CheckIcon, ChevronRightIcon } from "@/modules/common";
 import loadPanelJSON from "@/modules/app-builder/functions/load-panel-data";
 
 //Import Custom Node Declarations
-import initialNodes from "../components/nodes";
-import initialEdges from "../components/edges";
+import initialNodes, { minervaNodes } from "../components/nodes";
+import initialEdges, { minervaEdges } from "../components/edges";
 // Node Type Declaration
 import StringNode from "@/modules/app-builder/components/nodes/string";
 // Custom Panel Class Type Handlers
@@ -72,6 +92,8 @@ const AppBuilderCreatePage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const template = { disabled: true };
+  const [ibc, setIbc] = useState(0.0);
+  const [ibc3, setIbc3] = useState(0.0);
   const wrapperBg = useColorModeValue("white", "gray.800");
   const containerBg = useColorModeValue("white", "gray.900");
   const titleColor = useColorModeValue("gray.700", "white");
@@ -166,8 +188,36 @@ const AppBuilderCreatePage = () => {
     maskColor: "rgb(140, 142, 343, 0.05)",
   };
 
+  function ibcToggle() {
+    if (ibc == 0) {
+      setIbc(0.19);
+    } else {
+      setIbc(0);
+    }
+  }
+  function ibc3Toggle() {
+    if (ibc3 == 0) {
+      setIbc3(0.19);
+    } else {
+      setIbc3(0);
+    }
+  }
+
+  // Save / Restore Options ///////////////////////////////////////////////////////////////////////
+  const saveRestore = () => {
+    console.log(JSON.stringify(nodes));
+    console.log(JSON.stringify(edges));
+  };
+
+  const loadMinerva = () => {
+    setNodes(minervaNodes);
+    setEdges(minervaEdges);
+    onClose();
+  };
+
   // Menu Selection Toggles & Action Calls /////////////////////////////////////////////////////
   //Toggles the primary panel selecor fly wheel menu
+
   function toggleMenu() {
     //let toggle = document.querySelector(".toggle");
     const menu = document.querySelector(".menu");
@@ -229,6 +279,12 @@ const AppBuilderCreatePage = () => {
     loadPanel(selection);
     togglePrimitiveSelector("close");
   }
+
+  // App-Builder Control Functions
+  const pushCLI = () => {
+    const cliMessage = "cli message";
+    alert(cliMessage);
+  };
 
   //Operation Calls //////////////////////////////////////////////////////
   const loadArray = (arrData: any, parentName: any) => {
@@ -528,6 +584,48 @@ const AppBuilderCreatePage = () => {
             </svg>
           </ControlButton>
         </Controls>
+
+        {/* IBC Overlays */}
+        <div className="IBC1">
+          <Box
+            position="absolute"
+            top="0"
+            left="0"
+            zIndex={-10}
+            m={8}
+            height="100%"
+            width="50%"
+            alignItems="center"
+            bg="#63B3ED"
+            opacity={ibc}
+          ></Box>
+        </div>
+        <div className="IBC3">
+          <Box
+            position="absolute"
+            top="0"
+            left="0"
+            zIndex={-10}
+            m={8}
+            height="100%"
+            width="32%"
+            alignItems="center"
+            bg="#63B3ED"
+            opacity={ibc3}
+          ></Box>
+          <Box
+            position="absolute"
+            top="0"
+            right="0"
+            zIndex={-10}
+            m={8}
+            height="100%"
+            width="32%"
+            alignItems="center"
+            bg="pink"
+            opacity={ibc3}
+          ></Box>
+        </div>
       </ReactFlow>
 
       <div className="select-menu">
@@ -585,7 +683,7 @@ const AppBuilderCreatePage = () => {
       </div>
 
       {/* Placeholder Panel Selection System Menus */}
-      <div className="ado-selection-panel">
+      {/* <div className="ado-selection-panel">
         <h2>ADO Selection Modal</h2>
         <li>
           <a href="#" onClick={() => selectADO("ado-base/nft-collectible")}>
@@ -609,9 +707,9 @@ const AppBuilderCreatePage = () => {
             Crowdfund
           </a>
         </li>
-      </div>
+      </div> */}
 
-      <div className="module-selection-panel">
+      {/* <div className="module-selection-panel">
         <h2>Module Selection Modal</h2>
         <li>
           <a href="#" onClick={() => selectModule("ado-module/whitelist")}>
@@ -637,9 +735,9 @@ const AppBuilderCreatePage = () => {
         <li>
           <a onClick={() => selectModule("receipt/0.1.0/receipt")}>Receipts</a>
         </li>
-      </div>
+      </div> */}
 
-      <div className="modifier-selection-panel">
+      {/* <div className="modifier-selection-panel">
         <h2>Modifier Selection Modal</h2>
         <li>
           <a href="#" onClick={() => selectModifier("cw20/0.1.0/send")}>
@@ -683,9 +781,9 @@ const AppBuilderCreatePage = () => {
             Decrease Allowance
           </a>
         </li>
-      </div>
+      </div> */}
 
-      <div className="primitive-selection-panel">
+      {/* <div className="primitive-selection-panel">
         <h2>Primitive Selection Modal</h2>
         <li>
           <a
@@ -724,14 +822,366 @@ const AppBuilderCreatePage = () => {
             Binary Blob
           </a>
         </li>
-      </div>
+      </div> */}
 
-      <Box position="absolute" top="0" right="0" zIndex={10} m={8}>
-        <Button
+      <Box
+        position="absolute"
+        top="0"
+        right="0"
+        zIndex={10}
+        m={8}
+        alignItems="center"
+      >
+        <Menu id="baseADO-menu" placement="bottom-end">
+          <MenuButton
+            as={IconButton}
+            icon={<PackageCheck />}
+            variant="link"
+            mr={2}
+          />
+          <MenuList>
+            <MenuItem onClick={() => selectADO("cw721/0.1.0/cw721")}>
+              CW721
+            </MenuItem>
+
+            <MenuItem onClick={() => selectADO("timelock/0.1.0/timelock")}>
+              Timelock
+            </MenuItem>
+            <MenuItem onClick={() => selectADO("auction/0.1.0/auction")}>
+              Auction
+            </MenuItem>
+
+            <MenuItem
+              onClick={() => selectADO("merkle-airdrop/0.1.0/merkle-airdrop")}
+            >
+              Merkle Airdrop
+            </MenuItem>
+            <MenuItem onClick={() => selectADO("splitter/0.1.0/splitter")}>
+              Splitter
+            </MenuItem>
+            <MenuItem onClick={() => selectADO("mission/0.1.0/mission")}>
+              Mission
+            </MenuItem>
+            <MenuItem onClick={() => selectADO("cw20/0.1.0/cw20")}>
+              CW20
+            </MenuItem>
+
+            <MenuItem onClick={() => selectADO("crowdfund/0.1.0/crowdfund")}>
+              Crowdfund
+            </MenuItem>
+            <MenuItem onClick={() => selectADO("swapper/0.1.0/swapper")}>
+              Swapper
+            </MenuItem>
+            <MenuItem onClick={() => selectADO("ado-base/nft-collectible")}>
+              NFT Collectible
+            </MenuItem>
+            <MenuItem onClick={() => selectADO("ado-base/splitter")}>
+              Splitter (deprecated)
+            </MenuItem>
+            <MenuItem onClick={() => selectADO("ado-base/timelock")}>
+              Timelock (deprecated)
+            </MenuItem>
+            <MenuItem
+              onClick={() => selectADO("wrapped-cw721/0.1.0/wrapped_cw721")}
+            >
+              Wrapped CW721
+            </MenuItem>
+            <MenuItem onClick={() => selectADO("vault/0.1.0/vault")}>
+              Vault
+            </MenuItem>
+          </MenuList>
+        </Menu>
+
+        <Menu id="external-menu" placement="bottom-end">
+          <MenuButton as={IconButton} icon={<Link2 />} variant="link" mr={2} />
+          <MenuList>
+            <MenuItem onClick={() => selectADO("astroport/0.1.0/astroport")}>
+              Astroport
+            </MenuItem>
+
+            <MenuItem onClick={() => selectADO("anchor/0.1.0/anchor")}>
+              Anchor
+            </MenuItem>
+            <MenuItem onClick={() => selectADO("swapper/0.1.0/swapper")}>
+              Swapper
+            </MenuItem>
+            <MenuItem onClick={() => selectADO("lockdrop/0.1.0/lockdrop")}>
+              Lockdrop
+            </MenuItem>
+            <MenuItem
+              onClick={() =>
+                selectADO("mirror-wrapped-cdp/0.1.0/mirror_wrapped_cdp")
+              }
+            >
+              Mirror
+            </MenuItem>
+          </MenuList>
+        </Menu>
+
+        <Menu id="module-menu" placement="bottom-end">
+          <MenuButton as={IconButton} icon={<Server />} variant="link" mr={2} />
+          <MenuList>
+            <MenuItem onClick={() => selectModule("rates/0.1.0/rates")}>
+              Royalties (Flat Fee)
+            </MenuItem>
+            <MenuItem onClick={() => selectModule("rates/0.1.0/rates")}>
+              Royalties (Percent)
+            </MenuItem>
+            <MenuItem onClick={() => selectModule("ado-module/royalties")}>
+              Royalties (deprecated)
+            </MenuItem>
+            <MenuItem onClick={() => selectModule("rates/0.1.0/rates")}>
+              Taxes (Flat Fee)
+            </MenuItem>
+            <MenuItem onClick={() => selectModule("rates/0.1.0/rates")}>
+              Taxes (Percent)
+            </MenuItem>
+            <MenuItem onClick={() => selectModule("ado-module/taxes")}>
+              Taxes (deprecated)
+            </MenuItem>
+            <MenuItem
+              onClick={() => selectModule("addresslist/0.1.0/addresslist")}
+            >
+              Whitelist
+            </MenuItem>
+            <MenuItem onClick={() => selectModule("ado-module/whitelist")}>
+              Whitelist (deprecated)
+            </MenuItem>
+            <MenuItem
+              onClick={() => selectModule("addresslist/0.1.0/addresslist")}
+            >
+              Blacklist
+            </MenuItem>
+            <MenuItem onClick={() => selectModule("ado-module/blacklist")}>
+              Blacklist (deprecated)
+            </MenuItem>
+
+            <MenuItem onClick={() => selectModule("receipt/0.1.0/receipt")}>
+              Receipt
+            </MenuItem>
+
+            <MenuItem
+              onClick={() => selectModule("cw721-offers/0.1.0/cw721-offers")}
+            >
+              CW721 Offers
+            </MenuItem>
+          </MenuList>
+        </Menu>
+
+        <Menu id="primitive-menu" placement="bottom-end">
+          <MenuButton
+            as={IconButton}
+            icon={<Codepen />}
+            variant="link"
+            mr={2}
+          />
+          <MenuList>
+            <MenuItem
+              onClick={() => selectPrimitive("primitives/0.1.0/boolean")}
+            >
+              Boolean
+            </MenuItem>
+            <MenuItem onClick={() => selectPrimitive("primitives/0.1.0/array")}>
+              Array
+            </MenuItem>
+            <MenuItem
+              onClick={() => selectPrimitive("primitives/0.1.0/string")}
+            >
+              String
+            </MenuItem>
+            <MenuItem
+              onClick={() => selectPrimitive("primitives/0.1.0/decimal")}
+            >
+              Decimal
+            </MenuItem>
+            <MenuItem
+              onClick={() => selectPrimitive("primitives/0.1.0/uint128")}
+            >
+              Unsigned Integer (128)
+            </MenuItem>
+            <MenuItem onClick={() => selectPrimitive("primitives/0.1.0/coin")}>
+              Coin
+            </MenuItem>
+            <MenuItem>Binary Blob</MenuItem>
+          </MenuList>
+        </Menu>
+
+        <Menu id="modifier-menu" placement="bottom-end">
+          <MenuButton
+            as={IconButton}
+            icon={<Codesandbox />}
+            variant="link"
+            mr={8}
+          />
+          <MenuList>
+            <MenuItem onClick={() => selectModifier("cw20/0.1.0/transfer")}>
+              Transfer
+            </MenuItem>
+            <MenuItem onClick={() => selectModifier("cw20/0.1.0/burn-from")}>
+              Burn From
+            </MenuItem>
+            <MenuItem
+              onClick={() => selectModifier("cw20/0.1.0/decrease-allowance")}
+            >
+              Decreae Allowance
+            </MenuItem>
+            <MenuItem onClick={() => selectModifier("cw20/0.1.0/send")}>
+              Send
+            </MenuItem>
+            <MenuItem onClick={() => selectModifier("cw20/0.1.0/mint")}>
+              Mint
+            </MenuItem>
+            <MenuItem
+              onClick={() => selectModifier("cw20/0.1.0/transfer-from")}
+            >
+              Transfer From
+            </MenuItem>
+            <MenuItem onClick={() => selectModifier("cw20/0.1.0/burn")}>
+              Burn
+            </MenuItem>
+            <MenuItem
+              onClick={() => selectModifier("cw20/0.1.0/increase-allowance")}
+            >
+              Increase Allowance
+            </MenuItem>
+            <MenuItem onClick={() => selectModifier("cw721/0.1.0/approve_all")}>
+              Approve All
+            </MenuItem>
+            <MenuItem
+              onClick={() => selectModifier("cw721/0.1.0/transfer_agreement")}
+            >
+              Transfer Agreement
+            </MenuItem>
+            <MenuItem onClick={() => selectModifier("cw721/0.1.0/archive")}>
+              Archive
+            </MenuItem>
+            <MenuItem onClick={() => selectModifier("cw721/0.1.0/revoke")}>
+              Revoke
+            </MenuItem>
+            <MenuItem
+              onClick={() => selectModifier("cw721/0.1.0/transfer_nft")}
+            >
+              Transfer NFT
+            </MenuItem>
+            {/* <MenuItem onClick={() => selectModifier("cw721/0.1.0/approve")}>
+              Approve
+            </MenuItem>
+            <MenuItem onClick={() => selectModifier("cw721/0.1.0/revoke_all")}>
+              Revoke All
+            </MenuItem>
+            <MenuItem onClick={() => selectModifier("cw721/0.1.0/mint")}>
+              Mint
+            </MenuItem>
+            <MenuItem onClick={() => selectModifier("cw721/0.1.0/send_nft")}>
+              Send NFT
+            </MenuItem>
+            <MenuItem onClick={() => selectModifier("cw721/0.1.0/burn")}>
+              Burn
+            </MenuItem> */}
+            <MenuItem
+              onClick={() => selectModifier("cw721-offers/0.1.0/place-offer")}
+            >
+              Place Offer
+            </MenuItem>
+            {/* <MenuItem
+              onClick={() => selectModifier("rates/0.1.0/update_rates")}
+            >
+              Update Rates
+            </MenuItem> */}
+            <MenuItem
+              onClick={() => selectModifier("timelock/0.1.0/hold_funds")}
+            >
+              Hold Funds
+            </MenuItem>
+            <MenuItem
+              onClick={() => selectModifier("timelock/0.1.0/release_funds")}
+            >
+              Release Funds
+            </MenuItem>
+            {/* <MenuItem onClick={() => selectModifier("auction/0.1.0/place_bid")}>
+              Place Bid
+            </MenuItem> */}
+            <MenuItem
+              onClick={() => selectModifier("auction/0.1.0/update_owner")}
+            >
+              Update Owner
+            </MenuItem>
+            <MenuItem onClick={() => selectModifier("auction/0.1.0/claim")}>
+              Claim
+            </MenuItem>
+          </MenuList>
+        </Menu>
+
+        {/* <Button
           leftIcon={<PlusIcon boxSize={4} />}
           colorScheme="purple"
           size="lg"
           onClick={onOpen}
+        ></Button> */}
+        {/* <MenuButton
+          as={IconButton}
+          icon={<PackageCheck />}
+          variant="link"
+          mr={2}
+        /> */}
+
+        {/* IBC Overlays */}
+        <Button
+          id="ibc1"
+          as={IconButton}
+          colorScheme="blue"
+          icon={<Columns />}
+          onClick={ibcToggle}
+          ml={6}
+          mr={2}
+          px={1}
+        ></Button>
+        <Button
+          id="ibc3"
+          as={IconButton}
+          colorScheme="pink"
+          icon={<Columns />}
+          onClick={ibc3Toggle}
+          mr={2}
+          px={1}
+        ></Button>
+        {/* <Button
+          id="save"
+          as={IconButton}
+          colorScheme="orange"
+          icon={<Columns />}
+          onClick={saveRestore}
+          mr={2}
+          px={1}
+        ></Button> */}
+
+        {/* Export COntrols */}
+        <Button
+          id="cli"
+          as={IconButton}
+          colorScheme="cyan"
+          icon={<Terminal />}
+          onClick={pushCLI}
+          ml={6}
+          mr={2}
+          px={1}
+        ></Button>
+        <Button
+          as={IconButton}
+          colorScheme="yellow"
+          icon={<FileCheck />}
+          onClick={onOpen}
+          mr={2}
+          px={1}
+        ></Button>
+        <Button
+          id="starters"
+          as={IconButton}
+          colorScheme="purple"
+          icon={<PlusIcon />}
+          onClick={onOpen}
+          ml={4}
+          mr={2}
         >
           Starters
         </Button>
@@ -749,12 +1199,12 @@ const AppBuilderCreatePage = () => {
                     </Circle>
 
                     <Text color={titleColor} fontSize="lg" fontWeight={600}>
-                      Name
+                      Crowdfund Build
                     </Text>
                   </HStack>
 
                   <Text color="gray.500" fontSize="sm" my={4}>
-                    Description
+                    Sample Connection Load
                   </Text>
 
                   <List spacing={2}>
@@ -765,7 +1215,27 @@ const AppBuilderCreatePage = () => {
                           color="purple.400"
                           boxSize={5}
                         />
-                        Option
+                        Crowdfund
+                      </Text>
+                    </ListItem>
+                    <ListItem>
+                      <Text color={"gray.500"} fontSize="sm">
+                        <ListIcon
+                          as={CheckIcon}
+                          color="purple.400"
+                          boxSize={5}
+                        />
+                        NFT Collectible
+                      </Text>
+                    </ListItem>
+                    <ListItem>
+                      <Text color={"gray.500"} fontSize="sm">
+                        <ListIcon
+                          as={CheckIcon}
+                          color="purple.400"
+                          boxSize={5}
+                        />
+                        Yield Vault
                       </Text>
                     </ListItem>
                   </List>
@@ -778,17 +1248,14 @@ const AppBuilderCreatePage = () => {
                     isFullWidth
                     size="lg"
                     colorScheme="purple"
-                    rightIcon={
-                      !template.disabled ? (
-                        <ChevronRightIcon boxSize={5} />
-                      ) : undefined
-                    }
-                    isDisabled={template.disabled}
+                    onClick={loadMinerva}
+                    rightIcon={<ChevronRightIcon boxSize={5} />}
                   >
-                    {template.disabled ? "Coming Soon" : "Get Started"}
+                    {"Get Started"}
                   </Button>
                 </NextLink>
               </Flex>
+
               <Flex direction="column" width="100%" p={4}>
                 <Box>
                   <HStack spacing={4}>
@@ -797,7 +1264,7 @@ const AppBuilderCreatePage = () => {
                     </Circle>
 
                     <Text color={titleColor} fontSize="lg" fontWeight={600}>
-                      Name
+                      Additional Starters
                     </Text>
                   </HStack>
 

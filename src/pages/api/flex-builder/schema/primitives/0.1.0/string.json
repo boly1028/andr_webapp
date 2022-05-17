@@ -15,16 +15,16 @@
         "required": ["value"],
         "properties": {
           "key": {
-            "type": ["string", "null"],
+            "type": "string",
             "title": "Field Name"
           },
           "value": {
-            "title": "Field Value",
+            "title": "",
             "type": "object",
             "required": ["string"],
             "properties": {
               "string": {
-                "title": "",
+                "title": "Field Value",
                 "type": "string"
               }
             },

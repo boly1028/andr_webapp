@@ -1,0 +1,1 @@
+{"schema":{"description":"Facilitates reward claim after claims are enabled.","type":"object","required":["claim_rewards"],"properties":{"claim_rewards":{"type":"object","title":"claim_rewards"}},"additionalProperties":false},"ui-schema":{},"form-data":{}}

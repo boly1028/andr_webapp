@@ -1,0 +1,16 @@
+{
+  "schema": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "anchor",
+    "class": "baseADO",
+    "classifier": "external",
+    "title": "Anchor",
+    "type": "object",
+    "required": ["primitive_contract"],
+    "properties": {
+      "primitive_contract": { "type": "string", "title": "primitive_contract" }
+    }
+  },
+  "ui-schema": {},
+  "form-data": {}
+}

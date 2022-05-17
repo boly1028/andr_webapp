@@ -1,0 +1,1 @@
+{"schema":{"description":"Remove previously granted Approval","type":"object","required":["revoke"],"properties":{"revoke":{"type":"object","required":["spender","token_id"],"properties":{"spender":{"type":"string","title":"spender"},"token_id":{"type":"string","title":"token_id"}}}},"additionalProperties":false},"ui-schema":{},"form-data":{}}

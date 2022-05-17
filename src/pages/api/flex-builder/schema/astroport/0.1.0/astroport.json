@@ -1,0 +1,36 @@
+{
+  "schema": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "astroport",
+    "class": "baseADO",
+    "classifier": "external",
+    "title": "Astroport",
+    "type": "object",
+    "required": [
+      "astroport_factory_contract",
+      "astroport_router_contract",
+      "astroport_staking_contract",
+      "astroport_token_contract"
+    ],
+    "properties": {
+      "astroport_factory_contract": {
+        "type": "string",
+        "title": "astroport_factory_contract"
+      },
+      "astroport_router_contract": {
+        "type": "string",
+        "title": "astroport_router_contract"
+      },
+      "astroport_staking_contract": {
+        "type": "string",
+        "title": "astroport_staking_contract"
+      },
+      "astroport_token_contract": {
+        "type": "string",
+        "title": "astroport_token_contract"
+      }
+    }
+  },
+  "ui-schema": {},
+  "form-data": {}
+}
