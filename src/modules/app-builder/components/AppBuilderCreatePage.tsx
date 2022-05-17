@@ -66,6 +66,9 @@ import {
 } from "lucide-react";
 import { CheckIcon, ChevronRightIcon } from "@/modules/common";
 
+//Load Panel Selector Systems
+import AddModuleModal from "@/modules/app-builder/components/AddModuleModal";
+
 // Import sample JSON data returns
 import loadPanelJSON from "@/modules/app-builder/functions/load-panel-data";
 
@@ -238,6 +241,16 @@ const AppBuilderCreatePage = () => {
   }
 
   //Module Selector Menu
+  const [loadModule, setLoadModule] = useState("");
+
+  useEffect(() => {
+    if (loadModule) {
+      //alert("Module Change: " + loadModule);
+      selectModule(loadModule); //Call the panel loader
+      setLoadModule("");
+    }
+  }, [loadModule]);
+
   function toggleModuleSelector(opt: any) {
     if (opt !== "close") {
       toggleMenu();
@@ -641,7 +654,7 @@ const AppBuilderCreatePage = () => {
             </a>
           </li>
           <li style={{ "--i": 1 } as React.CSSProperties}>
-            <a href="#" onClick={toggleModuleSelector}>
+            {/* <a href="#" onClick={toggleModuleSelector}>
               <Circle
                 size="36px"
                 bgGradient="radial(primary.500, primary.400)"
@@ -649,7 +662,8 @@ const AppBuilderCreatePage = () => {
               >
                 <Icon as={Server} />
               </Circle>
-            </a>
+            </a> */}
+            <AddModuleModal setLoadModule={setLoadModule} />
           </li>
           <li style={{ "--i": 2 } as React.CSSProperties}>
             <a href="#" onClick={togglePrimitiveSelector}>
