@@ -63,7 +63,6 @@ import {
   PackageCheck,
   Server,
   Terminal,
-  Terminal2,
 } from "lucide-react";
 import { CheckIcon, ChevronRightIcon } from "@/modules/common";
 
