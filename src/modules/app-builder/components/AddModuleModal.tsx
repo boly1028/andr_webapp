@@ -91,9 +91,9 @@ function AddModuleModalItem({
           <Text textStyle="light" my={1}>
             {description}
           </Text>
-          <a href={documentation} target="_blank" rel="noreferrer">
-            <Text textStyle="light">{documentation}</Text>
-          </a>
+          {/* <a href={documentation} target="_blank" rel="noreferrer"> */}
+          <Text textStyle="light">{documentation}</Text>
+          {/* </a> */}
         </Box>
         <Text textStyle="light">{version}</Text>
       </Flex>

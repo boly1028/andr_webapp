@@ -144,6 +144,7 @@ const AppBuilderCreatePage = () => {
   };
   const nodeStartX = 1;
   const nodeStartY = 10;
+  let spaceY = 0; //used for spacing child nodes
 
   //Background Configurations
   const bgConfig = {
@@ -346,6 +347,102 @@ const AppBuilderCreatePage = () => {
     parentName: any;
   };
 
+  const loadFields = (objData: any, parentName: any) => {
+    console.clear;
+    for (const key in objData) {
+      console.log(key);
+    }
+  };
+
+  //Process Array
+  const processArray = (objData: any, objName: any, parentName: any) => {
+    console.log("-------Processing Array----------");
+    console.log(objData);
+
+    //Load Strings
+    if (objData["items"]["type"] === "string") {
+      //Load Child Nodes to Environment
+      spaceY += 40;
+      AddChild(
+        objData["items"]["type"],
+        uuidv4(),
+        parentName,
+        spaceY,
+        objData["title"],
+      );
+    }
+
+    //Load Array when it is or contains array
+    if (objData["items"]["type"].toString().includes("array")) {
+      console.log("Load Array's Array ");
+      //Load Child Nodes to Environment
+      processArray(objData, objName, parentName);
+    }
+
+    //Load Declared Objects
+    if (objData["items"]["type"] === "object") {
+      console.log("Load Array's Object");
+      //Load Child Nodes to Environment
+      processChildren(objData["items"], objName, parentName);
+    }
+  };
+
+  //Process Children
+  const processChildren = (objData: any, objName: any, parentName: any) => {
+    console.log("-------Processing Child----------");
+    console.log(objData);
+
+    for (const key in objData) {
+      console.log(key + ":" + objData[key]);
+      //console.log(typeof objData[key]);
+
+      //Load Strings
+      if (objData[key] === "string") {
+        console.log("Load String " + objData["type"] + objData["title"]);
+        //Load Child Nodes to Environment
+        spaceY += 40;
+        AddChild(
+          objData["type"],
+          uuidv4(),
+          parentName,
+          spaceY,
+          objData["title"],
+        );
+      }
+
+      //Load Declared Objects
+      if (objData[key] === "object") {
+        console.log("Load Object " + objData["type"] + objData["title"]);
+        //Load Child Nodes to Environment
+        processChildren(objData["properties"], objName, parentName);
+      }
+
+      //Load unDeclared Objects
+      //Exclude anyobjects with declared types as they should be processed through handlers
+      if (typeof objData[key] === "object" && !objData["type"]) {
+        //Only load if there is a type declartion made for the object
+        if (objData[key]["type"]) {
+          console.log(
+            "Load unDeclared Object " + objData["type"] + objData["title"],
+          );
+          //Load Child Nodes to Environment
+          processChildren(objData[key], objName, parentName);
+        }
+      }
+
+      //Load Array when it is or contains array
+      if (
+        objData[key] === "array" ||
+        objData[key].toString().includes("array")
+      ) {
+        console.log("Load Array " + objData["type"] + objData["title"]);
+        //Load Child Nodes to Environment
+        processArray(objData, objName, parentName);
+      }
+    }
+  };
+
+  //deprecated for rewrite with processChildren()
   const loadObject = (objData: any, parentName: any) => {
     console.log(objData);
     //alert(JSON.stringify(objData));
@@ -395,7 +492,7 @@ const AppBuilderCreatePage = () => {
   const loadPanel = async (jsonRef: any) => {
     //Load related JSON Data from provided jsonRef value
     const jsonData = await loadPanelJSON(jsonRef);
-
+    spaceY = 0;
     //alert(jsonData);
     //console.log(jsonData);
     const processData = _.toArray(jsonData); //convert object to array for easier map usage
@@ -403,30 +500,61 @@ const AppBuilderCreatePage = () => {
       for (const key in currData) {
         //console.log(key + ":" + currData[key]);
 
-        if (currData[key] === "array") {
-          // alert("Type Array");
-        }
+        if (key === "schema") {
+          console.clear();
+          console.log(currData["schema"]);
 
-        if (currData[key] === "object") {
-          // alert("Type Object");
-          //const parentName = prompt("New ID?");
-          const parentName = getPanelId();
-          //Call addParent()
+          //Setup Parent Node
+          const parentName = uuidv4().slice(0, 5);
+          const schemaInfo = currData["schema"]; //used for accessing panel data
+          console.log("--Building Parent--> " + parentName);
+          console.log(
+            schemaInfo["title"] +
+              "|" +
+              schemaInfo["description"] +
+              " | " +
+              schemaInfo["class"],
+          );
           addParent(
-            currData["class"],
+            schemaInfo["class"],
             parentName,
-            currData["title"],
-            currData["description"],
+            schemaInfo["title"],
+            schemaInfo["description"],
           );
 
-          loadObject(currData["properties"], parentName);
-          //Loop through children
-          //console.log(currData["properties"]);
-          //let spaceY = 0;
-          for (const childKey in currData["properties"]) {
-            //console.log(currData["properties"][childKey]);
+          //Loop through children for processing
+          const schemaData = currData["schema"]["properties"];
+          for (const schemaKey in schemaData) {
+            console.log(schemaKey + ":" + schemaData[schemaKey]);
+            // Using type of to evaluate if item is an object to be read
+            if (typeof schemaData[schemaKey] === "object") {
+              // console.log("Object!");
+              // console.log(schemaData[schemaKey]);
+              processChildren(schemaData[schemaKey], schemaKey, parentName);
+            }
           }
         }
+        // if (currData[key] === "object") {
+        //   // alert("Type Object");
+        //   //const parentName = prompt("New ID?");
+        //   const parentName = getPanelId();
+        //   //Call addParent()
+        //   addParent(
+        //     currData["class"],
+        //     parentName,
+        //     currData["title"],
+        //     currData["description"],
+        //   );
+
+        //   loadObject(currData["properties"], parentName);
+
+        //   //Loop through children
+        //   //console.log(currData["properties"]);
+        //   //let spaceY = 0;
+        //   for (const childKey in currData["properties"]) {
+        //     //console.log(currData["properties"][childKey]);
+        //   }
+        // }
       }
     });
   };
@@ -438,7 +566,7 @@ const AppBuilderCreatePage = () => {
         id: newId,
         type: nodeType,
         data: {
-          id: `id`,
+          id: `${newId}`,
           title: `${title}`,
           description: `${description}`,
         },
@@ -561,7 +689,7 @@ const AppBuilderCreatePage = () => {
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         defaultEdgeOptions={defaultEdgeOptions}
-        // fitView
+        fitView
       >
         <Background {...bgConfig} />
         <MiniMap {...miniMapConfig} />
