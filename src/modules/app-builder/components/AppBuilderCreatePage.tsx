@@ -56,6 +56,7 @@ import {
   Codesandbox,
   Columns,
   Download,
+  Eraser,
   FileCheck,
   FileCheck2,
   Image as ImageIcon,
@@ -214,6 +215,21 @@ const AppBuilderCreatePage = () => {
   }
 
   // Save / Restore Options ///////////////////////////////////////////////////////////////////////
+  const clearCanvas = () => {
+    //confirmation prompt needs to be re-added post demo
+    //if (confirm("Are you sure you want to clear all current configurations?")) {
+    setNodes([]);
+    setEdges([]);
+    //Turn off IBC regions
+    if (ibc != 0) {
+      setIbc(0);
+    }
+    if (ibc3 != 0) {
+      setIbc3(0);
+    }
+    //}
+  };
+
   const saveRestore = () => {
     console.log(JSON.stringify(nodes));
     console.log(JSON.stringify(edges));
@@ -554,13 +570,7 @@ const AppBuilderCreatePage = () => {
             );
             //Load Module Field
             spaceY += 28;
-            AddChild(
-              "module-field",
-              uuidv4(),
-              parentName,
-              spaceY,
-              "Module Field",
-            );
+            AddChild("module-field", uuidv4(), parentName, spaceY, "Module");
             //Load Module Field Footer
             spaceY += 40;
             AddChild(
@@ -1326,17 +1336,9 @@ const AppBuilderCreatePage = () => {
           mr={2}
           px={1}
         ></Button>
-        {/* <Button
-          id="save"
-          as={IconButton}
-          colorScheme="orange"
-          icon={<Columns />}
-          onClick={saveRestore}
-          mr={2}
-          px={1}
-        ></Button> */}
 
         {/* Export COntrols */}
+
         <Button
           id="cli"
           as={IconButton}
@@ -1348,6 +1350,15 @@ const AppBuilderCreatePage = () => {
           px={1}
         ></Button>
         <Button
+          id="save"
+          as={IconButton}
+          colorScheme="orange"
+          icon={<Download />}
+          onClick={saveRestore}
+          mr={2}
+          px={1}
+        ></Button>
+        <Button
           as={IconButton}
           colorScheme="yellow"
           icon={<FileCheck />}
@@ -1355,13 +1366,26 @@ const AppBuilderCreatePage = () => {
           mr={2}
           px={1}
         ></Button>
+
+        {/* Loading Controls */}
+        <Button
+          id="clear"
+          as={IconButton}
+          colorScheme="purple"
+          icon={<Eraser />}
+          onClick={clearCanvas}
+          ml={6}
+          mr={0}
+        >
+          Starters
+        </Button>
         <Button
           id="starters"
           as={IconButton}
           colorScheme="purple"
           icon={<PlusIcon />}
           onClick={onOpen}
-          ml={4}
+          ml={2}
           mr={2}
         >
           Starters
