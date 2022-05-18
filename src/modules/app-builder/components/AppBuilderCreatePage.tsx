@@ -80,12 +80,18 @@ import StringNode from "@/modules/app-builder/components/nodes/string";
 // Custom Panel Class Type Handlers
 import BaseADONode from "@/modules/app-builder/components/nodes/baseADO";
 import ModuleNode from "@/modules/app-builder/components/nodes/module";
+import ModuleField from "@/modules/app-builder/components/nodes/module-field";
+import ModuleFieldHeader from "@/modules/app-builder/components/nodes/module-field-header";
+import ModuleFieldFooter from "@/modules/app-builder/components/nodes/module-field-footer";
 import ModifierNode from "@/modules/app-builder/components/nodes/modifier";
 import PrimitiveNode from "@/modules/app-builder/components/nodes/primitive";
 
 const nodeTypes = {
   baseADO: BaseADONode,
   module: ModuleNode,
+  "module-field": ModuleField,
+  "module-field-header": ModuleFieldHeader,
+  "module-field-footer": ModuleFieldFooter,
   modifier: ModifierNode,
   primitive: PrimitiveNode,
   string: StringNode,
@@ -533,7 +539,40 @@ const AppBuilderCreatePage = () => {
               processChildren(schemaData[schemaKey], schemaKey, parentName);
             }
           }
+
+          //Load module fields support components if type is BaseADO
+
+          if (schemaInfo["class"] === "baseADO") {
+            //Load Module Field Header
+            spaceY += 40;
+            AddChild(
+              "module-field-header",
+              uuidv4(),
+              parentName,
+              spaceY,
+              "Modules",
+            );
+            //Load Module Field
+            spaceY += 28;
+            AddChild(
+              "module-field",
+              uuidv4(),
+              parentName,
+              spaceY,
+              "Module Field",
+            );
+            //Load Module Field Footer
+            spaceY += 40;
+            AddChild(
+              "module-field-footer",
+              "module-field-footer",
+              parentName,
+              spaceY,
+              "+ Add a Module Attachment Slot",
+            );
+          }
         }
+
         // if (currData[key] === "object") {
         //   // alert("Type Object");
         //   //const parentName = prompt("New ID?");

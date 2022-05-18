@@ -3,7 +3,7 @@ import { Handle, Position } from "react-flow-renderer";
 import { Input, HStack, Flex, Text } from "@chakra-ui/react";
 
 const handleStyle = {
-  background: "#ff00ff",
+  background: "#9360FB",
   width: 8,
   height: 8,
   border: "1px solid #000",
@@ -17,7 +17,7 @@ function StringNode({ data }: any) {
   }, []);
 
   return (
-    <div className="string-node">
+    <div className="module-field">
       <Handle
         type="target"
         position={Position.Left}
@@ -25,7 +25,7 @@ function StringNode({ data }: any) {
         id="left"
       />
       <Flex gap={4} padding={1}>
-        <Text htmlFor="text" fontSize="xs">
+        <Text htmlFor="text" orientation="vertical" fontSize="xs">
           {data.title}
         </Text>
         {/* <input id="text" name="text" onChange={onChange} /> */}
