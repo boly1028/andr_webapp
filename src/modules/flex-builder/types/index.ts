@@ -10,6 +10,7 @@ export type FlexBuilderTemplateProps = {
   schema?: JSONSchema7;
   uiSchema?: any;
   formData?: any;
+  modules?: FlexBuilderTemplateModuleProps[];
   disabled?: boolean;
 };
 
@@ -18,4 +19,11 @@ export type FlexBuilderTemplateADOProps = {
   path: string;
   required?: boolean;
   enabled?: boolean;
+};
+
+export type FlexBuilderTemplateModuleProps = {
+  id: string;
+  path: string;
+  schema?: JSONSchema7;
+  disabled?: boolean;
 };

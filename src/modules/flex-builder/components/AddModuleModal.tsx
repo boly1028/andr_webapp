@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, useCallback } from "react";
 import {
   Modal,
   ModalOverlay,
@@ -20,6 +20,9 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 
+import { JSONSchema7 } from "json-schema";
+import { v4 as uuidv4 } from "uuid";
+
 import {
   PlusIcon,
   ScanIcon,
@@ -28,28 +31,22 @@ import {
   CustomMenuButton,
 } from "@/modules/common";
 
-type AdoItem = {
-  id: number;
-  icon: React.ReactElement;
-  name: string;
-  desc: string;
-  isComingSoon: boolean;
-};
+import { FlexBuilderTemplateModuleProps } from "@/modules/flex-builder/types";
 
 interface AddModuleModalItemProps {
-  data: AdoItem;
+  data: JSONSchema7 | undefined;
   isActive: boolean;
   onClick: () => void;
+  disabled?: boolean;
 }
 
 function AddModuleModalItem({
   data,
   onClick,
+  disabled = false,
   isActive = false,
 }: AddModuleModalItemProps) {
-  const { name, icon, desc } = data;
-
-  const newIcon = React.cloneElement(icon, {
+  const newIcon = React.cloneElement(<ScanIcon />, {
     color: "module.600",
     boxSize: 6,
   });
@@ -77,9 +74,9 @@ function AddModuleModalItem({
           </Flex>
         </Box>
         <Box flex={1}>
-          <Text textStyle="bold">{name}</Text>
+          <Text textStyle="bold">{data.title}</Text>
           <Text textStyle="light" my={1}>
-            {desc}
+            {data.description}
           </Text>
           <Text textStyle="light">Lorem ipsum dolor sit amet </Text>
         </Box>
@@ -89,70 +86,23 @@ function AddModuleModalItem({
   );
 }
 
-// Mock data
-const ITEMS = [
-  {
-    id: 1,
-    icon: <ScanIcon />,
-    name: "Splitter",
-    desc: "Assign a percentage to certain recipients.",
-    isComingSoon: false,
-  },
-  {
-    id: 2,
-    icon: <TimeIcon />,
-    name: "Timelock",
-    desc: "Lock actions for a specified duration.",
-    isComingSoon: false,
-  },
-  {
-    id: 3,
-    icon: <ScanIcon />,
-    name: "Metadata",
-    desc: "Create a transaction record reciept.",
-    isComingSoon: false,
-  },
-  {
-    id: 4,
-    icon: <ScanIcon />,
-    name: "Receipt",
-    desc: "Add the metadata information for your NFT.",
-    isComingSoon: true,
-  },
-  {
-    id: 5,
-    icon: <ScanIcon />,
-    name: "Splitter",
-    desc: "Assign a percentage to certain recipients.",
-    isComingSoon: false,
-  },
-  {
-    id: 6,
-    icon: <TimeIcon />,
-    name: "Timelock",
-    desc: "Lock actions for a specified duration.",
-    isComingSoon: false,
-  },
-  {
-    id: 7,
-    icon: <ScanIcon />,
-    name: "Metadata",
-    desc: "Create a transaction record reciept.",
-    isComingSoon: false,
-  },
-  {
-    id: 8,
-    icon: <ScanIcon />,
-    name: "Receipt",
-    desc: "Add the metadata information for your NFT.",
-    isComingSoon: true,
-  },
-];
+interface AddModuleModalProps {
+  items: FlexBuilderTemplateModuleProps[];
+  onAdd: (item: FlexBuilderTemplateModuleProps) => void;
+}
 
 // TODO: This modal need an API to get the list of ADOs and to add a module
-function AddModuleModal() {
+function AddModuleModal({ onAdd, items }: AddModuleModalProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [selected, setSelected] = useState<number | null>(null);
+  const [selected, setSelected] =
+    useState<FlexBuilderTemplateModuleProps | null>(null);
+
+  const handleAdd = useCallback(() => {
+    if (selected) {
+      onAdd(selected);
+      onClose();
+    }
+  }, [selected, onAdd, onClose]);
 
   return (
     <>
@@ -204,13 +154,17 @@ function AddModuleModal() {
               }}
             >
               <VStack spacing={3} align="normal">
-                {ITEMS.map((item) => {
+                {items.map((item) => {
+                  item.id = uuidv4();
                   return (
                     <AddModuleModalItem
                       key={item.id}
-                      data={item}
-                      isActive={selected == item.id}
-                      onClick={() => setSelected(item.id)}
+                      disabled={item.disabled}
+                      data={item.schema["schema"]}
+                      isActive={selected?.id == item.id}
+                      onClick={() => {
+                        if (!item.disabled) setSelected(item);
+                      }}
                     />
                   );
                 })}
@@ -227,7 +181,11 @@ function AddModuleModal() {
                   0.15 UST
                 </Text>
               </Box>
-              <Button colorScheme="module" leftIcon={<PlusIcon boxSize={6} />}>
+              <Button
+                onClick={handleAdd}
+                colorScheme="module"
+                leftIcon={<PlusIcon boxSize={6} />}
+              >
                 Add Module
               </Button>
             </Flex>

@@ -139,6 +139,7 @@ export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
       "Publish and use!",
     ],
     ados: [],
+    modules: [{ path: "ado-base/timelock" }],
   },
   // {
   //   id: "panel-inventory",
