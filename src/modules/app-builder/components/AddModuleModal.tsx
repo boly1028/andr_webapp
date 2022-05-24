@@ -107,8 +107,25 @@ const ITEMS = [
     $id: "rates",
     class: "module",
     classifier: "sales",
-    title: "Rates",
-    description: "Rates descriptions",
+    title: "Percentage Based Taxes",
+    description:
+      "A percentage based tax payment to attach to qualifying ADO transfers.",
+    icon: <TimeIcon />,
+    source: "rates/0.1.0/rates",
+    documentation:
+      "https://docs.andromedaprotocol.io/andromeda/ado-classes/rates",
+    version: "0.1.0",
+    "estimated-cost": "",
+    "estimated-cost-denom": "",
+    "coming-soon": "",
+  },
+  {
+    $id: "rates",
+    class: "module",
+    classifier: "sales",
+    title: "Flat-Rate Based Taxes",
+    description:
+      "A flat-rate based tax payment to attach to qualifying ADO transfers.",
     icon: <TimeIcon />,
     source: "rates/0.1.0/rates",
     documentation:
@@ -126,21 +143,8 @@ const ITEMS = [
     description:
       "Set Royalties for your ADO, paid to specified Wallet Addresses.",
     source: "ado-module/royalties",
-    documentation: "",
-    version: "0.1.0",
-    "estimated-cost": "",
-    "estimated-cost-denom": "",
-    "coming-soon": "",
-  },
-  {
-    $id: "taxes",
-    class: "module",
-    classifier: "Sale",
-    title: "Add Built-In Taxes",
-    description:
-      "Fees built into tax the ADO at point of sale, paid to specified Wallet Addresses.",
-    source: "ado-module/taxes",
-    documentation: "",
+    documentation:
+      "https://docs.andromedaprotocol.io/andromeda/ado-classes/rates",
     version: "0.1.0",
     "estimated-cost": "",
     "estimated-cost-denom": "",
@@ -150,10 +154,11 @@ const ITEMS = [
     $id: "addresslist",
     class: "module",
     classifier: "AddressList",
-    title: "AddressList",
-    description: "descriptions",
+    title: "Address List",
+    description: "Store a list of addresses.",
     source: "addresslist/0.1.0/addresslist",
-    documentation: "",
+    documentation:
+      "https://docs.andromedaprotocol.io/andromeda/ado-classes/address-list",
     version: "0.1.0",
     "estimated-cost": "",
     "estimated-cost-denom": "",
@@ -167,7 +172,8 @@ const ITEMS = [
     description:
       "Set Wallet Addresses that are allowed to interact with the ADO.",
     source: "ado-module/whitelist",
-    documentation: "",
+    documentation:
+      "https://docs.andromedaprotocol.io/andromeda/ado-classes/address-list",
     version: "0.1.0",
     "estimated-cost": "",
     "estimated-cost-denom": "",
@@ -181,7 +187,8 @@ const ITEMS = [
     description:
       "Set Wallet Addresses that are not allowed to interact with the ADO.",
     source: "ado-module/blacklist",
-    documentation: "",
+    documentation:
+      "https://docs.andromedaprotocol.io/andromeda/ado-classes/address-list",
     version: "0.1.0",
     "estimated-cost": "",
     "estimated-cost-denom": "",
@@ -195,7 +202,8 @@ const ITEMS = [
       "Add the ability to generate receipts which store event history.",
     $id: "receipt",
     source: "receipt/0.1.0/receipt",
-    documentation: "",
+    documentation:
+      "https://docs.andromedaprotocol.io/andromeda/modules/receipt-module",
     version: "0.1.0",
     "estimated-cost": "",
     "estimated-cost-denom": "",
@@ -208,7 +216,8 @@ const ITEMS = [
     description: "Allow buyers to place offers on NFT Collectibles.",
     $id: "cw721-offers",
     source: "cw721-offers/0.1.0/cw721-offers",
-    documentation: "",
+    documentation:
+      "https://docs.andromedaprotocol.io/andromeda/modules/offers-module",
     version: "0.1.0",
     "estimated-cost": "",
     "estimated-cost-denom": "",

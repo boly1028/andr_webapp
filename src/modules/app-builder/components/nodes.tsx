@@ -1478,4 +1478,431 @@ const samplelNodes = [
   },
 ];
 
+export const yieldVaultNodes: any = [
+  {
+    id: "8b9c6",
+    type: "baseADO",
+    data: {
+      id: "8b9c6",
+      title: "Vault",
+      description:
+        "The purpose of the vault ADO is to provide central funds for a mission. This means, it will allow the mission to deposit funds to the vault, and these funds can be proxied to various yield strategies.",
+    },
+    position: {
+      x: 340,
+      y: 520,
+    },
+    style: {
+      width: 300,
+    },
+    width: 300,
+    height: 170,
+    selected: false,
+    dragging: false,
+  },
+  {
+    id: "93738c48-666e-445d-9d1a-2b589b20e5a8",
+    type: "string",
+    data: {
+      title: "operators",
+    },
+    parentNode: "8b9c6",
+    draggable: false,
+    style: {
+      width: 300,
+    },
+    position: {
+      x: 0,
+      y: 40,
+    },
+    width: 300,
+    height: 48,
+    selected: false,
+  },
+  {
+    id: "7267f5f8-d78d-4cf8-845c-98fcd43e6993",
+    type: "module-field-header",
+    data: {
+      title: "Modules",
+    },
+    parentNode: "8b9c6",
+    draggable: false,
+    style: {
+      width: 300,
+    },
+    position: {
+      x: 0,
+      y: 80,
+    },
+    width: 300,
+    height: 29,
+    selected: false,
+  },
+  {
+    id: "fcbd16cb-8c07-43ce-b031-6643bc5139c6",
+    type: "module-field",
+    data: {
+      title: "Module",
+    },
+    parentNode: "8b9c6",
+    draggable: false,
+    style: {
+      width: 300,
+    },
+    position: {
+      x: 0,
+      y: 108,
+    },
+    width: 300,
+    height: 40,
+    selected: false,
+  },
+  {
+    id: "module-field-footer",
+    type: "module-field-footer",
+    data: {
+      title: "+ Add a Module Attachment Slot",
+    },
+    parentNode: "8b9c6",
+    draggable: false,
+    style: {
+      width: 300,
+    },
+    position: {
+      x: 0,
+      y: 148,
+    },
+    width: 300,
+    height: 32,
+    selected: false,
+  },
+  {
+    id: "0bff6",
+    type: "baseADO",
+    data: {
+      id: "0bff6",
+      title: "Anchor",
+      description: "undefined",
+    },
+    position: {
+      x: 36,
+      y: 760,
+    },
+    style: {
+      width: 300,
+    },
+    width: 300,
+    height: 170,
+    selected: false,
+    dragging: false,
+  },
+  {
+    id: "50571dd9-1fba-488c-bd54-50e80528e219",
+    type: "string",
+    data: {
+      title: "primitive_contract",
+    },
+    parentNode: "0bff6",
+    draggable: false,
+    style: {
+      width: 300,
+    },
+    position: {
+      x: 0,
+      y: 40,
+    },
+    width: 300,
+    height: 48,
+    selected: false,
+  },
+  {
+    id: "15fdfe89-35aa-4cd3-8d1d-6a32319711fd",
+    type: "module-field-header",
+    data: {
+      title: "Modules",
+    },
+    parentNode: "0bff6",
+    draggable: false,
+    style: {
+      width: 300,
+    },
+    position: {
+      x: 0,
+      y: 80,
+    },
+    width: 300,
+    height: 29,
+    selected: false,
+  },
+  {
+    id: "774aea08-ef66-4b46-8643-332cfb59b71c",
+    type: "module-field",
+    data: {
+      title: "Module",
+    },
+    parentNode: "0bff6",
+    draggable: false,
+    style: {
+      width: 300,
+    },
+    position: {
+      x: 0,
+      y: 108,
+    },
+    width: 300,
+    height: 40,
+    selected: false,
+  },
+  {
+    id: "module-field-footer",
+    type: "module-field-footer",
+    data: {
+      title: "+ Add a Module Attachment Slot",
+    },
+    parentNode: "0bff6",
+    draggable: false,
+    style: {
+      width: 300,
+    },
+    position: {
+      x: 0,
+      y: 148,
+    },
+    selected: false,
+    width: 300,
+    height: 32,
+  },
+  {
+    id: "d1a66",
+    type: "baseADO",
+    data: {
+      id: "d1a66",
+      title: "Splitter",
+      description: "undefined",
+    },
+    position: {
+      x: 1156,
+      y: 616,
+    },
+    style: {
+      width: 300,
+    },
+    width: 300,
+    height: 170,
+    selected: false,
+    dragging: false,
+  },
+  {
+    id: "75e3e4ec-f45c-4b07-a2a7-2aa3fcdfd304",
+    type: "string",
+    data: {
+      title: "Identifier",
+    },
+    parentNode: "d1a66",
+    draggable: false,
+    style: {
+      width: 300,
+    },
+    position: {
+      x: 0,
+      y: 40,
+    },
+    width: 300,
+    height: 48,
+    selected: false,
+  },
+  {
+    id: "cf5e1c6b-46e6-497e-add6-fc66766e8cdb",
+    type: "string",
+    data: {
+      title: "Recipeint []",
+    },
+    parentNode: "d1a66",
+    draggable: false,
+    style: {
+      width: 300,
+    },
+    position: {
+      x: 0,
+      y: 80,
+    },
+    width: 300,
+    height: 48,
+    selected: false,
+  },
+  {
+    id: "31fa7430-e06b-4e94-8396-31801d348353",
+    type: "string",
+    data: {
+      title: "Percent",
+    },
+    parentNode: "d1a66",
+    draggable: false,
+    style: {
+      width: 300,
+    },
+    position: {
+      x: 0,
+      y: 120,
+    },
+    width: 300,
+    height: 48,
+    selected: false,
+  },
+  {
+    id: "9abf2c20-9dee-4afe-9202-1b1a2a5b9e69",
+    type: "module-field-header",
+    data: {
+      title: "Modules",
+    },
+    parentNode: "d1a66",
+    draggable: false,
+    style: {
+      width: 300,
+    },
+    position: {
+      x: 0,
+      y: 160,
+    },
+    width: 300,
+    height: 29,
+    selected: false,
+  },
+  {
+    id: "da781b13-1328-4002-916b-5ac50935e867",
+    type: "module-field",
+    data: {
+      title: "Module",
+    },
+    parentNode: "d1a66",
+    draggable: false,
+    style: {
+      width: 300,
+    },
+    position: {
+      x: 0,
+      y: 188,
+    },
+    width: 300,
+    height: 40,
+    selected: false,
+  },
+  {
+    id: "module-field-footer",
+    type: "module-field-footer",
+    data: {
+      title: "+ Add a Module Attachment Slot",
+    },
+    parentNode: "d1a66",
+    draggable: false,
+    style: {
+      width: 300,
+    },
+    position: {
+      x: 0,
+      y: 228,
+    },
+    selected: false,
+    width: 300,
+    height: 32,
+  },
+  {
+    id: "90c60",
+    type: "modifier",
+    data: {
+      id: "90c60",
+      title: "Withdraw",
+      description: "Withdraw funds from the vault or one of the strategies.",
+    },
+    position: {
+      x: 628,
+      y: 296,
+    },
+    style: {
+      width: 300,
+    },
+    width: 300,
+    height: 135,
+    selected: true,
+    dragging: false,
+  },
+  {
+    id: "f413b5ff-5cfa-497b-ab3e-ed54a88fcc97",
+    type: "string",
+    data: {
+      title: "primitive_contract",
+    },
+    parentNode: "90c60",
+    draggable: false,
+    style: {
+      width: 300,
+    },
+    position: {
+      x: 0,
+      y: 40,
+    },
+    width: 300,
+    height: 48,
+    selected: false,
+  },
+  {
+    id: "5b6fe422-60e2-4917-bb8b-f2f53765496c",
+    type: "string",
+    data: {
+      title: "Recipient",
+    },
+    parentNode: "90c60",
+    draggable: false,
+    style: {
+      width: 300,
+    },
+    position: {
+      x: 0,
+      y: 80,
+    },
+    width: 300,
+    height: 48,
+    selected: false,
+  },
+  {
+    id: "5b5c9",
+    type: "module",
+    data: {
+      id: "5b5c9",
+      title: "AddressList",
+      description: "undefined",
+    },
+    position: {
+      x: 1524,
+      y: 440,
+    },
+    style: {
+      width: 300,
+    },
+    width: 300,
+    height: 170,
+    selected: false,
+    dragging: false,
+  },
+  {
+    id: "8e991cfb-0757-42d2-9ae9-14f9ae56022f",
+    type: "string",
+    data: {
+      title: "operators",
+    },
+    parentNode: "5b5c9",
+    draggable: false,
+    style: {
+      width: 300,
+    },
+    position: {
+      x: 0,
+      y: 40,
+    },
+    width: 300,
+    height: 48,
+    selected: false,
+  },
+];
+
 export default initialNodes;

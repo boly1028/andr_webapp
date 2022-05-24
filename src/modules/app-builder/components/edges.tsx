@@ -150,4 +150,43 @@ export const sampleEdges: any = [
   },
 ];
 
+export const yieldVaultEdges: any = [
+  {
+    animated: false,
+    source: "8b9c6",
+    sourceHandle: "right",
+    target: "50571dd9-1fba-488c-bd54-50e80528e219",
+    targetHandle: "right",
+    id: "reactflow__edge-8b9c6right-50571dd9-1fba-488c-bd54-50e80528e219right",
+    selected: false,
+  },
+  {
+    animated: false,
+    source: "8b9c6",
+    sourceHandle: "left",
+    target: "f413b5ff-5cfa-497b-ab3e-ed54a88fcc97",
+    targetHandle: "left",
+    id: "reactflow__edge-8b9c6left-f413b5ff-5cfa-497b-ab3e-ed54a88fcc97left",
+    selected: false,
+  },
+  {
+    animated: false,
+    source: "d1a66",
+    sourceHandle: "left",
+    target: "5b6fe422-60e2-4917-bb8b-f2f53765496c",
+    targetHandle: "right",
+    id: "reactflow__edge-d1a66left-5b6fe422-60e2-4917-bb8b-f2f53765496cright",
+    selected: false,
+  },
+  {
+    animated: false,
+    source: "5b5c9",
+    sourceHandle: "right",
+    target: "cf5e1c6b-46e6-497e-add6-fc66766e8cdb",
+    targetHandle: "right",
+    id: "reactflow__edge-5b5c9right-cf5e1c6b-46e6-497e-add6-fc66766e8cdbright",
+    selected: false,
+  },
+];
+
 export default initialEdges;
