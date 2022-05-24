@@ -25,9 +25,7 @@ function StringNode({ data }: any) {
         id="left"
       />
       <Flex gap={4} padding={1}>
-        <Text htmlFor="text" fontSize="xs">
-          {data.title}
-        </Text>
+        <Text fontSize="xs">{data.title}</Text>
         {/* <input id="text" name="text" onChange={onChange} /> */}
         <Flex>
           <Input name="text" onChange={onChange} size="xs" />

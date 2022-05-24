@@ -19,7 +19,6 @@ function StringNode({ data }: any) {
   return (
     <div className="module-field-header">
       <Text
-        htmlFor="text"
         orientation="horizontal"
         align="center"
         color="#faf5ff"

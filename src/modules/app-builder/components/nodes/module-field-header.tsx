@@ -18,12 +18,7 @@ function StringNode({ data }: any) {
 
   return (
     <div className="module-field-header">
-      <Text
-        htmlFor="text"
-        orientation="horizontal"
-        align="center"
-        fontSize="sm"
-      >
+      <Text orientation="horizontal" align="center" fontSize="sm">
         {data.title}
       </Text>
     </div>
