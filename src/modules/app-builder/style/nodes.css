@@ -54,3 +54,20 @@
   color: #000;
   font-size: 12px;
 }
+
+.module-field {
+  border-left: 1px solid #000;
+  border-right: 1px solid #000;
+  padding: 4px;
+  border-radius: 0px;
+  background: #faf5ff;
+}
+
+.module-field-header {
+  /* also used for module-field-footer */
+  border-left: 1px solid #000;
+  border-right: 1px solid #000;
+  padding: 4px;
+  border-radius: 0px;
+  background: white;
+}

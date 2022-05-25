@@ -20,13 +20,14 @@
               "required": ["identifier"],
               "properties": {
                 "identifier": {
+                  "title": "Identifier",
                   "description": "Can be either an address or identifier of an ADO in a mission.",
                   "type": "string"
                 }
               }
             },
             "is_mutable": { "type": "boolean" },
-            "module_type": { "type": "string" }
+            "module_type": { "type": "string", "title": "Recipeint []" }
           }
         },
         "title": "modules"
@@ -39,6 +40,7 @@
           "required": ["percent", "recipient"],
           "properties": {
             "percent": {
+              "title": "Percent",
               "description": "A fixed-point decimal value with 18 fractional digits, i.e. Decimal(1_000_000_000_000_000_000) == 1.0\n\nThe greatest possible value that can be represented is 340282366920938463463.374607431768211455 (which is (2^128 - 1) / 10^18)",
               "type": "string"
             },
@@ -68,6 +70,7 @@
                               "required": ["identifier"],
                               "properties": {
                                 "identifier": {
+                                  "title": "Identifier",
                                   "description": "Can be either an address or identifier of an ADO in a mission.",
                                   "type": "string"
                                 }
@@ -78,6 +81,7 @@
                         "msg": {
                           "anyOf": [
                             {
+                              "title": "Message",
                               "description": "Binary is a wrapper around Vec<u8> to add base64 de/serialization with serde. It also adds some helper methods to help encode inline.\n\nThis is only needed as serde-json-{core,wasm} has a horrible encoding for Vec<u8>",
                               "type": "string"
                             },

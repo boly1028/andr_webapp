@@ -41,15 +41,6 @@ function BaseADONode({ data }: any) {
             </Text>
           </HStack>
         </div>
-        <Button
-          bg="white"
-          color="primary.600"
-          fontSize="xs"
-          fontWeight={100}
-          size="xs"
-        >
-          Add Module
-        </Button>
       </div>
       <Handle
         type="source"

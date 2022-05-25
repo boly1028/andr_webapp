@@ -56,6 +56,7 @@ import {
   Codesandbox,
   Columns,
   Download,
+  Eraser,
   FileCheck,
   FileCheck2,
   Image as ImageIcon,
@@ -66,23 +67,38 @@ import {
 } from "lucide-react";
 import { CheckIcon, ChevronRightIcon } from "@/modules/common";
 
+//Load Panel Selector Systems
+import AddModuleModal from "@/modules/app-builder/components/AddModuleModal";
+
 // Import sample JSON data returns
 import loadPanelJSON from "@/modules/app-builder/functions/load-panel-data";
 
 //Import Custom Node Declarations
-import initialNodes, { minervaNodes } from "../components/nodes";
-import initialEdges, { minervaEdges } from "../components/edges";
+import initialNodes, {
+  yieldVaultNodes,
+  minervaNodes,
+} from "../components/nodes";
+import initialEdges, {
+  yieldVaultEdges,
+  minervaEdges,
+} from "../components/edges";
 // Node Type Declaration
 import StringNode from "@/modules/app-builder/components/nodes/string";
 // Custom Panel Class Type Handlers
 import BaseADONode from "@/modules/app-builder/components/nodes/baseADO";
 import ModuleNode from "@/modules/app-builder/components/nodes/module";
+import ModuleField from "@/modules/app-builder/components/nodes/module-field";
+import ModuleFieldHeader from "@/modules/app-builder/components/nodes/module-field-header";
+import ModuleFieldFooter from "@/modules/app-builder/components/nodes/module-field-footer";
 import ModifierNode from "@/modules/app-builder/components/nodes/modifier";
 import PrimitiveNode from "@/modules/app-builder/components/nodes/primitive";
 
 const nodeTypes = {
   baseADO: BaseADONode,
   module: ModuleNode,
+  "module-field": ModuleField,
+  "module-field-header": ModuleFieldHeader,
+  "module-field-footer": ModuleFieldFooter,
   modifier: ModifierNode,
   primitive: PrimitiveNode,
   string: StringNode,
@@ -141,6 +157,7 @@ const AppBuilderCreatePage = () => {
   };
   const nodeStartX = 1;
   const nodeStartY = 10;
+  let spaceY = 0; //used for spacing child nodes
 
   //Background Configurations
   const bgConfig = {
@@ -191,6 +208,7 @@ const AppBuilderCreatePage = () => {
   function ibcToggle() {
     if (ibc == 0) {
       setIbc(0.19);
+      setIbc3(0); //turn off other overlays
     } else {
       setIbc(0);
     }
@@ -198,20 +216,46 @@ const AppBuilderCreatePage = () => {
   function ibc3Toggle() {
     if (ibc3 == 0) {
       setIbc3(0.19);
+      setIbc(0); //turn off other overlays
     } else {
       setIbc3(0);
     }
   }
 
   // Save / Restore Options ///////////////////////////////////////////////////////////////////////
+  const clearCanvas = () => {
+    //confirmation prompt needs to be re-added post demo
+    //if (confirm("Are you sure you want to clear all current configurations?")) {
+    setNodes([]);
+    setEdges([]);
+    //Turn off IBC regions
+    if (ibc != 0) {
+      setIbc(0);
+    }
+    if (ibc3 != 0) {
+      setIbc3(0);
+    }
+    //}
+  };
+
   const saveRestore = () => {
     console.log(JSON.stringify(nodes));
     console.log(JSON.stringify(edges));
   };
 
+  const loadYieldVault = () => {
+    setNodes(yieldVaultNodes);
+    setEdges(yieldVaultEdges);
+    setIbc(0);
+    setIbc3(0.19);
+    onClose();
+  };
+
   const loadMinerva = () => {
     setNodes(minervaNodes);
     setEdges(minervaEdges);
+    setIbc(0);
+    setIbc3(0);
     onClose();
   };
 
@@ -238,6 +282,16 @@ const AppBuilderCreatePage = () => {
   }
 
   //Module Selector Menu
+  const [loadModule, setLoadModule] = useState("");
+
+  useEffect(() => {
+    if (loadModule) {
+      //alert("Module Change: " + loadModule);
+      selectModule(loadModule); //Call the panel loader
+      setLoadModule("");
+    }
+  }, [loadModule]);
+
   function toggleModuleSelector(opt: any) {
     if (opt !== "close") {
       toggleMenu();
@@ -282,7 +336,7 @@ const AppBuilderCreatePage = () => {
 
   // App-Builder Control Functions
   const pushCLI = () => {
-    const cliMessage = "cli message";
+    const cliMessage = "Publish message copied to clipboard.";
     alert(cliMessage);
   };
 
@@ -333,6 +387,102 @@ const AppBuilderCreatePage = () => {
     parentName: any;
   };
 
+  const loadFields = (objData: any, parentName: any) => {
+    console.clear;
+    for (const key in objData) {
+      console.log(key);
+    }
+  };
+
+  //Process Array
+  const processArray = (objData: any, objName: any, parentName: any) => {
+    console.log("-------Processing Array----------");
+    console.log(objData);
+
+    //Load Strings
+    if (objData["items"]["type"] === "string") {
+      //Load Child Nodes to Environment
+      spaceY += 40;
+      AddChild(
+        objData["items"]["type"],
+        uuidv4(),
+        parentName,
+        spaceY,
+        objData["title"],
+      );
+    }
+
+    //Load Array when it is or contains array
+    if (objData["items"]["type"].toString().includes("array")) {
+      console.log("Load Array's Array ");
+      //Load Child Nodes to Environment
+      processArray(objData, objName, parentName);
+    }
+
+    //Load Declared Objects
+    if (objData["items"]["type"] === "object") {
+      console.log("Load Array's Object");
+      //Load Child Nodes to Environment
+      processChildren(objData["items"], objName, parentName);
+    }
+  };
+
+  //Process Children
+  const processChildren = (objData: any, objName: any, parentName: any) => {
+    console.log("-------Processing Child----------");
+    console.log(objData);
+
+    for (const key in objData) {
+      console.log(key + ":" + objData[key]);
+      //console.log(typeof objData[key]);
+
+      //Load Strings
+      if (objData[key] === "string") {
+        console.log("Load String " + objData["type"] + objData["title"]);
+        //Load Child Nodes to Environment
+        spaceY += 40;
+        AddChild(
+          objData["type"],
+          uuidv4(),
+          parentName,
+          spaceY,
+          objData["title"],
+        );
+      }
+
+      //Load Declared Objects
+      if (objData[key] === "object") {
+        console.log("Load Object " + objData["type"] + objData["title"]);
+        //Load Child Nodes to Environment
+        processChildren(objData["properties"], objName, parentName);
+      }
+
+      //Load unDeclared Objects
+      //Exclude anyobjects with declared types as they should be processed through handlers
+      if (typeof objData[key] === "object" && !objData["type"]) {
+        //Only load if there is a type declartion made for the object
+        if (objData[key]["type"]) {
+          console.log(
+            "Load unDeclared Object " + objData["type"] + objData["title"],
+          );
+          //Load Child Nodes to Environment
+          processChildren(objData[key], objName, parentName);
+        }
+      }
+
+      //Load Array when it is or contains array
+      if (
+        objData[key] === "array" ||
+        objData[key].toString().includes("array")
+      ) {
+        console.log("Load Array " + objData["type"] + objData["title"]);
+        //Load Child Nodes to Environment
+        processArray(objData, objName, parentName);
+      }
+    }
+  };
+
+  //deprecated for rewrite with processChildren()
   const loadObject = (objData: any, parentName: any) => {
     console.log(objData);
     //alert(JSON.stringify(objData));
@@ -382,7 +532,7 @@ const AppBuilderCreatePage = () => {
   const loadPanel = async (jsonRef: any) => {
     //Load related JSON Data from provided jsonRef value
     const jsonData = await loadPanelJSON(jsonRef);
-
+    spaceY = 0;
     //alert(jsonData);
     //console.log(jsonData);
     const processData = _.toArray(jsonData); //convert object to array for easier map usage
@@ -390,30 +540,88 @@ const AppBuilderCreatePage = () => {
       for (const key in currData) {
         //console.log(key + ":" + currData[key]);
 
-        if (currData[key] === "array") {
-          // alert("Type Array");
-        }
+        if (key === "schema") {
+          console.clear();
+          console.log(currData["schema"]);
 
-        if (currData[key] === "object") {
-          // alert("Type Object");
-          //const parentName = prompt("New ID?");
-          const parentName = getPanelId();
-          //Call addParent()
+          //Setup Parent Node
+          const parentName = uuidv4().slice(0, 5);
+          const schemaInfo = currData["schema"]; //used for accessing panel data
+          console.log("--Building Parent--> " + parentName);
+          console.log(
+            schemaInfo["title"] +
+              "|" +
+              schemaInfo["description"] +
+              " | " +
+              schemaInfo["class"],
+          );
           addParent(
-            currData["class"],
+            schemaInfo["class"],
             parentName,
-            currData["title"],
-            currData["description"],
+            schemaInfo["title"],
+            schemaInfo["description"],
           );
 
-          loadObject(currData["properties"], parentName);
-          //Loop through children
-          //console.log(currData["properties"]);
-          //let spaceY = 0;
-          for (const childKey in currData["properties"]) {
-            //console.log(currData["properties"][childKey]);
+          //Loop through children for processing
+          const schemaData = currData["schema"]["properties"];
+          for (const schemaKey in schemaData) {
+            console.log(schemaKey + ":" + schemaData[schemaKey]);
+            // Using type of to evaluate if item is an object to be read
+            if (typeof schemaData[schemaKey] === "object") {
+              // console.log("Object!");
+              // console.log(schemaData[schemaKey]);
+              processChildren(schemaData[schemaKey], schemaKey, parentName);
+            }
+          }
+
+          //Load module fields support components if type is BaseADO
+
+          if (schemaInfo["class"] === "baseADO") {
+            //Load Module Field Header
+            spaceY += 40;
+            AddChild(
+              "module-field-header",
+              uuidv4(),
+              parentName,
+              spaceY,
+              "Modules",
+            );
+            //Load Module Field
+            spaceY += 28;
+            AddChild("module-field", uuidv4(), parentName, spaceY, "Module");
+            //Load Module Field Footer
+            spaceY += 40;
+            AddChild(
+              "module-field-footer",
+              "module-field-footer",
+              parentName,
+              spaceY,
+              "+ Add a Module Attachment Slot",
+            );
           }
         }
+
+        // if (currData[key] === "object") {
+        //   // alert("Type Object");
+        //   //const parentName = prompt("New ID?");
+        //   const parentName = getPanelId();
+        //   //Call addParent()
+        //   addParent(
+        //     currData["class"],
+        //     parentName,
+        //     currData["title"],
+        //     currData["description"],
+        //   );
+
+        //   loadObject(currData["properties"], parentName);
+
+        //   //Loop through children
+        //   //console.log(currData["properties"]);
+        //   //let spaceY = 0;
+        //   for (const childKey in currData["properties"]) {
+        //     //console.log(currData["properties"][childKey]);
+        //   }
+        // }
       }
     });
   };
@@ -425,7 +633,7 @@ const AppBuilderCreatePage = () => {
         id: newId,
         type: nodeType,
         data: {
-          id: `id`,
+          id: `${newId}`,
           title: `${title}`,
           description: `${description}`,
         },
@@ -548,7 +756,7 @@ const AppBuilderCreatePage = () => {
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         defaultEdgeOptions={defaultEdgeOptions}
-        // fitView
+        fitView
       >
         <Background {...bgConfig} />
         <MiniMap {...miniMapConfig} />
@@ -598,7 +806,11 @@ const AppBuilderCreatePage = () => {
             alignItems="center"
             bg="#63B3ED"
             opacity={ibc}
-          ></Box>
+          >
+            <Text fontSize={`80px`} align="center" color="white">
+              TERRA
+            </Text>
+          </Box>
         </div>
         <div className="IBC3">
           <Box
@@ -608,11 +820,15 @@ const AppBuilderCreatePage = () => {
             zIndex={-10}
             m={8}
             height="100%"
-            width="32%"
+            width="48%"
             alignItems="center"
             bg="#63B3ED"
             opacity={ibc3}
-          ></Box>
+          >
+            <Text fontSize={`80px`} align="center" color="white">
+              TERRA
+            </Text>
+          </Box>
           <Box
             position="absolute"
             top="0"
@@ -620,11 +836,15 @@ const AppBuilderCreatePage = () => {
             zIndex={-10}
             m={8}
             height="100%"
-            width="32%"
+            width="47%"
             alignItems="center"
             bg="pink"
             opacity={ibc3}
-          ></Box>
+          >
+            <Text fontSize={`80px`} align="center" color="white">
+              SECRET
+            </Text>
+          </Box>
         </div>
       </ReactFlow>
 
@@ -641,7 +861,7 @@ const AppBuilderCreatePage = () => {
             </a>
           </li>
           <li style={{ "--i": 1 } as React.CSSProperties}>
-            <a href="#" onClick={toggleModuleSelector}>
+            {/* <a href="#" onClick={toggleModuleSelector}>
               <Circle
                 size="36px"
                 bgGradient="radial(primary.500, primary.400)"
@@ -649,7 +869,8 @@ const AppBuilderCreatePage = () => {
               >
                 <Icon as={Server} />
               </Circle>
-            </a>
+            </a> */}
+            <AddModuleModal setLoadModule={setLoadModule} />
           </li>
           <li style={{ "--i": 2 } as React.CSSProperties}>
             <a href="#" onClick={togglePrimitiveSelector}>
@@ -1017,13 +1238,16 @@ const AppBuilderCreatePage = () => {
             <MenuItem onClick={() => selectModifier("cw20/0.1.0/transfer")}>
               Transfer
             </MenuItem>
-            <MenuItem onClick={() => selectModifier("cw20/0.1.0/burn-from")}>
+            {/* <MenuItem onClick={() => selectModifier("cw20/0.1.0/burn-from")}>
               Burn From
-            </MenuItem>
-            <MenuItem
+            </MenuItem> */}
+            {/* <MenuItem
               onClick={() => selectModifier("cw20/0.1.0/decrease-allowance")}
             >
               Decreae Allowance
+            </MenuItem> */}
+            <MenuItem onClick={() => selectModifier("vault/0.1.0/withdraw")}>
+              Withdraw
             </MenuItem>
             <MenuItem onClick={() => selectModifier("cw20/0.1.0/send")}>
               Send
@@ -1031,19 +1255,19 @@ const AppBuilderCreatePage = () => {
             <MenuItem onClick={() => selectModifier("cw20/0.1.0/mint")}>
               Mint
             </MenuItem>
-            <MenuItem
+            {/* <MenuItem
               onClick={() => selectModifier("cw20/0.1.0/transfer-from")}
             >
               Transfer From
-            </MenuItem>
+            </MenuItem> */}
             <MenuItem onClick={() => selectModifier("cw20/0.1.0/burn")}>
               Burn
             </MenuItem>
-            <MenuItem
+            {/* <MenuItem
               onClick={() => selectModifier("cw20/0.1.0/increase-allowance")}
             >
               Increase Allowance
-            </MenuItem>
+            </MenuItem> */}
             <MenuItem onClick={() => selectModifier("cw721/0.1.0/approve_all")}>
               Approve All
             </MenuItem>
@@ -1078,11 +1302,11 @@ const AppBuilderCreatePage = () => {
             <MenuItem onClick={() => selectModifier("cw721/0.1.0/burn")}>
               Burn
             </MenuItem> */}
-            <MenuItem
+            {/* <MenuItem
               onClick={() => selectModifier("cw721-offers/0.1.0/place-offer")}
             >
               Place Offer
-            </MenuItem>
+            </MenuItem> */}
             {/* <MenuItem
               onClick={() => selectModifier("rates/0.1.0/update_rates")}
             >
@@ -1145,17 +1369,9 @@ const AppBuilderCreatePage = () => {
           mr={2}
           px={1}
         ></Button>
-        {/* <Button
-          id="save"
-          as={IconButton}
-          colorScheme="orange"
-          icon={<Columns />}
-          onClick={saveRestore}
-          mr={2}
-          px={1}
-        ></Button> */}
 
         {/* Export COntrols */}
+
         <Button
           id="cli"
           as={IconButton}
@@ -1167,6 +1383,15 @@ const AppBuilderCreatePage = () => {
           px={1}
         ></Button>
         <Button
+          id="save"
+          as={IconButton}
+          colorScheme="orange"
+          icon={<Download />}
+          onClick={saveRestore}
+          mr={2}
+          px={1}
+        ></Button>
+        <Button
           as={IconButton}
           colorScheme="yellow"
           icon={<FileCheck />}
@@ -1174,13 +1399,26 @@ const AppBuilderCreatePage = () => {
           mr={2}
           px={1}
         ></Button>
+
+        {/* Loading Controls */}
+        <Button
+          id="clear"
+          as={IconButton}
+          colorScheme="purple"
+          icon={<Eraser />}
+          onClick={clearCanvas}
+          ml={6}
+          mr={0}
+        >
+          Starters
+        </Button>
         <Button
           id="starters"
           as={IconButton}
           colorScheme="purple"
           icon={<PlusIcon />}
           onClick={onOpen}
-          ml={4}
+          ml={2}
           mr={2}
         >
           Starters
@@ -1191,6 +1429,82 @@ const AppBuilderCreatePage = () => {
             <DrawerCloseButton />
             <DrawerHeader>App Starters</DrawerHeader>
             <DrawerBody>
+              <Flex direction="column" width="100%" p={4}>
+                <Box>
+                  <HStack spacing={4}>
+                    <Circle size="36px" bg="primary.600" color="white">
+                      <Icon as={ImageIcon} />
+                    </Circle>
+
+                    <Text color={titleColor} fontSize="lg" fontWeight={600}>
+                      Yield Vault
+                    </Text>
+                  </HStack>
+
+                  <Text color="gray.500" fontSize="sm" my={4}>
+                    Establish a yield vault, the investment strategy, and
+                    splitting withdrawls.
+                  </Text>
+
+                  <List spacing={2}>
+                    <ListItem>
+                      <Text color={"gray.500"} fontSize="sm">
+                        <ListIcon
+                          as={CheckIcon}
+                          color="purple.400"
+                          boxSize={5}
+                        />
+                        Yield Vault
+                      </Text>
+                    </ListItem>
+                    <ListItem>
+                      <Text color={"gray.500"} fontSize="sm">
+                        <ListIcon
+                          as={CheckIcon}
+                          color="purple.400"
+                          boxSize={5}
+                        />
+                        Anchor Protocol
+                      </Text>
+                    </ListItem>
+                    <ListItem>
+                      <Text color={"gray.500"} fontSize="sm">
+                        <ListIcon
+                          as={CheckIcon}
+                          color="purple.400"
+                          boxSize={5}
+                        />
+                        Splitter
+                      </Text>
+                    </ListItem>
+                    <ListItem>
+                      <Text color={"gray.500"} fontSize="sm">
+                        <ListIcon
+                          as={CheckIcon}
+                          color="purple.400"
+                          boxSize={5}
+                        />
+                        IBC
+                      </Text>
+                    </ListItem>
+                  </List>
+                </Box>
+                <Spacer />
+                <NextLink href="#" passHref>
+                  <Button
+                    as="a"
+                    mt={10}
+                    isFullWidth
+                    size="lg"
+                    colorScheme="purple"
+                    onClick={loadYieldVault}
+                    rightIcon={<ChevronRightIcon boxSize={5} />}
+                  >
+                    {"Get Started"}
+                  </Button>
+                </NextLink>
+              </Flex>
+
               <Flex direction="column" width="100%" p={4}>
                 <Box>
                   <HStack spacing={4}>
