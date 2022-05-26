@@ -20,7 +20,6 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 
-import { JSONSchema7 } from "json-schema";
 import { v4 as uuidv4 } from "uuid";
 
 import {
@@ -182,6 +181,7 @@ function AddModuleModal({ onAdd, items }: AddModuleModalProps) {
                 </Text>
               </Box>
               <Button
+                isDisabled={!selected}
                 onClick={handleAdd}
                 colorScheme="module"
                 leftIcon={<PlusIcon boxSize={6} />}

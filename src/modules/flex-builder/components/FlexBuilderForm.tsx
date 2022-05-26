@@ -51,7 +51,11 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
     setFormData(form.formData);
   };
 
-  const addSchemaModule = (uuid: string, data: any, defaults?: any): any => {
+  const addSchemaModule = (
+    uuid: string | undefined,
+    data: any,
+    defaults?: any,
+  ): any => {
     const schemaDefinitions = defaults?.schemaDefinitions || {};
     const schemaProperties = defaults?.schemaProperties || {};
 

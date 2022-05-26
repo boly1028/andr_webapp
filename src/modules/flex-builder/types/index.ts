@@ -22,8 +22,8 @@ export type FlexBuilderTemplateADOProps = {
 };
 
 export type FlexBuilderTemplateModuleProps = {
-  id: string;
   path: string;
+  id?: string;
   schema?: JSONSchema7;
   disabled?: boolean;
 };
