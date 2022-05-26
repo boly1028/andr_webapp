@@ -26,7 +26,6 @@ import { v4 as uuidv4 } from "uuid";
 import {
   PlusIcon,
   ScanIcon,
-  TimeIcon,
   SearchIcon,
   CustomMenuButton,
 } from "@/modules/common";
@@ -34,7 +33,7 @@ import {
 import { FlexBuilderTemplateModuleProps } from "@/modules/flex-builder/types";
 
 interface AddModuleModalItemProps {
-  data: JSONSchema7 | undefined;
+  data: any;
   isActive: boolean;
   onClick: () => void;
   disabled?: boolean;
@@ -50,6 +49,7 @@ function AddModuleModalItem({
     color: "module.600",
     boxSize: 6,
   });
+  console.log("AddModuleModalItem::disabled", disabled);
 
   return (
     <chakra.button
@@ -74,9 +74,9 @@ function AddModuleModalItem({
           </Flex>
         </Box>
         <Box flex={1}>
-          <Text textStyle="bold">{data.title}</Text>
+          <Text textStyle="bold">{data?.schema?.title}</Text>
           <Text textStyle="light" my={1}>
-            {data.description}
+            {data?.schema?.description}
           </Text>
           <Text textStyle="light">Lorem ipsum dolor sit amet </Text>
         </Box>
@@ -160,7 +160,7 @@ function AddModuleModal({ onAdd, items }: AddModuleModalProps) {
                     <AddModuleModalItem
                       key={item.id}
                       disabled={item.disabled}
-                      data={item.schema["schema"]}
+                      data={item.schema}
                       isActive={selected?.id == item.id}
                       onClick={() => {
                         if (!item.disabled) setSelected(item);
