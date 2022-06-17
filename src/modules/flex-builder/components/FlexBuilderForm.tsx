@@ -7,8 +7,8 @@ import { GasIcon } from "@/modules/common";
 import {
   AddModuleModal,
   DownloadButton,
-  StagingDocumentsModal,
   type FlexBuilderTemplateProps,
+  type FlexBuilderTemplateModuleProps,
 } from "@/modules/flex-builder";
 
 import widgets from "./widgets";
@@ -51,6 +51,64 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
     setFormData(form.formData);
   };
 
+  const addSchemaModule = (
+    uuid: string | undefined,
+    data: any,
+    defaults?: any,
+  ): any => {
+    const schemaDefinitions = defaults?.schemaDefinitions || {};
+    const schemaProperties = defaults?.schemaProperties || {};
+
+    console.log("data", data);
+
+    schemaDefinitions[`${uuid}`] = data["schema"];
+    schemaDefinitions[`${uuid}`]["properties"]["$type"] = {
+      type: "string",
+      default: data["schema"]["$id"],
+    };
+    schemaDefinitions[`${uuid}`]["properties"]["$class"] = {
+      type: "string",
+      default: data["schema"]["class"],
+    };
+    schemaDefinitions[`${uuid}`]["properties"]["$classifier"] = {
+      type: "string",
+      default: data["schema"]["classifier"],
+    };
+    schemaDefinitions[`${uuid}`]["properties"]["$removable"] = {
+      type: "boolean",
+      default: true,
+    };
+    schemaDefinitions[`${uuid}`]["properties"]["$enabled"] = {
+      type: "boolean",
+      default: true,
+    };
+
+    schemaProperties[`${uuid}`] = { $ref: `#/definitions/${uuid}` };
+
+    const uiSchema = defaults?.uiSchema || {};
+
+    // ui-schema
+    uiSchema[`${uuid}`] = data["ui-schema"];
+    uiSchema[`${uuid}`]["$class"] = { "ui:widget": "hidden" };
+    uiSchema[`${uuid}`]["$classifier"] = { "ui:widget": "hidden" };
+    uiSchema[`${uuid}`]["$removable"] = { "ui:widget": "hidden" };
+    uiSchema[`${uuid}`]["$enabled"] = { "ui:widget": "hidden" };
+    uiSchema[`${uuid}`]["$type"] = { "ui:widget": "hidden" };
+
+    const formData = defaults?.formData || {};
+
+    // form-data
+    formData[`${uuid}`] = data["form-data"];
+
+    const schema = {
+      definitions: schemaDefinitions,
+      type: "object",
+      properties: schemaProperties,
+    };
+
+    return { schema, uiSchema, formData };
+  };
+
   const deleteSchemaModule = (uuid: string, defaults?: any): any => {
     const schemaDefinitions = defaults?.schemaDefinitions || {};
     const schemaProperties = defaults?.schemaProperties || {};
@@ -81,6 +139,20 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
       setFormData(cloneFormData);
     }
   }, []);
+
+  const addModule = useCallback(
+    (module: FlexBuilderTemplateModuleProps) => {
+      const form = addSchemaModule(module.id, module.schema, {
+        schemaDefinitions: schema?.definitions,
+        schemaProperties: schema?.properties,
+        uiSchema: uiSchema,
+        formData: formData,
+      });
+
+      updateForm(form);
+    },
+    [schema, uiSchema, formData],
+  );
 
   const deleteModule = useCallback(
     (uuid: string) => {
@@ -119,7 +191,9 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
       ObjectFieldTemplate={ObjectFieldTemplate}
       widgets={{ ...widgets }}
     >
-      <AddModuleModal />
+      {template.modules && (
+        <AddModuleModal items={template.modules} onAdd={addModule} />
+      )}
       <Flex mt={8} justify="right">
         <HStack spacing={4}>
           <IconButton

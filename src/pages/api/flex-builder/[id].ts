@@ -70,6 +70,16 @@ export default async function handler(
 
     template.uiSchema = uiSchema;
     template.formData = formData;
+
+    if (template?.modules) {
+      const modules = template.modules;
+      for (const module of modules) {
+        const data = await import(`./schema/${module.path}.json`);
+        module.schema = data;
+      }
+
+      template.modules = modules;
+    }
   }
 
   res.status(200).json(template);
