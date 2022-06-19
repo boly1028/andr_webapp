@@ -12,7 +12,7 @@ export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
     opts: [],
     ados: [
       { path: "ado-base/splitter", id: "splitter", required: true },
-      { path: "publish-settings", id: uuidv4() },
+      // { path: "publish-settings", id: uuidv4() },
     ],
   },
   {
@@ -24,7 +24,7 @@ export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
     opts: [],
     ados: [
       { path: "ado-base/timelock", id: "timelock", required: true },
-      { path: "publish-settings", id: uuidv4() },
+      // { path: "publish-settings", id: uuidv4() },
     ],
   },
   {
@@ -35,7 +35,7 @@ export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
     opts: [],
     ados: [
       { path: "cw20/0.1.0/cw20", id: uuidv4(), required: true },
-      { path: "publish-settings", id: uuidv4() },
+      // { path: "publish-settings", id: uuidv4() },
     ],
   },
   {
@@ -51,7 +51,7 @@ export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
       { path: "ado-module/taxes", id: uuidv4() },
       { path: "ado-module/royalties", id: uuidv4() },
       { path: "receipt/0.1.0/receipt", id: uuidv4() },
-      { path: "publish-settings", id: uuidv4() },
+      // { path: "publish-settings", id: uuidv4() },
     ],
   },
   {
@@ -63,7 +63,7 @@ export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
     opts: [],
     ados: [
       { path: "ado-base/address-list", id: uuidv4(), required: true },
-      { path: "publish-settings", id: uuidv4() },
+      // { path: "publish-settings", id: uuidv4() },
     ],
     disabled: false,
   },
@@ -76,7 +76,7 @@ export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
     opts: [],
     ados: [
       { path: "primitives/0.1.0/string", id: uuidv4(), required: true },
-      { path: "publish-settings", id: uuidv4() },
+      // { path: "publish-settings", id: uuidv4() },
     ],
     disabled: false,
   },
@@ -89,7 +89,7 @@ export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
     opts: ["Unsigned 128bit Integer"],
     ados: [
       { path: "primitives/0.1.0/uint128", id: uuidv4(), required: true },
-      { path: "publish-settings", id: uuidv4() },
+      // { path: "publish-settings", id: uuidv4() },
     ],
     disabled: false,
   },
@@ -139,7 +139,14 @@ export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
       "Publish and use!",
     ],
     ados: [],
-    modules: [{ path: "ado-base/timelock" }],
+    modules: [
+      { path: "addresslist/0.1.0/addresslist" },
+      { path: "rates/0.1.0/rates" },
+      { path: "cw721-offers/0.1.0/cw721-offers" },
+      { path: "receipt/0.1.0/receipt" },
+      { path: "ado-base/splitter" },
+      { path: "primitives/0.1.0/uint128" },
+    ],
   },
   // {
   //   id: "panel-inventory",
@@ -259,13 +266,14 @@ export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
     disabled: true,
   },
 
-  {
-    id: "mint",
-    name: "Mint an NFT Collectible",
-    icon: "",
-    description: "Ignore: Temporary Proof on Call Structure",
-    opts: [],
-    ados: [{ path: "ado-modifier/mint", id: uuidv4(), required: true }],
-    disabled: true,
-  },
+  // Section removed as it needs to be loaded into a seperate execute message based action handler
+  // {
+  //   id: "mint",
+  //   name: "Mint an NFT Collectible",
+  //   icon: "",
+  //   description: "Ignore: Temporary Proof on Call Structure",
+  //   opts: [],
+  //   ados: [{ path: "ado-modifier/mint", id: uuidv4(), required: true }],
+  //   disabled: true,
+  // },
 ];

@@ -22,43 +22,53 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
     await publishContract(formData);
   };
 
+  //TODO: Setup staging availability flags for loading staging sections if passed
+  const staging_available = false;
+
   return (
     <Layout>
       <PageHeader title={template.name} desc={template.description} />
 
       <Box mt={10}>
-        <Flex
-          align="center"
-          border="1px solid"
-          borderColor="primary.300"
-          borderRadius="lg"
-          bg="primary.25"
-          mb={4}
-          p={3}
-        >
-          <Box mr={4}>
-            <Flex
-              justify="center"
-              align="center"
-              bg="primary.100"
-              color="primary.700"
-              borderRadius="full"
-              p={3}
-            >
-              <FileCheckIcon boxSize={6} />
-            </Flex>
-          </Box>
-          <Box flex={1}>
-            <Text color="primary.700" fontWeight={500}>
-              Staging Available
-            </Text>
-            <Text color="primary.600" fontSize="sm">
-              Need to perform this operation multiple times? Staging documents
-              are available.
-            </Text>
-          </Box>
-          <StagingDocumentsModal />
-        </Flex>
+        {/* Staging section to be shown when declared */}
+        {/* ToDO: Modularize as component? */}
+        {staging_available && (
+          <Flex
+            align="center"
+            border="1px solid"
+            borderColor="primary.300"
+            borderRadius="lg"
+            bg="primary.25"
+            mb={4}
+            p={3}
+          >
+            <Box mr={4}>
+              <Flex
+                justify="center"
+                align="center"
+                bg="primary.100"
+                color="primary.700"
+                borderRadius="full"
+                p={3}
+              >
+                <FileCheckIcon boxSize={6} />
+              </Flex>
+            </Box>
+
+            <Box flex={1}>
+              <Text color="primary.700" fontWeight={500}>
+                Staging Available
+              </Text>
+              <Text color="primary.600" fontSize="sm">
+                Need to perform this operation multiple times? Staging documents
+                are available.
+              </Text>
+            </Box>
+
+            <StagingDocumentsModal />
+          </Flex>
+        )}
+        {/* end of toggleable staging section */}
         <FlexBuilderForm template={template} onSubmit={handleSubmit} />
       </Box>
     </Layout>

@@ -133,6 +133,7 @@ export default extendTheme({
       800: "#125D56",
       900: "#134E48",
     },
+    // Color range by type (ado / primitive / module /modifier)
     ado: {
       25: "#F5FBFF",
       50: "#F0F9FF",
@@ -145,6 +146,34 @@ export default extendTheme({
       700: "#026AA2",
       800: "#065986",
       900: "#0B4A6F",
+    },
+    // repeat of ado for defined read data from schema
+    baseADO: {
+      25: "#F5FBFF",
+      50: "#F0F9FF",
+      100: "#E0F2FE",
+      200: "#B9E6FE",
+      300: "#7CD4FD",
+      400: "#36BFFA",
+      500: "#0BA5EC",
+      600: "#0086C9",
+      700: "#026AA2",
+      800: "#065986",
+      900: "#0B4A6F",
+    },
+    // These are placeholder values for primitives until ones are defined
+    primitive: {
+      25: "#E4ECFC",
+      100: "#D3D9FA",
+      50: "#C4C2F7",
+      200: "#C1B2F4",
+      300: "#C2A2F1",
+      400: "#C892ED",
+      500: "#D283E8",
+      600: "#CC71CD",
+      700: "#B160A0",
+      800: "#944F77",
+      900: "#783E53",
     },
     module: {
       25: "#F5F8FF",

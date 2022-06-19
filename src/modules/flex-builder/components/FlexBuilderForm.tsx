@@ -191,9 +191,12 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
       ObjectFieldTemplate={ObjectFieldTemplate}
       widgets={{ ...widgets }}
     >
+      {/* Add Modules Action */}
       {template.modules && (
         <AddModuleModal items={template.modules} onAdd={addModule} />
       )}
+
+      {/* Action Footer */}
       <Flex mt={8} justify="right">
         <HStack spacing={4}>
           <IconButton

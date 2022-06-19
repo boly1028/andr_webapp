@@ -1,23 +1,26 @@
 import React, { FC, useState, useCallback } from "react";
+import _ from "lodash";
 import {
-  Modal,
-  ModalOverlay,
-  Text,
   Box,
-  ModalContent,
+  Button,
+  chakra,
+  Divider,
   Flex,
-  ModalBody,
+  HStack,
   Input,
   InputGroup,
   InputLeftElement,
-  VStack,
-  Button,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalBody,
   Menu,
   MenuList,
   MenuItem,
-  HStack,
-  chakra,
+  Select,
+  Text,
   useDisclosure,
+  VStack,
 } from "@chakra-ui/react";
 
 import { v4 as uuidv4 } from "uuid";
@@ -30,6 +33,7 @@ import {
 } from "@/modules/common";
 
 import { FlexBuilderTemplateModuleProps } from "@/modules/flex-builder/types";
+import SchemaField from "@rjsf/core/lib/components/fields/SchemaField";
 
 interface AddModuleModalItemProps {
   data: any;
@@ -48,6 +52,8 @@ function AddModuleModalItem({
     color: "module.600",
     boxSize: 6,
   });
+
+  // Debugging log
   console.log("AddModuleModalItem::disabled", disabled);
 
   return (
@@ -62,14 +68,18 @@ function AddModuleModalItem({
     >
       <Flex>
         <Box mr={4}>
+          {/* Swap background color based on defined class */}
           <Flex
             justify="center"
             align="center"
             borderRadius="lg"
-            bg="module.100"
+            bg={`${data?.schema?.class}` + ".100"}
             p={2}
           >
-            {newIcon}
+            {/* Disable auto loading icon for icon variance based on class and classifier
+            {newIcon} */}
+            {/* Swap Icon color based on defined class */}
+            <ScanIcon color={`${data?.schema?.class}` + ".600"} boxSize={6} />
           </Flex>
         </Box>
         <Box flex={1}>
@@ -77,9 +87,10 @@ function AddModuleModalItem({
           <Text textStyle="light" my={1}>
             {data?.schema?.description}
           </Text>
-          <Text textStyle="light">Lorem ipsum dolor sit amet </Text>
+          <Text textStyle="light"> </Text>
         </Box>
-        <Text textStyle="light">TL-1.2</Text>
+        {/* Use lodash to capitalize first letter of class */}
+        <Text textStyle="light">{_.upperFirst(data?.schema?.class)}</Text>
       </Flex>
     </chakra.button>
   );
@@ -103,6 +114,10 @@ function AddModuleModal({ onAdd, items }: AddModuleModalProps) {
     }
   }, [selected, onAdd, onClose]);
 
+  // Debugging Logs
+  console.log("template.modules:");
+  console.log(items);
+
   return (
     <>
       <Button
@@ -113,30 +128,51 @@ function AddModuleModal({ onAdd, items }: AddModuleModalProps) {
         leftIcon={<PlusIcon boxSize={6} />}
         isFullWidth
       >
-        Add Module
+        Add Component
       </Button>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent maxW="700px">
           <ModalBody px={0} pb={0}>
             <Box px={6} mb={8}>
-              <Text textStyle="h1">Add Module</Text>
+              <Text textStyle="h1">Component Selection</Text>
             </Box>
 
+            {/* Sorting and Filtering Controls */}
             <HStack mb={4} spacing={4} pl={6} pr={7}>
-              <InputGroup flex={1} placeholder="Collection, item or user">
+              {/* Text Filtering */}
+              <InputGroup flex={1} placeholder="By title or description">
                 <InputLeftElement pointerEvents="none">
                   <SearchIcon />
                 </InputLeftElement>
-                <Input placeholder="Collection, item or user" />
+                <Input placeholder="By title or description" />
               </InputGroup>
-              <Menu placement="bottom-end">
-                <CustomMenuButton>Classifier</CustomMenuButton>
+              {/* Class Selection Filter */}
+              <Select
+                id="class-selector"
+                size="lg"
+                flex={1}
+                onChange={() =>
+                  alert(document?.getElementById("class-selector")?.value)
+                }
+              >
+                <option value="all">Show All Components</option>
+                <option value="baseADO">Base ADO</option>
+                <option value="primitive">Primitive</option>
+                <option value="module">Module</option>
+              </Select>
+              {/* <Menu placement="bottom-end">
+                <CustomMenuButton>Component Type</CustomMenuButton>
                 <MenuList>
-                  <MenuItem>Blockchain</MenuItem>
+                  <MenuItem>All</MenuItem>
+                  <MenuItem>Base ADO</MenuItem>
+                  <MenuItem>Primitive</MenuItem>
+                  <MenuItem>Module</MenuItem>
                 </MenuList>
-              </Menu>
+              </Menu> */}
             </HStack>
+            <Text>Showing Results for:</Text>
+            <Divider />
 
             <Box
               maxH="375px"
@@ -154,6 +190,7 @@ function AddModuleModal({ onAdd, items }: AddModuleModalProps) {
             >
               <VStack spacing={3} align="normal">
                 {items.map((item) => {
+                  console.log(item.schema);
                   item.id = uuidv4();
                   return (
                     <AddModuleModalItem
@@ -170,15 +207,17 @@ function AddModuleModal({ onAdd, items }: AddModuleModalProps) {
               </VStack>
             </Box>
             <Flex
-              p={6}
+              pt={6}
               justify="space-between"
-              boxShadow="0px -1px 20px rgba(10, 10, 31, 0.2);"
+              borderTop="1px"
+              borderColor="gray.200"
+              // boxShadow="0px -1px 20px rgba(10, 10, 31, 0.2);"
             >
               <Box textAlign="right">
-                <Text textStyle="light">Estimated Fee</Text>
+                {/* <Text textStyle="light">Estimated Fee</Text>
                 <Text textStyle="light" color="module.600">
                   0.15 UST
-                </Text>
+                </Text> */}
               </Box>
               <Button
                 isDisabled={!selected}
@@ -186,7 +225,7 @@ function AddModuleModal({ onAdd, items }: AddModuleModalProps) {
                 colorScheme="module"
                 leftIcon={<PlusIcon boxSize={6} />}
               >
-                Add Module
+                Add Component
               </Button>
             </Flex>
           </ModalBody>
