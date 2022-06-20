@@ -152,9 +152,9 @@ function AddModuleModal({ onAdd, items }: AddModuleModalProps) {
                 id="class-selector"
                 size="lg"
                 flex={1}
-                onChange={() =>
-                  alert(document?.getElementById("class-selector")?.value)
-                }
+                // onChange={() =>
+                //   alert(document?.getElementById("class-selector")?.value)
+                // }
               >
                 <option value="all">Show All Components</option>
                 <option value="baseADO">Base ADO</option>
