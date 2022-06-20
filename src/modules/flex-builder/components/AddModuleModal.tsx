@@ -118,6 +118,23 @@ function AddModuleModal({ onAdd, items }: AddModuleModalProps) {
   console.log("template.modules:");
   console.log(items);
 
+  const [filteredItems, setFilteredItems] = useState<any[]>(items); //Value to reduce returned panel options by filters
+
+  //Address filtering controls to pre-sort items by class type & textual contents
+  function updateFilters() {
+    const classValue = document?.getElementById("class-selector")?.value; //Set selection form field value to variable for comparatives
+    if (classValue === "all") {
+      setFilteredItems(items);
+    } else {
+      setFilteredItems(
+        _.filter(items, function (item) {
+          return _.some(item.schema, { class: classValue });
+        }),
+      );
+    }
+    return;
+  }
+
   return (
     <>
       <Button
@@ -152,6 +169,7 @@ function AddModuleModal({ onAdd, items }: AddModuleModalProps) {
                 id="class-selector"
                 size="lg"
                 flex={1}
+                onChange={() => updateFilters()}
                 // onChange={() =>
                 //   alert(document?.getElementById("class-selector")?.value)
                 // }
@@ -189,7 +207,7 @@ function AddModuleModal({ onAdd, items }: AddModuleModalProps) {
               }}
             >
               <VStack spacing={3} align="normal">
-                {items.map((item) => {
+                {filteredItems.map((item) => {
                   console.log(item.schema);
                   item.id = uuidv4();
                   return (
