@@ -54,7 +54,7 @@ function AddModuleModalItem({
   });
 
   // Debugging log
-  console.log("AddModuleModalItem::disabled", disabled);
+  // console.log("AddModuleModalItem::disabled", disabled);
 
   return (
     <chakra.button
@@ -108,6 +108,8 @@ function AddModuleModal({ onAdd, items }: AddModuleModalProps) {
     useState<FlexBuilderTemplateModuleProps | null>(null);
 
   const handleAdd = useCallback(() => {
+    console.log("Selected");
+    console.log(selected);
     if (selected) {
       onAdd(selected);
       onClose();
@@ -115,8 +117,8 @@ function AddModuleModal({ onAdd, items }: AddModuleModalProps) {
   }, [selected, onAdd, onClose]);
 
   // Debugging Logs
-  console.log("template.modules:");
-  console.log(items);
+  // console.log("template.modules:");
+  // console.log(items);
 
   const [filteredItems, setFilteredItems] = useState<any[]>(items); //Value to reduce returned panel options by filters
 
@@ -208,7 +210,7 @@ function AddModuleModal({ onAdd, items }: AddModuleModalProps) {
             >
               <VStack spacing={3} align="normal">
                 {filteredItems.map((item) => {
-                  console.log(item.schema);
+                  // console.log(item.schema);
                   item.id = uuidv4();
                   return (
                     <AddModuleModalItem
