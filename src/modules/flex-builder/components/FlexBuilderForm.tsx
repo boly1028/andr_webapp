@@ -34,10 +34,10 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
 }) => {
   const [schema, setSchema] = useState(template.schema);
   const [uiSchema, setUiSchema] = useState(template.uiSchema);
-  const [formData, setFormData] = useState(template.formData); //Initial formData declaration
-  const [dirty, setDirty] = useState(false);
+  const [formData, setFormData] = useState(template.formData);
+  const formDataRef = useRef(template.formData); // Storage of formData to hold during panel management tasks (add/remove panel from schema)
 
-  const formDataRef = useRef(template.formData);
+  const [dirty, setDirty] = useState(false); // Flag for monitoring if data has been entered which is used to set page exit warnings prior to data loss from leaving page
 
   /**
   useWarnIfUnsavedChanges(
@@ -49,14 +49,8 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
   const updateForm = (form: any) => {
     setSchema(form.schema);
     setUiSchema(form.uiSchema);
-    //setFormData(form.formData);
-    //Failed formData trace
     setFormData(formDataRef.current); //Load stored value for data passing
-    // alert(JSON.stringify(formData));
-    // console.log("Form formData --------------------------------------------");
-    // console.log(form.formData);
-    // console.log(form);
-    // console.log(formData);
+    //setFormData(form.formData); //Pulled for data loss (assumedly loading only newest panel's predefined formData)
   };
 
   const addSchemaModule = (
@@ -66,9 +60,6 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
   ): any => {
     const schemaDefinitions = defaults?.schemaDefinitions || {};
     const schemaProperties = defaults?.schemaProperties || {};
-
-    // Failed formData trace
-    // console.log("data", data);
 
     schemaDefinitions[`${uuid}`] = data["schema"];
     schemaDefinitions[`${uuid}`]["properties"]["$type"] = {
@@ -106,11 +97,7 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
 
     // form-data
     const formData = defaults?.formData || {};
-    formData[`${uuid}`] = data["form-data"];
-    // Failed formData trace
-    // console.log("fdata[form-data]");
-    // console.log(data);
-    // console.log(data["form-data"]);
+    formData[`${uuid}`] = data["form-data"]; // Failed formData trace
 
     const schema = {
       definitions: schemaDefinitions,
@@ -158,8 +145,7 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
         schemaDefinitions: schema?.definitions,
         schemaProperties: schema?.properties,
         uiSchema: uiSchema,
-        formData: formData,
-        // Failed formData trace
+        formData: formData, // Failed formData trace
       });
 
       updateForm(form);
@@ -195,8 +181,6 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
           setDirty(true);
         }
         formDataRef.current = formData; // Passed formData Trace
-        // console.log(JSON.stringify(formData));
-        // console.log(JSON.stringify(formDataRef));
       }}
       onSubmit={onSubmit}
       onError={onError}
