@@ -2,56 +2,54 @@ import { useLCDClient } from "@terra-money/wallet-provider";
 import { useTx, useAddress, estimateFee } from "@arthuryeti/terra";
 import { MsgInstantiateContract } from "@terra-money/terra.js";
 
+import { v4 as uuidv4 } from "uuid";
 import { useAndromedaContext } from "@/modules/common";
 
 const constructMsg = (data: any) => {
   let msg = "";
-  let objData = {};
+  const objData = {}; // Stores object data while processing
+  const base64Data = {}; // Encoded message constructions for instantiate messages
+  const appData = []; // Array to store base64 instantiation app data for submission message
 
-  for (const key in data) {
-    switch (key) {
-      case "splitter":
-        msg = `{
-          "recipients": [
-            {
-              "recipient": {
-                "addr": "`;
-        msg += data[key]["address"];
-        msg += `"
-              },
-              "percent": "`;
-        msg += +data[key]["percentage"] / 100;
-        msg += `"
-            }
-          ]
-        }`;
+  console.clear();
+  console.log("formData", data);
 
-        objData = JSON.parse(msg);
+  // Iterate through submitted panels by excluding UUID parent
+  for (const panel in data) {
+    //Only process panels when $enabled = true
+    if (data[panel].$enabled) {
+      const tmpType = data[panel]["$type"];
+      objData[tmpType] = {};
+      // Process panel data
+      for (const key in data[panel]) {
+        // Add non-flex template meta-data to object data (which all begin with '$')
+        if (key.charAt(0) !== "$") {
+          //Load data to object for processing
+          // console.log(typeof data[panel][key]);
+          //   console.log("key: ", key, " value: ", data[panel][key]);
+          //Push data to object data
+          objData[tmpType][key] = data[panel][key];
+          //objData[data[panel]["$type"]] = {objData, ...data[panel][key]};
+        }
+      }
+      //Show results after panel has processed
+      console.log("objData: ", objData);
+      console.log("MsgData", JSON.stringify(objData[tmpType]));
 
-        msg = `{
-          "name": "splitter-mission",
-          "mission": [
-            {
-              "name": "splitter",
-              "ado_type": "splitter",
-              "instantiate_msg": "`;
+      // Process data to encode and ecapsulate into App broadcasrt message ////////////////////////////////////
+      // Base64 Encoding of Panel Data
+      const tmpID = uuidv4();
+      base64Data[tmpID] = {};
+      base64Data[tmpID]["name"] = tmpID;
+      base64Data[tmpID]["ado_type"] = tmpType;
+      base64Data[tmpID]["msg"] = btoa(JSON.stringify(objData[tmpType]));
 
-        msg += btoa(JSON.stringify(objData));
-
-        msg += `"
-            }
-          ],
-          "operators": [],
-          "primitive_contract": "terra1k6mk75ez5kedymp34u8eqsu3jp94pa0h60q4wz"
-        }`;
-
-        objData = JSON.parse(msg);
-
-        return objData;
-      case "timelock":
-        return msg;
+      //Load object data message to appData array
+      appData.push(base64Data[tmpID]);
     }
   }
+  //Show results after panel processing
+  console.log(JSON.stringify(appData));
 };
 
 export default function usePublishContract() {
@@ -60,6 +58,8 @@ export default function usePublishContract() {
   const address = useAddress();
 
   const publishContract = async (formData: any) => {
+    console.log(constructMsg(formData));
+
     if (
       !postTx.canPost ||
       client == null ||
