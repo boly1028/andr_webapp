@@ -124,7 +124,10 @@ function AddModuleModal({ onAdd, items }: AddModuleModalProps) {
 
   //Address filtering controls to pre-sort items by class type & textual contents
   function updateFilters() {
-    const classValue = document?.getElementById("class-selector")?.value; //Set selection form field value to variable for comparatives
+    const docInput = document?.getElementById(
+      "class-selector",
+    ) as HTMLInputElement; // Declaration of document field type as HTMLInputElement to acces .value without conflict
+    const classValue = docInput.value; //Set selection form field value to variable for comparatives
     if (classValue === "all") {
       setFilteredItems(items);
     } else {

@@ -7,11 +7,11 @@ import { useAndromedaContext } from "@/modules/common";
 import { TabPanels } from "@chakra-ui/react";
 
 const constructMsg = (data: any) => {
-  let msg = "";
-  const objData = {}; // Stores object data while processing
-  const base64Data = {}; // Encoded message constructions for instantiate messages
+  //Object definitions must be typed as "any" otherwise TS will raise error: type string can't be used to index type {}
+  const objData: any = {}; // Stores object data while processing
+  const base64Data: any = {}; // Encoded message constructions for instantiate messages
   const appData = []; // Array to store base64 instantiation app data for submission message
-  const appInfo = {}; // The publish-settings for app message information
+  const appInfo: any = {}; // The publish-settings for app message information
   console.clear();
   // console.log("formData", data);
 
