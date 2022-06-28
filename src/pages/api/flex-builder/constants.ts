@@ -138,7 +138,10 @@ export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
       "Save as a template",
       "Publish and use!",
     ],
-    ados: [],
+    ados: [
+      { path: "publish-settings", id: "publish-settings", required: true },
+    ],
+
     modules: [
       { path: "addresslist/0.1.0/addresslist" },
       { path: "rates/0.1.0/rates" },
