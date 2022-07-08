@@ -11,11 +11,12 @@ import {
   HStack,
   Text,
 } from "@chakra-ui/react";
-import { ObjectFieldTemplateProps } from "@rjsf/core";
+import { IdSchema, ObjectFieldTemplateProps } from "@rjsf/core";
 import { utils } from "@rjsf/core";
 import {
   CheckCircle as CheckCircleIcon,
   Trash2 as DeleteIcon,
+  Edit3 as Rename,
 } from "lucide-react";
 
 import AddButton from "./AddButton";
@@ -39,6 +40,14 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateProps) => {
     onAddClick,
     formContext,
   } = props;
+
+  const changePanelName = (panelName: any) => {
+    const newPanelName: string =
+      prompt("Change the assigned name of this component.", panelName) ||
+      panelName;
+    console.log("idSchema", idSchema);
+    idSchema.$id = newPanelName?.toString();
+  };
 
   const hasWrapper = formData["$removable"] !== undefined;
   // @ts-expect-error - TODO
@@ -78,6 +87,15 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateProps) => {
                 onChange={() => {
                   formContext.toggleModule(idSchema.$id, !formData["$enabled"]);
                 }}
+              />
+              <IconButton
+                size={"sm"}
+                variant="outline"
+                aria-label="open menu"
+                onClick={() => {
+                  changePanelName(idSchema.$id);
+                }}
+                icon={<Rename width={16} height={16} />}
               />
               <IconButton
                 size={"sm"}

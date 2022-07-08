@@ -53,7 +53,7 @@ const constructMsg = (data: any) => {
 
         // Process data to encode and ecapsulate into App broadcasrt message ////////////////////////////////////
         // Base64 Encoding of Panel Data
-        const tmpID = uuidv4();
+        const tmpID = panel;
         base64Data[tmpID] = {};
         base64Data[tmpID]["name"] = tmpID;
         base64Data[tmpID]["ado_type"] = tmpType;
@@ -68,6 +68,7 @@ const constructMsg = (data: any) => {
   appInfo["app"] = appData;
   //Show results after panel processing
   // console.log(JSON.stringify(appData));
+  alert(JSON.stringify(appInfo));
   console.log(JSON.stringify(appInfo));
 };
 
