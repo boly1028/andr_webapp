@@ -1,3 +1,6 @@
+// Flex-Builder Form container with handling for: schema processing, module management routines
+// updateForm(), addSchemaModule(), removeSchemaModule(), changeSchemaID
+// addModule, removeModule, deleteModule, changePanelName
 import React, { FC, useState, useRef, useCallback } from "react";
 import { Button, HStack, Flex, IconButton } from "@chakra-ui/react";
 import { JSONSchema7 } from "json-schema";
@@ -17,6 +20,7 @@ import FieldTemplate from "./FieldTemplate";
 import TitleField from "./TitleField";
 import ObjectFieldTemplate from "./ObjectFieldTemplate";
 import ArrayFieldTemplate from "./ArrayFieldTemplate";
+import { isUndefined } from "@chakra-ui/utils";
 
 type FlexBuilderFormProps = {
   template: FlexBuilderTemplateProps;
@@ -49,8 +53,18 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
   const updateForm = (form: any) => {
     setSchema(form.schema);
     setUiSchema(form.uiSchema);
-    setFormData(formDataRef.current); //Load stored value for data passing
-    //setFormData(form.formData); //Pulled for data loss (assumedly loading only newest panel's predefined formData)
+    //Moved overrides into the Module management functions to help resolve the issue with data loss
+    //setFormData(formDataRef.current); //Load stored value for data passing
+    /*
+    console.log(
+      "Form Data:",
+      form.formData,
+      " | ",
+      "Data Ref:",
+      formDataRef.current,
+    );
+    */
+    setFormData(form.formData); //Pulled for data loss (assumedly loading only newest panel's predefined formData)
   };
 
   const addSchemaModule = (
@@ -108,6 +122,7 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
     return { schema, uiSchema, formData };
   };
 
+  // Called by deleteModule() for processing schemas & formData
   const deleteSchemaModule = (uuid: string, defaults?: any): any => {
     const schemaDefinitions = defaults?.schemaDefinitions || {};
     const schemaProperties = defaults?.schemaProperties || {};
@@ -115,6 +130,7 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
     const uiSchema = defaults?.uiSchema || {};
     const formData = defaults?.formData || {};
 
+    // Removal of elements with passed UUID for $id
     const id = uuid.split("_").pop();
     delete schemaDefinitions[`${id}`];
     delete schemaProperties[`${id}`];
@@ -130,42 +146,135 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
     return { schema, uiSchema, formData };
   };
 
-  const toggleModule = useCallback((uuid: string, enabled: boolean) => {
-    const id = uuid.split("_").pop();
-    if (formDataRef.current) {
-      const cloneFormData = { ...formDataRef.current };
-      cloneFormData[`${id}`]["$enabled"] = enabled;
-      setFormData(cloneFormData);
-    }
-  }, []);
-
-  const addModule = useCallback(
-    (module: FlexBuilderTemplateModuleProps) => {
-      const form = addSchemaModule(module.id, module.schema, {
-        schemaDefinitions: schema?.definitions,
-        schemaProperties: schema?.properties,
-        uiSchema: uiSchema,
-        formData: formData, // Failed formData trace
-      });
-
-      updateForm(form);
-    },
-    [schema, uiSchema, formData],
-  );
-
   const deleteModule = useCallback(
     (uuid: string) => {
       const form = deleteSchemaModule(uuid, {
         schemaDefinitions: schema?.definitions,
         schemaProperties: schema?.properties,
         uiSchema: uiSchema,
-        formData: formData,
+        formData: formDataRef.current, // changed from "formData: formData" because it failed formData trace.
       });
-
+      console.log("deleteModule form.formData:", form.formData);
       updateForm(form);
     },
     [schema, uiSchema, formData],
   );
+
+  const toggleModule = useCallback((uuid: string, enabled: boolean) => {
+    // console.log("toggleModule: ", uuid, "|", enabled);
+
+    //TODO: Replace from split_pop, as it will conflict with new panel renaming feature
+    //////////////////////////////////////////////////// New panel name means that the evaultaion of _ (which is from "root_") could be true, but not desired for removal (e.g. "a_panel_name")
+    const id = uuid.split("_").pop();
+
+    if (formDataRef.current) {
+      const cloneFormData = { ...formDataRef.current };
+      cloneFormData[`${id}`]["$enabled"] = enabled;
+      setFormData(cloneFormData);
+      // console.log("formDataRef", formDataRef.current);
+      console.log("formData", cloneFormData);
+    }
+  }, []);
+
+  const addModule = useCallback(
+    (module: FlexBuilderTemplateModuleProps) => {
+      //dataProcessing should be performed in the AddSchemaModule not in this module
+      const form = addSchemaModule(module.id, module.schema, {
+        schemaDefinitions: schema?.definitions,
+        schemaProperties: schema?.properties,
+        uiSchema: uiSchema,
+        formData: formDataRef.current, // changed from "formData: formData" because it Failed formData trace.
+      });
+      // console.log(
+      //   "addModule form.formData:",
+      //   form.formData,
+      //   " | New Form Data:",
+      //   formDataRef.current,
+      // );
+      updateForm(form);
+    },
+    [schema, uiSchema, formData],
+  );
+
+  // Called by deleteModule() for processing schemas & formData
+  const changeSchemaID = (panelName: string, defaults?: any): any => {
+    const schemaDefinitions = defaults?.schemaDefinitions || {};
+    const schemaProperties = defaults?.schemaProperties || {};
+
+    const uiSchema = defaults?.uiSchema || {};
+    const formData = defaults?.formData || {};
+
+    // Removal of elements with passed UUID for $id
+    // const id = panelName.split("_").pop();
+
+    //if start of panel name is "root_", then reference with prefix excluded
+    if (panelName.slice(0, 5) === "root_") {
+      panelName = panelName.slice(5);
+    }
+
+    const newPanelName: string =
+      prompt("Change the assigned name of this component.", panelName) ||
+      panelName;
+
+    // confirm new panel label doesn't already exist
+    if (!isUndefined(schemaDefinitions[`${newPanelName}`])) {
+      // notify the user the panel name is alre3ady declared and needs to be retried
+      alert(
+        "The name provided already exists. Please try again with a new value",
+      );
+      // Second definition is encasulated in the if structure and does not cause a dual-declaration conflict
+      const schema = {
+        definitions: schemaDefinitions,
+        type: "object",
+        properties: schemaProperties,
+      };
+      //Return unedited schema for no changes
+      return { schema, uiSchema, formData };
+    }
+
+    // duplicate schemas with new panel label
+    schemaDefinitions[`${newPanelName}`] = schemaDefinitions[`${panelName}`];
+    schemaProperties[`${newPanelName}`] = schemaProperties[`${panelName}`];
+    uiSchema[`${newPanelName}`] = uiSchema[`${panelName}`];
+    formData[`${newPanelName}`] = formData[`${panelName}`];
+
+    /* -- Moving this back to original call to resolve issue with originalId not updated in reference to data creating fault on removals--*/
+    // remove previous panel definitions
+    // delete schemaDefinitions[`${panelName}`];
+    // delete schemaProperties[`${panelName}`];
+    // delete uiSchema[`${panelName}`];
+    // delete formData[`${panelName}`];
+
+    //creates failures
+
+    const schema = {
+      definitions: schemaDefinitions,
+      type: "object",
+      properties: schemaProperties,
+    };
+
+    return { schema, uiSchema, formData };
+  };
+
+  // Replicate an existing panel identification key with new name
+  const changePanelName = useCallback((panelName: any) => {
+    const form = changeSchemaID(panelName, {
+      schemaDefinitions: schema?.definitions,
+      schemaProperties: schema?.properties,
+      uiSchema: uiSchema,
+      formData: formDataRef.current, // changed from "formData: formData" because it failed formData trace.
+    });
+    console.log("changeSchemaID form.formData:", form.formData);
+    updateForm(form);
+
+    const cleanedForm = deleteSchemaModule(panelName, {
+      schemaDefinitions: schema?.definitions,
+      schemaProperties: schema?.properties,
+      uiSchema: uiSchema,
+      formData: formDataRef.current, // changed from "formData: formData" because it failed formData trace.
+    });
+    updateForm(cleanedForm);
+  }, []);
 
   return (
     <Form
@@ -175,6 +284,7 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
       formContext={{
         toggleModule: toggleModule,
         deleteModule: deleteModule,
+        changePanelName: changePanelName,
       }}
       onChange={({ formData }) => {
         if (!dirty && formDataRef.current) {

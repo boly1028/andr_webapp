@@ -1,3 +1,5 @@
+// Panel container for Flex-Builder: Handles panel name change assosciations
+// changePanelName()
 import React from "react";
 
 import {
@@ -38,16 +40,8 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateProps) => {
     schema,
     formData,
     onAddClick,
-    formContext,
+    formContext, //used as prop drilling form action calls: toogleModule() / deleteModule() / renameModule()
   } = props;
-
-  const changePanelName = (panelName: any) => {
-    const newPanelName: string =
-      prompt("Change the assigned name of this component.", panelName) ||
-      panelName;
-    console.log("idSchema", idSchema);
-    idSchema.$id = newPanelName?.toString();
-  };
 
   const hasWrapper = formData["$removable"] !== undefined;
   // @ts-expect-error - TODO
@@ -93,7 +87,7 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateProps) => {
                 variant="outline"
                 aria-label="open menu"
                 onClick={() => {
-                  changePanelName(idSchema.$id);
+                  formContext.changePanelName(idSchema.$id);
                 }}
                 icon={<Rename width={16} height={16} />}
               />
