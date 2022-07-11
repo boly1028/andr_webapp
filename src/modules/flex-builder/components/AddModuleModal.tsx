@@ -108,8 +108,16 @@ function AddModuleModal({ onAdd, items }: AddModuleModalProps) {
     useState<FlexBuilderTemplateModuleProps | null>(null);
 
   const handleAdd = useCallback(() => {
-    console.log("Selected");
-    console.log(selected);
+    //Reset updateFilters status before loading
+    const docInput = document?.getElementById(
+      "class-selector",
+    ) as HTMLInputElement; // Declaration of document field type as HTMLInputElement to acces .value without conflict
+    docInput.value = "all"; //Set selection form field value to variable for comparatives
+    updateFilters(); // Load filters for reset for next isOpen()
+
+    // console.log("Selected");
+    // console.log(selected);
+
     if (selected) {
       onAdd(selected);
       onClose();

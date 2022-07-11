@@ -5,6 +5,8 @@ import React, { FC, useState, useRef, useCallback } from "react";
 import { Button, HStack, Flex, IconButton } from "@chakra-ui/react";
 import { JSONSchema7 } from "json-schema";
 import Form from "@rjsf/chakra-ui";
+//Simple typeOf comparison utility from chakra-ui
+import { isUndefined } from "@chakra-ui/utils"; //https://github.com/chakra-ui/chakra-ui/blob/790d2417a3f5d59e2d69229a027af671c2dc0cbc/packages/utils/src/assertion.ts
 import _ from "lodash";
 
 import { GasIcon } from "@/modules/common";
@@ -20,7 +22,6 @@ import FieldTemplate from "./FieldTemplate";
 import TitleField from "./TitleField";
 import ObjectFieldTemplate from "./ObjectFieldTemplate";
 import ArrayFieldTemplate from "./ArrayFieldTemplate";
-import { isUndefined } from "@chakra-ui/utils";
 
 type FlexBuilderFormProps = {
   template: FlexBuilderTemplateProps;
@@ -241,9 +242,9 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
     /* -- Moving this back to original call to resolve issue with originalId not updated in reference to data creating fault on removals--*/
     // remove previous panel definitions
     // delete schemaDefinitions[`${panelName}`];
-    // delete schemaProperties[`${panelName}`];
-    // delete uiSchema[`${panelName}`];
-    // delete formData[`${panelName}`];
+    delete schemaProperties[`${panelName}`];
+    delete uiSchema[`${panelName}`];
+    delete formData[`${panelName}`];
 
     //creates failures
 
@@ -267,13 +268,13 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
     console.log("changeSchemaID form.formData:", form.formData);
     updateForm(form);
 
-    const cleanedForm = deleteSchemaModule(panelName, {
-      schemaDefinitions: schema?.definitions,
-      schemaProperties: schema?.properties,
-      uiSchema: uiSchema,
-      formData: formDataRef.current, // changed from "formData: formData" because it failed formData trace.
-    });
-    updateForm(cleanedForm);
+    // const cleanedForm = deleteSchemaModule(panelName, {
+    //   schemaDefinitions: schema?.definitions,
+    //   schemaProperties: schema?.properties,
+    //   uiSchema: uiSchema,
+    //   formData: formDataRef.current, // changed from "formData: formData" because it failed formData trace.
+    // });
+    // updateForm(cleanedForm);
   }, []);
 
   return (
