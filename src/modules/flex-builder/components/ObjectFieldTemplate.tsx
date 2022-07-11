@@ -19,6 +19,7 @@ import {
   CheckCircle as CheckCircleIcon,
   Trash2 as DeleteIcon,
   Edit3 as Rename,
+  Copy as Duplicate,
 } from "lucide-react";
 
 import AddButton from "./AddButton";
@@ -90,6 +91,15 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateProps) => {
                   formContext.changePanelName(idSchema.$id);
                 }}
                 icon={<Rename width={16} height={16} />}
+              />
+              <IconButton
+                size={"sm"}
+                variant="outline"
+                aria-label="open menu"
+                onClick={() => {
+                  formContext.duplicatePanel(idSchema.$id);
+                }}
+                icon={<Duplicate width={16} height={16} />}
               />
               <IconButton
                 size={"sm"}

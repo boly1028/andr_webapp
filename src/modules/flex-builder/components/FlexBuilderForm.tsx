@@ -4,6 +4,7 @@
 import React, { FC, useState, useRef, useCallback } from "react";
 import { Button, HStack, Flex, IconButton } from "@chakra-ui/react";
 import { JSONSchema7 } from "json-schema";
+import { v4 as uuidv4 } from "uuid";
 import Form from "@rjsf/chakra-ui";
 //Simple typeOf comparison utility from chakra-ui
 import { isUndefined } from "@chakra-ui/utils"; //https://github.com/chakra-ui/chakra-ui/blob/790d2417a3f5d59e2d69229a027af671c2dc0cbc/packages/utils/src/assertion.ts
@@ -233,20 +234,24 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
       return { schema, uiSchema, formData };
     }
 
+    console.log(
+      schemaDefinitions[`${panelName}`],
+      schemaProperties[`${panelName}`],
+      // uiSchema[`${panelName}`],
+      // formData[`${panelName}`],
+    );
+
     // duplicate schemas with new panel label
     schemaDefinitions[`${newPanelName}`] = schemaDefinitions[`${panelName}`];
     schemaProperties[`${newPanelName}`] = schemaProperties[`${panelName}`];
     uiSchema[`${newPanelName}`] = uiSchema[`${panelName}`];
     formData[`${newPanelName}`] = formData[`${panelName}`];
 
-    /* -- Moving this back to original call to resolve issue with originalId not updated in reference to data creating fault on removals--*/
     // remove previous panel definitions
-    // delete schemaDefinitions[`${panelName}`];
+    // delete schemaDefinitions[`${panelName}`]; // This action was disabled as it created conflicts // thrown errors for no #/defintions/`panelName` defined
     delete schemaProperties[`${panelName}`];
     delete uiSchema[`${panelName}`];
     delete formData[`${panelName}`];
-
-    //creates failures
 
     const schema = {
       definitions: schemaDefinitions,
@@ -267,14 +272,49 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
     });
     console.log("changeSchemaID form.formData:", form.formData);
     updateForm(form);
+  }, []);
 
-    // const cleanedForm = deleteSchemaModule(panelName, {
-    //   schemaDefinitions: schema?.definitions,
-    //   schemaProperties: schema?.properties,
-    //   uiSchema: uiSchema,
-    //   formData: formDataRef.current, // changed from "formData: formData" because it failed formData trace.
-    // });
-    // updateForm(cleanedForm);
+  // Called by deleteModule() for processing schemas & formData
+  const duplicatePanelSchema = (panelName: string, defaults?: any): any => {
+    const schemaDefinitions = defaults?.schemaDefinitions || {};
+    const schemaProperties = defaults?.schemaProperties || {};
+
+    const uiSchema = defaults?.uiSchema || {};
+    const formData = defaults?.formData || {};
+
+    const newPanelName = uuidv4(); // Create a new unique value to assign to the duplicated panel
+
+    //if start of panel name is "root_", then reference with prefix excluded
+    if (panelName.slice(0, 5) === "root_") {
+      panelName = panelName.slice(5);
+    }
+
+    // duplicate schemas with provided panel name
+    schemaDefinitions[`${newPanelName}`] = schemaDefinitions[`${panelName}`];
+    schemaProperties[`${newPanelName}`] = schemaProperties[`${panelName}`];
+    uiSchema[`${newPanelName}`] = uiSchema[`${panelName}`];
+    formData[`${newPanelName}`] = formData[`${panelName}`];
+
+    // build schema from prior definitions & properties for return submission for passing to updateForm() function
+    const schema = {
+      definitions: schemaDefinitions,
+      type: "object",
+      properties: schemaProperties,
+    };
+    alert("Panel duplicated with name " + newPanelName + ".");
+    return { schema, uiSchema, formData };
+  };
+
+  // Replicate an existing panel identification key with new name
+  const duplicatePanel = useCallback((panelName: any) => {
+    const form = duplicatePanelSchema(panelName, {
+      schemaDefinitions: schema?.definitions,
+      schemaProperties: schema?.properties,
+      uiSchema: uiSchema,
+      formData: formDataRef.current, // alternate to "formData: formData" because it failed formData trace.
+    });
+    // console.log("changeSchemaID form.formData:", form.formData);
+    updateForm(form);
   }, []);
 
   return (
@@ -283,9 +323,11 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
       uiSchema={uiSchema}
       formData={formData}
       formContext={{
+        // Pass actions to form for panel processing operations
         toggleModule: toggleModule,
         deleteModule: deleteModule,
         changePanelName: changePanelName,
+        duplicatePanel: duplicatePanel,
       }}
       onChange={({ formData }) => {
         if (!dirty && formDataRef.current) {
