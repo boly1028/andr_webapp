@@ -4,6 +4,7 @@ import { Box, BoxProps, Flex, CloseButton } from "@chakra-ui/react";
 import NavItem from "./NavItem";
 import Logo from "./Logo";
 import {
+  AppStore,
   CompassIcon,
   BookOpenIcon,
   CubeIcon,
@@ -19,6 +20,7 @@ interface LinkItemProps {
 
 const LinkItems: LinkItemProps[] = [
   { name: "Overview", icon: <CompassIcon boxSize={5} />, href: "/" },
+  { name: "App Store", icon: <AppStore boxSize={5} />, href: "/appstore" },
   { name: "Create", icon: <CubeIcon boxSize={5} />, href: "#" },
   { name: "ADOs", icon: <CubeIcon boxSize={5} pl={8} />, href: "/" },
   { name: "Apps", icon: <CubeIcon boxSize={5} pl={8} />, href: "/app-builder" },

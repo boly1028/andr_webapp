@@ -4,6 +4,51 @@ import { FlexBuilderTemplateProps } from "@/modules/flex-builder/types";
 
 export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
   {
+    id: "new",
+    name: "A Blank Canvas",
+    icon: "",
+    description:
+      "You don't have to use a template! Start from scratch building out your own ADO structure to be just the way you like it.",
+    opts: [
+      "Select your Base ADO functionality",
+      "Add on your prefered modules",
+      "Save as a template",
+      "Publish and use!",
+    ],
+    ados: [
+      { path: "publish-settings", id: "publish-settings", required: true },
+    ],
+
+    modules: [
+      { path: "addresslist/0.1.0/addresslist" },
+      { path: "rates/0.1.0/rates" },
+      { path: "cw721-offers/0.1.0/cw721-offers" },
+      { path: "receipt/0.1.0/receipt" },
+
+      { path: "primitives/0.1.0/array" },
+      { path: "primitives/0.1.0/boolean" },
+      { path: "primitives/0.1.0/coin" },
+      { path: "primitives/0.1.0/decimal" },
+      { path: "primitives/0.1.0/string" },
+      { path: "primitives/0.1.0/uint128" },
+
+      { path: "anchor/0.1.0/anchor" },
+      { path: "astroport/0.1.0/astroport" },
+      { path: "auction/0.1.0/auction" },
+      { path: "crowdfund/0.1.0/crowdfund" },
+      { path: "cw20/0.1.0/cw20" },
+      { path: "cw721/0.1.0/cw721" },
+      { path: "lockdrop/0.1.0/lockdrop" },
+      { path: "merkle-airdrop/0.1.0/merkle-airdrop" },
+      { path: "mirror-wrapped-cdp/0.1.0/mirror_wrapped_cdp" },
+      { path: "splitter/0.1.0/splitter" },
+      { path: "swapper/0.1.0/swapper" },
+      { path: "timelock/0.1.0/timelock" },
+      { path: "vault/0.1.0/vault" },
+      { path: "wrapped-cw721/0.1.0/wrapped_cw721" },
+    ],
+  },
+  {
     id: "splitter",
     name: "Splitter",
     icon: "",
@@ -124,48 +169,6 @@ export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
       { path: "vault/0.1.0/update_strategy", id: uuidv4() },
       { path: "vault/0.1.0/withdraw", id: uuidv4() },
       { path: "vault/0.1.0/deposit", id: uuidv4() },
-    ],
-  },
-  {
-    id: "new",
-    name: "A Blank Canvas",
-    icon: "",
-    description:
-      "You don't have to use a template! Start from scratch building out your own ADO structure to be just the way you like it.",
-    opts: [
-      "Select your Base ADO functionality",
-      "Add on your prefered modules",
-      "Save as a template",
-      "Publish and use!",
-    ],
-    ados: [],
-    modules: [
-      { path: "addresslist/0.1.0/addresslist" },
-      { path: "rates/0.1.0/rates" },
-      { path: "cw721-offers/0.1.0/cw721-offers" },
-      { path: "receipt/0.1.0/receipt" },
-
-      { path: "primitives/0.1.0/array" },
-      { path: "primitives/0.1.0/boolean" },
-      { path: "primitives/0.1.0/coin" },
-      { path: "primitives/0.1.0/decimal" },
-      { path: "primitives/0.1.0/string" },
-      { path: "primitives/0.1.0/uint128" },
-
-      { path: "anchor/0.1.0/anchor" },
-      { path: "astroport/0.1.0/astroport" },
-      { path: "auction/0.1.0/auction" },
-      { path: "crowdfund/0.1.0/crowdfund" },
-      { path: "cw20/0.1.0/cw20" },
-      { path: "cw721/0.1.0/cw721" },
-      { path: "lockdrop/0.1.0/lockdrop" },
-      { path: "merkle-airdrop/0.1.0/merkle-airdrop" },
-      { path: "mirror-wrapped-cdp/0.1.0/mirror_wrapped_cdp" },
-      { path: "splitter/0.1.0/splitter" },
-      { path: "swapper/0.1.0/swapper" },
-      { path: "timelock/0.1.0/timelock" },
-      { path: "vault/0.1.0/vault" },
-      { path: "wrapped-cw721/0.1.0/wrapped_cw721" },
     ],
   },
   // {

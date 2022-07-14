@@ -19,7 +19,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
   const { publishContract } = usePublishContract();
 
   const handleSubmit = async ({ formData }: any) => {
-    await publishContract(formData);
+    await publishContract(formData); //Reference to usePublishContract hook
   };
 
   //TODO: Setup staging availability flags for loading staging sections if passed

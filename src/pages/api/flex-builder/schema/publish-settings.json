@@ -4,9 +4,9 @@
     "class": "system",
     "classifier": "",
     "title": "Publish as an App",
-    "description": "Optional publishing configurations to publish the ADO as an App",
+    "description": "Publishing configurations to publish the ADO as an App",
     "type": "object",
-    "required": ["percentage", "address"],
+    "required": ["name", "primitive"],
     "properties": {
       "name": {
         "type": "string",
@@ -28,6 +28,8 @@
       }
     }
   },
-  "ui-schema": {},
-  "form-data": {}
+  "ui-schema": { "primitive": { "ui:readonly": "readonly" } },
+  "form-data": {
+    "primitive": "juno144r95jrnk5erqhpuepe5mwz33e5mns7yuyhmxw7fmfx8w0duqwws9qd36x"
+  }
 }

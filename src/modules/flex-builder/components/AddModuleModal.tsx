@@ -54,7 +54,7 @@ function AddModuleModalItem({
   });
 
   // Debugging log
-  console.log("AddModuleModalItem::disabled", disabled);
+  // console.log("AddModuleModalItem::disabled", disabled);
 
   return (
     <chakra.button
@@ -108,6 +108,16 @@ function AddModuleModal({ onAdd, items }: AddModuleModalProps) {
     useState<FlexBuilderTemplateModuleProps | null>(null);
 
   const handleAdd = useCallback(() => {
+    //Reset updateFilters status before loading
+    const docInput = document?.getElementById(
+      "class-selector",
+    ) as HTMLInputElement; // Declaration of document field type as HTMLInputElement to acces .value without conflict
+    docInput.value = "all"; //Set selection form field value to variable for comparatives
+    updateFilters(); // Load filters for reset for next isOpen()
+
+    // console.log("Selected");
+    // console.log(selected);
+
     if (selected) {
       onAdd(selected);
       onClose();
@@ -115,8 +125,28 @@ function AddModuleModal({ onAdd, items }: AddModuleModalProps) {
   }, [selected, onAdd, onClose]);
 
   // Debugging Logs
-  console.log("template.modules:");
-  console.log(items);
+  // console.log("template.modules:");
+  // console.log(items);
+
+  const [filteredItems, setFilteredItems] = useState<any[]>(items); //Value to reduce returned panel options by filters
+
+  //Address filtering controls to pre-sort items by class type & textual contents
+  function updateFilters() {
+    const docInput = document?.getElementById(
+      "class-selector",
+    ) as HTMLInputElement; // Declaration of document field type as HTMLInputElement to acces .value without conflict
+    const classValue = docInput.value; //Set selection form field value to variable for comparatives
+    if (classValue === "all") {
+      setFilteredItems(items);
+    } else {
+      setFilteredItems(
+        _.filter(items, function (item) {
+          return _.some(item.schema, { class: classValue });
+        }),
+      );
+    }
+    return;
+  }
 
   return (
     <>
@@ -152,6 +182,7 @@ function AddModuleModal({ onAdd, items }: AddModuleModalProps) {
                 id="class-selector"
                 size="lg"
                 flex={1}
+                onChange={() => updateFilters()}
                 // onChange={() =>
                 //   alert(document?.getElementById("class-selector")?.value)
                 // }
@@ -189,8 +220,8 @@ function AddModuleModal({ onAdd, items }: AddModuleModalProps) {
               }}
             >
               <VStack spacing={3} align="normal">
-                {items.map((item) => {
-                  console.log(item.schema);
+                {filteredItems.map((item) => {
+                  // console.log(item.schema);
                   item.id = uuidv4();
                   return (
                     <AddModuleModalItem

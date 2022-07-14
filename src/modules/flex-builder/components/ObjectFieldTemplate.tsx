@@ -1,3 +1,5 @@
+// Panel container for Flex-Builder: Handles panel name change assosciations
+// changePanelName()
 import React from "react";
 
 import {
@@ -11,11 +13,13 @@ import {
   HStack,
   Text,
 } from "@chakra-ui/react";
-import { ObjectFieldTemplateProps } from "@rjsf/core";
+import { IdSchema, ObjectFieldTemplateProps } from "@rjsf/core";
 import { utils } from "@rjsf/core";
 import {
   CheckCircle as CheckCircleIcon,
   Trash2 as DeleteIcon,
+  Edit3 as Rename,
+  Copy as Duplicate,
 } from "lucide-react";
 
 import AddButton from "./AddButton";
@@ -37,7 +41,7 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateProps) => {
     schema,
     formData,
     onAddClick,
-    formContext,
+    formContext, //used as prop drilling form action calls: toogleModule() / deleteModule() / renameModule()
   } = props;
 
   const hasWrapper = formData["$removable"] !== undefined;
@@ -78,6 +82,24 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateProps) => {
                 onChange={() => {
                   formContext.toggleModule(idSchema.$id, !formData["$enabled"]);
                 }}
+              />
+              <IconButton
+                size={"sm"}
+                variant="outline"
+                aria-label="open menu"
+                onClick={() => {
+                  formContext.changePanelName(idSchema.$id);
+                }}
+                icon={<Rename width={16} height={16} />}
+              />
+              <IconButton
+                size={"sm"}
+                variant="outline"
+                aria-label="open menu"
+                onClick={() => {
+                  formContext.duplicatePanel(idSchema.$id);
+                }}
+                icon={<Duplicate width={16} height={16} />}
               />
               <IconButton
                 size={"sm"}
