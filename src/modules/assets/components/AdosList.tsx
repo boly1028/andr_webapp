@@ -17,19 +17,35 @@ import {
   IconButton,
 } from "@/theme/ui-elements";
 
-import {
-  CheckCircleIcon,
-  EditIcon,
-  EyeIcon,
-  FilePlusIcon,
-  MoreHorizontalIcon,
-  UnlockIcon,
-} from "@/theme/icons";
+import { MoreHorizontalIcon } from "@/theme/icons";
 
 interface InlineStatProps {
   label: string;
   value: string;
   reverse?: boolean;
+}
+
+// Format declared modifiers for better UX in application
+function formatActionTitles(actionTitleText: string) {
+  //let ActionTitleText = actionTitleText;
+
+  // Replace underscores and dashes from modifier labels
+  while (actionTitleText.includes("_") || actionTitleText.includes("-")) {
+    actionTitleText = actionTitleText.replace("_", " ");
+    actionTitleText = actionTitleText.replace("-", " ");
+  }
+
+  // Apply title casing to labels
+  const actionTitles = actionTitleText
+    .toLowerCase()
+    .split(" ")
+    .map(function (word) {
+      return word.charAt(0).toUpperCase() + word.slice(1);
+    });
+  actionTitleText = actionTitles.join(" ");
+
+  //Return formatted text
+  return actionTitleText;
 }
 
 const InlineStat: FC<InlineStatProps> = ({ label, value, reverse = false }) => {
@@ -62,7 +78,17 @@ interface AdosListItemProps {
 }
 
 const AdosListItem: FC<AdosListItemProps> = ({ data }) => {
-  const { name, type, version, lastActivity, created } = data;
+  const {
+    name,
+    type,
+    version,
+    lastActivity,
+    created,
+    $class,
+    $classifier,
+    modifiers,
+  } = data;
+  // Import ADOP.json from ado_type+version path
 
   return (
     <Flex
@@ -74,7 +100,8 @@ const AdosListItem: FC<AdosListItemProps> = ({ data }) => {
       mb={4}
       _last={{ mb: 0 }}
     >
-      <Box w={8} h={8} bg="primary.600" borderRadius="lg" mr={6} />
+      {/* Applying bg color by defined $class type + .600 */}
+      <Box w={8} h={8} bg={`${$class}` + ".600"} borderRadius="lg" mr={6} />
 
       <Box flex={1}>
         <InlineStat label="Name" value={name} />
@@ -101,6 +128,29 @@ const AdosListItem: FC<AdosListItemProps> = ({ data }) => {
           variant="link"
         />
         <MenuList>
+          {modifiers.map((action) => {
+            return (
+              <NextLink
+                key={keyGen()}
+                href={`/collections/moonbirds-3`}
+                passHref
+              >
+                <MenuItem>
+                  {/* <MenuItem icon={<Icon as={EyeIcon} boxSize={5} />}> */}
+                  {formatActionTitles(action)}
+                </MenuItem>
+              </NextLink>
+            );
+          })}
+        </MenuList>
+      </Menu>
+      {/* <Menu placement="bottom-end">
+        <MenuButton
+          as={IconButton}
+          icon={<Icon as={MoreHorizontalIcon} boxSize={6} />}
+          variant="link"
+        />
+        <MenuList>
           <NextLink href={`/collections/moonbirds-3`} passHref>
             <MenuItem icon={<Icon as={EyeIcon} boxSize={5} />}>View</MenuItem>
           </NextLink>
@@ -117,7 +167,7 @@ const AdosListItem: FC<AdosListItemProps> = ({ data }) => {
             Sell
           </MenuItem>
         </MenuList>
-      </Menu>
+        </Menu> */}
     </Flex>
   );
 };

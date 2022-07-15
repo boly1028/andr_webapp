@@ -8,12 +8,15 @@ export interface NftAsset {
 }
 
 export interface AdoAsset {
-  // id: number;
-  // image: string;
+  //Data from graphQL
   name: string;
   type: string;
   version: string;
-  // udid: string;
   lastActivity: string;
   created: string;
+
+  // Data from ADOP JSON
+  $class: string;
+  $classifier: string[];
+  modifiers: string[];
 }

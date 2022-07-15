@@ -27,5 +27,7 @@ export {
 export { Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
 export { chakra } from "@chakra-ui/react";
 
+export { textDecoration } from "@chakra-ui/react";
+
 // Custom Andromeda ui-element defintitions
 export { default as ExternalLink } from "./ExternalLink";
