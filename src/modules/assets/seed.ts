@@ -140,8 +140,8 @@ export const ADO_ITEMS: AdoAsset[] = [
     created: "June 3, 2022",
   },
   {
-    name: "Weighted Splitter",
-    type: "weighted_splitter",
+    name: "Weighted Distribution Splitter",
+    type: "weighted_distribution_splitter",
     version: "0.1.0",
     lastActivity: "December 9, 2021",
     created: "December 9, 2021",
