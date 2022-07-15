@@ -8,11 +8,12 @@ export interface NftAsset {
 }
 
 export interface AdoAsset {
-  id: number;
-  image: string;
+  // id: number;
+  // image: string;
   name: string;
   type: string;
-  udid: string;
+  version: string;
+  // udid: string;
   lastActivity: string;
   created: string;
 }

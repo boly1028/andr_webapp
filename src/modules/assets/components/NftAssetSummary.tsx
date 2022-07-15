@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+
 import {
   Box,
   Text,
@@ -9,9 +10,9 @@ import {
   AccordionIcon,
   VStack,
   Flex,
-} from "@chakra-ui/react";
+} from "@/theme/ui-elements";
 
-import { ExternalLink } from "@/modules/common";
+import { ExternalLink } from "@/theme/ui-elements"; // Seperated import to indicate custom element
 
 interface NftPropertiesItemProps {
   label: string;
