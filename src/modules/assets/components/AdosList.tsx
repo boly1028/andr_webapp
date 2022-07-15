@@ -81,11 +81,11 @@ const AdosListItem: FC<AdosListItemProps> = ({ data }) => {
         {/* <InlineStat label="{type}" value={name} reverse /> */}
       </Box>
       <Box flex={1}>
-        <InlineStat label="Type" value={type} />
+        <InlineStat label="Type" value={`${type}@${version}`} />
       </Box>
-      <Box flex={1}>
+      {/* <Box flex={1}>
         <InlineStat label="Version" value={version} />
-      </Box>
+      </Box> */}
       <Box flex={1}>
         <InlineStat label="Created" value={created} />
       </Box>
