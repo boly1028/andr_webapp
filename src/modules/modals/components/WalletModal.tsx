@@ -11,6 +11,11 @@ import {
   Heading,
   chakra,
 } from "@chakra-ui/react";
+import {
+  useConnect,
+  useWalletContext,
+  KeplrConnectionStatus,
+} from "@/lib/wallet";
 
 type Props = {
   isOpen: boolean;
@@ -18,7 +23,8 @@ type Props = {
 };
 
 const WalletModal: FC<Props> = ({ isOpen, onClose }) => {
-  const { status, availableConnections, connect } = useWallet();
+  const { status: keplrStatus } = useWalletContext();
+  const connect = useConnect();
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="xl">
@@ -30,27 +36,19 @@ const WalletModal: FC<Props> = ({ isOpen, onClose }) => {
             Select Wallet
           </Heading>
           <Box>
-            {status === WalletStatus.WALLET_NOT_CONNECTED && (
-              <>
-                {availableConnections.map(
-                  ({ type, name, icon, identifier = "" }) => (
-                    <Button
-                      key={"connection-" + type + identifier}
-                      variant="outline"
-                      leftIcon={
-                        <chakra.img src={icon} alt={name} boxSize={6} />
-                      }
-                      isFullWidth
-                      mb={4}
-                      py={8}
-                      onClick={() => connect(type, identifier)}
-                    >
-                      {name}
-                    </Button>
-                  ),
-                )}
-              </>
-            )}
+            <Button
+              variant="outline"
+              // leftIcon={<chakra.img src={icon} alt={name} boxSize={6} />} //TODO: Fix Icon
+              isFullWidth
+              mb={4}
+              py={8}
+              onClick={connect}
+              disabled={keplrStatus !== KeplrConnectionStatus.Ok}
+            >
+              {keplrStatus === KeplrConnectionStatus.NotInstalled
+                ? "Install Keplr to Connect"
+                : "Keplr"}
+            </Button>
           </Box>
         </ModalBody>
       </ModalContent>

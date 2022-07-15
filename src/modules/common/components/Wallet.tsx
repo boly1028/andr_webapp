@@ -1,36 +1,31 @@
-import React, { FC } from "react";
 import {
-  useWallet,
-  WalletStatus,
-  useConnectedWallet,
-} from "@terra-money/wallet-provider";
-import {
-  Input,
-  Flex,
   Box,
-  Text,
-  HStack,
-  useDisclosure,
   Button,
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  PopoverBody,
+  Flex,
+  HStack,
   Image,
+  Input,
+  Popover,
+  PopoverBody,
+  PopoverContent,
+  PopoverTrigger,
+  Text,
+  useDisclosure,
   VStack,
 } from "@chakra-ui/react";
+import { FC } from "react";
 
-import { WalletModal } from "@/modules/modals";
+import { useDisconnect, useWallet } from "@/lib/wallet";
 import {
-  truncate,
-  ProfileIcon,
   ChevronDownIcon,
   CopyIcon,
   ExternalLinkIcon,
   LogOutIcon,
-  TerraIcon,
   PlusIcon,
+  ProfileIcon,
+  truncate,
 } from "@/modules/common";
+import { WalletModal } from "@/modules/modals";
 
 const TOKENS = [
   {
@@ -60,10 +55,10 @@ const HoldingItem = ({ logo, name }: HoldingItemProps) => {
   );
 };
 
-const TerraWalletConnected = () => {
-  const { disconnect } = useWallet();
-  const wallet = useConnectedWallet();
-  const address = truncate(wallet?.terraAddress);
+const WalletConnected = () => {
+  const wallet = useWallet();
+  const disconnect = useDisconnect();
+  const address = truncate(wallet?.address);
 
   return (
     <Popover placement="bottom-end">
@@ -85,19 +80,19 @@ const TerraWalletConnected = () => {
           <PopoverContent>
             <PopoverBody>
               <HStack mb={3}>
-                <TerraIcon
+                {/* <Icon
                   boxSize={9}
                   p={1}
                   borderRadius="full"
                   border="1px solid"
                   borderColor="gray.300"
-                />
+                /> */}
                 <Text fontWeight={600} color="gray.700">
-                  Terra Network
+                  {chainId}
                 </Text>
               </HStack>
               <Input
-                value={wallet?.terraAddress}
+                value={wallet?.address}
                 mb={2}
                 p={2}
                 color="gray.700"
@@ -154,12 +149,14 @@ const TerraWalletConnected = () => {
   );
 };
 
-const TerraWallet: FC = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const { status } = useWallet();
+const chainId = "uni-3";
 
-  if (status === WalletStatus.WALLET_CONNECTED) {
-    return <TerraWalletConnected />;
+const Wallet: FC = () => {
+  const account = useWallet();
+  const { isOpen, onClose, onOpen } = useDisclosure();
+
+  if (account) {
+    return <WalletConnected />;
   }
 
   return (
@@ -172,9 +169,9 @@ const TerraWallet: FC = () => {
       >
         Connect Wallet
       </Button>
-      <WalletModal isOpen={isOpen} onClose={onClose} />
+      <WalletModal isOpen={isOpen && !account} onClose={onClose} />
     </>
   );
 };
 
-export default TerraWallet;
+export default Wallet;

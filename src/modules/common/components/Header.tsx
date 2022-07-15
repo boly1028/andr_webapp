@@ -13,7 +13,7 @@ import {
   MenuList,
 } from "@chakra-ui/react";
 
-import { PlusIcon, TerraWallet, MenuIcon } from "@/modules/common";
+import { PlusIcon, Wallet, MenuIcon } from "@/modules/common";
 import {
   ArchiveIcon,
   CheckCircleIcon,
@@ -79,7 +79,7 @@ const Header: FC<Props> = ({ onOpen, ...props }) => {
                 </MenuItem>
               </MenuList>
             </Menu>
-            <TerraWallet />
+            <Wallet />
           </HStack>
         </Flex>
       </HStack>
