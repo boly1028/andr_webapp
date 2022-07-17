@@ -18,6 +18,7 @@ import {
 } from "@/theme/ui-elements";
 
 import { MoreHorizontalIcon } from "@/theme/icons";
+import * as classifierIconList from "@/theme/icons/classifiers"; //Load classifier icon list for dynamic assignamnets (redeclared as classifierIcons:any later)
 
 interface InlineStatProps {
   label: string;
@@ -90,6 +91,10 @@ const AdosListItem: FC<AdosListItemProps> = ({ data }) => {
   } = data;
   // Import ADOP.json from ado_type+version path
 
+  // Converting imported icon object to type any to avoid string based key reference conflicts in dynamic assosciation calls
+  const classifierIcons: any = classifierIconList;
+  // console.log(Object.keys(classifierIcons));
+
   return (
     <Flex
       border="1px solid"
@@ -101,7 +106,33 @@ const AdosListItem: FC<AdosListItemProps> = ({ data }) => {
       _last={{ mb: 0 }}
     >
       {/* Applying bg color by defined $class type + .600 */}
-      <Box w={8} h={8} bg={`${$class}` + ".600"} borderRadius="lg" mr={6} />
+      <Box w={8} h={8} bg={`${$class}` + ".600"} borderRadius="lg" mr={6}>
+        {/* Swap background color based on defined class */}
+        <Flex
+          justify="center"
+          align="center"
+          borderRadius="lg"
+          bg={`${$class}` + ".100"}
+          p={2}
+        >
+          {/* Disable auto loading icon for icon variance based on class and classifier
+            {newIcon} */}
+          {/* Swap Icon color based on defined class */}
+          {classifierIcons[`${$classifier}`] ? (
+            <Icon
+              as={classifierIcons[`${$classifier}`]}
+              color={`${$class}` + ".600"}
+              boxSize={6}
+            />
+          ) : (
+            <Icon
+              as={classifierIcons[`${$class}`]}
+              color={`${$class}` + ".600"}
+              boxSize={6}
+            />
+          )}
+        </Flex>
+      </Box>
 
       <Box flex={1}>
         <InlineStat label="Name" value={name} />

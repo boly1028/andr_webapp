@@ -37,7 +37,7 @@ export const ADO_ITEMS: AdoAsset[] = [
     version: "0.1.0",
     lastActivity: "15 minutes ago",
     created: "Mar 12 2022",
-    $class: "baseADO",
+    $class: "app",
     $classifier: [],
     modifiers: ["add_mission_component", "claim_ownership", "update_address"],
   },
