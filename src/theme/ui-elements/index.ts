@@ -24,6 +24,18 @@ export {
   VStack,
 } from "@chakra-ui/react";
 
+export {
+  Divider,
+  Input,
+  InputGroup,
+  InputLeftElement,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalBody,
+  Select,
+} from "@chakra-ui/react";
+
 export { Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
 export { chakra } from "@chakra-ui/react";
 

@@ -15,6 +15,8 @@ export {
   Unlock as UnlockIcon,
 } from "lucide-react";
 
+export { Plus as PlusIcon, Search as SearchIcon } from "lucide-react";
+
 export { ExternalLink as ExternalLinkIcon } from "lucide-react";
 
 // Any custom SVG based icons should be defined then

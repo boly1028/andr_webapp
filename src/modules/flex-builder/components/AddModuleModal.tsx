@@ -1,5 +1,11 @@
-import React, { FC, useState, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import _ from "lodash";
+import { v4 as uuidv4 } from "uuid";
+import { useDisclosure } from "@chakra-ui/react";
+
+import { FlexBuilderTemplateModuleProps } from "@/modules/flex-builder/types";
+//import SchemaField from "@rjsf/core/lib/components/fields/SchemaField";
+
 import {
   Box,
   Button,
@@ -7,6 +13,7 @@ import {
   Divider,
   Flex,
   HStack,
+  Icon,
   Input,
   InputGroup,
   InputLeftElement,
@@ -14,26 +21,13 @@ import {
   ModalOverlay,
   ModalContent,
   ModalBody,
-  Menu,
-  MenuList,
-  MenuItem,
   Select,
   Text,
-  useDisclosure,
   VStack,
-} from "@chakra-ui/react";
+} from "@/theme/ui-elements";
 
-import { v4 as uuidv4 } from "uuid";
-
-import {
-  PlusIcon,
-  ScanIcon,
-  SearchIcon,
-  CustomMenuButton,
-} from "@/modules/common";
-
-import { FlexBuilderTemplateModuleProps } from "@/modules/flex-builder/types";
-import SchemaField from "@rjsf/core/lib/components/fields/SchemaField";
+import { PlusIcon, SearchIcon } from "@/theme/icons";
+import * as classifierIconList from "@/theme/icons/classifiers"; //Load classifier icon list for dynamic assignamnets (redeclared as classifierIcons:any later)
 
 interface AddModuleModalItemProps {
   data: any;
@@ -48,13 +42,20 @@ function AddModuleModalItem({
   disabled = false,
   isActive = false,
 }: AddModuleModalItemProps) {
-  const newIcon = React.cloneElement(<ScanIcon />, {
-    color: "module.600",
-    boxSize: 6,
-  });
+  // Converting imported icon object to type any to avoid string based key reference conflicts in dynamic assosciation calls
+  const classifierIcons: any = classifierIconList;
+
+  // Assign classifier data to variables for eaiser legibility and case correction on icon assignments
+  const classIconType = data?.schema?.class;
+  const classifierIconType = _.lowerCase(data?.schema?.classifier);
 
   // Debugging log
   // console.log("AddModuleModalItem::disabled", disabled);
+  // if (!classifierIconType) {
+  //   console.log("Icon by Class", classIconType);
+  // } else {
+  //   console.log("Icon by Classifier:", classifierIconType);
+  // }
 
   return (
     <chakra.button
@@ -79,7 +80,22 @@ function AddModuleModalItem({
             {/* Disable auto loading icon for icon variance based on class and classifier
             {newIcon} */}
             {/* Swap Icon color based on defined class */}
-            <ScanIcon color={`${data?.schema?.class}` + ".600"} boxSize={6} />
+
+            {/* <ScanIcon color={`${data?.schema?.class}` + ".600"} boxSize={6} /> */}
+
+            {classifierIconType ? (
+              <Icon
+                as={classifierIcons[classifierIconType]}
+                color={`${classIconType}` + ".600"}
+                boxSize={6}
+              />
+            ) : (
+              <Icon
+                as={classifierIcons[classIconType]}
+                color={`${classIconType}` + ".600"}
+                boxSize={6}
+              />
+            )}
           </Flex>
         </Box>
         <Box flex={1}>
@@ -155,7 +171,7 @@ function AddModuleModal({ onAdd, items }: AddModuleModalProps) {
         onClick={onOpen}
         py={8}
         variant="ghost"
-        leftIcon={<PlusIcon boxSize={6} />}
+        leftIcon={<Icon as={PlusIcon} boxSize={6} />}
         isFullWidth
       >
         Add Component
@@ -254,7 +270,7 @@ function AddModuleModal({ onAdd, items }: AddModuleModalProps) {
                 isDisabled={!selected}
                 onClick={handleAdd}
                 colorScheme="module"
-                leftIcon={<PlusIcon boxSize={6} />}
+                leftIcon={<Icon as={PlusIcon} boxSize={6} />}
               >
                 Add Component
               </Button>
