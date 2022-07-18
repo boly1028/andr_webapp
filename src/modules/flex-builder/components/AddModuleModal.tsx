@@ -145,6 +145,36 @@ function AddModuleModal({ onAdd, items }: AddModuleModalProps) {
   // console.log(items);
 
   const [filteredItems, setFilteredItems] = useState<any[]>(items); //Value to reduce returned panel options by filters
+  const [searchedItems, setSearchedItems] = useState<any[]>(items); //Value to reduce returned panel options by filters
+
+  function updateTextSearch(force?: string) {
+    const docInput = document?.getElementById(
+      "search-text",
+    ) as HTMLInputElement; // Declaration of document field type as HTMLInputElement to acces .value without conflict
+    const classValue = docInput.value; //Set selection form field value to variable for comparatives
+    // When text entered is not empty
+    if (classValue !== "" || force) {
+      // console.log("Search Filter on: ", filteredItems);
+      setSearchedItems(
+        _.filter(filteredItems, function (item) {
+          // Filter items which contain a lowercase version of the text in either the panel description or title
+          return (
+            _.includes(
+              item.schema.schema.title.toString().toLowerCase(),
+              classValue.toLowerCase(),
+            ) ||
+            _.includes(
+              item.schema.schema.description?.toString().toLowerCase(),
+              classValue.toLowerCase(),
+            )
+          );
+        }),
+      );
+    } else {
+      // Return an unsearched result
+      setSearchedItems(filteredItems);
+    }
+  }
 
   //Address filtering controls to pre-sort items by class type & textual contents
   function updateFilters() {
@@ -161,6 +191,7 @@ function AddModuleModal({ onAdd, items }: AddModuleModalProps) {
         }),
       );
     }
+    updateTextSearch("forceUpdate");
     return;
   }
 
@@ -191,7 +222,11 @@ function AddModuleModal({ onAdd, items }: AddModuleModalProps) {
                 <InputLeftElement pointerEvents="none">
                   <SearchIcon />
                 </InputLeftElement>
-                <Input placeholder="By title or description" />
+                <Input
+                  id="search-text"
+                  onChange={() => updateTextSearch()}
+                  placeholder="By title or description"
+                />
               </InputGroup>
               {/* Class Selection Filter */}
               <Select
@@ -236,7 +271,7 @@ function AddModuleModal({ onAdd, items }: AddModuleModalProps) {
               }}
             >
               <VStack spacing={3} align="normal">
-                {filteredItems.map((item) => {
+                {searchedItems.map((item) => {
                   // console.log(item.schema);
                   item.id = uuidv4();
                   return (
