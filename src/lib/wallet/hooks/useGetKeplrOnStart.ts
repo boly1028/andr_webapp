@@ -1,5 +1,5 @@
 import { Keplr } from "@keplr-wallet/types";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { KeplrConnectionStatus } from "./useWalletContext";
 
 /**

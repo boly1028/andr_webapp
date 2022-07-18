@@ -1,17 +1,17 @@
-import { useLCDClient } from "@terra-money/wallet-provider";
-import { useTx, useAddress, estimateFee } from "@arthuryeti/terra";
+import { useAddress } from "@arthuryeti/terra";
 import { MsgInstantiateContract } from "@terra-money/terra.js";
+import { useLCDClient } from "@terra-money/wallet-provider";
 
-import { v4 as uuidv4 } from "uuid";
 import { useAndromedaContext } from "@/modules/common";
-import { TabPanels } from "@chakra-ui/react";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// TODO: this needs typed
 const constructMsg = (data: any) => {
   //Object definitions must be typed as "any" otherwise TS will raise error: type string can't be used to index type {}
-  const objData: any = {}; // Stores object data while processing
-  const base64Data: any = {}; // Encoded message constructions for instantiate messages
-  const appData = []; // Array to store base64 instantiation app data for submission message
-  const appInfo: any = {}; // The publish-settings for app message information
+  const objData = {}; // Stores object data while processing
+  const base64Data = {}; // Encoded message constructions for instantiate messages
+  const appData: any[] = []; // Array to store base64 instantiation app data for submission message
+  const appInfo = {}; // The publish-settings for app message information
   console.clear();
   // console.log("formData", data);
 
@@ -24,6 +24,7 @@ const constructMsg = (data: any) => {
       appInfo["name"] = data[panel]["name"];
       appInfo["primitive"] = data[panel]["primitive"];
       // Operators is omissable, so only process if values have been declared
+      // eslint-disable-next-line no-prototype-builtins
       if (data[panel].hasOwnProperty("operators")) {
         appInfo["operators"] = data[panel]["operators"];
       }
