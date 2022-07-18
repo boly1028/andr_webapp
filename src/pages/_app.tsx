@@ -1,12 +1,12 @@
-import React from "react";
-import {
-  WalletControllerChainOptions,
-  getChainOptions,
-} from "@terra-money/wallet-provider";
-import App, { AppProps, AppContext } from "next/app";
-import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
-import { ChakraProvider, CSSReset } from "@chakra-ui/react";
 import { WalletProvider } from "@/lib/wallet";
+import { ChakraProvider, CSSReset } from "@chakra-ui/react";
+import {
+  getChainOptions,
+  WalletControllerChainOptions,
+} from "@terra-money/wallet-provider";
+import App, { AppContext, AppProps } from "next/app";
+import React from "react";
+import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
 
 import { AndromedaContextProvider } from "@/modules/common";
 import theme from "@/theme";
@@ -18,8 +18,6 @@ import "@/modules/app-builder/style/nodes.css";
 const MyApp = ({
   Component,
   pageProps,
-  defaultNetwork,
-  walletConnectChainIds,
 }: AppProps & WalletControllerChainOptions) => {
   const [queryClient] = React.useState(() => new QueryClient());
 

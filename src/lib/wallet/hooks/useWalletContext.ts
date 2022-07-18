@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
 import type { OfflineSigner } from "@cosmjs/proto-signing";
 import { Keplr } from "@keplr-wallet/types";
 import { createContext, useContext } from "react";

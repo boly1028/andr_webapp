@@ -11,7 +11,7 @@ export interface WalletProviderProps {
 const AUTOCONNECT_KEY = "keplr_autoconnect";
 
 const WalletProvider: React.FC<WalletProviderProps> = React.memo(
-  ({ chainId, children }) => {
+  function WalletProvider({ chainId, children }) {
     //Detect Keplr instance on startup
     const { keplr, status } = useGetKeplrOnStart();
     const [stateChainId, setStateChainId] = useState<string>(chainId);
@@ -24,7 +24,7 @@ const WalletProvider: React.FC<WalletProviderProps> = React.memo(
       }
       //Ensure Keplr has info for current chain ID
       if (keplr) connectByChainId(chainId, keplr);
-    }, [chainId, keplr]);
+    }, [chainId, keplr, stateChainId]);
 
     //Assigns signer info to context
     const connect = useCallback(() => {
