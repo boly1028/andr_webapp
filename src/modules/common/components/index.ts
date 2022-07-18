@@ -7,7 +7,7 @@ export { default as Logo } from "./Logo";
 export { default as NavItem } from "./NavItem";
 export { default as Sidebar } from "./Sidebar";
 export { default as PageHeader } from "./PageHeader";
-export { default as TerraWallet } from "./TerraWallet";
+export { default as Wallet } from "./Wallet";
 export { default as TransactionModal } from "./TransactionModal";
 
 export * from "./icons";

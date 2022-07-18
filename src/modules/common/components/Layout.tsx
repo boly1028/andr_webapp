@@ -9,17 +9,21 @@ import {
   FlexProps,
   Center,
 } from "@chakra-ui/react";
-import { useWallet, WalletStatus } from "@terra-money/wallet-provider";
 
 import { Sidebar, Header } from "@/modules/common";
+import {
+  KeplrConnectionStatus,
+  useWallet,
+  useWalletContext,
+} from "@/lib/wallet";
 
 const Layout: FC<BoxProps> = ({
   children,
   maxW = "container.lg",
   ...props
 }) => {
-  const wallet = useWallet();
-  const isInitializing = wallet.status == WalletStatus.INITIALIZING;
+  const { status } = useWalletContext();
+  const isInitializing = status === KeplrConnectionStatus.Connecting;
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 

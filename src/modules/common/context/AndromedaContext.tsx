@@ -13,24 +13,26 @@ const AndromedaContext = createContext<AndromedaContextData>(
 const useAndromedaContext = () => useContext(AndromedaContext);
 
 const AndromedaContextProvider = ({ children }: { children: ReactNode }) => {
-  const postTx = usePostTx();
-  const { reset: resetTxState } = postTx;
+  //TODO: REPLACE WITH ANDROMEDA CLIENT
+  // const postTx = usePostTx();
+  // const { reset: resetTxState } = postTx;
 
-  const onTransactionModalClose = useCallback(() => {
-    resetTxState();
-  }, [resetTxState]);
+  // const onTransactionModalClose = useCallback(() => {
+  //   resetTxState();
+  // }, [resetTxState]);
 
-  const providerState: AndromedaContextData = {
-    postTx,
-  };
+  // const providerState: AndromedaContextData = {
+  //   postTx,
+  // };
 
-  return (
-    <AndromedaContext.Provider value={providerState}>
-      {/*Global Tx State*/}
-      <TransactionModal postTx={postTx} onClose={onTransactionModalClose} />
-      {children}
-    </AndromedaContext.Provider>
-  );
+  // return (
+  //   <AndromedaContext.Provider value={providerState}>
+  //     {/*Global Tx State*/}
+  //     <TransactionModal postTx={postTx} onClose={onTransactionModalClose} />
+  //     {children}
+  //   </AndromedaContext.Provider>
+  // );
+  return <>{children}</>;
 };
 
 export { useAndromedaContext, AndromedaContextProvider };

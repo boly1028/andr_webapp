@@ -1,25 +1,22 @@
 // Panel container for Flex-Builder: Handles panel name change assosciations
-// changePanelName()
-import React from "react";
 
 import {
   Box,
   Flex,
   Grid,
   GridItem,
-  Switch,
+  HStack,
   Icon,
   IconButton,
-  HStack,
+  Switch,
   Text,
 } from "@chakra-ui/react";
-import { IdSchema, ObjectFieldTemplateProps } from "@rjsf/core";
-import { utils } from "@rjsf/core";
+import { ObjectFieldTemplateProps, utils } from "@rjsf/core";
 import {
   CheckCircle as CheckCircleIcon,
-  Trash2 as DeleteIcon,
-  Edit3 as Rename,
   Copy as Duplicate,
+  Edit3 as Rename,
+  Trash2 as DeleteIcon,
 } from "lucide-react";
 
 import AddButton from "./AddButton";
@@ -45,7 +42,6 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateProps) => {
   } = props;
 
   const hasWrapper = formData["$removable"] !== undefined;
-  // @ts-expect-error - TODO
   const hasGroup = schema["ui:options"]?.["group"];
 
   if (hasWrapper) {
