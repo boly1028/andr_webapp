@@ -8,7 +8,6 @@ import App, { AppContext, AppProps } from "next/app";
 import React from "react";
 import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
 
-import { AndromedaContextProvider } from "@/modules/common";
 import { AndromedaProvider } from "@/lib/andrjs";
 import theme from "@/theme";
 
