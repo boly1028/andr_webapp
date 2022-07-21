@@ -1,9 +1,9 @@
-import { useState } from "react";
-import absoluteUrl from "next-absolute-url";
-import { NextPage } from "next";
 import { Box, Flex, Text } from "@chakra-ui/react";
+import { NextPage } from "next";
+import absoluteUrl from "next-absolute-url";
 
-import { Layout, PageHeader, FileCheckIcon } from "@/modules/common";
+import { useCodeId } from "@/lib/andrjs";
+import { FileCheckIcon, Layout, PageHeader } from "@/modules/common";
 import {
   FlexBuilderForm,
   FlexBuilderTemplateProps,
@@ -16,10 +16,17 @@ type Props = {
 };
 
 const TemplatePage: NextPage<Props> = ({ template }) => {
-  const { publishContract } = usePublishContract();
-
+  const codeId = useCodeId(template.id);
+  const instantiate = usePublishContract(codeId);
   const handleSubmit = async ({ formData }: any) => {
-    await publishContract(formData); //Reference to usePublishContract hook
+    if (codeId === -1) {
+      console.warn("Code ID not fetched");
+      return;
+    }
+    const resp = await instantiate(formData, `Instantiate ${template.id}`);
+    window.open(
+      `https://testnet.mintscan.io/juno-testnet/txs/${resp.transactionHash}`,
+    );
   };
 
   //TODO: Setup staging availability flags for loading staging sections if passed

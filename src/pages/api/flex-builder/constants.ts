@@ -4,7 +4,7 @@ import { FlexBuilderTemplateProps } from "@/modules/flex-builder/types";
 
 export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
   {
-    id: "new",
+    id: "app",
     name: "A Blank Canvas",
     icon: "",
     description:
