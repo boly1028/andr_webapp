@@ -1,0 +1,1 @@
+{"schema":{"description":"Claims any outstanding rewards from the addtional reward tokens.","type":"object","required":["claim_rewards"],"properties":{"claim_rewards":{"type":"object","title":"claim_rewards"}},"additionalProperties":false,"$id":"","class":"modifier"},"ui-schema":{},"form-data":{}}

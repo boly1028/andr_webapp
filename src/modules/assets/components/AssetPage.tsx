@@ -1,8 +1,13 @@
 import React, { FC } from "react";
+
+// Import "Asset" modules
+import { type NftAsset, NftAssetSummary } from "@/modules/assets";
+
 import {
   Box,
   Flex,
   Image,
+  Icon,
   Text,
   IconButton,
   Button,
@@ -11,15 +16,15 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
   HStack,
-} from "@chakra-ui/react";
+} from "@/theme/ui-elements";
+
+import { ExternalLink } from "@/theme/ui-elements"; // Seperated import to indicate custom element
 
 import {
   ChevronRightIcon,
   FolderOpenIcon,
   MoreHorizontalIcon,
-  ExternalLink,
-} from "@/modules/common";
-import { type NftAsset, NftAssetSummary } from "@/modules/assets";
+} from "@/theme/icons";
 
 interface AssetPageProps {
   data: NftAsset;
@@ -32,12 +37,19 @@ const AssetPage: FC<AssetPageProps> = ({ data }) => {
     <Box maxW="container.lg">
       <Breadcrumb
         spacing={4}
-        separator={<ChevronRightIcon boxSize={4} color="gray.300" />}
+        separator={<Icon as={ChevronRightIcon} boxSize={4} color="gray.300" />}
         mb={8}
       >
         <BreadcrumbItem>
           <BreadcrumbLink href="#">
-            <FolderOpenIcon boxSize={5} mb={1} color="gray.500" />
+            <Icon
+              as={FolderOpenIcon}
+              viewBox="0 0 16 16"
+              fill="none"
+              boxSize={5}
+              mb={1}
+              color="gray.500"
+            />
           </BreadcrumbLink>
         </BreadcrumbItem>
 
@@ -65,7 +77,7 @@ const AssetPage: FC<AssetPageProps> = ({ data }) => {
             <HStack>
               <IconButton
                 aria-label="Menu"
-                icon={<MoreHorizontalIcon boxSize={6} />}
+                icon={<Icon as={MoreHorizontalIcon} boxSize={6} />}
                 variant="outline"
               />
               <Button colorScheme="purple">Sell Item</Button>

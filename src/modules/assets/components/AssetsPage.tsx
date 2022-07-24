@@ -1,8 +1,16 @@
 import React from "react";
-import { Box, Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 
-import { PageHeader } from "@/modules/common";
 import { NftsList, AdosList } from "@/modules/assets";
+import { PageHeader } from "@/modules/common";
+
+import {
+  Box,
+  Tabs,
+  TabList,
+  TabPanels,
+  Tab,
+  TabPanel,
+} from "@/theme/ui-elements";
 
 const AssetsPage = () => {
   return (
