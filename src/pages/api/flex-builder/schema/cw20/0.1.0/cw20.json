@@ -83,10 +83,16 @@
             "description": "!End Loaded Description from LOGO object (No title displayed)! This is used for uploading logo data, or setting it in InstantiateData",
             "oneOf": [
               {
+                "title": "None",
+                "description": "No Logo Specified ",
+                "type": "object",
+                "properties": {},
+                "additionalProperties": false
+              },
+              {
                 "title": "Externally Hosted",
                 "description": "A reference to an externally hosted logo. Must be a valid HTTP or HTTPS URL.",
                 "type": "object",
-                "required": ["url"],
                 "properties": {
                   "url": {
                     "type": "string",
