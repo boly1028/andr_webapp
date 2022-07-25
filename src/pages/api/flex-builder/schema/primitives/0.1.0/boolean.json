@@ -2,7 +2,7 @@
   "schema": {
     "$schema": "primitives/0.1.0/boolean",
     "class": "primitive",
-    "classifier": "",
+    "classifier": "boolean",
     "type": "object",
     "title": "Boolean",
     "description": "Store values of a boolean data type to reference when needed.",

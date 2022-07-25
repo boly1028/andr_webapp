@@ -3,7 +3,7 @@
     "$schema": "http://json-schema.org/draft-07/schema#",
     "$id": "crowdfund",
     "class": "baseADO",
-    "classifier": "sales",
+    "classifier": "sale",
     "title": "Crowd Funding",
     "description": "Start minting and selling tokens with a crowdfund.",
     "type": "object",

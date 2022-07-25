@@ -1,4 +1,4 @@
-function SplitterIcon() {
+export function SplitterIcon() {
   return (
     <>
       <path d="M10.7778 1H13.2222V23H10.7778V1Z" fill="currentColor" />
@@ -14,4 +14,4 @@ function SplitterIcon() {
   );
 }
 
-export default SplitterIcon;
+// export default SplitterIcon;

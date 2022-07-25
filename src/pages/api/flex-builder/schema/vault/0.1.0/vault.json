@@ -3,7 +3,7 @@
     "$schema": "http://json-schema.org/draft-07/schema#",
     "$id": "vault",
     "class": "baseADO",
-    "classifier": "",
+    "classifier": "bank",
     "title": "Vault",
     "description": "The purpose of the vault ADO is to provide central funds for a mission. This means, it will allow the mission to deposit funds to the vault, and these funds can be proxied to various yield strategies.",
     "type": "object",

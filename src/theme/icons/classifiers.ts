@@ -1,6 +1,8 @@
 // Declare the icons needed
 // default by class types for when classifiers are not declared
 
+import { LayoutList } from "lucide-react";
+
 // System
 export { Settings as system } from "lucide-react"; // default
 
@@ -14,9 +16,11 @@ export {
   Banknote as sale,
   Link as external,
   TimerReset as escrow,
+  Landmark as bank,
   Image as collectible,
 } from "lucide-react";
-export { default as splitter } from "@/theme/icons/SplitterIcon";
+
+export { SplitterIcon as splitter } from "@/theme/icons/SplitterIcon";
 
 // Modules
 export {
