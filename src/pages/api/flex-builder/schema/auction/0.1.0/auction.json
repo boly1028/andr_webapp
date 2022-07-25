@@ -6,7 +6,8 @@
     "classifier": "sales",
     "title": "Auction",
     "description": "Allows performing auctions on NFT tokens. The owner can send an NFT to this contract with the required messages to start an auction on it.",
-    "type": "object"
+    "type": "object",
+    "properties": {}
   },
   "ui-schema": {},
   "form-data": {}
