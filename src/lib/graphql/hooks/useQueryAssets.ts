@@ -1,9 +1,13 @@
-import { tx } from "@andromedaprotocol/andromeda.js/dist/andr-js/hubble/queries/index";
+import {
+  QueryAssetsResponse,
+  QueryAssets,
+  QUERY_ASSETS,
+} from "@andromedaprotocol/andromeda.js";
 import { gql, QueryResult, useQuery } from "@apollo/client";
 
 export interface QueryAssetsProps
   extends Pick<QueryResult, "loading" | "error"> {
-  data?: tx.QueryAssetsResponse["assets"];
+  data?: QueryAssetsResponse["assets"];
 }
 
 /**
@@ -14,12 +18,9 @@ export interface QueryAssetsProps
 export default function useQueryAssets(
   walletAddress: string,
 ): QueryAssetsProps {
-  const { loading, data, error } = useQuery<
-    tx.QueryAssetsResponse,
-    tx.QueryAssets
-  >(
+  const { loading, data, error } = useQuery<QueryAssetsResponse, QueryAssets>(
     gql`
-      ${tx.QUERY_ASSETS}
+      ${QUERY_ASSETS}
     `,
     { variables: { walletAddress } },
   );

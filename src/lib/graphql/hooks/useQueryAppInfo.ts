@@ -1,4 +1,8 @@
-import { app } from "@andromedaprotocol/andromeda.js/dist/andr-js/hubble/queries/index";
+import {
+  QUERY_APP,
+  QueryApp,
+  QueryAppResponse,
+} from "@andromedaprotocol/andromeda.js";
 import { gql, QueryResult, useQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
 
@@ -30,9 +34,9 @@ export default function useQueryAppInfo(
 ): QueryAppInfoProps {
   const [appInfo, setAppInfo] = useState<AppInfo | undefined>();
 
-  const { data, loading, error } = useQuery<app.QueryAppResponse, app.QueryApp>(
+  const { data, loading, error } = useQuery<QueryAppResponse, QueryApp>(
     gql`
-      ${app.QUERY_APP}
+      ${QUERY_APP}
     `,
     { variables: { contractAddress } },
   );

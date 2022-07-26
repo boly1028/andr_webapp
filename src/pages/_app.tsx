@@ -1,9 +1,5 @@
 import { useSigner, WalletProvider } from "@/lib/wallet";
 import { ChakraProvider, CSSReset } from "@chakra-ui/react";
-import {
-  getChainOptions,
-  WalletControllerChainOptions,
-} from "@terra-money/wallet-provider";
 import App, { AppContext, AppProps } from "next/app";
 import React from "react";
 import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
@@ -17,10 +13,7 @@ import "@/modules/app-builder/style/controls.css";
 import "@/modules/app-builder/style/nodes.css";
 import { ApolloProvider } from "@apollo/client";
 
-const Main = ({
-  Component,
-  pageProps,
-}: AppProps & WalletControllerChainOptions) => {
+const Main = ({ Component, pageProps }: AppProps) => {
   const [queryClient] = React.useState(() => new QueryClient());
   const signer = useSigner();
 
@@ -38,7 +31,7 @@ const Main = ({
   );
 };
 
-const MyApp = (props: AppProps & WalletControllerChainOptions) => (
+const MyApp = (props: AppProps) => (
   <WalletProvider chainId="uni-3">
     <ApolloProvider client={apolloClient}>
       <Main {...props} />
@@ -48,8 +41,7 @@ const MyApp = (props: AppProps & WalletControllerChainOptions) => (
 
 MyApp.getInitialProps = async (appContext: AppContext) => {
   const appProps = await App.getInitialProps(appContext);
-  const chainOptions = await getChainOptions();
-  return { ...appProps, ...chainOptions };
+  return appProps;
 };
 
 export default MyApp;
