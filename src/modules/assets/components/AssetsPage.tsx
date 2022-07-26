@@ -1,13 +1,19 @@
 import React from "react";
-import { Box, Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 
-import { PageHeader } from "@/modules/common";
 import { NftsList, AdosList } from "@/modules/assets";
-import { useQueryAssets } from "@/lib/graphql";
-import { useWallet } from "@/lib/wallet";
+import { PageHeader } from "@/modules/common";
+
+import {
+  Box,
+  Tabs,
+  TabList,
+  TabPanels,
+  Tab,
+  TabPanel,
+} from "@/theme/ui-elements";
 
 const AssetsPage = () => {
-  const wallet = useWallet();
+  // const wallet = useWallet();
   // const { data } = useQueryAssets(wallet ? wallet.address : ""); //Uncomment when data needed
 
   return (

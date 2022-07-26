@@ -1,3 +1,5 @@
+/*** REMOVE ***/
+// This file has been relocated to @/theme/ui-elements
 import React, { FC } from "react";
 import { HStack, Text, chakra } from "@chakra-ui/react";
 

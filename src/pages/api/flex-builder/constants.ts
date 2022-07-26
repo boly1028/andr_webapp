@@ -37,15 +37,65 @@ export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
       { path: "auction/0.1.0/auction" },
       { path: "crowdfund/0.1.0/crowdfund" },
       { path: "cw20/0.1.0/cw20" },
+      { path: "cw20-staking/0.1.0/cw20-staking" },
       { path: "cw721/0.1.0/cw721" },
+      { path: "gumball/0.1.0/gumball" },
       { path: "lockdrop/0.1.0/lockdrop" },
       { path: "merkle-airdrop/0.1.0/merkle-airdrop" },
       { path: "mirror-wrapped-cdp/0.1.0/mirror_wrapped_cdp" },
+      // { path: "nft-timelock/0.1.0/nft-timelock" },
       { path: "splitter/0.1.0/splitter" },
       { path: "swapper/0.1.0/swapper" },
       { path: "timelock/0.1.0/timelock" },
       { path: "vault/0.1.0/vault" },
+      { path: "vesting/0.1.0/vesting" },
+      {
+        path: "weighted-distribution-splitter/0.1.0/weighted-distribution-splitter",
+      },
       { path: "wrapped-cw721/0.1.0/wrapped_cw721" },
+    ],
+  },
+  {
+    id: "crowdfunding",
+    name: "Crowdfunding App",
+    icon: "",
+    description: "Setup a crowdfunding sale.",
+    opts: ["CW721 Token", "Crowdfund", "2 Vaults", "Splitter"],
+    ados: [
+      { path: "publish-settings", id: "publish-settings", required: true },
+      { path: "cw721/0.1.0/cw721", id: "tokens", required: true },
+      { path: "crowdfund/0.1.0/crowdfund", id: "crowdfund", required: true },
+      { path: "vault/0.1.0/vault", id: "yield_valut", required: true },
+      { path: "vault/0.1.0/vault", id: "reserve_valut", required: true },
+      { path: "splitter/0.1.0/splitter", id: "sale_splitter", required: true },
+    ],
+  },
+  {
+    id: "auctioning",
+    name: "Auctioning App",
+    icon: "",
+    description: "Setup an auctioning app.",
+    opts: ["CW20 Token", "Staking"],
+    ados: [
+      { path: "publish-settings", id: "publish-settings", required: true },
+      { path: "cw20/0.1.0/cw20", id: "cw20", required: true },
+      {
+        path: "cw20-staking/0.1.0/cw20-staking",
+        id: "staking",
+        required: true,
+      },
+    ],
+  },
+  {
+    id: "Staking",
+    name: "CW20 Staking App",
+    icon: "",
+    description: "Setup a CW20 staking app.",
+    opts: ["CW721 Token", "Auction"],
+    ados: [
+      { path: "publish-settings", id: "publish-settings", required: true },
+      { path: "cw721/0.1.0/cw721", id: "tokens", required: true },
+      { path: "auction/0.1.0/auction", id: "auction", required: true },
     ],
   },
   {
@@ -56,6 +106,7 @@ export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
       "When funds are sent to this ADO, they will be split among specified address.",
     opts: [],
     ados: [
+      { path: "publish-settings", id: "publish-settings", required: true },
       { path: "ado-base/splitter", id: "splitter", required: true },
       // { path: "publish-settings", id: uuidv4() },
     ],
@@ -68,6 +119,7 @@ export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
       "An escrow styled ADO allowing users to lock funds until a specified time or block height.",
     opts: [],
     ados: [
+      { path: "publish-settings", id: "publish-settings", required: true },
       { path: "ado-base/timelock", id: "timelock", required: true },
       // { path: "publish-settings", id: uuidv4() },
     ],
@@ -79,6 +131,7 @@ export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
     description: "Create a CW20 Token for Your Project",
     opts: [],
     ados: [
+      { path: "publish-settings", id: "publish-settings", required: true },
       { path: "cw20/0.1.0/cw20", id: uuidv4(), required: true },
       // { path: "publish-settings", id: uuidv4() },
     ],
@@ -91,6 +144,7 @@ export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
       "Create the most advanced and feature rich NFT Collectible in the world.",
     opts: [],
     ados: [
+      { path: "publish-settings", id: "publish-settings", required: true },
       { path: "ado-base/nft-collectible", id: uuidv4(), required: true },
       { path: "ado-module/whitelist", id: uuidv4() },
       { path: "ado-module/taxes", id: uuidv4() },
@@ -107,6 +161,7 @@ export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
       "An ADO which stores a queryable list of addresses which can be assigned to most other ADO address fields.",
     opts: [],
     ados: [
+      { path: "publish-settings", id: "publish-settings", required: true },
       { path: "ado-base/address-list", id: uuidv4(), required: true },
       // { path: "publish-settings", id: uuidv4() },
     ],
@@ -120,6 +175,7 @@ export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
       "Store a simple string value to reuse multiple times in your projects.",
     opts: [],
     ados: [
+      { path: "publish-settings", id: "publish-settings", required: true },
       { path: "primitives/0.1.0/string", id: uuidv4(), required: true },
       // { path: "publish-settings", id: uuidv4() },
     ],
@@ -133,6 +189,7 @@ export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
       "Store a simple integer value to reuse multiple times in your projects.",
     opts: ["Unsigned 128bit Integer"],
     ados: [
+      { path: "publish-settings", id: "publish-settings", required: true },
       { path: "primitives/0.1.0/uint128", id: uuidv4(), required: true },
       // { path: "publish-settings", id: uuidv4() },
     ],
@@ -145,6 +202,7 @@ export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
     description: "Start minting and selling tokens with a crowdfund.",
     opts: [],
     ados: [
+      { path: "publish-settings", id: "publish-settings", required: true },
       { path: "crowdfund/0.1.0/crowdfund", id: uuidv4(), required: true },
       { path: "crowdfund/0.1.0/andr_receive", id: uuidv4() },
       { path: "crowdfund/0.1.0/mint", id: uuidv4() },
@@ -164,6 +222,7 @@ export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
       "Deposit funds to a vault and allow them to be proxied to various yield strategies.",
     opts: [],
     ados: [
+      { path: "publish-settings", id: "publish-settings", required: true },
       { path: "vault/0.1.0/vault", id: uuidv4(), required: true },
       { path: "vault/0.1.0/andr_receive", id: uuidv4() },
       { path: "vault/0.1.0/update_strategy", id: uuidv4() },

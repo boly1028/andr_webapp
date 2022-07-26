@@ -1,0 +1,1 @@
+{"schema":{"description":"Used to lock/unlock the contract allowing the config to be updated.","type":"object","required":["update_lock"],"properties":{"update_lock":{"type":"object","required":["lock"],"properties":{"lock":{"type":"boolean","title":"lock"}}}},"additionalProperties":false,"$id":"","class":"modifier"},"ui-schema":{},"form-data":{}}
