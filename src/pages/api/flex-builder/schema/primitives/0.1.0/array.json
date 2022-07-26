@@ -2,7 +2,7 @@
   "schema": {
     "$schema": "primitives/0.1.0/array",
     "class": "primitive",
-    "classifier": "",
+    "classifier": "array",
     "type": "object",
     "title": "Array",
     "description": "Store values of an array to reference when needed.",

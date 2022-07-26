@@ -2,7 +2,7 @@
   "schema": {
     "$schema": "primitives/0.1.0/uint128",
     "class": "primitive",
-    "classifier": "",
+    "classifier": "number",
     "type": "object",
     "title": "Unsigned 128-bit Integer",
     "description": "Store values of 128-bit unsigned integers to reference when needed.",

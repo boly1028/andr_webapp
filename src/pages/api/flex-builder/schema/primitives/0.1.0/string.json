@@ -2,7 +2,7 @@
   "schema": {
     "$schema": "primitives/0.1.0/string",
     "class": "primitive",
-    "classifier": "",
+    "classifier": "string",
     "type": "object",
     "title": "String",
     "description": "Store values of a string to reference when needed.",

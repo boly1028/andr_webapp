@@ -24,6 +24,7 @@ export type FlexBuilderTemplateADOProps = {
 export type FlexBuilderTemplateModuleProps = {
   path: string;
   id?: string;
-  schema?: JSONSchema7;
+  // schema?: JSONSchema7;
+  schema?: any; //changing definitive JSONSchema7 as it causes typing conflicts in searched fields
   disabled?: boolean;
 };
