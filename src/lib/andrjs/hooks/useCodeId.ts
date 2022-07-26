@@ -26,10 +26,12 @@ export default function useCodeId(adoType: string) {
         console.warn("Querying Code ID before client connected");
         return;
       }
+
       if (factoryAddress.length === 0) {
         console.warn("No factory address");
         return;
       }
+
       const _codeId = await client.queryContract(factoryAddress, queryMsg);
       setCodeId(_codeId);
     };
