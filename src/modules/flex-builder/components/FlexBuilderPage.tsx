@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import { Box, SimpleGrid } from "@chakra-ui/react";
 
 import { PageHeader } from "@/modules/common";
@@ -6,6 +6,10 @@ import {
   FlexBuilderTemplateListItem,
   FlexBuilderTemplateProps,
 } from "@/modules/flex-builder";
+
+import { useAndromedaContext } from "@/lib/andrjs";
+import { useQueryTxByAddress } from "@/lib/graphql";
+import { useWallet } from "@/lib/wallet";
 
 type FlexBuilderPageProps = {
   templateList: Array<FlexBuilderTemplateProps>;

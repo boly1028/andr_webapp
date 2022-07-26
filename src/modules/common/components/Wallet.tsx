@@ -92,11 +92,12 @@ const WalletConnected = () => {
                 </Text>
               </HStack>
               <Input
-                value={wallet?.address}
+                value={wallet ? wallet.address : ""}
                 mb={2}
                 p={2}
                 color="gray.700"
                 fontSize="sm"
+                readOnly
               />
               <HStack mb={2}>
                 <Button
