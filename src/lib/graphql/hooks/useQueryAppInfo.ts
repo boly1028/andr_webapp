@@ -41,8 +41,8 @@ export default function useQueryAppInfo(
     if (data) {
       const { app } = data;
       //Map two query response arrays to one single array for simplicity
-      const components = app.getAddresses.map(({ address, name }) => {
-        const compType = app.getComponents.find(
+      const components = app.addresses.map(({ address, name }) => {
+        const compType = app.components.find(
           ({ name: _name }) => name === _name,
         );
         return {
