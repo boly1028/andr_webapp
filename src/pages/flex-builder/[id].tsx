@@ -9,7 +9,9 @@ import {
   FlexBuilderTemplateProps,
   StagingDocumentsModal,
 } from "@/modules/flex-builder";
-import usePublishContract from "@/modules/sdk/hooks/usePublishContract";
+import { useInstantiateModal } from "@/modules/modals/hooks";
+import { Msg } from "@andromedaprotocol/andromeda.js";
+import { useConstructMsg } from "@/modules/sdk/hooks";
 
 type Props = {
   template: FlexBuilderTemplateProps;
@@ -17,16 +19,15 @@ type Props = {
 
 const TemplatePage: NextPage<Props> = ({ template }) => {
   const codeId = useCodeId(template.id);
-  const instantiate = usePublishContract(codeId);
-  const handleSubmit = async ({ formData }: any) => {
+  const construct = useConstructMsg(codeId);
+  const openModal = useInstantiateModal(codeId);
+  const handleSubmit = async ({ formData }: { formData: Msg }) => {
     if (codeId === -1) {
       console.warn("Code ID not fetched");
       return;
     }
-    const resp = await instantiate(formData, `Instantiate ${template.id}`);
-    window.open(
-      `https://testnet.mintscan.io/juno-testnet/txs/${resp.transactionHash}`,
-    );
+    const msg = construct(formData);
+    openModal(msg);
   };
 
   //TODO: Setup staging availability flags for loading staging sections if passed
