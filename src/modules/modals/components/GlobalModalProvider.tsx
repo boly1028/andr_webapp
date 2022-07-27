@@ -9,28 +9,30 @@ import {
 import React, { memo, useCallback, useEffect, useState } from "react";
 import { GlobalModalContext } from "../hooks";
 import { ModalProps, ModalType } from "../types";
+import ModalError from "./ModalError";
 import TransactionModal from "./TransactionModal";
+import WalletModal from "./WalletModal";
 
 interface ModalState {
-  props: ModalProps;
+  props?: ModalProps;
   type: ModalType;
   onClose?: () => Promise<void>;
 }
 
-const components: Record<ModalType, React.FC<ModalProps>> = {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const components: Record<ModalType, React.FC<any>> = {
   [ModalType.Transaction]: TransactionModal,
+  [ModalType.Wallet]: WalletModal,
 };
 
 const GlobalModalProvider: React.FC = memo(function GlobalModalProvider({
   children,
 }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [modalState, setModalState] = useState<ModalState | undefined>({
-    type: ModalType.Transaction,
-    props: { type: "instantiate", msg: {}, codeId: 1712, simulate: false },
-  });
+  const [modalState, setModalState] = useState<ModalState | undefined>();
+  const [error, setError] = useState<Error | undefined>();
   const open = useCallback(
-    (type: ModalType, props: ModalProps, _onClose?: () => Promise<void>) => {
+    (type: ModalType, props?: ModalProps, _onClose?: () => Promise<void>) => {
       const state = {
         type,
         props,
@@ -65,12 +67,16 @@ const GlobalModalProvider: React.FC = memo(function GlobalModalProvider({
   }, [modalState]);
 
   return (
-    <GlobalModalContext.Provider value={{ isOpen, open, close }}>
+    <GlobalModalContext.Provider
+      value={{ isOpen, open, close, error, setError }}
+    >
       <Modal isCentered size="xl" isOpen={isOpen} onClose={close}>
         <ModalOverlay />
-        <ModalContent borderRadius="8px">
+        <ModalContent borderRadius="12px">
           <ModalCloseButton />
-          <ModalBody>{renderComponent()}</ModalBody>
+          <ModalBody>
+            <ModalError>{renderComponent()}</ModalError>
+          </ModalBody>
         </ModalContent>
       </Modal>
       {children}

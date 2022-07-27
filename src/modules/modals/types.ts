@@ -3,6 +3,7 @@ import { Coin } from "@cosmjs/proto-signing";
 
 export enum ModalType {
   Transaction = "transaction",
+  Wallet = "wallet",
 }
 
 export interface ExecuteTransactionModalProps {
@@ -10,6 +11,7 @@ export interface ExecuteTransactionModalProps {
   contractAddress: string;
   funds: Coin[];
   type: "execute";
+  memo?: string;
 }
 
 export interface InstantiateTransactionModalProps {
@@ -23,4 +25,7 @@ export type TransactionModalProps = (
   | InstantiateTransactionModalProps
 ) & { simulate: boolean };
 
-export type ModalProps = TransactionModalProps;
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface WalletModalProps {}
+
+export type ModalProps = TransactionModalProps | WalletModalProps;

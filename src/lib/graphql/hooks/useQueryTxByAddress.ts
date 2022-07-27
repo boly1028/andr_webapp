@@ -1,9 +1,14 @@
-import { tx } from "@andromedaprotocol/andromeda.js/dist/andr-js/hubble/queries/index";
+import {
+  QueryTxByAccount,
+  QueryTxByAccountResponse,
+  QUERY_TX_BY_ACCOUNT,
+  TxInfo,
+} from "@andromedaprotocol/andromeda.js";
 import { QueryResult, useQuery, gql } from "@apollo/client";
 
 export interface QueryTxByAddressProps
   extends Pick<QueryResult, "loading" | "error"> {
-  data: tx.TxInfo[];
+  data: TxInfo[];
 }
 
 /**
@@ -19,11 +24,11 @@ export default function useQueryTxByAddress(
   minHeight?: number,
 ): QueryTxByAddressProps {
   const { loading, data, error } = useQuery<
-    tx.QueryTxByAccountResponse,
-    tx.QueryTxByAccount
+    QueryTxByAccountResponse,
+    QueryTxByAccount
   >(
     gql`
-      ${tx.QUERY_TX_BY_ACCOUNT}
+      ${QUERY_TX_BY_ACCOUNT}
     `,
     { variables: { address, minHeight, maxHeight } },
   );

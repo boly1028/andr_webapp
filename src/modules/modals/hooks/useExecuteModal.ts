@@ -4,19 +4,26 @@ import { ModalType } from "../types";
 import useGlobalModalContext from "./useGlobalModalContext";
 
 /**
- * Wrapper hook for opening the message modal for an execute message
+ * Wrapper hook for opening the message modal for an execute message.
+ *  ```
+ *  // Example Usage
+ *  const open = useExecuteModal("somecontractaddress")
+ *
+ *  await open(msg, false, [...some coins])
+ *
+ *  ```
  * @param contractAddress
- * @param msg
- * @param funds
  * @returns
  */
-export default function useExecuteModal(
-  contractAddress: string,
-  msg: Msg,
-  funds: Coin[] = [],
-) {
+export default function useExecuteModal(contractAddress: string) {
   const { open } = useGlobalModalContext();
 
-  return () =>
-    open(ModalType.Message, { type: "execute", msg, funds, contractAddress });
+  return (msg: Msg, simulate = false, funds: Coin[] = []) =>
+    open(ModalType.Transaction, {
+      type: "execute",
+      msg,
+      funds,
+      contractAddress,
+      simulate,
+    });
 }

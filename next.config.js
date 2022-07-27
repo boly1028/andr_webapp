@@ -3,7 +3,6 @@ module.exports = {
   experimental: {
     esmExternals: false,
   },
-  images: ["assets.coingecko.com"],
   env: {
     API_URL: process.env.API_URL,
   },

@@ -19,7 +19,7 @@ type Props = {
 
 const TemplatePage: NextPage<Props> = ({ template }) => {
   const codeId = useCodeId(template.id);
-  const construct = useConstructMsg(codeId);
+  const construct = useConstructMsg();
   const openModal = useInstantiateModal(codeId);
   const handleSubmit = async ({ formData }: { formData: Msg }) => {
     if (codeId === -1) {

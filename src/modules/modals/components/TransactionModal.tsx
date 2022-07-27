@@ -1,6 +1,7 @@
 import { Box } from "@chakra-ui/react";
 import React, { memo, useMemo, useState } from "react";
 import { TransactionModalProps } from "../types";
+import BroadcastingModal from "./BroadcastingModal";
 import EstimateFeeModal from "./EstimateFeeModal";
 
 const TransactionModal: React.FC<TransactionModalProps> = memo(
@@ -20,6 +21,8 @@ const TransactionModal: React.FC<TransactionModalProps> = memo(
               onPrevStage={prev}
             />
           );
+        case 1:
+          return <BroadcastingModal {...props} />;
         default:
           return <></>;
       }

@@ -5,7 +5,7 @@ import { useCallback } from "react";
  * Provides a function to convert from a JSON Schema message to a valid Tx message
  * @returns A function to convert from a JSON Schema message to a valid Tx message
  */
-export function useConstructMsg() {
+export default function useConstructMsg() {
   const { registryAddress } = useAndromedaContext();
 
   const constructMsg = useCallback(

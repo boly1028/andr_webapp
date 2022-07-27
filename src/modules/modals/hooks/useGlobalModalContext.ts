@@ -5,16 +5,19 @@ export interface GlobalModalContextProps {
   isOpen: boolean;
   open: (
     type: ModalType,
-    props: ModalProps,
+    props?: ModalProps,
     onClose?: () => Promise<void>,
   ) => void;
   close: () => void;
+  error?: Error;
+  setError: (error?: Error) => void;
 }
 
 const defaultContext: GlobalModalContextProps = {
   isOpen: false,
   open: () => ({}),
   close: () => ({}),
+  setError: () => ({}),
 };
 
 export const GlobalModalContext =

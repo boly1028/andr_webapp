@@ -8,3 +8,4 @@ export { default as useInstantiate } from "./useInstantiate";
 export { default as useCodeId } from "./useCodeId";
 export { default as useSimulateExecute } from "./useSimulateExecute";
 export { default as useSimulateInstantiate } from "./useSimulateInstantiate";
+export { default as useGetBalance } from "./useGetBalance";

@@ -1,19 +1,72 @@
-import { useAndromedaContext } from "@/lib/andrjs";
+import { useAndromedaContext, useGetBalance } from "@/lib/andrjs";
 import { GasIcon } from "@/modules/common";
-import { Box, Button, Center, Spinner, Text } from "@chakra-ui/react";
-import { StdFee } from "@cosmjs/stargate";
-import { FC, useEffect, useState } from "react";
+import { Box, Button, Center, Text } from "@chakra-ui/react";
+import { Coin, StdFee } from "@cosmjs/stargate";
+import { FC, memo, useEffect, useMemo, useState } from "react";
 import { useGlobalModalContext } from "../hooks";
 import { TransactionModalProps } from "../types";
+import ModalLoading from "./ModalLoading";
 
 interface OptionalProps {
   onNextStage?: () => void;
   onPrevStage?: () => void;
 }
 
+const FeeAmount: FC<{ coin: Coin; hasBorder: boolean; text: string }> = memo(
+  function FeeAmount({ coin: { amount, denom }, hasBorder, text }) {
+    const { loading, balance } = useGetBalance(denom);
+    const hasAmount = useMemo(
+      () => loading || balance.amount > amount,
+      [amount, loading, balance],
+    );
+    return (
+      <>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            padding: "10px",
+            position: "relative",
+          }}
+        >
+          <Box>{text}</Box>
+          <Box>
+            {parseInt(amount) / 1000000}{" "}
+            <b>{denom.replace("u", "").toUpperCase()} </b>
+          </Box>
+        </Box>
+        {!hasAmount && (
+          <Box
+            sx={{
+              borderRadius: "6px",
+              background: "#d9534f0F",
+              border: "1px solid #d9534f",
+              fontSize: "12px",
+              padding: "10px",
+              color: "#d9534f",
+            }}
+            mt="10px"
+          >
+            You may have insufficient funds for this transaction. Current
+            balance:{" "}
+            <b>
+              {parseInt(balance.amount) / 1000000}
+              {balance.denom.replace("u", "").toUpperCase()}
+            </b>
+          </Box>
+        )}
+        {hasBorder && (
+          <hr style={{ borderColor: "#D0D5DD", margin: "10px 0px" }} />
+        )}
+      </>
+    );
+  },
+);
+
 const EstimateFeeModal: FC<TransactionModalProps & OptionalProps> = (props) => {
   const { client, connected } = useAndromedaContext();
-  const { close } = useGlobalModalContext();
+  const { close, setError } = useGlobalModalContext();
   const [loading, setLoading] = useState<boolean>(true);
   const [fee, setFee] = useState<StdFee>({ amount: [], gas: "0" });
 
@@ -36,13 +89,18 @@ const EstimateFeeModal: FC<TransactionModalProps & OptionalProps> = (props) => {
             );
         }
       })();
-      const fee = await client.estimateFee([msg]);
-      setFee(fee);
-      setLoading(false);
+      try {
+        const fee = await client.estimateFee([msg]);
+        setFee(fee);
+        setLoading(false);
+      } catch (error) {
+        setError(error as Error);
+      }
     };
 
     if (connected) simulateFee();
-  }, [client, props, connected]);
+  }, [client, props, connected, setError]);
+
   return (
     <Box
       sx={{
@@ -50,21 +108,7 @@ const EstimateFeeModal: FC<TransactionModalProps & OptionalProps> = (props) => {
       }}
     >
       {loading ? (
-        <Box
-          sx={{
-            width: "100%",
-            height: "100%",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            flexDirection: "column",
-            padding: "20px",
-          }}
-        >
-          <Spinner label="" sx={{ width: "100px", height: "100px" }} />
-          <Text mt="60px" sx={{ textAlign: "center", fontWeight: "bold" }}>
-            Simulating
-          </Text>
+        <ModalLoading title="Simulating">
           <Text
             mt="10px"
             sx={{
@@ -76,7 +120,7 @@ const EstimateFeeModal: FC<TransactionModalProps & OptionalProps> = (props) => {
             We&apos;re simulating your transaction to check for any errors.
             We&apos;ll get back to you with an estimated cost shortly!
           </Text>
-        </Box>
+        </ModalLoading>
       ) : (
         <Box>
           <Box
@@ -139,25 +183,12 @@ const EstimateFeeModal: FC<TransactionModalProps & OptionalProps> = (props) => {
             </Box>
             <hr style={{ borderColor: "#D0D5DD", margin: "10px 0px" }} />
             {fee.amount.map((coin, index) => (
-              <>
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    padding: "10px",
-                  }}
-                >
-                  <Box>{index === 0 ? "Estimated Costs" : ""}</Box>
-                  <Box>
-                    {parseInt(coin.amount) / 10000000}{" "}
-                    <b>{coin.denom.replace("u", "").toUpperCase()}</b>
-                  </Box>
-                </Box>
-                {index < fee.amount.length - 1 ?? (
-                  <hr style={{ borderColor: "#D0D5DD", margin: "10px 0px" }} />
-                )}
-              </>
+              <FeeAmount
+                key={`feeamount-${coin.denom}`}
+                coin={coin}
+                hasBorder={index < fee.amount.length - 1}
+                text={index === 0 ? "Cost Estimate" : ""}
+              />
             ))}
           </Box>
           <Box
@@ -187,7 +218,7 @@ const EstimateFeeModal: FC<TransactionModalProps & OptionalProps> = (props) => {
                 }}
                 onClick={props.onNextStage}
               >
-                Publish
+                Broadcast
               </Button>
             )}
           </Box>
