@@ -10,7 +10,6 @@ import {
   StagingDocumentsModal,
 } from "@/modules/flex-builder";
 import { useInstantiateModal } from "@/modules/modals/hooks";
-import { Msg } from "@andromedaprotocol/andromeda.js";
 import { useConstructMsg } from "@/modules/sdk/hooks";
 
 type Props = {
@@ -21,13 +20,20 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
   const codeId = useCodeId(template.id);
   const construct = useConstructMsg();
   const openModal = useInstantiateModal(codeId);
-  const handleSubmit = async ({ formData }: { formData: Msg }) => {
+  const handleSubmit = async (
+    {
+      formData,
+    }: {
+      formData: object;
+    },
+    simulate = false,
+  ) => {
     if (codeId === -1) {
       console.warn("Code ID not fetched");
       return;
     }
     const msg = construct(formData);
-    openModal(msg);
+    openModal(msg, simulate);
   };
 
   //TODO: Setup staging availability flags for loading staging sections if passed
@@ -77,7 +83,12 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
           </Flex>
         )}
         {/* end of toggleable staging section */}
-        <FlexBuilderForm template={template} onSubmit={handleSubmit} />
+        <FlexBuilderForm
+          template={template}
+          onSubmit={handleSubmit}
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          onEstimate={(data: any) => handleSubmit(data, true)}
+        />
       </Box>
     </Layout>
   );
