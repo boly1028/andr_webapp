@@ -1,11 +1,11 @@
 import { createContext, useContext } from "react";
-import { ModalProps, ModalType } from "../types";
+import type { ModalProps } from "../types";
 
 export interface GlobalModalContextProps {
   isOpen: boolean;
-  open: (
-    type: ModalType,
-    props?: ModalProps,
+  open: <T extends ModalProps>(
+    type: T["modalType"],
+    props?: Omit<T, "modalType">,
     onClose?: () => Promise<void>,
   ) => void;
   close: () => void;

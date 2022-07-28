@@ -9,12 +9,13 @@ import {
 import React, { memo, useCallback, useEffect, useState } from "react";
 import { GlobalModalContext } from "../hooks";
 import { ModalProps, ModalType } from "../types";
+import ConfirmationModal from "./ConfirmationModal";
 import ModalError from "./ModalError";
 import TransactionModal from "./TransactionModal";
 import WalletModal from "./WalletModal";
 
 interface ModalState {
-  props?: ModalProps;
+  props?: Omit<ModalProps, "modalType">;
   type: ModalType;
   onClose?: () => Promise<void>;
 }
@@ -23,6 +24,7 @@ interface ModalState {
 const components: Record<ModalType, React.FC<any>> = {
   [ModalType.Transaction]: TransactionModal,
   [ModalType.Wallet]: WalletModal,
+  [ModalType.Confirmation]: ConfirmationModal,
 };
 
 const GlobalModalProvider: React.FC = memo(function GlobalModalProvider({
@@ -32,7 +34,11 @@ const GlobalModalProvider: React.FC = memo(function GlobalModalProvider({
   const [modalState, setModalState] = useState<ModalState | undefined>();
   const [error, setError] = useState<Error | undefined>();
   const open = useCallback(
-    (type: ModalType, props?: ModalProps, _onClose?: () => Promise<void>) => {
+    <T extends ModalProps>(
+      type: T["modalType"],
+      props?: Omit<T, "modalType">,
+      _onClose?: () => Promise<void>,
+    ) => {
       const state = {
         type,
         props,

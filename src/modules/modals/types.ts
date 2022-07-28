@@ -4,10 +4,10 @@ import { Coin } from "@cosmjs/proto-signing";
 export enum ModalType {
   Transaction = "transaction",
   Wallet = "wallet",
+  Confirmation = "confirmation",
 }
 
 export interface ExecuteTransactionModalProps {
-  msg: Msg;
   contractAddress: string;
   funds: Coin[];
   type: "execute";
@@ -16,16 +16,29 @@ export interface ExecuteTransactionModalProps {
 
 export interface InstantiateTransactionModalProps {
   codeId: number;
-  msg: Msg;
   type: "instantiate";
 }
 
 export type TransactionModalProps = (
   | ExecuteTransactionModalProps
   | InstantiateTransactionModalProps
-) & { simulate: boolean };
+) & { simulate: boolean; msg: Msg; modalType: ModalType.Transaction };
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface WalletModalProps {}
+export interface WalletModalProps {
+  modalType: ModalType.Wallet;
+}
 
-export type ModalProps = TransactionModalProps | WalletModalProps;
+export interface ConfirmationModalProps {
+  callback: () => Promise<void> | void;
+  title?: string;
+  body?: string;
+  type: "warning" | "danger";
+  acceptButtonText?: string;
+  modalType: ModalType.Confirmation;
+}
+
+export type ModalProps =
+  | TransactionModalProps
+  | WalletModalProps
+  | ConfirmationModalProps;
