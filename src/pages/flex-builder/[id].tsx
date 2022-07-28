@@ -1,5 +1,5 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
-import { NextPage } from "next";
+import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import absoluteUrl from "next-absolute-url";
 
 import { useCodeId } from "@/lib/andrjs";
@@ -11,6 +11,7 @@ import {
 } from "@/modules/flex-builder";
 import { useInstantiateModal } from "@/modules/modals/hooks";
 import { useConstructMsg } from "@/modules/sdk/hooks";
+import { getTemplateFromId } from "../api/flex-builder/[id]";
 
 type Props = {
   template: FlexBuilderTemplateProps;
@@ -94,13 +95,28 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
   );
 };
 
-TemplatePage.getInitialProps = async ({ req, query }) => {
-  const { origin } = absoluteUrl(req);
-  const { id } = query;
+// DIRECTLY CALLING DATABASE FUNCTION IS FASTER THAN CALLING THROUGH API ENDPOINTZ
 
-  const res = await fetch(`${origin}/api/flex-builder/${id}`);
-  const json = await res.json();
-  return { template: json };
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    paths: [],
+    fallback: "blocking",
+  };
+};
+
+export const getStaticProps: GetStaticProps<Props> = async (ctx) => {
+  const { params } = ctx;
+  const id = params?.id as string;
+  const data = await getTemplateFromId(id);
+  if (!data) {
+    return {
+      notFound: true,
+    };
+  }
+  return {
+    props: { template: data },
+    revalidate: 300,
+  };
 };
 
 export default TemplatePage;

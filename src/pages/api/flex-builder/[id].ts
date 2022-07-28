@@ -8,11 +8,20 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<FlexBuilderTemplateProps | undefined>,
 ) {
-  const { id } = req.query;
+  const id = req.query.id as string;
+  const template = await getTemplateFromId(id)
+  if (!template) {
+    return res.status(404);
+  }
+  res.status(200).json(template);
+}
+
+
+export const getTemplateFromId = async (id: string) => {
   const template = TEMPLATES.find((template) => template.id === id);
 
   if (!template || template.disabled) {
-    res.status(404);
+    return null;
   }
 
   if (template?.ados) {
@@ -24,7 +33,10 @@ export default async function handler(
 
     for (const ado of template.ados) {
       // schema
-      const schemaADO = await import(`./schema/${ado.path}.json`);
+      const schemaADO = await import(`./schema/${ado.path}.json`).then(res => {
+        // Returning Default import is important here otherwise it will be returned as module
+        return res.default
+      });
 
       schemaDefinitions[`${ado.id}`] = schemaADO["schema"];
       schemaDefinitions[`${ado.id}`]["properties"]["$type"] = {
@@ -77,7 +89,7 @@ export default async function handler(
       // Import module listed in constants
       // eslint-disable-next-line @next/next/no-assign-module-variable
       for (const module of modules) {
-        const data = await import(`./schema/${module.path}.json`);
+        const data = await import(`./schema/${module.path}.json`).then(res => res.default);
         module.schema = data;
       }
 
@@ -85,5 +97,5 @@ export default async function handler(
     }
   }
 
-  res.status(200).json(template);
+  return template;
 }
