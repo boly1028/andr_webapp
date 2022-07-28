@@ -9,8 +9,8 @@ const ModalError: FC = memo(function ModalError({ children }) {
   const { error, setError, close } = useGlobalModalContext();
 
   const onClose = () => {
-    setError();
     close();
+    setError();
   };
 
   const onCopy = () => {

@@ -10,5 +10,6 @@ export { default as PageHeader } from "./PageHeader";
 export { default as Wallet } from "./Wallet";
 export { default as Loader } from "./Loader";
 export { default as Coin } from "./Coin";
+export { default as ProgressBar } from "./ProgressBar";
 
 export * from "./icons";

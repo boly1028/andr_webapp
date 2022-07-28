@@ -31,7 +31,14 @@ const GlobalModalProvider: React.FC = memo(function GlobalModalProvider({
   children,
 }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [modalState, setModalState] = useState<ModalState | undefined>();
+  const [modalState, setModalState] = useState<ModalState | undefined>({
+    type: ModalType.Transaction,
+    props: {
+      type: "instantiate",
+      msg: {},
+      codeId: 1712,
+    },
+  });
   const [error, setError] = useState<Error | undefined>();
   const open = useCallback(
     <T extends ModalProps>(

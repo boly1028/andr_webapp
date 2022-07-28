@@ -11,7 +11,11 @@ import type {
 } from "@cosmjs/cosmwasm-stargate";
 import { truncate } from "@/modules/common";
 
-const BroadcastingModal: FC<TransactionModalProps> = memo(
+interface OptionalProps {
+  onNextStage?: () => void;
+}
+
+const BroadcastingModal: FC<TransactionModalProps & OptionalProps> = memo(
   function BroadcastingModal(props) {
     const [loading, setLoading] = useState<boolean>(true);
     const { client, connected } = useAndromedaContext();
@@ -48,13 +52,14 @@ const BroadcastingModal: FC<TransactionModalProps> = memo(
           const resp: ExecuteResult | InstantiateResult = await broadcast();
           setResult(resp);
           setLoading(false);
+          if (props.onNextStage) props.onNextStage();
         } catch (_error) {
           setError(_error as Error);
         }
       };
 
-      broadcastTx();
-    }, [broadcast, setError]);
+      if (!result) broadcastTx();
+    }, [broadcast, setError, props, result]);
 
     const TransactionInfo = useMemo(() => {
       if (!result) return <></>;
