@@ -1,6 +1,6 @@
 import { useSigner, WalletProvider } from "@/lib/wallet";
 import { ChakraProvider, CSSReset } from "@chakra-ui/react";
-import App, { AppContext, AppProps } from "next/app";
+import { AppProps } from "next/app";
 import React from "react";
 import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
 import { ToastContainer } from "react-toastify";
@@ -48,10 +48,5 @@ const MyApp = (props: AppProps) => (
     </ApolloProvider>
   </WalletProvider>
 );
-
-MyApp.getInitialProps = async (appContext: AppContext) => {
-  const appProps = await App.getInitialProps(appContext);
-  return appProps;
-};
 
 export default MyApp;
