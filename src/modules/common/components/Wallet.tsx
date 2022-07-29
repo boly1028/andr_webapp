@@ -26,6 +26,7 @@ import {
   truncate,
 } from "@/modules/common";
 import { WalletModal } from "@/modules/modals";
+import useWalletModal from "@/modules/modals/hooks/useWalletModal";
 
 const TOKENS = [
   {
@@ -154,7 +155,7 @@ const chainId = "uni-3";
 
 const Wallet: FC = () => {
   const account = useWallet();
-  const { isOpen, onClose, onOpen } = useDisclosure();
+  const onOpen = useWalletModal();
 
   if (account) {
     return <WalletConnected />;
@@ -170,7 +171,6 @@ const Wallet: FC = () => {
       >
         Connect Wallet
       </Button>
-      <WalletModal isOpen={isOpen && !account} onClose={onClose} />
     </>
   );
 };

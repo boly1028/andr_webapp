@@ -7,12 +7,13 @@ import { ToastContainer } from "react-toastify";
 import { AndromedaProvider } from "@/lib/andrjs";
 import { apolloClient } from "@/lib/graphql";
 import theme from "@/theme";
-import "react-toastify/dist/ReactToastify.css";
+import { ApolloProvider } from "@apollo/client";
+import { GlobalModalProvider } from "@/modules/modals";
 
+import "react-toastify/dist/ReactToastify.css";
 //Import stylization setups for use in App-Builder
 import "@/modules/app-builder/style/controls.css";
 import "@/modules/app-builder/style/nodes.css";
-import { ApolloProvider } from "@apollo/client";
 
 const Main = ({ Component, pageProps }: AppProps) => {
   const [queryClient] = React.useState(() => new QueryClient());
@@ -30,7 +31,9 @@ const Main = ({ Component, pageProps }: AppProps) => {
               pauseOnHover
               pauseOnFocusLoss
             />
-            <Component {...pageProps} />
+            <GlobalModalProvider>
+              <Component {...pageProps} />
+            </GlobalModalProvider>
           </AndromedaProvider>
         </ChakraProvider>
       </Hydrate>

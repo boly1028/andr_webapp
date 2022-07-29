@@ -1,4 +1,4 @@
-import AndromedaClient from "@andromedaprotocol/andromeda.js/dist/andr-js";
+import AndromedaClient from "@andromedaprotocol/andromeda.js";
 import { OfflineSigner } from "@cosmjs/proto-signing";
 import { GasPrice } from "@cosmjs/stargate";
 import React, { memo, useEffect, useMemo, useState } from "react";
@@ -36,15 +36,14 @@ const AndromedaProvider: React.FC<AndromedaProviderProps> = memo(
 
       if (!signer) {
         console.warn("No signer provided");
-        return;
       }
 
       const connect = async () => {
         try {
           await client.connect(
             config.chainUrl,
-            signer,
             config.registryAddress,
+            signer,
             {
               gasPrice: GasPrice.fromString(config.defaultFee),
             },
@@ -57,7 +56,7 @@ const AndromedaProvider: React.FC<AndromedaProviderProps> = memo(
       };
 
       connect();
-    }, [config, client, signer, chainId]);
+    }, [config, client, signer, chainId, connected]);
 
     return (
       <AndromedaContext.Provider

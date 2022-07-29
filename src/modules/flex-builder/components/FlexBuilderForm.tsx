@@ -30,6 +30,7 @@ type FlexBuilderFormProps = {
   onChange?: (data: any) => void;
   onSubmit?: (data: any) => void;
   onError?: () => void;
+  onEstimate?: (data: any) => void;
 };
 
 const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
@@ -37,6 +38,7 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
   onSubmit,
   onError,
   isLoading,
+  onEstimate,
 }) => {
   const [schema, setSchema] = useState(template.schema);
   const [uiSchema, setUiSchema] = useState(template.uiSchema);
@@ -355,9 +357,7 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
             aria-label="Estimate gas cost"
             variant="outline"
             icon={<GasIcon boxSize={5} color="gray.500" />}
-            onClick={() => {
-              console.log("estimate Fees");
-            }}
+            onClick={onEstimate}
           />
 
           <DownloadButton

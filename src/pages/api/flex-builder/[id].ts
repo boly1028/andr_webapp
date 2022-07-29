@@ -75,6 +75,7 @@ export default async function handler(
     if (template?.modules) {
       const modules = template.modules;
       // Import module listed in constants
+      // eslint-disable-next-line @next/next/no-assign-module-variable
       for (const module of modules) {
         const data = await import(`./schema/${module.path}.json`);
         module.schema = data;
