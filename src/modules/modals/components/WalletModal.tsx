@@ -1,21 +1,19 @@
-import React, { FC } from "react";
-import { useWallet, WalletStatus } from "@terra-money/wallet-provider";
+import {
+  KeplrConnectionStatus,
+  useConnect,
+  useWalletContext,
+} from "@/lib/wallet";
 import {
   Box,
   Button,
+  Heading,
   Modal,
-  ModalOverlay,
-  ModalContent,
   ModalBody,
   ModalCloseButton,
-  Heading,
-  chakra,
+  ModalContent,
+  ModalOverlay,
 } from "@chakra-ui/react";
-import {
-  useConnect,
-  useWalletContext,
-  KeplrConnectionStatus,
-} from "@/lib/wallet";
+import { FC } from "react";
 
 type Props = {
   isOpen: boolean;

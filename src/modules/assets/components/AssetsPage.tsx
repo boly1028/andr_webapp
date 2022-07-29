@@ -11,8 +11,13 @@ import {
   Tab,
   TabPanel,
 } from "@/theme/ui-elements";
+import { useWallet } from "@/lib/wallet";
+import { useQueryAssets } from "@/lib/graphql";
 
 const AssetsPage = () => {
+  const wallet = useWallet();
+  const { data } = useQueryAssets(wallet ? wallet.address : ""); //Uncomment when data needed
+  console.log(data);
   return (
     <Box>
       <PageHeader
