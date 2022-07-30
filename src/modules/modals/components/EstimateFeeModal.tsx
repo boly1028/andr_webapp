@@ -1,10 +1,12 @@
-import { useAndromedaContext, useGetBalance } from "@/lib/andrjs";
-import { GasIcon } from "@/modules/common";
-import { Box, Button, Center, Text } from "@chakra-ui/react";
-import { Coin, StdFee } from "@cosmjs/stargate";
 import { FC, memo, useEffect, useMemo, useState } from "react";
+import { useAndromedaContext, useGetBalance } from "@/lib/andrjs";
+import { Coin, StdFee } from "@cosmjs/stargate";
+
 import { useGlobalModalContext } from "../hooks";
 import { TransactionModalProps } from "../types";
+
+import { GasIcon } from "@/modules/common";
+import { Box, Button, Center, Text } from "@/theme/ui-elements";
 import ModalLoading from "./ModalLoading";
 
 interface OptionalProps {
@@ -64,6 +66,8 @@ const FeeAmount: FC<{ coin: Coin; hasBorder: boolean; text: string }> = memo(
   },
 );
 
+// Displays EstimateFee Modal (with a condition of (props.simulate && props.onNextStep))
+// Repair note from fix/transaction-modal-processing: A bang operator (!) was appended to the props.simulate declaration causing inverse evaluations of the intended conditions
 const EstimateFeeModal: FC<TransactionModalProps & OptionalProps> = (props) => {
   const { client, connected } = useAndromedaContext();
   const { close, setError } = useGlobalModalContext();
@@ -74,6 +78,7 @@ const EstimateFeeModal: FC<TransactionModalProps & OptionalProps> = (props) => {
     const simulateFee = async () => {
       setLoading(true);
       const msg = (() => {
+        // Select message execution type of execute or instantiate by passed prop
         switch (props.type) {
           case "execute":
             return client.encodeExecuteMsg(
@@ -206,7 +211,8 @@ const EstimateFeeModal: FC<TransactionModalProps & OptionalProps> = (props) => {
             >
               Cancel
             </Button>
-            {!props.simulate && props.onNextStage && (
+            {/* Only when the estimate fee modal is a part of the broadbasting process should we show a broadcast /publish button */}
+            {props.simulate && props.onNextStage && (
               <Button
                 variant="solid"
                 bg="#7F56D9"
