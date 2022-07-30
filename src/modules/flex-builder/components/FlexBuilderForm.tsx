@@ -353,11 +353,20 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
       {/* Action Footer */}
       <Flex mt={8} justify="right">
         <HStack spacing={4}>
+          {/* TODO
+              Temporarily disabling Estimate fee button as this process method:
+              #1) should require form validation prior to processing
+              #2 is loosing data upon processing 
+              -needs state mgmt 
+              or
+              -closure operations for modals return to form repopulation
+          */}
           <IconButton
             aria-label="Estimate gas cost"
             variant="outline"
             icon={<GasIcon boxSize={5} color="gray.500" />}
-            onClick={onEstimate}
+            // onClick={onEstimate}
+            aria-disabled="true"
           />
 
           <DownloadButton

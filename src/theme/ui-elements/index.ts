@@ -36,6 +36,8 @@ export {
   Select,
 } from "@chakra-ui/react";
 
+export { Center } from "@chakra-ui/react";
+
 export { Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
 export { chakra } from "@chakra-ui/react";
 
