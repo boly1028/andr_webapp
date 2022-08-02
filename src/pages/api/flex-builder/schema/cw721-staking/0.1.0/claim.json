@@ -1,0 +1,1 @@
+{"schema":{"description":"Sends back the NFT to its original owner alongside the accrued rewards","type":"object","required":["claim"],"properties":{"claim":{"type":"object","required":["key"],"properties":{"key":{"type":"string","title":"key"}}}},"additionalProperties":false,"$id":"claim","class":"modifier"},"ui-schema":{},"form-data":{}}

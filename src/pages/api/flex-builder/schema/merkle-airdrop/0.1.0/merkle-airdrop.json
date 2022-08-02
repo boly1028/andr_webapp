@@ -1,9 +1,6 @@
 {
   "schema": {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "$id": "merkle-airdrop",
-    "class": "baseADO",
-    "classifier": "",
     "title": "Merkle Airdrop",
     "type": "object",
     "required": ["asset_info"],
@@ -26,7 +23,10 @@
         ],
         "title": "asset_info"
       }
-    }
+    },
+    "$id": "merkle-airdrop",
+    "classifier": "",
+    "class": "baseADO"
   },
   "ui-schema": {},
   "form-data": {}

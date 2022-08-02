@@ -1,1 +1,1 @@
-{"schema":{"type":"object","required":["buy"],"properties":{"buy":{"type":"object","title":"buy"}},"additionalProperties":false,"$id":"","class":"modifier"},"ui-schema":{},"form-data":{}}
+{"schema":{"type":"object","required":["buy"],"properties":{"buy":{"type":"object","title":"buy"}},"additionalProperties":false,"$id":"buy","class":"modifier"},"ui-schema":{},"form-data":{}}

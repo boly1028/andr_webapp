@@ -1,9 +1,6 @@
 {
   "schema": {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "$id": "cw721",
-    "class": "baseADO",
-    "classifier": "collectible",
     "title": "CW721",
     "type": "object",
     "required": ["minter", "name", "symbol"],
@@ -16,7 +13,7 @@
             "required": ["identifier"],
             "properties": {
               "identifier": {
-                "description": "Can be either an address or identifier of an ADO in a mission.",
+                "description": "Can be either an address or identifier of an ADO in a app.",
                 "type": "string"
               }
             }
@@ -37,7 +34,7 @@
               "required": ["identifier"],
               "properties": {
                 "identifier": {
-                  "description": "Can be either an address or identifier of an ADO in a mission.",
+                  "description": "Can be either an address or identifier of an ADO in a app.",
                   "type": "string"
                 }
               }
@@ -58,7 +55,10 @@
         "type": "string",
         "title": "symbol"
       }
-    }
+    },
+    "$id": "cw721",
+    "classifier": "collectible",
+    "class": "baseADO"
   },
   "ui-schema": {},
   "form-data": {}
