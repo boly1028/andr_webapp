@@ -7,7 +7,8 @@ import { gql, QueryResult, useQuery } from "@apollo/client";
 
 export interface QueryAssetsProps
   extends Pick<QueryResult, "loading" | "error"> {
-  data?: QueryAssetsResponse["assets"];
+  // Type should be array itself. Make an interface for asset and using Asset[] as response. Changes needed in the library
+  data?: QueryAssetsResponse["assets"][];
 }
 
 /**
@@ -25,9 +26,12 @@ export default function useQueryAssets(
     { variables: { walletAddress } },
   );
 
+  // Converting assets to any and then to array to get proper typing at the end. It should be removed once type has been fixed in the library
+  const assets = data?.assets ?? [] as any;
+
   return {
     loading,
     error,
-    data: data ? data.assets : undefined,
+    data: assets,
   };
 }
