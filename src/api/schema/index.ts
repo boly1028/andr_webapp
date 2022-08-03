@@ -12,5 +12,5 @@ export const getSchemaFromPath = async (data: GetSchemaFromPathArgs) => {
         params: {
             path: data.path
         }
-    }).then(res => res.data as Object)
+    }).then(res => res.data)
 }

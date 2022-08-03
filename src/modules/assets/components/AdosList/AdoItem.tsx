@@ -14,12 +14,16 @@ import {
 } from "@/theme/ui-elements";
 import InlineStat from "./InlineStat";
 import { MoreHorizontalIcon } from "@/modules/common";
+import { useGetSchemaJson } from "@/lib/schema/hooks";
 
 interface AdoItemProps {
   ado: AppComponent;
 }
 const AdoItem: FC<AdoItemProps> = ({ ado }) => {
-  const $version = "1.0.1";
+  const $version = "0.1.0";
+  const { data: adopData, isLoading } = useGetSchemaJson<{
+    modifiers: string[];
+  }>(`${ado.adoType}/${$version}/ADOP`);
 
   const classifierIcons: any = classifierIconList;
 
@@ -76,7 +80,7 @@ const AdoItem: FC<AdoItemProps> = ({ ado }) => {
             variant="link"
           />
           <MenuList>
-            {["andr_receive", "add_address", "remove_address"].map((action) => {
+            {adopData?.modifiers?.map((action) => {
               return (
                 <MenuItem key={action}>
                   {/* <MenuItem icon={<Icon as={EyeIcon} boxSize={5} />}> */}
