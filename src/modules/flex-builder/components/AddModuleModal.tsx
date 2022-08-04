@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import _ from "lodash";
 import { v4 as uuidv4 } from "uuid";
 import { useDisclosure } from "@chakra-ui/react";
@@ -122,18 +122,21 @@ function AddModuleModal({ onAdd, items }: AddModuleModalProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selected, setSelected] =
     useState<FlexBuilderTemplateModuleProps | null>(null);
+  const [filteredItems, setFilteredItems] = useState<any[]>(items); //Value to reduce returned panel options by filters
+
+  const [searchText, setSearchText] = useState("");
+  const [classText, setClassText] = useState<string>("all");
+
+  useEffect(() => {
+    setSearchText("");
+    setClassText("all");
+  }, [isOpen]);
+
+  useEffect(() => {
+    updateFilters(searchText, classText);
+  }, [searchText, classText]);
 
   const handleAdd = useCallback(() => {
-    //Reset updateFilters status before loading
-    const docInput = document?.getElementById(
-      "class-selector",
-    ) as HTMLInputElement; // Declaration of document field type as HTMLInputElement to acces .value without conflict
-    docInput.value = "all"; //Set selection form field value to variable for comparatives
-    updateFilters(); // Load filters for reset for next isOpen()
-
-    // console.log("Selected");
-    // console.log(selected);
-
     if (selected) {
       onAdd(selected);
       onClose();
@@ -144,55 +147,42 @@ function AddModuleModal({ onAdd, items }: AddModuleModalProps) {
   // console.log("template.modules:");
   // console.log(items);
 
-  const [filteredItems, setFilteredItems] = useState<any[]>(items); //Value to reduce returned panel options by filters
-
   //Address filtering controls to pre-sort items by class type & textual contents
-  function updateFilters() {
-    let qrySearchedItems = items;
+  const updateFilters = useCallback(
+    _.debounce((_search: string, _class: string) => {
+      let qrySearchedItems = items;
 
-    // Filter panel selection options by $Class
-    const classInput = document?.getElementById(
-      "class-selector",
-    ) as HTMLInputElement; // Declaration of document field type as HTMLInputElement to acces .value without conflict
-    const classValue = classInput.value; //Set selection form field value to variable for comparatives
-    if (classValue !== "all") {
-      qrySearchedItems = _.filter(qrySearchedItems, function (item) {
-        return _.some(item.schema, { class: classValue });
-      });
-    }
+      // Filter panel selection options by $Class
+      //Set selection form field value to variable for comparatives
+      if (_class !== "all") {
+        qrySearchedItems = _.filter(qrySearchedItems, function (item) {
+          return _.some(item.schema, { class: _class });
+        });
+      }
 
-    // Filter panel selection options by text found within title and description fields
-    const searchInput = document?.getElementById(
-      "search-text",
-    ) as HTMLInputElement; // Declaration of document field type as HTMLInputElement to acces .value without conflict
-    const searchValue = searchInput.value; //Set selection form field value to variable for comparatives
-    // When text entered is not empty
-    // console.log("Search Value: ", searchValue);
-    if (searchValue !== "") {
-      // console.log("Search Filter on: ", qrySearchedItems);
-      qrySearchedItems = _.filter(qrySearchedItems, function (item) {
-        // Filter items which contain a lowercase version of the text in either the panel description or title
-        return (
-          _.includes(
-            item?.schema?.schema.title.toString().toLowerCase(),
-            searchValue.toLowerCase(),
-          ) ||
-          _.includes(
-            item?.schema?.schema?.description?.toString().toLowerCase(),
-            searchValue.toLowerCase(),
-          )
-        );
-      });
-    }
-    // } else {
-    //   // Return an unsearched result
-    //   setSearchedItems(filteredItems);
-    // }
-
-    setFilteredItems(qrySearchedItems);
-    // updateTextSearch("forceUpdate");
-    return;
-  }
+      // Filter panel selection options by text found within title and description fields
+      //Set selection form field value to variable for comparatives
+      if (_search !== "") {
+        // console.log("Search Filter on: ", qrySearchedItems);
+        qrySearchedItems = _.filter(qrySearchedItems, function (item) {
+          // Filter items which contain a lowercase version of the text in either the panel description or title
+          return (
+            _.includes(
+              item?.schema?.schema.title.toString().toLowerCase(),
+              _search.toLowerCase(),
+            ) ||
+            _.includes(
+              item?.schema?.schema?.description?.toString().toLowerCase(),
+              _search.toLowerCase(),
+            )
+          );
+        });
+      }
+      setFilteredItems(qrySearchedItems);
+      return;
+    }, 500),
+    [setFilteredItems, items],
+  );
 
   return (
     <>
@@ -223,7 +213,8 @@ function AddModuleModal({ onAdd, items }: AddModuleModalProps) {
                 </InputLeftElement>
                 <Input
                   id="search-text"
-                  onChange={() => updateFilters()}
+                  value={searchText}
+                  onChange={(e) => setSearchText(e.target.value)}
                   placeholder="By title or description"
                 />
               </InputGroup>
@@ -232,10 +223,8 @@ function AddModuleModal({ onAdd, items }: AddModuleModalProps) {
                 id="class-selector"
                 size="lg"
                 flex={1}
-                onChange={() => updateFilters()}
-                // onChange={() =>
-                //   alert(document?.getElementById("class-selector")?.value)
-                // }
+                value={classText}
+                onChange={(e) => setClassText(e.target.value)}
               >
                 <option value="all">Show All Components</option>
                 <option value="baseADO">Base ADO</option>

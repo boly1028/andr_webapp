@@ -60,6 +60,8 @@ const GlobalModalProvider: React.FC = memo(function GlobalModalProvider({
     } else if (isOpen && typeof modalState === "undefined") {
       onClose();
     }
+    // Reset Local states on modal transitions
+    setError(undefined);
   }, [modalState, isOpen, onOpen, onClose]);
 
   const renderComponent = useCallback(() => {
