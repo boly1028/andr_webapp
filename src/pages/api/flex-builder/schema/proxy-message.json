@@ -1,0 +1,25 @@
+{
+  "schema": {
+    "$id": "proxy-message",
+    "class": "system",
+    "classifier": "",
+    "title": "Component Modification",
+    "description": "Reference information for component being modified.",
+    "type": "object",
+    "required": ["component_name", "parent"],
+    "properties": {
+      "component_name": {
+        "type": "string",
+        "title": "Component Name",
+        "description": "The reference id for the App component."
+      },
+      "parent": {
+        "type": "string",
+        "title": "App Address",
+        "description": "The address of the parent App of the component"
+      }
+    }
+  },
+  "ui-schema": {},
+  "form-data": {}
+}
