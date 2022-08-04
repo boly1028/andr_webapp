@@ -4,7 +4,7 @@ import {
   QueryAppResponse,
 } from "@andromedaprotocol/andromeda.js";
 import { gql, QueryResult, useQuery } from "@apollo/client";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 export interface AppComponent {
   address: string;
@@ -32,8 +32,6 @@ export interface QueryAppInfoProps
 export default function useQueryAppInfo(
   contractAddress: string,
 ): QueryAppInfoProps {
-  const [appInfo, setAppInfo] = useState<AppInfo | undefined>();
-
   const { data, loading, error } = useQuery<QueryAppResponse, QueryApp>(
     gql`
       ${QUERY_APP}
@@ -41,7 +39,7 @@ export default function useQueryAppInfo(
     { variables: { contractAddress } },
   );
 
-  useEffect(() => {
+  const appInfo = useMemo(() => {
     if (data) {
       const { app } = data;
       //Map two query response arrays to one single array for simplicity
@@ -63,7 +61,7 @@ export default function useQueryAppInfo(
         owner: app.config.owner,
       };
 
-      setAppInfo(_appInfo);
+      return _appInfo
     }
   }, [data, contractAddress]);
 
