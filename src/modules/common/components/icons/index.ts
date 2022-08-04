@@ -1,4 +1,5 @@
 export { default as AlertCircleIcon } from "./AlertCircleIcon";
+export {default as AndromedaIcon} from './AndromedaIcon'
 export { default as AppStore } from "./AppStore";
 export { default as ArchiveIcon } from "./ArchiveIcon";
 export { default as BarChartIcon } from "./BarChartIcon";
