@@ -1,6 +1,13 @@
-import { AppComponent } from "@/lib/graphql/hooks/useQueryAppInfo";
 import React, { FC } from "react";
+import NextLink from "next/link";
+import { AppComponent } from "@/lib/graphql/hooks/useQueryAppInfo";
 import * as classifierIconList from "@/theme/icons/classifiers"; //Load classifier icon list for dynamic assignamnets (redeclared as classifierIcons:any later)
+
+import { v4 as keyGen } from "uuid"; // Used as key assignments for function elements
+
+import InlineStat from "./InlineStat";
+import { MoreHorizontalIcon } from "@/modules/common";
+import { useGetSchemaJson } from "@/lib/schema/hooks";
 
 import {
   Flex,
@@ -12,9 +19,6 @@ import {
   MenuList,
   MenuItem,
 } from "@/theme/ui-elements";
-import InlineStat from "./InlineStat";
-import { MoreHorizontalIcon } from "@/modules/common";
-import { useGetSchemaJson } from "@/lib/schema/hooks";
 
 interface AdoItemProps {
   ado: AppComponent;
@@ -82,10 +86,20 @@ const AdoItem: FC<AdoItemProps> = ({ ado }) => {
           <MenuList>
             {adopData?.modifiers?.map((action) => {
               return (
-                <MenuItem key={action}>
-                  {/* <MenuItem icon={<Icon as={EyeIcon} boxSize={5} />}> */}
-                  {formatActionTitles(action)}
-                </MenuItem>
+                <NextLink
+                  key={keyGen()}
+                  href={`/flexecute/${
+                    ado.adoType
+                  }@${$version}_${formatActionPath(action)}?component=${
+                    ado.name
+                  }&contract=${ado.address}`}
+                  passHref
+                >
+                  <MenuItem key={action}>
+                    {/* <MenuItem icon={<Icon as={EyeIcon} boxSize={5} />}> */}
+                    {formatActionTitles(action)}
+                  </MenuItem>
+                </NextLink>
               );
             })}
           </MenuList>
@@ -97,9 +111,11 @@ const AdoItem: FC<AdoItemProps> = ({ ado }) => {
 
 // Format declared modifiers for better UX in application
 function formatActionTitles(actionTitleText: string) {
-  //   Replace '-' and '_' from string
-  actionTitleText = actionTitleText.replace("_", " ");
-  actionTitleText = actionTitleText.replace("-", " ");
+  // Replace underscores and dashes from modifier labels
+  while (actionTitleText.includes("_") || actionTitleText.includes("-")) {
+    actionTitleText = actionTitleText.replace("_", " ");
+    actionTitleText = actionTitleText.replace("-", " ");
+  }
 
   // Apply title casing to labels
   const actionTitles = actionTitleText
@@ -112,6 +128,16 @@ function formatActionTitles(actionTitleText: string) {
 
   //Return formatted text
   return actionTitleText;
+}
+
+// Format declared modifiers for better UX in application
+function formatActionPath(actionPathText: string) {
+  // Replace underscores and dashes from modifier labels
+  while (actionPathText.includes("_")) {
+    actionPathText = actionPathText.replace("_", "-");
+  }
+  //Return formatted text
+  return actionPathText;
 }
 
 export default AdoItem;
