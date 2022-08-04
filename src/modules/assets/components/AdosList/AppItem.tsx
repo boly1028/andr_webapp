@@ -6,9 +6,11 @@ import * as classifierIconList from "@/theme/icons/classifiers"; //Load classifi
 import { Flex, Box, Icon, Button } from "@/theme/ui-elements";
 import InlineStat from "./InlineStat";
 import { useDisclosure } from "@chakra-ui/hooks";
-import { ChevronDownIcon } from "@/modules/common";
+import { ChevronDownIcon, FallbackPlaceholder } from "@/modules/common";
 import AdoItem from "./AdoItem";
 import { CloseIcon } from "@chakra-ui/icons";
+import { Center, Stack } from "@chakra-ui/layout";
+import { Skeleton } from "@chakra-ui/skeleton";
 
 interface AppItemProps {
   app: AdoAsset;
@@ -87,7 +89,33 @@ const AppItem: FC<AppItemProps> = ({ app }) => {
           </Button>
         </Box>
       </Flex>
-      <Flex {...disclosureProps} mt='4' rounded='xl' direction='column' bg='gray.50'>
+      <Flex
+        {...disclosureProps}
+        mt="4"
+        rounded="xl"
+        direction="column"
+        bg="gray.50"
+      >
+        {loading && (
+          <Stack>
+            <Skeleton h="14" rounded="xl" />
+            <Skeleton h="14" rounded="xl" />
+          </Stack>
+        )}
+        {error && (
+          <FallbackPlaceholder
+            title="ERROR!"
+            desc="Something went wrong, we were not able to fetch data properly"
+          />
+        )}
+        {appInfo?.components?.length === 0 && (
+          <Center pt='4'>
+            <FallbackPlaceholder
+              title="Empty list"
+              desc="You don't have any components associated with this app."
+            />
+          </Center>
+        )}
         {appInfo?.components?.map((ado) => (
           <AdoItem key={ado.address} ado={ado} />
         ))}
