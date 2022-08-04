@@ -1,27 +1,25 @@
 {
   "schema": {
-    "$schema": "receipt/0.1.0/receipt",
-    "class": "module",
-    "classifier": "sale",
-    "title": "Support Receipts",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Receipt",
     "type": "object",
-    "description": "Add the ability to generate receipts which store event history.",
     "required": ["minter"],
     "properties": {
       "minter": {
+        "description": "The address authorized to mint new receipts",
         "type": "string",
-        "title": "Minter",
-        "description": "The address authorized to generate new receipts."
+        "title": "minter"
       },
       "operators": {
+        "description": "Optional list of moderating addresses authorized to update receipts, defaults to an empty vector",
         "type": ["array", "null"],
-        "title": "Operators",
-        "description": "Optional list of moderating addresses authorized to update receipts. (Defaults as empty.)",
-        "items": {
-          "type": "string"
-        }
+        "items": { "type": "string" },
+        "title": "operators"
       }
-    }
+    },
+    "$id": "receipt",
+    "classifier": "sale",
+    "class": "module"
   },
   "ui-schema": {},
   "form-data": {}

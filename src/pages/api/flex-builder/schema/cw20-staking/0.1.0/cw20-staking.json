@@ -1,11 +1,7 @@
 {
   "schema": {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "$id": "/schemas/cw20-staking",
-    "class": "baseADO",
-    "classifier": "escrow",
     "title": "CW20 Staking",
-    "description": "Stake CW20 tokens and get up to 10 coins as rewards.",
     "type": "object",
     "required": ["staking_token"],
     "properties": {
@@ -47,7 +43,10 @@
         ],
         "title": "staking_token"
       }
-    }
+    },
+    "$id": "cw20-staking",
+    "classifier": "escrow",
+    "class": "baseADO"
   },
   "ui-schema": {},
   "form-data": {}

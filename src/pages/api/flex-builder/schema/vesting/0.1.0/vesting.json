@@ -1,11 +1,7 @@
 {
   "schema": {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "$id": "vesting",
-    "class": "baseADO",
-    "classifier": "",
     "title": "Vesting",
-    "description": "Allows the vesting of tokens for one recipient which is fixed upon creation.",
     "type": "object",
     "required": [
       "denom",
@@ -115,7 +111,10 @@
         ],
         "title": "unbonding_duration"
       }
-    }
+    },
+    "$id": "vesting",
+    "classifier": "",
+    "class": "baseADO"
   },
   "ui-schema": {},
   "form-data": {}

@@ -1,1 +1,0 @@
-{"schema":{"type":"object","required":["update_address"],"properties":{"update_address":{"type":"object","required":["addr","name"],"properties":{"addr":{"type":"string","title":"addr"},"name":{"type":"string","title":"name"}}}},"additionalProperties":false},"ui-schema":{},"form-data":{}}

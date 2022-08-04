@@ -1,0 +1,1 @@
+{"schema":{"type":"object","required":["release_specific_funds"],"properties":{"release_specific_funds":{"type":"object","required":["owner"],"properties":{"owner":{"type":"string","title":"owner"},"recipient_addr":{"type":["string","null"],"title":"recipient_addr"}}}},"additionalProperties":false,"$id":"release_specific_funds","class":"modifier"},"ui-schema":{},"form-data":{}}

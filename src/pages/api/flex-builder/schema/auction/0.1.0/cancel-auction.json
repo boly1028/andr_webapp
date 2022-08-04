@@ -1,0 +1,1 @@
+{"schema":{"type":"object","required":["cancel_auction"],"properties":{"cancel_auction":{"type":"object","required":["token_address","token_id"],"properties":{"token_address":{"type":"string","title":"token_address"},"token_id":{"type":"string","title":"token_id"}}}},"additionalProperties":false,"$id":"cancel_auction","class":"modifier"},"ui-schema":{},"form-data":{}}

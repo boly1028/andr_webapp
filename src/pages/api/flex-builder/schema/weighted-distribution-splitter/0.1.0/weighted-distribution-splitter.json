@@ -1,11 +1,7 @@
 {
   "schema": {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "$id": "weighted-distribution-splitter",
-    "class": "baseADO",
-    "classifier": "splitter",
     "title": "Weighted Distribution Splitter",
-    "description": "Split funds amongst a set of defined recipients by weight.",
     "type": "object",
     "required": ["recipients"],
     "properties": {
@@ -96,7 +92,10 @@
         },
         "title": "recipients"
       }
-    }
+    },
+    "$id": "weighted-distribution-splitter",
+    "classifier": "splitter",
+    "class": "baseADO"
   },
   "ui-schema": {},
   "form-data": {}

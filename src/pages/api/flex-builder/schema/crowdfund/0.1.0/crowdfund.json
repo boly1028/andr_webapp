@@ -1,11 +1,7 @@
 {
   "schema": {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "$id": "crowdfund",
-    "class": "baseADO",
-    "classifier": "sale",
-    "title": "Crowd Funding",
-    "description": "Start minting and selling tokens with a crowdfund.",
+    "title": "Crowdfund",
     "type": "object",
     "required": ["can_mint_after_sale", "token_address"],
     "properties": {
@@ -14,7 +10,7 @@
         "title": "can_mint_after_sale"
       },
       "modules": {
-        "type": ["array"],
+        "type": ["array", "null"],
         "items": {
           "description": "Modules can be instantiated in two different ways New - Provide an instantiation message for the contract, a new contract will be instantiated and the address recorded Address - Provide an address for an already instantiated module contract A struct describing a token module, provided with the instantiation message this struct is used to record the info about the module and how/if it should be instantiated",
           "type": "object",
@@ -25,17 +21,13 @@
               "required": ["identifier"],
               "properties": {
                 "identifier": {
-                  "description": "Can be either an address or identifier of an ADO in a mission.",
+                  "description": "Can be either an address or identifier of an ADO in a app.",
                   "type": "string"
                 }
               }
             },
-            "is_mutable": {
-              "type": "boolean"
-            },
-            "module_type": {
-              "type": "string"
-            }
+            "is_mutable": { "type": "boolean" },
+            "module_type": { "type": "string" }
           }
         },
         "title": "modules"
@@ -45,13 +37,16 @@
         "required": ["identifier"],
         "properties": {
           "identifier": {
-            "description": "Can be either an address or identifier of an ADO in a mission.",
+            "description": "Can be either an address or identifier of an ADO in a app.",
             "type": "string"
           }
         },
         "title": "token_address"
       }
-    }
+    },
+    "$id": "crowdfund",
+    "classifier": "sale",
+    "class": "baseADO"
   },
   "ui-schema": {},
   "form-data": {}

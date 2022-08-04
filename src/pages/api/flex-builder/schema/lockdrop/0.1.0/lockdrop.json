@@ -1,9 +1,6 @@
 {
   "schema": {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "$id": "lockdrop",
-    "class": "baseADO",
-    "classifier": "external",
     "title": "Lockdrop",
     "type": "object",
     "required": [
@@ -22,7 +19,7 @@
             "required": ["identifier"],
             "properties": {
               "identifier": {
-                "description": "Can be either an address or identifier of an ADO in a mission.",
+                "description": "Can be either an address or identifier of an ADO in a app.",
                 "type": "string"
               }
             }
@@ -62,7 +59,10 @@
         "minimum": 0,
         "title": "withdrawal_window"
       }
-    }
+    },
+    "$id": "lockdrop",
+    "classifier": "",
+    "class": "baseADO"
   },
   "ui-schema": {},
   "form-data": {}

@@ -1,0 +1,1 @@
+{"schema":{"description":"Allow a user to claim their own refund if the minimum number of tokens are not sold.","type":"object","required":["claim_refund"],"properties":{"claim_refund":{"type":"object","title":"claim_refund"}},"additionalProperties":false,"$id":"claim_refund","class":"modifier"},"ui-schema":{},"form-data":{}}

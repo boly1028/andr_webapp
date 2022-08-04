@@ -1,9 +1,6 @@
 {
   "schema": {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "$id": "timelock",
-    "class": "baseADO",
-    "classifier": "escrow",
     "title": "Timelock",
     "type": "object",
     "properties": {
@@ -20,7 +17,7 @@
               "required": ["identifier"],
               "properties": {
                 "identifier": {
-                  "description": "Can be either an address or identifier of an ADO in a mission.",
+                  "description": "Can be either an address or identifier of an ADO in a app.",
                   "type": "string"
                 }
               }
@@ -31,7 +28,10 @@
         },
         "title": "modules"
       }
-    }
+    },
+    "$id": "timelock",
+    "classifier": "escrow",
+    "class": "baseADO"
   },
   "ui-schema": {},
   "form-data": {}
