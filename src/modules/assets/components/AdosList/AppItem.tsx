@@ -87,9 +87,19 @@ const AppItem: FC<AppItemProps> = ({ app }) => {
           </Button>
         </Box>
       </Flex>
-      <Flex {...disclosureProps} mt='4' rounded='xl' direction='column' bg='gray.50'>
+      <Flex
+        {...disclosureProps}
+        mt="4"
+        rounded="xl"
+        direction="column"
+        bg="gray.50"
+      >
         {appInfo?.components?.map((ado) => (
-          <AdoItem key={ado.address} ado={ado} />
+          <AdoItem
+            key={ado.address}
+            ado={ado}
+            appAddress={appInfo.contractAddress}
+          />
         ))}
       </Flex>
     </Flex>

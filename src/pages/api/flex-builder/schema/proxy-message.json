@@ -6,7 +6,10 @@
     "title": "Component Modification",
     "description": "Reference information for component being modified.",
     "type": "object",
-    "required": ["component_name", "parent"],
+    "required": [
+      "component_name",
+      "parent"
+    ],
     "properties": {
       "component_name": {
         "type": "string",
@@ -20,6 +23,10 @@
       }
     }
   },
-  "ui-schema": {},
+  "ui-schema": {
+    "parent": {
+      "ui:readonly": "readonly"
+    }
+  },
   "form-data": {}
 }
