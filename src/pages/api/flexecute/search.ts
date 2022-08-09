@@ -1,44 +1,88 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { v4 as uuid } from "uuid";
-
 // import { FlexBuilderTemplateProps } from "@/modules/flex-builder/types";
 import { FlexecuteTemplateProps } from "@/modules/flexecute/types";
-import { AdosList } from "@/modules/assets";
-// import { TEMPLATES } from "./constants";
 
+import Cors from 'cors'
+
+const cors = Cors({
+  methods: ['GET'],
+})
+
+/**
+ * Middleware to enable cors for the get request
+ * @param req 
+ * @param res 
+ * @param fn 
+ * @returns 
+ */
+
+function runMiddleware(req, res, fn) {
+  return new Promise((resolve, reject) => {
+    fn(req, res, (result) => {
+      if (result instanceof Error) {
+        return reject(result)
+      }
+
+      return resolve(result)
+    })
+  })
+}
+
+
+/**
+ * Api enpoint for fetching schema based on path
+ * @requires Query<string>(path) : `addresslist/0.1.0/addresslist`
+ */
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<FlexecuteTemplateProps | undefined>,
 ) {
-  const { id } = req.query;
+  await runMiddleware(req, res, cors);
 
-  /////////////////////////////// Dynamic Path Loader ///////////////////////////////////
-  // Parse id into seek path
-  let tmpPath = id.toString();
-  tmpPath = tmpPath.replace("@", "/");
-  const path = tmpPath.replace("_", "/");
+  const path = req.query.path as string;
 
-  // Parse id into action title
-  let tmpTitle = id.toString();
-  tmpTitle = tmpTitle.replace("@", " ");
-  const title = tmpTitle.replace("_", " ").toUpperCase();
+  const template = await getFlexecuteTemplateFromPath(path);
+  if (!template) {
+    return res.status(404);
+  }
+
+  res.status(200).json(template);
+}
+
+
+// This type of transformation is done in flex builder also. We can create a type system
+// and a single function for all transformations for better consistency
+
+export const getFlexecuteTemplateFromPath = async (path: string) => {
+  // Parse path into title
+  const id = path.replaceAll('/', ' ');
+  const title = id.toUpperCase();
   // Generate Template
   const TEMPLATES: Array<FlexecuteTemplateProps> = [
     {
       id: `${id}`,
+      name: '',
+      description: '',
+      icon: "",
+      opts: [
+        "Select your Base ADO functionality",
+        "Add on your prefered modules",
+        "Save as a template",
+        "Publish and use!",
+      ],
       ados: [
         { path: "proxy-message", id: "proxy-message", required: true },
         { path: `${path}`, id: `${title}`, required: true },
       ],
     },
   ];
-  console.log("Template", TEMPLATES);
 
   // pass to template
   const template = TEMPLATES.find((template) => template.id === id);
-  console.log("Template", template);
+
   if (!template || template.disabled) {
-    res.status(404);
+    return null;
   }
 
   if (template?.ados) {
@@ -52,7 +96,7 @@ export default async function handler(
       // schema
       const schemaADO = await import(
         `@/pages/api/flex-builder/schema/${ado.path}.json`
-      );
+      ).then(res => res.default);
 
       // Reassign id refs due to new data structs in path passing
       // Using let for reassignment if panel name includes spacing (heirarchy definement conflict to nest declarations in if)
@@ -116,13 +160,14 @@ export default async function handler(
       for (const single_module of modules) {
         const data = await import(
           `@/pages/api/flex-builder/schema/${single_module.path}.json`
-        );
+        ).then(res => res.default);
+
         single_module.schema = data;
       }
 
       template.modules = modules;
     }
-  }
 
-  res.status(200).json(template);
+    return template
+  }
 }

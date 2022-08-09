@@ -117,7 +117,11 @@ const AppItem: FC<AppItemProps> = ({ app }) => {
           </Center>
         )}
         {appInfo?.components?.map((ado) => (
-          <AdoItem key={ado.address} ado={ado} />
+          <AdoItem
+            key={ado.address}
+            ado={ado}
+            appAddress={appInfo.contractAddress}
+          />
         ))}
       </Flex>
     </Flex>

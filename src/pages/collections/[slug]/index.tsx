@@ -6,7 +6,7 @@ import {
   CollectionPage,
   CollectionData,
 } from "@/modules/marketplace";
-import { NextPage } from "next";
+import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 
 interface Props {
   data?: CollectionData;
@@ -24,11 +24,29 @@ const Collection: NextPage<Props> = ({ data }) => {
   );
 };
 
-Collection.getInitialProps = async ({ query }) => {
-  const { slug } = query;
-  const data = COLLECTIONS.find((i) => i.slug === slug);
 
-  return { data };
+// DIRECTLY CALLING DATABASE FUNCTION IS FASTER THAN CALLING THROUGH API ENDPOINT
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    paths: COLLECTIONS.map((item) => ({ params: { slug: item.slug } })),
+    fallback: "blocking",
+  };
+};
+
+export const getStaticProps: GetStaticProps<Props> = async (ctx) => {
+  const { params } = ctx;
+  const slug = params?.slug as string;
+  const data = COLLECTIONS.find((item) => item.slug === slug);
+  if (!data) {
+    return {
+      notFound: true,
+    };
+  }
+  return {
+    props: { data: data },
+    revalidate: 300,
+  };
 };
 
 Collection.displayName = "Collection";

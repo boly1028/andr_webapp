@@ -1,4 +1,4 @@
-import { NextPage } from "next";
+import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import absoluteUrl from "next-absolute-url";
 
 import { useCodeId } from "@/lib/andrjs";
@@ -14,6 +14,10 @@ import {
 
 import { Box, Flex, Text } from "@/theme/ui-elements";
 import { FileCheckIcon, Layout, PageHeader } from "@/modules/common";
+import { getFlexecuteTemplateFromPath } from "../api/flexecute/search";
+import { useRouter } from "next/router";
+import { useEffect, useMemo } from "react";
+import { cloneDeep } from "lodash";
 
 type Props = {
   template: FlexBuilderTemplateProps;
@@ -25,6 +29,21 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
   // Parameters are anticipated to be contract, msg, coin value
   const instantiate = useModifyContract(codeId);
   */
+
+  const router = useRouter();
+
+  const modifiedTemplate: FlexBuilderTemplateProps = useMemo(() => {
+    const name = router.query.name as string;
+    const contract = router.query.contract as string;
+    const newTemplate = cloneDeep(template);
+    newTemplate.name = name;
+    newTemplate.formData["proxy-message"] = {
+      ...(newTemplate.formData["proxy-message"] ?? {}),
+      parent: contract,
+      component_name: name,
+    };
+    return newTemplate;
+  }, [router]);
 
   const handleSubmit = async ({ formData }: any) => {
     console.log("Encoded Sample Message:", constructMsgSample(formData));
@@ -45,7 +64,10 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
 
   return (
     <Layout>
-      <PageHeader title={template.name} desc={template.description} />
+      <PageHeader
+        title={modifiedTemplate.name}
+        desc={modifiedTemplate.description}
+      />
 
       <Box mt={10}>
         {/* Staging section to be shown when declared */}
@@ -87,19 +109,32 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
           </Flex>
         )}
         {/* end of toggleable staging section */}
-        <FlexBuilderForm template={template} onSubmit={handleSubmit} />
+        <FlexBuilderForm template={modifiedTemplate} onSubmit={handleSubmit} />
       </Box>
     </Layout>
   );
 };
 
-TemplatePage.getInitialProps = async ({ req, query }) => {
-  const { origin } = absoluteUrl(req);
-  const { id } = query;
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    paths: [],
+    fallback: "blocking",
+  };
+};
 
-  const res = await fetch(`${origin}/api/flexecute/${id}`);
-  const json = await res.json();
-  return { template: json };
+export const getStaticProps: GetStaticProps<Props> = async (ctx) => {
+  const { params } = ctx;
+  const path = params?.path as string[];
+  const data = await getFlexecuteTemplateFromPath(path.join("/"));
+  if (!data) {
+    return {
+      notFound: true,
+    };
+  }
+  return {
+    props: { template: JSON.parse(JSON.stringify(data)) },
+    revalidate: 300,
+  };
 };
 
 export default TemplatePage;

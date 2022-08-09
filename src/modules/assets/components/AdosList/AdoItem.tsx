@@ -22,8 +22,9 @@ import {
 
 interface AdoItemProps {
   ado: AppComponent;
+  appAddress?: string;
 }
-const AdoItem: FC<AdoItemProps> = ({ ado }) => {
+const AdoItem: FC<AdoItemProps> = ({ ado, appAddress }) => {
   const $version = "0.1.0";
   const { data: adopData, isLoading } = useGetSchemaJson<{
     modifiers: string[];
@@ -90,9 +91,9 @@ const AdoItem: FC<AdoItemProps> = ({ ado }) => {
                   key={keyGen()}
                   href={`/flexecute/${
                     ado.adoType
-                  }@${$version}_${formatActionPath(action)}?component=${
+                  }/${$version}/${formatActionPath(action)}?name=${
                     ado.name
-                  }&contract=${ado.address}`}
+                  }&contract=${appAddress}`}
                   passHref
                 >
                   <MenuItem key={action}>

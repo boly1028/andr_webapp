@@ -1,5 +1,5 @@
 import React from "react";
-import { NextPage } from "next";
+import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 
 import { Layout } from "@/modules/common";
 import { NFT_ITEMS } from "@/modules/assets";
@@ -21,11 +21,28 @@ const Item: NextPage<ItemProps> = ({ data }) => {
   );
 };
 
-Item.getInitialProps = async ({ query }) => {
-  const { item } = query;
-  const data = NFT_ITEMS.find((i) => i.slug === item);
+// DIRECTLY CALLING DATABASE FUNCTION IS FASTER THAN CALLING THROUGH API ENDPOINT
 
-  return { data };
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    paths: NFT_ITEMS.map((item) => ({ params: { item: item.slug } })),
+    fallback: "blocking",
+  };
+};
+
+export const getStaticProps: GetStaticProps<ItemProps> = async (ctx) => {
+  const { params } = ctx;
+  const itemSlug = params?.item as string;
+  const NFT = NFT_ITEMS.find((item) => item.slug === itemSlug);
+  if (!NFT) {
+    return {
+      notFound: true,
+    };
+  }
+  return {
+    props: { data: NFT },
+    revalidate: 300,
+  };
 };
 
 export default Item;
