@@ -1,7 +1,7 @@
 import React from "react";
 
 import { NftsList, AdosList } from "@/modules/assets";
-import { PageHeader } from "@/modules/common";
+import { PageHeader, Wallet, FallbackPlaceholder } from "@/modules/common";
 
 import {
   Box,
@@ -10,7 +10,8 @@ import {
   TabPanels,
   Tab,
   TabPanel,
-  Text,
+  Flex,
+  Center,
 } from "@/theme/ui-elements";
 import { useWallet } from "@/lib/wallet";
 
@@ -25,9 +26,16 @@ const AssetsPage = () => {
         desc="Locate and interact with your ADOs, NFTs, tokens, currencies, and more"
       />
       {!wallet && (
-        <Box>
-          <Text>Add Login Component Here</Text>
-        </Box>
+        <Center w="full" p="6" mt="10">
+          <Box bg="error.50" rounded="3xl" px="6" py="10">
+            <FallbackPlaceholder
+              title="You are not logged in."
+              desc="Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit deleniti sapiente fugit."
+            >
+              <Wallet />
+            </FallbackPlaceholder>
+          </Box>
+        </Center>
       )}
       {wallet && (
         <Tabs mt={8} colorScheme="purple">
