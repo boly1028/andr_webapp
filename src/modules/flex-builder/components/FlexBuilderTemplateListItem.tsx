@@ -71,7 +71,12 @@ const FlexBuilderTemplateListItem: FC<FlexBuilderTemplateListItemProps> = ({
           </List>
         </Box>
         <Spacer />
-        <NextLink href={`flex-builder/${template.id}`} passHref>
+
+        {/* Set href to '#' if assigned for coming soon /disabled */}
+        <NextLink
+          href={!template.disabled ? `flex-builder/${template.id}` : "#"}
+          passHref
+        >
           <Button
             as="a"
             mt={10}
