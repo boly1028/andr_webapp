@@ -11,6 +11,7 @@ import {
   SparklesIcon,
   FolderOpenIcon,
 } from "./icons";
+import { SITE_LINKS } from "../utils/sitelinks";
 
 interface LinkItemProps {
   name: string;
@@ -19,33 +20,57 @@ interface LinkItemProps {
 }
 
 const LinkItems: LinkItemProps[] = [
-  { name: "Overview", icon: <CompassIcon boxSize={5} />, href: "/" },
-  { name: "App Store", icon: <AppStore boxSize={5} />, href: "/appstore" },
+  {
+    name: "Overview",
+    icon: <CompassIcon boxSize={5} />,
+    href: SITE_LINKS.dashboard(),
+  },
+  {
+    name: "App Store",
+    icon: <AppStore boxSize={5} />,
+    href: SITE_LINKS.appStore(),
+  },
   { name: "Create", icon: <CubeIcon boxSize={5} />, href: "#" },
-  { name: "ADOs", icon: <CubeIcon boxSize={5} pl={8} />, href: "/" },
-  { name: "Apps", icon: <CubeIcon boxSize={5} pl={8} />, href: "/app-builder" },
-  { name: "Assets", icon: <FolderOpenIcon boxSize={5} />, href: "/assets" },
+  {
+    name: "ADOs",
+    icon: <CubeIcon boxSize={5} pl={8} />,
+    href: SITE_LINKS.flexBuilderHome(),
+  },
+  {
+    name: "Apps",
+    icon: <CubeIcon boxSize={5} pl={8} />,
+    href: SITE_LINKS.appBuilder(),
+  },
+  {
+    name: "Assets",
+    icon: <FolderOpenIcon boxSize={5} />,
+    href: SITE_LINKS.assets(),
+  },
   {
     name: "Embeddables",
     icon: <SparklesIcon boxSize={5} />,
-    href: "#",
+    href: SITE_LINKS.embeddables(),
   },
+  // {
+  //   name: "Market",
+  //   icon: <SparklesIcon boxSize={5} pl={8} />,
+  //   href: "/explore",
+  // },
+  // {
+  //   name: "Crowdfund",
+  //   icon: <SparklesIcon boxSize={5} pl={8} />,
+  //   href: "#",
+  // },
+  // {
+  //   name: "Dashboards",
+  //   icon: <SparklesIcon boxSize={5} pl={8} />,
+  //   href: "#",
+  // },
   {
-    name: "Market",
-    icon: <SparklesIcon boxSize={5} pl={8} />,
-    href: "/explore",
+    name: "Learn",
+    icon: <BookOpenIcon boxSize={5} />,
+    href: SITE_LINKS.learn(),
   },
-  {
-    name: "Crowdfund",
-    icon: <SparklesIcon boxSize={5} pl={8} />,
-    href: "#",
-  },
-  {
-    name: "Dashboards",
-    icon: <SparklesIcon boxSize={5} pl={8} />,
-    href: "#",
-  },
-  { name: "Learn", icon: <BookOpenIcon boxSize={5} />, href: "/learn" },
 ];
 
 interface SidebarProps extends BoxProps {
