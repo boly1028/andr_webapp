@@ -20,16 +20,16 @@ const AppsCard: FC<AppsCardProps> = ({ icon, link, title, target }) => {
         target={target}
         referrerPolicy="no-referrer"
         p="10"
-        w="60"
+        w='52'
         rounded={"xl"}
         overflow={"hidden"}
         textAlign="center"
         bg="white"
         _hover={{ color: text }}
       >
-        <VStack spacing="4">
+        <VStack spacing="6">
           <Box>{icon}</Box>
-          <Text color="gray.700" fontWeight="medium" fontSize="lg">
+          <Text color="gray.700" fontWeight="medium">
             {title}
           </Text>
         </VStack>

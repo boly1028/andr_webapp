@@ -19,6 +19,7 @@ import {
   MenuList,
   MenuItem,
 } from "@/theme/ui-elements";
+import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
 
 interface AdoItemProps {
   ado: AppComponent;
@@ -86,14 +87,13 @@ const AdoItem: FC<AdoItemProps> = ({ ado, appAddress }) => {
           />
           <MenuList>
             {adopData?.modifiers?.map((action) => {
+              const path = `${ado.adoType}/${$version}/${formatActionPath(
+                action,
+              )}`;
               return (
                 <NextLink
                   key={keyGen()}
-                  href={`/flexecute/${
-                    ado.adoType
-                  }/${$version}/${formatActionPath(action)}?name=${
-                    ado.name
-                  }&contract=${appAddress}`}
+                  href={SITE_LINKS.flexecute(path, appAddress ?? "", ado.name)}
                   passHref
                 >
                   <MenuItem key={action}>
