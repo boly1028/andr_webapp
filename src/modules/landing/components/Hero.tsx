@@ -1,4 +1,5 @@
-import { AndromedaIcon, BookOpenIcon, FolderOpenIcon } from "@/modules/common";
+import { AndromedaIcon, AppStore, BookOpenIcon, FolderOpenIcon } from "@/modules/common";
+import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
 import { app } from "@/theme/icons/classifiers";
 import { Flex, VStack, Text, HStack, Icon, Stack } from "@chakra-ui/react";
 import React, { FC } from "react";
@@ -31,23 +32,28 @@ const LandingHero: FC<LandingHeroProps> = () => {
         </Text>
         <Flex direction='row' justifyContent='center' w="full" gap="6" wrap="wrap">
           <LandingAppsCard
-            icon={<Icon as={app} boxSize="20" />}
-            link="/flex-builder"
+            icon={<Icon as={app} boxSize="16" />}
+            link={SITE_LINKS.flexBuilderHome()}
             title="Build an App"
           />
           <LandingAppsCard
-            icon={<BookOpenIcon boxSize="20" />}
+            icon={<BookOpenIcon boxSize="16" />}
             link="https://docs.andromedaprotocol.io/andromeda"
             title="Learn ADO's"
             target="_blank"
           />
           <LandingAppsCard
-            icon={<FolderOpenIcon boxSize="20" />}
-            link="/assets"
+            icon={<FolderOpenIcon boxSize="16" />}
+            link={SITE_LINKS.assets()}
             title="Your Assets"
           />
+           <LandingAppsCard
+            icon={<AppStore boxSize="16" />}
+            link={SITE_LINKS.appStore()}
+            title="App Store"
+          />
           <LandingAppsCard
-            icon={<AndromedaIcon boxSize="20" />}
+            icon={<AndromedaIcon boxSize="16" />}
             link="https://andromedaprotocol.io/"
             title="Visit Website"
             target="_blank"
