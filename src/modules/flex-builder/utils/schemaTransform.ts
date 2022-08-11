@@ -1,3 +1,11 @@
+import { isUndefined } from "util";
+import { v4 as uuidv4 } from "uuid";
+
+
+/** TODO: ADD DOCUMENTATION FOR EACH FUNCTION (Anshu) */
+
+
+/**Add Schema using the the previous default data */
 export const addSchemaModule = (
     uuid: string | undefined,
     data: SchemaModule,
@@ -95,7 +103,7 @@ export const updateSchemaModule = (
 }
 
 
-const deleteSchemaModule = (uuid: string, defaults?: any): any => {
+export const deleteSchemaModule = (uuid: string, defaults?: SchemaObject) => {
     const schemaDefinitions = defaults?.schemaDefinitions || {};
     const schemaProperties = defaults?.schemaProperties || {};
 
@@ -115,6 +123,86 @@ const deleteSchemaModule = (uuid: string, defaults?: any): any => {
         properties: schemaProperties,
     };
 
+    return {
+        schema: _schema,
+        uiSchema: _uiSchema,
+        formData: _formData,
+    };
+};
+
+export const changeSchemaID = (oldPanelName: string, newPanelName: string, defaults?: SchemaObject) => {
+    const schemaDefinitions = defaults?.schemaDefinitions || {};
+    const schemaProperties = defaults?.schemaProperties || {};
+    const _uiSchema = defaults?.uiSchema || {};
+    const _formData = defaults?.formData || {};
+
+    // confirm new panel label doesn't already exist
+    if (!isUndefined(schemaDefinitions[`${newPanelName}`])) {
+        return undefined
+    }
+
+    /**Copy full definition and replace the ref with new id */
+    schemaProperties[`${newPanelName}`] = {
+        ...schemaProperties[`${oldPanelName}`],
+        '$ref': `#/definitions/${newPanelName}`
+    }
+
+    schemaDefinitions[`${newPanelName}`] = schemaDefinitions[`${oldPanelName}`];
+    _uiSchema[`${newPanelName}`] = _uiSchema[`${oldPanelName}`];
+    _formData[`${newPanelName}`] = _formData[`${oldPanelName}`];
+
+    // remove previous panel definitions
+    delete schemaDefinitions[`${oldPanelName}`];
+    delete schemaProperties[`${oldPanelName}`];
+    delete _uiSchema[`${oldPanelName}`];
+    delete _formData[`${oldPanelName}`];
+
+    const _schema = {
+        definitions: schemaDefinitions,
+        type: "object",
+        properties: schemaProperties,
+    };
+
+    return {
+        schema: _schema,
+        uiSchema: _uiSchema,
+        formData: _formData,
+    };
+};
+
+
+export const duplicatePanelSchema = (panelName: string, defaults?: SchemaObject) => {
+    const schemaDefinitions = defaults?.schemaDefinitions || {};
+    const schemaProperties = defaults?.schemaProperties || {};
+
+    const _uiSchema = defaults?.uiSchema || {};
+    const _formData = defaults?.formData || {};
+
+    const newPanelName = uuidv4(); // Create a new unique value to assign to the duplicated panel
+
+    //if start of panel name is "root_", then reference with prefix excluded
+    if (panelName.slice(0, 5) === "root_") {
+        panelName = panelName.slice(5);
+    }
+
+    // duplicate schemas with provided panel name
+    schemaDefinitions[`${newPanelName}`] = schemaDefinitions[`${panelName}`];
+
+    /**Copy full definition and replace the ref with new id */
+    schemaProperties[`${newPanelName}`] = {
+        ...schemaProperties[`${panelName}`],
+        '$ref': `#/definitions/${newPanelName}`
+    }
+    _uiSchema[`${newPanelName}`] = _uiSchema[`${panelName}`];
+    _formData[`${newPanelName}`] = _formData[`${panelName}`];
+
+    // build schema from prior definitions & properties for return submission for passing to updateForm() function
+    const _schema = {
+        definitions: schemaDefinitions,
+        type: "object",
+        properties: schemaProperties,
+    };
+    alert("Panel duplicated with name " + newPanelName + ".");
     return {
         schema: _schema,
         uiSchema: _uiSchema,
