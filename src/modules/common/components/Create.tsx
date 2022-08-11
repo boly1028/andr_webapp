@@ -9,6 +9,7 @@ import {
   MenuList,
 } from "@chakra-ui/react";
 import { PlusIcon } from "@/modules/common";
+import { SITE_LINKS } from "../utils/sitelinks";
 
 const Create: FC = () => {
   return (
@@ -25,14 +26,14 @@ const Create: FC = () => {
 
       <MenuList>
         <MenuItem>
-          <Link href={`/flex-builder/new`} passHref>
+          <Link href={SITE_LINKS.flexBuilderHome()} passHref>
             <_Link fontWeight={700} color="primary.600" fontSize="sm">
               ADO
             </_Link>
           </Link>
         </MenuItem>
         <MenuItem>
-          <Link href={`app-builder/create`} passHref>
+          <Link href={SITE_LINKS.appBuilder()} passHref>
             <_Link fontWeight={700} color="primary.600" fontSize="sm">
               App
             </_Link>

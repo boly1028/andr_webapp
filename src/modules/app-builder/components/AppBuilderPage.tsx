@@ -2,6 +2,7 @@ import NextLink from "next/link";
 import { Box, Flex, Center, Button, Heading, VStack } from "@chakra-ui/react";
 
 import { PageHeader, PlusIcon, CubeIcon } from "@/modules/common";
+import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
 
 const AppBuilderPage = () => {
   return (
@@ -17,7 +18,7 @@ const AppBuilderPage = () => {
             <Heading size="md" fontWeight="600">
               You have no App
             </Heading>
-            <NextLink href={`app-builder/create`} passHref>
+            <NextLink href={SITE_LINKS.appCreate()} passHref>
               <Button
                 as="a"
                 leftIcon={<PlusIcon boxSize={4} />}
