@@ -4,10 +4,11 @@ export const SITE_LINKS = {
     // Flex
     flexBuilderHome: () => `/flex-builder`,
     flexBuilder: (id: string) => `/flex-builder/${id}`,
-    flexecute: (path: string, address: string, name: string) => `/flexecute/${path}?name=${name}&address=${address}`,
+    flexecute: (path: string, address: string, name: string) => `/flexecute/${path}?name=${name}&contract=${address}`,
     // App
     appStore: () => `/app-store`,
     appBuilder: () => `/app-builder`,
+    appCreate: ()=>`/app-builder/create`,
     // Assets
     assets: () => `/assets`,
     // Embedables

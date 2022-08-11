@@ -23,6 +23,7 @@ import {
 import { Image as ImageIcon } from "lucide-react";
 
 import { CheckIcon, ChevronRightIcon } from "@/modules/common";
+import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
 
 type FlexBuilderTemplateListItemProps = {
   template: FlexBuilderTemplateProps;
@@ -71,7 +72,7 @@ const FlexBuilderTemplateListItem: FC<FlexBuilderTemplateListItemProps> = ({
           </List>
         </Box>
         <Spacer />
-        <NextLink href={`flex-builder/${template.id}`} passHref>
+        <NextLink href={SITE_LINKS.flexBuilder(template.id)} passHref>
           <Button
             as="a"
             mt={10}
