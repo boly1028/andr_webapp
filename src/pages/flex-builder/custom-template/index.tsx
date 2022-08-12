@@ -1,16 +1,14 @@
 import type { NextPage } from "next";
 import { FileCheckIcon, Layout, PageHeader } from "@/modules/common";
 import { useMemo } from "react";
-import {
-  FlexBuilderForm,
-  StagingDocumentsModal,
-} from "@/modules/flex-builder";
+import { FlexBuilderForm, StagingDocumentsModal } from "@/modules/flex-builder";
 import { Box, Flex, Text } from "@/theme/ui-elements";
 import { DownloadFlexProps } from "@/modules/flex-builder/components/DownloadButton";
 import { UPLOAD_TEMPLATE } from "@/modules/flex-builder/components/FlexUploadTemplateCard";
 
 const FlexBuilderCustomTemplate: NextPage = () => {
   const template = useMemo(() => {
+    if (typeof window === "undefined") return;
     const storageData = sessionStorage.getItem("ANDROMEDA_TEMPLATE");
     if (storageData) {
       const jsonValue = JSON.parse(storageData) as DownloadFlexProps;
@@ -28,7 +26,9 @@ const FlexBuilderCustomTemplate: NextPage = () => {
       formData: object;
     },
     simulate = false,
-  ) => {};
+  ) => {
+    console.log(formData);
+  };
 
   //TODO: Setup staging availability flags for loading staging sections if passed
   const staging_available = false;

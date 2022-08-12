@@ -18,7 +18,7 @@ const FlexUploadTemplateCard: FC<FlexUploadTemplateCardProps> = (props) => {
   const handleFileInput = async (file: File) => {
     const json: JSONSchema7 = await parseJsonFromFile(file);
     sessionStorage.setItem("ANDROMEDA_TEMPLATE", JSON.stringify(json));
-    toast('Imported Template')
+    toast("Imported Template");
     router.push(SITE_LINKS.flexBuilderTemplate());
   };
 
