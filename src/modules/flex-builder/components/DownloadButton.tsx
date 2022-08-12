@@ -4,13 +4,13 @@ import type { JSONSchema7 } from "json-schema";
 
 import { DownloadIcon } from "@/modules/common";
 
-interface Props {
+export interface DownloadFlexProps {
   schema: JSONSchema7;
   uiSchema: JSONSchema7;
   formData: JSONSchema7;
 }
 
-function DownloadButton({ schema, uiSchema, formData }: Props) {
+function DownloadButton({ schema, uiSchema, formData }: DownloadFlexProps) {
   const [downloadUrl, setDownloadUrl] = useState<string | null>(null);
 
   useEffect(() => {
@@ -20,7 +20,7 @@ function DownloadButton({ schema, uiSchema, formData }: Props) {
 
     const flexExport: Record<string, any> = {
       schema,
-      "ui-schema": uiSchema,
+      uiSchema,
       formData,
     };
 

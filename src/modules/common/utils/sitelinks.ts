@@ -4,6 +4,7 @@ export const SITE_LINKS = {
     // Flex
     flexBuilderHome: () => `/flex-builder`,
     flexBuilder: (id: string) => `/flex-builder/${id}`,
+    flexBuilderTemplate: () => `/flex-builder/custom-template`,
     flexecute: (path: string, address: string, name: string) => `/flexecute/${path}?name=${name}&contract=${address}`,
     // App
     appStore: () => `/app-store`,
