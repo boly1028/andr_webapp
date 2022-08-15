@@ -8,9 +8,10 @@ import {
   FlexUploadTemplateCard,
 } from "@/modules/flex-builder";
 
-import { useAndromedaContext } from "@/lib/andrjs";
-import { useQueryTxByAddress } from "@/lib/graphql";
-import { useWallet } from "@/lib/wallet";
+/**
+ * Display all predefined templates
+ * @param {templateList} Array<FlexBuilderTemplateProps>
+ */
 
 type FlexBuilderPageProps = {
   templateList: Array<FlexBuilderTemplateProps>;
@@ -30,7 +31,10 @@ const FlexBuilderPage: FC<FlexBuilderPageProps> = ({ templateList }) => {
         spacing="4"
         my={8}
       >
+        {/* Flex upload template card */}
         <FlexUploadTemplateCard />
+
+        {/* All other predifined templates from templateList */}
         {templateList.map((template: FlexBuilderTemplateProps) => (
           <FlexBuilderTemplateListItem key={template.id} template={template} />
         ))}

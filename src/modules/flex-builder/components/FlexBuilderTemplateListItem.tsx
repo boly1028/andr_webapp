@@ -10,6 +10,10 @@ import { ChevronRightIcon } from "@/modules/common";
 import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
 import { FlexBuilderTemplateListItemCard } from ".";
 
+/**
+ * Flex Builder Template Card with button as link which routes to template builder form component
+ * @param {template} FlexBuilderTemplateProps
+ */
 type FlexBuilderTemplateListItemProps = {
   template: FlexBuilderTemplateProps;
 };

@@ -20,14 +20,20 @@ import { Image as ImageIcon } from "lucide-react";
 
 import { CheckIcon } from "@/modules/common";
 
+/**
+ * A Wrapper component for template cards in Flex Builder display Page.
+ * It helps in creating consistent and reusable component for flex builder cards
+ * @param {template} FlexBuilderTemplateProps
+ * @param {children} ReactChildren Components to render at bottom of card (like CTA button, Links, etc)
+ */
+
 type FlexBuilderTemplateListItemCardProps = {
   template: FlexBuilderTemplateProps;
 };
 
-const FlexBuilderTemplateListItemCard: FC<FlexBuilderTemplateListItemCardProps> = ({
-  template,
-  children,
-}) => {
+const FlexBuilderTemplateListItemCard: FC<
+  FlexBuilderTemplateListItemCardProps
+> = ({ template, children }) => {
   const wrapperBg = useColorModeValue("white", "gray.800");
   const containerBg = useColorModeValue("white", "gray.900");
   const titleColor = useColorModeValue("gray.700", "white");
@@ -68,6 +74,8 @@ const FlexBuilderTemplateListItemCard: FC<FlexBuilderTemplateListItemCardProps> 
           </List>
         </Box>
         <Spacer />
+
+        {/* Display child component here. Currently its CTA button and Links only but it can be anything */}
         {children}
       </Flex>
     </Box>

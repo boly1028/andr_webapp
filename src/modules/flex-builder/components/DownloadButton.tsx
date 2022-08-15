@@ -4,6 +4,12 @@ import type { JSONSchema7 } from "json-schema";
 
 import { DownloadIcon } from "@/modules/common";
 
+/**
+ * Download flex component
+ * @param {schema} SchemaType
+ * @param {uiSchema} Record<string, JSONSchema7
+ * @param {formData} Record<string, JSONSchema7>
+ */
 export interface DownloadFlexProps {
   schema: JSONSchema7;
   uiSchema: JSONSchema7;

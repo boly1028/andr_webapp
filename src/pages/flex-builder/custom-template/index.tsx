@@ -6,9 +6,21 @@ import { Box, Flex, Text } from "@/theme/ui-elements";
 import { DownloadFlexProps } from "@/modules/flex-builder/components/DownloadButton";
 import { UPLOAD_TEMPLATE } from "@/modules/flex-builder/components/FlexUploadTemplateCard";
 
+
+/**
+ * Flex Builder Custom template page which takes flex from session storage and renders
+ * as form builder
+ */
 const FlexBuilderCustomTemplate: NextPage = () => {
+
+  /** Template contains same structure as Blank App with schema, formData, uiSchema added from flex file uploaded by user */
   const template = useMemo(() => {
+    /**Session Storage is not available for SSR, Only render when window is defined (Client Side) */
     if (typeof window === "undefined") return;
+
+    /** Get Flex from storage. If any validation is required, add it here. Add the same validation
+     * during upload also so user knows early if wrong file is uploaded
+     */
     const storageData = sessionStorage.getItem("ANDROMEDA_TEMPLATE");
     if (storageData) {
       const jsonValue = JSON.parse(storageData) as DownloadFlexProps;
@@ -27,6 +39,7 @@ const FlexBuilderCustomTemplate: NextPage = () => {
     },
     simulate = false,
   ) => {
+    /** TODO: Handle submission of form here. It will be instatiate call as this will always be a new contract */
     console.log(formData);
   };
 
