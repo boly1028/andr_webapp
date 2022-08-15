@@ -107,10 +107,16 @@ const WalletConnected = () => {
                   isFullWidth
                   fontWeight={500}
                   color="gray.700"
+                  onClick={() => {
+                    navigator.clipboard.writeText(wallet?.address);
+                  }}
                 >
                   Copy address
                 </Button>
                 <Button
+                  as="a"
+                  href={`https://testnet.mintscan.io/juno-testnet/account/${wallet?.address}`}
+                  target="_blank"
                   leftIcon={<ExternalLinkIcon boxSize={4} />}
                   variant="outline"
                   isFullWidth
@@ -120,7 +126,7 @@ const WalletConnected = () => {
                   Explorer
                 </Button>
               </HStack>
-              <Box
+              {/* <Box
                 border="1px solid"
                 borderColor="gray.300"
                 borderRadius="md"
@@ -132,7 +138,7 @@ const WalletConnected = () => {
                     return <HoldingItem key={name} logo={logo} name={name} />;
                   })}
                 </VStack>
-              </Box>
+              </Box> */}
               <Button
                 leftIcon={<LogOutIcon boxSize={4} />}
                 variant="outline"
