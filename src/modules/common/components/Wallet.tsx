@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   Flex,
   HStack,
@@ -10,8 +9,6 @@ import {
   PopoverContent,
   PopoverTrigger,
   Text,
-  useDisclosure,
-  VStack,
 } from "@chakra-ui/react";
 import { FC } from "react";
 
@@ -24,8 +21,8 @@ import {
   PlusIcon,
   ProfileIcon,
   truncate,
+  CopyButton,
 } from "@/modules/common";
-import { WalletModal } from "@/modules/modals";
 import useWalletModal from "@/modules/modals/hooks/useWalletModal";
 
 const TOKENS = [
@@ -101,18 +98,16 @@ const WalletConnected = () => {
                 readOnly
               />
               <HStack mb={2}>
-                <Button
+                <CopyButton
                   leftIcon={<CopyIcon boxSize={4} />}
                   variant="outline"
                   isFullWidth
                   fontWeight={500}
                   color="gray.700"
-                  onClick={() => {
-                    navigator.clipboard.writeText(wallet?.address);
-                  }}
+                  text={wallet?.address}
                 >
                   Copy address
-                </Button>
+                </CopyButton>
                 <Button
                   as="a"
                   href={`https://testnet.mintscan.io/juno-testnet/account/${wallet?.address}`}
