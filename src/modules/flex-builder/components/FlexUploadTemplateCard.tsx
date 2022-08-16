@@ -79,9 +79,9 @@ const FlexUploadTemplateCard: FC<FlexUploadTemplateCardProps> = (props) => {
 
 export const UPLOAD_TEMPLATE: FlexBuilderTemplateProps = {
   id: "import",
-  name: "Import Template",
+  name: "Imported Template",
   icon: "",
-  description: "Import your template and start from there.",
+  description: "",
   opts: [
     "Import saved template",
     "Add on your prefered modules",

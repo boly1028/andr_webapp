@@ -31,11 +31,16 @@ const FlexBuilderPage: FC<FlexBuilderPageProps> = ({ templateList }) => {
         spacing="4"
         my={8}
       >
+        {/* Render First template in templateList */}
+        {templateList.slice(0, 1).map((template) => (
+          <FlexBuilderTemplateListItem key={template.id} template={template} />
+        ))}
+        
         {/* Flex upload template card */}
         <FlexUploadTemplateCard />
 
         {/* All other predifined templates from templateList */}
-        {templateList.map((template: FlexBuilderTemplateProps) => (
+        {templateList.slice(1).map((template) => (
           <FlexBuilderTemplateListItem key={template.id} template={template} />
         ))}
       </SimpleGrid>
