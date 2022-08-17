@@ -1,7 +1,7 @@
 import { AndromedaIcon, AppStore, BookOpenIcon, FolderOpenIcon } from "@/modules/common";
 import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
-import { app } from "@/theme/icons/classifiers";
 import { Flex, VStack, Text, HStack, Icon, Stack } from "@chakra-ui/react";
+import { Layers } from "lucide-react";
 import React, { FC } from "react";
 import { LandingAppsCard } from ".";
 
@@ -32,7 +32,7 @@ const LandingHero: FC<LandingHeroProps> = () => {
         </Text>
         <Flex direction='row' justifyContent='center' w="full" gap="6" wrap="wrap">
           <LandingAppsCard
-            icon={<Icon as={app} boxSize="16" />}
+            icon={<Icon as={Layers} boxSize="16" />}
             link={SITE_LINKS.flexBuilderHome()}
             title="Build an App"
           />
