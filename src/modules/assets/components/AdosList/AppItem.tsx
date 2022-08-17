@@ -1,7 +1,6 @@
 import useQueryAppInfo from "@/lib/graphql/hooks/useQueryAppInfo";
 import React, { FC } from "react";
 import { AdoAsset } from "../..";
-import * as classifierIconList from "@/theme/icons/classifiers"; //Load classifier icon list for dynamic assignamnets (redeclared as classifierIcons:any later)
 
 import { Flex, Box, Icon, Button } from "@/theme/ui-elements";
 import InlineStat from "./InlineStat";
@@ -11,6 +10,7 @@ import AdoItem from "./AdoItem";
 import { CloseIcon } from "@chakra-ui/icons";
 import { Center, Stack } from "@chakra-ui/layout";
 import { Skeleton } from "@chakra-ui/skeleton";
+import ClassifierIcon from "@/theme/icons/classifiers";
 
 interface AppItemProps {
   app: AdoAsset;
@@ -29,8 +29,6 @@ const AppItem: FC<AppItemProps> = ({ app }) => {
   const $classifier = "app";
   const $version = "1.0.1";
 
-  const classifierIcons: any = classifierIconList;
-
   return (
     <Flex
       border="1px solid"
@@ -48,11 +46,7 @@ const AppItem: FC<AppItemProps> = ({ app }) => {
             {/* Disable auto loading icon for icon variance based on class and classifier
           {newIcon} */}
             {/* Swap Icon color based on defined class */}
-            {classifierIcons[`${$classifier}`] ? (
-              <Icon as={classifierIcons[`${$classifier}`]} boxSize={6} />
-            ) : (
-              <Icon as={classifierIcons[`${$classifier}`]} boxSize={6} />
-            )}
+            <ClassifierIcon schemaClassifier={$classifier} boxSize={6} />
           </Flex>
         </Box>
 
@@ -109,7 +103,7 @@ const AppItem: FC<AppItemProps> = ({ app }) => {
           />
         )}
         {appInfo?.components?.length === 0 && (
-          <Center pt='4'>
+          <Center pt="4">
             <FallbackPlaceholder
               title="Empty list"
               desc="You don't have any components associated with this app."

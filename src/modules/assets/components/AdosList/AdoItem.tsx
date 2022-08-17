@@ -1,7 +1,6 @@
 import React, { FC } from "react";
 import NextLink from "next/link";
 import { AppComponent } from "@/lib/graphql/hooks/useQueryAppInfo";
-import * as classifierIconList from "@/theme/icons/classifiers"; //Load classifier icon list for dynamic assignamnets (redeclared as classifierIcons:any later)
 
 import { v4 as keyGen } from "uuid"; // Used as key assignments for function elements
 
@@ -20,6 +19,7 @@ import {
   MenuItem,
 } from "@/theme/ui-elements";
 import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
+import ClassifierIcon from "@/theme/icons/classifiers";
 
 interface AdoItemProps {
   ado: AppComponent;
@@ -30,8 +30,6 @@ const AdoItem: FC<AdoItemProps> = ({ ado, appAddress }) => {
   const { data: adopData, isLoading } = useGetSchemaJson<{
     modifiers: string[];
   }>(`${ado.adoType}/${$version}/ADOP`);
-
-  const classifierIcons: any = classifierIconList;
 
   return (
     <Flex
@@ -51,11 +49,7 @@ const AdoItem: FC<AdoItemProps> = ({ ado, appAddress }) => {
             {/* Disable auto loading icon for icon variance based on class and classifier
           {newIcon} */}
             {/* Swap Icon color based on defined class */}
-            {classifierIcons[`${ado.adoType}`] ? (
-              <Icon as={classifierIcons[`${ado.adoType}`]} boxSize={6} />
-            ) : (
-              <Icon as={classifierIcons[`${ado.adoType}`]} boxSize={6} />
-            )}
+            <ClassifierIcon schemaClassifier={ado.adoType as any} boxSize={6} />
           </Flex>
         </Box>
 

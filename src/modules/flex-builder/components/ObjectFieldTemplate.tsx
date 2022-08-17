@@ -27,8 +27,8 @@ const { canExpand } = utils;
 
 interface ObjectFieldTemplateExtendedProps extends ObjectFieldTemplateProps {
   schema: JSONSchema7 & {
-    class: any;
-    classifier: any;
+    class?: any;
+    classifier?: any;
   };
 }
 
