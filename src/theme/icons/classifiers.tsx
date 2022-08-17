@@ -68,6 +68,13 @@ export const CLASSIFIER_ICON = {
   default: Box,
 } as const;
 
+/**
+ * Types are derived from the keys defined above. This will force you to typecast any
+ * to the value you are passing here. However once a proper type system is present for 
+ * schema and its related value, we can use it to synchronize everywhere.
+ * This typecheck will help if you are directly using this component instead of fetching
+ * class/classifier types from schema
+ */
 interface ClassifierIconProps extends IconProps {
   schemaClassifier?: keyof typeof CLASSIFIER_ICON;
   schemaClass?: keyof typeof DEFAULT_CLASS_ICON;
