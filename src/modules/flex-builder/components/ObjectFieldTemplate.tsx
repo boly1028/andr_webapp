@@ -1,5 +1,6 @@
 // Panel container for Flex-Builder: Handles panel name change assosciations
 
+import ClassifierIcon from "@/theme/icons/classifiers";
 import {
   Box,
   Flex,
@@ -12,6 +13,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { ObjectFieldTemplateProps, utils } from "@rjsf/core";
+import { JSONSchema7 } from "json-schema";
 import {
   CheckCircle as CheckCircleIcon,
   Copy as Duplicate,
@@ -23,7 +25,14 @@ import AddButton from "./AddButton";
 
 const { canExpand } = utils;
 
-const ObjectFieldTemplate = (props: ObjectFieldTemplateProps) => {
+interface ObjectFieldTemplateExtendedProps extends ObjectFieldTemplateProps {
+  schema: JSONSchema7 & {
+    class: any;
+    classifier: any;
+  };
+}
+
+const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
   const {
     DescriptionField,
     description,
@@ -43,6 +52,7 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateProps) => {
 
   const hasWrapper = formData["$removable"] !== undefined;
   const hasGroup = schema["ui:options"]?.["group"];
+  console.log(schema, "SCHEMA");
 
   if (hasWrapper) {
     return (
@@ -60,7 +70,13 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateProps) => {
               bg="module.500"
               p={1.5}
             >
-              <Icon as={CheckCircleIcon} boxSize={5} color="white" />
+              <ClassifierIcon
+                schemaClass={schema?.class}
+                schemaClassifier={schema?.classifier}
+                boxSize={5}
+                color="white"
+              />
+              {/* <Icon as={CheckCircleIcon} boxSize={5} color="white" /> */}
             </Flex>
             <Box>
               <Text fontSize="sm" color="gray.700" fontWeight={600} mb={1}>

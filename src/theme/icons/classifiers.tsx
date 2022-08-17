@@ -69,20 +69,16 @@ export const CLASSIFIER_ICON = {
 } as const;
 
 interface ClassifierIconProps extends IconProps {
-  schemaClassifier: keyof typeof CLASSIFIER_ICON;
-  schemaClass: keyof typeof DEFAULT_CLASS_ICON;
+  schemaClassifier?: keyof typeof CLASSIFIER_ICON;
+  schemaClass?: keyof typeof DEFAULT_CLASS_ICON;
 }
 const ClassifierIcon: FC<ClassifierIconProps> = (props) => {
-  const {
-    schemaClassifier = "default",
-    schemaClass = "default",
-    ...iconProps
-  } = props;
+  const { schemaClassifier, schemaClass, ...iconProps } = props;
+
+  const iconKey = schemaClassifier ?? schemaClass ?? "";
 
   const icon =
-    CLASSIFIER_ICON[schemaClassifier] ??
-    CLASSIFIER_ICON[schemaClass] ??
-    CLASSIFIER_ICON.default;
+    CLASSIFIER_ICON[iconKey.toLowerCase()] ?? CLASSIFIER_ICON.default;
 
   return <Icon as={icon} color={`${schemaClass}` + ".600"} {...iconProps} />;
 };
