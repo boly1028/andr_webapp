@@ -1,3 +1,4 @@
+import { cloneDeep } from "@apollo/client/utilities";
 import { isUndefined } from "util";
 import { v4 as uuidv4 } from "uuid";
 
@@ -15,7 +16,7 @@ export const addSchemaModule = (
     const schemaProperties = defaults?.schemaProperties || {};
     const _uiSchema = defaults?.uiSchema || {};
     const _formData = defaults?.formData || {};
-
+    
     const updatedData = updateSchemaModule(data, {
         'schema': {},
         'form-data': {},
@@ -103,7 +104,8 @@ export const updateSchemaModule = (
 }
 
 
-export const deleteSchemaModule = (uuid: string, defaults?: SchemaObject) => {
+export const deleteSchemaModule = (uuid: string, oriDefaults?: SchemaObject) => {
+    const defaults = cloneDeep(oriDefaults)
     const schemaDefinitions = defaults?.schemaDefinitions || {};
     const schemaProperties = defaults?.schemaProperties || {};
 

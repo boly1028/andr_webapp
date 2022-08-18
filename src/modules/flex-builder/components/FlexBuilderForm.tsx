@@ -1,7 +1,14 @@
 // Flex-Builder Form container with handling for: schema processing, module management routines
 // updateForm(), addSchemaModule(), removeSchemaModule(), changeSchemaID
 // addModule, removeModule, deleteModule, changePanelName
-import React, { FC, useState, useRef, useCallback } from "react";
+import React, {
+  FC,
+  useState,
+  useRef,
+  useCallback,
+  useEffect,
+  useMemo,
+} from "react";
 import { Button, HStack, Flex, IconButton } from "@chakra-ui/react";
 import { JSONSchema7 } from "json-schema";
 import Form from "@rjsf/chakra-ui";
@@ -45,9 +52,9 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
   isLoading,
   onEstimate,
 }) => {
-  const [schema, setSchema] = useState(template.schema);
-  const [uiSchema, setUiSchema] = useState(template.uiSchema);
-  const [formData, setFormData] = useState(template.formData);
+  const [schema, setSchema] = useState(cloneDeep(template.schema));
+  const [uiSchema, setUiSchema] = useState(cloneDeep(template.uiSchema));
+  const [formData, setFormData] = useState(cloneDeep(template.formData));
 
   const [dirty, setDirty] = useState(false); // Flag for monitoring if data has been entered which is used to set page exit warnings prior to data loss from leaving page
 
@@ -66,6 +73,7 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
 
   const deleteModule = useCallback(
     (uuid: string) => {
+      console.log(formData);
       const form = deleteSchemaModule(uuid, {
         schemaDefinitions: schema?.definitions ?? {},
         schemaProperties: schema?.properties ?? {},
@@ -78,17 +86,24 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
     [schema, uiSchema, formData],
   );
 
+  useEffect(() => {
+    console.log("FORM DATA CHANGE", formData);
+  }, [formData]);
+  console.log(formData, "Form Data");
+
   const toggleModule = useCallback(
     (uuid: string, enabled: boolean) => {
       //TODO: Replace from split_pop, as it will conflict with new panel renaming feature
       //////////////////////////////////////////////////// New panel name means that the evaultaion of _ (which is from "root_") could be true, but not desired for removal (e.g. "a_panel_name")
-      const id = uuid.split("_").pop();
-      const cloneFormData = cloneDeep(formData);
-      cloneFormData[`${id}`]["$enabled"] = enabled;
-      setFormData(cloneFormData);
-      console.log("formData", cloneFormData);
+      setFormData((prev) => {
+        const id = uuid.split("_").pop();
+        const cloneData = cloneDeep(prev);
+        cloneData[`${id}`]["$enabled"] = enabled;
+        return cloneData;
+      });
+      console.log(formData, "TOGGLE");
     },
-    [formData],
+    [setFormData, formData],
   );
 
   const addModule = useCallback(
@@ -152,6 +167,10 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
     [formData, schema, uiSchema],
   );
 
+  const FORM_CONTEXT_UPDATE = useMemo(() => {
+    return Math.random();
+  }, [formData, uiSchema, schema]);
+
   return (
     <Form
       schema={schema as JSONSchema7}
@@ -163,12 +182,14 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
         deleteModule: deleteModule,
         changePanelName: changePanelName,
         duplicatePanel: duplicatePanel,
+        FORM_CONTEXT_UPDATE,
       }}
       onChange={({ formData: _formData }) => {
         if (!dirty) {
           setDirty(true);
         }
-        setFormData(_formData); // Passed formData Trace
+        console.log("ONCHAGE", _formData);
+        setFormData(_formData);
       }}
       onSubmit={onSubmit}
       onError={onError}
