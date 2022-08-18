@@ -10,13 +10,14 @@ import { v4 as uuidv4 } from "uuid";
 export const addSchemaModule = (
     uuid: string | undefined,
     data: SchemaModule,
-    defaults?: SchemaObject,
+    _defaults?: SchemaObject,
 ) => {
+    const defaults = cloneDeep(_defaults);
     const schemaDefinitions = defaults?.schemaDefinitions || {};
     const schemaProperties = defaults?.schemaProperties || {};
     const _uiSchema = defaults?.uiSchema || {};
     const _formData = defaults?.formData || {};
-    
+
     const updatedData = updateSchemaModule(data, {
         'schema': {},
         'form-data': {},
@@ -48,9 +49,9 @@ export const addSchemaModule = (
 
 export const updateSchemaModule = (
     data: SchemaModule,
-    defaults: SchemaModule,
+    _defaults: SchemaModule,
 ) => {
-
+    const defaults = cloneDeep(_defaults);
     const _definition = {
         ...(defaults['schema'] ?? {}),
         ...(data["schema"] ?? {})
@@ -132,7 +133,9 @@ export const deleteSchemaModule = (uuid: string, oriDefaults?: SchemaObject) => 
     };
 };
 
-export const changeSchemaID = (oldPanelName: string, newPanelName: string, defaults?: SchemaObject) => {
+export const changeSchemaID = (oldPanelName: string, newPanelName: string, _defaults?: SchemaObject) => {
+    const defaults = cloneDeep(_defaults);
+
     const schemaDefinitions = defaults?.schemaDefinitions || {};
     const schemaProperties = defaults?.schemaProperties || {};
     const _uiSchema = defaults?.uiSchema || {};
@@ -173,7 +176,9 @@ export const changeSchemaID = (oldPanelName: string, newPanelName: string, defau
 };
 
 
-export const duplicatePanelSchema = (panelName: string, defaults?: SchemaObject) => {
+export const duplicatePanelSchema = (panelName: string, _defaults?: SchemaObject) => {
+    const defaults = cloneDeep(_defaults);
+
     const schemaDefinitions = defaults?.schemaDefinitions || {};
     const schemaProperties = defaults?.schemaProperties || {};
 

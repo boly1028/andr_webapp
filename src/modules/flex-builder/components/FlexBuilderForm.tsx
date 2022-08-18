@@ -73,7 +73,6 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
 
   const deleteModule = useCallback(
     (uuid: string) => {
-      console.log(formData);
       const form = deleteSchemaModule(uuid, {
         schemaDefinitions: schema?.definitions ?? {},
         schemaProperties: schema?.properties ?? {},
@@ -86,11 +85,6 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
     [schema, uiSchema, formData],
   );
 
-  useEffect(() => {
-    console.log("FORM DATA CHANGE", formData);
-  }, [formData]);
-  console.log(formData, "Form Data");
-
   const toggleModule = useCallback(
     (uuid: string, enabled: boolean) => {
       //TODO: Replace from split_pop, as it will conflict with new panel renaming feature
@@ -101,7 +95,6 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
         cloneData[`${id}`]["$enabled"] = enabled;
         return cloneData;
       });
-      console.log(formData, "TOGGLE");
     },
     [setFormData, formData],
   );
@@ -167,6 +160,14 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
     [formData, schema, uiSchema],
   );
 
+  /**
+   * A Constant which update on change of its dependency.
+   * It is needed to update the `formContext` in rjsf because they skip function check
+   * for rerender which cause components to use older functions until it has some updated
+   * non-functional value (Anshu)
+   * NOTE- It may cause unnecessary rerender but I hope it wont be affecting performance as we
+   * do not have large list of modules. Though using memo will considerably decrease rerenders
+   */
   const FORM_CONTEXT_UPDATE = useMemo(() => {
     return Math.random();
   }, [formData, uiSchema, schema]);
@@ -188,7 +189,6 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
         if (!dirty) {
           setDirty(true);
         }
-        console.log("ONCHAGE", _formData);
         setFormData(_formData);
       }}
       onSubmit={onSubmit}
