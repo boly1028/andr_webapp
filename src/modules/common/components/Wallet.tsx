@@ -24,6 +24,7 @@ import {
   CopyButton,
 } from "@/modules/common";
 import useWalletModal from "@/modules/modals/hooks/useWalletModal";
+import { MINTSCAN_TESTNET_BASEURL } from "@/constants/constants";
 
 const TOKENS = [
   {
@@ -110,7 +111,7 @@ const WalletConnected = () => {
                 </CopyButton>
                 <Button
                   as="a"
-                  href={`https://testnet.mintscan.io/juno-testnet/account/${wallet?.address}`}
+                  href={`${MINTSCAN_TESTNET_BASEURL}/account/${wallet?.address}`}
                   target="_blank"
                   leftIcon={<ExternalLinkIcon boxSize={4} />}
                   variant="outline"

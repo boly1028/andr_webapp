@@ -11,3 +11,6 @@ export const SMALLEST = 1e6;
 export const ONE_TOKEN = 1000000;
 
 // export const GRAPHQL = process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT;
+
+// Mintscan BaseUrl
+export const MINTSCAN_TESTNET_BASEURL = process.env.MINTSCAN_TESTNET_BASEURL as string;
