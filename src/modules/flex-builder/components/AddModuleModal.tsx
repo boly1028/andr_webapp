@@ -27,7 +27,7 @@ import {
 } from "@/theme/ui-elements";
 
 import { PlusIcon, SearchIcon } from "@/theme/icons";
-import * as classifierIconList from "@/theme/icons/classifiers"; //Load classifier icon list for dynamic assignamnets (redeclared as classifierIcons:any later)
+import ClassifierIcon from "@/theme/icons/classifiers";
 
 interface AddModuleModalItemProps {
   data: any;
@@ -42,12 +42,6 @@ function AddModuleModalItem({
   disabled = false,
   isActive = false,
 }: AddModuleModalItemProps) {
-  // Converting imported icon object to type any to avoid string based key reference conflicts in dynamic assosciation calls
-  const classifierIcons: any = classifierIconList;
-
-  // Assign classifier data to variables for eaiser legibility and case correction on icon assignments
-  const classIconType = data?.schema?.class;
-  const classifierIconType = _.lowerCase(data?.schema?.classifier);
 
   // Debugging log
   // console.log("AddModuleModalItem::disabled", disabled);
@@ -82,20 +76,11 @@ function AddModuleModalItem({
             {/* Swap Icon color based on defined class */}
 
             {/* <ScanIcon color={`${data?.schema?.class}` + ".600"} boxSize={6} /> */}
-
-            {classifierIconType ? (
-              <Icon
-                as={classifierIcons[classifierIconType]}
-                color={`${classIconType}` + ".600"}
-                boxSize={6}
-              />
-            ) : (
-              <Icon
-                as={classifierIcons[classIconType]}
-                color={`${classIconType}` + ".600"}
-                boxSize={6}
-              />
-            )}
+            <ClassifierIcon
+              schemaClass={data?.schema?.class}
+              schemaClassifier={data?.schema?.classifier}
+              boxSize={6}
+            />
           </Flex>
         </Box>
         <Box flex={1}>
