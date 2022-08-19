@@ -4,7 +4,7 @@ import {
   useWallet,
   useWalletContext,
 } from "@/lib/wallet";
-import { Box, Button, Heading } from "@chakra-ui/react";
+import { Box, Button, Heading, Image, Text } from "@chakra-ui/react";
 import { FC, useEffect } from "react";
 import { useGlobalModalContext } from "../hooks";
 
@@ -31,11 +31,17 @@ const WalletModal: FC = () => {
           mb={4}
           py={8}
           onClick={connect}
+          gap="2"
           disabled={keplrStatus !== KeplrConnectionStatus.Ok}
         >
-          {keplrStatus === KeplrConnectionStatus.NotInstalled
-            ? "Install Keplr to Connect"
-            : "Keplr"}
+          {keplrStatus === KeplrConnectionStatus.NotInstalled ? (
+            "Install Keplr to Connect"
+          ) : (
+            <>
+            <Image src="/keplr.png" h='8' />
+            <Text fontSize='md'>Keplr</Text>
+            </>
+          )}
         </Button>
       </Box>
     </>

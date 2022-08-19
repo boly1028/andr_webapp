@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   Flex,
   HStack,
@@ -10,8 +9,6 @@ import {
   PopoverContent,
   PopoverTrigger,
   Text,
-  useDisclosure,
-  VStack,
 } from "@chakra-ui/react";
 import { FC } from "react";
 
@@ -24,9 +21,10 @@ import {
   PlusIcon,
   ProfileIcon,
   truncate,
+  CopyButton,
 } from "@/modules/common";
-import { WalletModal } from "@/modules/modals";
 import useWalletModal from "@/modules/modals/hooks/useWalletModal";
+import { MINTSCAN_TESTNET_BASEURL } from "@/constants/constants";
 
 const TOKENS = [
   {
@@ -101,16 +99,20 @@ const WalletConnected = () => {
                 readOnly
               />
               <HStack mb={2}>
-                <Button
+                <CopyButton
                   leftIcon={<CopyIcon boxSize={4} />}
                   variant="outline"
                   isFullWidth
                   fontWeight={500}
                   color="gray.700"
+                  text={wallet?.address}
                 >
                   Copy address
-                </Button>
+                </CopyButton>
                 <Button
+                  as="a"
+                  href={`${MINTSCAN_TESTNET_BASEURL}/account/${wallet?.address}`}
+                  target="_blank"
                   leftIcon={<ExternalLinkIcon boxSize={4} />}
                   variant="outline"
                   isFullWidth
@@ -120,7 +122,7 @@ const WalletConnected = () => {
                   Explorer
                 </Button>
               </HStack>
-              <Box
+              {/* <Box
                 border="1px solid"
                 borderColor="gray.300"
                 borderRadius="md"
@@ -132,7 +134,7 @@ const WalletConnected = () => {
                     return <HoldingItem key={name} logo={logo} name={name} />;
                   })}
                 </VStack>
-              </Box>
+              </Box> */}
               <Button
                 leftIcon={<LogOutIcon boxSize={4} />}
                 variant="outline"

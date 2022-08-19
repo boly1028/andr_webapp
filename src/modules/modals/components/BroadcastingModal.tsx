@@ -10,6 +10,7 @@ import type {
   InstantiateResult,
 } from "@cosmjs/cosmwasm-stargate";
 import { truncate } from "@/modules/common";
+import { MINTSCAN_TESTNET_BASEURL } from "@/constants/constants";
 
 interface OptionalProps {
   onNextStage?: () => void;
@@ -79,7 +80,7 @@ const BroadcastingModal: FC<TransactionModalProps & OptionalProps> = memo(
           <Text sx={{ fontWeight: "bold" }}>Transaction #</Text>
           <Text mt="6px" style={{ color: "#7F56D9" }}>
             <a
-              href={`https://testnet.mintscan.io/juno-testnet/txs/${transactionHash}`}
+              href={`${MINTSCAN_TESTNET_BASEURL}/txs/${transactionHash}`}
               target="_blank"
               rel="noreferrer noopener"
             >
@@ -93,7 +94,7 @@ const BroadcastingModal: FC<TransactionModalProps & OptionalProps> = memo(
               <Text sx={{ fontWeight: "bold" }}>Contract Address</Text>
               <Text mt="6px" style={{ color: "#7F56D9" }}>
                 <a
-                  href={`https://testnet.mintscan.io/juno-testnet/account/${
+                  href={`${MINTSCAN_TESTNET_BASEURL}/account/${
                     (result as InstantiateResult).contractAddress
                   }`}
                   target="_blank"

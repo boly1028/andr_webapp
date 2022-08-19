@@ -13,5 +13,6 @@ export { default as Loader } from "./Loader";
 export { default as Coin } from "./Coin";
 export { default as ProgressBar } from "./ProgressBar";
 export { default as FallbackPlaceholder } from './FallbackPlaceholder'
+export { default as CopyButton } from "./CopyButton";
 
 export * from "./icons";
