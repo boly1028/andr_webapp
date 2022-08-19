@@ -20,7 +20,7 @@ The andromeda web-app repo is responsible for our web application which is a rea
 | app-builder| App building page to build apps using drag-and-drop options and connections.|
 | app-store | Page containing pre-build templates of popular apps.|
 | dashboard | Dashboard page allowing quick navigation to the different parts of the app. |
-| embedibles| Page of embedibles which are plugins to be integrated with web-3 apps. |
+| embedables| Page of embedibles which are plugins to be integrated with web-3 apps. |
 | flex-builder | Page that allows custom building of our ADOs. Contains starting templates. |
 | learn | Page dedicated to teach users about Andromeda specific terms and how to navigate and operate the web-app. |
 
