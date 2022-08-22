@@ -53,6 +53,8 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
   } = props;
 
   const openPanelRenameModal = usePanelRenameModal();
+
+  /**Extract schema Id (from rjsf idSchema) used to reference in json */
   const currentSchemaId = useMemo(() => {
     let rjsfId = idSchema.$id;
     if (rjsfId.slice(0, 5) === "root_") {
