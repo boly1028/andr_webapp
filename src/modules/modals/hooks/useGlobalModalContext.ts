@@ -1,11 +1,12 @@
 import { createContext, useContext } from "react";
 import type { ModalProps } from "../types";
 
+type ExtractModalParameters<A, T> = A extends { modalType: T } ? Omit<A, 'modalType'> : never
 export interface GlobalModalContextProps {
   isOpen: boolean;
-  open: <T extends ModalProps>(
-    type: T["modalType"],
-    props?: Omit<T, "modalType">,
+  open: <T extends ModalProps['modalType']>(
+    type: T,
+    props?: ExtractModalParameters<ModalProps, T>,
     onClose?: () => Promise<void>,
   ) => void;
   close: () => void;

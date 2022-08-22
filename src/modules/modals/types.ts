@@ -5,6 +5,7 @@ export enum ModalType {
   Transaction = "transaction",
   Wallet = "wallet",
   Confirmation = "confirmation",
+  PanelRename = "panelrename"
 }
 
 export interface ExecuteTransactionModalProps {
@@ -38,7 +39,18 @@ export interface ConfirmationModalProps {
   modalType: ModalType.Confirmation;
 }
 
+export interface PanelRenameModalProps {
+  callback: (newName: string) => Promise<any> | any;
+  title?: string;
+  body?: string;
+  acceptButtonText?: string;
+  modalType: ModalType.PanelRename;
+  reservedNames: string[];
+  defaultName:string;
+}
+
 export type ModalProps =
   | TransactionModalProps
   | WalletModalProps
-  | ConfirmationModalProps;
+  | ConfirmationModalProps
+  | PanelRenameModalProps;

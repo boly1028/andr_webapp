@@ -130,31 +130,13 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
 
   // Replicate an existing panel identification key with new name
   const changePanelName = useCallback(
-    (oldPannelName: any) => {
-      //if start of panel name is "root_", then reference with prefix excluded
-      if (oldPannelName.slice(0, 5) === "root_") {
-        oldPannelName = oldPannelName.slice(5);
-      }
-      const newPanelName: string =
-        prompt("Change the assigned name of this component.", oldPannelName) ||
-        oldPannelName;
-
-      const form = changeSchemaID(oldPannelName, newPanelName, {
+    (newName: string, oldName:string) => {
+      const form = changeSchemaID(oldName, newName, {
         schemaDefinitions: schema?.definitions ?? {},
         schemaProperties: schema?.properties ?? {},
         uiSchema: uiSchema,
         formData: formData,
       });
-
-      // notify the user the panel name is alre3ady declared and needs to be retried
-      if (!form) {
-        alert(
-          "The name provided already exists. Please try again with a new value",
-        );
-        return;
-      }
-
-      console.log("changeSchemaID form:", form);
       updateForm(form);
     },
     [formData, schema, uiSchema],
@@ -183,6 +165,7 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
         deleteModule: deleteModule,
         changePanelName: changePanelName,
         duplicatePanel: duplicatePanel,
+        schema,
         FORM_CONTEXT_UPDATE,
       }}
       onChange={({ formData: _formData }) => {
