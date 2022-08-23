@@ -23,7 +23,7 @@ const AppItem: FC<AppItemProps> = ({ app }) => {
   const disclosureProps = getDisclosureProps();
 
   const $classifier = "app";
-  const $version = "1.0.1";
+  const $version = "0.1.0";
 
   return (
     <Flex
@@ -57,7 +57,10 @@ const AppItem: FC<AppItemProps> = ({ app }) => {
       <InlineStat label="Version" value={version} />
     </Box> */}
         <Box flex={1}>
-          <InlineStat label="Block Height" value={app.height?.toString()} />
+          <InlineStat
+            label="Block Height"
+            value={app.lastUpdatedHeight?.toString()}
+          />
         </Box>
         <Box flex={1}>
           <InlineStat
@@ -89,10 +92,15 @@ const AppItem: FC<AppItemProps> = ({ app }) => {
           </Stack>
         )}
         {error && (
-          <FallbackPlaceholder
-            title="ERROR!"
-            desc="Something went wrong, we were not able to fetch data properly"
-          />
+          <Center pt="4">
+            <FallbackPlaceholder
+              title="ERROR!"
+              desc={
+                error.message ||
+                "Something went wrong, we were not able to fetch data properly"
+              }
+            />
+          </Center>
         )}
         {appInfo?.components?.length === 0 && (
           <Center pt="4">

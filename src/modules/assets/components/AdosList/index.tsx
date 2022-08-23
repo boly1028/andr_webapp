@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useMemo, useState } from "react";
 import { Box } from "@/theme/ui-elements";
 import { useQueryAssets } from "@/lib/graphql";
 import { useWallet } from "@/lib/wallet";
@@ -6,18 +6,39 @@ import AppItem from "./AppItem";
 import { Create, FallbackPlaceholder } from "@/modules/common";
 import { Skeleton } from "@chakra-ui/skeleton";
 import { Center, Stack } from "@chakra-ui/layout";
+import InfiniteScroll from "react-infinite-scroll-component";
 
+const LIMIT = 10;
 const AdosList: FC = () => {
   const wallet = useWallet();
-  // TODO: IMPLEMENT PAGINATION
-  const [offset] = useState<number>(0);
-  const [limit] = useState<number>(25);
-  const { data, loading, error } = useQueryAssets(
+
+  const { data, loading, error, refetch } = useQueryAssets(
     wallet?.address ?? "",
-    limit,
-    offset,
+    LIMIT,
+    0,
   );
-  console.log(data, loading, error);
+  const [prevData, setPrevData] = useState<typeof data>([]);
+
+  const hasMore = useMemo(() => {
+    return !data || data.length !== 0;
+  }, [data]);
+
+
+  const fetchMoreAsset = async () => {
+    await refetch({
+      offset: prevData?.length ?? 0,
+    });
+  };
+  useEffect(() => {
+    setPrevData((prev) => {
+      let newList = prev ?? [];
+      const filteredData =
+        data?.filter((d) => !newList.some((nd) => nd.address === d.address)) ??
+        [];
+      return [...newList, ...filteredData];
+    });
+  }, [data]);
+
   if (error) {
     <Box>
       <FallbackPlaceholder
@@ -26,17 +47,8 @@ const AdosList: FC = () => {
       ></FallbackPlaceholder>
     </Box>;
   }
-  if (loading) {
-    return (
-      <Stack>
-        <Skeleton h="14" rounded="xl" />
-        <Skeleton h="14" rounded="xl" />
-        <Skeleton h="14" rounded="xl" />
-      </Stack>
-    );
-  }
 
-  if (data?.length === 0) {
+  if (!loading && prevData?.length === 0) {
     return (
       <Center p="10">
         <FallbackPlaceholder
@@ -50,9 +62,32 @@ const AdosList: FC = () => {
   }
   return (
     <Box>
-      {data?.map((item) => {
-        return <AppItem key={item.address} app={item} />;
-      })}
+      {/* There is an issue with the Infinite Scroll. If all elements for initial render are loaded and there
+      is no scroll overflow, next function is not called even though loadmore is there. A hack for this is to
+      use limit as some large value */}
+      <InfiniteScroll
+        next={fetchMoreAsset}
+        hasMore={hasMore}
+        dataLength={prevData?.length ?? 0}
+        loader={
+          <Stack>
+            <Skeleton h="14" rounded="xl" />
+            <Skeleton h="14" rounded="xl" />
+            <Skeleton h="14" rounded="xl" />
+          </Stack>
+        }
+      >
+        {prevData?.map((item) => {
+          return <AppItem key={item.address} app={item} />;
+        })}
+      </InfiniteScroll>
+      {loading && (
+        <Stack>
+          <Skeleton h="14" rounded="xl" />
+          <Skeleton h="14" rounded="xl" />
+          <Skeleton h="14" rounded="xl" />
+        </Stack>
+      )}
     </Box>
   );
 };
