@@ -70,7 +70,7 @@ export const CLASSIFIER_ICON = {
 
 /**
  * Types are derived from the keys defined above. This will force you to typecast any
- * to the value you are passing here. However once a proper type system is present for 
+ * to the value you are passing here. However once a proper type system is present for
  * schema and its related value, we can use it to synchronize everywhere.
  * This typecheck will help if you are directly using this component instead of fetching
  * class/classifier types from schema
@@ -82,11 +82,14 @@ interface ClassifierIconProps extends IconProps {
 const ClassifierIcon: FC<ClassifierIconProps> = (props) => {
   const { schemaClassifier, schemaClass, ...iconProps } = props;
 
-  const iconKey = schemaClassifier ?? schemaClass ?? "";
-
+  /** Some of the ados have empty string as classifier. so undefined check will result in global default
+   * Hence we need to check for empty string also, thats why OR (||) operation instead of (??) operator
+   */
+  const iconKey = schemaClassifier || schemaClass || "";
+  
   const icon =
-    CLASSIFIER_ICON[iconKey.toLowerCase()] ?? CLASSIFIER_ICON.default;
-
+  CLASSIFIER_ICON[iconKey.toLowerCase()] ?? CLASSIFIER_ICON.default;
+  
   return <Icon as={icon} color={`${schemaClass}` + ".600"} {...iconProps} />;
 };
 export default ClassifierIcon;
