@@ -35,7 +35,7 @@ import {
   deleteSchemaModule,
   duplicatePanelSchema,
 } from "../utils/schemaTransform";
-import { SCHEMA } from "@/lib/schema/utils";
+import { nextSuid, suid } from "@/lib/schema/utils";
 
 type FlexBuilderFormProps = {
   template: FlexBuilderTemplateProps;
@@ -102,9 +102,9 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
 
   const addModule = useCallback(
     (module: FlexBuilderTemplateModuleProps) => {
-      let newId = SCHEMA.suid();
+      let newId = suid();
       while (!!schema?.definitions?.[newId]) {
-        newId = SCHEMA.nextSuid(newId);
+        newId = nextSuid(newId);
       }
       // dataProcessing should be performed in the AddSchemaModule not in this module
       const form = addSchemaModule(newId, module.schema, {
