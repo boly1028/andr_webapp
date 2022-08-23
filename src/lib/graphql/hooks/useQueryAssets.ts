@@ -18,16 +18,18 @@ export interface QueryAssetsProps
  */
 export default function useQueryAssets(
   walletAddress: string,
+  limit: number,
+  offset: number,
 ): QueryAssetsProps {
   const { loading, data, error } = useQuery<QueryAssetsResponse, QueryAssets>(
     gql`
       ${QUERY_ASSETS}
     `,
-    { variables: { walletAddress } },
+    { variables: { walletAddress, limit, offset } },
   );
 
   // Converting assets to any and then to array to get proper typing at the end. It should be removed once type has been fixed in the library
-  const assets = data?.assets ?? [] as any;
+  const assets = data?.assets ?? ([] as any);
 
   return {
     loading,

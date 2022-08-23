@@ -16,11 +16,7 @@ interface AppItemProps {
   app: AdoAsset;
 }
 const AppItem: FC<AppItemProps> = ({ app }) => {
-  const {
-    data: appInfo,
-    loading,
-    error,
-  } = useQueryAppInfo(app.contractAddress);
+  const { data: appInfo, loading, error } = useQueryAppInfo(app.address);
 
   const { getButtonProps, getDisclosureProps, isOpen } = useDisclosure();
   const buttonProps = getButtonProps();
@@ -66,11 +62,7 @@ const AppItem: FC<AppItemProps> = ({ app }) => {
         <Box flex={1}>
           <InlineStat
             label="Address"
-            value={
-              app.contractAddress.substr(0, 5) +
-              "..." +
-              app.contractAddress.substr(-5)
-            }
+            value={app.address.substr(0, 5) + "..." + app.address.substr(-5)}
           />
         </Box>
         <Box>

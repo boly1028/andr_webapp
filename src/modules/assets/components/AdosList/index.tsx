@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import { Box } from "@/theme/ui-elements";
 import { useQueryAssets } from "@/lib/graphql";
 import { useWallet } from "@/lib/wallet";
@@ -9,7 +9,15 @@ import { Center, Stack } from "@chakra-ui/layout";
 
 const AdosList: FC = () => {
   const wallet = useWallet();
-  const { data, loading, error } = useQueryAssets(wallet?.address ?? "");
+  // TODO: IMPLEMENT PAGINATION
+  const [offset] = useState<number>(0);
+  const [limit] = useState<number>(25);
+  const { data, loading, error } = useQueryAssets(
+    wallet?.address ?? "",
+    limit,
+    offset,
+  );
+  console.log(data, loading, error);
   if (error) {
     <Box>
       <FallbackPlaceholder
@@ -43,7 +51,7 @@ const AdosList: FC = () => {
   return (
     <Box>
       {data?.map((item) => {
-        return <AppItem key={item.contractAddress} app={item} />;
+        return <AppItem key={item.address} app={item} />;
       })}
     </Box>
   );
