@@ -132,7 +132,7 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
                 isChecked={!!formData["$enabled"]}
                 colorScheme="primary"
                 onChange={() => {
-                  formContext.toggleModule(idSchema.$id, !formData["$enabled"]);
+                  formContext.toggleModule(currentSchemaId, !formData["$enabled"]);
                 }}
               />
               <IconButton
@@ -140,7 +140,7 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
                 variant="outline"
                 aria-label="open menu"
                 onClick={() => {
-                  formContext.duplicatePanel(idSchema.$id);
+                  formContext.duplicatePanel(currentSchemaId);
                 }}
                 icon={<Duplicate width={16} height={16} />}
               />
@@ -149,7 +149,7 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
                 variant="outline"
                 aria-label="open menu"
                 onClick={() => {
-                  formContext.deleteModule(idSchema.$id);
+                  formContext.deleteModule(currentSchemaId);
                 }}
                 icon={<DeleteIcon width={16} height={16} />}
               />

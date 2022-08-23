@@ -1,6 +1,5 @@
 import { cloneDeep } from "@apollo/client/utilities";
 import { isUndefined } from "util";
-import { v4 as uuidv4 } from "uuid";
 
 
 /** TODO: ADD DOCUMENTATION FOR EACH FUNCTION (Anshu) */
@@ -113,12 +112,10 @@ export const deleteSchemaModule = (uuid: string, oriDefaults?: SchemaObject) => 
     const _uiSchema = defaults?.uiSchema || {};
     const _formData = defaults?.formData || {};
 
-    // Removal of elements with passed UUID for $id
-    const id = uuid.split("_").pop();
-    delete schemaDefinitions[`${id}`];
-    delete schemaProperties[`${id}`];
-    delete _uiSchema[`${id}`];
-    delete _formData[`${id}`];
+    delete schemaDefinitions[`${uuid}`];
+    delete schemaProperties[`${uuid}`];
+    delete _uiSchema[`${uuid}`];
+    delete _formData[`${uuid}`];
 
     const _schema = {
         definitions: schemaDefinitions,
@@ -176,7 +173,7 @@ export const changeSchemaID = (oldPanelName: string, newPanelName: string, _defa
 };
 
 
-export const duplicatePanelSchema = (panelName: string, _defaults?: SchemaObject) => {
+export const duplicatePanelSchema = (panelName: string, newPanelName: string, _defaults?: SchemaObject) => {
     const defaults = cloneDeep(_defaults);
 
     const schemaDefinitions = defaults?.schemaDefinitions || {};
@@ -185,12 +182,6 @@ export const duplicatePanelSchema = (panelName: string, _defaults?: SchemaObject
     const _uiSchema = defaults?.uiSchema || {};
     const _formData = defaults?.formData || {};
 
-    const newPanelName = uuidv4(); // Create a new unique value to assign to the duplicated panel
-
-    //if start of panel name is "root_", then reference with prefix excluded
-    if (panelName.slice(0, 5) === "root_") {
-        panelName = panelName.slice(5);
-    }
 
     // duplicate schemas with provided panel name
     schemaDefinitions[`${newPanelName}`] = schemaDefinitions[`${panelName}`];
@@ -209,7 +200,6 @@ export const duplicatePanelSchema = (panelName: string, _defaults?: SchemaObject
         type: "object",
         properties: schemaProperties,
     };
-    alert("Panel duplicated with name " + newPanelName + ".");
     return {
         schema: _schema,
         uiSchema: _uiSchema,

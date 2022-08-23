@@ -36,6 +36,7 @@ import {
   duplicatePanelSchema,
 } from "../utils/schemaTransform";
 import { nextSuid, suid } from "@/lib/schema/utils";
+import { toast } from "react-toastify";
 
 type FlexBuilderFormProps = {
   template: FlexBuilderTemplateProps;
@@ -87,11 +88,8 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
   );
 
   const toggleModule = useCallback(
-    (uuid: string, enabled: boolean) => {
-      //TODO: Replace from split_pop, as it will conflict with new panel renaming feature
-      //////////////////////////////////////////////////// New panel name means that the evaultaion of _ (which is from "root_") could be true, but not desired for removal (e.g. "a_panel_name")
+    (id: string, enabled: boolean) => {
       setFormData((prev) => {
-        const id = uuid.split("_").pop();
         const cloneData = cloneDeep(prev);
         cloneData[`${id}`]["$enabled"] = enabled;
         return cloneData;
@@ -121,11 +119,18 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
   // Replicate an existing panel identification key with new name
   const duplicatePanel = useCallback(
     (panelName: any) => {
-      const form = duplicatePanelSchema(panelName, {
+      let newId = suid();
+      while (!!schema?.definitions?.[newId]) {
+        newId = nextSuid(newId);
+      }
+      const form = duplicatePanelSchema(panelName, newId, {
         schemaDefinitions: schema?.definitions ?? {},
         schemaProperties: schema?.properties ?? {},
         uiSchema: uiSchema,
         formData: formData,
+      });
+      toast(`Duplicated panel with id: ${newId}`, {
+        type: "info",
       });
       // console.log("changeSchemaID form.formData:", form.formData);
       updateForm(form);
