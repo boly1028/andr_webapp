@@ -28,11 +28,11 @@ const PanelRenameModal: FC<PanelRenameModalProps> = memo(
           return;
         }
         /**Disabling alpha numeric check for now */
-        // const match = /^[a-z0-9A-Z]+$/i;
-        // if (!_name.match(match)) {
-        //   setError("Name should be alphanumeric");
-        //   return;
-        // }
+        const match = /^[a-z0-9A-Z]+$/i;
+        if (!_name.match(match)) {
+          setError("Name should be alphanumeric");
+          return;
+        }
         if (reservedNames.includes(_name)) {
           setError("Name already present");
           return;

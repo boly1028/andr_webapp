@@ -27,6 +27,8 @@ import AddButton from "./AddButton";
 
 const { canExpand } = utils;
 
+const NON_EDITABLE_CLASS = new Set<string>(["system", "modifier"]);
+
 interface ObjectFieldTemplateExtendedProps extends ObjectFieldTemplateProps {
   schema: JSONSchema7 & {
     class?: any;
@@ -98,25 +100,27 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
                 <Text fontSize="xs" color="gray.500" fontWeight="light">
                   {currentSchemaId}
                 </Text>
-                <IconButton
-                  size={"sm"}
-                  variant="outline"
-                  aria-label="open menu"
-                  onClick={() => {
-                    openPanelRenameModal({
-                      callback: (newName) => {
-                        formContext.changePanelName(newName, currentSchemaId);
-                      },
-                      defaultName: currentSchemaId,
-                      reservedNames: Object.keys(
-                        formContext.schema?.definitions ?? {},
-                      ),
-                      title: "Rename ADO",
-                      body: "Change the assigned name of this component",
-                    });
-                  }}
-                  icon={<Rename width={16} height={16} />}
-                />
+                {!NON_EDITABLE_CLASS.has(schema.class) && (
+                  <IconButton
+                    size={"sm"}
+                    variant="outline"
+                    aria-label="open menu"
+                    onClick={() => {
+                      openPanelRenameModal({
+                        callback: (newName) => {
+                          formContext.changePanelName(newName, currentSchemaId);
+                        },
+                        defaultName: currentSchemaId,
+                        reservedNames: Object.keys(
+                          formContext.schema?.definitions ?? {},
+                        ),
+                        title: "Rename ADO",
+                        body: "Change the assigned name of this component",
+                      });
+                    }}
+                    icon={<Rename width={16} height={16} />}
+                  />
+                )}
               </HStack>
               <Text textStyle="light">{description}</Text>
             </Box>

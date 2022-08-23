@@ -35,6 +35,7 @@ import {
   deleteSchemaModule,
   duplicatePanelSchema,
 } from "../utils/schemaTransform";
+import { SCHEMA } from "@/lib/schema/utils";
 
 type FlexBuilderFormProps = {
   template: FlexBuilderTemplateProps;
@@ -101,8 +102,12 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
 
   const addModule = useCallback(
     (module: FlexBuilderTemplateModuleProps) => {
+      let newId = SCHEMA.suid();
+      while (!!schema?.definitions?.[newId]) {
+        newId = SCHEMA.nextSuid(newId);
+      }
       // dataProcessing should be performed in the AddSchemaModule not in this module
-      const form = addSchemaModule(module.id, module.schema, {
+      const form = addSchemaModule(newId, module.schema, {
         schemaDefinitions: schema?.definitions ?? {},
         schemaProperties: schema?.properties ?? {},
         uiSchema: uiSchema,
@@ -130,7 +135,7 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
 
   // Replicate an existing panel identification key with new name
   const changePanelName = useCallback(
-    (newName: string, oldName:string) => {
+    (newName: string, oldName: string) => {
       const form = changeSchemaID(oldName, newName, {
         schemaDefinitions: schema?.definitions ?? {},
         schemaProperties: schema?.properties ?? {},
