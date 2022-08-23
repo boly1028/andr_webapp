@@ -80,15 +80,10 @@ interface ClassifierIconProps extends IconProps {
   schemaClass?: keyof typeof DEFAULT_CLASS_ICON;
 }
 const ClassifierIcon: FC<ClassifierIconProps> = (props) => {
-  const { schemaClassifier, schemaClass, ...iconProps } = props;
+  const { schemaClassifier = '', schemaClass = '', ...iconProps } = props;
 
-  /** Some of the ados have empty string as classifier. so undefined check will result in global default
-   * Hence we need to check for empty string also, thats why OR (||) operation instead of (??) operator
-   */
-  const iconKey = schemaClassifier || schemaClass || "";
-  
   const icon =
-  CLASSIFIER_ICON[iconKey.toLowerCase()] ?? CLASSIFIER_ICON.default;
+  CLASSIFIER_ICON[schemaClassifier.toLowerCase()]  ?? CLASSIFIER_ICON[schemaClass.toLowerCase()] ?? CLASSIFIER_ICON.default;
   
   return <Icon as={icon} color={`${schemaClass}` + ".600"} {...iconProps} />;
 };
