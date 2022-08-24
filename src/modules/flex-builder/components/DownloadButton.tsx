@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { IconButton, Link } from "@chakra-ui/react";
+import React, { useCallback } from "react";
+import { IconButton } from "@chakra-ui/react";
 import type { JSONSchema7 } from "json-schema";
 
 import { DownloadIcon } from "@/modules/common";
+import { downloadURI } from "@/utils";
 
 /**
  * Download flex component
@@ -17,9 +18,8 @@ export interface DownloadFlexProps {
 }
 
 function DownloadButton({ schema, uiSchema, formData }: DownloadFlexProps) {
-  const [downloadUrl, setDownloadUrl] = useState<string | null>(null);
-
-  useEffect(() => {
+  /**Moved from use effect to useCallback as we only need to calculate url on button click */
+  const handleDownload = useCallback(() => {
     if (schema == null || uiSchema == null || formData == null) {
       return;
     }
@@ -34,20 +34,24 @@ function DownloadButton({ schema, uiSchema, formData }: DownloadFlexProps) {
     const flexBlob = new Blob([JSON.stringify(flexExport)], {
       type: "text/plain",
     });
-    const url = window.URL.createObjectURL(flexBlob);
-    setDownloadUrl(url);
+
+    // Create URL for form
+    const url = URL.createObjectURL(flexBlob);
+
+    // Create a name from app name
+    const appName = formData["publish-settings"]?.name || "app";
+    downloadURI(url, `template_${appName}.flex`);
+
+    // Revoke created url to free up space
+    URL.revokeObjectURL(url);
   }, [schema, uiSchema, formData]);
 
   return (
     <IconButton
-      as={Link}
-      aria-label="Download Templace"
+      aria-label="Download Template"
       variant="outline"
       icon={<DownloadIcon boxSize={5} color="gray.500" />}
-      download="template.flex"
-      href={downloadUrl}
-      target="_blank"
-      isLoading={downloadUrl == null}
+      onClick={handleDownload}
     />
   );
 }
