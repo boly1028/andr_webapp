@@ -11,6 +11,7 @@ import { CloseIcon } from "@chakra-ui/icons";
 import { Center, Stack } from "@chakra-ui/layout";
 import { Skeleton } from "@chakra-ui/skeleton";
 import ClassifierIcon from "@/theme/icons/classifiers";
+import useAssetInfoModal from "@/modules/modals/hooks/useAssetInfoModal";
 
 interface AppItemProps {
   app: AdoAsset;
@@ -18,6 +19,7 @@ interface AppItemProps {
 const AppItem: FC<AppItemProps> = ({ app }) => {
   const { data: appInfo, loading, error } = useQueryAppInfo(app.address);
 
+  const open = useAssetInfoModal();
   const { getButtonProps, getDisclosureProps, isOpen } = useDisclosure();
   const buttonProps = getButtonProps();
   const disclosureProps = getDisclosureProps();
@@ -67,6 +69,17 @@ const AppItem: FC<AppItemProps> = ({ app }) => {
             label="Address"
             value={app.address.substr(0, 5) + "..." + app.address.substr(-5)}
           />
+        </Box>
+        <Box mr="2">
+          <Button
+            onClick={() => {
+              open(app.address);
+            }}
+            variant="link"
+            colorScheme="blue"
+          >
+            View
+          </Button>
         </Box>
         <Box>
           <Button {...buttonProps} variant="ghost">

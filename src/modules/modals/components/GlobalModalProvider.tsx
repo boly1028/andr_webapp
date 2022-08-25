@@ -9,6 +9,7 @@ import {
 import React, { memo, useCallback, useEffect, useState } from "react";
 import { GlobalModalContext } from "../hooks";
 import { ModalProps, ModalType } from "../types";
+import AssetInfoModal from "./AssetInfoModal";
 import ConfirmationModal from "./ConfirmationModal";
 import ModalError from "./ModalError";
 import PanelRenameModal from "./PanelRenameModal";
@@ -27,6 +28,7 @@ const components: Record<ModalType, React.FC<any>> = {
   [ModalType.Wallet]: WalletModal,
   [ModalType.Confirmation]: ConfirmationModal,
   [ModalType.PanelRename]: PanelRenameModal,
+  [ModalType.AssetInfo]: AssetInfoModal,
 };
 
 const GlobalModalProvider: React.FC = memo(function GlobalModalProvider({
