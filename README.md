@@ -48,17 +48,17 @@ Non Global sections needs to be kept as simplified as possible, as they can very
 
 #### Pages
 
-We should not create a new folder for each page. If it is one page, no need to create a folder for it and instead can be added in the root. If more than one page are created to address a single purpose, then related source files should be placed in a folder.
+- We should not create a new folder for each page. If it is one page, no need to create a folder for it and instead can be added in the root. If more than one page are created to address a single purpose, then related source files should be placed in a folder.
 
-If not sure whether something needs to be a component or not, think of its reusability. 
+- If not sure whether something needs to be a component or not, think of its reusability. 
 
-Most of the corresponding page/section specific components, assets, hooks, ect… should be held in the modules section.
+- Most of the corresponding page/section specific components, assets, hooks, ect… should be held in the modules section.
 
 #### Moduels/Features
 
-Contains the various parts related to only one specific page/feature.
+- Contains the various parts related to only one specific page/feature.
 
-Can be addressed like a second “src” structure used for page sources with a second tier of global / non-global considered separation such as a part for a specific page, or a component to be accessible by multiples. This is similar to how may handle a page/form specific modal, or a modal universally used to perform a common action.
+- Can be addressed like a second “src” structure used for page sources with a second tier of global / non-global considered separation such as a part for a specific page, or a component to be accessible by multiples. This is similar to how may handle a page/form specific modal, or a modal universally used to perform a common action.
 
 ### Global
 
@@ -71,7 +71,7 @@ The Global structure can be summarized by the following table:
 |util| Pure functions only that are preferably non-complex functions. |
 | data | Data such as constants, default JSON structures, and config values. |
 | hooks | Generic hooks for use everywhere. Some services / api sub-groups may have their own functionality specific hooks defined in their sub-folders. |
-| theme | UI components and presentational components such as av bars, side bars, footers, buttons, and icons|
+| theme | UI components and presentational components such as av bars, side bars, footers, buttons, and icons.|
 | placeholders | Non Javascript code such as images/ CSS ect...| 
 
 
