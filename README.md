@@ -40,7 +40,41 @@ The scripts can be found in the package.json file.
 To run one of the scripts:
 `npm run [script-name]`
 
-## Work Structure 
+# Folder Architecture
 
-A breakdown of the work structure used by the andromeda-webapp can be found [here](https://www.notion.so/Web-App-Folder-Structures-Explained-eeea31d4b0074b3faf37da6690896444).
+### Non-Global
 
+Non Global sections needs to be kept as simplified as possible, as they can very easily grow to be overpopulated and unwieldy.
+
+#### Pages
+
+We should not create a new folder for each page. If it is one page, no need to create a folder for it and instead can be added in the root. If more than one page are created to address a single purpose, then related source files should be placed in a folder.
+
+If not sure whether something needs to be a component or not, think of its reusability. 
+
+Most of the corresponding page/section specific components, assets, hooks, ect… should be held in the modules section.
+
+#### Moduels/Features
+
+Contains the various parts related to only one specific page/feature.
+
+Can be addressed like a second “src” structure used for page sources with a second tier of global / non-global considered separation such as a part for a specific page, or a component to be accessible by multiples. This is similar to how may handle a page/form specific modal, or a modal universally used to perform a common action.
+
+### Global
+
+The Global structure can be summarized by the following table: 
+
+|Folder| Description |
+|-----------------------------|-------------------------------------|
+| lib| Encapsulated references of 3rd party imports referenced from index.ts. Facilitates code updates to all references from one source.|
+| api | All service related functionality for integrating with an API so it can be served to entire app. |
+|util| Pure functions only that are preferably non-complex functions. |
+| data | Data such as constants, default JSON structures, and config values. |
+| hooks | Generic hooks for use everywhere. Some services / api sub-groups may have their own functionality specific hooks defined in their sub-folders. |
+| theme | UI components and presentational components such as av bars, side bars, footers, buttons, and icons|
+| placeholders | Non Javascript code such as images/ CSS ect...| 
+
+
+## Test Handling
+
+Tests occur in same folder (or as close as possible) to files it is testing.
