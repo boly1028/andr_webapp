@@ -1,7 +1,19 @@
 import useQueryAppInfo from "@/lib/graphql/hooks/useQueryAppInfo";
-import { FallbackPlaceholder } from "@/modules/common";
+import {
+  CopyButton,
+  CopyIcon,
+  FallbackPlaceholder,
+  truncate,
+} from "@/modules/common";
 import ClassifierIcon from "@/theme/icons/classifiers";
-import { Box, Text, Flex, VStack, ExternalLink, Button } from "@/theme/ui-elements";
+import {
+  Box,
+  Text,
+  Flex,
+  VStack,
+  ExternalLink,
+  Button,
+} from "@/theme/ui-elements";
 import {
   Skeleton,
   Stack,
@@ -78,11 +90,31 @@ const AssetInfoModal: FC<AssetInfoModalProps> = memo(function AssetInfoModal({
             </Tr>
             <Tr>
               <Td fontWeight="light">Contract Address</Td>
-              <Td>{appInfo?.contractAddress}</Td>
+              <Td>
+                <CopyButton
+                  variant="link"
+                  colorScheme="gray"
+                  gap="2"
+                  text={appInfo?.contractAddress ?? ""}
+                >
+                  {truncate(appInfo?.contractAddress)}
+                  <CopyIcon boxSize="4" />
+                </CopyButton>
+              </Td>
             </Tr>
             <Tr>
               <Td fontWeight="light">Owner</Td>
-              <Td>{appInfo?.owner}</Td>
+              <Td>
+                <CopyButton
+                  variant="link"
+                  colorScheme="gray"
+                  gap="2"
+                  text={appInfo?.owner ?? ""}
+                >
+                  {truncate(appInfo?.owner)}
+                  <CopyIcon boxSize="4" />
+                </CopyButton>
+              </Td>
             </Tr>
             <Tr>
               <Td fontWeight="light">Operators []</Td>
@@ -93,12 +125,8 @@ const AssetInfoModal: FC<AssetInfoModalProps> = memo(function AssetInfoModal({
           </Tbody>
         </Table>
       </TableContainer>
-      <Flex justify='end' mt='6'>
-        <Button
-          variant="solid"
-          onClick={close}
-          colorScheme='primary'
-        >
+      <Flex justify="end" mt="6">
+        <Button variant="solid" onClick={close} colorScheme="primary">
           Dismiss
         </Button>
       </Flex>
