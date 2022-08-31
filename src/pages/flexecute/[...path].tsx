@@ -1,5 +1,4 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
-import absoluteUrl from "next-absolute-url";
 
 import { useCodeId } from "@/lib/andrjs";
 // import usePublishContract from "@/modules/sdk/hooks/usePublishContract";

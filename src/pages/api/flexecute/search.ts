@@ -4,6 +4,7 @@ import { v4 as uuid } from "uuid";
 import { FlexecuteTemplateProps } from "@/modules/flexecute/types";
 
 import Cors from 'cors'
+import { suid } from "@/lib/schema/utils";
 
 const cors = Cors({
   methods: ['GET'],
@@ -56,6 +57,7 @@ export default async function handler(
 
 export const getFlexecuteTemplateFromPath = async (path: string) => {
   // Parse path into title
+  const adoName = path.split('/').pop() ?? suid();
   const id = path.replaceAll('/', ' ');
   const title = id.toUpperCase();
   // Generate Template
@@ -104,8 +106,9 @@ export const getFlexecuteTemplateFromPath = async (path: string) => {
       //   ado.id = ado.id.toString().split(" ").slice(-1);
       // }
       // console.log("$id for schema:", ado.id);
+
       if (ado.id !== "proxy-message") {
-        ado.id = uuid();
+        ado.id = schemaADO["schema"]["$id"] ?? adoName;
       }
 
       schemaDefinitions[`${ado.id}`] = schemaADO["schema"];

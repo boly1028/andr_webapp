@@ -1,5 +1,6 @@
 // Panel container for Flex-Builder: Handles panel name change assosciations
 
+import { CopyButton } from "@/modules/common";
 import usePanelRenameModal from "@/modules/modals/hooks/usePanelRenameModal";
 import ClassifierIcon from "@/theme/icons/classifiers";
 import { Box, Flex, HStack, IconButton, Text } from "@/theme/ui-elements";
@@ -88,29 +89,41 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
                 <Text fontSize="sm" color="gray.700" fontWeight={600}>
                   {title}
                 </Text>
-                <Text fontSize="xs" color="gray.500" fontWeight="light">
-                  {currentSchemaId}
-                </Text>
                 {!NON_EDITABLE_CLASS.has(schema.class) && (
-                  <IconButton
-                    size={"sm"}
-                    variant="outline"
-                    aria-label="open menu"
-                    onClick={() => {
-                      openPanelRenameModal({
-                        callback: (newName) => {
-                          formContext.changePanelName(newName, currentSchemaId);
-                        },
-                        defaultName: currentSchemaId,
-                        reservedNames: Object.keys(
-                          formContext.schema?.definitions ?? {},
-                        ),
-                        title: "Rename ADO",
-                        body: "Change the assigned name of this component",
-                      });
-                    }}
-                    icon={<Rename width={16} height={16} />}
-                  />
+                  <>
+                    <CopyButton
+                      variant='link'
+                      fontSize="xs"
+                      color="gray.500"
+                      fontWeight="light"
+                      text={currentSchemaId}
+                    >
+                      {currentSchemaId}
+                    </CopyButton>
+                    <Text></Text>
+                    <IconButton
+                      size={"sm"}
+                      variant="outline"
+                      aria-label="open menu"
+                      onClick={() => {
+                        openPanelRenameModal({
+                          callback: (newName) => {
+                            formContext.changePanelName(
+                              newName,
+                              currentSchemaId,
+                            );
+                          },
+                          defaultName: currentSchemaId,
+                          reservedNames: Object.keys(
+                            formContext.schema?.definitions ?? {},
+                          ),
+                          title: "Rename ADO",
+                          body: "Change the assigned name of this component",
+                        });
+                      }}
+                      icon={<Rename width={16} height={16} />}
+                    />
+                  </>
                 )}
               </HStack>
               <Text textStyle="light">{description}</Text>
@@ -123,7 +136,10 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
                 isChecked={!!formData["$enabled"]}
                 colorScheme="primary"
                 onChange={() => {
-                  formContext.toggleModule(currentSchemaId, !formData["$enabled"]);
+                  formContext.toggleModule(
+                    currentSchemaId,
+                    !formData["$enabled"],
+                  );
                 }}
               />
               <IconButton
