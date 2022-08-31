@@ -24,7 +24,8 @@ type Props = {
 };
 
 const TemplatePage: NextPage<Props> = ({ template }) => {
-  const codeId = useCodeId(template.id);
+  // Template id here is not maintained to reflect codeId properly which will cause invalid request error
+  // const codeId = useCodeId(template.id);
   /* alteration to integrating msg delivery to AndroemdaJS will be referenced by a useModifyContract() function call
   // Parameters are anticipated to be contract, msg, coin value
   const instantiate = useModifyContract(codeId);
@@ -109,7 +110,13 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
           </Flex>
         )}
         {/* end of toggleable staging section */}
-        <FlexBuilderForm template={modifiedTemplate} onSubmit={handleSubmit} />
+        <FlexBuilderForm
+          // ID is required to refresh the component after we modify the template. If not provided,
+          // form will not populate name and address field on direct visit to the page
+          key={modifiedTemplate.name}
+          template={modifiedTemplate}
+          onSubmit={handleSubmit}
+        />
       </Box>
     </Layout>
   );

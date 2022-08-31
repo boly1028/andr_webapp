@@ -26,6 +26,9 @@
   "ui-schema": {
     "parent": {
       "ui:readonly": "readonly"
+    },
+    "component_name": {
+      "ui:readonly": "readonly"
     }
   },
   "form-data": {}

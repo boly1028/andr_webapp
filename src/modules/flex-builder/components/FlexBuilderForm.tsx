@@ -58,6 +58,7 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
   const [uiSchema, setUiSchema] = useState(cloneDeep(template.uiSchema));
   const [formData, setFormData] = useState(cloneDeep(template.formData));
 
+
   const [dirty, setDirty] = useState(false); // Flag for monitoring if data has been entered which is used to set page exit warnings prior to data loss from leaving page
 
   /**
