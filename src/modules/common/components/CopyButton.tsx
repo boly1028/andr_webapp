@@ -4,9 +4,10 @@ import { ButtonProps } from "@chakra-ui/react";
 
 interface CopyButtonProps extends ButtonProps {
   text: string;
+  copiedProps?: ButtonProps;
 }
 const CopyButton: FC<CopyButtonProps> = (props) => {
-  const { text, children, ...buttonProps } = props;
+  const { text, children, copiedProps = {}, ...buttonProps } = props;
   const [notification, setNotification] = useState(false);
 
   const handleCopy = useCallback(() => {
@@ -28,7 +29,12 @@ const CopyButton: FC<CopyButtonProps> = (props) => {
 
   if (notification) {
     return (
-      <Button onClick={handleCopy} {...buttonProps}>
+      <Button
+        onClick={handleCopy}
+        p='1'
+        {...buttonProps}
+        {...copiedProps}
+      >
         Copied!
       </Button>
     );
