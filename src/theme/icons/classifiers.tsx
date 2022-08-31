@@ -70,7 +70,7 @@ export const CLASSIFIER_ICON = {
 
 /**
  * Types are derived from the keys defined above. This will force you to typecast any
- * to the value you are passing here. However once a proper type system is present for 
+ * to the value you are passing here. However once a proper type system is present for
  * schema and its related value, we can use it to synchronize everywhere.
  * This typecheck will help if you are directly using this component instead of fetching
  * class/classifier types from schema
@@ -80,13 +80,11 @@ interface ClassifierIconProps extends IconProps {
   schemaClass?: keyof typeof DEFAULT_CLASS_ICON;
 }
 const ClassifierIcon: FC<ClassifierIconProps> = (props) => {
-  const { schemaClassifier, schemaClass, ...iconProps } = props;
-
-  const iconKey = schemaClassifier ?? schemaClass ?? "";
+  const { schemaClassifier = '', schemaClass = '', ...iconProps } = props;
 
   const icon =
-    CLASSIFIER_ICON[iconKey.toLowerCase()] ?? CLASSIFIER_ICON.default;
-
+  CLASSIFIER_ICON[schemaClassifier.toLowerCase()]  ?? CLASSIFIER_ICON[schemaClass.toLowerCase()] ?? CLASSIFIER_ICON.default;
+  
   return <Icon as={icon} color={`${schemaClass}` + ".600"} {...iconProps} />;
 };
 export default ClassifierIcon;

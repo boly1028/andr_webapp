@@ -2,17 +2,9 @@
 
 import usePanelRenameModal from "@/modules/modals/hooks/usePanelRenameModal";
 import ClassifierIcon from "@/theme/icons/classifiers";
-import {
-  Box,
-  Flex,
-  Grid,
-  GridItem,
-  HStack,
-  Icon,
-  IconButton,
-  Switch,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Flex, HStack, IconButton, Text } from "@/theme/ui-elements";
+import { Grid, GridItem, Switch } from "@chakra-ui/react";
+
 import { ObjectFieldTemplateProps, utils } from "@rjsf/core";
 import { JSONSchema7 } from "json-schema";
 import {
@@ -81,14 +73,13 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
               justify="center"
               align="center"
               borderRadius="lg"
-              bg="module.500"
+              bg={`${schema?.class || "module"}` + ".100"}
               p={1.5}
             >
               <ClassifierIcon
                 schemaClass={schema?.class}
                 schemaClassifier={schema?.classifier}
                 boxSize={5}
-                color="white"
               />
               {/* <Icon as={CheckCircleIcon} boxSize={5} color="white" /> */}
             </Flex>

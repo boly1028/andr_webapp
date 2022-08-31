@@ -1,4 +1,4 @@
-import { extendTheme } from "@chakra-ui/react";
+import { extendTheme, theme } from "@chakra-ui/react";
 
 import Accordion from "./accordion";
 import Button from "./button";
@@ -188,6 +188,7 @@ export default extendTheme({
       800: "#0040C1",
       900: "#00359E",
     },
+    system: theme.colors.gray
   },
   textStyles: {
     h1: {
