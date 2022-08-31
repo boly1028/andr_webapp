@@ -35,6 +35,8 @@ import {
   deleteSchemaModule,
   duplicatePanelSchema,
 } from "../utils/schemaTransform";
+import { nextSuid, suid } from "@/lib/schema/utils";
+import { toast } from "react-toastify";
 
 type FlexBuilderFormProps = {
   template: FlexBuilderTemplateProps;
@@ -86,11 +88,8 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
   );
 
   const toggleModule = useCallback(
-    (uuid: string, enabled: boolean) => {
-      //TODO: Replace from split_pop, as it will conflict with new panel renaming feature
-      //////////////////////////////////////////////////// New panel name means that the evaultaion of _ (which is from "root_") could be true, but not desired for removal (e.g. "a_panel_name")
+    (id: string, enabled: boolean) => {
       setFormData((prev) => {
-        const id = uuid.split("_").pop();
         const cloneData = cloneDeep(prev);
         cloneData[`${id}`]["$enabled"] = enabled;
         return cloneData;
@@ -101,8 +100,12 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
 
   const addModule = useCallback(
     (module: FlexBuilderTemplateModuleProps) => {
+      let newId = suid();
+      while (!!schema?.definitions?.[newId]) {
+        newId = nextSuid(newId);
+      }
       // dataProcessing should be performed in the AddSchemaModule not in this module
-      const form = addSchemaModule(module.id, module.schema, {
+      const form = addSchemaModule(newId, module.schema, {
         schemaDefinitions: schema?.definitions ?? {},
         schemaProperties: schema?.properties ?? {},
         uiSchema: uiSchema,
@@ -116,11 +119,18 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
   // Replicate an existing panel identification key with new name
   const duplicatePanel = useCallback(
     (panelName: any) => {
-      const form = duplicatePanelSchema(panelName, {
+      let newId = suid();
+      while (!!schema?.definitions?.[newId]) {
+        newId = nextSuid(newId);
+      }
+      const form = duplicatePanelSchema(panelName, newId, {
         schemaDefinitions: schema?.definitions ?? {},
         schemaProperties: schema?.properties ?? {},
         uiSchema: uiSchema,
         formData: formData,
+      });
+      toast(`Duplicated panel with id: ${newId}`, {
+        type: "info",
       });
       // console.log("changeSchemaID form.formData:", form.formData);
       updateForm(form);
@@ -130,31 +140,13 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
 
   // Replicate an existing panel identification key with new name
   const changePanelName = useCallback(
-    (oldPannelName: any) => {
-      //if start of panel name is "root_", then reference with prefix excluded
-      if (oldPannelName.slice(0, 5) === "root_") {
-        oldPannelName = oldPannelName.slice(5);
-      }
-      const newPanelName: string =
-        prompt("Change the assigned name of this component.", oldPannelName) ||
-        oldPannelName;
-
-      const form = changeSchemaID(oldPannelName, newPanelName, {
+    (newName: string, oldName: string) => {
+      const form = changeSchemaID(oldName, newName, {
         schemaDefinitions: schema?.definitions ?? {},
         schemaProperties: schema?.properties ?? {},
         uiSchema: uiSchema,
         formData: formData,
       });
-
-      // notify the user the panel name is alre3ady declared and needs to be retried
-      if (!form) {
-        alert(
-          "The name provided already exists. Please try again with a new value",
-        );
-        return;
-      }
-
-      console.log("changeSchemaID form:", form);
       updateForm(form);
     },
     [formData, schema, uiSchema],
@@ -183,6 +175,7 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
         deleteModule: deleteModule,
         changePanelName: changePanelName,
         duplicatePanel: duplicatePanel,
+        schema,
         FORM_CONTEXT_UPDATE,
       }}
       onChange={({ formData: _formData }) => {

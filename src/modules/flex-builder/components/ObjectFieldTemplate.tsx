@@ -1,5 +1,6 @@
 // Panel container for Flex-Builder: Handles panel name change assosciations
 
+import usePanelRenameModal from "@/modules/modals/hooks/usePanelRenameModal";
 import ClassifierIcon from "@/theme/icons/classifiers";
 import {
   Box,
@@ -20,10 +21,13 @@ import {
   Edit3 as Rename,
   Trash2 as DeleteIcon,
 } from "lucide-react";
+import { useMemo } from "react";
 
 import AddButton from "./AddButton";
 
 const { canExpand } = utils;
+
+const NON_EDITABLE_CLASS = new Set<string>(["system", "modifier"]);
 
 interface ObjectFieldTemplateExtendedProps extends ObjectFieldTemplateProps {
   schema: JSONSchema7 & {
@@ -50,9 +54,19 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
     formContext, //used as prop drilling form action calls: toogleModule() / deleteModule() / renameModule()
   } = props;
 
+  const openPanelRenameModal = usePanelRenameModal();
+
+  /**Extract schema Id (from rjsf idSchema) used to reference in json */
+  const currentSchemaId = useMemo(() => {
+    let rjsfId = idSchema.$id;
+    if (rjsfId.slice(0, 5) === "root_") {
+      rjsfId = rjsfId.slice(5);
+    }
+    return rjsfId;
+  }, [idSchema]);
+
   const hasWrapper = formData["$removable"] !== undefined;
   const hasGroup = schema["ui:options"]?.["group"];
-  console.log(schema, "SCHEMA");
 
   if (hasWrapper) {
     return (
@@ -79,9 +93,35 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
               {/* <Icon as={CheckCircleIcon} boxSize={5} color="white" /> */}
             </Flex>
             <Box>
-              <Text fontSize="sm" color="gray.700" fontWeight={600} mb={1}>
-                {title}
-              </Text>
+              <HStack mb={1}>
+                <Text fontSize="sm" color="gray.700" fontWeight={600}>
+                  {title}
+                </Text>
+                <Text fontSize="xs" color="gray.500" fontWeight="light">
+                  {currentSchemaId}
+                </Text>
+                {!NON_EDITABLE_CLASS.has(schema.class) && (
+                  <IconButton
+                    size={"sm"}
+                    variant="outline"
+                    aria-label="open menu"
+                    onClick={() => {
+                      openPanelRenameModal({
+                        callback: (newName) => {
+                          formContext.changePanelName(newName, currentSchemaId);
+                        },
+                        defaultName: currentSchemaId,
+                        reservedNames: Object.keys(
+                          formContext.schema?.definitions ?? {},
+                        ),
+                        title: "Rename ADO",
+                        body: "Change the assigned name of this component",
+                      });
+                    }}
+                    icon={<Rename width={16} height={16} />}
+                  />
+                )}
+              </HStack>
               <Text textStyle="light">{description}</Text>
             </Box>
           </HStack>
@@ -92,7 +132,7 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
                 isChecked={!!formData["$enabled"]}
                 colorScheme="primary"
                 onChange={() => {
-                  formContext.toggleModule(idSchema.$id, !formData["$enabled"]);
+                  formContext.toggleModule(currentSchemaId, !formData["$enabled"]);
                 }}
               />
               <IconButton
@@ -100,16 +140,7 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
                 variant="outline"
                 aria-label="open menu"
                 onClick={() => {
-                  formContext.changePanelName(idSchema.$id);
-                }}
-                icon={<Rename width={16} height={16} />}
-              />
-              <IconButton
-                size={"sm"}
-                variant="outline"
-                aria-label="open menu"
-                onClick={() => {
-                  formContext.duplicatePanel(idSchema.$id);
+                  formContext.duplicatePanel(currentSchemaId);
                 }}
                 icon={<Duplicate width={16} height={16} />}
               />
@@ -118,7 +149,7 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
                 variant="outline"
                 aria-label="open menu"
                 onClick={() => {
-                  formContext.deleteModule(idSchema.$id);
+                  formContext.deleteModule(currentSchemaId);
                 }}
                 icon={<DeleteIcon width={16} height={16} />}
               />

@@ -42,7 +42,6 @@ function AddModuleModalItem({
   disabled = false,
   isActive = false,
 }: AddModuleModalItemProps) {
-
   // Debugging log
   // console.log("AddModuleModalItem::disabled", disabled);
   // if (!classifierIconType) {
@@ -245,14 +244,13 @@ function AddModuleModal({ onAdd, items }: AddModuleModalProps) {
             >
               <VStack spacing={3} align="normal">
                 {filteredItems.map((item) => {
-                  // console.log(item.schema);
-                  item.id = uuidv4();
                   return (
                     <AddModuleModalItem
-                      key={item.id}
+                      // path is unique as we dont have key yet
+                      key={item.path}
                       disabled={item.disabled}
                       data={item.schema}
-                      isActive={selected?.id == item.id}
+                      isActive={selected?.path == item.path}
                       onClick={() => {
                         if (!item.disabled) setSelected(item);
                       }}

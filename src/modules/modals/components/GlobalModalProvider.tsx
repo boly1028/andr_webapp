@@ -11,6 +11,7 @@ import { GlobalModalContext } from "../hooks";
 import { ModalProps, ModalType } from "../types";
 import ConfirmationModal from "./ConfirmationModal";
 import ModalError from "./ModalError";
+import PanelRenameModal from "./PanelRenameModal";
 import TransactionModal from "./TransactionModal";
 import WalletModal from "./WalletModal";
 
@@ -25,6 +26,7 @@ const components: Record<ModalType, React.FC<any>> = {
   [ModalType.Transaction]: TransactionModal,
   [ModalType.Wallet]: WalletModal,
   [ModalType.Confirmation]: ConfirmationModal,
+  [ModalType.PanelRename]: PanelRenameModal,
 };
 
 const GlobalModalProvider: React.FC = memo(function GlobalModalProvider({
