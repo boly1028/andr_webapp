@@ -23,25 +23,25 @@ const FlexBuilderTemplateListItem: FC<FlexBuilderTemplateListItemProps> = ({
 }) => {
   return (
     <FlexBuilderTemplateListItemCard template={template}>
-      {/* Set href to '#' if assigned for coming soon /disabled */}
-      <NextLink
-        href={!template.disabled ? SITE_LINKS.flexBuilder(template.id) : "#"}
-        passHref
-      >
-        <Button
-          as="a"
-          mt={10}
-          isFullWidth
-          size="lg"
-          colorScheme="purple"
-          rightIcon={
-            !template.disabled ? <ChevronRightIcon boxSize={5} /> : undefined
-          }
-          isDisabled={template.disabled}
-        >
-          {template.disabled ? "Coming Soon" : "Get Started"}
+      {/* If template is disabled, render disabled coming soon button else render link to builder */}
+      {template.disabled ? (
+        <Button mt={10} isFullWidth size="lg" colorScheme="purple" disabled>
+          Coming Soon
         </Button>
-      </NextLink>
+      ) : (
+        <NextLink href={SITE_LINKS.flexBuilder(template.id)} passHref>
+          <Button
+            as="a"
+            mt={10}
+            isFullWidth
+            size="lg"
+            colorScheme="purple"
+            rightIcon={<ChevronRightIcon boxSize={5} />}
+          >
+            Get Started
+          </Button>
+        </NextLink>
+      )}
     </FlexBuilderTemplateListItemCard>
   );
 };
