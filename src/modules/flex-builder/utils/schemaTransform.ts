@@ -29,6 +29,7 @@ export const addSchemaModule = (
 
     // ui-schema
     _uiSchema[`${uuid}`] = updatedData.uiSchema;
+    _uiSchema[`ui:order`] = [..._uiSchema[`ui:order`] ?? ['*'], uuid];
 
     // form-data
     _formData[`${uuid}`] = updatedData.formData
@@ -111,6 +112,7 @@ export const deleteSchemaModule = (uuid: string, oriDefaults?: SchemaObject) => 
 
     const _uiSchema = defaults?.uiSchema || {};
     const _formData = defaults?.formData || {};
+    _uiSchema['ui:order'] = _uiSchema['ui:order']?.filter(id => id !== uuid)
 
     delete schemaDefinitions[`${uuid}`];
     delete schemaProperties[`${uuid}`];
@@ -151,6 +153,10 @@ export const changeSchemaID = (oldPanelName: string, newPanelName: string, _defa
 
     schemaDefinitions[`${newPanelName}`] = schemaDefinitions[`${oldPanelName}`];
     _uiSchema[`${newPanelName}`] = _uiSchema[`${oldPanelName}`];
+    _uiSchema['ui:order'] = _uiSchema['ui:order']?.map(id => {
+        if (id === oldPanelName) return newPanelName;
+        return id;
+    })
     _formData[`${newPanelName}`] = _formData[`${oldPanelName}`];
 
     // remove previous panel definitions
