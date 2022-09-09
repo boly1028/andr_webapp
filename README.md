@@ -72,9 +72,16 @@ The Global structure can be summarized by the following table:
 | data | Data such as constants, default JSON structures, and config values. |
 | hooks | Generic hooks for use everywhere. Some services / api sub-groups may have their own functionality specific hooks defined in their sub-folders. |
 | theme | UI components and presentational components such as av bars, side bars, footers, buttons, and icons.|
-| placeholders | Non Javascript code such as images/ CSS ect...| 
+| modals | Modals are used to perform actions like transactions, confirmations, etc. They are extended to child components via global context. |
+| placeholders | Non Javascript code such as images/ CSS ect...|
 
+## Schema Handling
+We have `JSON schemas` for ADO's. These schemas help us generate user interfaces for the ADO. Each ADO has its own schema inside a folder of  similar name with other related schemas. These schemas and folder structure are created by our generator. DO NOT MODIFY THESE FILES!
 
 ## Test Handling
 
 Tests occur in same folder (or as close as possible) to files it is testing.
+
+## Special Note for developers
+
+To make your code easier to navigate and understand, try to create a modular system. If you are implementing something new, do a quick scan for any similar implementations in the codebase. To help others find your implementation easily, give a meaningful name to variables and add comments with related keywords.
