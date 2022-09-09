@@ -1,6 +1,6 @@
 # Andromeda Webapp
 
-The andromeda web-app repo is responsible for our web application which is a react based application built using the next.js framework.
+The andromeda web-app repo is responsible for our web application which is a react based application built using the next.js framework. Learn more about [andromeda](https://docs.andromedaprotocol.io/)
 
 ## Features
 
