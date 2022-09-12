@@ -28,7 +28,9 @@ export const getTemplateFromId = async (id: string) => {
     const schemaDefinitions: any = {};
     const schemaProperties: any = {};
 
-    const uiSchema: any = {};
+    const uiSchema: any = {
+      'ui:order': []
+    };
     const formData: any = {};
 
     for (const ado of template.ados) {
@@ -69,6 +71,7 @@ export const getTemplateFromId = async (id: string) => {
       uiSchema[`${ado.id}`]["$removable"] = { "ui:widget": "hidden" };
       uiSchema[`${ado.id}`]["$enabled"] = { "ui:widget": "hidden" };
       uiSchema[`${ado.id}`]["$type"] = { "ui:widget": "hidden" };
+      uiSchema['ui:order'].push(ado.id)
 
       // form-data
       formData[`${ado.id}`] = schemaADO["form-data"];

@@ -85,6 +85,7 @@ const Sidebar = ({ onClose, ...props }: SidebarProps) => {
       w={60}
       pos="fixed"
       h="full"
+      overflowY='auto'
       px={4}
       {...props}
     >
