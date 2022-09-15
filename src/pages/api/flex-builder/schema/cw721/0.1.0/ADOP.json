@@ -1,1 +1,1 @@
-{"modifiers":["andr_receive","mint","transfer_nft","send_nft","approve","revoke","approve_all","revoke_all","burn","archive","transfer_agreement"]}
+{"modifiers":["andr_receive","mint","transfer_nft","send_nft","approve","revoke","approve_all","revoke_all","burn","archive","transfer_agreement","batch_mint"]}

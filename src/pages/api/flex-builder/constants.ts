@@ -1,6 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
 
 import { FlexBuilderTemplateProps } from "@/modules/flex-builder/types";
+import { suid } from "@/lib/schema/utils";
 
 export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
   {
@@ -21,29 +22,29 @@ export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
 
     modules: [
       { path: "address-list/0.1.0/address-list" },
-      { path: "primitives/0.1.0/array" },
+      // { path: "primitives/0.1.0/array" },
       { path: "auction/0.1.0/auction" },
-      { path: "primitives/0.1.0/boolean" },
-      { path: "primitives/0.1.0/coin" },
+      // { path: "primitives/0.1.0/boolean" },
+      // { path: "primitives/0.1.0/coin" },
       { path: "crowdfund/0.1.0/crowdfund" },
       { path: "cw20/0.1.0/cw20" },
       { path: "cw20-staking/0.1.0/cw20-staking" },
       { path: "cw721/0.1.0/cw721" },
-      { path: "cw721-offers/0.1.0/cw721-offers" },
+      // { path: "cw721-offers/0.1.0/cw721-offers" },
       { path: "cw721-staking/0.1.0/cw721-staking" },
-      { path: "primitives/0.1.0/decimal" },
+      // { path: "primitives/0.1.0/decimal" },
       { path: "gumball/0.1.0/gumball" },
       { path: "lockdrop/0.1.0/lockdrop" },
       { path: "merkle-airdrop/0.1.0/merkle-airdrop" },
-      { path: "primitives/0.1.0/string" },
-      { path: "nft-timelock/0.1.0/nft-timelock" },
+      // { path: "primitives/0.1.0/string" },
+      // { path: "nft-timelock/0.1.0/nft-timelock" },
 
       { path: "rates/0.1.0/rates" },
       { path: "rate-limiting-withdrawals/0.1.0/rate-limiting-withdrawals" },
       { path: "receipt/0.1.0/receipt" },
       { path: "splitter/0.1.0/splitter" },
       { path: "timelock/0.1.0/timelock" },
-      { path: "primitives/0.1.0/uint128" },
+      // { path: "primitives/0.1.0/uint128" },
       { path: "vault/0.1.0/vault" },
       { path: "vesting/0.1.0/vesting" },
       {
@@ -104,7 +105,7 @@ export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
     opts: [],
     ados: [
       { path: "publish-settings", id: "publish-settings", required: true },
-      { path: "splitter/0.1.0/splitter", id: uuidv4(), required: true },
+      { path: "splitter/0.1.0/splitter", id: 'splitter', required: true },
     ],
   },
   {
@@ -116,7 +117,7 @@ export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
     opts: [],
     ados: [
       { path: "publish-settings", id: "publish-settings", required: true },
-      { path: "timelock/0.1.0/timelock", id: uuidv4(), required: true },
+      { path: "timelock/0.1.0/timelock", id: 'timelock', required: true },
     ],
   },
   {
@@ -127,7 +128,7 @@ export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
     opts: [],
     ados: [
       { path: "publish-settings", id: "publish-settings", required: true },
-      { path: "cw20/0.1.0/cw20", id: uuidv4(), required: true },
+      { path: "cw20/0.1.0/cw20", id:'cw20', required: true },
     ],
   },
   {
@@ -139,7 +140,7 @@ export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
     opts: [],
     ados: [
       { path: "publish-settings", id: "publish-settings", required: true },
-      { path: "cw721/0.1.0/cw721", id: uuidv4(), required: true },
+      { path: "cw721/0.1.0/cw721", id: 'tokens', required: true },
     ],
   },
   {
@@ -151,7 +152,7 @@ export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
     opts: [],
     ados: [
       { path: "publish-settings", id: "publish-settings", required: true },
-      { path: "address-list/0.1.0/address-list", id: uuidv4(), required: true },
+      { path: "address-list/0.1.0/address-list", id: 'address-list', required: true },
     ],
     disabled: false,
   },
@@ -164,7 +165,7 @@ export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
     opts: [],
     ados: [
       { path: "publish-settings", id: "publish-settings", required: true },
-      { path: "primitives/0.1.0/string", id: uuidv4(), required: true },
+      { path: "primitives/0.1.0/string", id: 'string', required: true },
     ],
     disabled: false,
   },
@@ -177,7 +178,7 @@ export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
     opts: ["Unsigned 128bit Integer"],
     ados: [
       { path: "publish-settings", id: "publish-settings", required: true },
-      { path: "primitives/0.1.0/uint128", id: uuidv4(), required: true },
+      { path: "primitives/0.1.0/uint128", id: 'unit128', required: true },
     ],
     disabled: false,
   },
@@ -189,7 +190,7 @@ export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
     opts: [],
     ados: [
       { path: "publish-settings", id: "publish-settings", required: true },
-      { path: "crowdfund/0.1.0/crowdfund", id: uuidv4(), required: true },
+      { path: "crowdfund/0.1.0/crowdfund", id: 'crowdfund', required: true },
     ],
   },
 
@@ -202,7 +203,7 @@ export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
     opts: [],
     ados: [
       { path: "publish-settings", id: "publish-settings", required: true },
-      { path: "vault/0.1.0/vault", id: uuidv4(), required: true },
+      { path: "vault/0.1.0/vault", id: 'vault', required: true },
     ],
   },
   {

@@ -1,1 +1,1 @@
-{"modifiers":["receive","andr_receive","deposit_native","withdraw_native","deposit_to_bootstrap","claim_rewards","enable_claims","withdraw_proceeds"]}
+{"modifiers":["receive","andr_receive","deposit_native","withdraw_native","claim_rewards","enable_claims","withdraw_proceeds"]}

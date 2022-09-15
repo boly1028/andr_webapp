@@ -112,6 +112,7 @@ export const getFlexecuteTemplateFromPath = async (path: string) => {
       }
 
       schemaDefinitions[`${ado.id}`] = schemaADO["schema"];
+      schemaDefinitions[`${ado.id}`]['properties'] = schemaDefinitions[`${ado.id}`]['properties'] ?? {};
       schemaDefinitions[`${ado.id}`]["properties"]["$type"] = {
         type: "string",
         default: schemaADO["schema"]["$id"],

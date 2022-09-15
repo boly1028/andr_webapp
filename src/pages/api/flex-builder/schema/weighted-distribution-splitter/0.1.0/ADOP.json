@@ -1,1 +1,1 @@
-{"modifiers":["update_recipients","remove_recipient","update_lock","send","andr_receive"]}
+{"modifiers":["update_recipients","update_recipient_weight","add_recipient","remove_recipient","update_lock","send","andr_receive"]}

@@ -1,0 +1,1 @@
+{"schema":{"type":"object","required":["cancel_bid"],"properties":{"cancel_bid":{"type":"object","required":["token_id"],"properties":{"token_id":{"type":"string","title":"token_id"}}}},"additionalProperties":false,"$id":"cancel_bid","class":"modifier"},"ui-schema":{},"form-data":{}}

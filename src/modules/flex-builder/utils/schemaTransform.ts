@@ -56,7 +56,7 @@ export const updateSchemaModule = (
         ...(defaults['schema'] ?? {}),
         ...(data["schema"] ?? {})
     };
-
+    _definition["properties"] = _definition["properties"] ?? {};
     _definition["properties"]["$type"] = {
         type: "string",
         default: data["schema"]["$id"],

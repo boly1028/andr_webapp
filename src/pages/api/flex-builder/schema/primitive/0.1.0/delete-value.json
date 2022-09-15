@@ -1,0 +1,1 @@
+{"schema":{"description":"If key is not specified the default key will be used.","type":"object","required":["delete_value"],"properties":{"delete_value":{"type":"object","properties":{"key":{"type":["string","null"],"title":"key"}}}},"additionalProperties":false,"$id":"delete_value","class":"modifier"},"ui-schema":{},"form-data":{}}

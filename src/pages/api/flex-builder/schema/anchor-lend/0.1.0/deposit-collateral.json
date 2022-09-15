@@ -1,0 +1,1 @@
+{"schema":{"description":"Deposit LUNA as collateral which will be converted to bLUNA.","type":"object","required":["deposit_collateral"],"properties":{"deposit_collateral":{"type":"object","title":"deposit_collateral"}},"additionalProperties":false,"$id":"deposit_collateral","class":"modifier"},"ui-schema":{},"form-data":{}}

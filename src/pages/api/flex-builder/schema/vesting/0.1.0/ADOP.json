@@ -1,1 +1,1 @@
-{"modifiers":["andr_receive","claim","claim_all","create_batch","delegate","undelegate"]}
+{"modifiers":["andr_receive","claim","claim_all","create_batch","delegate","redelegate","undelegate","withdraw_rewards","vote"]}
