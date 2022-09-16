@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 
 import { FieldTemplateProps } from "@rjsf/core";
 
@@ -7,6 +7,8 @@ import {
   FormControl,
   FormHelperText,
   FormErrorMessage,
+  FormLabel,
+  Box,
 } from "@chakra-ui/react";
 import { List, ListItem } from "@chakra-ui/react";
 
@@ -29,11 +31,26 @@ const FieldTemplate = (props: FieldTemplateProps) => {
     rawHelp,
     rawDescription,
     schema,
+    uiSchema,
   } = props;
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    const el = document?.getElementById(`${id}-label`);
+    if (el) {
+      el.style.display = "none";
+    }
+  }, [id, schema]);
 
   if (hidden) {
     return <>{children}</>;
   }
+
+  if(schema.type === "null"){
+    return <>{children}</>
+  }
+
+  const hasWrapper = !!schema?.anyOf || !!schema?.oneOf;
+  // const hasWrapper = false;
 
   return (
     <WrapIfAdditional
@@ -51,10 +68,23 @@ const FieldTemplate = (props: FieldTemplateProps) => {
         isRequired={required}
         isInvalid={rawErrors && rawErrors.length > 0}
       >
-        {children}
-        {displayLabel && rawDescription ? (
-          <Text mt={2}>{rawDescription}</Text>
+        {displayLabel && label ? (
+          <FormLabel mt={hasWrapper?'2':'0'} mb="0.5" id={`${id}-new-label`} htmlFor={id}>
+            {label}
+          </FormLabel>
         ) : null}
+        {displayLabel && rawDescription ? (
+          <Text mb="2" fontWeight="light" color="GrayText" fontSize="sm">
+            {rawDescription}
+          </Text>
+        ) : null}
+        {hasWrapper ? (
+          <Box border="1px" borderColor="gray.300" p="6" rounded="lg">
+            {children}
+          </Box>
+        ) : (
+          <>{children}</>
+        )}
         {rawErrors && rawErrors.length > 0 && (
           <List>
             {rawErrors.map((error, i: number) => {
@@ -66,7 +96,15 @@ const FieldTemplate = (props: FieldTemplateProps) => {
             })}
           </List>
         )}
-        {rawHelp && <FormHelperText id={id}>{rawHelp}</FormHelperText>}
+        {/* @ts-ignore */}
+        {schema.$help && (
+          <FormHelperText id={id}>
+            {
+              // @ts-ignore
+              schema.$help
+            }
+          </FormHelperText>
+        )}
       </FormControl>
     </WrapIfAdditional>
   );
