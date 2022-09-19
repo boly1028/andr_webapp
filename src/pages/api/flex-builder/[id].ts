@@ -41,6 +41,7 @@ export const getTemplateFromId = async (id: string) => {
       });
 
       schemaDefinitions[`${ado.id}`] = schemaADO["schema"];
+      // Some schema does not have properties field set. This is to prevent access to undefined. TODO: Fix this in schema parser, if possible
       schemaDefinitions[`${ado.id}`]['properties'] = schemaDefinitions[`${ado.id}`]['properties'] ?? {};
       schemaDefinitions[`${ado.id}`]["properties"]["$type"] = {
         type: "string",

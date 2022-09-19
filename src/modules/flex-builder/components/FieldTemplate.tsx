@@ -45,8 +45,8 @@ const FieldTemplate = (props: FieldTemplateProps) => {
     return <>{children}</>;
   }
 
-  if(schema.type === "null"){
-    return <>{children}</>
+  if (schema.type === "null") {
+    return <>{children}</>;
   }
 
   const hasWrapper = !!schema?.anyOf || !!schema?.oneOf;
@@ -69,7 +69,12 @@ const FieldTemplate = (props: FieldTemplateProps) => {
         isInvalid={rawErrors && rawErrors.length > 0}
       >
         {displayLabel && label ? (
-          <FormLabel mt={hasWrapper?'2':'0'} mb="0.5" id={`${id}-new-label`} htmlFor={id}>
+          <FormLabel
+            mt={hasWrapper ? "2" : "0"}
+            mb="0.5"
+            id={`${id}-new-label`}
+            htmlFor={id}
+          >
             {label}
           </FormLabel>
         ) : null}
@@ -96,6 +101,9 @@ const FieldTemplate = (props: FieldTemplateProps) => {
             })}
           </List>
         )}
+
+        {/* We have our own $help field in schema. This is generally done using ui:help but as we are
+        changing schema, it will be best to handle all changes in schema only */}
         {/* @ts-ignore */}
         {schema.$help && (
           <FormHelperText id={id}>
