@@ -1,6 +1,5 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect, useMemo } from "react";
 import _ from "lodash";
-import { v4 as uuidv4 } from "uuid";
 import { useDisclosure } from "@chakra-ui/react";
 
 import { FlexBuilderTemplateModuleProps } from "@/modules/flex-builder/types";
@@ -28,6 +27,7 @@ import {
 
 import { PlusIcon, SearchIcon } from "@/theme/icons";
 import ClassifierIcon from "@/theme/icons/classifiers";
+import Fuse from "fuse.js";
 
 interface AddModuleModalItemProps {
   data: any;
@@ -89,8 +89,13 @@ function AddModuleModalItem({
           </Text>
           <Text textStyle="light"> </Text>
         </Box>
-        {/* Use lodash to capitalize first letter of class */}
-        <Text textStyle="light">{_.upperFirst(data?.schema?.class)}</Text>
+        <Flex direction="column" gap={0} align="end">
+          {/* Use lodash to capitalize first letter of class */}
+          <Text textStyle="light">{_.upperFirst(data?.schema?.class)}</Text>
+          <Text fontSize="xs" textStyle="light">
+            {_.upperFirst(data?.schema?.$id)}
+          </Text>
+        </Flex>
       </Flex>
     </chakra.button>
   );
@@ -106,7 +111,31 @@ function AddModuleModal({ onAdd, items }: AddModuleModalProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selected, setSelected] =
     useState<FlexBuilderTemplateModuleProps | null>(null);
-  const [filteredItems, setFilteredItems] = useState<any[]>(items); //Value to reduce returned panel options by filters
+
+  const fuse = useMemo(() => {
+    const options: Fuse.IFuseOptions<FlexBuilderTemplateModuleProps> = {
+      keys: [
+        {
+          name: "id",
+          getFn: (item) => item?.schema?.schema?.$id ?? "",
+        },
+        {
+          name: "title",
+          getFn: (item) => item?.schema?.schema.title ?? "",
+        },
+        {
+          name: "description",
+          getFn: (item) => item?.schema?.schema.description ?? "",
+        },
+      ],
+      threshold:0.4
+    };
+    const _fuse = new Fuse(items, options);
+    return _fuse;
+  }, [items]);
+
+  const [filteredItems, setFilteredItems] =
+    useState<FlexBuilderTemplateModuleProps[]>(items); //Value to reduce returned panel options by filters
 
   const [searchText, setSearchText] = useState("");
   const [classText, setClassText] = useState<string>("all");
@@ -134,7 +163,10 @@ function AddModuleModal({ onAdd, items }: AddModuleModalProps) {
   //Address filtering controls to pre-sort items by class type & textual contents
   const updateFilters = useCallback(
     _.debounce((_search: string, _class: string) => {
-      let qrySearchedItems = items;
+      let qrySearchedItems =
+        _search.length > 0
+          ? fuse.search(_search).map((item) => item.item)
+          : items;
 
       // Filter panel selection options by $Class
       //Set selection form field value to variable for comparatives
@@ -143,29 +175,10 @@ function AddModuleModal({ onAdd, items }: AddModuleModalProps) {
           return _.some(item.schema, { class: _class });
         });
       }
-
-      // Filter panel selection options by text found within title and description fields
-      //Set selection form field value to variable for comparatives
-      if (_search !== "") {
-        // console.log("Search Filter on: ", qrySearchedItems);
-        qrySearchedItems = _.filter(qrySearchedItems, function (item) {
-          // Filter items which contain a lowercase version of the text in either the panel description or title
-          return (
-            _.includes(
-              item?.schema?.schema.title.toString().toLowerCase(),
-              _search.toLowerCase(),
-            ) ||
-            _.includes(
-              item?.schema?.schema?.description?.toString().toLowerCase(),
-              _search.toLowerCase(),
-            )
-          );
-        });
-      }
       setFilteredItems(qrySearchedItems);
       return;
     }, 500),
-    [setFilteredItems, items],
+    [setFilteredItems, fuse, items],
   );
 
   return (
