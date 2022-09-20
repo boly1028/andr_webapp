@@ -1,31 +1,55 @@
 import useQueryAppInfo from "@/lib/graphql/hooks/useQueryAppInfo";
 import React, { FC } from "react";
 import { AdoAsset } from "../..";
+import { v4 as keyGen } from "uuid"; // Used as key assignments for function elements
+import NextLink from "next/link";
 
-import { Flex, Box, Icon, Button } from "@/theme/ui-elements";
+import {
+  Flex,
+  Box,
+  Icon,
+  Button,
+  Menu,
+  MenuButton,
+  IconButton,
+  MenuList,
+  MenuItem,
+} from "@/theme/ui-elements";
 import InlineStat from "./InlineStat";
 import { useDisclosure } from "@chakra-ui/hooks";
-import { ChevronDownIcon, FallbackPlaceholder } from "@/modules/common";
+import {
+  ChevronDownIcon,
+  FallbackPlaceholder,
+  truncate,
+} from "@/modules/common";
 import AdoItem from "./AdoItem";
 import { CloseIcon } from "@chakra-ui/icons";
 import { Center, Stack } from "@chakra-ui/layout";
 import { Skeleton } from "@chakra-ui/skeleton";
 import ClassifierIcon from "@/theme/icons/classifiers";
 import useAssetInfoModal from "@/modules/modals/hooks/useAssetInfoModal";
+import { MoreHorizontalIcon } from "@/theme/icons";
+import { useGetSchemaJson } from "@/lib/schema/hooks";
+import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
+import { MoreVertical } from "lucide-react";
 
 interface AppItemProps {
   app: AdoAsset;
 }
 const AppItem: FC<AppItemProps> = ({ app }) => {
   const { data: appInfo, loading, error } = useQueryAppInfo(app.address);
+  const $version = "0.1.0";
+  const $classifier = "app";
+  // Creating a proxy for app type as it is now reference as app-contract
+  const appPath = app?.adoType === "app" ? "app-contract" : app?.adoType;
+  const { data: adopData, isLoading } = useGetSchemaJson<{
+    modifiers: string[];
+  }>(`${appPath}/${$version}/ADOP`);
 
   const open = useAssetInfoModal();
   const { getButtonProps, getDisclosureProps, isOpen } = useDisclosure();
   const buttonProps = getButtonProps();
   const disclosureProps = getDisclosureProps();
-
-  const $classifier = "app";
-  const $version = "0.1.0";
 
   return (
     <Flex
@@ -65,10 +89,7 @@ const AppItem: FC<AppItemProps> = ({ app }) => {
           />
         </Box>
         <Box flex={1}>
-          <InlineStat
-            label="Address"
-            value={app.address.substr(0, 5) + "..." + app.address.substr(-5)}
-          />
+          <InlineStat label="Address" value={truncate(app.address ?? "")} />
         </Box>
         <Box mr="2">
           <Button
@@ -81,6 +102,38 @@ const AppItem: FC<AppItemProps> = ({ app }) => {
             View
           </Button>
         </Box>
+        {/* Section for Action List */}
+        <Menu placement="bottom-end">
+          <MenuButton
+            as={IconButton}
+            icon={<Icon as={MoreVertical} boxSize={6} />}
+            variant="link"
+            px="0"
+            minW="0"
+            mr="0.5"
+          />
+          <MenuList>
+            {adopData?.modifiers?.map((action) => {
+              const path = `${appPath}/${$version}/${formatActionPath(action)}`;
+              return (
+                <NextLink
+                  key={keyGen()}
+                  href={SITE_LINKS.flexecute(
+                    path,
+                    app.address ?? "",
+                    appInfo?.name ?? "",
+                  )}
+                  passHref
+                >
+                  <MenuItem key={action}>
+                    {/* <MenuItem icon={<Icon as={EyeIcon} boxSize={5} />}> */}
+                    {formatActionTitles(action)}
+                  </MenuItem>
+                </NextLink>
+              );
+            })}
+          </MenuList>
+        </Menu>
         <Box>
           <Button {...buttonProps} variant="ghost">
             {isOpen ? (
@@ -134,5 +187,36 @@ const AppItem: FC<AppItemProps> = ({ app }) => {
     </Flex>
   );
 };
+
+// Format declared modifiers for better UX in application
+function formatActionTitles(actionTitleText: string) {
+  // Replace underscores and dashes from modifier labels
+  while (actionTitleText.includes("_") || actionTitleText.includes("-")) {
+    actionTitleText = actionTitleText.replace("_", " ");
+    actionTitleText = actionTitleText.replace("-", " ");
+  }
+
+  // Apply title casing to labels
+  const actionTitles = actionTitleText
+    .toLowerCase()
+    .split(" ")
+    .map(function (word) {
+      return word.charAt(0).toUpperCase() + word.slice(1);
+    });
+  actionTitleText = actionTitles.join(" ");
+
+  //Return formatted text
+  return actionTitleText;
+}
+
+// Format declared modifiers for better UX in application
+function formatActionPath(actionPathText: string) {
+  // Replace underscores and dashes from modifier labels
+  while (actionPathText.includes("_")) {
+    actionPathText = actionPathText.replace("_", "-");
+  }
+  //Return formatted text
+  return actionPathText;
+}
 
 export default AppItem;
