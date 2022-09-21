@@ -246,6 +246,7 @@
         },
         "$id": "cw20",
         "classifier": "",
+        "version": "0.1.0",
         "class": "baseADO"
     },
     "ui-schema": {},
