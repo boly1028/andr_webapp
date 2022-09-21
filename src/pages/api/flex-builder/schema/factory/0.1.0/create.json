@@ -1,1 +1,0 @@
-{"schema":{"description":"Create new token","type":"object","required":["create"],"properties":{"create":{"type":"object","required":["name","symbol"],"properties":{"name":{"type":"string","title":"name"},"symbol":{"type":"string","title":"symbol"}}}},"additionalProperties":false,"$id":"create","class":"modifier"},"ui-schema":{},"form-data":{}}

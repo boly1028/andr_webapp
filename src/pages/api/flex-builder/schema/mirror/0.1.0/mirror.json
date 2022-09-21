@@ -1,1 +1,0 @@
-{"schema":{"$schema":"http://json-schema.org/draft-07/schema#","title":"Mirror","type":"object","required":["primitive_contract"],"properties":{"operators":{"type":["array","null"],"items":{"type":"string"},"title":"operators"},"primitive_contract":{"type":"string","title":"primitive_contract"}},"$id":"mirror","classifier":"","class":"baseADO"},"ui-schema":{},"form-data":{}}

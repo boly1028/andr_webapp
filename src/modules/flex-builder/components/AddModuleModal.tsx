@@ -93,7 +93,7 @@ function AddModuleModalItem({
           {/* Use lodash to capitalize first letter of class */}
           <Text textStyle="light">{_.upperFirst(data?.schema?.class)}</Text>
           <Text fontSize="xs" textStyle="light">
-            {_.upperFirst(data?.schema?.$id)}
+            {data?.schema?.$id ?? ""}@{data?.schema?.version ?? "0.0.0"}
           </Text>
         </Flex>
       </Flex>
@@ -128,7 +128,7 @@ function AddModuleModal({ onAdd, items }: AddModuleModalProps) {
           getFn: (item) => item?.schema?.schema.description ?? "",
         },
       ],
-      threshold:0.4
+      threshold: 0.4,
     };
     const _fuse = new Fuse(items, options);
     return _fuse;
@@ -255,7 +255,7 @@ function AddModuleModal({ onAdd, items }: AddModuleModalProps) {
                 },
               }}
             >
-              <VStack spacing={3} align="normal">
+              <VStack spacing={3} align="normal" mt='4'>
                 {filteredItems.map((item) => {
                   return (
                     <AddModuleModalItem

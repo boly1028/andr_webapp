@@ -151,7 +151,7 @@ export const TEMPLATES: Array<FlexBuilderTemplateProps> = [
     opts: ["Unsigned 128bit Integer"],
     ados: [
       { path: "publish-settings", id: "publish-settings", required: true },
-      { path: "primitives/0.1.0/uint128", id: 'unit128', required: true },
+      // { path: "primitives/0.1.0/uint128", id: 'unit128', required: true },
     ],
     disabled: false,
   },

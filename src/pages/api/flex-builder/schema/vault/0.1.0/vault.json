@@ -1,1 +1,1 @@
-{"schema":{"$schema":"http://json-schema.org/draft-07/schema#","title":"Vault","type":"object","$id":"vault","classifier":"","class":"baseADO"},"ui-schema":{},"form-data":{}}
+{"schema":{"$schema":"http://json-schema.org/draft-07/schema#","title":"Vault","type":"object","$id":"vault","classifier":"","class":"baseADO","version":"0.1.0"},"ui-schema":{},"form-data":{}}
