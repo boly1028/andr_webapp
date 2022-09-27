@@ -2,7 +2,11 @@ import { useSigner, WalletProvider } from "@/lib/wallet";
 import { ChakraProvider, CSSReset } from "@chakra-ui/react";
 import { AppProps } from "next/app";
 import React from "react";
-import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
+import {
+  Hydrate,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
 import { ToastContainer } from "react-toastify";
 import { AndromedaProvider } from "@/lib/andrjs";
 import { apolloClient } from "@/lib/graphql";
@@ -15,7 +19,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "@/modules/app-builder/style/controls.css";
 import "@/modules/app-builder/style/nodes.css";
 
-const Main = ({ Component, pageProps }: AppProps) => {
+const Main = ({ Component, pageProps }: AppProps<Record<string, any>>) => {
   const [queryClient] = React.useState(() => new QueryClient());
   const signer = useSigner();
 
