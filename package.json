@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "next lint --quiet",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf .next",
     "tsc": "tsc"
   },

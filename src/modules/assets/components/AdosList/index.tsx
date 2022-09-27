@@ -31,7 +31,7 @@ const AdosList: FC = () => {
   };
   useEffect(() => {
     setPrevData((prev) => {
-      let newList = prev ?? [];
+      const newList = prev ?? [];
       const filteredData =
         data?.filter((d) => !newList.some((nd) => nd.address === d.address)) ??
         [];
