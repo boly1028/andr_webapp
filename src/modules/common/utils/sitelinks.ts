@@ -25,5 +25,8 @@ export const SITE_LINKS = {
     assets: () => `/assets`,
     // Embedables
     embeddables: () => `embeddables`,
-    learn: () => `/learn`
+    learn: () => `/learn`,
+
+    // External Documentation
+    documentation: (adoType: string) => `https://docs.andromedaprotocol.io/andromeda/andromeda-digital-objects/${adoType}`
 } as const;

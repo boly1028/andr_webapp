@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect, useMemo } from "react";
 import _ from "lodash";
-import { useDisclosure } from "@chakra-ui/react";
+import { Link, useDisclosure } from "@chakra-ui/react";
 
 import { FlexBuilderTemplateModuleProps } from "@/modules/flex-builder/types";
 //import SchemaField from "@rjsf/core/lib/components/fields/SchemaField";
@@ -25,9 +25,10 @@ import {
   VStack,
 } from "@/theme/ui-elements";
 
-import { PlusIcon, SearchIcon } from "@/theme/icons";
+import { ExternalLink, PlusIcon, SearchIcon } from "@/theme/icons";
 import ClassifierIcon from "@/theme/icons/classifiers";
 import Fuse from "fuse.js";
+import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
 
 interface AddModuleModalItemProps {
   data: any;
@@ -84,10 +85,23 @@ function AddModuleModalItem({
         </Box>
         <Box flex={1}>
           <Text textStyle="bold">{data?.schema?.title}</Text>
-          <Text textStyle="light" my={1}>
+          <Text textStyle="light">
             {data?.schema?.description}
           </Text>
-          <Text textStyle="light"> </Text>
+          <Link
+            href={SITE_LINKS.documentation(data?.schema?.$id)}
+            target="_blank"
+            referrerPolicy="no-referrer"
+            textStyle="light"
+            color="blue.500"
+            display='flex'
+            alignItems='center'
+            gap='1'
+            flexDirection='row'
+          >
+            Documentation
+            <ExternalLink width={16} />
+          </Link>
         </Box>
         <Flex direction="column" gap={0} align="end">
           {/* Use lodash to capitalize first letter of class */}
@@ -255,7 +269,7 @@ function AddModuleModal({ onAdd, items }: AddModuleModalProps) {
                 },
               }}
             >
-              <VStack spacing={3} align="normal" mt='4'>
+              <VStack spacing={3} align="normal" mt="4">
                 {filteredItems.map((item) => {
                   return (
                     <AddModuleModalItem
