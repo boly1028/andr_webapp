@@ -50,6 +50,11 @@ const AndromedaProvider: React.FC<AndromedaProviderProps> = memo(
               gasPrice: GasPrice.fromString(config.defaultFee),
             },
           );
+
+          /**
+           * There is some conflict with library method. Even though connect method is completed,
+           * isConnected is false. Hence, check for isConnected also to sync with library properly
+           */
           if (client.isConnected) {
             setConnected(true);
             console.log(cloneDeep(client.isConnected), new Date().getTime());

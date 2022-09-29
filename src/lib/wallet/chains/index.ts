@@ -1,8 +1,10 @@
 import { Keplr } from "@keplr-wallet/types";
 import pisco1Connect from "./pisco1";
+import galileo2Connect from "./galileo2";
 
 const connectionFunctions = {
   "pisco-1": pisco1Connect,
+  "galileo-2": galileo2Connect
 };
 
 /**
