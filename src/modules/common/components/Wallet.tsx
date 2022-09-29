@@ -9,10 +9,14 @@ import {
   PopoverContent,
   PopoverTrigger,
   Text,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
 } from "@chakra-ui/react";
 import { FC } from "react";
 
-import { useDisconnect, useWallet } from "@/lib/wallet";
+import { useDisconnect, useWallet, useWalletContext } from "@/lib/wallet";
 import {
   ChevronDownIcon,
   CopyIcon,
@@ -24,7 +28,8 @@ import {
   CopyButton,
 } from "@/modules/common";
 import useWalletModal from "@/modules/modals/hooks/useWalletModal";
-import { MINTSCAN_TESTNET_BASEURL } from "@/constants/constants";
+import { configs } from "@andromedaprotocol/andromeda.js";
+import { useChainConfig } from "@/lib/andrjs";
 
 const TOKENS = [
   {
@@ -58,6 +63,8 @@ const WalletConnected = () => {
   const wallet = useWallet();
   const disconnect = useDisconnect();
   const address = truncate(wallet?.address);
+  const { chainId, setChainId } = useWalletContext();
+  const config = useChainConfig(chainId);
 
   return (
     <Popover placement="bottom-end">
@@ -78,7 +85,7 @@ const WalletConnected = () => {
           </PopoverTrigger>
           <PopoverContent>
             <PopoverBody>
-              <HStack mb={3}>
+              <HStack mb={3} justifyContent="space-between">
                 {/* <Icon
                   boxSize={9}
                   p={1}
@@ -89,6 +96,23 @@ const WalletConnected = () => {
                 <Text fontWeight={600} color="gray.700">
                   {chainId}
                 </Text>
+                <Menu>
+                  <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+                    Switch
+                  </MenuButton>
+                  <MenuList>
+                    {configs.map((config) => (
+                      <MenuItem
+                        onClick={() => {
+                          setChainId(config.chainId);
+                        }}
+                        key={config.chainId}
+                      >
+                        {config.chainId}
+                      </MenuItem>
+                    ))}
+                  </MenuList>
+                </Menu>
               </HStack>
               <Input
                 value={wallet ? wallet.address : ""}
@@ -111,7 +135,12 @@ const WalletConnected = () => {
                 </CopyButton>
                 <Button
                   as="a"
-                  href={`${MINTSCAN_TESTNET_BASEURL}/account/${wallet?.address}`}
+                  href={
+                    config?.blockExplorerAddressPages[0]?.replaceAll(
+                      "${address}",
+                      wallet?.address ?? "",
+                    ) ?? ""
+                  }
                   target="_blank"
                   leftIcon={<ExternalLinkIcon boxSize={4} />}
                   variant="outline"
@@ -152,8 +181,6 @@ const WalletConnected = () => {
     </Popover>
   );
 };
-
-const chainId = "uni-3";
 
 const Wallet: FC = () => {
   const account = useWallet();

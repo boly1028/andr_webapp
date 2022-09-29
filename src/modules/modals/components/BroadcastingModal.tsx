@@ -1,4 +1,4 @@
-import { useAndromedaContext } from "@/lib/andrjs";
+import { useAndromedaContext, useChainConfig } from "@/lib/andrjs";
 import { Text, Box, Center, Button } from "@chakra-ui/react";
 import { Check, ExternalLink } from "lucide-react";
 import { FC, memo, useCallback, useEffect, useMemo, useState } from "react";
@@ -10,7 +10,7 @@ import type {
   InstantiateResult,
 } from "@cosmjs/cosmwasm-stargate";
 import { truncate } from "@/modules/common";
-import { MINTSCAN_TESTNET_BASEURL } from "@/constants/constants";
+import { useWalletContext } from "@/lib/wallet";
 
 interface OptionalProps {
   onNextStage?: () => void;
@@ -24,6 +24,8 @@ const BroadcastingModal: FC<TransactionModalProps & OptionalProps> = memo(
     const [result, setResult] = useState<
       ExecuteResult | InstantiateResult | undefined
     >();
+    const { chainId } = useWalletContext();
+    const config = useChainConfig(chainId);
 
     const broadcast = useCallback(async () => {
       if (!connected) throw new Error("Not connected!");
@@ -56,6 +58,7 @@ const BroadcastingModal: FC<TransactionModalProps & OptionalProps> = memo(
           if (props.onNextStage) props.onNextStage();
         } catch (_error) {
           setError(_error as Error);
+          console.log(_error);
         }
       };
 
@@ -80,7 +83,12 @@ const BroadcastingModal: FC<TransactionModalProps & OptionalProps> = memo(
           <Text sx={{ fontWeight: "bold" }}>Transaction #</Text>
           <Text mt="6px" style={{ color: "#7F56D9" }}>
             <a
-              href={`${MINTSCAN_TESTNET_BASEURL}/txs/${transactionHash}`}
+              href={
+                config?.blockExplorerTxPages[0]?.replaceAll(
+                  "${txHash}",
+                  transactionHash,
+                ) ?? ""
+              }
               target="_blank"
               rel="noreferrer noopener"
             >
@@ -94,9 +102,12 @@ const BroadcastingModal: FC<TransactionModalProps & OptionalProps> = memo(
               <Text sx={{ fontWeight: "bold" }}>Contract Address</Text>
               <Text mt="6px" style={{ color: "#7F56D9" }}>
                 <a
-                  href={`${MINTSCAN_TESTNET_BASEURL}/account/${
-                    (result as InstantiateResult).contractAddress
-                  }`}
+                  href={
+                    config?.blockExplorerAddressPages[0]?.replaceAll(
+                      "${address}",
+                      (result as InstantiateResult).contractAddress,
+                    ) ?? ""
+                  }
                   target="_blank"
                   rel="noreferrer noopener"
                 >

@@ -1,4 +1,4 @@
-import AndromedaClient from "@andromedaprotocol/andromeda.js";
+import AndromedaClient, { ChainConfig } from "@andromedaprotocol/andromeda.js";
 import { OfflineSigner } from "@cosmjs/proto-signing";
 import { GasPrice } from "@cosmjs/stargate";
 import React, { memo, useEffect, useMemo, useState } from "react";
@@ -16,7 +16,7 @@ export function encode(data: any): string {
 
 export interface AndromedaProviderProps {
   signer?: OfflineSigner;
-  chainId: string;
+  chainId: ChainConfig["chainId"];
 }
 
 /**
@@ -26,7 +26,6 @@ const AndromedaProvider: React.FC<AndromedaProviderProps> = memo(
   function AndromedaProvider({ children, signer, chainId }) {
     const config = useChainConfig(chainId);
     const client = useMemo(() => new AndromedaClient(), []);
-    const [connected, setConnected] = useState<boolean>(false);
 
     useEffect(() => {
       if (!config) {
@@ -49,14 +48,12 @@ const AndromedaProvider: React.FC<AndromedaProviderProps> = memo(
             },
           );
           console.log("Andromeda Client connected");
-          setConnected(true);
         } catch (error) {
           console.error(error);
         }
       };
-
       connect();
-    }, [config, client, signer, chainId, connected]);
+    }, [config, client, signer]);
 
     return (
       <AndromedaContext.Provider
@@ -67,7 +64,7 @@ const AndromedaProvider: React.FC<AndromedaProviderProps> = memo(
           factoryAddress: client.ado.factory.address ?? "",
           // Registry address is stored as part of the chain config
           registryAddress: config?.registryAddress ?? "",
-          connected,
+          connected: client.isConnected,
         }}
       >
         {children}

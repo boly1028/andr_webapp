@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useMemo, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { Box } from "@/theme/ui-elements";
 import { useQueryAssets } from "@/lib/graphql";
 import { useWallet } from "@/lib/wallet";
@@ -7,36 +7,43 @@ import { Create, FallbackPlaceholder } from "@/modules/common";
 import { Skeleton } from "@chakra-ui/skeleton";
 import { Center, Stack } from "@chakra-ui/layout";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { cloneDeep } from "@apollo/client/utilities";
 
 const LIMIT = 10;
 const AdosList: FC = () => {
   const wallet = useWallet();
 
-  const { data, loading, error, refetch } = useQueryAssets(
+  const { data, loading, error, fetchMore } = useQueryAssets(
     wallet?.address ?? "",
     LIMIT,
     0,
   );
   const [prevData, setPrevData] = useState<typeof data>([]);
-
-  const hasMore = useMemo(() => {
-    return !data || data.length !== 0;
-  }, [data]);
-
+  const [hasMore, setHasMore] = useState(true);
 
   const fetchMoreAsset = async () => {
-    await refetch({
-      offset: prevData?.length ?? 0,
+    if (loading) return;
+    console.log("REFETCH");
+    const res = await fetchMore({
+      variables: {
+        offset: prevData?.length ?? 0,
+      },
+    });
+    const assets = res.data.assets;
+    setHasMore(!!assets.length);
+    setPrevData((prev) => {
+      const result = cloneDeep(prev) ?? [];
+      const filteredData =
+        assets?.filter((d) => !prev?.some((nd) => nd.address === d.address)) ??
+        [];
+      result.push(...filteredData);
+      return result;
     });
   };
+
   useEffect(() => {
-    setPrevData((prev) => {
-      const newList = prev ?? [];
-      const filteredData =
-        data?.filter((d) => !newList.some((nd) => nd.address === d.address)) ??
-        [];
-      return [...newList, ...filteredData];
-    });
+    setPrevData(data);
+    setHasMore(!!data?.length);
   }, [data]);
 
   if (error) {

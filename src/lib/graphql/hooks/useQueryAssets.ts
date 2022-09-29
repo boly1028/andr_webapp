@@ -7,10 +7,9 @@ import { gql, QueryResult, useQuery } from "@apollo/client";
 import { useMemo } from "react";
 
 export interface QueryAssetsProps
-  extends Pick<QueryResult<QueryAssetsResponse, QueryAssets>, "loading" | "error" | "refetch"> {
+  extends Pick<QueryResult<QueryAssetsResponse, QueryAssets>, "loading" | "error" | "fetchMore"> {
   // Type should be array itself. Make an interface for asset and using Asset[] as response. Changes needed in the library
-  data?: QueryAssetsResponse["assets"][];
-  prevData?: QueryAssetsResponse["assets"][];
+  data?: QueryAssetsResponse["assets"];
 }
 
 /**
@@ -23,7 +22,7 @@ export default function useQueryAssets(
   limit: number,
   offset: number,
 ): QueryAssetsProps {
-  const { loading, data, error, previousData, refetch } = useQuery<QueryAssetsResponse, QueryAssets>(
+  const { loading, data, error, fetchMore } = useQuery<QueryAssetsResponse, QueryAssets>(
     gql`
       ${QUERY_ASSETS}
     `,
@@ -31,14 +30,11 @@ export default function useQueryAssets(
   );
 
   // Converting assets to any and then to array to get proper typing at the end. It should be removed once type has been fixed in the library
-  const assets = data?.assets ?? ([] as any);
-  const prevAssets = previousData?.assets ?? ([] as any)
 
   return {
     loading,
     error,
-    data: assets,
-    prevData: prevAssets,
-    refetch
+    data: data?.assets,
+    fetchMore
   };
 }

@@ -19,11 +19,13 @@ export default function useWallet() {
 
     const assignAccounts = async () => {
       const _accounts = await signer.getAccounts();
-      setAccounts(_accounts);
+      setAccounts(prev => {
+        return _accounts
+      });
     };
 
     assignAccounts();
-  }, [signer]);
+  }, [signer, setAccounts]);
 
   return accounts[0];
 }

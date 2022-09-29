@@ -38,5 +38,7 @@ export default function useCodeId(adoType: string) {
     getCodeId();
   }, [factoryAddress, queryMsg, client, connected]);
 
+  console.log(connected, factoryAddress)
+
   return codeId;
 }
