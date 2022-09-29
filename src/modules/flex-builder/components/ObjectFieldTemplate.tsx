@@ -60,7 +60,6 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
 
   const hasWrapper = formData["$removable"] !== undefined;
   const hasGroup = schema["ui:options"]?.["group"];
-
   if (hasWrapper) {
     return (
       /**
@@ -190,7 +189,7 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
      */
     return (
       <>
-        {(uiSchema["ui:title"] || title) && !hasGroup && (
+        {(title) && !hasGroup && (
           <TitleField
             id={`${idSchema.$id}-title`}
             title={title}
@@ -203,7 +202,7 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
             description={description}
           />
         )}
-        <Grid gap={description ? 2 : 4} mb={4} mt={hasGroup ? 6 : 0}>
+        <Grid gap={description ? 2 : 4} mb={4} mt={hasGroup ? 6 :0}>
           {properties.map((element, index) =>
             element.hidden ? (
               element.content

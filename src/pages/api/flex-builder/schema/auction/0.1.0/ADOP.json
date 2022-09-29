@@ -1,1 +1,1 @@
-{"modifiers":["andr_receive","receive_nft","place_bid","claim","update_auction","update_owner","cancel_auction"]}
+{"modifiers":["receive-nft","place-bid","claim","update-auction","cancel-auction"]}

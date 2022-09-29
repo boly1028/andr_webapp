@@ -2,7 +2,7 @@ import React from "react";
 
 import { utils } from "@rjsf/core";
 
-import { Box, Grid, GridItem, ButtonGroup, HStack } from "@chakra-ui/react";
+import { Box, Grid, GridItem, ButtonGroup, HStack, VStack } from "@chakra-ui/react";
 
 import { ArrayFieldTemplateProps, IdSchema } from "@rjsf/core";
 
@@ -64,7 +64,7 @@ const ArrayFieldDescription = ({
 // Used in the two templates
 const DefaultArrayItem = (props: any) => {
   return (
-    <HStack key={props.key} alignItems={"flex-end"} py={1}>
+    <VStack border='1px' my='2' borderColor='gray.300' rounded='lg' p='4' key={props.key} alignItems={"flex-end"}>
       <Box w="100%">{props.children}</Box>
 
       {props.hasToolbar && (
@@ -101,7 +101,7 @@ const DefaultArrayItem = (props: any) => {
           </ButtonGroup>
         </Box>
       )}
-    </HStack>
+    </VStack>
   );
 };
 

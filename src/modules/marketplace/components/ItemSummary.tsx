@@ -78,7 +78,7 @@ const ItemSummary = () => {
           </HStack>
           <Text fontSize="sm">
             A collection of 10,000 utility-enabled PFPs that feature a richly
-            diverse and unique pool of rarity-powered traits. What's more, each
+            diverse and unique pool of rarity-powered traits. What&apos;s more, each
             Moonbird unlocks private club membership and additional benefits the
             longer you hold them. We call it nesting – because, obviously.. Read
             more

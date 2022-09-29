@@ -1,1 +1,0 @@
-{"schema":{"description":"Transfers the given token to the recipient once the time lock has expired.","type":"object","required":["claim"],"properties":{"claim":{"type":"object","required":["lock_id"],"properties":{"lock_id":{"type":"string","title":"lock_id"}}}},"additionalProperties":false,"$id":"claim","class":"modifier"},"ui-schema":{},"form-data":{}}

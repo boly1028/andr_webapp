@@ -10,7 +10,7 @@ export interface NftAsset {
 }
 
 /** Combine interface for query from graphql and data from ADOP JSON */
-export type AdoAsset = QueryAssetsResponse['assets'] & {
+export type AdoAsset = QueryAssetsResponse['assets'][number] & {
   // Data from ADOP JSON
   // $class: string;
   // $classifier: string[];

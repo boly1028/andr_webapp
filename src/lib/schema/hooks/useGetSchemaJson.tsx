@@ -1,5 +1,5 @@
 import { getSchemaFromPath } from "@/api/schema";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 
 export const useGetSchemaJson = <T,>(path: string) => {
   return useQuery(["schema", path], async () => {

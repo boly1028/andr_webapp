@@ -1,8 +1,8 @@
 import { Keplr } from "@keplr-wallet/types";
-import uni3Connect from "./uni3";
+import pisco1Connect from "./pisco1";
 
 const connectionFunctions = {
-  "uni-3": uni3Connect,
+  "pisco-1": pisco1Connect,
 };
 
 /**

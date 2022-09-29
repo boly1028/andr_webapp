@@ -26,6 +26,7 @@ import type {
 import widgets from "./widgets";
 import FieldTemplate from "./FieldTemplate";
 import TitleField from "./TitleField";
+import DescriptionField from "./DescriptionField";
 import ObjectFieldTemplate from "./ObjectFieldTemplate";
 import ArrayFieldTemplate from "./ArrayFieldTemplate";
 import { cloneDeep } from "@apollo/client/utilities";
@@ -160,8 +161,12 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
    * NOTE- It may cause unnecessary rerender but I hope it wont be affecting performance as we
    * do not have large list of modules. Though using memo will considerably decrease rerenders
    */
-  const FORM_CONTEXT_UPDATE = useMemo(() => {
-    return Math.random();
+  const [FORM_CONTEXT_UPDATE, setFORM_CONTEXT_UPDATE] = useState(Math.random());
+  useEffect(() => {
+    const tId = setTimeout(() => {
+      setFORM_CONTEXT_UPDATE(Math.random());
+    }, 500);
+    return () => clearTimeout(tId);
   }, [formData, uiSchema, schema]);
 
   return (
@@ -186,7 +191,7 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
       }}
       onSubmit={onSubmit}
       onError={onError}
-      fields={{ TitleField }}
+      fields={{ TitleField, DescriptionField }}
       FieldTemplate={FieldTemplate}
       ArrayFieldTemplate={ArrayFieldTemplate}
       ObjectFieldTemplate={ObjectFieldTemplate}
