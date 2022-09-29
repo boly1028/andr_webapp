@@ -29,6 +29,7 @@ export const addSchemaModule = (
 
     // ui-schema
     _uiSchema[`${uuid}`] = updatedData.uiSchema;
+    // Add new schema to ui order
     _uiSchema[`ui:order`] = [..._uiSchema[`ui:order`] ?? ['*'], uuid];
 
     // form-data
@@ -112,6 +113,7 @@ export const deleteSchemaModule = (uuid: string, oriDefaults?: SchemaObject) => 
 
     const _uiSchema = defaults?.uiSchema || {};
     const _formData = defaults?.formData || {};
+    // Remove schema id from ui:order
     _uiSchema['ui:order'] = _uiSchema['ui:order']?.filter(id => id !== uuid)
 
     delete schemaDefinitions[`${uuid}`];
@@ -153,6 +155,8 @@ export const changeSchemaID = (oldPanelName: string, newPanelName: string, _defa
 
     schemaDefinitions[`${newPanelName}`] = schemaDefinitions[`${oldPanelName}`];
     _uiSchema[`${newPanelName}`] = _uiSchema[`${oldPanelName}`];
+
+    // Remove previous id from ui:order and add new id in place
     _uiSchema['ui:order'] = _uiSchema['ui:order']?.map(id => {
         if (id === oldPanelName) return newPanelName;
         return id;
@@ -197,8 +201,10 @@ export const duplicatePanelSchema = (panelName: string, newPanelName: string, _d
         ...schemaProperties[`${panelName}`],
         '$ref': `#/definitions/${newPanelName}`
     }
-    _uiSchema[`${newPanelName}`] = _uiSchema[`${panelName}`];
     _formData[`${newPanelName}`] = _formData[`${panelName}`];
+    _uiSchema[`${newPanelName}`] = _uiSchema[`${panelName}`];
+    // Add new schema to last of ui order
+    _uiSchema[`ui:order`] = [..._uiSchema[`ui:order`] ?? ['*'], newPanelName];
 
     // build schema from prior definitions & properties for return submission for passing to updateForm() function
     const _schema = {
