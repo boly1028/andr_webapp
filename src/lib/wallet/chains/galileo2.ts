@@ -11,8 +11,8 @@ const andr: Currency = {
 const config: ChainInfo = {
     chainId: "galileo-2",
     chainName: "Galileo-2",
-    rpc: "https://andromeda-testnet-rpc.orbitalcommand.io/",
-    rest: "https://andromeda-testnet-lcd.orbitalcommand.io/",
+    rpc: "https://rpc-andromeda-testnet.cereslabs.io/",
+    rest: "https://lcd-andromeda-testnet.cereslabs.io/swagger/ ​",
     bip44: {
         coinType: 118,
     },
