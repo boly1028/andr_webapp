@@ -245,7 +245,7 @@
             }
         },
         "$id": "cw20",
-        "classifier": "",
+        "classifier": "token",
         "version": "0.1.0",
         "class": "baseADO"
     },

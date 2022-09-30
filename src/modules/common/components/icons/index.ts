@@ -1,5 +1,5 @@
 export { default as AlertCircleIcon } from "./AlertCircleIcon";
-export {default as AndromedaIcon} from './AndromedaIcon'
+export { default as AndromedaIcon } from './AndromedaIcon'
 export { default as AppStore } from "./AppStore";
 export { default as ArchiveIcon } from "./ArchiveIcon";
 export { default as BarChartIcon } from "./BarChartIcon";
@@ -38,6 +38,7 @@ export { default as ScanIcon } from "./ScanIcon";
 export { default as SearchIcon } from "./SearchIcon";
 export { default as ShareIcon } from "./ShareIcon";
 export { default as SlidersIcon } from "./SlidersIcon";
+export { default as SplitterIcon } from "./SplitterIcon";
 export { default as SortDescIcon } from "./SortDescIcon";
 export { default as SparklesIcon } from "./SparklesIcon";
 export { default as TagIcon } from "./TagIcon";

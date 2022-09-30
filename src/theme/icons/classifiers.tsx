@@ -19,21 +19,24 @@ import {
   Code,
   Wallet,
   LayoutList,
+  Component,
+  Edit,
 } from "lucide-react"; // default
 
 import React, { FC } from "react";
 
 import { Icon } from "@/theme/ui-elements";
 import { IconProps } from "@chakra-ui/react";
+import { SplitterIcon } from "@/modules/common";
 
 export const DEFAULT_CLASS_ICON = {
   system: Settings,
   app: Layers,
   baseado: Box,
   module: Codesandbox,
-  modifier: Codesandbox,
+  modifier: Edit,
   primitive: Codepen,
-  default: Box,
+  default: Component,
 } as const;
 
 export const ADO_ICON = {
@@ -41,8 +44,9 @@ export const ADO_ICON = {
   sale: Banknote,
   external: Link,
   escrow: TimerReset,
-  bank: Landmark,
+  vault: Landmark,
   collectible: Image,
+  splitter: SplitterIcon,
 } as const;
 
 export const MODULE_ICON = {
@@ -80,11 +84,13 @@ interface ClassifierIconProps extends IconProps {
   schemaClass?: keyof typeof DEFAULT_CLASS_ICON;
 }
 const ClassifierIcon: FC<ClassifierIconProps> = (props) => {
-  const { schemaClassifier = '', schemaClass = '', ...iconProps } = props;
+  const { schemaClassifier = "", schemaClass = "", ...iconProps } = props;
 
   const icon =
-  CLASSIFIER_ICON[schemaClassifier.toLowerCase()]  ?? CLASSIFIER_ICON[schemaClass.toLowerCase()] ?? CLASSIFIER_ICON.default;
-  
+    CLASSIFIER_ICON[schemaClassifier.toLowerCase()] ??
+    CLASSIFIER_ICON[schemaClass.toLowerCase()] ??
+    CLASSIFIER_ICON.default;
+
   return <Icon as={icon} color={`${schemaClass}` + ".600"} {...iconProps} />;
 };
 export default ClassifierIcon;
