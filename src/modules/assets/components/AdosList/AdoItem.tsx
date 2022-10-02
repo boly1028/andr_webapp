@@ -6,7 +6,6 @@ import { v4 as keyGen } from "uuid"; // Used as key assignments for function ele
 
 import InlineStat from "./InlineStat";
 import { MoreHorizontalIcon } from "@/modules/common";
-import { useGetSchemaJson } from "@/lib/schema/hooks";
 
 import {
   Flex,
@@ -20,6 +19,8 @@ import {
 } from "@/theme/ui-elements";
 import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
 import ClassifierIcon from "@/theme/icons/classifiers";
+import { useGetSchemaADOP } from "@/lib/schema/hooks/useGetSchemaADOP";
+import { IAdoType } from "@/lib/schema/types";
 
 interface AdoItemProps {
   ado: AppComponent;
@@ -27,9 +28,8 @@ interface AdoItemProps {
 }
 const AdoItem: FC<AdoItemProps> = ({ ado, appAddress }) => {
   const $version = "0.1.0";
-  const { data: adopData, isLoading } = useGetSchemaJson<{
-    modifiers: string[];
-  }>(`${ado.adoType}/${$version}/ADOP`);
+  const adoType = ado.adoType as IAdoType;
+  const { data: adopData, isLoading } = useGetSchemaADOP(adoType);
 
   return (
     <Flex

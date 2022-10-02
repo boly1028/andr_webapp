@@ -33,12 +33,11 @@ export default function useCodeId(adoType: string) {
       }
 
       const _codeId = await client.queryContract(factoryAddress, queryMsg);
+      console.log(_codeId)
       setCodeId(_codeId);
     };
     getCodeId();
   }, [factoryAddress, queryMsg, client, connected]);
-
-  console.log(connected, factoryAddress)
-
+  
   return codeId;
 }

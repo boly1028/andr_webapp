@@ -1,5 +1,5 @@
 import { ProgressBar } from "@/modules/common/components";
-import { Box, Button, Center } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import React, { memo, useMemo, useState } from "react";
 import { useGlobalModalContext } from "../hooks";
 import { TransactionModalProps } from "../types";

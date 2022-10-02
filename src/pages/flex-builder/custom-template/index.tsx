@@ -3,16 +3,14 @@ import { FileCheckIcon, Layout, PageHeader } from "@/modules/common";
 import { useMemo } from "react";
 import { FlexBuilderForm, StagingDocumentsModal } from "@/modules/flex-builder";
 import { Box, Flex, Text } from "@/theme/ui-elements";
-import { DownloadFlexProps } from "@/modules/flex-builder/components/DownloadButton";
-import { UPLOAD_TEMPLATE } from "@/modules/flex-builder/components/FlexUploadTemplateCard";
-
+import { UPLOAD_TEMPLATE } from "@/modules/flex-builder/components/FlexBuilderPage/FlexUploadCard";
+import { DownloadFlexProps } from "@/modules/flex-builder/components/FlexBuilderForm/DownloadButton";
 
 /**
  * Flex Builder Custom template page which takes flex from session storage and renders
  * as form builder
  */
 const FlexBuilderCustomTemplate: NextPage = () => {
-
   /** Template contains same structure as Blank App with schema, formData, uiSchema added from flex file uploaded by user */
   const template = useMemo(() => {
     /**Session Storage is not available for SSR, Only render when window is defined (Client Side) */
@@ -47,7 +45,6 @@ const FlexBuilderCustomTemplate: NextPage = () => {
   const staging_available = false;
 
   if (!template) return null;
-  console.log(template);
 
   return (
     <Layout>

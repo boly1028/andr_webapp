@@ -28,10 +28,10 @@ import { Center, Stack } from "@chakra-ui/layout";
 import { Skeleton } from "@chakra-ui/skeleton";
 import ClassifierIcon from "@/theme/icons/classifiers";
 import useAssetInfoModal from "@/modules/modals/hooks/useAssetInfoModal";
-import { MoreHorizontalIcon } from "@/theme/icons";
-import { useGetSchemaJson } from "@/lib/schema/hooks";
 import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
 import { MoreVertical } from "lucide-react";
+import { useGetSchemaADOP } from "@/lib/schema/hooks/useGetSchemaADOP";
+import { IAdoType } from "@/lib/schema/types";
 
 interface AppItemProps {
   app: AdoAsset;
@@ -41,10 +41,10 @@ const AppItem: FC<AppItemProps> = ({ app }) => {
   const $version = "0.1.0";
   const $classifier = "app";
   // Creating a proxy for app type as it is now reference as app-contract
-  const appPath = app?.adoType === "app" ? "app-contract" : app?.adoType;
-  const { data: adopData, isLoading } = useGetSchemaJson<{
-    modifiers: string[];
-  }>(`${appPath}/${$version}/ADOP`);
+  const adoType =
+    app?.adoType === "app" ? "app-contract" : (app?.adoType as IAdoType);
+
+  const { data: adopData, isLoading } = useGetSchemaADOP(adoType);
 
   const open = useAssetInfoModal();
   const { getButtonProps, getDisclosureProps, isOpen } = useDisclosure();
@@ -114,7 +114,7 @@ const AppItem: FC<AppItemProps> = ({ app }) => {
           />
           <MenuList>
             {adopData?.modifiers?.map((action) => {
-              const path = `${appPath}/${$version}/${formatActionPath(action)}`;
+              const path = `${adoType}/${$version}/${formatActionPath(action)}`;
               return (
                 <NextLink
                   key={keyGen()}

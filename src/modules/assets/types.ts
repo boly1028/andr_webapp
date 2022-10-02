@@ -1,3 +1,4 @@
+import { IAdoType } from "@/lib/schema/types";
 import { QueryAssetsResponse } from "@andromedaprotocol/andromeda.js";
 
 export interface NftAsset {
@@ -11,8 +12,4 @@ export interface NftAsset {
 
 /** Combine interface for query from graphql and data from ADOP JSON */
 export type AdoAsset = QueryAssetsResponse['assets'][number] & {
-  // Data from ADOP JSON
-  // $class: string;
-  // $classifier: string[];
-  // modifiers: string[];
 }

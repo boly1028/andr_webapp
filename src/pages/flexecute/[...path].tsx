@@ -1,58 +1,49 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
-
-import { useCodeId } from "@/lib/andrjs";
-// import usePublishContract from "@/modules/sdk/hooks/usePublishContract";
-import { constructMsgSample } from "@/modules/sdk/hooks";
-// import { useModifyContract } from "@/modules/sdk/hooks";
-
-import {
-  FlexBuilderForm,
-  FlexBuilderTemplateProps,
-  StagingDocumentsModal,
-} from "@/modules/flex-builder";
+import { FlexBuilderForm, StagingDocumentsModal } from "@/modules/flex-builder";
 
 import { Box, Flex, Text } from "@/theme/ui-elements";
 import { FileCheckIcon, Layout, PageHeader } from "@/modules/common";
-import { getFlexecuteTemplateFromPath } from "../api/flexecute/search";
 import { useRouter } from "next/router";
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import { cloneDeep } from "lodash";
+import { ITemplate } from "@/lib/schema/types";
+import { getAppExecuteTemplate } from "@/lib/schema/utils";
+import { constructMsg } from "@/modules/sdk/utils";
+import { useExecuteModal } from "@/modules/modals/hooks";
 
 type Props = {
-  template: FlexBuilderTemplateProps;
+  template: ITemplate;
 };
 
 const TemplatePage: NextPage<Props> = ({ template }) => {
-  // Template id here is not maintained to reflect codeId properly which will cause invalid request error
-  // const codeId = useCodeId(template.id);
-  /* alteration to integrating msg delivery to AndroemdaJS will be referenced by a useModifyContract() function call
-  // Parameters are anticipated to be contract, msg, coin value
-  const instantiate = useModifyContract(codeId);
-  */
-
   const router = useRouter();
+  const name = router.query.name as string;
+  const contract = router.query.contract as string;
+  const openModal = useExecuteModal(contract);
 
-  const modifiedTemplate: FlexBuilderTemplateProps = useMemo(() => {
-    const name = router.query.name as string;
-    const contract = router.query.contract as string;
+  const modifiedTemplate: ITemplate = useMemo(() => {
     const newTemplate = cloneDeep(template);
     newTemplate.name = name;
-    newTemplate.formData["proxy-message"] = {
-      ...(newTemplate.formData["proxy-message"] ?? {}),
+    const formData = newTemplate.formData ?? {};
+    formData["proxy-message"] = {
+      ...(formData["proxy-message"] ?? {}),
       parent: contract,
       component_name: name,
     };
+    newTemplate.formData = formData;
     return newTemplate;
-  }, [router]);
+  }, [name, contract]);
 
   const handleSubmit = async ({ formData }: any) => {
-    console.log("Encoded Sample Message:", constructMsgSample(formData));
-    console.log("Execute Message Dataset:", formData);
+    const _formData = cloneDeep(formData);
+    // Do not send proxy message as part of constuct msg as it is only needed for us
+    // to know address and name
+    delete _formData["proxy-message"];
+    const msg = constructMsg(_formData);
+    console.log("Execute Message Dataset:", _formData);
+    console.log("Encoded Sample Message:", msg);
 
-    // if (codeId === -1) {
-    //   console.warn("Code ID not fetched");
-    //   return;
-    // }
+    openModal(msg);
     // const resp = await instantiate(formData, `Instantiate ${template.id}`);
     // window.open(
     //   `https://testnet.mintscan.io/juno-testnet/txs/${resp.transactionHash}`,
@@ -131,7 +122,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<Props> = async (ctx) => {
   const { params } = ctx;
   const path = params?.path as string[];
-  const data = await getFlexecuteTemplateFromPath(path.join("/"));
+  const data = await getAppExecuteTemplate(path.join("/"));
   if (!data) {
     return {
       notFound: true,

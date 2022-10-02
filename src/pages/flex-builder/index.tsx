@@ -2,14 +2,12 @@ import React from "react";
 import { GetStaticProps, NextPage } from "next";
 
 import { Layout } from "@/modules/common";
-import {
-  FlexBuilderTemplateProps,
-  FlexBuilderPage,
-} from "@/modules/flex-builder";
-import { TEMPLATES } from "../api/flex-builder/constants";
+import { FlexBuilderPage } from "@/modules/flex-builder";
+import { ITemplate } from "@/lib/schema/types";
+import APP_TEMPLATES from "@/lib/schema/templates";
 
 type Props = {
-  templateList: Array<FlexBuilderTemplateProps>;
+  templateList: Array<ITemplate>;
 };
 
 const FlexBuilderIndexPage: NextPage<Props> = ({ templateList }) => (
@@ -21,7 +19,7 @@ const FlexBuilderIndexPage: NextPage<Props> = ({ templateList }) => (
 export const getStaticProps: GetStaticProps<Props> = async () => {
   return {
     props: {
-      templateList: TEMPLATES,
+      templateList: APP_TEMPLATES,
     },
     revalidate: 300,
   };
