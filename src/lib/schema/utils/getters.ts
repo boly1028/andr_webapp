@@ -119,26 +119,21 @@ export const getAppTemplateById = async (id: string, templates = APP_TEMPLATES) 
 }
 
 export const getAppExecuteTemplate = async (path: string) => {
-    // Parse path into title
-    const adoName = path.split('/').pop() ?? suid();
-    const id = path.replaceAll('/', ' ');
-    const title = adoName.toUpperCase();
-
     // Generate Template
     const TEMPLATES: Array<ITemplate> = [
         {
-            id: `${id}`,
+            id: path,
             name: '',
             description: '',
             icon: "",
             opts: [],
             ados: [
                 { path: "proxy-message", id: "proxy-message", required: true },
-                { path: `${path}`, id: `${title}`, required: true },
+                { path: `${path}`, id: 'component', required: true },
             ],
         },
     ];
 
-    const template = await getAppTemplateById(id, TEMPLATES);
+    const template = await getAppTemplateById(path, TEMPLATES);
     return template;
 }

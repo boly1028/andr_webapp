@@ -10,6 +10,7 @@ import { ITemplate } from "@/lib/schema/types";
 import { getAppExecuteTemplate } from "@/lib/schema/utils";
 import { constructMsg } from "@/modules/sdk/utils";
 import { useExecuteModal } from "@/modules/modals/hooks";
+import useConstructProxyMsg from "@/modules/sdk/hooks/useConstructProxyMsg";
 
 type Props = {
   template: ITemplate;
@@ -19,6 +20,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
   const router = useRouter();
   const name = router.query.name as string;
   const contract = router.query.contract as string;
+  const construct = useConstructProxyMsg();
   const openModal = useExecuteModal(contract);
 
   const modifiedTemplate: ITemplate = useMemo(() => {
@@ -35,12 +37,8 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
   }, [name, contract]);
 
   const handleSubmit = async ({ formData }: any) => {
-    const _formData = cloneDeep(formData);
-    // Do not send proxy message as part of constuct msg as it is only needed for us
-    // to know address and name
-    delete _formData["proxy-message"];
-    const msg = constructMsg(_formData);
-    console.log("Execute Message Dataset:", _formData);
+    const msg = construct(formData);
+    console.log("Execute Message Dataset:", formData);
     console.log("Encoded Sample Message:", msg);
 
     openModal(msg);

@@ -13,3 +13,14 @@ export interface IAppContract {
         name: string;
     }>;
 }
+
+/**
+ * Proxy Message refer to app-contract/0.1.0/proxy-message schema for fields
+ */
+export interface IProxyMessage {
+    [index: string]: any;
+    "proxy_message": {
+        name: string;
+        msg: string;
+    }
+}
