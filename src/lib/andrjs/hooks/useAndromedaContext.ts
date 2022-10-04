@@ -1,4 +1,4 @@
-import AndromedaClient from "@andromedaprotocol/andromeda.js/dist/andr-js";
+import AndromedaClient from "@andromedaprotocol/andromeda.js"
 import { useContext, createContext } from "react";
 
 export interface AndromedaContextProps {
