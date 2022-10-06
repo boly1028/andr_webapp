@@ -58,7 +58,7 @@ const AndromedaProvider: React.FC<AndromedaProviderProps> = memo(
           if (client.isConnected) {
             setConnected(true);
             console.log(cloneDeep(client.isConnected), new Date().getTime());
-            setFactoryAddress(client.ado.factory.address ?? "");
+            setFactoryAddress(client.factory.address ?? "");
             console.log("Andromeda Client connected");
           }
         } catch (error) {
