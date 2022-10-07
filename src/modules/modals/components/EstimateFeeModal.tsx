@@ -18,9 +18,10 @@ const FeeAmount: FC<{ coin: Coin; hasBorder: boolean; text: string }> = memo(
   function FeeAmount({ coin: { amount, denom }, hasBorder, text }) {
     const { loading, balance } = useGetBalance(denom);
     const hasAmount = useMemo(
-      () => loading || balance.amount > amount,
+      () => loading || parseFloat(balance.amount) > parseFloat(amount),
       [amount, loading, balance],
     );
+
     return (
       <>
         <Box
