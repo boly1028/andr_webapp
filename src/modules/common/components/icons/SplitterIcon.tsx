@@ -1,7 +1,7 @@
 import { Icon, type IconProps } from "@chakra-ui/react";
 
 const ShareIcon = (props: IconProps) => (
-  <Icon viewBox="0 0 20 21" fill="none" {...props}>
+  <Icon viewBox="-1 -1 25 25" fill="none" {...props}>
     <path d="M10.7778 1H13.2222V23H10.7778V1Z" fill="currentColor" />
     <path
       d="M3.44444 7.11111C3.44444 6.43609 3.99166 5.88889 4.66667 5.88889H8.33333V3.44444H4.66667C2.64163 3.44444 1 5.08607 1 7.11111V16.8889C1 18.914 2.64163 20.5556 4.66667 20.5556H8.33333V18.1111H4.66667C3.99166 18.1111 3.44444 17.5639 3.44444 16.8889V7.11111Z"
