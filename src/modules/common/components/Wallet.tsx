@@ -13,6 +13,10 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
+  Icon,
+  VStack,
+  Badge,
+  Box,
 } from "@chakra-ui/react";
 import { FC } from "react";
 
@@ -64,7 +68,7 @@ const WalletConnected = () => {
   const disconnect = useDisconnect();
   const address = truncate(wallet?.address);
   const { chainId, setChainId } = useWalletContext();
-  const config = useChainConfig(chainId);
+  const currentConfig = useChainConfig(chainId);
 
   return (
     <Popover placement="bottom-end">
@@ -77,8 +81,18 @@ const WalletConnected = () => {
               borderColor={isOpen ? "primary.600" : "gray.300"}
             >
               <HStack mr={8}>
-                <ProfileIcon boxSize={8} />
-                <Text>{address}</Text>
+                <Image src={currentConfig?.iconUrls?.sm ?? ""} w="6" />
+                <Text fontSize="sm">{address}</Text>
+                <Badge
+                  colorScheme={
+                    currentConfig?.chainType === "mainnet" ? "green" : "purple"
+                  }
+                  fontSize={8}
+                  pt="1"
+                  rounded="full"
+                >
+                  {currentConfig?.chainType}
+                </Badge>
               </HStack>
               <ChevronDownIcon boxSize={4} />
             </Button>
@@ -93,9 +107,24 @@ const WalletConnected = () => {
                   border="1px solid"
                   borderColor="gray.300"
                 /> */}
-                <Text fontWeight={600} color="gray.700">
-                  {chainId}
-                </Text>
+                <HStack>
+                  <Image src={currentConfig?.iconUrls?.sm ?? ""} w="5" />
+                  <Text fontWeight={600} color="gray.700">
+                    {currentConfig?.chainName ?? chainId}
+                  </Text>
+                  <Badge
+                    colorScheme={
+                      currentConfig?.chainType === "mainnet"
+                        ? "green"
+                        : "purple"
+                    }
+                    fontSize={8}
+                    pt="1"
+                    rounded="full"
+                  >
+                    {currentConfig?.chainType}
+                  </Badge>
+                </HStack>
                 <Menu>
                   <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
                     Switch
@@ -108,7 +137,38 @@ const WalletConnected = () => {
                         }}
                         key={config.chainId}
                       >
-                        {config.chainId}
+                        <Flex
+                          direction="row"
+                          alignItems="center"
+                          gap="2"
+                          w="full"
+                        >
+                          <Image
+                            src={config?.iconUrls?.sm ?? ""}
+                            w="5"
+                            h="5"
+                            overflow="hidden"
+                            p="1"
+                            bg="gray.200"
+                            rounded="full"
+                          />
+                          <Text fontWeight={600} color="gray.700" mr="1">
+                            {config?.chainName ?? chainId}
+                          </Text>
+                          <Badge
+                            colorScheme={
+                              config?.chainType === "mainnet"
+                                ? "green"
+                                : "purple"
+                            }
+                            fontSize={8}
+                            pt="1"
+                            rounded="full"
+                            ml="auto"
+                          >
+                            {config?.chainType}
+                          </Badge>
+                        </Flex>
                       </MenuItem>
                     ))}
                   </MenuList>
@@ -136,7 +196,7 @@ const WalletConnected = () => {
                 <Button
                   as="a"
                   href={
-                    config?.blockExplorerAddressPages[0]?.replaceAll(
+                    currentConfig?.blockExplorerAddressPages[0]?.replaceAll(
                       "${address}",
                       wallet?.address ?? "",
                     ) ?? ""
