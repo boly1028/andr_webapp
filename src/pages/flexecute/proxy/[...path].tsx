@@ -35,13 +35,16 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
     return newTemplate;
   }, [name, contract]);
 
-  const handleSubmit = async ({ formData }: any) => {
+  const handleSubmit = async (
+    {
+      formData,
+    }: {
+      formData: any;
+    },
+    simulate = false,
+  ) => {
     const msg = construct(formData);
-    openModal(msg);
-    // const resp = await instantiate(formData, `Instantiate ${template.id}`);
-    // window.open(
-    //   `https://testnet.mintscan.io/juno-testnet/txs/${resp.transactionHash}`,
-    // );
+    openModal(msg, simulate);
   };
 
   //TODO: Setup staging availability flags for loading staging sections if passed
@@ -100,9 +103,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
           key={modifiedTemplate.name}
           template={modifiedTemplate}
           onSubmit={handleSubmit}
-          // RJSF tries to validate based on form data for all panels even if panel is disabled.
-          // Until it is resolved, disable validation for proxy message.
-          noValidate
+          onEstimate={(data: any) => handleSubmit(data, true)}
         />
       </Box>
     </Layout>
@@ -119,7 +120,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<Props> = async (ctx) => {
   const { params } = ctx;
   const path = params?.path as string[];
-  const data = await getProxyTemplate(path.join('/'));
+  const data = await getProxyTemplate(path.join("/"));
   if (!data) {
     return {
       notFound: true,

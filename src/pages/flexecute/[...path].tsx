@@ -19,14 +19,16 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
   const construct = useConstructADOExecuteMsg();
   const openModal = useExecuteModal(contract);
 
-  const handleSubmit = async ({ formData }: any) => {
+  const handleSubmit = async (
+    {
+      formData,
+    }: {
+      formData: any;
+    },
+    simulate = false,
+  ) => {
     const msg = construct(formData);
-
-    openModal(msg);
-    // const resp = await instantiate(formData, `Instantiate ${template.id}`);
-    // window.open(
-    //   `https://testnet.mintscan.io/juno-testnet/txs/${resp.transactionHash}`,
-    // );
+    openModal(msg, simulate);
   };
 
   //TODO: Setup staging availability flags for loading staging sections if passed
@@ -34,10 +36,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
 
   return (
     <Layout>
-      <PageHeader
-        title={`Execute message`}
-        desc={`App address ${contract}`}
-      />
+      <PageHeader title={`Execute message`} desc={`App address ${contract}`} />
 
       <Box mt={10}>
         {/* Staging section to be shown when declared */}
@@ -85,6 +84,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
           key={template.name}
           template={template}
           onSubmit={handleSubmit}
+          onEstimate={(data: any) => handleSubmit(data, true)}
         />
       </Box>
     </Layout>
