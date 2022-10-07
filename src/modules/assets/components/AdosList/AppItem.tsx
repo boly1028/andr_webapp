@@ -19,6 +19,7 @@ import InlineStat from "./InlineStat";
 import { useDisclosure } from "@chakra-ui/hooks";
 import {
   ChevronDownIcon,
+  CopyButton,
   FallbackPlaceholder,
   truncate,
 } from "@/modules/common";
@@ -89,7 +90,14 @@ const AppItem: FC<AppItemProps> = ({ app }) => {
           />
         </Box>
         <Box flex={1}>
-          <InlineStat label="Address" value={truncate(app.address ?? "")} />
+          <CopyButton
+            as={Box}
+            variant="unstyled"
+            cursor="pointer"
+            text={app.address}
+          >
+            <InlineStat label="Address" value={truncate(app.address ?? "")} />
+          </CopyButton>
         </Box>
         <Box mr="2">
           <Button

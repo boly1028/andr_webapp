@@ -5,7 +5,7 @@ import { AppComponent } from "@/lib/graphql/hooks/useQueryAppInfo";
 import { v4 as keyGen } from "uuid"; // Used as key assignments for function elements
 
 import InlineStat from "./InlineStat";
-import { MoreHorizontalIcon } from "@/modules/common";
+import { CopyButton, MoreHorizontalIcon, truncate } from "@/modules/common";
 
 import {
   Flex,
@@ -67,10 +67,14 @@ const AdoItem: FC<AdoItemProps> = ({ ado, appAddress }) => {
           <InlineStat label="Block Height" value={ado.height?.toString()} />
         </Box> */}
         <Box flex={1}>
-          <InlineStat
-            label="Address"
-            value={ado.address.substr(0, 5) + "..." + ado.address.substr(-5)}
-          />
+          <CopyButton
+            as={Box}
+            variant="unstyled"
+            cursor="pointer"
+            text={ado.address}
+          >
+            <InlineStat label="Address" value={truncate(ado.address)} />
+          </CopyButton>
         </Box>
         {/* Section for Action List */}
         <Menu placement="bottom-end">
