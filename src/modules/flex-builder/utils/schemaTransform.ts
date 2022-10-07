@@ -85,7 +85,7 @@ export const changeSchemaID = (oldPanelName: string, newPanelName: string, _defa
     const _formData = defaults?.formData || {};
 
     // confirm new panel label doesn't already exist
-    if (!schemaDefinitions[`${newPanelName}`]) {
+    if (schemaDefinitions[`${newPanelName}`]) {
         return undefined
     }
 

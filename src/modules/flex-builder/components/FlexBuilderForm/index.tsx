@@ -134,12 +134,18 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
   // Replicate an existing panel identification key with new name
   const changePanelName = useCallback(
     (newName: string, oldName: string) => {
+      console.log("Here")
       const form = changeSchemaID(oldName, newName, {
         schema: schema,
         uiSchema: uiSchema,
         formData: formData,
       });
-      updateForm(form);
+      if(form){
+        updateForm(form);
+        toast.success(`Rename panel to: ${newName}`)
+      }else{
+        toast.error(`Unable to rename panel`)
+      }
     },
     [formData, schema, uiSchema],
   );
