@@ -2,12 +2,14 @@ import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { FlexBuilderForm, StagingDocumentsModal } from "@/modules/flex-builder";
 
 import { Box, Flex, Text } from "@/theme/ui-elements";
-import { FileCheckIcon, Layout, PageHeader, truncate } from "@/modules/common";
+import { FileCheckIcon, Layout, PageHeader } from "@/modules/common";
 import { useRouter } from "next/router";
-import { ITemplate } from "@/lib/schema/types";
+import { useMemo } from "react";
+import { cloneDeep } from "lodash";
+import { IAdoType, ITemplate } from "@/lib/schema/types";
+import { getProxyTemplate } from "@/lib/schema/utils";
 import { useExecuteModal } from "@/modules/modals/hooks";
-import { getADOExecuteTemplate } from "@/lib/schema/utils";
-import useConstructADOExecuteMsg from "@/modules/sdk/hooks/useConstructaADOExecuteMsg";
+import useConstructProxyMsg from "@/modules/sdk/hooks/useConstructProxyMsg";
 
 type Props = {
   template: ITemplate;
@@ -15,13 +17,26 @@ type Props = {
 
 const TemplatePage: NextPage<Props> = ({ template }) => {
   const router = useRouter();
+  const name = router.query.name as string;
   const contract = router.query.contract as string;
-  const construct = useConstructADOExecuteMsg();
+  const construct = useConstructProxyMsg();
   const openModal = useExecuteModal(contract);
+
+  const modifiedTemplate: ITemplate = useMemo(() => {
+    const newTemplate = cloneDeep(template);
+    newTemplate.name = name;
+    const formData = newTemplate.formData ?? {};
+    formData["proxy-message"] = {
+      ...(formData["proxy-message"] ?? {}),
+      parent: contract,
+      component_name: name,
+    };
+    newTemplate.formData = formData;
+    return newTemplate;
+  }, [name, contract]);
 
   const handleSubmit = async ({ formData }: any) => {
     const msg = construct(formData);
-
     openModal(msg);
     // const resp = await instantiate(formData, `Instantiate ${template.id}`);
     // window.open(
@@ -35,8 +50,8 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
   return (
     <Layout>
       <PageHeader
-        title={`Execute message`}
-        desc={`App address ${contract}`}
+        title={modifiedTemplate.name}
+        desc={modifiedTemplate.description}
       />
 
       <Box mt={10}>
@@ -82,9 +97,12 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
         <FlexBuilderForm
           // ID is required to refresh the component after we modify the template. If not provided,
           // form will not populate name and address field on direct visit to the page
-          key={template.name}
-          template={template}
+          key={modifiedTemplate.name}
+          template={modifiedTemplate}
           onSubmit={handleSubmit}
+          // RJSF tries to validate based on form data for all panels even if panel is disabled.
+          // Until it is resolved, disable validation for proxy message.
+          noValidate
         />
       </Box>
     </Layout>
@@ -101,7 +119,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<Props> = async (ctx) => {
   const { params } = ctx;
   const path = params?.path as string[];
-  const data = await getADOExecuteTemplate(path.join("/"));
+  const data = await getProxyTemplate(path.join('/'));
   if (!data) {
     return {
       notFound: true,

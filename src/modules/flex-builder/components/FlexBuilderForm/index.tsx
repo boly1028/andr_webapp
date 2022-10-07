@@ -37,6 +37,7 @@ type FlexBuilderFormProps = {
   onSubmit?: (data: any) => void;
   onError?: () => void;
   onEstimate?: (data: any) => void;
+  noValidate?: boolean;
 };
 
 const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
@@ -45,6 +46,7 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
   onError,
   isLoading,
   onEstimate,
+  noValidate = false,
 }) => {
   const [schema, setSchema] = useState(cloneDeep(template.schema));
   const [uiSchema, setUiSchema] = useState(
@@ -185,6 +187,7 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
       ArrayFieldTemplate={ArrayFieldTemplate}
       ObjectFieldTemplate={ObjectFieldTemplate as any}
       widgets={{ ...widgets }}
+      noValidate={noValidate}
     >
       {/* Add Modules Action */}
       {template.modules && (

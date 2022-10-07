@@ -87,7 +87,7 @@ const AdoItem: FC<AdoItemProps> = ({ ado, appAddress }) => {
               return (
                 <NextLink
                   key={keyGen()}
-                  href={SITE_LINKS.flexecute(path, appAddress ?? "", ado.name)}
+                  href={SITE_LINKS.proxyApp(path, appAddress ?? "", ado.name)}
                   passHref
                 >
                   <MenuItem key={action}>

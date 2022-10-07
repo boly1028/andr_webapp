@@ -1,7 +1,6 @@
 import APP_TEMPLATES from "../templates";
 import { ITemplate, ITemplateFormData, ITemplateSchema, ITemplateUiSchema } from "../templates/types";
-import { IAndromedaSchema, IAndromedaSchemaJSON } from "../types";
-import { suid } from "./suid";
+import { IAdoType, IAndromedaSchema, IAndromedaSchemaJSON } from "../types";
 
 
 export const getADOPFromPath = async (path: string) => {
@@ -118,22 +117,37 @@ export const getAppTemplateById = async (id: string, templates = APP_TEMPLATES) 
 
 }
 
-export const getAppExecuteTemplate = async (path: string) => {
+export const getProxyTemplate = async (path: string) => {
     // Generate Template
-    const TEMPLATES: Array<ITemplate> = [
-        {
-            id: path,
-            name: '',
-            description: '',
-            icon: "",
-            opts: [],
-            ados: [
-                { path: "proxy-message", id: "proxy-message", required: true },
-                { path: `${path}`, id: 'component', required: true },
-            ],
-        },
-    ];
+    const currentTemplate: ITemplate = {
+        id: path,
+        name: '',
+        description: '',
+        icon: "",
+        opts: [],
+        ados: [
+            { path: "proxy-message", id: "proxy-message", required: true },
+            { path: path, id: path.split('/').pop() ?? "Execute", required: true },
+        ],
+    };
 
-    const template = await getAppTemplateById(path, TEMPLATES);
+    const template = await getAppTemplateById(path, [currentTemplate]);
+    return template;
+}
+
+export const getADOExecuteTemplate = async (path: string) => {
+    // Generate Template
+    const currentTemplate: ITemplate = {
+        id: path,
+        name: '',
+        description: '',
+        icon: "",
+        opts: [],
+        ados: [
+            { path: path, id: path.split('/').pop() ?? "Execute", required: true },
+        ],
+    };
+
+    const template = await getAppTemplateById(path, [currentTemplate]);
     return template;
 }

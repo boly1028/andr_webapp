@@ -118,11 +118,7 @@ const AppItem: FC<AppItemProps> = ({ app }) => {
               return (
                 <NextLink
                   key={keyGen()}
-                  href={SITE_LINKS.flexecute(
-                    path,
-                    app.address ?? "",
-                    appInfo?.name ?? "",
-                  )}
+                  href={SITE_LINKS.adoExecute(path, app.address ?? "")}
                   passHref
                 >
                   <MenuItem key={action}>
