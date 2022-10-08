@@ -1,3 +1,9 @@
+/**
+ * Msg field (base64 field) widget. We fetch schema and create form component for the schema selected to
+ * use as data for this field. Whenever formData changes for the inner schema, we create base64 for it
+ * and add it to original schema field (debounce is used to boost performance)
+ */
+
 import { useGetSchemaJson } from "@/lib/schema/hooks";
 import { ALL_SCHEMA } from "@/lib/schema/utils/list";
 import { CustomMenuButton } from "@/modules/common";
@@ -50,16 +56,7 @@ export const MsgWidget: FC<MsgWidgetProps> = (props) => {
         onBlur(id, value);
       }}
     >
-      <Input
-        value={value}
-        isRequired={props.required}
-        isInvalid={!!props.rawErrors}
-        aria-label={props.label}
-        placeholder={props.placeholder || "Base64 message"}
-        readOnly
-        disabled
-      />
-      <Flex direction="row" gap="4" mt="4">
+      <Flex direction="row" gap="4">
         <Menu placement="bottom-start">
           <MenuButton alignSelf="start">
             <CustomMenuButton>
@@ -79,30 +76,40 @@ export const MsgWidget: FC<MsgWidgetProps> = (props) => {
             ))}
           </MenuList>
         </Menu>
-        <Box w="full">
-          {schemaFile?.schema && (
-            <Form
-              schema={schemaFile?.schema}
-              uiSchema={schemaFile?.["ui-schema"]}
-              formData={formData}
-              formContext={{
-                schema,
-              }}
-              onChange={({ formData: _formData }) => {
-                setFormData(_formData);
-              }}
-              fields={{ TitleField, DescriptionField }}
-              FieldTemplate={FieldTemplate}
-              ArrayFieldTemplate={ArrayFieldTemplate}
-              ObjectFieldTemplate={ObjectFieldTemplate as any}
-              widgets={{ ...widgets }}
-            >
-              {/* Pass fragment to hide submit button */}
-              <></>
-            </Form>
-          )}
-        </Box>
+        <Input
+          value={value}
+          isRequired={props.required}
+          isInvalid={!!props.rawErrors}
+          aria-label={props.label}
+          placeholder={props.placeholder || "Base64 message"}
+          readOnly
+          disabled
+          w="full"
+        />
       </Flex>
+      <Box w="full" mt='4'>
+        {schemaFile?.schema && (
+          <Form
+            schema={schemaFile?.schema}
+            uiSchema={schemaFile?.["ui-schema"]}
+            formData={formData}
+            formContext={{
+              schema,
+            }}
+            onChange={({ formData: _formData }) => {
+              setFormData(_formData);
+            }}
+            fields={{ TitleField, DescriptionField }}
+            FieldTemplate={FieldTemplate}
+            ArrayFieldTemplate={ArrayFieldTemplate}
+            ObjectFieldTemplate={ObjectFieldTemplate as any}
+            widgets={{ ...widgets }}
+          >
+            {/* Pass fragment to hide submit button */}
+            <></>
+          </Form>
+        )}
+      </Box>
     </Box>
   );
 };
