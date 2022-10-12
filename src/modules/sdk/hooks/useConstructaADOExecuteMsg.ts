@@ -14,10 +14,10 @@ export default function useConstructADOExecuteMsg() {
   const construct = useCallback(
     (data: ITemplateFormData) => {
       console.clear();
-      const panels = Object.keys(data);
+      const panels = Object.values(data).filter(panel => panel.$class !== 'system' && panel.$enabled === true);
       if (panels.length !== 1) throw new Error("Only 1 ADO can be processed at a time");
 
-      const finalMsg: Msg = constructMsg(data[panels[0]]);
+      const finalMsg: Msg = constructMsg(panels[0]);
       console.log("Consrtuct msg:", finalMsg);
       return finalMsg;
     },

@@ -4,7 +4,7 @@
         "class": "system",
         "classifier": "",
         "title": "Add Fund",
-        "description": "Reference information for component being modified.",
+        "description": "",
         "type": "object",
         "required": [
             "denom",
@@ -14,7 +14,7 @@
             "denom": {
                 "type": "string",
                 "title": "Coin Denom",
-                "description": "Denom for coin"
+                "description": "Denom for coin. Only smallest units are accepted (eg ujunox)"
             },
             "amount": {
                 "type": "string",
