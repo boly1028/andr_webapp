@@ -129,6 +129,9 @@ export const getProxyTemplate = async (path: string) => {
             { path: "proxy-message", id: "proxy-message", required: true },
             { path: path, id: path.split('/').pop() ?? "Execute", required: true },
         ],
+        modules: [
+            { 'path': 'fund' }
+        ]
     };
 
     const template = await getAppTemplateById(path, [currentTemplate]);
@@ -146,6 +149,9 @@ export const getADOExecuteTemplate = async (path: string) => {
         ados: [
             { path: path, id: path.split('/').pop() ?? "Execute", required: true },
         ],
+        modules: [
+            { 'path': 'fund' }
+        ]
     };
 
     const template = await getAppTemplateById(path, [currentTemplate]);

@@ -5,7 +5,7 @@ import allSchema from './schema/classifier.json';
 
 export type { ITemplate } from './templates/types'
 
-export type IAdoType = keyof typeof allSchema | 'publish-settings' | 'proxy-message';
+export type IAdoType = keyof typeof allSchema | 'publish-settings' | 'proxy-message' | 'fund';
 
 export interface IAndromedaSchemaJSON {
     'schema': IAndromedaSchema;

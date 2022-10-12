@@ -10,6 +10,7 @@ import { IAdoType, ITemplate } from "@/lib/schema/types";
 import { getProxyTemplate } from "@/lib/schema/utils";
 import { useExecuteModal } from "@/modules/modals/hooks";
 import useConstructProxyMsg from "@/modules/sdk/hooks/useConstructProxyMsg";
+import { useGetFunds } from "@/modules/sdk/hooks";
 
 type Props = {
   template: ITemplate;
@@ -20,6 +21,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
   const name = router.query.name as string;
   const contract = router.query.contract as string;
   const construct = useConstructProxyMsg();
+  const getFunds = useGetFunds();
   const openModal = useExecuteModal(contract);
 
   const modifiedTemplate: ITemplate = useMemo(() => {
@@ -44,7 +46,8 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
     simulate = false,
   ) => {
     const msg = construct(formData);
-    openModal(msg, simulate);
+    const funds = getFunds(formData);
+    openModal(msg, simulate, funds);
   };
 
   //TODO: Setup staging availability flags for loading staging sections if passed

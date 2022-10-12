@@ -8,6 +8,7 @@ import { ITemplate } from "@/lib/schema/types";
 import { useExecuteModal } from "@/modules/modals/hooks";
 import { getADOExecuteTemplate } from "@/lib/schema/utils";
 import useConstructADOExecuteMsg from "@/modules/sdk/hooks/useConstructaADOExecuteMsg";
+import { useGetFunds } from "@/modules/sdk/hooks";
 
 type Props = {
   template: ITemplate;
@@ -17,6 +18,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
   const router = useRouter();
   const contract = router.query.contract as string;
   const construct = useConstructADOExecuteMsg();
+  const getFunds = useGetFunds();
   const openModal = useExecuteModal(contract);
 
   const handleSubmit = async (
@@ -28,7 +30,8 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
     simulate = false,
   ) => {
     const msg = construct(formData);
-    openModal(msg, simulate);
+    const funds = getFunds(formData);
+    openModal(msg, simulate, funds);
   };
 
   //TODO: Setup staging availability flags for loading staging sections if passed

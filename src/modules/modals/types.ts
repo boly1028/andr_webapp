@@ -26,7 +26,11 @@ export type TransactionModalProps = (
   | InstantiateTransactionModalProps
 ) & { simulate: boolean; msg: Msg; modalType: ModalType.Transaction };
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface AddFundsModalProps {
+  funds: Coin[];
+  updateFunds: (funds: Coin[]) => void;
+}
+
 export interface WalletModalProps {
   modalType: ModalType.Wallet;
 }
@@ -46,7 +50,7 @@ export interface PanelRenameModalProps {
   acceptButtonText?: string;
   modalType: ModalType.PanelRename;
   reservedNames: string[];
-  defaultName:string;
+  defaultName: string;
 }
 
 export interface AssetInfoModalProps {
