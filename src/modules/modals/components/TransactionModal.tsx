@@ -1,7 +1,6 @@
 import { ProgressBar } from "@/modules/common/components";
 import { Box } from "@chakra-ui/react";
 import React, { memo, useEffect, useMemo, useState } from "react";
-import { useGlobalModalContext } from "../hooks";
 import { TransactionModalProps } from "../types";
 import AddFundsModal from "./AddFundsModal";
 import BroadcastingModal from "./BroadcastingModal";
@@ -45,12 +44,18 @@ const TransactionModal: React.FC<TransactionModalProps> = memo(
           return (
             <EstimateFeeModal
               {...props}
+              updateFee={(newFee) =>
+                setProps((prev) => ({
+                  ...prev,
+                  fee: newFee,
+                }))
+              }
               onNextStage={next}
               onPrevStage={prev}
             />
           );
         case 2:
-          return <BroadcastingModal {...props} onNextStage={next} />;
+          return <BroadcastingModal {...props} />;
         default:
           return <></>;
       }

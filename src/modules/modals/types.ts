@@ -1,4 +1,4 @@
-import { Msg } from "@andromedaprotocol/andromeda.js";
+import { Fee, Msg } from "@andromedaprotocol/andromeda.js";
 import { Coin } from "@cosmjs/proto-signing";
 
 export enum ModalType {
@@ -24,7 +24,7 @@ export interface InstantiateTransactionModalProps {
 export type TransactionModalProps = (
   | ExecuteTransactionModalProps
   | InstantiateTransactionModalProps
-) & { simulate: boolean; msg: Msg; modalType: ModalType.Transaction };
+) & { simulate: boolean; msg: Msg; modalType: ModalType.Transaction; fee?: Fee };
 
 export interface AddFundsModalProps {
   funds: Coin[];

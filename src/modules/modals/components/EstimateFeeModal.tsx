@@ -8,10 +8,12 @@ import { TransactionModalProps } from "../types";
 import { GasIcon } from "@/modules/common";
 import { Box, Button, Center, Text } from "@/theme/ui-elements";
 import ModalLoading from "./ModalLoading";
+import { Fee } from "@andromedaprotocol/andromeda.js";
 
 interface OptionalProps {
   onNextStage?: () => void;
   onPrevStage?: () => void;
+  updateFee: (fee: Fee) => void;
 }
 
 const FeeAmount: FC<{ coin: Coin; hasBorder: boolean; text: string }> = memo(
@@ -95,6 +97,7 @@ const EstimateFeeModal: FC<TransactionModalProps & OptionalProps> = (props) => {
             );
         }
       })();
+
       try {
         const fee = await client.estimateFee([msg]);
         setFee(fee);
@@ -223,7 +226,10 @@ const EstimateFeeModal: FC<TransactionModalProps & OptionalProps> = (props) => {
                   fontSize: "16px",
                   padding: "10px 32px",
                 }}
-                onClick={props.onNextStage}
+                onClick={() => {
+                  props.updateFee(fee);
+                  props.onNextStage?.();
+                }}
               >
                 Broadcast
               </Button>

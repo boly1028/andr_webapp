@@ -34,6 +34,7 @@ const BroadcastingModal: FC<TransactionModalProps & OptionalProps> = memo(
           return client.execute(
             props.contractAddress,
             props.msg,
+            // Here props fee can be used to set gas price from the estimated result. However gas price calculated is low so using auto till its fixed
             "auto",
             props.memo,
             props.funds,
@@ -62,8 +63,14 @@ const BroadcastingModal: FC<TransactionModalProps & OptionalProps> = memo(
         }
       };
 
-      if (!result) broadcastTx();
+      const tId = setTimeout(() => {
+        if (!result) broadcastTx();
+      }, 500);
+
+      return () => clearTimeout(tId);
     }, [broadcast, setError, props, result]);
+
+    console.log(result, "Result")
 
     const TransactionInfo = useMemo(() => {
       if (!result) return <></>;
