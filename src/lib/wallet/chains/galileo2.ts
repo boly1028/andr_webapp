@@ -12,7 +12,7 @@ const config: ChainInfo = {
     chainId: "galileo-2",
     chainName: "Galileo-2",
     rpc: "https://rpc-andromeda-testnet.cereslabs.io/",
-    rest: "https://lcd-andromeda-testnet.cereslabs.io/swagger/ ​",
+    rest: "https://lcd-andromeda-testnet.cereslabs.io/",
     bip44: {
         coinType: 118,
     },

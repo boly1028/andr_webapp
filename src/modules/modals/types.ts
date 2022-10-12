@@ -13,7 +13,6 @@ export interface ExecuteTransactionModalProps {
   contractAddress: string;
   funds: Coin[];
   type: "execute";
-  memo?: string;
 }
 
 export interface InstantiateTransactionModalProps {
@@ -24,7 +23,7 @@ export interface InstantiateTransactionModalProps {
 export type TransactionModalProps = (
   | ExecuteTransactionModalProps
   | InstantiateTransactionModalProps
-) & { simulate: boolean; msg: Msg; modalType: ModalType.Transaction; fee?: Fee };
+) & { simulate: boolean; msg: Msg; modalType: ModalType.Transaction; fee?: Fee, memo?: string };
 
 export interface AddFundsModalProps {
   funds: Coin[];

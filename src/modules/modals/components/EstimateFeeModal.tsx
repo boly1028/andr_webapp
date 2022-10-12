@@ -99,7 +99,7 @@ const EstimateFeeModal: FC<TransactionModalProps & OptionalProps> = (props) => {
       })();
 
       try {
-        const fee = await client.estimateFee([msg]);
+        const fee = await client.estimateFee([msg], props?.memo ?? "");
         setFee(fee);
         setLoading(false);
       } catch (error) {

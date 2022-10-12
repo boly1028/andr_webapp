@@ -30,6 +30,8 @@ const WalletProvider: React.FC<WalletProviderProps> = React.memo(
         toast(`Could not connect to chain ${stateChainId}`, {
           type: "error",
         });
+        console.log(err);
+        setStateChainId(chainId);
         return;
       }
       try {
@@ -43,6 +45,7 @@ const WalletProvider: React.FC<WalletProviderProps> = React.memo(
           type: "error",
         });
         console.log(error);
+        setStateChainId(chainId);
       }
     }, [keplr, stateChainId]);
 
