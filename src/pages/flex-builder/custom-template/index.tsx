@@ -1,17 +1,29 @@
-import type { NextPage } from "next";
+import type { GetStaticProps, NextPage } from "next";
 import { FileCheckIcon, Layout, PageHeader } from "@/modules/common";
 import { useMemo } from "react";
 import { FlexBuilderForm, StagingDocumentsModal } from "@/modules/flex-builder";
 import { Box, Flex, Text } from "@/theme/ui-elements";
-import { DownloadFlexProps } from "@/modules/flex-builder/components/DownloadButton";
-import { UPLOAD_TEMPLATE } from "@/modules/flex-builder/components/FlexUploadTemplateCard";
-
+import { DownloadFlexProps } from "@/modules/flex-builder/components/FlexBuilderForm/DownloadButton";
+import { useCodeId } from "@/lib/andrjs";
+import { useConstructAppMsg } from "@/modules/sdk/hooks";
+import { useInstantiateModal } from "@/modules/modals/hooks";
+import { UPLOAD_TEMPLATE } from "@/lib/schema/templates/upload";
+import { ITemplate } from "@/lib/schema/types";
+import { processTemplate } from "@/lib/schema/utils/template";
 
 /**
  * Flex Builder Custom template page which takes flex from session storage and renders
  * as form builder
  */
-const FlexBuilderCustomTemplate: NextPage = () => {
+
+type Props = {
+  defaultTemplate: ITemplate;
+};
+
+const FlexBuilderCustomTemplate: NextPage<Props> = ({ defaultTemplate }) => {
+  const codeId = useCodeId("app");
+  const construct = useConstructAppMsg();
+  const openModal = useInstantiateModal(codeId);
 
   /** Template contains same structure as Blank App with schema, formData, uiSchema added from flex file uploaded by user */
   const template = useMemo(() => {
@@ -25,7 +37,7 @@ const FlexBuilderCustomTemplate: NextPage = () => {
     if (storageData) {
       const jsonValue = JSON.parse(storageData) as DownloadFlexProps;
       return {
-        ...UPLOAD_TEMPLATE,
+        ...defaultTemplate,
         ...jsonValue,
       };
     }
@@ -35,19 +47,22 @@ const FlexBuilderCustomTemplate: NextPage = () => {
     {
       formData,
     }: {
-      formData: object;
+      formData: any;
     },
     simulate = false,
   ) => {
-    /** TODO: Handle submission of form here. It will be instatiate call as this will always be a new contract */
-    console.log(formData);
+    if (codeId === -1) {
+      console.warn("Code ID not fetched");
+      return;
+    }
+    const msg = construct(formData);
+    openModal(msg, simulate);
   };
 
   //TODO: Setup staging availability flags for loading staging sections if passed
   const staging_available = false;
 
   if (!template) return null;
-  console.log(template);
 
   return (
     <Layout>
@@ -102,6 +117,19 @@ const FlexBuilderCustomTemplate: NextPage = () => {
       </Box>
     </Layout>
   );
+};
+
+export const getStaticProps: GetStaticProps<Props> = async (ctx) => {
+  const data = await processTemplate(UPLOAD_TEMPLATE);
+  if (!data) {
+    return {
+      notFound: true,
+    };
+  }
+  return {
+    props: { defaultTemplate: data },
+    revalidate: 300,
+  };
 };
 
 export default FlexBuilderCustomTemplate;

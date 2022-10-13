@@ -5,8 +5,7 @@ import { AppComponent } from "@/lib/graphql/hooks/useQueryAppInfo";
 import { v4 as keyGen } from "uuid"; // Used as key assignments for function elements
 
 import InlineStat from "./InlineStat";
-import { MoreHorizontalIcon } from "@/modules/common";
-import { useGetSchemaJson } from "@/lib/schema/hooks";
+import { CopyButton, MoreHorizontalIcon, truncate } from "@/modules/common";
 
 import {
   Flex,
@@ -20,6 +19,8 @@ import {
 } from "@/theme/ui-elements";
 import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
 import ClassifierIcon from "@/theme/icons/classifiers";
+import { useGetSchemaADOP } from "@/lib/schema/hooks/useGetSchemaADOP";
+import { IAdoType } from "@/lib/schema/types";
 
 interface AdoItemProps {
   ado: AppComponent;
@@ -27,9 +28,8 @@ interface AdoItemProps {
 }
 const AdoItem: FC<AdoItemProps> = ({ ado, appAddress }) => {
   const $version = "0.1.0";
-  const { data: adopData, isLoading } = useGetSchemaJson<{
-    modifiers: string[];
-  }>(`${ado.adoType}/${$version}/ADOP`);
+  const adoType = ado.adoType as IAdoType;
+  const { data: adopData, isLoading } = useGetSchemaADOP(adoType);
 
   return (
     <Flex
@@ -67,10 +67,14 @@ const AdoItem: FC<AdoItemProps> = ({ ado, appAddress }) => {
           <InlineStat label="Block Height" value={ado.height?.toString()} />
         </Box> */}
         <Box flex={1}>
-          <InlineStat
-            label="Address"
-            value={ado.address.substr(0, 5) + "..." + ado.address.substr(-5)}
-          />
+          <CopyButton
+            as={Box}
+            variant="unstyled"
+            cursor="pointer"
+            text={ado.address}
+          >
+            <InlineStat label="Address" value={truncate(ado.address)} />
+          </CopyButton>
         </Box>
         {/* Section for Action List */}
         <Menu placement="bottom-end">
@@ -87,7 +91,7 @@ const AdoItem: FC<AdoItemProps> = ({ ado, appAddress }) => {
               return (
                 <NextLink
                   key={keyGen()}
-                  href={SITE_LINKS.flexecute(path, appAddress ?? "", ado.name)}
+                  href={SITE_LINKS.proxyApp(path, appAddress ?? "", ado.name)}
                   passHref
                 >
                   <MenuItem key={action}>

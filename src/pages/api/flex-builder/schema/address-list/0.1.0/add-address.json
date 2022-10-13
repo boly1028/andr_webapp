@@ -1,1 +1,0 @@
-{"schema":{"description":"Add an address to the address list","type":"object","required":["add_address"],"properties":{"add_address":{"type":"object","required":["address"],"properties":{"address":{"type":"string","title":"address"}}}},"additionalProperties":false,"$id":"add-address","class":"modifier","version":"0.1.0","classifier":""},"ui-schema":{},"form-data":{}}

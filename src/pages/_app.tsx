@@ -1,4 +1,4 @@
-import { useSigner, useWalletContext, WalletProvider } from "@/lib/wallet";
+import { useWalletContext, WalletProvider } from "@/lib/wallet";
 import { ChakraProvider, CSSReset } from "@chakra-ui/react";
 import { AppProps } from "next/app";
 import React from "react";
@@ -18,7 +18,6 @@ import "react-toastify/dist/ReactToastify.css";
 //Import stylization setups for use in App-Builder
 import "@/modules/app-builder/style/controls.css";
 import "@/modules/app-builder/style/nodes.css";
-import { configs } from "@andromedaprotocol/andromeda.js";
 
 const Main = ({ Component, pageProps }: AppProps<Record<string, any>>) => {
   const [queryClient] = React.useState(() => new QueryClient());
@@ -47,7 +46,7 @@ const Main = ({ Component, pageProps }: AppProps<Record<string, any>>) => {
 };
 
 const MyApp = (props: AppProps) => (
-  <WalletProvider chainId={configs[0].chainId}>
+  <WalletProvider chainId="uni-5">
     <ApolloProvider client={apolloClient}>
       <Main {...props} />
     </ApolloProvider>

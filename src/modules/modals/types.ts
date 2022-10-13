@@ -1,4 +1,4 @@
-import { Msg } from "@andromedaprotocol/andromeda.js";
+import { Fee, Msg } from "@andromedaprotocol/andromeda.js";
 import { Coin } from "@cosmjs/proto-signing";
 
 export enum ModalType {
@@ -13,7 +13,6 @@ export interface ExecuteTransactionModalProps {
   contractAddress: string;
   funds: Coin[];
   type: "execute";
-  memo?: string;
 }
 
 export interface InstantiateTransactionModalProps {
@@ -24,9 +23,13 @@ export interface InstantiateTransactionModalProps {
 export type TransactionModalProps = (
   | ExecuteTransactionModalProps
   | InstantiateTransactionModalProps
-) & { simulate: boolean; msg: Msg; modalType: ModalType.Transaction };
+) & { simulate: boolean; msg: Msg; modalType: ModalType.Transaction; fee?: Fee, memo?: string };
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface AddFundsModalProps {
+  funds: Coin[];
+  updateFunds: (funds: Coin[]) => void;
+}
+
 export interface WalletModalProps {
   modalType: ModalType.Wallet;
 }
@@ -46,7 +49,7 @@ export interface PanelRenameModalProps {
   acceptButtonText?: string;
   modalType: ModalType.PanelRename;
   reservedNames: string[];
-  defaultName:string;
+  defaultName: string;
 }
 
 export interface AssetInfoModalProps {

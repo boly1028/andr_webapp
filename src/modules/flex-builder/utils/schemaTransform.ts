@@ -1,39 +1,38 @@
+import { ITemplateFormData, ITemplateSchema, ITemplateUiSchema } from "@/lib/schema/templates/types";
+import { IAndromedaSchemaJSON } from "@/lib/schema/types";
 import { cloneDeep } from "@apollo/client/utilities";
-import { isUndefined } from "util";
 
 
-/** TODO: ADD DOCUMENTATION FOR EACH FUNCTION (Anshu) */
+interface IDefaults {
+    schema?: ITemplateSchema;
+    uiSchema?: ITemplateUiSchema;
+    formData?: ITemplateFormData;
+}
 
 
 /**Add Schema using the the previous default data */
 export const addSchemaModule = (
-    uuid: string | undefined,
-    data: SchemaModule,
-    _defaults?: SchemaObject,
+    uuid: string,
+    data: IAndromedaSchemaJSON,
+    _defaults?: IDefaults,
 ) => {
     const defaults = cloneDeep(_defaults);
-    const schemaDefinitions = defaults?.schemaDefinitions || {};
-    const schemaProperties = defaults?.schemaProperties || {};
-    const _uiSchema = defaults?.uiSchema || {};
+    const schemaDefinitions = defaults?.schema?.definitions || {};
+    const schemaProperties = defaults?.schema?.properties || {};
+    const _uiSchema = defaults?.uiSchema || {} as ITemplateUiSchema;
     const _formData = defaults?.formData || {};
 
-    const updatedData = updateSchemaModule(data, {
-        'schema': {},
-        'form-data': {},
-        'ui-schema': {}
-    })
-
-    schemaDefinitions[`${uuid}`] = updatedData.definition;
+    schemaDefinitions[`${uuid}`] = data.schema;
 
     schemaProperties[`${uuid}`] = { $ref: `#/definitions/${uuid}` };
 
     // ui-schema
-    _uiSchema[`${uuid}`] = updatedData.uiSchema;
+    _uiSchema[`${uuid}`] = data["ui-schema"];
     // Add new schema to ui order
-    _uiSchema[`ui:order`] = [..._uiSchema[`ui:order`] ?? ['*'], uuid];
+    _uiSchema[`ui:order`] = [...(_uiSchema[`ui:order`] as string[]) ?? ['*'], uuid];
 
     // form-data
-    _formData[`${uuid}`] = updatedData.formData
+    _formData[`${uuid}`] = data["form-data"]
 
     const _schema = {
         definitions: schemaDefinitions,
@@ -48,70 +47,13 @@ export const addSchemaModule = (
     };
 }
 
-export const updateSchemaModule = (
-    data: SchemaModule,
-    _defaults: SchemaModule,
-) => {
-    const defaults = cloneDeep(_defaults);
-    const _definition = {
-        ...(defaults['schema'] ?? {}),
-        ...(data["schema"] ?? {})
-    };
-    _definition["properties"] = _definition["properties"] ?? {};
-    _definition["properties"]["$type"] = {
-        type: "string",
-        default: data["schema"]["$id"],
-    };
-    _definition["properties"]["$class"] = {
-        type: "string",
-        default: data["schema"]["class"],
-    };
-    _definition["properties"]["$classifier"] = {
-        type: "string",
-        default: data["schema"]["classifier"],
-    };
-    _definition["properties"]["$removable"] = {
-        type: "boolean",
-        default: true,
-    };
-    _definition["properties"]["$enabled"] = {
-        type: "boolean",
-        default: true,
-    };
 
-
-    const _uiSchema = {
-        ...(defaults['ui-schema'] ?? {}),
-        ...(data["ui-schema"] ?? {})
-    };
-
-
-    _uiSchema["$class"] = { "ui:widget": "hidden" };
-    _uiSchema["$classifier"] = { "ui:widget": "hidden" };
-    _uiSchema["$removable"] = { "ui:widget": "hidden" };
-    _uiSchema["$enabled"] = { "ui:widget": "hidden" };
-    _uiSchema["$type"] = { "ui:widget": "hidden" };
-
-    // form-data
-    const _formData = {
-        ...(defaults['form-data'] ?? {}),
-        ...(data["form-data"] ?? {})
-    };
-
-    return {
-        uiSchema: _uiSchema,
-        formData: _formData,
-        definition: _definition
-    };
-}
-
-
-export const deleteSchemaModule = (uuid: string, oriDefaults?: SchemaObject) => {
+export const deleteSchemaModule = (uuid: string, oriDefaults?: IDefaults) => {
     const defaults = cloneDeep(oriDefaults)
-    const schemaDefinitions = defaults?.schemaDefinitions || {};
-    const schemaProperties = defaults?.schemaProperties || {};
+    const schemaDefinitions = defaults?.schema?.definitions || {};
+    const schemaProperties = defaults?.schema?.properties || {};
 
-    const _uiSchema = defaults?.uiSchema || {};
+    const _uiSchema = defaults?.uiSchema || {} as ITemplateUiSchema;
     const _formData = defaults?.formData || {};
     // Remove schema id from ui:order
     _uiSchema['ui:order'] = _uiSchema['ui:order']?.filter(id => id !== uuid)
@@ -134,16 +76,16 @@ export const deleteSchemaModule = (uuid: string, oriDefaults?: SchemaObject) => 
     };
 };
 
-export const changeSchemaID = (oldPanelName: string, newPanelName: string, _defaults?: SchemaObject) => {
+export const changeSchemaID = (oldPanelName: string, newPanelName: string, _defaults?: IDefaults) => {
     const defaults = cloneDeep(_defaults);
 
-    const schemaDefinitions = defaults?.schemaDefinitions || {};
-    const schemaProperties = defaults?.schemaProperties || {};
-    const _uiSchema = defaults?.uiSchema || {};
+    const schemaDefinitions = defaults?.schema?.definitions || {};
+    const schemaProperties = defaults?.schema?.properties || {};
+    const _uiSchema = defaults?.uiSchema || {} as ITemplateUiSchema;
     const _formData = defaults?.formData || {};
 
     // confirm new panel label doesn't already exist
-    if (!isUndefined(schemaDefinitions[`${newPanelName}`])) {
+    if (schemaDefinitions[`${newPanelName}`]) {
         return undefined
     }
 
@@ -183,13 +125,13 @@ export const changeSchemaID = (oldPanelName: string, newPanelName: string, _defa
 };
 
 
-export const duplicatePanelSchema = (panelName: string, newPanelName: string, _defaults?: SchemaObject) => {
+export const duplicatePanelSchema = (panelName: string, newPanelName: string, _defaults?: IDefaults) => {
     const defaults = cloneDeep(_defaults);
 
-    const schemaDefinitions = defaults?.schemaDefinitions || {};
-    const schemaProperties = defaults?.schemaProperties || {};
+    const schemaDefinitions = defaults?.schema?.definitions || {};
+    const schemaProperties = defaults?.schema?.properties || {};
 
-    const _uiSchema = defaults?.uiSchema || {};
+    const _uiSchema = defaults?.uiSchema || {} as ITemplateUiSchema;
     const _formData = defaults?.formData || {};
 
 
@@ -204,7 +146,7 @@ export const duplicatePanelSchema = (panelName: string, newPanelName: string, _d
     _formData[`${newPanelName}`] = _formData[`${panelName}`];
     _uiSchema[`${newPanelName}`] = _uiSchema[`${panelName}`];
     // Add new schema to last of ui order
-    _uiSchema[`ui:order`] = [..._uiSchema[`ui:order`] ?? ['*'], newPanelName];
+    _uiSchema[`ui:order`] = [...(_uiSchema[`ui:order`] as string[] ?? ['*']), newPanelName];
 
     // build schema from prior definitions & properties for return submission for passing to updateForm() function
     const _schema = {
@@ -218,16 +160,3 @@ export const duplicatePanelSchema = (panelName: string, newPanelName: string, _d
         formData: _formData,
     };
 };
-
-interface SchemaModule {
-    'schema': any;
-    'form-data': any;
-    'ui-schema': any;
-}
-
-interface SchemaObject {
-    schemaDefinitions: Record<string, any>;
-    formData: Record<string, any>;
-    uiSchema: Record<string, any>;
-    schemaProperties: Record<string, any>;
-}

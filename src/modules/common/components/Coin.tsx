@@ -1,5 +1,4 @@
-import { Box } from "@chakra-ui/react";
-import Image from "next/image";
+import { Box, Flex, HStack, Image, Text } from "@chakra-ui/react";
 import React, { memo } from "react";
 
 const images: Record<string, string> = {
@@ -17,21 +16,13 @@ interface CoinProps {
  * TODO: REPAIR
  */
 const Coin: React.FC<CoinProps> = memo(function Coin({ amount, denom }) {
-  const imgUrl = images[denom];
+  const imgUrl = images[denom] ?? images.ujunox;
   return (
-    <Box sx={{ display: "grid", gridTemplateColumns: "50px auto" }}>
-      <Image width="50px" height="50px" src={imgUrl} alt={`Coin - ${denom}`} />
-      <Box
-        sx={{
-          height: "100%",
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "center",
-        }}
-      >
-        {amount}
-      </Box>
-    </Box>
+    <Flex direction='row' gap='4' p="2" border="1px" borderColor="gray.300" rounded="lg">
+      <Image width="6" height="6" src={imgUrl} alt={`Coin - ${denom}`} />
+      <Text fontWeight='bold'>{amount}</Text>
+      <Text ml='auto' textStyle='light'>{denom}</Text>
+    </Flex>
   );
 });
 

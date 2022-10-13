@@ -1,31 +1,26 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
-import absoluteUrl from "next-absolute-url";
-
 import { useCodeId } from "@/lib/andrjs";
 import { FileCheckIcon, Layout, PageHeader } from "@/modules/common";
-import {
-  FlexBuilderForm,
-  FlexBuilderTemplateProps,
-  StagingDocumentsModal,
-} from "@/modules/flex-builder";
+import { FlexBuilderForm, StagingDocumentsModal } from "@/modules/flex-builder";
 import { useInstantiateModal } from "@/modules/modals/hooks";
-import { useConstructMsg } from "@/modules/sdk/hooks";
-import { getTemplateFromId } from "../api/flex-builder/[id]";
+import { useConstructAppMsg } from "@/modules/sdk/hooks";
+import { ITemplate } from "@/lib/schema/types";
+import { getAppTemplateById } from "@/lib/schema/utils";
 
 type Props = {
-  template: FlexBuilderTemplateProps;
+  template: ITemplate;
 };
 
 const TemplatePage: NextPage<Props> = ({ template }) => {
   const codeId = useCodeId(template.id);
-  const construct = useConstructMsg();
+  const construct = useConstructAppMsg();
   const openModal = useInstantiateModal(codeId);
   const handleSubmit = async (
     {
       formData,
     }: {
-      formData: object;
+      formData: any;
     },
     simulate = false,
   ) => {
@@ -107,7 +102,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<Props> = async (ctx) => {
   const { params } = ctx;
   const id = params?.id as string;
-  const data = await getTemplateFromId(id);
+  const data = await getAppTemplateById(id);
   if (!data) {
     return {
       notFound: true,

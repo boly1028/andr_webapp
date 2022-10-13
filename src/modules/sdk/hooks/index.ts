@@ -1,2 +1,2 @@
-export * from "./usePublishContract";
-export { default as useConstructMsg } from "./useConstructMsg";
+export { default as useConstructAppMsg } from "./useConstructAppMsg";
+export { default as useGetFunds } from "./useGetFunds";

@@ -1,34 +1,65 @@
 import { ProgressBar } from "@/modules/common/components";
-import { Box, Button, Center } from "@chakra-ui/react";
-import React, { memo, useMemo, useState } from "react";
+import { Box } from "@chakra-ui/react";
+import React, { memo, useEffect, useMemo, useState } from "react";
 import { useGlobalModalContext } from "../hooks";
 import { TransactionModalProps } from "../types";
+import AddFundsModal from "./AddFundsModal";
 import BroadcastingModal from "./BroadcastingModal";
 import EstimateFeeModal from "./EstimateFeeModal";
 
 const MAX_STAGE = 3;
 
 const TransactionModal: React.FC<TransactionModalProps> = memo(
-  function MessageModal(props) {
+  function MessageModal(defaultProps) {
     const [stage, setStage] = useState(0);
     const { close } = useGlobalModalContext();
-
-    const next = () => setStage((prev) => prev + 1);
-    const prev = () => setStage((prev) => Math.max(0, prev - 1));
+    // This is used if we want to change funds from here.
+    const [props, setProps] = useState(defaultProps);
+    useEffect(() => {
+      setProps(defaultProps);
+    }, [defaultProps]);
 
     const StageComponent = useMemo(() => {
       switch (stage) {
-        case 0:
+        case 0: {
+          if (props.type === "execute") {
+            return (
+              <AddFundsModal
+                funds={props.funds}
+                updateFunds={(newFunds) =>
+                  setProps((prev) => ({
+                    ...prev,
+                    funds: newFunds,
+                  }))
+                }
+                onNextStage={() => setStage(1)}
+                onPrevStage={() => close()}
+              />
+            );
+          }
+        }
+        case 1:
           return (
             <EstimateFeeModal
               {...props}
-              onNextStage={next}
-              onPrevStage={prev}
+              updateFee={(newFee) =>
+                setProps((prev) => ({
+                  ...prev,
+                  fee: newFee,
+                }))
+              }
+              onNextStage={() => setStage(2)}
+              onPrevStage={() => {
+                if (props.type === "execute") {
+                  setStage(0);
+                } else {
+                  close();
+                }
+              }}
             />
           );
-        case 1:
         case 2:
-          return <BroadcastingModal {...props} onNextStage={next} />;
+          return <BroadcastingModal {...props} />;
         default:
           return <></>;
       }

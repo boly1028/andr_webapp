@@ -25,6 +25,7 @@ module.exports = {
         "@typescript-eslint/no-empty-interface": "off",
         "no-empty-pattern": "off",
         "no-prototype-builtins": "off",
+        "no-fallthrough":"off"
       },
     },
   ],

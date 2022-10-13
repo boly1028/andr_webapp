@@ -9,6 +9,8 @@
  * - Do not end route with '/' (if manually adding routes, a consistence design will be created)
  */
 
+import { IAdoType } from "@/lib/schema/types";
+
 export const SITE_LINKS = {
     landing: () => `/`,
     dashboard: () => `/dashboard`,
@@ -16,7 +18,8 @@ export const SITE_LINKS = {
     flexBuilderHome: () => `/flex-builder`,
     flexBuilder: (id: string) => `/flex-builder/${id}`,
     flexBuilderTemplate: () => `/flex-builder/custom-template`,
-    flexecute: (path: string, address: string, name: string) => `/flexecute/${path}?name=${name}&contract=${address}`,
+    adoExecute: (path: string, address: string) => `/flexecute/${path}?contract=${address}`,
+    proxyApp: (path: string, address: string, name: string) => `/flexecute/proxy/${path}?name=${name}&contract=${address}`,
     // App
     appStore: () => `/app-store`,
     appBuilder: () => `/app-builder`,

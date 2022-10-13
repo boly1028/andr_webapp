@@ -1,7 +1,9 @@
+import { getSchemaFromPath } from "@/lib/schema/utils";
+
 // PanelName = Prop declared for content loading
 async function fetchPanelSchema(panelName: any) {
   //const res = await fetch(`@/pages/api/flex-builder/schema/${panelName}.json`);
-  const res = await import(`@/pages/api/flex-builder/schema/${panelName}.json`);
+  const res = await getSchemaFromPath(panelName);
 
   //const json = await res.json();
   //console.log(json);

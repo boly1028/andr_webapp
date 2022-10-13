@@ -1,9 +1,9 @@
-import { getSchemaFromPath } from "@/api/schema";
 import { useQuery } from "@tanstack/react-query";
+import { getSchemaFromPath } from "../utils";
 
-export const useGetSchemaJson = <T,>(path: string) => {
+export const useGetSchemaJson = (path: string) => {
   return useQuery(["schema", path], async () => {
-    const data: T = await getSchemaFromPath({ path });
+    const data = await getSchemaFromPath(path);
     return data;
   });
 };

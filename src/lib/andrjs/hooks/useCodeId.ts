@@ -31,6 +31,7 @@ export default function useCodeId(adoType: string) {
         console.warn("No factory address");
         return;
       }
+
       if (client.isConnected) {
         const _codeId = await client.queryContract(factoryAddress, queryMsg);
         console.log(_codeId)

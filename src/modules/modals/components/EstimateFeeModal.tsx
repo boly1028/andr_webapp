@@ -8,64 +8,39 @@ import { TransactionModalProps } from "../types";
 import { GasIcon } from "@/modules/common";
 import { Box, Button, Center, Text } from "@/theme/ui-elements";
 import ModalLoading from "./ModalLoading";
+import { Fee } from "@andromedaprotocol/andromeda.js";
+import { sumCoins } from "@/modules/sdk/hooks/useGetFunds";
 
 interface OptionalProps {
   onNextStage?: () => void;
   onPrevStage?: () => void;
+  updateFee: (fee: Fee) => void;
 }
 
-const FeeAmount: FC<{ coin: Coin; hasBorder: boolean; text: string }> = memo(
-  function FeeAmount({ coin: { amount, denom }, hasBorder, text }) {
-    const { loading, balance } = useGetBalance(denom);
-    const hasAmount = useMemo(
-      () => loading || parseFloat(balance.amount) > parseFloat(amount),
-      [amount, loading, balance],
-    );
-
-    return (
-      <>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            padding: "10px",
-            position: "relative",
-          }}
-        >
-          <Box>{text}</Box>
-          <Box>
-            {parseInt(amount) / 1000000}{" "}
-            <b>{denom.replace("u", "").toUpperCase()} </b>
-          </Box>
+const FeeAmount: FC<{ coin: Coin; text: string }> = memo(function FeeAmount({
+  coin: { amount, denom },
+  text,
+}) {
+  return (
+    <>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          padding: "10px",
+          position: "relative",
+        }}
+      >
+        <Box>{text}</Box>
+        <Box>
+          {parseInt(amount) / 1000000}{" "}
+          <b>{denom.replace("u", "").toUpperCase()} </b>
         </Box>
-        {!hasAmount && (
-          <Box
-            sx={{
-              borderRadius: "6px",
-              background: "#d9534f0F",
-              border: "1px solid #d9534f",
-              fontSize: "12px",
-              padding: "10px",
-              color: "#d9534f",
-            }}
-            mt="10px"
-          >
-            You may have insufficient funds for this transaction. Current
-            balance:{" "}
-            <b>
-              {parseInt(balance.amount) / 1000000}
-              {balance.denom.replace("u", "").toUpperCase()}
-            </b>
-          </Box>
-        )}
-        {hasBorder && (
-          <hr style={{ borderColor: "#D0D5DD", margin: "10px 0px" }} />
-        )}
-      </>
-    );
-  },
-);
+      </Box>
+    </>
+  );
+});
 
 // Displays EstimateFee Modal (with a condition of (props.simulate && props.onNextStep))
 // Repair note from fix/transaction-modal-processing: A bang operator (!) was appended to the props.simulate declaration causing inverse evaluations of the intended conditions
@@ -75,6 +50,13 @@ const EstimateFeeModal: FC<TransactionModalProps & OptionalProps> = (props) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [fee, setFee] = useState<StdFee>({ amount: [], gas: "0" });
 
+  const totalFunds = useMemo(() => {
+    if (props.type === "execute") {
+      const sum = sumCoins([...fee.amount, ...props.funds]);
+      return sum;
+    }
+  }, [fee, props]);
+
   useEffect(() => {
     const simulateFee = async () => {
       setLoading(true);
@@ -82,6 +64,7 @@ const EstimateFeeModal: FC<TransactionModalProps & OptionalProps> = (props) => {
         // Select message execution type of execute or instantiate by passed prop
         switch (props.type) {
           case "execute":
+            console.log(props.funds);
             return client.encodeExecuteMsg(
               props.contractAddress,
               props.msg,
@@ -95,8 +78,11 @@ const EstimateFeeModal: FC<TransactionModalProps & OptionalProps> = (props) => {
             );
         }
       })();
+
       try {
-        const fee = await client.estimateFee([msg]);
+        console.log(msg);
+        const fee = await client.estimateFee([msg], props?.memo ?? "");
+        console.log(fee);
         setFee(fee);
         setLoading(false);
       } catch (error) {
@@ -104,7 +90,11 @@ const EstimateFeeModal: FC<TransactionModalProps & OptionalProps> = (props) => {
       }
     };
 
-    if (connected) simulateFee();
+    const tId = setTimeout(() => {
+      if (connected) simulateFee();
+    }, 500);
+
+    return () => clearTimeout(tId);
   }, [client, props, connected, setError]);
 
   return (
@@ -190,13 +180,22 @@ const EstimateFeeModal: FC<TransactionModalProps & OptionalProps> = (props) => {
             <hr style={{ borderColor: "#D0D5DD", margin: "10px 0px" }} />
             {fee.amount.map((coin, index) => (
               <FeeAmount
-                key={`feeamount-${coin.denom}`}
+                key={`feeamount-${index}`}
                 coin={coin}
-                hasBorder={index < fee.amount.length - 1}
-                text={index === 0 ? "Cost Estimate" : ""}
+                text="Cost Estimate"
               />
             ))}
+            {props.type === "execute" &&
+              props.funds.map((coin, index) => (
+                <FeeAmount
+                  key={`feeamount-${index}`}
+                  coin={coin}
+                  text="Funds"
+                />
+              ))}
+            {totalFunds && <FeeAmount coin={totalFunds} text="Total Funds" />}
           </Box>
+
           <Box
             mt="40px"
             sx={{
@@ -223,7 +222,10 @@ const EstimateFeeModal: FC<TransactionModalProps & OptionalProps> = (props) => {
                   fontSize: "16px",
                   padding: "10px 32px",
                 }}
-                onClick={props.onNextStage}
+                onClick={() => {
+                  props.updateFee(fee);
+                  props.onNextStage?.();
+                }}
               >
                 Broadcast
               </Button>
