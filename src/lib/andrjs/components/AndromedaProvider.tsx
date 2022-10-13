@@ -1,4 +1,5 @@
-import AndromedaClient, { ChainConfig } from "@andromedaprotocol/andromeda.js";
+import AndromedaClient from "@andromedaprotocol/andromeda.js";
+import type { ChainConfig } from "@andromedaprotocol/andromeda.js";
 import { cloneDeep } from "@apollo/client/utilities";
 import { OfflineSigner } from "@cosmjs/proto-signing";
 import { GasPrice } from "@cosmjs/stargate";
@@ -25,7 +26,7 @@ export interface AndromedaProviderProps {
  */
 const AndromedaProvider: React.FC<AndromedaProviderProps> = memo(
   function AndromedaProvider({ children, signer, chainId }) {
-    const config = useChainConfig(chainId);
+    const { data: config } = useChainConfig(chainId);
     const client = useMemo(() => new AndromedaClient(), []);
     const [connected, setConnected] = useState(false);
     const [factoryAddress, setFactoryAddress] = useState("");

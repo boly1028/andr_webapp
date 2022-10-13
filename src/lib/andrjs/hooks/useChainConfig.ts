@@ -1,18 +1,35 @@
 import {
-  ChainConfig,
-  getConfigByChainID,
+  queryAllChainConfigs,
+  queryChainConfig,
 } from "@andromedaprotocol/andromeda.js";
-import { useMemo } from "react";
+import { useQuery } from "@tanstack/react-query";
 
 /**
  * Wrapper hook for the andr.js chain configs
  * @param chainId
  * @returns
  */
-export default function useChainConfig(
+export function useChainConfig(
   chainId: string,
-): ChainConfig | undefined {
-  const config = useMemo(() => getConfigByChainID(chainId), [chainId]);
+) {
+  return useQuery(
+    ["chain", chainId],
+    () => {
+      return queryChainConfig(chainId);
+    }
+  );
+}
 
-  return config;
+/**
+ * Wrapper hook for the andr.js all chain configs
+ * @returns
+ */
+export function useAllChainConfig(
+) {
+  return useQuery(
+    ["chain"],
+    () => {
+      return queryAllChainConfigs();
+    }
+  );
 }

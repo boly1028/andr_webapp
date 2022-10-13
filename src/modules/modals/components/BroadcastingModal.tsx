@@ -25,7 +25,7 @@ const BroadcastingModal: FC<TransactionModalProps & OptionalProps> = memo(
       ExecuteResult | InstantiateResult | undefined
     >();
     const { chainId } = useWalletContext();
-    const config = useChainConfig(chainId);
+    const { data: config } = useChainConfig(chainId);
 
     const broadcast = useCallback(async () => {
       if (!connected) throw new Error("Not connected!");
@@ -70,7 +70,7 @@ const BroadcastingModal: FC<TransactionModalProps & OptionalProps> = memo(
       return () => clearTimeout(tId);
     }, [broadcast, setError, props, result]);
 
-    console.log(result, "Result")
+    console.log(result, "Result");
 
     const TransactionInfo = useMemo(() => {
       if (!result) return <></>;

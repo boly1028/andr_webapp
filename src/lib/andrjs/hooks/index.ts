@@ -1,4 +1,4 @@
-export { default as useChainConfig } from "./useChainConfig";
+export * from "./useChainConfig";
 export { default as useAndromedaContext } from "./useAndromedaContext";
 export * from "./useAndromedaContext";
 export { default as useAndromedaClient } from "./useAndromedaClient";

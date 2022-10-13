@@ -32,43 +32,15 @@ import {
   CopyButton,
 } from "@/modules/common";
 import useWalletModal from "@/modules/modals/hooks/useWalletModal";
-import { configs } from "@andromedaprotocol/andromeda.js";
-import { useChainConfig } from "@/lib/andrjs";
-
-const TOKENS = [
-  {
-    logo: "https://whitelist.anchorprotocol.com/logo/ANC.png",
-    name: "ANC",
-  },
-  {
-    logo: "https://app.astroport.fi/tokens/astro.png",
-    name: "ASTRO",
-  },
-];
-
-interface HoldingItemProps {
-  logo: string;
-  name: string;
-}
-
-const HoldingItem = ({ logo, name }: HoldingItemProps) => {
-  return (
-    <Flex justify="space-between" align="center" w="full">
-      <HStack>
-        <Image src={logo} boxSize={8} alt="Logo" />
-        <Text fontWeight={500}>{name}</Text>
-      </HStack>
-      <Text color="gray.500">0.00</Text>
-    </Flex>
-  );
-};
+import { useAllChainConfig, useChainConfig } from "@/lib/andrjs";
 
 const WalletConnected = () => {
   const wallet = useWallet();
   const disconnect = useDisconnect();
   const address = truncate(wallet?.address);
   const { chainId, setChainId } = useWalletContext();
-  const currentConfig = useChainConfig(chainId);
+  const { data: currentConfig } = useChainConfig(chainId);
+  const { data: configs } = useAllChainConfig();
 
   return (
     <Popover placement="bottom-end">
@@ -130,7 +102,7 @@ const WalletConnected = () => {
                     Switch
                   </MenuButton>
                   <MenuList>
-                    {configs.map((config) => (
+                    {configs?.map((config) => (
                       <MenuItem
                         onClick={() => {
                           setChainId(config.chainId);
