@@ -1,4 +1,4 @@
-import type { NextPage } from "next";
+import type { GetStaticProps, NextPage } from "next";
 import { FileCheckIcon, Layout, PageHeader } from "@/modules/common";
 import { useMemo } from "react";
 import { FlexBuilderForm, StagingDocumentsModal } from "@/modules/flex-builder";
@@ -8,12 +8,19 @@ import { useCodeId } from "@/lib/andrjs";
 import { useConstructAppMsg } from "@/modules/sdk/hooks";
 import { useInstantiateModal } from "@/modules/modals/hooks";
 import { UPLOAD_TEMPLATE } from "@/lib/schema/templates/upload";
+import { ITemplate } from "@/lib/schema/types";
+import { processTemplate } from "@/lib/schema/utils/template";
 
 /**
  * Flex Builder Custom template page which takes flex from session storage and renders
  * as form builder
  */
-const FlexBuilderCustomTemplate: NextPage = () => {
+
+type Props = {
+  defaultTemplate: ITemplate;
+};
+
+const FlexBuilderCustomTemplate: NextPage<Props> = ({ defaultTemplate }) => {
   const codeId = useCodeId("app");
   const construct = useConstructAppMsg();
   const openModal = useInstantiateModal(codeId);
@@ -30,7 +37,7 @@ const FlexBuilderCustomTemplate: NextPage = () => {
     if (storageData) {
       const jsonValue = JSON.parse(storageData) as DownloadFlexProps;
       return {
-        ...UPLOAD_TEMPLATE,
+        ...defaultTemplate,
         ...jsonValue,
       };
     }
@@ -110,6 +117,19 @@ const FlexBuilderCustomTemplate: NextPage = () => {
       </Box>
     </Layout>
   );
+};
+
+export const getStaticProps: GetStaticProps<Props> = async (ctx) => {
+  const data = await processTemplate(UPLOAD_TEMPLATE);
+  if (!data) {
+    return {
+      notFound: true,
+    };
+  }
+  return {
+    props: { defaultTemplate: data },
+    revalidate: 300,
+  };
 };
 
 export default FlexBuilderCustomTemplate;

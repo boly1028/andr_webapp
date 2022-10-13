@@ -1,6 +1,7 @@
 import APP_TEMPLATES from "../templates";
-import { ITemplate, ITemplateFormData, ITemplateSchema, ITemplateUiSchema } from "../templates/types";
-import { IAdoType, IAndromedaSchema, IAndromedaSchemaJSON } from "../types";
+import { ITemplate } from "../templates/types";
+import { IAndromedaSchema, IAndromedaSchemaJSON } from "../types";
+import { processTemplate } from "./template";
 
 
 export const getADOPFromPath = async (path: string) => {
@@ -65,56 +66,8 @@ export const getSchemaFromPath = async (path: string) => {
 export const getAppTemplateById = async (id: string, templates = APP_TEMPLATES) => {
     const template = templates.find(t => t.id === id);
     if (!template || template.disabled) throw new Error(`Template with id: ${id} not found`);
-    const definitions: ITemplateSchema['definitions'] = {};
-    const properties: ITemplateSchema['properties'] = {};
-    const uiSchema: ITemplateUiSchema = {
-        'ui-order': []
-    }
-    const formData: ITemplateFormData = {}
-
-    for (const ado of template.ados) {
-        const schemaADO = await getSchemaFromPath(ado.path);
-
-        // Set Definition
-        definitions[ado.id] = schemaADO.schema;
-        definitions[ado.id].properties.$removable.default = !ado.required;
-        definitions[ado.id].properties.$enabled.default = !!ado.required;
-
-        // Set property ref
-        properties[ado.id] = { $ref: `#/definitions/${ado.id}` }
-
-        uiSchema[ado.id] = schemaADO["ui-schema"]
-        // Add ado to ui:order
-        uiSchema["ui-order"].push(ado.id)
-
-        // Add form-data
-        formData[ado.id] = schemaADO["form-data"]
-    }
-
-    template.schema = {
-        definitions: definitions,
-        type: "object",
-        properties: properties,
-    };
-
-    template.uiSchema = uiSchema;
-    template.formData = formData;
-
-
-    // Process modules
-    if (template?.modules) {
-        const modules = template.modules;
-        // Import module listed in constants
-        // eslint-disable-next-line @next/next/no-assign-module-variable
-        for (const module of modules) {
-            const data = await getSchemaFromPath(module.path);
-            module.schema = data;
-        }
-        template.modules = modules;
-    }
-
-    return template;
-
+    const result = await processTemplate(template);
+    return result;
 }
 
 export const getProxyTemplate = async (path: string) => {
@@ -134,7 +87,7 @@ export const getProxyTemplate = async (path: string) => {
         ]
     };
 
-    const template = await getAppTemplateById(path, [currentTemplate]);
+    const template = await processTemplate(currentTemplate);
     return template;
 }
 
@@ -154,6 +107,6 @@ export const getADOExecuteTemplate = async (path: string) => {
         ]
     };
 
-    const template = await getAppTemplateById(path, [currentTemplate]);
+    const template = await processTemplate(currentTemplate);
     return template;
 }
