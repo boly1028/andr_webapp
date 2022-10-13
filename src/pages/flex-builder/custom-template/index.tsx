@@ -3,14 +3,21 @@ import { FileCheckIcon, Layout, PageHeader } from "@/modules/common";
 import { useMemo } from "react";
 import { FlexBuilderForm, StagingDocumentsModal } from "@/modules/flex-builder";
 import { Box, Flex, Text } from "@/theme/ui-elements";
-import { UPLOAD_TEMPLATE } from "@/modules/flex-builder/components/FlexBuilderPage/FlexUploadCard";
 import { DownloadFlexProps } from "@/modules/flex-builder/components/FlexBuilderForm/DownloadButton";
+import { useCodeId } from "@/lib/andrjs";
+import { useConstructAppMsg } from "@/modules/sdk/hooks";
+import { useInstantiateModal } from "@/modules/modals/hooks";
+import { UPLOAD_TEMPLATE } from "@/lib/schema/templates/upload";
 
 /**
  * Flex Builder Custom template page which takes flex from session storage and renders
  * as form builder
  */
 const FlexBuilderCustomTemplate: NextPage = () => {
+  const codeId = useCodeId("app");
+  const construct = useConstructAppMsg();
+  const openModal = useInstantiateModal(codeId);
+
   /** Template contains same structure as Blank App with schema, formData, uiSchema added from flex file uploaded by user */
   const template = useMemo(() => {
     /**Session Storage is not available for SSR, Only render when window is defined (Client Side) */
@@ -33,12 +40,16 @@ const FlexBuilderCustomTemplate: NextPage = () => {
     {
       formData,
     }: {
-      formData: object;
+      formData: any;
     },
     simulate = false,
   ) => {
-    /** TODO: Handle submission of form here. It will be instatiate call as this will always be a new contract */
-    console.log(formData);
+    if (codeId === -1) {
+      console.warn("Code ID not fetched");
+      return;
+    }
+    const msg = construct(formData);
+    openModal(msg, simulate);
   };
 
   //TODO: Setup staging availability flags for loading staging sections if passed

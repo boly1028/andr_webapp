@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
 import { toast } from "react-toastify";
 import TemplateCard from "./TemplateCard";
-import { ITemplate } from "@/lib/schema/types";
+import { UPLOAD_TEMPLATE } from "@/lib/schema/templates/upload";
 
 /**
  * A Static template card component to display in flex-builder store (with other dynamic templates)
@@ -77,19 +77,5 @@ const FlexUploadCard: FC<FlexUploadCardProps> = (props) => {
   );
 };
 
-export const UPLOAD_TEMPLATE: ITemplate = {
-  id: "import",
-  name: "Imported Template",
-  icon: "",
-  description: "",
-  opts: [
-    "Import saved template",
-    "Add on your prefered modules",
-    "Save as a template",
-    "Publish and use!",
-  ],
-  ados: [],
-  modules: [],
-};
 
 export default FlexUploadCard;
