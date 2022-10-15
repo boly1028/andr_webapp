@@ -1,5 +1,5 @@
-import defaultValidator, { customizeValidator } from '@rjsf/validator-ajv8'
+import { customizeValidator } from '@rjsf/validator-ajv6'
 
-const validator = defaultValidator;
+const validator = customizeValidator();
 
 export default validator;

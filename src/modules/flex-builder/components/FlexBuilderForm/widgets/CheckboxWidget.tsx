@@ -43,7 +43,11 @@ const CheckboxWidget = (props: WidgetProps) => {
         onBlur={_onBlur}
         onFocus={_onFocus}
       >
-        {label && <FormLabel id={`${id}-label`}>{label}</FormLabel>}
+        {label && (
+          <Text id={`${id}-label`}>
+            {label}
+          </Text>
+        )}
       </Checkbox>
     </FormControl>
   );

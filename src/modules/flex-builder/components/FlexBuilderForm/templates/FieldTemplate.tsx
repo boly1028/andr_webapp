@@ -2,15 +2,7 @@ import React, { useEffect, useRef } from "react";
 
 import { FieldTemplateProps, getTemplate, getUiOptions } from "@rjsf/utils";
 
-import {
-  Text,
-  FormControl,
-  FormHelperText,
-  FormErrorMessage,
-  FormLabel,
-  Box,
-} from "@chakra-ui/react";
-import { List, ListItem } from "@chakra-ui/react";
+import { Text, FormControl, FormLabel, Box, Stack, Alert, AlertIcon, AlertDescription } from "@chakra-ui/react";
 
 const FieldTemplate = (props: FieldTemplateProps) => {
   const {
@@ -40,6 +32,7 @@ const FieldTemplate = (props: FieldTemplateProps) => {
     uiOptions,
   );
   useEffect(() => {
+    if (!displayLabel) return;
     if (typeof document === "undefined") return;
     const el = document?.getElementById(`${id}-label`);
     if (el) {
@@ -75,6 +68,7 @@ const FieldTemplate = (props: FieldTemplateProps) => {
       <FormControl
         isRequired={required}
         isInvalid={rawErrors && rawErrors.length > 0}
+        mt='1'
       >
         {displayLabel && label ? (
           <FormLabel
@@ -92,35 +86,27 @@ const FieldTemplate = (props: FieldTemplateProps) => {
           </Text>
         ) : null}
         {hasWrapper ? (
-          <Box border="1px" borderColor="gray.300" p="6" rounded="lg">
+          <Box key={1} border="1px" borderColor="gray.300" p="6" rounded="lg">
             {children}
           </Box>
         ) : (
           <>{children}</>
         )}
-        {rawErrors && rawErrors.length > 0 && (
-          <List>
-            {rawErrors.map((error, i: number) => {
-              return (
-                <ListItem key={i}>
-                  <FormErrorMessage id={id}>{error}</FormErrorMessage>
-                </ListItem>
-              );
-            })}
-          </List>
-        )}
+
+        {props.help}
+        {props.errors}
 
         {/* We have our own $help field in schema. This is generally done using ui:help but as we are
         changing schema, it will be best to handle all changes in schema only */}
         {/* @ts-ignore */}
-        {schema.$help && (
+        {/* {schema.$help && (
           <FormHelperText id={id}>
             {
               // @ts-ignore
               schema.$help
             }
           </FormHelperText>
-        )}
+        )} */}
       </FormControl>
     </WrapIfAdditionalTemplate>
   );

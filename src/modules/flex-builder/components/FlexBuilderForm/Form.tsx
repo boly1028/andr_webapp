@@ -17,6 +17,7 @@ const Form: FC<IFormProps> = (props) => {
       }}
       widgets={{ ...defaultWidgets, ...widgets }}
       {...otherProps}
+      noHtml5Validate
     />
   );
 };

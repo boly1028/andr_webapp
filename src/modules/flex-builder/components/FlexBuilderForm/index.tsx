@@ -21,8 +21,6 @@ import { nextSuid, suid } from "@/lib/schema/utils";
 import { toast } from "react-toastify";
 import { IAndromedaSchemaJSON, ITemplate } from "@/lib/schema/types";
 import { ITemplateUiSchema } from "@/lib/schema/templates/types";
-import ArrayFieldItemTemplate from "./templates/ArrayFieldItemTemplate";
-import validator from "./validator";
 import Form from "./Form";
 
 type FlexBuilderFormProps = {
@@ -32,7 +30,6 @@ type FlexBuilderFormProps = {
   onSubmit?: (data: any) => void;
   onError?: () => void;
   onEstimate?: (data: any) => void;
-  noValidate?: boolean;
 };
 
 const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
@@ -41,7 +38,6 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
   onError,
   isLoading,
   onEstimate,
-  noValidate = false,
 }) => {
   const [schema, setSchema] = useState(cloneDeep(template.schema));
   const [uiSchema, setUiSchema] = useState(
@@ -183,7 +179,7 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
       }}
       onSubmit={onSubmit}
       onError={onError}
-      noValidate={noValidate}
+      // noValidate={noValidate}
     >
       {/* Add Modules Action */}
       {template.modules && (
