@@ -4,20 +4,11 @@
 import React, { FC, useState, useCallback, useEffect } from "react";
 import { Button, HStack, Flex, IconButton } from "@chakra-ui/react";
 import { JSONSchema7 } from "json-schema";
-import Form from "@rjsf/chakra-ui";
 import _ from "lodash";
 
 import { GasIcon } from "@/modules/common";
 import { AddModuleModal, DownloadButton } from "@/modules/flex-builder";
 
-import widgets from "./widgets";
-import {
-  FieldTemplate,
-  TitleField,
-  DescriptionField,
-  ObjectFieldTemplate,
-  ArrayFieldTemplate,
-} from "./templates";
 import { cloneDeep } from "@apollo/client/utilities";
 import {
   addSchemaModule,
@@ -25,10 +16,14 @@ import {
   deleteSchemaModule,
   duplicatePanelSchema,
 } from "../../utils/schemaTransform";
+
 import { nextSuid, suid } from "@/lib/schema/utils";
 import { toast } from "react-toastify";
 import { IAndromedaSchemaJSON, ITemplate } from "@/lib/schema/types";
 import { ITemplateUiSchema } from "@/lib/schema/templates/types";
+import ArrayFieldItemTemplate from "./templates/ArrayFieldItemTemplate";
+import validator from "./validator";
+import Form from "./Form";
 
 type FlexBuilderFormProps = {
   template: ITemplate;
@@ -134,17 +129,17 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
   // Replicate an existing panel identification key with new name
   const changePanelName = useCallback(
     (newName: string, oldName: string) => {
-      console.log("Here")
+      console.log("Here");
       const form = changeSchemaID(oldName, newName, {
         schema: schema,
         uiSchema: uiSchema,
         formData: formData,
       });
-      if(form){
+      if (form) {
         updateForm(form);
-        toast.success(`Rename panel to: ${newName}`)
-      }else{
-        toast.error(`Unable to rename panel`)
+        toast.success(`Rename panel to: ${newName}`);
+      } else {
+        toast.error(`Unable to rename panel`);
       }
     },
     [formData, schema, uiSchema],
@@ -188,11 +183,6 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
       }}
       onSubmit={onSubmit}
       onError={onError}
-      fields={{ TitleField, DescriptionField }}
-      FieldTemplate={FieldTemplate}
-      ArrayFieldTemplate={ArrayFieldTemplate}
-      ObjectFieldTemplate={ObjectFieldTemplate as any}
-      widgets={{ ...widgets }}
       noValidate={noValidate}
     >
       {/* Add Modules Action */}

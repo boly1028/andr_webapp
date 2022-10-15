@@ -16,20 +16,16 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
   const codeId = useCodeId(template.id);
   const construct = useConstructAppMsg();
   const openModal = useInstantiateModal(codeId);
-  const handleSubmit = async (
-    {
-      formData,
-    }: {
-      formData: any;
-    },
-    simulate = false,
-  ) => {
+  const handleSubmit = async (data, simulate = false) => {
     if (codeId === -1) {
       console.warn("Code ID not fetched");
       return;
     }
-    const msg = construct(formData);
-    openModal(msg, simulate);
+    const { formData } = data;
+
+    console.log(data);
+    // const msg = construct(formData);
+    // openModal(msg, simulate);
   };
 
   //TODO: Setup staging availability flags for loading staging sections if passed

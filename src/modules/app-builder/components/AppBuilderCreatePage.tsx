@@ -1494,7 +1494,7 @@ const AppBuilderCreatePage = () => {
                   <Button
                     as="a"
                     mt={10}
-                    isFullWidth
+                    w="full"
                     size="lg"
                     colorScheme="purple"
                     onClick={loadYieldVault}
@@ -1559,7 +1559,7 @@ const AppBuilderCreatePage = () => {
                   <Button
                     as="a"
                     mt={10}
-                    isFullWidth
+                    w="full"
                     size="lg"
                     colorScheme="purple"
                     onClick={loadMinerva}
@@ -1604,7 +1604,7 @@ const AppBuilderCreatePage = () => {
                   <Button
                     as="a"
                     mt={10}
-                    isFullWidth
+                    w="full"
                     size="lg"
                     colorScheme="purple"
                     rightIcon={

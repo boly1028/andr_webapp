@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 
-import { FieldTemplateProps } from "@rjsf/core";
+import { FieldTemplateProps, getTemplate, getUiOptions } from "@rjsf/utils";
 
 import {
   Text,
@@ -11,8 +11,6 @@ import {
   Box,
 } from "@chakra-ui/react";
 import { List, ListItem } from "@chakra-ui/react";
-
-import WrapIfAdditional from "./WrapIfAdditional";
 
 const FieldTemplate = (props: FieldTemplateProps) => {
   const {
@@ -32,7 +30,15 @@ const FieldTemplate = (props: FieldTemplateProps) => {
     rawDescription,
     schema,
     uiSchema,
+    registry,
   } = props;
+
+  const uiOptions = getUiOptions(uiSchema);
+  const WrapIfAdditionalTemplate = getTemplate<"WrapIfAdditionalTemplate">(
+    "WrapIfAdditionalTemplate",
+    registry,
+    uiOptions,
+  );
   useEffect(() => {
     if (typeof document === "undefined") return;
     const el = document?.getElementById(`${id}-label`);
@@ -53,7 +59,7 @@ const FieldTemplate = (props: FieldTemplateProps) => {
   // const hasWrapper = false;
 
   return (
-    <WrapIfAdditional
+    <WrapIfAdditionalTemplate
       classNames={classNames}
       disabled={disabled}
       id={id}
@@ -63,6 +69,8 @@ const FieldTemplate = (props: FieldTemplateProps) => {
       readonly={readonly}
       required={required}
       schema={schema}
+      uiSchema={uiSchema}
+      registry={registry}
     >
       <FormControl
         isRequired={required}
@@ -114,7 +122,7 @@ const FieldTemplate = (props: FieldTemplateProps) => {
           </FormHelperText>
         )}
       </FormControl>
-    </WrapIfAdditional>
+    </WrapIfAdditionalTemplate>
   );
 };
 

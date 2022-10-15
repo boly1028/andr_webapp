@@ -7,31 +7,30 @@ import ClassifierIcon from "@/theme/icons/classifiers";
 import { Box, Flex, HStack, IconButton, Text } from "@/theme/ui-elements";
 import { Grid, GridItem, Switch } from "@chakra-ui/react";
 
-import { ObjectFieldTemplateProps, utils } from "@rjsf/core";
 import {
-  CheckCircle as CheckCircleIcon,
+  ObjectFieldTemplateProps,
+  canExpand,
+  getUiOptions,
+  getTemplate,
+} from "@rjsf/utils";
+import {
   Copy as Duplicate,
   Edit3 as Rename,
   Trash2 as DeleteIcon,
 } from "lucide-react";
 import { useMemo } from "react";
 
-import AddButton from "../AddButton";
-
-const { canExpand } = utils;
-
 const NON_EDITABLE_CLASS = new Set<string>(["system", "modifier"]);
 
 interface ObjectFieldTemplateExtendedProps extends ObjectFieldTemplateProps {
   schema: IAndromedaSchema;
-  formData: IAndromedaFormData;
+  formData: IAndromedaFormData | undefined;
 }
 
 const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
   const {
-    DescriptionField,
+    registry,
     description,
-    TitleField,
     title,
     properties,
     required,
@@ -42,8 +41,25 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
     schema,
     formData,
     onAddClick,
-    formContext, //used as prop drilling form action calls: toogleModule() / deleteModule() / renameModule()
+    formContext, //used as prop drilling form action calls: toogleModule() / deleteModule() / renameModule(),
   } = props;
+  const uiOptions = getUiOptions(uiSchema);
+
+  const TitleFieldTemplate = getTemplate<"TitleFieldTemplate">(
+    "TitleFieldTemplate",
+    registry,
+    uiOptions,
+  );
+  const DescriptionFieldTemplate = getTemplate<"DescriptionFieldTemplate">(
+    "DescriptionFieldTemplate",
+    registry,
+    uiOptions,
+  );
+
+  // Button templates are not overridden in the uiSchema
+  const {
+    ButtonTemplates: { AddButton },
+  } = registry.templates;
 
   const openPanelRenameModal = usePanelRenameModal();
 
@@ -56,10 +72,11 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
     return rjsfId;
   }, [idSchema]);
 
-  const hasWrapper = formData.$removable !== undefined;
+  const hasWrapper = formData?.$removable !== undefined;
 
   // It should be handled using ui:schema util from rjsf?
-  const hasGroup = schema["ui:options"]?.["group"];
+  const hasGroup = uiOptions.group;
+
   if (hasWrapper) {
     return (
       /**
@@ -86,7 +103,7 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
             <Box>
               <HStack mb={1}>
                 <Text fontSize="sm" color="gray.700" fontWeight={600}>
-                  {title}
+                  {uiOptions.title || title}
                 </Text>
                 {!NON_EDITABLE_CLASS.has(schema.class ?? "") && (
                   <>
@@ -125,7 +142,9 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
                   </>
                 )}
               </HStack>
-              <Text textStyle="light">{description}</Text>
+              <Text textStyle="light">
+                {uiOptions.description || description}
+              </Text>
             </Box>
           </HStack>
           {formData["$removable"] && (
@@ -189,17 +208,22 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
      */
     return (
       <>
-        {title && !hasGroup && (
-          <TitleField
+        {(uiOptions.title || title) && !hasGroup && (
+          <TitleFieldTemplate
             id={`${idSchema.$id}-title`}
-            title={title}
+            title={uiOptions.title || title}
             required={required}
+            schema={schema}
+            uiSchema={uiSchema}
+            registry={registry}
           />
         )}
         {description && (
-          <DescriptionField
+          <DescriptionFieldTemplate
             id={`${idSchema.$id}-description`}
             description={description}
+            schema={schema}
+            registry={registry}
           />
         )}
         <Grid gap={description ? 2 : 4} mb={4} mt={hasGroup ? 6 : 0}>
@@ -218,6 +242,7 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
                 className="object-property-expand"
                 onClick={onAddClick(schema)}
                 disabled={disabled || readonly}
+                uiSchema={uiSchema}
               />
             </GridItem>
           )}

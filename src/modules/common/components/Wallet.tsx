@@ -158,7 +158,7 @@ const WalletConnected = () => {
                 <CopyButton
                   leftIcon={<CopyIcon boxSize={4} />}
                   variant="outline"
-                  isFullWidth
+                  w='full'
                   fontWeight={500}
                   color="gray.700"
                   text={wallet?.address}
@@ -176,7 +176,7 @@ const WalletConnected = () => {
                   target="_blank"
                   leftIcon={<ExternalLinkIcon boxSize={4} />}
                   variant="outline"
-                  isFullWidth
+                  w='full'
                   fontWeight={500}
                   color="gray.700"
                 >
@@ -200,7 +200,7 @@ const WalletConnected = () => {
                 leftIcon={<LogOutIcon boxSize={4} />}
                 variant="outline"
                 onClick={disconnect}
-                isFullWidth
+                w='full'
                 fontWeight={500}
                 color="gray.700"
               >
