@@ -22,10 +22,9 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
       return;
     }
     const { formData } = data;
-
-    console.log(data);
-    // const msg = construct(formData);
-    // openModal(msg, simulate);
+    console.log(formData)
+    const msg = construct(formData);
+    openModal(msg, simulate);
   };
 
   //TODO: Setup staging availability flags for loading staging sections if passed

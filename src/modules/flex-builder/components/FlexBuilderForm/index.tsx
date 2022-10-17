@@ -2,14 +2,13 @@
 // updateForm(), addSchemaModule(), removeSchemaModule(), changeSchemaID
 // addModule, removeModule, deleteModule, changePanelName
 import React, { FC, useState, useCallback, useEffect } from "react";
-import { Button, HStack, Flex, IconButton } from "@chakra-ui/react";
+import { Button, HStack, Flex, IconButton, useToast } from "@chakra-ui/react";
 import { JSONSchema7 } from "json-schema";
-import _ from "lodash";
+import { cloneDeep, debounce } from "lodash";
 
 import { GasIcon } from "@/modules/common";
 import { AddModuleModal, DownloadButton } from "@/modules/flex-builder";
 
-import { cloneDeep } from "@apollo/client/utilities";
 import {
   addSchemaModule,
   changeSchemaID,
@@ -18,7 +17,6 @@ import {
 } from "../../utils/schemaTransform";
 
 import { nextSuid, suid } from "@/lib/schema/utils";
-import { toast } from "react-toastify";
 import { IAndromedaSchemaJSON, ITemplate } from "@/lib/schema/types";
 import { ITemplateUiSchema } from "@/lib/schema/templates/types";
 import Form from "./Form";
@@ -39,6 +37,11 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
   isLoading,
   onEstimate,
 }) => {
+  const toast = useToast({
+    position: "top-right",
+    duration: 3000,
+    isClosable: true,
+  });
   const [schema, setSchema] = useState(cloneDeep(template.schema));
   const [uiSchema, setUiSchema] = useState(
     cloneDeep(template.uiSchema ?? ({} as ITemplateUiSchema)),
@@ -113,8 +116,11 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
         uiSchema: uiSchema,
         formData: formData,
       });
-      toast(`Duplicated panel with id: ${newId}`, {
-        type: "info",
+      toast({
+        title: `Duplicated panel`,
+        description: `Duplicated panel with id: ${newId}`,
+        status: "info",
+        isClosable: true,
       });
       // console.log("changeSchemaID form.formData:", form.formData);
       updateForm(form);
@@ -133,9 +139,18 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
       });
       if (form) {
         updateForm(form);
-        toast.success(`Rename panel to: ${newName}`);
+        toast({
+          title: `Renamed panel`,
+          description: `Rename panel to: ${newName}`,
+          status: "success",
+          isClosable: true,
+        });
       } else {
-        toast.error(`Unable to rename panel`);
+        toast({
+          title: `Unable to rename panel`,
+          status: "error",
+          isClosable: true,
+        });
       }
     },
     [formData, schema, uiSchema],
@@ -178,8 +193,14 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
         setFormData(_formData);
       }}
       onSubmit={onSubmit}
-      onError={onError}
-      // noValidate={noValidate}
+      onError={(errors) => {
+        toast({
+          title: `${errors.length} Errors`,
+          description: "Found errors while validating",
+          status: "error",
+        });
+        onError?.();
+      }}
     >
       {/* Add Modules Action */}
       {template.modules && (

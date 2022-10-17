@@ -16,8 +16,9 @@ const Form: FC<IFormProps> = (props) => {
         ...templates,
       }}
       widgets={{ ...defaultWidgets, ...widgets }}
+      // Hide Error list at the top as its not intuitive to user
+      showErrorList={false}
       {...otherProps}
-      noHtml5Validate
     />
   );
 };
