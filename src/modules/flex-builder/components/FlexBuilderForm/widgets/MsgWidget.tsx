@@ -16,22 +16,14 @@ import {
   MenuItem,
   MenuList,
 } from "@chakra-ui/react";
-import Form from "@rjsf/chakra-ui";
-import { WidgetProps } from "@rjsf/core";
-import widgets from ".";
-import {
-  FieldTemplate,
-  TitleField,
-  DescriptionField,
-  ObjectFieldTemplate,
-  ArrayFieldTemplate,
-} from "../templates";
+import { WidgetProps } from "@rjsf/utils";
 
 import React, { FC, useEffect, useState } from "react";
+import Form from "../Form";
 
 interface MsgWidgetProps extends WidgetProps {}
 export const MsgWidget: FC<MsgWidgetProps> = (props) => {
-  const { id, uiSchema, schema, onFocus, onBlur, value, onChange } = props;
+  const { id, schema, onFocus, onBlur, value, onChange } = props;
 
   const [currentSchema, setCurrentSchema] = useState<string>();
   const { data: schemaFile } = useGetSchemaJson(currentSchema ?? "");
@@ -87,7 +79,7 @@ export const MsgWidget: FC<MsgWidgetProps> = (props) => {
           w="full"
         />
       </Flex>
-      <Box w="full" mt='4'>
+      <Box w="full" mt="4">
         {schemaFile?.schema && (
           <Form
             schema={schemaFile?.schema}
@@ -99,11 +91,6 @@ export const MsgWidget: FC<MsgWidgetProps> = (props) => {
             onChange={({ formData: _formData }) => {
               setFormData(_formData);
             }}
-            fields={{ TitleField, DescriptionField }}
-            FieldTemplate={FieldTemplate}
-            ArrayFieldTemplate={ArrayFieldTemplate}
-            ObjectFieldTemplate={ObjectFieldTemplate as any}
-            widgets={{ ...widgets }}
           >
             {/* Pass fragment to hide submit button */}
             <></>

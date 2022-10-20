@@ -1,10 +1,10 @@
 import React from "react";
 
-import { FieldProps } from "@rjsf/core";
+import { TitleFieldProps } from "@rjsf/utils";
 
 import { Text, Divider } from "@chakra-ui/react";
 
-const TitleField = ({ title /* , id, required */ }: FieldProps) => {
+const TitleField = ({ title /* , id, required */ }: TitleFieldProps) => {
   return (
     <Text mt={3} mb={2}>
       <Text fontWeight={500}>{title}</Text>

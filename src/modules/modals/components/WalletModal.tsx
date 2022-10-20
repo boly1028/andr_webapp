@@ -27,7 +27,7 @@ const WalletModal: FC = () => {
         <Button
           variant="outline"
           // leftIcon={<chakra.img src={icon} alt={name} boxSize={6} />} //TODO: Fix Icon
-          isFullWidth
+          w='full'
           mb={4}
           py={8}
           onClick={connect}

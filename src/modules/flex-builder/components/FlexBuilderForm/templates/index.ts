@@ -1,5 +1,19 @@
-export { default as ArrayFieldTemplate } from './ArrayFieldTemplate'
-export { default as DescriptionField } from './DescriptionField'
-export { default as FieldTemplate } from './FieldTemplate'
-export { default as ObjectFieldTemplate } from './ObjectFieldTemplate'
-export { default as TitleField } from './TitleField'
+import { TemplatesType } from '@rjsf/utils'
+import ArrayFieldItemTemplate from './ArrayFieldItemTemplate';
+import ArrayFieldTemplate from './ArrayFieldTemplate';
+import DescriptionField from './DescriptionField';
+import FieldTemplate from './FieldTemplate';
+import ObjectFieldTemplate from './ObjectFieldTemplate';
+import TitleField from './TitleField';
+
+
+const TEMPLATES: Partial<TemplatesType> = {
+    FieldTemplate: FieldTemplate,
+    ArrayFieldTemplate: ArrayFieldTemplate,
+    ObjectFieldTemplate: ObjectFieldTemplate as any,
+    ArrayFieldItemTemplate: ArrayFieldItemTemplate,
+    DescriptionFieldTemplate: DescriptionField,
+    TitleFieldTemplate: TitleField,
+}
+
+export default Object.freeze(TEMPLATES);

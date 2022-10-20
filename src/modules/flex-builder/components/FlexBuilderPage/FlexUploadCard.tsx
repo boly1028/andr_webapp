@@ -50,7 +50,7 @@ const FlexUploadCard: FC<FlexUploadCardProps> = (props) => {
         as="label"
         htmlFor="templateInput"
         mt={10}
-        isFullWidth
+        w='full'
         size="lg"
         colorScheme="purple"
         leftIcon={!template.disabled ? <DownloadIcon boxSize={5} /> : undefined}

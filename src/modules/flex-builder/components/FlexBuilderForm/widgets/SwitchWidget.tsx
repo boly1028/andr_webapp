@@ -1,6 +1,6 @@
 import React from "react";
 import { Switch } from "@chakra-ui/react";
-import { WidgetProps } from "@rjsf/core";
+import { WidgetProps } from "@rjsf/utils";
 
 export const SwitchWidget = ({
   id,

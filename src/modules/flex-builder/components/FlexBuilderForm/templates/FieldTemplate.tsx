@@ -1,18 +1,14 @@
 import React, { useEffect, useRef } from "react";
 
-import { FieldTemplateProps } from "@rjsf/core";
-
 import {
-  Text,
-  FormControl,
-  FormHelperText,
-  FormErrorMessage,
-  FormLabel,
-  Box,
-} from "@chakra-ui/react";
-import { List, ListItem } from "@chakra-ui/react";
+  FieldTemplateProps,
+  getTemplate,
+  getUiOptions,
+  getSchemaType,
+} from "@rjsf/utils";
 
-import WrapIfAdditional from "./WrapIfAdditional";
+import { Text, FormControl, FormLabel, Box } from "@chakra-ui/react";
+import { JSONSchema7 } from "json-schema";
 
 const FieldTemplate = (props: FieldTemplateProps) => {
   const {
@@ -32,8 +28,49 @@ const FieldTemplate = (props: FieldTemplateProps) => {
     rawDescription,
     schema,
     uiSchema,
+    registry,
+    onChange,
+    formData,
   } = props;
+
+  const uiOptions = getUiOptions(uiSchema);
+  const WrapIfAdditionalTemplate = getTemplate<"WrapIfAdditionalTemplate">(
+    "WrapIfAdditionalTemplate",
+    registry,
+    uiOptions,
+  );
+
   useEffect(() => {
+    /**
+     * A Hack to by pass required field enforcement for array and boolean.
+     * These fields are supposed to have default values:
+     * array = empty array
+     * boolean = false
+     * So, if default value is not provided and the field is required,
+     * we inject default values ourselves.
+     */
+
+    // RJSF Bug so we need to have a timeout to update form data
+    const tId = setTimeout(() => {
+      if (!required) return;
+      if (schema.default) return;
+      const type = getSchemaType(schema) as JSONSchema7["type"];
+      if (type === "array") {
+        if (!Array.isArray(formData)) {
+          onChange([], undefined, id);
+        }
+      } else if (type === "boolean") {
+        if (formData === undefined) {
+          onChange(false, undefined, id);
+        }
+      }
+    }, 500);
+
+    return () => clearTimeout(tId);
+  }, []);
+
+  useEffect(() => {
+    if (!displayLabel) return;
     if (typeof document === "undefined") return;
     const el = document?.getElementById(`${id}-label`);
     if (el) {
@@ -53,7 +90,7 @@ const FieldTemplate = (props: FieldTemplateProps) => {
   // const hasWrapper = false;
 
   return (
-    <WrapIfAdditional
+    <WrapIfAdditionalTemplate
       classNames={classNames}
       disabled={disabled}
       id={id}
@@ -63,10 +100,13 @@ const FieldTemplate = (props: FieldTemplateProps) => {
       readonly={readonly}
       required={required}
       schema={schema}
+      uiSchema={uiSchema}
+      registry={registry}
     >
       <FormControl
         isRequired={required}
         isInvalid={rawErrors && rawErrors.length > 0}
+        mt="1"
       >
         {displayLabel && label ? (
           <FormLabel
@@ -84,37 +124,29 @@ const FieldTemplate = (props: FieldTemplateProps) => {
           </Text>
         ) : null}
         {hasWrapper ? (
-          <Box border="1px" borderColor="gray.300" p="6" rounded="lg">
+          <Box key={1} border="1px" borderColor="gray.300" p="6" rounded="lg">
             {children}
           </Box>
         ) : (
           <>{children}</>
         )}
-        {rawErrors && rawErrors.length > 0 && (
-          <List>
-            {rawErrors.map((error, i: number) => {
-              return (
-                <ListItem key={i}>
-                  <FormErrorMessage id={id}>{error}</FormErrorMessage>
-                </ListItem>
-              );
-            })}
-          </List>
-        )}
+
+        {props.help}
+        {props.errors}
 
         {/* We have our own $help field in schema. This is generally done using ui:help but as we are
         changing schema, it will be best to handle all changes in schema only */}
         {/* @ts-ignore */}
-        {schema.$help && (
+        {/* {schema.$help && (
           <FormHelperText id={id}>
             {
               // @ts-ignore
               schema.$help
             }
           </FormHelperText>
-        )}
+        )} */}
       </FormControl>
-    </WrapIfAdditional>
+    </WrapIfAdditionalTemplate>
   );
 };
 

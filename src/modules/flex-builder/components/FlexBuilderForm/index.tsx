@@ -2,33 +2,24 @@
 // updateForm(), addSchemaModule(), removeSchemaModule(), changeSchemaID
 // addModule, removeModule, deleteModule, changePanelName
 import React, { FC, useState, useCallback, useEffect } from "react";
-import { Button, HStack, Flex, IconButton } from "@chakra-ui/react";
+import { Button, HStack, Flex, IconButton, useToast } from "@chakra-ui/react";
 import { JSONSchema7 } from "json-schema";
-import Form from "@rjsf/chakra-ui";
-import _ from "lodash";
+import { cloneDeep, debounce } from "lodash";
 
 import { GasIcon } from "@/modules/common";
 import { AddModuleModal, DownloadButton } from "@/modules/flex-builder";
 
-import widgets from "./widgets";
-import {
-  FieldTemplate,
-  TitleField,
-  DescriptionField,
-  ObjectFieldTemplate,
-  ArrayFieldTemplate,
-} from "./templates";
-import { cloneDeep } from "@apollo/client/utilities";
 import {
   addSchemaModule,
   changeSchemaID,
   deleteSchemaModule,
   duplicatePanelSchema,
 } from "../../utils/schemaTransform";
+
 import { nextSuid, suid } from "@/lib/schema/utils";
-import { toast } from "react-toastify";
 import { IAndromedaSchemaJSON, ITemplate } from "@/lib/schema/types";
 import { ITemplateUiSchema } from "@/lib/schema/templates/types";
+import Form from "./Form";
 
 type FlexBuilderFormProps = {
   template: ITemplate;
@@ -37,7 +28,6 @@ type FlexBuilderFormProps = {
   onSubmit?: (data: any) => void;
   onError?: () => void;
   onEstimate?: (data: any) => void;
-  noValidate?: boolean;
 };
 
 const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
@@ -46,8 +36,12 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
   onError,
   isLoading,
   onEstimate,
-  noValidate = false,
 }) => {
+  const toast = useToast({
+    position: "top-right",
+    duration: 3000,
+    isClosable: true,
+  });
   const [schema, setSchema] = useState(cloneDeep(template.schema));
   const [uiSchema, setUiSchema] = useState(
     cloneDeep(template.uiSchema ?? ({} as ITemplateUiSchema)),
@@ -122,8 +116,11 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
         uiSchema: uiSchema,
         formData: formData,
       });
-      toast(`Duplicated panel with id: ${newId}`, {
-        type: "info",
+      toast({
+        title: `Duplicated panel`,
+        description: `Duplicated panel with id: ${newId}`,
+        status: "info",
+        isClosable: true,
       });
       // console.log("changeSchemaID form.formData:", form.formData);
       updateForm(form);
@@ -134,17 +131,26 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
   // Replicate an existing panel identification key with new name
   const changePanelName = useCallback(
     (newName: string, oldName: string) => {
-      console.log("Here")
+      console.log("Here");
       const form = changeSchemaID(oldName, newName, {
         schema: schema,
         uiSchema: uiSchema,
         formData: formData,
       });
-      if(form){
+      if (form) {
         updateForm(form);
-        toast.success(`Rename panel to: ${newName}`)
-      }else{
-        toast.error(`Unable to rename panel`)
+        toast({
+          title: `Renamed panel`,
+          description: `Rename panel to: ${newName}`,
+          status: "success",
+          isClosable: true,
+        });
+      } else {
+        toast({
+          title: `Unable to rename panel`,
+          status: "error",
+          isClosable: true,
+        });
       }
     },
     [formData, schema, uiSchema],
@@ -187,13 +193,14 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
         setFormData(_formData);
       }}
       onSubmit={onSubmit}
-      onError={onError}
-      fields={{ TitleField, DescriptionField }}
-      FieldTemplate={FieldTemplate}
-      ArrayFieldTemplate={ArrayFieldTemplate}
-      ObjectFieldTemplate={ObjectFieldTemplate as any}
-      widgets={{ ...widgets }}
-      noValidate={noValidate}
+      onError={(errors) => {
+        toast({
+          title: `${errors.length} Errors`,
+          description: "Found errors while validating",
+          status: "error",
+        });
+        onError?.();
+      }}
     >
       {/* Add Modules Action */}
       {template.modules && (

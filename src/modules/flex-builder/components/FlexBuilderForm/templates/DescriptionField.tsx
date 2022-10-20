@@ -1,17 +1,20 @@
-import React from "react";
+import React, { FC } from "react";
 
-import { FieldProps } from "@rjsf/core";
+import { DescriptionFieldProps } from "@rjsf/utils";
 
-import { Text, Divider } from "@chakra-ui/react";
+import { Text } from "@chakra-ui/react";
 
-const DescriptionField = ({ description }: FieldProps) => {
-  return (
-    <Text mt={1} mb={4}>
-      <Text fontSize="sm" fontWeight="light" color="GrayText">
-        {description}
+const DescriptionField: FC<DescriptionFieldProps> = ({ description }) => {
+  if (typeof description === "string") {
+    return (
+      <Text mt={1} mb={4}>
+        <Text fontSize="sm" fontWeight="light" color="GrayText">
+          {description}
+        </Text>
       </Text>
-    </Text>
-  );
+    );
+  }
+  return <>{description}</>;
 };
 
 export default DescriptionField;

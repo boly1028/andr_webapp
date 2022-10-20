@@ -200,7 +200,7 @@ function AddModuleModal({ onAdd, items }: AddModuleModalProps) {
         py={8}
         variant="ghost"
         leftIcon={<Icon as={PlusIcon} boxSize={6} />}
-        isFullWidth
+        w='full'
       >
         Add Component
       </Button>

@@ -1,9 +1,13 @@
+import { RegistryWidgetsType } from "@rjsf/utils";
+import CheckboxWidget from "./CheckboxWidget";
 import { MarkdownWidget } from "./MarkdownWidget";
 import { MsgWidget } from "./MsgWidget";
 import { SwitchWidget } from "./SwitchWidget";
 
-export default Object.freeze({
+const widgets: RegistryWidgetsType = {
   markdown: MarkdownWidget,
   switch: SwitchWidget,
-  msg: MsgWidget
-});
+  msg: MsgWidget,
+  CheckboxWidget: CheckboxWidget
+}
+export default widgets
