@@ -7,7 +7,7 @@ import {
   HStack,
   Text,
 } from "@chakra-ui/react";
-import { WidgetProps } from "@rjsf/utils";
+import { getUiOptions, WidgetProps } from "@rjsf/utils";
 
 const CheckboxWidget = (props: WidgetProps) => {
   const {
@@ -20,7 +20,10 @@ const CheckboxWidget = (props: WidgetProps) => {
     onFocus,
     label,
     rawErrors,
+    schema,
+    uiSchema,
   } = props;
+  const uiOptions = getUiOptions(uiSchema);
 
   const _onChange = ({
     target: { checked },
@@ -43,9 +46,9 @@ const CheckboxWidget = (props: WidgetProps) => {
         onBlur={_onBlur}
         onFocus={_onFocus}
       >
-        {label && (
+        {(uiOptions.title || schema.title || label) && (
           <Text id={`${id}-label`}>
-            {label}
+            {uiOptions.title ?? schema.title ?? label}
           </Text>
         )}
       </Checkbox>
