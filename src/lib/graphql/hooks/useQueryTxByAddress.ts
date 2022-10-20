@@ -1,4 +1,5 @@
 import {
+  ChainConfig,
   QueryTxByAccount,
   QueryTxByAccountResponse,
   QUERY_TX_BY_ACCOUNT,
@@ -20,6 +21,7 @@ export interface QueryTxByAddressProps
  */
 export default function useQueryTxByAddress(
   address: string,
+  chainId: ChainConfig['chainId'],
   maxHeight?: number,
   minHeight?: number,
 ): QueryTxByAddressProps {
@@ -30,7 +32,7 @@ export default function useQueryTxByAddress(
     gql`
       ${QUERY_TX_BY_ACCOUNT}
     `,
-    { variables: { address, minHeight, maxHeight } },
+    { variables: { address, minHeight, maxHeight, chainId } },
   );
 
   return {

@@ -11,13 +11,13 @@
     "tsc": "tsc"
   },
   "dependencies": {
-    "@andromedaprotocol/andromeda.js": "^0.0.57",
+    "@andromedaprotocol/andromeda.js": "^0.0.63",
     "@apollo/client": "^3.6.9",
     "@chakra-ui/icons": "^2.0.11",
     "@chakra-ui/react": "^2.3.5",
     "@cosmjs/amino": "^0.28.11",
     "@cosmjs/proto-signing": "^0.28.11",
-    "@cosmjs/stargate": "^0.28.11",
+    "@cosmjs/stargate": "^0.29.2",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
     "@rjsf/chakra-ui": "^5.0.0-beta.11",
