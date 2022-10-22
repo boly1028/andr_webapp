@@ -44,6 +44,7 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
     formContext, //used as prop drilling form action calls: toogleModule() / deleteModule() / renameModule(),
   } = props;
   const uiOptions = getUiOptions(uiSchema);
+  const rootSchema = registry.rootSchema;
 
   const TitleFieldTemplate = getTemplate<"TitleFieldTemplate">(
     "TitleFieldTemplate",
@@ -60,6 +61,9 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
   const {
     ButtonTemplates: { AddButton },
   } = registry.templates;
+
+  const { toggleModule, deleteModule, changePanelName, duplicatePanel } =
+    formContext as Record<any, Function | undefined>;
 
   const openPanelRenameModal = usePanelRenameModal();
 
@@ -117,28 +121,27 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
                       {currentSchemaId}
                     </CopyButton>
                     <Text></Text>
-                    <IconButton
-                      size={"sm"}
-                      variant="outline"
-                      aria-label="open menu"
-                      onClick={() => {
-                        openPanelRenameModal({
-                          callback: (newName) => {
-                            formContext.changePanelName(
-                              newName,
-                              currentSchemaId,
-                            );
-                          },
-                          defaultName: currentSchemaId,
-                          reservedNames: Object.keys(
-                            formContext.schema?.definitions ?? {},
-                          ),
-                          title: "Rename ADO",
-                          body: "Change the assigned name of this component",
-                        });
-                      }}
-                      icon={<Rename width={16} height={16} />}
-                    />
+                    {changePanelName && (
+                      <IconButton
+                        size={"sm"}
+                        variant="outline"
+                        aria-label="open menu"
+                        onClick={() => {
+                          openPanelRenameModal({
+                            callback: (newName) => {
+                              changePanelName(newName, currentSchemaId);
+                            },
+                            defaultName: currentSchemaId,
+                            reservedNames: Object.keys(
+                              rootSchema?.definitions ?? {},
+                            ),
+                            title: "Rename ADO",
+                            body: "Change the assigned name of this component",
+                          });
+                        }}
+                        icon={<Rename width={16} height={16} />}
+                      />
+                    )}
                   </>
                 )}
               </HStack>
@@ -147,37 +150,38 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
               </Text>
             </Box>
           </HStack>
-          {formData["$removable"] && (
+          {formData["$removable"] && toggleModule && (
             <HStack spacing={4}>
               <Switch
                 id={idSchema.$id}
                 isChecked={!!formData["$enabled"]}
                 colorScheme="primary"
                 onChange={() => {
-                  formContext.toggleModule(
-                    currentSchemaId,
-                    !formData["$enabled"],
-                  );
+                  toggleModule(currentSchemaId, !formData["$enabled"]);
                 }}
               />
-              <IconButton
-                size={"sm"}
-                variant="outline"
-                aria-label="open menu"
-                onClick={() => {
-                  formContext.duplicatePanel(currentSchemaId);
-                }}
-                icon={<Duplicate width={16} height={16} />}
-              />
-              <IconButton
-                size={"sm"}
-                variant="outline"
-                aria-label="open menu"
-                onClick={() => {
-                  formContext.deleteModule(currentSchemaId);
-                }}
-                icon={<DeleteIcon width={16} height={16} />}
-              />
+              {duplicatePanel && (
+                <IconButton
+                  size={"sm"}
+                  variant="outline"
+                  aria-label="open menu"
+                  onClick={() => {
+                    duplicatePanel(currentSchemaId);
+                  }}
+                  icon={<Duplicate width={16} height={16} />}
+                />
+              )}
+              {deleteModule && (
+                <IconButton
+                  size={"sm"}
+                  variant="outline"
+                  aria-label="open menu"
+                  onClick={() => {
+                    deleteModule(currentSchemaId);
+                  }}
+                  icon={<DeleteIcon width={16} height={16} />}
+                />
+              )}
             </HStack>
           )}
         </Flex>
