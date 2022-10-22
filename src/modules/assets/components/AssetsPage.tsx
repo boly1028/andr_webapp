@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { NftsList, AdosList } from "@/modules/assets";
 import { PageHeader, Wallet, FallbackPlaceholder } from "@/modules/common";
@@ -12,12 +12,17 @@ import {
   TabPanel,
   Flex,
   Center,
+  Button,
 } from "@/theme/ui-elements";
 import { useWallet } from "@/lib/wallet";
+import { useApolloClient } from "@apollo/client";
+import { QUERY_APP, QUERY_ASSETS } from "@andromedaprotocol/andromeda.js";
 
 const AssetsPage = () => {
   /**Check If wallet is connected, If yes then user is logged in */
   const wallet = useWallet();
+  const [loading, setLoading] = useState(false);
+  const apolloClient = useApolloClient();
 
   return (
     <Box>
@@ -44,6 +49,28 @@ const AssetsPage = () => {
             <Tab>NFT</Tab>
             <Tab>ADOs</Tab>
             <Tab>Others</Tab>
+            <Button
+              variant="ghost"
+              size="xs"
+              ml="auto"
+              alignSelf="center"
+              isLoading={loading}
+              onClick={() => {
+                setLoading(true);
+                apolloClient
+                  .refetchQueries({
+                    include: ["QUERY_APP", "QUERY_ASSETS"],
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                  })
+                  .finally(() => {
+                    setLoading(false);
+                  });
+              }}
+            >
+              Refresh
+            </Button>
           </TabList>
 
           <TabPanels>
