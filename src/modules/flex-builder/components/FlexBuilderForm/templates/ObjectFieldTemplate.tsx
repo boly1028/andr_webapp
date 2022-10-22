@@ -63,11 +63,11 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
   } = registry.templates;
 
   const { toggleModule, deleteModule, changePanelName, duplicatePanel } =
-    formContext as Record<any, Function | undefined>;
+    formContext as Record<any, (...args)=>any | undefined>;
 
   const openPanelRenameModal = usePanelRenameModal();
 
-  /**Extract schema Id (from rjsf idSchema) used to reference in json */
+  /**Extract schema Id (from rjsf idSchema) used to refierence in json */
   const currentSchemaId = useMemo(() => {
     let rjsfId = idSchema.$id;
     if (rjsfId.slice(0, 5) === "root_") {
