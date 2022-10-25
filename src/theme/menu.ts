@@ -6,13 +6,12 @@ const baseStyleList = {
 };
 
 const baseStyleItem = {
-  color: "gray.700",
+  color: "primary.25",
   py: "0.7rem",
   fontSize: "sm",
   fontWeight: 500,
   _focus: {
-    bg: "gray.50",
-    color: "primary.600",
+    color: "primary.900",
   },
 };
 

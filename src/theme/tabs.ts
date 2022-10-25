@@ -18,6 +18,7 @@ const baseStyleTab: SystemStyleObject = {
 const baseStyle: PartsStyleFunction<typeof parts> = () => ({
   tabpanel: baseStyleTabpanel,
   tab: baseStyleTab,
+  bg: 'dark.25',
 });
 
 const styles = {

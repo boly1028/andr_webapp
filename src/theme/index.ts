@@ -33,6 +33,13 @@ export default extendTheme({
         bg: "#7F56D9",
         borderRadius: "1.5rem",
       },
+
+      body: {
+        bg: "#1D1D21",
+      },
+      span: {
+        color: 'white'
+      }
     },
   },
   shadows,
@@ -55,6 +62,14 @@ export default extendTheme({
     Tooltip,
   },
   colors: {
+    dark: {
+      25: "#16161A",
+      50: "#1D1D21",
+      100: "#252529",
+      200: "#2D2D32",
+      300: "#35353A",
+      500: "#9B9DA2",
+    },
     primary: {
       25: "#FCFAFF ",
       50: "#F9F5FF",
@@ -188,18 +203,21 @@ export default extendTheme({
       800: "#0040C1",
       900: "#00359E",
     },
-    system: theme.colors.gray
+    system: theme.colors.dark
   },
   textStyles: {
     h1: {
       fontWeight: 700,
-      color: "gray.900",
+      color: "gray.100",
       fontSize: "xl",
       mb: 2,
       letterSpacing: 0.5,
     },
+    p: {
+      color: "gray.100",
+    },
     bold: {
-      color: "gray.700",
+      color: "gray.900",
       fontWeight: 700,
     },
     light: {

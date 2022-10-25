@@ -81,7 +81,7 @@ const Sidebar = ({ onClose, ...props }: SidebarProps) => {
   return (
     <Box
       transition="3s ease"
-      bg="gray.50"
+      bg="dark.25"
       w={60}
       pos="fixed"
       h="full"
