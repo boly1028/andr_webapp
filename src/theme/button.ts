@@ -19,13 +19,13 @@ const variantOutline: SystemStyleFunction = (props) => {
   return {
     borderColor: `${c}.300`,
     _hover: {
-      bg: `${c}.50`,
+      bg: `${c}.700`,
     },
     _active: {
-      bg: "white",
+      bg: `${c}.700`,
     },
     _focus: {
-      bg: "white",
+      bg: `${c}.700`,
       borderColor: `${c}.300`,
       boxShadow: `0 0 0 4px ${getColor(theme, `${c}.100`)}`,
     },

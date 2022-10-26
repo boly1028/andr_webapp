@@ -50,7 +50,6 @@ const WalletConnected = () => {
             <Button
               variant="outline"
               size="lg"
-              borderColor={isOpen ? "primary.600" : "gray.300"}
             >
               <HStack mr={8}>
                 <Image src={currentConfig?.iconUrls?.sm ?? ""} w="6" />
@@ -81,7 +80,7 @@ const WalletConnected = () => {
                 /> */}
                 <HStack>
                   <Image src={currentConfig?.iconUrls?.sm ?? ""} w="5" />
-                  <Text fontWeight={600} color="gray.700">
+                  <Text fontWeight={600} color="base.100">
                     {currentConfig?.chainName ?? chainId}
                   </Text>
                   <Badge
@@ -124,7 +123,7 @@ const WalletConnected = () => {
                             bg="gray.200"
                             rounded="full"
                           />
-                          <Text fontWeight={600} color="gray.700" mr="1">
+                          <Text fontWeight={600} color="base.100" mr="1">
                             {config?.chainName ?? chainId}
                           </Text>
                           <Badge
@@ -150,7 +149,6 @@ const WalletConnected = () => {
                 value={wallet ? wallet.address : ""}
                 mb={2}
                 p={2}
-                color="gray.700"
                 fontSize="sm"
                 readOnly
               />
@@ -160,7 +158,6 @@ const WalletConnected = () => {
                   variant="outline"
                   w='full'
                   fontWeight={500}
-                  color="gray.700"
                   text={wallet?.address}
                 >
                   Copy address
@@ -178,7 +175,6 @@ const WalletConnected = () => {
                   variant="outline"
                   w='full'
                   fontWeight={500}
-                  color="gray.700"
                 >
                   Explorer
                 </Button>
@@ -202,7 +198,6 @@ const WalletConnected = () => {
                 onClick={disconnect}
                 w='full'
                 fontWeight={500}
-                color="gray.700"
               >
                 Disconnect
               </Button>
@@ -226,7 +221,7 @@ const Wallet: FC = () => {
     <>
       <Button
         leftIcon={<PlusIcon boxSize={4} />}
-        colorScheme="purple"
+        colorScheme="primary"
         onClick={onOpen}
         size="lg"
       >

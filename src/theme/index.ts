@@ -1,4 +1,4 @@
-import { extendTheme, theme } from "@chakra-ui/react";
+import { createLocalStorageManager, extendTheme, type ThemeConfig } from "@chakra-ui/react";
 
 import Accordion from "./accordion";
 import Button from "./button";
@@ -13,7 +13,16 @@ import Tooltip from "./tooltip";
 
 import shadows from "./shadows";
 
+const config: ThemeConfig = {
+  initialColorMode: 'dark',
+  useSystemColorMode: false,
+}
+
+export const ThemeStorageManager = createLocalStorageManager("andromeda-theme");
+
+
 export default extendTheme({
+  config,
   styles: {
     global: {
       "*": {
@@ -35,7 +44,7 @@ export default extendTheme({
       },
 
       body: {
-        bg: "#1D1D21",
+        bg: "dark.25",
       },
       span: {
         color: 'white'
@@ -62,6 +71,10 @@ export default extendTheme({
     Tooltip,
   },
   colors: {
+    base: {
+      0: "#000000",
+      100: "#FFFFFF"
+    },
     dark: {
       25: "#16161A",
       50: "#1D1D21",
@@ -71,17 +84,17 @@ export default extendTheme({
       500: "#9B9DA2",
     },
     primary: {
-      25: "#FCFAFF ",
-      50: "#F9F5FF",
-      100: "#F4EBFF",
-      200: "#E9D7FE",
-      300: "#D6BBFB",
-      400: "#B692F6",
-      500: "#9E77ED",
-      600: "#7F56D9",
-      700: "#6941C6",
-      800: "#53389E",
-      900: "#42307D",
+      25: "#ECF1FF",
+      50: "#D9E4FF",
+      100: "#C6D6FF",
+      200: "#B3C9FF",
+      300: "#8EADFF",
+      400: "#6892FF",
+      500: "#4277FF",
+      600: "#3561D1",
+      700: "#284AA3",
+      800: "#1A3475",
+      900: "#0D1D47",
     },
     gray: {
       25: "#FCFCFD",
@@ -203,7 +216,14 @@ export default extendTheme({
       800: "#0040C1",
       900: "#00359E",
     },
-    system: theme.colors.dark
+    system: {
+      25: "#16161A",
+      50: "#1D1D21",
+      100: "#252529",
+      200: "#2D2D32",
+      300: "#35353A",
+      500: "#9B9DA2",
+    }
   },
   textStyles: {
     h1: {

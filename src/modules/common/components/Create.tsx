@@ -27,14 +27,14 @@ const Create: FC = () => {
       <MenuList>
         <MenuItem>
           <Link href={SITE_LINKS.flexBuilderHome()} passHref>
-            <_Link fontWeight={700} color="primary.600" fontSize="sm">
+            <_Link fontWeight={700} color="base.100" fontSize="sm">
               ADO
             </_Link>
           </Link>
         </MenuItem>
         <MenuItem>
           <Link href={SITE_LINKS.appBuilder()} passHref>
-            <_Link fontWeight={700} color="primary.600" fontSize="sm">
+            <_Link fontWeight={700} color="base.100" fontSize="sm">
               App
             </_Link>
           </Link>

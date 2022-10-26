@@ -12,7 +12,7 @@ const baseStyleItem = {
   fontWeight: 500,
   _focus: {
     color: "primary.900",
-  },
+  }
 };
 
 const baseStyle = {

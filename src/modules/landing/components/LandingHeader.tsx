@@ -1,16 +1,6 @@
 import React, { FC } from "react";
-import Link from "next/link";
-import {
-  Flex,
-  HStack,
-  Button,
-  Link as _Link,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
-} from "@chakra-ui/react";
-import { Create, PlusIcon, Wallet } from "@/modules/common";
+import { Flex, HStack, Link as _Link } from "@chakra-ui/react";
+import { Create, Wallet } from "@/modules/common";
 
 interface LandingHeaderProps {}
 

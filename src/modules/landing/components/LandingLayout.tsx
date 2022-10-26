@@ -6,7 +6,7 @@ interface LandingLayoutProps {}
 
 const LandingLayout: FC<LandingLayoutProps> = ({ children }) => {
   return (
-    <Box minH="100vh" bg="gray.100">
+    <Box minH="100vh">
       <Flex direction={"column"} w="full">
         <Box px={{ base: 4, md: 8 }} w="full">
           <LandingHeader />
