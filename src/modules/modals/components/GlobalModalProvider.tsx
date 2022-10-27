@@ -84,7 +84,7 @@ const GlobalModalProvider: React.FC = memo(function GlobalModalProvider({
     >
       <Modal isCentered size="xl" isOpen={isOpen} onClose={close}>
         <ModalOverlay />
-        <ModalContent borderRadius="12px">
+        <ModalContent>
           <ModalCloseButton />
           <ModalBody>
             <ModalError>{renderComponent()}</ModalError>

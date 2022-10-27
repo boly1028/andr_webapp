@@ -1,16 +1,19 @@
-import type { SystemStyleObject } from "@chakra-ui/theme-tools";
+import { modalAnatomy as parts } from '@chakra-ui/anatomy'
+import { createMultiStyleConfigHelpers } from '@chakra-ui/styled-system'
 
-const baseStyleBody: SystemStyleObject = {
-  p: 6,
-  bg: 'dark.25',
-};
+const { definePartsStyle, defineMultiStyleConfig } =
+  createMultiStyleConfigHelpers(parts.keys)
 
-const baseStyle: SystemStyleObject = {
-  body: baseStyleBody,
-};
+const baseStyle = definePartsStyle({
+  dialog: {
+    borderRadius: 'lg',
+    bg: `dark.50`,
+    p:'4'
+  },
+})
 
-const styles = {
+const modalTheme = defineMultiStyleConfig({
   baseStyle,
-};
+})
 
-export default styles;
+export default modalTheme

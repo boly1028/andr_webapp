@@ -53,10 +53,10 @@ function AddModuleModalItem({
     <chakra.button
       textAlign="left"
       p={4}
-      border="1px solid"
-      borderColor={isActive ? "module.600" : "gray.300"}
+      border={`${isActive ? "2px" : "1px"} solid`}
+      borderColor={isActive ? `${data?.schema?.class}.500` : "dark.300"}
       borderRadius="lg"
-      _hover={{ borderColor: "module.600", boxShadow: "outline" }}
+      _hover={{ borderColor: "dark.300", boxShadow: "0 0 0 2px" }}
       onClick={onClick}
     >
       <Flex>
@@ -66,7 +66,7 @@ function AddModuleModalItem({
             justify="center"
             align="center"
             borderRadius="lg"
-            bg={`${data?.schema?.class}` + ".100"}
+            bg={`${data?.schema?.class}.500`}
             p={2}
           >
             {/* Disable auto loading icon for icon variance based on class and classifier
@@ -82,19 +82,21 @@ function AddModuleModalItem({
           </Flex>
         </Box>
         <Box flex={1}>
-          <Text textStyle="bold">{data?.schema?.title}</Text>
-          <Text textStyle="light">{data?.schema?.description}</Text>
+          <Text fontWeight="bold">{data?.schema?.title}</Text>
+          <Text fontWeight="light" textStyle="light">
+            {data?.schema?.description}
+          </Text>
           <Link
             href={SITE_LINKS.documentation(data?.schema?.$id)}
             target="_blank"
             referrerPolicy="no-referrer"
             textStyle="light"
-            color="blue.500"
+            color="primary.500"
             display="flex"
             alignItems="center"
             gap="1"
             flexDirection="row"
-            w='min-content'
+            w="min-content"
           >
             Documentation
             <ExternalLink width={16} />
@@ -195,12 +197,14 @@ function AddModuleModal({ onAdd, items }: AddModuleModalProps) {
   return (
     <>
       <Button
-        colorScheme="module"
         onClick={onOpen}
         py={8}
-        variant="ghost"
         leftIcon={<Icon as={PlusIcon} boxSize={6} />}
-        w='full'
+        w="full"
+        bg="dark.50"
+        _hover={{
+          bg: "dark.100",
+        }}
       >
         Add Component
       </Button>
@@ -209,7 +213,7 @@ function AddModuleModal({ onAdd, items }: AddModuleModalProps) {
         <ModalContent maxW="700px">
           <ModalBody px={0} pb={0}>
             <Box px={6} mb={8}>
-              <Text textStyle="h1">Component Selection</Text>
+              <Text textStyle="h1">Add Component</Text>
             </Box>
 
             {/* Sorting and Filtering Controls */}
@@ -230,7 +234,9 @@ function AddModuleModal({ onAdd, items }: AddModuleModalProps) {
               <Select
                 id="class-selector"
                 size="lg"
-                flex={1}
+                flex={0}
+                minW="max-content"
+                fontSize="sm"
                 value={classText}
                 onChange={(e) => setClassText(e.target.value)}
               >
@@ -249,23 +255,8 @@ function AddModuleModal({ onAdd, items }: AddModuleModalProps) {
                 </MenuList>
               </Menu> */}
             </HStack>
-            <Text>Showing Results for:</Text>
-            <Divider />
 
-            <Box
-              maxH="375px"
-              overflowX="auto"
-              px={6}
-              pb={6}
-              sx={{
-                "&": {
-                  scrollbarColor: "#155eef transparent",
-                },
-                "&::-webkit-scrollbar-thumb": {
-                  bg: "#155eef",
-                },
-              }}
-            >
+            <Box maxH="375px" overflowX="auto" px={6} pb={6}>
               <VStack spacing={3} align="normal" mt="4">
                 {filteredItems.map((item) => {
                   if (!item.schema) return null;
@@ -287,8 +278,6 @@ function AddModuleModal({ onAdd, items }: AddModuleModalProps) {
             <Flex
               pt={6}
               justify="space-between"
-              borderTop="1px"
-              borderColor="gray.200"
               // boxShadow="0px -1px 20px rgba(10, 10, 31, 0.2);"
             >
               <Box textAlign="right">

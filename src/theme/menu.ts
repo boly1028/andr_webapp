@@ -3,6 +3,8 @@ const baseStyleList = {
   minW: "9rem",
   py: 0,
   borderRadius: "lg",
+  backgroundColor:"dark.50",
+  borderColor:"dark.300"
 };
 
 const baseStyleItem = {
@@ -10,9 +12,6 @@ const baseStyleItem = {
   py: "0.7rem",
   fontSize: "sm",
   fontWeight: 500,
-  _focus: {
-    color: "primary.900",
-  }
 };
 
 const baseStyle = {

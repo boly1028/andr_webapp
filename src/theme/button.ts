@@ -4,22 +4,15 @@ import {
   getColor,
 } from "@chakra-ui/theme-tools";
 
-const baseStyle: SystemStyleObject = {
-  fontWeight: 500,
-  borderRadius: "lg",
-  _disabled: {
-    cursor: "not-allowed",
-    boxShadow: "none",
-  },
-};
-
-const variantOutline: SystemStyleFunction = (props) => {
+const baseStyle: SystemStyleFunction = (props) => {
   const { colorScheme: c, theme } = props;
 
   return {
-    borderColor: `${c}.300`,
-    _hover: {
-      bg: `${c}.700`,
+    fontWeight: 500,
+    borderRadius: "lg",
+    _disabled: {
+      cursor: "not-allowed",
+      boxShadow: "none",
     },
     _active: {
       bg: `${c}.700`,
@@ -27,8 +20,17 @@ const variantOutline: SystemStyleFunction = (props) => {
     _focus: {
       bg: `${c}.700`,
       borderColor: `${c}.300`,
-      boxShadow: `0 0 0 4px ${getColor(theme, `${c}.100`)}`,
+      boxShadow: `0 0 0 1px ${getColor(theme, `${c}.100`)}`,
     },
+  };
+};
+
+
+const variantOutline: SystemStyleFunction = (props) => {
+  const { colorScheme: c, theme } = props;
+
+  return {
+    borderColor: `${c}.500`
   };
 };
 
@@ -36,20 +38,14 @@ const variantSolid: SystemStyleFunction = (props) => {
   const { colorScheme: c, theme } = props;
 
   return {
-    bg: `${c}.600`,
-    color: "white",
+    bg: `${c}.500`,
+    color: "base.white",
     _hover: {
       bg: `${c}.700`,
       _disabled: {
-        bg: `${c}.200`,
+        bg: `${c}.100`,
       },
-    },
-    _active: {
-      bg: `${c}.600`,
-    },
-    _focus: {
-      boxShadow: `0 0 0 4px ${getColor(theme, `${c}.100`)}`,
-    },
+    }
   };
 };
 
@@ -60,16 +56,10 @@ const variantGhost: SystemStyleFunction = (props) => {
     bg: `${c}.50`,
     color: `${c}.700`,
     _hover: {
-      bg: `${c}.100`,
+      bg: `${c}.300`,
       _disabled: {
         bg: `${c}.25`,
       },
-    },
-    _active: {
-      bg: `${c}.50`,
-    },
-    _focus: {
-      boxShadow: `0 0 0 4px ${getColor(theme, `${c}.100`)}`,
     },
   };
 };

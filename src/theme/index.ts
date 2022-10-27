@@ -10,6 +10,7 @@ import Popover from "./popover";
 import Spinner from "./spinner";
 import Tabs from "./tabs";
 import Tooltip from "./tooltip";
+import Switch from "./switch";
 
 import shadows from "./shadows";
 
@@ -69,11 +70,12 @@ export default extendTheme({
     Spinner,
     Tabs,
     Tooltip,
+    Switch
   },
   colors: {
     base: {
-      0: "#000000",
-      100: "#FFFFFF"
+      black: "#000000",
+      white: "#FFFFFF"
     },
     dark: {
       25: "#16161A",

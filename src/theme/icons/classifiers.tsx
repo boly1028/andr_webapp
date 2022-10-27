@@ -91,6 +91,6 @@ const ClassifierIcon: FC<ClassifierIconProps> = (props) => {
     CLASSIFIER_ICON[schemaClass.toLowerCase()] ??
     CLASSIFIER_ICON.default;
 
-  return <Icon as={icon} color={`${schemaClass}` + ".600"} {...iconProps} />;
+  return <Icon as={icon} color='base.white' {...iconProps} />;
 };
 export default ClassifierIcon;

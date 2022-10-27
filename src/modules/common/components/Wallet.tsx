@@ -80,7 +80,7 @@ const WalletConnected = () => {
                 /> */}
                 <HStack>
                   <Image src={currentConfig?.iconUrls?.sm ?? ""} w="5" />
-                  <Text fontWeight={600} color="base.100">
+                  <Text fontWeight={600} color="base.white">
                     {currentConfig?.chainName ?? chainId}
                   </Text>
                   <Badge
@@ -123,7 +123,7 @@ const WalletConnected = () => {
                             bg="gray.200"
                             rounded="full"
                           />
-                          <Text fontWeight={600} color="base.100" mr="1">
+                          <Text fontWeight={600} color="base.white" mr="1">
                             {config?.chainName ?? chainId}
                           </Text>
                           <Badge

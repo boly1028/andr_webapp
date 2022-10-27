@@ -26,7 +26,7 @@ const variantOutline: PartsStyleFunction<typeof parts> = (props) => {
 
   return {
     field: {
-      borderColor: "gray.300",
+      borderColor: "dark.300",
       _hover: {},
       _readOnly: {
         boxShadow: "none !important",
@@ -35,7 +35,7 @@ const variantOutline: PartsStyleFunction<typeof parts> = (props) => {
       _disabled: {
         opacity: 1,
         bg: "gray.50",
-        borderColor: "gray.300",
+        borderColor: "dark.300",
         color: "gray.500",
       },
       _invalid: {
@@ -43,15 +43,15 @@ const variantOutline: PartsStyleFunction<typeof parts> = (props) => {
         boxShadow: "none",
         _focus: {
           borderColor: "error.300",
-          boxShadow: `0 0 0 4px ${getColor(theme, "error.100")}`,
+          boxShadow: `0 0 0 2px ${getColor(theme, "error.100")}`,
         },
       },
       _focus: {
         zIndex: 1,
         borderColor: "primary.300",
-        boxShadow: `0 0 0 4px ${getColor(theme, "primary.100")}`,
+        boxShadow: `0 0 0 2px ${getColor(theme, "primary.100")}`,
       },
-      _placeholder: { opacity: 1, color: "gray.500", fontSize: "md" },
+      _placeholder: { opacity: 1, color: "dark.500", fontSize: "md" },
     },
   };
 };

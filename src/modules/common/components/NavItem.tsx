@@ -15,10 +15,10 @@ const NavItem: FC<Props> = ({ icon, href, children, ...props }) => {
         <HStack
           p="3"
           borderRadius="lg"
-          color="gray.500"
+          color="base.white"
           _hover={{
-            bg: "gray.200",
-            color: "primary.600",
+            bg: "dark.200",
+            color: "primary.500",
           }}
           {...props}
         >

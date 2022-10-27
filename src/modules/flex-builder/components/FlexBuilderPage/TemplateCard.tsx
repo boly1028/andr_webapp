@@ -18,6 +18,7 @@ import { Image as ImageIcon } from "lucide-react";
 
 import { CheckIcon } from "@/modules/common";
 import { ITemplate } from "@/lib/schema/types";
+import ClassifierIcon from "@/theme/icons/classifiers";
 
 /**
  * A Wrapper component for template cards in Flex Builder display Page.
@@ -31,39 +32,40 @@ type TemplateCardProps = {
 };
 
 const TemplateCard: FC<TemplateCardProps> = ({ template, children }) => {
-  const wrapperBg = useColorModeValue("white", "gray.800");
-  const containerBg = useColorModeValue("white", "gray.900");
-  const titleColor = useColorModeValue("gray.700", "white");
-
   return (
     <Box
-      bg={wrapperBg}
       border="1px"
-      borderColor={"gray.300"}
+      borderColor={"dark.300"}
       rounded={"xl"}
       overflow={"hidden"}
+      _hover={{
+        bg:'dark.50'
+      }}
     >
-      <Flex direction="column" height="100%" bg={containerBg} p={4}>
+      <Flex direction="column" height="100%" p={4}>
         <Box>
           <HStack spacing={4}>
             <Circle size="36px" bg="primary.600" color="white">
-              <Icon as={ImageIcon} />
+              <ClassifierIcon
+                schemaClass={template.id as any}
+                schemaClassifier={template.id as any}
+              />
             </Circle>
 
-            <Text color={titleColor} fontSize="lg" fontWeight={600}>
+            <Text fontSize="lg" fontWeight={600}>
               {template.name}
             </Text>
           </HStack>
 
-          <Text color="gray.500" fontSize="sm" my={4}>
+          <Text color='dark.500' fontSize="sm" my={4}>
             {template.description}
           </Text>
 
           <List spacing={2}>
             {template.opts.map((opt) => (
               <ListItem key={opt}>
-                <Text color={"gray.500"} fontSize="sm">
-                  <ListIcon as={CheckIcon} color="purple.400" boxSize={5} />
+                <Text fontSize="sm" color="dark.500">
+                  <ListIcon as={CheckIcon} color="primary.500" boxSize={5} />
                   {opt}
                 </Text>
               </ListItem>

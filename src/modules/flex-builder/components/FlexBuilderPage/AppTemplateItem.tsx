@@ -21,7 +21,7 @@ const AppTemplateItem: FC<AppTemplateListItemProps> = ({
     <TemplateCard template={template}>
       {/* If template is disabled, render disabled coming soon button else render link to builder */}
       {template.disabled ? (
-        <Button mt={10} w='full' size="lg" colorScheme="purple" disabled>
+        <Button mt={10} w='full' size="lg" colorScheme="primary" disabled>
           Coming Soon
         </Button>
       ) : (
@@ -31,7 +31,7 @@ const AppTemplateItem: FC<AppTemplateListItemProps> = ({
             mt={10}
             w='full'
             size="lg"
-            colorScheme="purple"
+            colorScheme="primary"
             rightIcon={<ChevronRightIcon boxSize={5} />}
           >
             Get Started
