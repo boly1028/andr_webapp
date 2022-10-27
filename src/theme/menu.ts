@@ -1,10 +1,12 @@
 const baseStyleList = {
   boxShadow: "lg",
   minW: "9rem",
+  maxH: "16rem",
+  "overflow": "auto",
   py: 0,
   borderRadius: "lg",
-  backgroundColor:"dark.50",
-  borderColor:"dark.300"
+  backgroundColor: "dark.50",
+  borderColor: "dark.300",
 };
 
 const baseStyleItem = {

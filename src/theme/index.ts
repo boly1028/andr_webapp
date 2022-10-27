@@ -225,6 +225,21 @@ export default extendTheme({
       200: "#2D2D32",
       300: "#35353A",
       500: "#9B9DA2",
+    },
+    category: {
+      app: '#58FFF6',
+      ado: '#FEB059',
+      baseado: '#FEB059',
+      module: '#4D78FF',
+      classifier: '#23EEF7',
+      primitive: '#DF2B5B',
+      oracle: '#E863CB',
+      asset: '#2187DD',
+      protocol: '#1736B8',
+      system: '#72757C',
+      other1: '#B056DB',
+      other2: '#00CB79',
+      other3: '#FFE485'
     }
   },
   textStyles: {

@@ -40,7 +40,6 @@ interface AppItemProps {
 const AppItem: FC<AppItemProps> = ({ app }) => {
   const { data: appInfo, loading, error } = useQueryAppInfo(app.address);
   const $version = "0.1.0";
-  const $classifier = "app";
   // Creating a proxy for app type as it is now reference as app-contract
   const adoType =
     app?.adoType === "app" ? "app-contract" : (app?.adoType as IAdoType);
@@ -55,25 +54,36 @@ const AppItem: FC<AppItemProps> = ({ app }) => {
   return (
     <Flex
       border="1px solid"
-      borderColor="gray.300"
+      borderColor="dark.300"
       p={5}
       borderRadius="lg"
       mb={4}
       _last={{ mb: 0 }}
       direction="column"
     >
-      <Flex align="center">
-        <Box w={8} h={8} borderRadius="lg" mr={6}>
+      <Flex align="start" gap="2">
+        <Box w={8} h={8} borderRadius="lg" mr={6} alignSelf="center">
           {/* Swap background color based on defined class */}
-          <Flex justify="center" align="center" borderRadius="lg" p={2}>
+          <Flex
+            justify="center"
+            align="center"
+            borderRadius="lg"
+            p={2}
+            w={8}
+            h={8}
+            bgColor={`category.${app?.adoType}`}
+          >
             {/* Disable auto loading icon for icon variance based on class and classifier
           {newIcon} */}
             {/* Swap Icon color based on defined class */}
-            <ClassifierIcon schemaClassifier={$classifier} boxSize={6} />
+            <ClassifierIcon
+              schemaClassifier={(app?.adoType ?? "") as any}
+              boxSize={5}
+            />
           </Flex>
         </Box>
 
-        <Box flex={1}>
+        <Box flex={2}>
           <InlineStat label="Name" value={appInfo?.name ?? app.adoType} />
           {/* <InlineStat label="{type}" value={name} reverse /> */}
         </Box>
@@ -99,61 +109,64 @@ const AppItem: FC<AppItemProps> = ({ app }) => {
             <InlineStat label="Address" value={truncate(app.address ?? "")} />
           </CopyButton>
         </Box>
-        <Box mr="2">
-          <Button
-            onClick={() => {
-              open(app.address);
-            }}
-            variant="link"
-            colorScheme="blue"
-          >
-            View
-          </Button>
-        </Box>
-        {/* Section for Action List */}
-        <Menu placement="bottom-end">
-          <MenuButton
-            as={IconButton}
-            icon={<Icon as={MoreVertical} boxSize={6} />}
-            variant="link"
-            px="0"
-            minW="0"
-            mr="0.5"
-          />
-          <MenuList>
-            {adopData?.modifiers?.map((action) => {
-              const path = `${adoType}/${$version}/${formatActionPath(action)}`;
-              return (
-                <NextLink
-                  key={keyGen()}
-                  href={SITE_LINKS.adoExecute(path, app.address ?? "")}
-                  passHref
-                >
-                  <MenuItem key={action}>
-                    {/* <MenuItem icon={<Icon as={EyeIcon} boxSize={5} />}> */}
-                    {formatActionTitles(action)}
-                  </MenuItem>
-                </NextLink>
-              );
-            })}
-          </MenuList>
-        </Menu>
-        <Box>
-          <Button {...buttonProps} variant="ghost">
-            {isOpen ? (
-              <CloseIcon boxSize="2" />
-            ) : (
-              <ChevronDownIcon boxSize="4" />
-            )}
-          </Button>
-        </Box>
+        <Flex alignItems="center" gap="1" alignSelf="center">
+          {/* Section for Action List */}
+          <Box>
+            <Button
+              onClick={() => {
+                open(app.address);
+              }}
+              variant="link"
+              colorScheme="blue"
+            >
+              View
+            </Button>
+          </Box>
+          <Menu placement="bottom-end">
+            <MenuButton
+              as={IconButton}
+              icon={<Icon as={MoreVertical} boxSize={5} />}
+              variant="link"
+              px="0"
+              minW="0"
+            />
+            <MenuList>
+              {adopData?.modifiers?.map((action) => {
+                const path = `${adoType}/${$version}/${formatActionPath(
+                  action,
+                )}`;
+                return (
+                  <NextLink
+                    key={keyGen()}
+                    href={SITE_LINKS.adoExecute(path, app.address ?? "")}
+                    passHref
+                  >
+                    <MenuItem key={action}>
+                      {/* <MenuItem icon={<Icon as={EyeIcon} boxSize={5} />}> */}
+                      {formatActionTitles(action)}
+                    </MenuItem>
+                  </NextLink>
+                );
+              })}
+            </MenuList>
+          </Menu>
+          <Box>
+            <Button {...buttonProps} variant="unstyled" size="sm">
+              {isOpen ? (
+                <CloseIcon boxSize="2" />
+              ) : (
+                <ChevronDownIcon boxSize="4" />
+              )}
+            </Button>
+          </Box>
+        </Flex>
       </Flex>
       <Flex
         {...disclosureProps}
         mt="4"
         rounded="xl"
         direction="column"
-        bg="gray.50"
+        bg="dark.50"
       >
         {loading && (
           <Stack>

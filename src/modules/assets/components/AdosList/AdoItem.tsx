@@ -21,6 +21,7 @@ import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
 import ClassifierIcon from "@/theme/icons/classifiers";
 import { useGetSchemaADOP } from "@/lib/schema/hooks/useGetSchemaADOP";
 import { IAdoType } from "@/lib/schema/types";
+import { useGetSchemaJson } from "@/lib/schema/hooks";
 
 interface AdoItemProps {
   ado: AppComponent;
@@ -30,6 +31,12 @@ const AdoItem: FC<AdoItemProps> = ({ ado, appAddress }) => {
   const $version = "0.1.0";
   const adoType = ado.adoType as IAdoType;
   const { data: adopData, isLoading } = useGetSchemaADOP(adoType);
+  const { data: adoSchema } = useGetSchemaJson(
+    `${adoType}/${$version}/${adoType}`,
+  );
+
+  const adoClass = (adoSchema?.schema?.class || "module").toLowerCase();
+  const adoClassifier = adoSchema?.schema?.classifier;
 
   return (
     <Flex
@@ -39,17 +46,29 @@ const AdoItem: FC<AdoItemProps> = ({ ado, appAddress }) => {
       direction="column"
       rounded="lg"
       _hover={{
-        background: "white",
+        background: "dark.100",
       }}
     >
       <Flex align="center">
         <Box w={8} h={8} borderRadius="lg" mr={6}>
           {/* Swap background color based on defined class */}
-          <Flex justify="center" align="center" borderRadius="lg" p={2}>
+          <Flex
+            justify="center"
+            align="center"
+            borderRadius="lg"
+            p={2}
+            w={8}
+            h={8}
+            bg={`category.${adoClass}`}
+          >
             {/* Disable auto loading icon for icon variance based on class and classifier
           {newIcon} */}
             {/* Swap Icon color based on defined class */}
-            <ClassifierIcon schemaClassifier={ado.adoType as any} boxSize={6} />
+            <ClassifierIcon
+              schemaClass={adoClass as any}
+              schemaClassifier={adoClassifier as any}
+              boxSize={6}
+            />
           </Flex>
         </Box>
 

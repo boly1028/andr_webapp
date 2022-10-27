@@ -38,7 +38,7 @@ const AssetsPage = () => {
         </Center>
       )}
       {wallet && (
-        <Tabs mt={8} colorScheme="purple">
+        <Tabs mt={8} colorScheme="primary">
           <TabList>
             <Tab>All</Tab>
             <Tab>NFT</Tab>

@@ -20,7 +20,7 @@ const PagePlaceholder: FC<PagePlaceholderProps> = (props) => {
     <Box>
       <Flex direction="column" alignItems="center">
         <Image src={imageUrl} w="full" />
-        <Box maxW='md' position="fixed" top="24" bg='white' border='1px' borderColor='gray.300' rounded='xl' p='4'>
+        <Box maxW='md' position="fixed" top="24" bg='dark.50' border='1px' borderColor='dark.300' rounded='xl' p='4'>
           <VStack>
             <HStack>
               <Icon color='yellow.500' as={AlertCircleIcon} />
