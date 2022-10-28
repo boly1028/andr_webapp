@@ -5,7 +5,8 @@ import type {
 } from "@chakra-ui/theme-tools";
 
 const baseStyleContent: SystemStyleObject = {
-  borderColor: "gray.200",
+  borderColor: "dark.300",
+  bg:"dark.50",
   borderRadius: "lg",
   boxShadow: "xl",
   _focus: {

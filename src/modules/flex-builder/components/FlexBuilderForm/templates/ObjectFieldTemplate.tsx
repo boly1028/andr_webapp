@@ -83,26 +83,26 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
        *  Add wrapper
        */
       // < allowToggle defaultIndex={defaultIndex}>
-      <Box p={4} border="1px solid" borderColor="gray.300" borderRadius="lg">
+      <Box
+        _hover={{
+          bg: "dark.50",
+        }}
+        p={4}
+        border="1px solid"
+        borderColor="dark.300"
+        borderRadius="lg"
+      >
         <Flex>
           <HStack spacing={5} w="full" align="flex-start">
-            <Flex
-              justify="center"
-              align="center"
-              borderRadius="lg"
-              bg={`${schema?.class || "module"}` + ".100"}
-              p={1.5}
-            >
-              <ClassifierIcon
-                schemaClass={schema?.class as any}
-                schemaClassifier={schema?.classifier as any}
-                boxSize={5}
-              />
-              {/* <Icon as={CheckCircleIcon} boxSize={5} color="white" /> */}
-            </Flex>
+            <ClassifierIcon
+              adoType={schema.$id}
+              schemaClass={schema?.class as any}
+              schemaClassifier={schema?.classifier as any}
+              boxSize={5}
+            />
             <Box>
               <HStack mb={1}>
-                <Text fontSize="sm" color="gray.700" fontWeight={600}>
+                <Text fontSize="sm" color="base.white" fontWeight={600}>
                   {uiOptions.title || title}
                 </Text>
                 {!NON_EDITABLE_CLASS.has(schema.class ?? "") && (
@@ -110,7 +110,7 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
                     <CopyButton
                       variant="link"
                       fontSize="xs"
-                      color="gray.500"
+                      color="dark.500"
                       fontWeight="light"
                       text={currentSchemaId}
                     >
@@ -142,7 +142,7 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
                   </>
                 )}
               </HStack>
-              <Text textStyle="light">
+              <Text textStyle="light" color="dark.500">
                 {uiOptions.description || description}
               </Text>
             </Box>

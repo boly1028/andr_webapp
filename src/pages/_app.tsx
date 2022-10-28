@@ -1,5 +1,10 @@
 import { useWalletContext, WalletProvider } from "@/lib/wallet";
-import { ChakraProvider, CSSReset } from "@chakra-ui/react";
+import {
+  ChakraProvider,
+  createLocalStorageManager,
+  CSSReset,
+  localStorageManager,
+} from "@chakra-ui/react";
 import { AppProps } from "next/app";
 import React from "react";
 import {
@@ -10,7 +15,7 @@ import {
 import { ToastContainer } from "react-toastify";
 import { AndromedaProvider } from "@/lib/andrjs";
 import { apolloClient } from "@/lib/graphql";
-import theme from "@/theme";
+import theme, { ThemeStorageManager } from "@/theme";
 import { ApolloProvider } from "@apollo/client";
 import { GlobalModalProvider } from "@/modules/modals";
 
@@ -26,7 +31,7 @@ const Main = ({ Component, pageProps }: AppProps<Record<string, any>>) => {
   return (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
-        <ChakraProvider theme={theme}>
+        <ChakraProvider theme={theme} colorModeManager={ThemeStorageManager}>
           <CSSReset />
           <AndromedaProvider chainId={chainId} signer={signer}>
             <ToastContainer

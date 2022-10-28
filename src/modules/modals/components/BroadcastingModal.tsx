@@ -88,7 +88,7 @@ const BroadcastingModal: FC<TransactionModalProps & OptionalProps> = memo(
           mt="40px"
         >
           <Text sx={{ fontWeight: "bold" }}>Transaction #</Text>
-          <Text mt="6px" style={{ color: "#7F56D9" }}>
+          <Text mt="6px" color='primary.500'>
             <a
               href={
                 config?.blockExplorerTxPages[0]?.replaceAll(
@@ -107,7 +107,7 @@ const BroadcastingModal: FC<TransactionModalProps & OptionalProps> = memo(
             <>
               <hr style={{ margin: "10px 0px" }} />
               <Text sx={{ fontWeight: "bold" }}>Contract Address</Text>
-              <Text mt="6px" style={{ color: "#7F56D9" }}>
+              <Text mt="6px" color='primary.500'>
                 <a
                   href={
                     config?.blockExplorerAddressPages[0]?.replaceAll(

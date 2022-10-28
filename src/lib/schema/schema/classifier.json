@@ -1,1 +1,27 @@
-{"address-list":"address","app-contract":"","auction":"sale","crowdfund":"sale","cw20":"token","cw20-staking":"escrow","cw721":"collectible","cw721-bids":"sale","cw721-staking":"escrow","cw721-timelock":"escrow","gumball":"sale","lockdrop":"","marketplace":"","merkle-airdrop":"","primitive":"","rate-limiting-withdrawals":"escrow","rates":"sale","receipt":"sale","splitter":"splitter","swapper":"","timelock":"escrow","vault":"vault","vesting":"","weighted-distribution-splitter":"","wrapped-cw721":"collectible"}
+{
+    "address-list": "address",
+    "app-contract": "app",
+    "auction": "sale",
+    "crowdfund": "sale",
+    "cw20": "token",
+    "cw20-staking": "escrow",
+    "cw721": "collectible",
+    "cw721-bids": "sale",
+    "cw721-staking": "escrow",
+    "cw721-timelock": "escrow",
+    "gumball": "sale",
+    "lockdrop": "",
+    "marketplace": "",
+    "merkle-airdrop": "",
+    "primitive": "",
+    "rate-limiting-withdrawals": "escrow",
+    "rates": "sale",
+    "receipt": "sale",
+    "splitter": "splitter",
+    "swapper": "",
+    "timelock": "escrow",
+    "vault": "vault",
+    "vesting": "",
+    "weighted-distribution-splitter": "",
+    "wrapped-cw721": "collectible"
+}

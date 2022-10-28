@@ -1,1 +1,27 @@
-{"address-list":"module","app-contract":"system","auction":"baseADO","crowdfund":"baseADO","cw20":"baseADO","cw20-staking":"baseADO","cw721":"baseADO","cw721-bids":"baseADO","cw721-staking":"baseADO","cw721-timelock":"baseADO","gumball":"baseADO","lockdrop":"baseADO","marketplace":"baseADO","merkle-airdrop":"baseADO","primitive":"primitive","rate-limiting-withdrawals":"baseADO","rates":"module","receipt":"module","splitter":"baseADO","swapper":"baseADO","timelock":"baseADO","vault":"baseADO","vesting":"baseADO","weighted-distribution-splitter":"baseADO","wrapped-cw721":"baseADO"}
+{
+    "address-list": "module",
+    "app-contract": "system",
+    "auction": "baseADO",
+    "crowdfund": "baseADO",
+    "cw20": "baseADO",
+    "cw20-staking": "baseADO",
+    "cw721": "baseADO",
+    "cw721-bids": "baseADO",
+    "cw721-staking": "baseADO",
+    "cw721-timelock": "baseADO",
+    "gumball": "baseADO",
+    "lockdrop": "baseADO",
+    "marketplace": "baseADO",
+    "merkle-airdrop": "baseADO",
+    "primitive": "primitive",
+    "rate-limiting-withdrawals": "baseADO",
+    "rates": "module",
+    "receipt": "module",
+    "splitter": "baseADO",
+    "swapper": "baseADO",
+    "timelock": "baseADO",
+    "vault": "baseADO",
+    "vesting": "baseADO",
+    "weighted-distribution-splitter": "baseADO",
+    "wrapped-cw721": "baseADO"
+}

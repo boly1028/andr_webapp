@@ -12,7 +12,6 @@ type AppsCardProps = {
 };
 
 const AppsCard: FC<AppsCardProps> = ({ icon, link, title, target }) => {
-  const text = useColorModeValue('orange.700', "orange.700");
   return (
     <NextLink href={link} passHref>
       <Box
@@ -20,18 +19,17 @@ const AppsCard: FC<AppsCardProps> = ({ icon, link, title, target }) => {
         target={target}
         referrerPolicy="no-referrer"
         p="10"
-        w='52'
+        w="52"
         rounded={"xl"}
         overflow={"hidden"}
         textAlign="center"
-        bg="white"
-        _hover={{ color: text }}
+        bg="dark.100"
+        color="base.white"
+        _hover={{ color: "gray.700", bg: "base.white" }}
       >
         <VStack spacing="6">
           <Box>{icon}</Box>
-          <Text color="gray.700" fontWeight="medium">
-            {title}
-          </Text>
+          <Text fontWeight="medium">{title}</Text>
         </VStack>
       </Box>
     </NextLink>

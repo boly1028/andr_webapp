@@ -8,7 +8,6 @@ import {
 
 import { Box, Grid, GridItem, Button } from "@chakra-ui/react";
 
-import { AddIcon } from "@chakra-ui/icons";
 
 const ArrayFieldTemplate = (props: ArrayFieldTemplateProps) => {
   const { schema, registry, uiSchema, idSchema, title, required } = props;

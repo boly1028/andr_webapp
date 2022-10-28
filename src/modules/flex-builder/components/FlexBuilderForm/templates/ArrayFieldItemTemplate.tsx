@@ -40,7 +40,7 @@ const ArrayFieldItemTemplate: FC<ArrayFieldTemplateItemType> = (props) => {
     <VStack
       border="1px"
       my="2"
-      borderColor="gray.300"
+      borderColor="dark.300"
       rounded="lg"
       p="4"
       key={props.key}

@@ -1,4 +1,4 @@
-import { extendTheme, theme } from "@chakra-ui/react";
+import { createLocalStorageManager, extendTheme, type ThemeConfig } from "@chakra-ui/react";
 
 import Accordion from "./accordion";
 import Button from "./button";
@@ -10,10 +10,20 @@ import Popover from "./popover";
 import Spinner from "./spinner";
 import Tabs from "./tabs";
 import Tooltip from "./tooltip";
+import Switch from "./switch";
 
 import shadows from "./shadows";
 
+const config: ThemeConfig = {
+  initialColorMode: 'dark',
+  useSystemColorMode: false,
+}
+
+export const ThemeStorageManager = createLocalStorageManager("andromeda-theme");
+
+
 export default extendTheme({
+  config,
   styles: {
     global: {
       "*": {
@@ -33,6 +43,13 @@ export default extendTheme({
         bg: "#7F56D9",
         borderRadius: "1.5rem",
       },
+
+      body: {
+        bg: "dark.25",
+      },
+      span: {
+        color: 'white'
+      }
     },
   },
   shadows,
@@ -53,20 +70,33 @@ export default extendTheme({
     Spinner,
     Tabs,
     Tooltip,
+    Switch
   },
   colors: {
+    base: {
+      black: "#000000",
+      white: "#FFFFFF"
+    },
+    dark: {
+      25: "#16161A",
+      50: "#1D1D21",
+      100: "#252529",
+      200: "#2D2D32",
+      300: "#35353A",
+      500: "#9B9DA2",
+    },
     primary: {
-      25: "#FCFAFF ",
-      50: "#F9F5FF",
-      100: "#F4EBFF",
-      200: "#E9D7FE",
-      300: "#D6BBFB",
-      400: "#B692F6",
-      500: "#9E77ED",
-      600: "#7F56D9",
-      700: "#6941C6",
-      800: "#53389E",
-      900: "#42307D",
+      25: "#ECF1FF",
+      50: "#D9E4FF",
+      100: "#C6D6FF",
+      200: "#B3C9FF",
+      300: "#8EADFF",
+      400: "#6892FF",
+      500: "#4277FF",
+      600: "#3561D1",
+      700: "#284AA3",
+      800: "#1A3475",
+      900: "#0D1D47",
     },
     gray: {
       25: "#FCFCFD",
@@ -188,18 +218,43 @@ export default extendTheme({
       800: "#0040C1",
       900: "#00359E",
     },
-    system: theme.colors.gray
+    system: {
+      25: "#16161A",
+      50: "#1D1D21",
+      100: "#252529",
+      200: "#2D2D32",
+      300: "#35353A",
+      500: "#9B9DA2",
+    },
+    category: {
+      app: '#21BEE0',
+      ado: '#FEB059',
+      baseado: '#FEB059',
+      module: '#4D78FF',
+      classifier: '#23EEF7',
+      primitive: '#DF2B5B',
+      oracle: '#E863CB',
+      asset: '#2187DD',
+      protocol: '#1736B8',
+      system: '#72757C',
+      other1: '#B056DB',
+      other2: '#00CB79',
+      other3: '#FFE485'
+    }
   },
   textStyles: {
     h1: {
       fontWeight: 700,
-      color: "gray.900",
+      color: "gray.100",
       fontSize: "xl",
       mb: 2,
       letterSpacing: 0.5,
     },
+    p: {
+      color: "gray.100",
+    },
     bold: {
-      color: "gray.700",
+      color: "gray.900",
       fontWeight: 700,
     },
     light: {

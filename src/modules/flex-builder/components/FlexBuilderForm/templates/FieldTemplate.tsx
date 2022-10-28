@@ -31,6 +31,7 @@ const FieldTemplate = (props: FieldTemplateProps) => {
     registry,
     onChange,
     formData,
+    description,
   } = props;
 
   const uiOptions = getUiOptions(uiSchema);
@@ -118,13 +119,9 @@ const FieldTemplate = (props: FieldTemplateProps) => {
             {label}
           </FormLabel>
         ) : null}
-        {displayLabel && rawDescription ? (
-          <Text mb="2" fontWeight="light" color="GrayText" fontSize="sm">
-            {rawDescription}
-          </Text>
-        ) : null}
+        {displayLabel && <>{description}</>}
         {hasWrapper ? (
-          <Box key={1} border="1px" borderColor="gray.300" p="6" rounded="lg">
+          <Box key={1} border="1px" borderColor="dark.300" p="6" rounded="lg">
             {children}
           </Box>
         ) : (

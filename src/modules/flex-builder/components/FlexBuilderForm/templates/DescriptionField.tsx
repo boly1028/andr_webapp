@@ -8,7 +8,7 @@ const DescriptionField: FC<DescriptionFieldProps> = ({ description }) => {
   if (typeof description === "string") {
     return (
       <Text mt={1} mb={4}>
-        <Text fontSize="sm" fontWeight="light" color="GrayText">
+        <Text fontSize="sm" fontWeight="light" color="dark.500">
           {description}
         </Text>
       </Text>

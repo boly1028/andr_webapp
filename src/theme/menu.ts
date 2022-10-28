@@ -1,19 +1,19 @@
 const baseStyleList = {
   boxShadow: "lg",
   minW: "9rem",
+  maxH: "16rem",
+  "overflow": "auto",
   py: 0,
   borderRadius: "lg",
+  backgroundColor: "dark.50",
+  borderColor: "dark.300",
 };
 
 const baseStyleItem = {
-  color: "gray.700",
+  color: "primary.25",
   py: "0.7rem",
   fontSize: "sm",
   fontWeight: 500,
-  _focus: {
-    bg: "gray.50",
-    color: "primary.600",
-  },
 };
 
 const baseStyle = {

@@ -38,22 +38,22 @@ const ModalError: FC = memo(function ModalError({ children }) {
         sx={{
           width: "80px",
           height: "80px",
-          padding: "23px",
-          background: "#FEE4E2",
-          borderRadius: "50%",
-          color: "#D92D20",
+          padding: "16px",
+          background: "error.900",
+          borderRadius: "xl",
+          color: "base.white",
         }}
       >
-        <AlertCircle style={{ width: "32px", height: "32px" }} />
+        <AlertCircle width='40px' height='40px' />
       </Center>
 
       <Text
         mt="40px"
-        sx={{ textAlign: "center", fontWeight: "bold", color: "#B42318" }}
+        sx={{ textAlign: "center", fontWeight: "bold" }}
       >
         Something went wrong!
       </Text>
-      <Text mt="10px" sx={{ fontWeight: 400, color: "#D92D20" }}>
+      <Text mt="10px" textAlign='center' sx={{ fontWeight: 400, color: "dark.500" }}>
         {error.message.length > 100
           ? truncate(error.message, [25, 50])
           : error.message}

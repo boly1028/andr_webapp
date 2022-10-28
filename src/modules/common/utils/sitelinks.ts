@@ -27,7 +27,7 @@ export const SITE_LINKS = {
     // Assets
     assets: () => `/assets`,
     // Embedables
-    embeddables: () => `embeddables`,
+    embeddables: () => `/embeddables`,
     learn: () => `/learn`,
 
     // External Documentation

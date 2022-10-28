@@ -52,7 +52,7 @@ const FlexUploadCard: FC<FlexUploadCardProps> = (props) => {
         mt={10}
         w='full'
         size="lg"
-        colorScheme="purple"
+        colorScheme="primary"
         leftIcon={!template.disabled ? <DownloadIcon boxSize={5} /> : undefined}
         isDisabled={template.disabled}
         cursor="pointer"

@@ -26,8 +26,10 @@ import {
 import React, { FC } from "react";
 
 import { Icon } from "@/theme/ui-elements";
-import { IconProps } from "@chakra-ui/react";
+import { Flex, IconProps } from "@chakra-ui/react";
 import { SplitterIcon } from "@/modules/common";
+import { IAdoType } from "@/lib/schema/types";
+import { getSchemaMeta } from "@/lib/schema/utils";
 
 export const DEFAULT_CLASS_ICON = {
   system: Settings,
@@ -80,17 +82,48 @@ export const CLASSIFIER_ICON = {
  * class/classifier types from schema
  */
 interface ClassifierIconProps extends IconProps {
-  schemaClassifier?: keyof typeof CLASSIFIER_ICON;
-  schemaClass?: keyof typeof DEFAULT_CLASS_ICON;
+  adoType: string;
+  schemaClassifier?: string;
+  schemaClass?: string;
+  type?: "solid" | "outline";
 }
 const ClassifierIcon: FC<ClassifierIconProps> = (props) => {
-  const { schemaClassifier = "", schemaClass = "", ...iconProps } = props;
+  const {
+    adoType,
+    schemaClassifier,
+    schemaClass,
+    type = "solid",
+    ...iconProps
+  } = props;
+  const meta = getSchemaMeta(adoType as IAdoType);
+
+  const _classifier =
+    schemaClassifier?.toLocaleLowerCase() || meta.classifier.toLowerCase();
+  const _class = schemaClass?.toLocaleLowerCase() || meta.class.toLowerCase();
 
   const icon =
-    CLASSIFIER_ICON[schemaClassifier.toLowerCase()] ??
-    CLASSIFIER_ICON[schemaClass.toLowerCase()] ??
+    CLASSIFIER_ICON[_classifier] ??
+    CLASSIFIER_ICON[_class] ??
     CLASSIFIER_ICON.default;
 
-  return <Icon as={icon} color={`${schemaClass}` + ".600"} {...iconProps} />;
+  const color = `category.${_class || "module"}`;
+
+  return (
+    <Flex
+      justify="center"
+      align="center"
+      borderRadius="lg"
+      p={2}
+      w={8}
+      h={8}
+      bgColor={type === "solid" ? color : "transparent"}
+    >
+      <Icon
+        as={icon}
+        color={type === "solid" ? "base.white" : color}
+        {...iconProps}
+      />
+    </Flex>
+  );
 };
 export default ClassifierIcon;

@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Box, BoxProps, Flex, CloseButton } from "@chakra-ui/react";
+import { Box, BoxProps, Flex, CloseButton, Image } from "@chakra-ui/react";
 
 import NavItem from "./NavItem";
 import Logo from "./Logo";
@@ -81,16 +81,16 @@ const Sidebar = ({ onClose, ...props }: SidebarProps) => {
   return (
     <Box
       transition="3s ease"
-      bg="gray.50"
+      bg="dark.50"
       w={60}
       pos="fixed"
       h="full"
-      overflowY='auto'
+      overflowY="auto"
       px={4}
       {...props}
     >
       <Flex h={20} alignItems="center" justifyContent="space-between">
-        <Logo />
+        <Image src="/logo_header.png" w='60%' />
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
 

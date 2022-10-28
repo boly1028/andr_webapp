@@ -21,6 +21,7 @@ import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
 import ClassifierIcon from "@/theme/icons/classifiers";
 import { useGetSchemaADOP } from "@/lib/schema/hooks/useGetSchemaADOP";
 import { IAdoType } from "@/lib/schema/types";
+import { useGetSchemaJson } from "@/lib/schema/hooks";
 
 interface AdoItemProps {
   ado: AppComponent;
@@ -39,18 +40,12 @@ const AdoItem: FC<AdoItemProps> = ({ ado, appAddress }) => {
       direction="column"
       rounded="lg"
       _hover={{
-        background: "white",
+        background: "dark.100",
       }}
     >
       <Flex align="center">
         <Box w={8} h={8} borderRadius="lg" mr={6}>
-          {/* Swap background color based on defined class */}
-          <Flex justify="center" align="center" borderRadius="lg" p={2}>
-            {/* Disable auto loading icon for icon variance based on class and classifier
-          {newIcon} */}
-            {/* Swap Icon color based on defined class */}
-            <ClassifierIcon schemaClassifier={ado.adoType as any} boxSize={6} />
-          </Flex>
+          <ClassifierIcon adoType={adoType} boxSize={6} />
         </Box>
 
         <Box flex={1}>

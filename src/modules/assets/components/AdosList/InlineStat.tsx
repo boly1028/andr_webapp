@@ -8,9 +8,9 @@ interface InlineStatProps {
 }
 
 const InlineStat: FC<InlineStatProps> = ({ label, value, reverse = false }) => {
-  const labelComponent = <Text color="gray.500">{label}</Text>;
+  const labelComponent = <Text color="dark.500" fontWeight='light' textStyle='light' fontSize='xs'>{label}</Text>;
   const valueComponent = (
-    <Text color="gray.700" fontWeight={600}>
+    <Text color="base.white" fontWeight='medium'>
       {value}
     </Text>
   );
