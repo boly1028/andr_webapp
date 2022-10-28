@@ -11,6 +11,8 @@ import type {
 } from "@cosmjs/cosmwasm-stargate";
 import { truncate } from "@/modules/common";
 import { useWalletContext } from "@/lib/wallet";
+import { useRouter } from "next/router";
+import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
 
 interface OptionalProps {
   onNextStage?: () => void;
@@ -18,6 +20,8 @@ interface OptionalProps {
 
 const BroadcastingModal: FC<TransactionModalProps & OptionalProps> = memo(
   function BroadcastingModal(props) {
+    const router = useRouter();
+
     const [loading, setLoading] = useState<boolean>(true);
     const { client, connected } = useAndromedaContext();
     const { close, setError } = useGlobalModalContext();
@@ -99,7 +103,7 @@ const BroadcastingModal: FC<TransactionModalProps & OptionalProps> = memo(
               target="_blank"
               rel="noreferrer noopener"
             >
-              {truncate(transactionHash)}{" "}
+              {transactionHash}{" "}
               <ExternalLink style={{ display: "inline-block" }} size="14px" />
             </a>
           </Text>
@@ -179,7 +183,10 @@ const BroadcastingModal: FC<TransactionModalProps & OptionalProps> = memo(
                   mt="40px"
                   variant="outline"
                   sx={{ fontSize: "16px", padding: "10px 32px" }}
-                  onClick={close}
+                  onClick={() => {
+                    router.push(SITE_LINKS.assets());
+                    close();
+                  }}
                 >
                   Close
                 </Button>

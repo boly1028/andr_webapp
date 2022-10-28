@@ -1,6 +1,6 @@
 import { ITemplateFormData, ITemplateSchema, ITemplateUiSchema } from "@/lib/schema/templates/types";
 import { IAndromedaSchemaJSON } from "@/lib/schema/types";
-import { cloneDeep } from "@apollo/client/utilities";
+import { cloneDeep } from "lodash";
 
 
 interface IDefaults {
@@ -143,7 +143,7 @@ export const duplicatePanelSchema = (panelName: string, newPanelName: string, _d
         ...schemaProperties[`${panelName}`],
         '$ref': `#/definitions/${newPanelName}`
     }
-    _formData[`${newPanelName}`] = _formData[`${panelName}`];
+    _formData[`${newPanelName}`] = cloneDeep(_formData[`${panelName}`]);
     _uiSchema[`${newPanelName}`] = _uiSchema[`${panelName}`];
     // Add new schema to last of ui order
     _uiSchema[`ui:order`] = [...(_uiSchema[`ui:order`] as string[] ?? ['*']), newPanelName];

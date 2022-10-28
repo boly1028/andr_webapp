@@ -7,44 +7,39 @@ import { Create, FallbackPlaceholder } from "@/modules/common";
 import { Skeleton } from "@chakra-ui/skeleton";
 import { Center, Stack } from "@chakra-ui/layout";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { cloneDeep } from "@apollo/client/utilities";
 
 const LIMIT = 10;
 const AdosList: FC = () => {
   const wallet = useWallet();
 
-  const { data, loading, error, fetchMore } = useQueryAssets(
+  const { data, loading, error, fetchMore, previousData } = useQueryAssets(
     wallet?.address ?? "",
     LIMIT,
     0,
   );
-  const [prevData, setPrevData] = useState<typeof data>([]);
+
   const [hasMore, setHasMore] = useState(true);
 
   const fetchMoreAsset = async () => {
-    if (loading) return;
-    console.log("REFETCH");
+    if (loading || !data) return;
     const res = await fetchMore({
       variables: {
-        offset: prevData?.length ?? 0,
+        offset: data.length,
       },
     });
     const assets = res.data.assets;
-    setHasMore(!!assets.length);
-    setPrevData((prev) => {
-      const result = cloneDeep(prev) ?? [];
-      const filteredData =
-        assets?.filter((d) => !prev?.some((nd) => nd.address === d.address)) ??
-        [];
-      result.push(...filteredData);
-      return result;
-    });
+    if (assets.length === 0) {
+      setHasMore(false);
+    }
   };
 
   useEffect(() => {
-    setPrevData(data);
-    setHasMore(!!data?.length);
-  }, [data]);
+    if (previousData?.assets && data) {
+      if (data?.length <= previousData?.assets?.length) {
+        setHasMore(true);
+      }
+    }
+  }, [data, previousData]);
 
   if (error) {
     <Box>
@@ -55,7 +50,7 @@ const AdosList: FC = () => {
     </Box>;
   }
 
-  if (!loading && prevData?.length === 0) {
+  if (!loading && data?.length === 0) {
     return (
       <Center p="10">
         <FallbackPlaceholder
@@ -67,6 +62,7 @@ const AdosList: FC = () => {
       </Center>
     );
   }
+
   return (
     <Box>
       {/* There is an issue with the Infinite Scroll. If all elements for initial render are loaded and there
@@ -75,7 +71,7 @@ const AdosList: FC = () => {
       <InfiniteScroll
         next={fetchMoreAsset}
         hasMore={hasMore}
-        dataLength={prevData?.length ?? 0}
+        dataLength={data?.length ?? 0}
         loader={
           <Stack>
             <Skeleton h="14" rounded="xl" />
@@ -84,7 +80,7 @@ const AdosList: FC = () => {
           </Stack>
         }
       >
-        {prevData?.map((item) => {
+        {data?.map((item) => {
           return <AppItem key={item.address} app={item} />;
         })}
       </InfiniteScroll>

@@ -4,7 +4,7 @@
 import React, { FC, useState, useCallback, useEffect } from "react";
 import { Button, HStack, Flex, IconButton, useToast } from "@chakra-ui/react";
 import { JSONSchema7 } from "json-schema";
-import { cloneDeep, debounce } from "lodash";
+import { cloneDeep } from "lodash";
 
 import { GasIcon } from "@/modules/common";
 import { AddModuleModal, DownloadButton } from "@/modules/flex-builder";
@@ -81,10 +81,11 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
       setFormData((prev) => {
         const cloneData = cloneDeep(prev);
         cloneData[`${id}`]["$enabled"] = enabled;
+        console.log(cloneData);
         return cloneData;
       });
     },
-    [setFormData, formData],
+    [setFormData],
   );
 
   const addModule = useCallback(
@@ -183,7 +184,6 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
         deleteModule: deleteModule,
         changePanelName: changePanelName,
         duplicatePanel: duplicatePanel,
-        schema,
         FORM_CONTEXT_UPDATE,
       }}
       onChange={({ formData: _formData }) => {
