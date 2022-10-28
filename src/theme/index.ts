@@ -227,7 +227,7 @@ export default extendTheme({
       500: "#9B9DA2",
     },
     category: {
-      app: '#58FFF6',
+      app: '#21BEE0',
       ado: '#FEB059',
       baseado: '#FEB059',
       module: '#4D78FF',

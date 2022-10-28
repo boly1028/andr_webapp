@@ -31,12 +31,6 @@ const AdoItem: FC<AdoItemProps> = ({ ado, appAddress }) => {
   const $version = "0.1.0";
   const adoType = ado.adoType as IAdoType;
   const { data: adopData, isLoading } = useGetSchemaADOP(adoType);
-  const { data: adoSchema } = useGetSchemaJson(
-    `${adoType}/${$version}/${adoType}`,
-  );
-
-  const adoClass = (adoSchema?.schema?.class || "module").toLowerCase();
-  const adoClassifier = adoSchema?.schema?.classifier;
 
   return (
     <Flex
@@ -51,25 +45,7 @@ const AdoItem: FC<AdoItemProps> = ({ ado, appAddress }) => {
     >
       <Flex align="center">
         <Box w={8} h={8} borderRadius="lg" mr={6}>
-          {/* Swap background color based on defined class */}
-          <Flex
-            justify="center"
-            align="center"
-            borderRadius="lg"
-            p={2}
-            w={8}
-            h={8}
-            bg={`category.${adoClass}`}
-          >
-            {/* Disable auto loading icon for icon variance based on class and classifier
-          {newIcon} */}
-            {/* Swap Icon color based on defined class */}
-            <ClassifierIcon
-              schemaClass={adoClass as any}
-              schemaClassifier={adoClassifier as any}
-              boxSize={6}
-            />
-          </Flex>
+          <ClassifierIcon adoType={adoType} boxSize={6} />
         </Box>
 
         <Box flex={1}>

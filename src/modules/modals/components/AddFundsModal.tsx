@@ -21,10 +21,10 @@ const AddFundsModal: FC<AddFundsModalProps & OptionalProps> = memo(
 
     return (
       <Box>
-        <Text fontWeight={600} color="gray.700">
+        <Text fontWeight={600}>
           Funds
         </Text>
-        <Text textStyle="light">Assigned funds for transaction</Text>
+        <Text textStyle="light" color='dark.500'>Assigned funds for transaction</Text>
         {funds.length === 0 && (
           <Box bg='gray.100' rounded='2xl' pt="4" mt="6" w="full">
             <Center>

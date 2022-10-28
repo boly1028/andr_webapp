@@ -34,9 +34,9 @@ const variantOutline: PartsStyleFunction<typeof parts> = (props) => {
       },
       _disabled: {
         opacity: 1,
-        bg: "gray.50",
+        bg: "dark.300",
         borderColor: "dark.300",
-        color: "gray.500",
+        color: "dark.500",
       },
       _invalid: {
         borderColor: "error.300",

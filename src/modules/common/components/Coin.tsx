@@ -21,7 +21,7 @@ const Coin: React.FC<CoinProps> = memo(function Coin({ amount, denom }) {
     <Flex direction='row' gap='4' p="2" border="1px" borderColor="gray.300" rounded="lg">
       <Image width="6" height="6" src={imgUrl} alt={`Coin - ${denom}`} />
       <Text fontWeight='bold'>{amount}</Text>
-      <Text ml='auto' textStyle='light'>{denom}</Text>
+      <Text ml='auto' textStyle='light' color='dark.500'>{denom}</Text>
     </Flex>
   );
 });

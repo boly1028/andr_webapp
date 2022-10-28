@@ -61,16 +61,9 @@ const AssetInfoModal: FC<AssetInfoModalProps> = memo(function AssetInfoModal({
   return (
     <Box>
       <Flex align="center" direction="row">
-        <Flex
-          align="center"
-          justify="center"
-          w={8}
-          h={8}
-          borderRadius="lg"
-          mr={6}
-        >
-          <ClassifierIcon schemaClassifier="app" boxSize={6} />
-        </Flex>
+        <Box mr="4">
+          <ClassifierIcon adoType="app" boxSize={6} />
+        </Box>
         <VStack align="start">
           <Text fontWeight="bold">{appInfo?.name ?? "App Info"}</Text>
         </VStack>
@@ -79,7 +72,7 @@ const AssetInfoModal: FC<AssetInfoModalProps> = memo(function AssetInfoModal({
         p="2"
         rounded="xl"
         border="1px"
-        borderColor="gray.300"
+        borderColor="dark.300"
         mt="6"
       >
         <Table variant="simple" fontSize="sm">
@@ -103,8 +96,10 @@ const AssetInfoModal: FC<AssetInfoModalProps> = memo(function AssetInfoModal({
               </Td>
             </Tr>
             <Tr>
-              <Td fontWeight="light">Owner</Td>
-              <Td>
+              <Td borderBottom={0} fontWeight="light">
+                Owner
+              </Td>
+              <Td borderBottom={0}>
                 <CopyButton
                   variant="link"
                   colorScheme="gray"
@@ -114,12 +109,6 @@ const AssetInfoModal: FC<AssetInfoModalProps> = memo(function AssetInfoModal({
                   {truncate(appInfo?.owner)}
                   <CopyIcon boxSize="4" />
                 </CopyButton>
-              </Td>
-            </Tr>
-            <Tr>
-              <Td fontWeight="light">Operators []</Td>
-              <Td>
-                <ExternalLink href="#" label="l7ramjwzfrvnw0mv25t03x..." />
               </Td>
             </Tr>
           </Tbody>

@@ -39,25 +39,20 @@ const TemplateCard: FC<TemplateCardProps> = ({ template, children }) => {
       rounded={"xl"}
       overflow={"hidden"}
       _hover={{
-        bg:'dark.50'
+        bg: "dark.50",
       }}
     >
       <Flex direction="column" height="100%" p={4}>
         <Box>
           <HStack spacing={4}>
-            <Circle size="36px" bg="primary.600" color="white">
-              <ClassifierIcon
-                schemaClass={template.id as any}
-                schemaClassifier={template.id as any}
-              />
-            </Circle>
+            <ClassifierIcon adoType={template.id} schemaClass="ado" />
 
             <Text fontSize="lg" fontWeight={600}>
               {template.name}
             </Text>
           </HStack>
 
-          <Text color='dark.500' fontSize="sm" my={4}>
+          <Text color="dark.500" fontSize="sm" my={4}>
             {template.description}
           </Text>
 

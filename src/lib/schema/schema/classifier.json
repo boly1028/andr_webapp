@@ -1,6 +1,6 @@
 {
     "address-list": "address",
-    "app-contract": "",
+    "app-contract": "app",
     "auction": "sale",
     "crowdfund": "sale",
     "cw20": "token",

@@ -33,6 +33,7 @@ import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
 import { MoreVertical } from "lucide-react";
 import { useGetSchemaADOP } from "@/lib/schema/hooks/useGetSchemaADOP";
 import { IAdoType } from "@/lib/schema/types";
+import { getSchemaMeta } from "@/lib/schema/utils";
 
 interface AppItemProps {
   app: AdoAsset;
@@ -63,24 +64,7 @@ const AppItem: FC<AppItemProps> = ({ app }) => {
     >
       <Flex align="start" gap="2">
         <Box w={8} h={8} borderRadius="lg" mr={6} alignSelf="center">
-          {/* Swap background color based on defined class */}
-          <Flex
-            justify="center"
-            align="center"
-            borderRadius="lg"
-            p={2}
-            w={8}
-            h={8}
-            bgColor={`category.${app?.adoType}`}
-          >
-            {/* Disable auto loading icon for icon variance based on class and classifier
-          {newIcon} */}
-            {/* Swap Icon color based on defined class */}
-            <ClassifierIcon
-              schemaClassifier={(app?.adoType ?? "") as any}
-              boxSize={5}
-            />
-          </Flex>
+          <ClassifierIcon adoType={app?.adoType} boxSize={5} />
         </Box>
 
         <Box flex={2}>

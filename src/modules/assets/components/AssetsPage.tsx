@@ -27,7 +27,7 @@ const AssetsPage = () => {
       />
       {!wallet && (
         <Center w="full" p="6" mt="10">
-          <Box bg="error.50" rounded="3xl" px="6" py="10">
+          <Box borderColor='error.300' borderWidth='1px' rounded="3xl" px="6" py="10">
             <FallbackPlaceholder
               title="You are not logged in."
               desc="Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit deleniti sapiente fugit."

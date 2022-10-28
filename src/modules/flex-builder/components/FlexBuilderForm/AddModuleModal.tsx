@@ -61,25 +61,7 @@ function AddModuleModalItem({
     >
       <Flex>
         <Box mr={4}>
-          {/* Swap background color based on defined class */}
-          <Flex
-            justify="center"
-            align="center"
-            borderRadius="lg"
-            bg={`${data?.schema?.class}.500`}
-            p={2}
-          >
-            {/* Disable auto loading icon for icon variance based on class and classifier
-            {newIcon} */}
-            {/* Swap Icon color based on defined class */}
-
-            {/* <ScanIcon color={`${data?.schema?.class}` + ".600"} boxSize={6} /> */}
-            <ClassifierIcon
-              schemaClass={data?.schema?.class as any}
-              schemaClassifier={data?.schema?.classifier as any}
-              boxSize={6}
-            />
-          </Flex>
+          <ClassifierIcon adoType={data.schema.$id} boxSize={6} />
         </Box>
         <Box flex={1}>
           <Text fontWeight="bold">{data?.schema?.title}</Text>
