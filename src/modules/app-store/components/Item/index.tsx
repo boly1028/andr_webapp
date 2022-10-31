@@ -27,7 +27,8 @@ const AppStoreItemPage: FC<AppStoreItemPageProps> = (props) => {
       <Flex direction="row" gap="10" alignItems="start">
         <Flex direction="column" w="full" gap="6">
           <HStack spacing={4}>
-            <Image src="/app-store/templates/icon.png" w="12" />
+            {/* <Image src="/app-store/templates/icon.png" w="12" /> */}
+            <Image src={"/app-store/templates/" + app.templateId + "-icon.png"} w="12" />
             <Text fontWeight="bold" fontSize="2xl">
               {app.name}
             </Text>
