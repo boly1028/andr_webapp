@@ -68,8 +68,12 @@ const AppStoreItemPage: FC<AppStoreItemPageProps> = (props) => {
           <Image src="/app-store/placeholder-category.png" w="full" />
           <Box>
             <Text color="dark.500">Documentation</Text>
-            <ExternalLink
+            {/* <ExternalLink
               href={SITE_LINKS.documentation(app.templateId)}
+              label="Gitbook"
+            /> */}
+            <ExternalLink
+              href="https://docs.andromedaprotocol.io/andromeda/andromeda-apps/introduction-to-apps"
               label="Gitbook"
             />
           </Box>
