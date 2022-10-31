@@ -22,6 +22,7 @@ export const SITE_LINKS = {
     proxyApp: (path: string, address: string, name: string) => `/flexecute/proxy/${path}?name=${name}&contract=${address}`,
     // App
     appStore: () => `/app-store`,
+    appStoreItem: (id: string) => `/app-store/${id}`,
     appBuilder: () => `/app-builder`,
     appCreate: () => `/app-builder/create`,
     // Assets
