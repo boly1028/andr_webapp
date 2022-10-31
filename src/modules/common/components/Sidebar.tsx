@@ -20,11 +20,11 @@ interface LinkItemProps {
 }
 
 const LinkItems: LinkItemProps[] = [
-  {
-    name: "Overview",
-    icon: <CompassIcon boxSize={5} />,
-    href: SITE_LINKS.dashboard(),
-  },
+  // {
+  //   name: "Overview",
+  //   icon: <CompassIcon boxSize={5} />,
+  //   href: SITE_LINKS.dashboard(),
+  // },
   {
     name: "App Store",
     icon: <AppStore boxSize={5} />,

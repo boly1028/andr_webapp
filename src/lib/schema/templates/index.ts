@@ -27,181 +27,74 @@ const APP_TEMPLATES: ITemplate[] = [
         ],
     },
     {
-        id: "crowdfunding",
-        name: "Crowdfunding App",
-        icon: "",
-        description: "Setup a crowdfunding sale.",
-        opts: ["CW721 Token", "Crowdfund", "2 Vaults", "Splitter"],
+        id: 'crowdfund',
+        name: 'Crowdfund App',
+        description: "Setup a crowdfund to distribute NFTs representing fractionalized ownership of the goal being funded. Proceeds are able to be divided and distributed to yield vaults to assure direct delivery to the respective manufacturing / distribution / business partnerships.",
+        opts: [
+            "Crowdfund",
+            "CW721",
+            "Vault",
+            "Rates"
+        ],
         ados: [
             { path: "publish-settings", id: "publish-settings", required: true },
             { path: "cw721/0.1.0/cw721", id: "tokens", required: true },
             { path: "crowdfund/0.1.0/crowdfund", id: "crowdfund", required: true },
-            { path: "vault/0.1.0/vault", id: "yield_valut", required: true },
-            { path: "vault/0.1.0/vault", id: "reserve_valut", required: true },
-            { path: "splitter/0.1.0/splitter", id: "sale_splitter", required: true },
+            { path: "vault/0.1.0/vault", id: "vault", required: true },
+            { path: "rates/0.1.0/rates", id: "rates", required: true },
         ],
+        icon: ''
     },
     {
-        id: "auctioning",
-        name: "Auctioning App",
-        icon: "",
-        description: "Setup an auctioning app.",
-        opts: ["CW20 Token", "Staking"],
-        ados: [
-            { path: "publish-settings", id: "publish-settings", required: true },
-            { path: "cw20/0.1.0/cw20", id: "cw20", required: true },
-            {
-                path: "cw20-staking/0.1.0/cw20-staking",
-                id: "staking",
-                required: true,
-            },
+        id: 'auction-market',
+        name: 'Auction Based Marketplace',
+        description: "Setup an auction to sell NFT’s at an initial starting price and allow bidding from many users to get the highest price bid placed and accepted to receive the NFT. The duration of the auction is also configurable as well as the rate/royalty charged per NFT. Other options such as address lists can be added as well.",
+        opts: [
+            "Auction",
+            "CW721",
+            "Rates"
         ],
-    },
-    {
-        id: "Staking",
-        name: "CW20 Staking App",
-        icon: "",
-        description: "Setup a CW20 staking app.",
-        opts: ["CW721 Token", "Auction"],
         ados: [
             { path: "publish-settings", id: "publish-settings", required: true },
             { path: "cw721/0.1.0/cw721", id: "tokens", required: true },
             { path: "auction/0.1.0/auction", id: "auction", required: true },
+            { path: "rates/0.1.0/rates", id: "rates", required: true },
         ],
+        icon: ''
     },
     {
-        id: "splitter",
-        name: "Splitter",
-        icon: "",
-        description:
-            "When funds are sent to this ADO, they will be split among specified address.",
-        opts: [],
-        ados: [
-            { path: "publish-settings", id: "publish-settings", required: true },
-            { path: "splitter/0.1.0/splitter", id: 'splitter', required: true },
-        ],
-    },
-    {
-        id: "timelock",
-        name: "Timelock",
-        icon: "",
-        description:
-            "An escrow styled ADO allowing users to lock funds until a specified time or block height.",
-        opts: [],
-        ados: [
-            { path: "publish-settings", id: "publish-settings", required: true },
-            { path: "timelock/0.1.0/timelock", id: 'timelock', required: true },
-        ],
-    },
-    {
-        id: "cw20-token",
-        name: "CW20 Token",
-        icon: "",
-        description: "Create a CW20 Token for Your Project",
-        opts: [],
-        ados: [
-            { path: "publish-settings", id: "publish-settings", required: true },
-            { path: "cw20/0.1.0/cw20", id: 'cw20', required: true },
-        ],
-    },
-    {
-        id: "nft-collectible",
-        name: "NFT Collectible",
-        icon: "",
-        description:
-            "Create the most advanced and feature rich NFT Collectible in the world.",
-        opts: [],
-        ados: [
-            { path: "publish-settings", id: "publish-settings", required: true },
-            { path: "cw721/0.1.0/cw721", id: 'tokens', required: true },
-        ],
-    },
-    {
-        id: "address-list-ado",
-        name: "Address List",
-        icon: "",
-        description:
-            "An ADO which stores a queryable list of addresses which can be assigned to most other ADO address fields.",
-        opts: [],
-        ados: [
-            { path: "publish-settings", id: "publish-settings", required: true },
-            { path: "address-list/0.1.0/address-list", id: 'address-list', required: true },
-        ],
-        disabled: false,
-    },
-    {
-        id: "string-primitive",
-        name: "String Primitive",
-        icon: "",
-        description:
-            "Store a simple string value to reuse multiple times in your projects.",
-        opts: [],
-        ados: [
-            { path: "publish-settings", id: "publish-settings", required: true },
-            { path: "primitives/0.1.0/string", id: 'string', required: true },
-        ],
-        disabled: false,
-    },
-    {
-        id: "integer-primitive",
-        name: "Integer Primitive",
-        icon: "",
-        description:
-            "Store a simple integer value to reuse multiple times in your projects.",
-        opts: ["Unsigned 128bit Integer"],
-        ados: [
-            { path: "publish-settings", id: "publish-settings", required: true },
-            // { path: "primitives/0.1.0/uint128", id: 'unit128', required: true },
-        ],
-        disabled: false,
-    },
-    {
-        id: "crowdfund",
-        name: "Crowdfund",
-        icon: "",
-        description: "Start minting and selling tokens with a crowdfund.",
-        opts: [],
-        ados: [
-            { path: "publish-settings", id: "publish-settings", required: true },
-            { path: "crowdfund/0.1.0/crowdfund", id: 'crowdfund', required: true },
-        ],
-    },
-
-    {
-        id: "vault",
-        name: "Vault",
-        icon: "",
-        description:
-            "Deposit funds to a vault and allow them to be proxied to various yield strategies.",
-        opts: [],
-        ados: [
-            { path: "publish-settings", id: "publish-settings", required: true },
-            { path: "vault/0.1.0/vault", id: 'vault', required: true },
-        ],
-    },
-    {
-        id: "defi-instruments",
-        name: "DeFi Instruments",
-        icon: "",
-        description: "Setup components for financial automation",
-        opts: ["MIR", "ANC", "MIR & ANC", "(more in dev)"],
-        ados: [],
-        disabled: true,
-    },
-    {
-        id: "generic-ado",
-        name: "Generic ADO",
-        icon: "",
-        description: "Define simple data values to be utilized in other ADOs",
+        id: 'market',
+        name: 'Flat Rate Marketplace',
+        description: "Setup a customizable NFT Marketplace/store to sell NFT’s for a specific price point. NFT’s can be sorted and filtered upon by many different attributes of the NFT’s themselves. The rates and address (Whitelist/Blacklist) list are also configurable and can be modified per marketplace instance. Proceeds will be collected and sent to the marketplace owner and NFT sent to the specific recipient of the purchase.",
         opts: [
-            "Storage",
-            "Specific values",
-            "Primitive functions",
-            "(more in dev)",
+            "Marketplace",
+            "CW721",
+            "Rates"
         ],
-        ados: [],
-        disabled: true,
+        ados: [
+            { path: "publish-settings", id: "publish-settings", required: true },
+            { path: "cw721/0.1.0/cw721", id: "tokens", required: true },
+            { path: "marketplace/0.1.0/marketplace", id: "marketplace", required: true },
+            { path: "rates/0.1.0/rates", id: "rates", required: true },
+            { path: "address-list/0.1.0/address-list", id: "whitelist", required: true },
+        ],
+        icon: ''
     },
+    {
+        id: 'cw20-staking',
+        name: 'CW20 Token Staking',
+        description: " Setup a means of offering the ability to stake a specific coin and have associated rewards that are aligned to duration of the time of staking. Multiple staking timeframes can be set up with varying percentages of staking reward benefits. The ability to unstake or lock users in is also present.",
+        opts: [
+            "CW20",
+            "CW20 Staking",
+        ],
+        ados: [
+            { path: "publish-settings", id: "publish-settings", required: true },
+            { path: "cw20/0.1.0/cw20", id: "tokens", required: true },
+            { path: "cw20-staking/0.1.0/cw20-staking", id: "staking", required: true },
+        ],
+        icon: '/app-store/templates/icon.png'
+    }
 ];
 
 export default APP_TEMPLATES;
