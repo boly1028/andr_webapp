@@ -32,7 +32,7 @@ export const getStaticProps: GetStaticProps<Props> = async (ctx) => {
     const data = APP_TEMPLATES.find((t) => t.id === appTemplate.templateId);
     if (data) {
       return {
-        props: { app: { ...appTemplate, ...data } },
+        props: { app: { ...data, ...appTemplate } },
         revalidate: 300,
       };
     }
