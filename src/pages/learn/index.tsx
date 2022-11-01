@@ -1,12 +1,13 @@
 import { Layout } from "@/modules/common";
 import PagePlaceholder from "@/modules/common/components/PagePlaceholder";
 import type { NextPage } from "next";
-import { NextURL } from "next/dist/server/web/next-url";
 
 const LearnPage: NextPage = () => {
+  //const noRef = null; // alternate to noreferrer
+  
   return (
     <Layout>
-      <a href="https://docs.andromedaprotocol.io" target="_blank">
+      <a href="https://docs.andromedaprotocol.io" target="_blank" rel="noreferrer">
       <PagePlaceholder
         imageUrl="/placeholders/learn.png"
         description="There are Andromeda and ADO specific concepts, tools and terminology which 
