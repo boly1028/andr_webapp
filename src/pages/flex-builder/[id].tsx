@@ -13,7 +13,7 @@ type Props = {
 };
 
 const TemplatePage: NextPage<Props> = ({ template }) => {
-  const codeId = useCodeId(template.id);
+  const codeId = useCodeId(template.adoType);
   const construct = useConstructAppMsg();
   const openModal = useInstantiateModal(codeId);
   const handleSubmit = async (data, simulate = false) => {
