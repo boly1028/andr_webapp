@@ -11,6 +11,7 @@ import { getProxyTemplate } from "@/lib/schema/utils";
 import { useExecuteModal } from "@/modules/modals/hooks";
 import useConstructProxyMsg from "@/modules/sdk/hooks/useConstructProxyMsg";
 import { useGetFunds } from "@/modules/sdk/hooks";
+import { useWallet } from "@/lib/wallet";
 
 type Props = {
   template: ITemplate;
@@ -23,6 +24,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
   const construct = useConstructProxyMsg();
   const getFunds = useGetFunds();
   const openModal = useExecuteModal(contract);
+  const account = useWallet();
 
   const modifiedTemplate: ITemplate = useMemo(() => {
     const newTemplate = cloneDeep(template);
@@ -107,6 +109,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
           template={modifiedTemplate}
           onSubmit={handleSubmit}
           onEstimate={(data: any) => handleSubmit(data, true)}
+          notReady={!account}
         />
       </Box>
     </Layout>
