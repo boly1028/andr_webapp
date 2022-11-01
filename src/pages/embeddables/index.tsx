@@ -3,11 +3,10 @@ import PagePlaceholder from "@/modules/common/components/PagePlaceholder";
 import type { NextPage } from "next";
 
 const EmbeddablesPage: NextPage = () => {
-  const noRef = null;
   
   return (
     <Layout>
-      <a href="https://andromedaprotocol.github.io/embeddable-marketplace-demo" target="_blank" ref={noRef}>
+      <a href="https://andromedaprotocol.github.io/embeddable-marketplace-demo" target="_blank" rel="noreferrer">
       <PagePlaceholder
         imageUrl="/placeholders/embeddables.png"
         description="Embeddables are widgets and plugins for your apps.  They can be rapidly deployed 
