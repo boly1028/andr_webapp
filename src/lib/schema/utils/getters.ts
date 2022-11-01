@@ -74,6 +74,7 @@ export const getProxyTemplate = async (path: string) => {
     // Generate Template
     const currentTemplate: ITemplate = {
         id: path,
+        adoType: 'app',
         name: '',
         description: '',
         icon: "",
@@ -95,6 +96,7 @@ export const getADOExecuteTemplate = async (path: string) => {
     // Generate Template
     const currentTemplate: ITemplate = {
         id: path,
+        adoType: 'app',
         name: '',
         description: '',
         icon: "",

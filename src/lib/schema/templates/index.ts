@@ -6,6 +6,7 @@ import { ITemplate } from './types';
 const APP_TEMPLATES: ITemplate[] = [
     {
         id: "app",
+        adoType: "app",
         name: "A Blank Canvas",
         icon: "",
         description:
@@ -28,6 +29,7 @@ const APP_TEMPLATES: ITemplate[] = [
     },
     {
         id: 'crowdfund',
+        adoType: "app",
         name: 'Crowdfund App',
         description: "Setup a crowdfund to distribute NFTs representing fractionalized ownership of the goal being funded. Proceeds are able to be divided and distributed to yield vaults to assure direct delivery to the respective manufacturing / distribution / business partnerships.",
         opts: [
@@ -47,6 +49,7 @@ const APP_TEMPLATES: ITemplate[] = [
     },
     {
         id: 'auction-market',
+        adoType: "app",
         name: 'Auction Based Marketplace',
         description: "Setup an auction to sell NFT’s at an initial starting price and allow bidding from many users to get the highest price bid placed and accepted to receive the NFT. The duration of the auction is also configurable as well as the rate/royalty charged per NFT. Other options such as address lists can be added as well.",
         opts: [
@@ -64,6 +67,7 @@ const APP_TEMPLATES: ITemplate[] = [
     },
     {
         id: 'market',
+        adoType: "app",
         name: 'Flat Rate Marketplace',
         description: "Setup a customizable NFT Marketplace/store to sell NFT’s for a specific price point. NFT’s can be sorted and filtered upon by many different attributes of the NFT’s themselves. The rates and address (Whitelist/Blacklist) list are also configurable and can be modified per marketplace instance. Proceeds will be collected and sent to the marketplace owner and NFT sent to the specific recipient of the purchase.",
         opts: [
@@ -82,6 +86,7 @@ const APP_TEMPLATES: ITemplate[] = [
     },
     {
         id: 'cw20-staking',
+        adoType: "app",
         name: 'CW20 Token Staking',
         description: " Setup a means of offering the ability to stake a specific coin and have associated rewards that are aligned to duration of the time of staking. Multiple staking timeframes can be set up with varying percentages of staking reward benefits. The ability to unstake or lock users in is also present.",
         opts: [

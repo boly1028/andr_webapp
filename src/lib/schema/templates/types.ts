@@ -1,7 +1,8 @@
-import { IAndromedaFormData, IAndromedaSchema, IAndromedaSchemaJSON, IAndromedaUISchema } from "../types";
+import { IAdoType, IAndromedaFormData, IAndromedaSchema, IAndromedaSchemaJSON, IAndromedaUISchema } from "../types";
 
 export interface ITemplate {
     id: string;
+    adoType: IAdoType | 'app';
     name: string;
     icon: string;
     description: string;

@@ -10,6 +10,7 @@ import { useInstantiateModal } from "@/modules/modals/hooks";
 import { UPLOAD_TEMPLATE } from "@/lib/schema/templates/upload";
 import { ITemplate } from "@/lib/schema/types";
 import { processTemplate } from "@/lib/schema/utils/template";
+import { useWallet } from "@/lib/wallet";
 
 /**
  * Flex Builder Custom template page which takes flex from session storage and renders
@@ -24,6 +25,7 @@ const FlexBuilderCustomTemplate: NextPage<Props> = ({ defaultTemplate }) => {
   const codeId = useCodeId("app");
   const construct = useConstructAppMsg();
   const openModal = useInstantiateModal(codeId);
+  const account = useWallet();
 
   /** Template contains same structure as Blank App with schema, formData, uiSchema added from flex file uploaded by user */
   const template = useMemo(() => {
@@ -113,6 +115,7 @@ const FlexBuilderCustomTemplate: NextPage<Props> = ({ defaultTemplate }) => {
           onSubmit={handleSubmit}
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           onEstimate={(data: any) => handleSubmit(data, true)}
+          notReady={!codeId || codeId === -1 || !account}
         />
       </Box>
     </Layout>

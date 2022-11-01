@@ -24,6 +24,7 @@ import Form from "./Form";
 type FlexBuilderFormProps = {
   template: ITemplate;
   isLoading?: boolean;
+  notReady?: boolean;
   onChange?: (data: any) => void;
   onSubmit?: (data: any) => void;
   onError?: () => void;
@@ -36,6 +37,7 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
   onError,
   isLoading,
   onEstimate,
+  notReady = true,
 }) => {
   const toast = useToast({
     position: "top-right",
@@ -231,7 +233,12 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
             uiSchema={uiSchema}
             formData={formData}
           />
-          <Button type="submit" colorScheme="primary" isLoading={isLoading}>
+          <Button
+            disabled={notReady}
+            type="submit"
+            colorScheme="primary"
+            isLoading={isLoading}
+          >
             Publish
           </Button>
         </HStack>

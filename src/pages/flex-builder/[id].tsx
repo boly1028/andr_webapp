@@ -7,13 +7,16 @@ import { useInstantiateModal } from "@/modules/modals/hooks";
 import { useConstructAppMsg } from "@/modules/sdk/hooks";
 import { ITemplate } from "@/lib/schema/types";
 import { getAppTemplateById } from "@/lib/schema/utils";
+import { useWallet } from "@/lib/wallet";
 
 type Props = {
   template: ITemplate;
 };
 
 const TemplatePage: NextPage<Props> = ({ template }) => {
-  const codeId = useCodeId(template.id);
+  const codeId = useCodeId(template.adoType);
+  const account = useWallet();
+
   const construct = useConstructAppMsg();
   const openModal = useInstantiateModal(codeId);
   const handleSubmit = async (data, simulate = false) => {
@@ -22,7 +25,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
       return;
     }
     const { formData } = data;
-    console.log(formData)
+    console.log(formData);
     const msg = construct(formData);
     openModal(msg, simulate);
   };
@@ -79,6 +82,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
           onSubmit={handleSubmit}
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           onEstimate={(data: any) => handleSubmit(data, true)}
+          notReady={!codeId || codeId === -1 || !account}
         />
       </Box>
     </Layout>

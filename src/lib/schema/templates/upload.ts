@@ -5,6 +5,7 @@ import primitive from '../schema/primitive.json'
 
 export const UPLOAD_TEMPLATE: ITemplate = {
     id: "import",
+    adoType: "app",
     name: "Imported Template",
     icon: "",
     description: "",
