@@ -6,9 +6,9 @@ import primitive from '../schema/primitive.json'
 export const UPLOAD_TEMPLATE: ITemplate = {
     id: "import",
     adoType: "app",
-    name: "Imported Template",
-    icon: "",
-    description: "",
+    name: "Import Template",
+    icon: "/app-templates/icons/blank.png",
+    description: "Import .flex file",
     opts: [
         "Import saved template",
         "Add on your prefered modules",

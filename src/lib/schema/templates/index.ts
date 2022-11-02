@@ -8,7 +8,7 @@ const APP_TEMPLATES: ITemplate[] = [
         id: "app",
         adoType: "app",
         name: "A Blank Canvas",
-        icon: "",
+        icon: '/app-templates/icons/blank.png',
         description:
             "You don't have to use a template! Start from scratch building out your own ADO structure to be just the way you like it.",
         opts: [
@@ -26,6 +26,7 @@ const APP_TEMPLATES: ITemplate[] = [
             ...modules.map(ado => ({ path: ado.source })),
             ...primitive.map(ado => ({ path: ado.source })),
         ],
+        installed: true
     },
     {
         id: 'crowdfund',
@@ -45,7 +46,8 @@ const APP_TEMPLATES: ITemplate[] = [
             { path: "vault/0.1.0/vault", id: "vault", required: true },
             { path: "rates/0.1.0/rates", id: "rates", required: true },
         ],
-        icon: ''
+        icon: '/app-templates/icons/crowdfund.png',
+        installed: true
     },
     {
         id: 'auction-market',
@@ -63,7 +65,8 @@ const APP_TEMPLATES: ITemplate[] = [
             { path: "auction/0.1.0/auction", id: "auction", required: true },
             { path: "rates/0.1.0/rates", id: "rates", required: true },
         ],
-        icon: ''
+        icon: '/app-templates/icons/auction-market.png',
+        installed: true
     },
     {
         id: 'market',
@@ -82,7 +85,8 @@ const APP_TEMPLATES: ITemplate[] = [
             { path: "rates/0.1.0/rates", id: "rates", required: true },
             { path: "address-list/0.1.0/address-list", id: "whitelist", required: true },
         ],
-        icon: ''
+        icon: '/app-templates/icons/market.png',
+        installed: true
     },
     {
         id: 'cw20-staking',
@@ -98,7 +102,8 @@ const APP_TEMPLATES: ITemplate[] = [
             { path: "cw20/0.1.0/cw20", id: "tokens", required: true },
             { path: "cw20-staking/0.1.0/cw20-staking", id: "staking", required: true },
         ],
-        icon: '/app-store/templates/icon.png'
+        icon: '/app-templates/icons/cw20-staking.png',
+        installed: true
     }
 ];
 

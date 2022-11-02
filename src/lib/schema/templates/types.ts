@@ -13,6 +13,7 @@ export interface ITemplate {
     schema?: ITemplateSchema;
     uiSchema?: ITemplateUiSchema;
     formData?: ITemplateFormData;
+    installed?: boolean;
 }
 
 export interface ITemplateUiSchema {

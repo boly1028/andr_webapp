@@ -4,6 +4,7 @@ import { PageHeader } from "@/modules/common";
 import { ITemplate } from "@/lib/schema/types";
 import AppTemplateItem from "./AppTemplateItem";
 import FlexUploadCard from "./FlexUploadCard";
+import Header from "./Header";
 
 /**
  * Display all predefined templates
@@ -18,14 +19,16 @@ const FlexBuilderPage: FC<FlexBuilderPageProps> = ({ templateList }) => {
   return (
     <Box>
       <PageHeader
-        title="Flex Builder Starter Templates"
-        desc="You can custom build a variety of combinations with our Flex Builder, but we offer the following pre-configured starter templates to make things easier. Quickly setup NFT collectibles, DeFi instruments,
-        generic ADOs and more in just a click of a button!"
+        title="Get Started"
+        desc="Start from scratch to publish NFT collectibles, DeFi instruments and generic ADOs from starter templates!"
       />
+      <Box my='6'>
+        <Header />
+      </Box>
       <SimpleGrid
         gridAutoRows="1fr"
         columns={{ sm: 1, md: 2, lg: 3 }}
-        spacing="4"
+        spacing="6"
         my={8}
       >
         {/* Render First template in templateList */}

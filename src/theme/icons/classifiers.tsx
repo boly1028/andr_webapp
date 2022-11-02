@@ -86,6 +86,8 @@ interface ClassifierIconProps extends IconProps {
   schemaClassifier?: string;
   schemaClass?: string;
   type?: "solid" | "outline";
+  w?: number | string;
+  h?: number | string;
 }
 const ClassifierIcon: FC<ClassifierIconProps> = (props) => {
   const {
@@ -93,6 +95,8 @@ const ClassifierIcon: FC<ClassifierIconProps> = (props) => {
     schemaClassifier,
     schemaClass,
     type = "solid",
+    w,
+    h,
     ...iconProps
   } = props;
   const meta = getSchemaMeta(adoType as IAdoType);
@@ -114,13 +118,15 @@ const ClassifierIcon: FC<ClassifierIconProps> = (props) => {
       align="center"
       borderRadius="lg"
       p={2}
-      w={8}
-      h={8}
+      w={w ?? 8}
+      h={h ?? 8}
       bgColor={type === "solid" ? color : "transparent"}
     >
       <Icon
         as={icon}
         color={type === "solid" ? "base.white" : color}
+        w='80%'
+        h='80%'
         {...iconProps}
       />
     </Flex>

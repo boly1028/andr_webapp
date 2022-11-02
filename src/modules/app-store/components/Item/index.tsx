@@ -1,4 +1,5 @@
 import { useGetSchemaJson } from "@/lib/schema/hooks";
+import { ITemplate } from "@/lib/schema/types";
 import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
 import ClassifierIcon from "@/theme/icons/classifiers";
 import { ExternalLink } from "@/theme/ui-elements";
@@ -14,32 +15,30 @@ import {
 } from "@chakra-ui/react";
 import Link from "next/link";
 import React, { FC } from "react";
-import { IAppItem } from "../../types";
 
 interface AppStoreItemPageProps {
-  app: IAppItem;
+  template: ITemplate;
 }
 const AppStoreItemPage: FC<AppStoreItemPageProps> = (props) => {
-  const { app } = props;
+  const { template } = props;
 
   return (
     <Box py="6">
       <Flex direction="row" gap="10" alignItems="start">
         <Flex direction="column" w="full" gap="6">
           <HStack spacing={4}>
-            {/* <Image src="/app-store/templates/icon.png" w="12" /> */}
-            <Image src={"/app-store/templates/" + app.templateId + "-icon.png"} w="12" />
+            <Image src={template.icon} w="12" />
             <Text fontWeight="bold" fontSize="2xl">
-              {app.name}
+              {template.name}
             </Text>
           </HStack>
           <Text fontWeight="light" fontSize="sm" color="dark.500">
-            {app.description}
+            {template.description}
           </Text>
 
           <Box maxW="xs">
-            {app.installed ? (
-              <Link href={SITE_LINKS.flexBuilder(app.templateId)} passHref>
+            {template.installed ? (
+              <Link href={SITE_LINKS.flexBuilder(template.id)} passHref>
                 <Button as="a" w="full" size="lg" colorScheme="primary">
                   Run
                 </Button>
@@ -80,7 +79,7 @@ const AppStoreItemPage: FC<AppStoreItemPageProps> = (props) => {
           <Divider color="dark.300" />
           <Text color="base.white">Components used in this app</Text>
           <VStack alignItems="start" spacing={4}>
-            {app.ados.map((ado) => (
+            {template.ados.map((ado) => (
               <AdoItem key={ado.id} path={ado.path} />
             ))}
           </VStack>
