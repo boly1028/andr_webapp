@@ -26,7 +26,8 @@ const APP_TEMPLATES: ITemplate[] = [
             ...modules.map(ado => ({ path: ado.source })),
             ...primitive.map(ado => ({ path: ado.source })),
         ],
-        installed: true
+        system: true,
+        starter: true
     },
     {
         id: 'crowdfund',
@@ -47,7 +48,8 @@ const APP_TEMPLATES: ITemplate[] = [
             { path: "rates/0.1.0/rates", id: "rates", required: true },
         ],
         icon: '/app-templates/icons/crowdfund.png',
-        installed: true
+        installed: true,
+        starter: true
     },
     {
         id: 'auction-market',
@@ -66,7 +68,8 @@ const APP_TEMPLATES: ITemplate[] = [
             { path: "rates/0.1.0/rates", id: "rates", required: true },
         ],
         icon: '/app-templates/icons/auction-market.png',
-        installed: true
+        installed: true,
+        starter: true
     },
     {
         id: 'market',
@@ -86,7 +89,8 @@ const APP_TEMPLATES: ITemplate[] = [
             { path: "address-list/0.1.0/address-list", id: "whitelist", required: true },
         ],
         icon: '/app-templates/icons/market.png',
-        installed: true
+        installed: true,
+        starter: true
     },
     {
         id: 'cw20-staking',
@@ -103,7 +107,8 @@ const APP_TEMPLATES: ITemplate[] = [
             { path: "cw20-staking/0.1.0/cw20-staking", id: "staking", required: true },
         ],
         icon: '/app-templates/icons/cw20-staking.png',
-        installed: true
+        installed: true,
+        starter: true
     }
 ];
 

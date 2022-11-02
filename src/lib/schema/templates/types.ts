@@ -14,6 +14,8 @@ export interface ITemplate {
     uiSchema?: ITemplateUiSchema;
     formData?: ITemplateFormData;
     installed?: boolean;
+    starter?: boolean;
+    system?: boolean;
 }
 
 export interface ITemplateUiSchema {

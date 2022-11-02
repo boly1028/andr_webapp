@@ -23,7 +23,7 @@ const AppStorePage: FC<AppStorePageProps> = (props) => {
     <Box pb="10">
       <Header />
       <SimpleGrid gridAutoRows="1fr" columns={3} mt="10" gap="6">
-        {APP_TEMPLATES.map((template, idx) => (
+        {APP_TEMPLATES.filter((t) => !t.system).map((template, idx) => (
           <GridItem key={idx}>
             <TemplateCard template={template} />
           </GridItem>

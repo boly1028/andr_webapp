@@ -46,6 +46,8 @@ const FlexUploadCard: FC<FlexUploadCardProps> = (props) => {
 
   return (
     <Box
+      as="label"
+      htmlFor="templateInput"
       h="full"
       rounded="lg"
       overflow="hidden"
@@ -60,7 +62,7 @@ const FlexUploadCard: FC<FlexUploadCardProps> = (props) => {
       <BackdropCard
         logoComponent={<Image w="50%" mb="20%" src={template.icon} />}
       >
-        <Box px="2" h='full'>
+        <Box px="2" h="full">
           <HStack>
             <Image src="/verified.png" w="4" />
             <Text fontSize="sm" fontWeight="medium">
@@ -84,20 +86,19 @@ const FlexUploadCard: FC<FlexUploadCardProps> = (props) => {
             whiteSpace="nowrap"
             overflow="hidden"
             mt="1"
-            mb='3'
+            mb="3"
             fontSize="sm"
             fontWeight="light"
             color="dark.500"
           >
             {template.description}
           </Text>
-          <HStack mt='auto' justifyContent='end'>
-            <Button
+          <HStack mt="auto" justifyContent="end">
+            {/* <Button
               as="label"
               htmlFor="templateInput"
               w="full"
-              size="lg"
-              colorScheme='primary'
+              colorScheme="primary"
               leftIcon={
                 !template.disabled ? <DownloadIcon boxSize={5} /> : undefined
               }
@@ -105,7 +106,7 @@ const FlexUploadCard: FC<FlexUploadCardProps> = (props) => {
               cursor="pointer"
             >
               {template.disabled ? "Coming Soon" : "Import Template"}
-            </Button>
+            </Button> */}
             <Input
               onChange={(e) => {
                 const file = e.target.files?.item(0);
