@@ -37,7 +37,7 @@ const Header: FC<HeaderProps> = (props) => {
             Blank Canvas
           </Text>
           <Text fontSize="sm" color="dark.500">
-            You don't have to use a template! Start from scratch building out
+            You don&apos;t have to use a template! Start from scratch building out
             your own ADO structure to be just the way you like it.
           </Text>
           <Link href={SITE_LINKS.flexBuilder("app")} passHref>
