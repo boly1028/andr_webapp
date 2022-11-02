@@ -37,7 +37,7 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
   onError,
   isLoading,
   onEstimate,
-  notReady = true,
+  notReady = false,
 }) => {
   const toast = useToast({
     position: "top-right",
