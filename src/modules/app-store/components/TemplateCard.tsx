@@ -1,28 +1,23 @@
-import React, { FC } from "react";
-import NextLink from "next/link";
-import { Box, Button, HStack, Image, Text } from "@chakra-ui/react";
-import { BackdropCard, ChevronRightIcon } from "@/modules/common";
+import { ITemplate } from "@/lib/schema/types";
+import { BackdropCard } from "@/modules/common";
 import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
-import TemplateCard from "./TemplateCard";
-import { IImportantAdoKeys, ITemplate } from "@/lib/schema/types";
+import { Box, Button, HStack, Image, Text } from "@chakra-ui/react";
 import Link from "next/link";
+import React, { FC } from "react";
 
-/**
- * Flex Builder Template Card with button as link which routes to template builder form component
- * @param {template} ITemplate
- */
-type AppTemplateListItemProps = {
+interface TemplateCardProps {
   template: ITemplate;
-};
+}
+const TemplateCard: FC<TemplateCardProps> = (props) => {
+  const { template } = props;
 
-const AppTemplateItem: FC<AppTemplateListItemProps> = ({ template }) => {
   return (
-    <Link href={SITE_LINKS.flexBuilder(template.id)}>
+    <Link href={SITE_LINKS.appStoreItem(template.id)}>
       <Box
         h="full"
         rounded="lg"
         overflow="hidden"
-        // _hover={{ scale: "105%", borderWidth: "1px" }}
+        _hover={{ scale: "105%", borderWidth: "1px" }}
         borderColor="dark.300"
         cursor="pointer"
         transform="auto"
@@ -33,7 +28,7 @@ const AppTemplateItem: FC<AppTemplateListItemProps> = ({ template }) => {
         <BackdropCard
           logoComponent={<Image w="50%" mb="20%" src={template.icon} />}
         >
-          <Box px="2">
+          <Box pb="6" px="2">
             <HStack>
               <Image src="/verified.png" w="4" />
               <Text fontSize="sm" fontWeight="medium">
@@ -57,25 +52,16 @@ const AppTemplateItem: FC<AppTemplateListItemProps> = ({ template }) => {
               whiteSpace="nowrap"
               overflow="hidden"
               mt="1"
-              mb="3"
               fontSize="sm"
               fontWeight="light"
               color="dark.500"
             >
               {template.description}
             </Text>
-            <HStack justifyContent="end" mt="auto">
-              {template.id !== IImportantAdoKeys.BLANK_CANVAS && (
-                <Link href={SITE_LINKS.appStoreItem(template.id)} passHref>
-                  <Button as="a">Read More</Button>
-                </Link>
-              )}
-            </HStack>
           </Box>
         </BackdropCard>
       </Box>
     </Link>
   );
 };
-
-export default AppTemplateItem;
+export default TemplateCard;

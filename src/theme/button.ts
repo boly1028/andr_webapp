@@ -53,12 +53,12 @@ const variantGhost: SystemStyleFunction = (props) => {
   const { colorScheme: c, theme } = props;
 
   return {
-    bg: `${c}.50`,
-    color: `${c}.700`,
+    bg: `rgba(255,255,255,0)`,
+    color: `${c}.500`,
     _hover: {
-      bg: `${c}.300`,
+      bg: `rgba(255,255,255,0.1)`,
       _disabled: {
-        bg: `${c}.25`,
+        bg: `rgba(255,255,255,0.1)`,
       },
     },
   };

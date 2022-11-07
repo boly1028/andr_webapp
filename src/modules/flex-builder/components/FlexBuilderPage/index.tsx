@@ -1,9 +1,21 @@
 import React, { FC } from "react";
-import { Box, SimpleGrid } from "@chakra-ui/react";
-import { PageHeader } from "@/modules/common";
+import {
+  Box,
+  Button,
+  Divider,
+  GridItem,
+  Image,
+  SimpleGrid,
+  Text,
+} from "@chakra-ui/react";
+import { PageHeader, SparklesIcon } from "@/modules/common";
 import { ITemplate } from "@/lib/schema/types";
 import AppTemplateItem from "./AppTemplateItem";
 import FlexUploadCard from "./FlexUploadCard";
+import Header from "./Header";
+import Link from "next/link";
+import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
+import { ChevronRightIcon } from "@chakra-ui/icons";
 
 /**
  * Display all predefined templates
@@ -18,28 +30,68 @@ const FlexBuilderPage: FC<FlexBuilderPageProps> = ({ templateList }) => {
   return (
     <Box>
       <PageHeader
-        title="Flex Builder Starter Templates"
-        desc="You can custom build a variety of combinations with our Flex Builder, but we offer the following pre-configured starter templates to make things easier. Quickly setup NFT collectibles, DeFi instruments,
-        generic ADOs and more in just a click of a button!"
+        title="Get Started"
+        desc="Start from scratch to publish NFT collectibles, DeFi instruments and generic ADOs from starter templates!"
+      />
+      <Box my="6">
+        <Header />
+      </Box>
+      <PageHeader
+        title="Use our templates"
+        desc="Start from scratch to publish NFT collectibles, DeFi instruments and generic ADOs from starter templates!"
       />
       <SimpleGrid
         gridAutoRows="1fr"
         columns={{ sm: 1, md: 2, lg: 3 }}
-        spacing="4"
+        spacing="6"
         my={8}
       >
         {/* Render First template in templateList */}
         {templateList.slice(0, 1).map((template) => (
-          <AppTemplateItem key={template.id} template={template} />
+          <GridItem key={template.id}>
+            <AppTemplateItem template={template} />
+          </GridItem>
         ))}
 
         {/* Flex upload template card */}
-        <FlexUploadCard />
+        <GridItem>
+          <FlexUploadCard />
+        </GridItem>
 
         {/* All other predifined templates from templateList */}
         {templateList.slice(1).map((template) => (
-          <AppTemplateItem key={template.id} template={template} />
+          <GridItem key={template.id}>
+            <AppTemplateItem template={template} />
+          </GridItem>
         ))}
+      </SimpleGrid>
+      <Divider color="dark.300" my="6" />
+
+      <SimpleGrid columns={3} gap="6" gridAutoRows="1fr">
+        <GridItem>
+          <Box bg="dark.50" rounded="xl" p="6">
+            <SparklesIcon boxSize="12" color="primary.500" />
+            <Text fontWeight="bold" fontSize="3xl" mt="4" lineHeight="2rem">
+              More on App Store
+            </Text>
+            <Text color="dark.500" mt="6" fontSize="sm">
+              Build with ready-made apps and templates by Andromeda and the
+              community.
+            </Text>
+            <Link href={SITE_LINKS.appStore()} passHref>
+              <Button
+                as="a"
+                mt={10}
+                w="full"
+                size="lg"
+                colorScheme="primary"
+                rightIcon={<ChevronRightIcon boxSize={5} />}
+              >
+                App Store
+              </Button>
+            </Link>
+          </Box>
+        </GridItem>
       </SimpleGrid>
     </Box>
   );

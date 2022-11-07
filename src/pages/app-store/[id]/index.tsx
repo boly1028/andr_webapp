@@ -1,18 +1,17 @@
 import APP_TEMPLATES from "@/lib/schema/templates";
+import { ITemplate } from "@/lib/schema/types";
 import { AppStoreItemPage } from "@/modules/app-store";
-import { APP_STORE_TEMPLATES } from "@/modules/app-store/constants";
-import { IAppItem } from "@/modules/app-store/types";
 import { Layout } from "@/modules/common";
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 
 interface Props {
-  app: IAppItem;
+  template: ITemplate;
 }
 
-const Page: NextPage<Props> = ({ app }) => {
+const Page: NextPage<Props> = ({ template }) => {
   return (
     <Layout>
-      <AppStoreItemPage app={app} />
+      <AppStoreItemPage template={template} />
     </Layout>
   );
 };
@@ -27,15 +26,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<Props> = async (ctx) => {
   const { params } = ctx;
   const id = params?.id as string;
-  const appTemplate = APP_STORE_TEMPLATES.find((t) => t.id === id);
+  const appTemplate = APP_TEMPLATES.find((t) => t.id === id);
   if (appTemplate) {
-    const data = APP_TEMPLATES.find((t) => t.id === appTemplate.templateId);
-    if (data) {
-      return {
-        props: { app: { ...data, ...appTemplate } },
-        revalidate: 300,
-      };
-    }
+    return {
+      props: { template: appTemplate },
+      revalidate: 300,
+    };
   }
   return {
     notFound: true,

@@ -1,6 +1,6 @@
 import APP_TEMPLATES from "../templates";
 import { ITemplate } from "../templates/types";
-import { IAndromedaSchema, IAndromedaSchemaJSON } from "../types";
+import { IAndromedaSchema, IAndromedaSchemaJSON, IImportantAdoKeys } from "../types";
 import { processTemplate } from "./template";
 
 
@@ -80,11 +80,11 @@ export const getProxyTemplate = async (path: string) => {
         icon: "",
         opts: [],
         ados: [
-            { path: "proxy-message", id: "proxy-message", required: true },
+            { path: IImportantAdoKeys.PROXY_MESSAGE, id: IImportantAdoKeys.PROXY_MESSAGE, required: true },
             { path: path, id: path.split('/').pop() ?? "Execute", required: true },
         ],
         modules: [
-            { 'path': 'fund' }
+            { 'path': IImportantAdoKeys.FUND }
         ]
     };
 
@@ -105,7 +105,7 @@ export const getADOExecuteTemplate = async (path: string) => {
             { path: path, id: path.split('/').pop() ?? "Execute", required: true },
         ],
         modules: [
-            { 'path': 'fund' }
+            { 'path': IImportantAdoKeys.FUND }
         ]
     };
 

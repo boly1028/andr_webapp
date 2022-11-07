@@ -1,13 +1,13 @@
 import React, { FC } from "react";
-import { Button, Input } from "@/theme/ui-elements";
-import { DownloadIcon } from "@/modules/common";
+import { Button, HStack, Input } from "@/theme/ui-elements";
+import { BackdropCard, DownloadIcon } from "@/modules/common";
 import { parseJsonFromFile } from "@/lib/json";
 import { JSONSchema7 } from "json-schema";
 import { useRouter } from "next/router";
 import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
 import { toast } from "react-toastify";
-import TemplateCard from "./TemplateCard";
 import { UPLOAD_TEMPLATE } from "@/lib/schema/templates/upload";
+import { Box, Image, Link, Text } from "@chakra-ui/react";
 
 /**
  * A Static template card component to display in flex-builder store (with other dynamic templates)
@@ -45,37 +45,87 @@ const FlexUploadCard: FC<FlexUploadCardProps> = (props) => {
   };
 
   return (
-    <TemplateCard template={template}>
-      <Button
-        as="label"
-        htmlFor="templateInput"
-        mt={10}
-        w='full'
-        size="lg"
-        colorScheme="primary"
-        leftIcon={!template.disabled ? <DownloadIcon boxSize={5} /> : undefined}
-        isDisabled={template.disabled}
-        cursor="pointer"
+    <Box
+      as="label"
+      htmlFor="templateInput"
+      h="full"
+      rounded="lg"
+      overflow="hidden"
+      // _hover={{ scale: "105%", borderWidth: "1px" }}
+      borderColor="dark.300"
+      cursor="pointer"
+      transform="auto"
+      transition="all"
+      transitionDuration="150ms"
+      transitionTimingFunction="ease-out"
+    >
+      <BackdropCard
+        logoComponent={<Image w="50%" mb="20%" src={template.icon} />}
       >
-        {template.disabled ? "Coming Soon" : "Import Template"}
-      </Button>
-      <Input
-        onChange={(e) => {
-          const file = e.target.files?.item(0);
-          if (file) {
-            handleFileInput(file);
-          }
-        }}
-        multiple={false}
-        type="file"
-        id="templateInput"
-        // Only Allow flex file
-        accept=".flex"
-        srOnly
-      />
-    </TemplateCard>
+        <Box px="2" h="full">
+          <HStack>
+            <Image src="/verified.png" w="4" />
+            <Text fontSize="sm" fontWeight="medium">
+              Andromeda
+            </Text>
+          </HStack>
+          <Text
+            textOverflow="ellipsis"
+            w="80%"
+            whiteSpace="nowrap"
+            overflow="hidden"
+            fontSize="xl"
+            fontWeight="bold"
+            mt="2"
+          >
+            {template.name}
+          </Text>
+          <Text
+            textOverflow="ellipsis"
+            w="full"
+            whiteSpace="nowrap"
+            overflow="hidden"
+            mt="1"
+            mb="3"
+            fontSize="sm"
+            fontWeight="light"
+            color="dark.500"
+          >
+            {template.description}
+          </Text>
+          <HStack mt="auto" justifyContent="end">
+            {/* <Button
+              as="label"
+              htmlFor="templateInput"
+              w="full"
+              colorScheme="primary"
+              leftIcon={
+                !template.disabled ? <DownloadIcon boxSize={5} /> : undefined
+              }
+              isDisabled={template.disabled}
+              cursor="pointer"
+            >
+              {template.disabled ? "Coming Soon" : "Import Template"}
+            </Button> */}
+            <Input
+              onChange={(e) => {
+                const file = e.target.files?.item(0);
+                if (file) {
+                  handleFileInput(file);
+                }
+              }}
+              multiple={false}
+              type="file"
+              id="templateInput"
+              // Only Allow flex file
+              accept=".flex"
+              srOnly
+            />
+          </HStack>
+        </Box>
+      </BackdropCard>
+    </Box>
   );
 };
-
 
 export default FlexUploadCard;

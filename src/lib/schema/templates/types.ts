@@ -2,7 +2,7 @@ import { IAdoType, IAndromedaFormData, IAndromedaSchema, IAndromedaSchemaJSON, I
 
 export interface ITemplate {
     id: string;
-    adoType: IAdoType | 'app';
+    adoType: IAdoType;
     name: string;
     icon: string;
     description: string;
@@ -13,6 +13,9 @@ export interface ITemplate {
     schema?: ITemplateSchema;
     uiSchema?: ITemplateUiSchema;
     formData?: ITemplateFormData;
+    installed?: boolean;
+    starter?: boolean;
+    system?: boolean;
 }
 
 export interface ITemplateUiSchema {

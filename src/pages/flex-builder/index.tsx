@@ -19,7 +19,7 @@ const FlexBuilderIndexPage: NextPage<Props> = ({ templateList }) => (
 export const getStaticProps: GetStaticProps<Props> = async () => {
   return {
     props: {
-      templateList: APP_TEMPLATES,
+      templateList: APP_TEMPLATES.filter((t) => t.starter),
     },
     revalidate: 300,
   };

@@ -5,8 +5,15 @@ import allSchema from './schema/classifier.json';
 
 export type { ITemplate } from './templates/types'
 
-export type IAdoType = keyof typeof allSchema | 'publish-settings' | 'proxy-message' | 'fund';
+export const IImportantAdoKeys = {
+    BLANK_CANVAS: 'app',
+    PUBLISH_SETTINGS: 'publish-settings',
+    PROXY_MESSAGE: 'proxy-message',
+    FUND: 'fund',
+    APP: 'app'
+} as const;
 
+export type IAdoType = keyof typeof allSchema | typeof IImportantAdoKeys.PUBLISH_SETTINGS | typeof IImportantAdoKeys.PROXY_MESSAGE | typeof IImportantAdoKeys.FUND | typeof IImportantAdoKeys.APP;
 export interface IAndromedaSchemaJSON {
     'schema': IAndromedaSchema;
     'ui-schema': IAndromedaUISchema;

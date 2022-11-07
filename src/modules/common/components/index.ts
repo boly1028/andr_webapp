@@ -14,5 +14,6 @@ export { default as Coin } from "./Coin";
 export { default as ProgressBar } from "./ProgressBar";
 export { default as FallbackPlaceholder } from './FallbackPlaceholder'
 export { default as CopyButton } from "./CopyButton";
+export { default as BackdropCard } from "./BackdropCard";
 
 export * from "./icons";

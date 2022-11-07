@@ -1,4 +1,5 @@
 import { ITemplateFormData } from "@/lib/schema/templates/types";
+import { IImportantAdoKeys } from "@/lib/schema/types";
 import { coin as createCoin, Coin, addCoins, coins } from "@cosmjs/amino";
 import { useCallback } from "react";
 import { constructMsg } from "../utils";
@@ -10,7 +11,7 @@ export default function useGetFunds() {
     let funds: Coin[] = [];
 
     Object.entries(data).forEach(([id, panel]) => {
-      if (panel.$type !== "fund") return;
+      if (panel.$type !== IImportantAdoKeys.FUND) return;
       // If panel is disabled, skip it
       if (panel.$enabled === false) return;
 

@@ -1,3 +1,4 @@
+import APP_TEMPLATES from "@/lib/schema/templates";
 import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
 import { ChevronRightIcon } from "@chakra-ui/icons";
 import {
@@ -6,14 +7,13 @@ import {
   Divider,
   GridItem,
   Image,
-  LinkBox,
   SimpleGrid,
   Text,
 } from "@chakra-ui/react";
 import Link from "next/link";
 import React, { FC } from "react";
-import { APP_STORE_TEMPLATES } from "../constants";
 import Header from "./Header";
+import TemplateCard from "./TemplateCard";
 
 interface AppStorePageProps {}
 const AppStorePage: FC<AppStorePageProps> = (props) => {
@@ -23,25 +23,9 @@ const AppStorePage: FC<AppStorePageProps> = (props) => {
     <Box pb="10">
       <Header />
       <SimpleGrid gridAutoRows="1fr" columns={3} mt="10" gap="6">
-        {APP_STORE_TEMPLATES.map((template, idx) => (
+        {APP_TEMPLATES.filter((t) => !t.system).map((template, idx) => (
           <GridItem key={idx}>
-            <Link href={SITE_LINKS.appStoreItem(template.id)}>
-              <Box
-                cursor="pointer"
-                _hover={{
-                  scale: "105%",
-                  borderWidth: "1px",
-                }}
-                borderColor="dark.500"
-                rounded="xl"
-                transition="all"
-                transitionDuration="500ms"
-                transitionTimingFunction="ease-out"
-                transform="auto"
-              >
-                <Image src={template.src} w="full" />
-              </Box>
-            </Link>
+            <TemplateCard template={template} />
           </GridItem>
         ))}
       </SimpleGrid>

@@ -1,45 +1,47 @@
 import { useGetSchemaJson } from "@/lib/schema/hooks";
+import { ITemplate } from "@/lib/schema/types";
 import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
 import ClassifierIcon from "@/theme/icons/classifiers";
 import { ExternalLink } from "@/theme/ui-elements";
 import {
+  Badge,
   Box,
   Button,
   Divider,
   Flex,
+  GridItem,
   HStack,
   Image,
+  SimpleGrid,
   Text,
   VStack,
 } from "@chakra-ui/react";
 import Link from "next/link";
-import React, { FC } from "react";
-import { IAppItem } from "../../types";
+import React, { FC, ReactNode } from "react";
 
 interface AppStoreItemPageProps {
-  app: IAppItem;
+  template: ITemplate;
 }
 const AppStoreItemPage: FC<AppStoreItemPageProps> = (props) => {
-  const { app } = props;
+  const { template } = props;
 
   return (
     <Box py="6">
       <Flex direction="row" gap="10" alignItems="start">
         <Flex direction="column" w="full" gap="6">
           <HStack spacing={4}>
-            {/* <Image src="/app-store/templates/icon.png" w="12" /> */}
-            <Image src={"/app-store/templates/" + app.templateId + "-icon.png"} w="12" />
+            <Image src={template.icon} w="12" />
             <Text fontWeight="bold" fontSize="2xl">
-              {app.name}
+              {template.name}
             </Text>
           </HStack>
           <Text fontWeight="light" fontSize="sm" color="dark.500">
-            {app.description}
+            {template.description}
           </Text>
 
           <Box maxW="xs">
-            {app.installed ? (
-              <Link href={SITE_LINKS.flexBuilder(app.templateId)} passHref>
+            {template.installed ? (
+              <Link href={SITE_LINKS.flexBuilder(template.id)} passHref>
                 <Button as="a" w="full" size="lg" colorScheme="primary">
                   Run
                 </Button>
@@ -63,9 +65,69 @@ const AppStoreItemPage: FC<AppStoreItemPageProps> = (props) => {
           gap="6"
           direction="column"
         >
-          <Image src="/app-store/placeholder-creator.png" w="full" />
-          <Image src="/app-store/placeholder-updatedAt.png" w="full" />
-          <Image src="/app-store/placeholder-category.png" w="full" />
+          <SimpleGrid columns={2} gap={6}>
+            <GridItem>
+              <InfoItem title="Creator">
+                <HStack>
+                  <Image src="/verified.png" w="5" />
+                  <Text fontWeight="medium">Andromeda</Text>
+                </HStack>
+              </InfoItem>
+            </GridItem>
+            <GridItem>
+              <InfoItem title="Version">
+                <Text>1.45</Text>
+              </InfoItem>
+            </GridItem>
+            <GridItem>
+              <InfoItem title="Published">
+                <Text>Sep 19, 2022</Text>
+              </InfoItem>
+            </GridItem>
+            <GridItem>
+              <InfoItem title="Latest update">
+                <Text>Sep 30, 2022</Text>
+              </InfoItem>
+            </GridItem>
+            <GridItem colSpan={2}>
+              <InfoItem title="Category">
+                <Flex gap="2" wrap="wrap">
+                  {CATEGORIES.map((cat) => (
+                    <Badge
+                      px="4"
+                      textTransform="capitalize"
+                      fontWeight="medium"
+                      fontSize="sm"
+                      py="2"
+                      rounded="full"
+                      key={cat}
+                    >
+                      {cat}
+                    </Badge>
+                  ))}
+                </Flex>
+              </InfoItem>
+            </GridItem>
+            <GridItem colSpan={2}>
+              <InfoItem title="Use Case">
+                <Flex gap="2" wrap="wrap">
+                  {USE_CASES.map((cat) => (
+                    <Badge
+                      px="4"
+                      textTransform="capitalize"
+                      fontWeight="medium"
+                      fontSize="sm"
+                      py="2"
+                      rounded="full"
+                      key={cat}
+                    >
+                      {cat}
+                    </Badge>
+                  ))}
+                </Flex>
+              </InfoItem>
+            </GridItem>
+          </SimpleGrid>
           <Box>
             <Text color="dark.500">Documentation</Text>
             {/* <ExternalLink
@@ -80,7 +142,7 @@ const AppStoreItemPage: FC<AppStoreItemPageProps> = (props) => {
           <Divider color="dark.300" />
           <Text color="base.white">Components used in this app</Text>
           <VStack alignItems="start" spacing={4}>
-            {app.ados.map((ado) => (
+            {template.ados.map((ado) => (
               <AdoItem key={ado.id} path={ado.path} />
             ))}
           </VStack>
@@ -89,6 +151,26 @@ const AppStoreItemPage: FC<AppStoreItemPageProps> = (props) => {
     </Box>
   );
 };
+
+interface InfoItemProps {
+  title: string;
+  children?: ReactNode;
+}
+const InfoItem: FC<InfoItemProps> = (props) => {
+  const { title, children } = props;
+
+  return (
+    <VStack spacing={1} alignItems="start" fontSize="md">
+      <Text color="dark.500" fontWeight="light">
+        {title}
+      </Text>
+      <Box fontWeight="medium">{children}</Box>
+    </VStack>
+  );
+};
+
+const CATEGORIES = ["DeFi", "Operations"];
+const USE_CASES = ["Launchpad", "Fundraising", "Charity"];
 
 interface AdoItemProps {
   path: string;
