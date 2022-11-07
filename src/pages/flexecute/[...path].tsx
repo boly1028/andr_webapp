@@ -9,6 +9,7 @@ import { useExecuteModal } from "@/modules/modals/hooks";
 import { getADOExecuteTemplate } from "@/lib/schema/utils";
 import useConstructADOExecuteMsg from "@/modules/sdk/hooks/useConstructaADOExecuteMsg";
 import { useGetFunds } from "@/modules/sdk/hooks";
+import { useWallet } from "@/lib/wallet";
 
 type Props = {
   template: ITemplate;
@@ -20,6 +21,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
   const construct = useConstructADOExecuteMsg();
   const getFunds = useGetFunds();
   const openModal = useExecuteModal(contract);
+  const account = useWallet();
 
   const handleSubmit = async (
     {
@@ -88,6 +90,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
           template={template}
           onSubmit={handleSubmit}
           onEstimate={(data: any) => handleSubmit(data, true)}
+          notReady={!account}
         />
       </Box>
     </Layout>
