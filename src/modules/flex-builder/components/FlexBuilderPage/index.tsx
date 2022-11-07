@@ -71,10 +71,10 @@ const FlexBuilderPage: FC<FlexBuilderPageProps> = ({ templateList }) => {
         <GridItem>
           <Box bg="dark.50" rounded="xl" p="6">
             <SparklesIcon boxSize="12" color="primary.500" />
-            <Text fontWeight="bold" fontSize="3xl" mt="4" lineHeight='2rem'>
-              More on Appstore
+            <Text fontWeight="bold" fontSize="3xl" mt="4" lineHeight="2rem">
+              More on App Store
             </Text>
-            <Text color="dark.500" mt="6" fontSize='sm'>
+            <Text color="dark.500" mt="6" fontSize="sm">
               Build with ready-made apps and templates by Andromeda and the
               community.
             </Text>
@@ -87,7 +87,7 @@ const FlexBuilderPage: FC<FlexBuilderPageProps> = ({ templateList }) => {
                 colorScheme="primary"
                 rightIcon={<ChevronRightIcon boxSize={5} />}
               >
-                Appstore
+                App Store
               </Button>
             </Link>
           </Box>
