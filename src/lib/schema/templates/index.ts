@@ -1,6 +1,7 @@
 import baseAdo from '../schema/baseADO.json'
 import modules from '../schema/module.json'
 import primitive from '../schema/primitive.json'
+import { IImportantAdoKeys } from '../types';
 import { ITemplate } from './types';
 
 const APP_TEMPLATES: ITemplate[] = [
@@ -18,7 +19,7 @@ const APP_TEMPLATES: ITemplate[] = [
             "Publish and use!",
         ],
         ados: [
-            { path: "publish-settings", id: "publish-settings", required: true },
+            { path: IImportantAdoKeys.PUBLISH_SETTINGS, id: IImportantAdoKeys.PUBLISH_SETTINGS, required: true },
         ],
 
         modules: [
@@ -41,7 +42,7 @@ const APP_TEMPLATES: ITemplate[] = [
             "Rates"
         ],
         ados: [
-            { path: "publish-settings", id: "publish-settings", required: true },
+            { path: IImportantAdoKeys.PUBLISH_SETTINGS, id: IImportantAdoKeys.PUBLISH_SETTINGS, required: true },
             { path: "cw721/0.1.0/cw721", id: "tokens", required: true },
             { path: "crowdfund/0.1.0/crowdfund", id: "crowdfund", required: true },
             { path: "vault/0.1.0/vault", id: "vault", required: true },
@@ -62,7 +63,7 @@ const APP_TEMPLATES: ITemplate[] = [
             "Rates"
         ],
         ados: [
-            { path: "publish-settings", id: "publish-settings", required: true },
+            { path: IImportantAdoKeys.PUBLISH_SETTINGS, id: IImportantAdoKeys.PUBLISH_SETTINGS, required: true },
             { path: "cw721/0.1.0/cw721", id: "tokens", required: true },
             { path: "auction/0.1.0/auction", id: "auction", required: true },
             { path: "rates/0.1.0/rates", id: "rates", required: true },
@@ -82,7 +83,7 @@ const APP_TEMPLATES: ITemplate[] = [
             "Rates"
         ],
         ados: [
-            { path: "publish-settings", id: "publish-settings", required: true },
+            { path: IImportantAdoKeys.PUBLISH_SETTINGS, id: IImportantAdoKeys.PUBLISH_SETTINGS, required: true },
             { path: "cw721/0.1.0/cw721", id: "tokens", required: true },
             { path: "marketplace/0.1.0/marketplace", id: "marketplace", required: true },
             { path: "rates/0.1.0/rates", id: "rates", required: true },
@@ -102,7 +103,7 @@ const APP_TEMPLATES: ITemplate[] = [
             "CW20 Staking",
         ],
         ados: [
-            { path: "publish-settings", id: "publish-settings", required: true },
+            { path: IImportantAdoKeys.PUBLISH_SETTINGS, id: IImportantAdoKeys.PUBLISH_SETTINGS, required: true },
             { path: "cw20/0.1.0/cw20", id: "tokens", required: true },
             { path: "cw20-staking/0.1.0/cw20-staking", id: "staking", required: true },
         ],

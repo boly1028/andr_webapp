@@ -4,17 +4,20 @@ import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
 import ClassifierIcon from "@/theme/icons/classifiers";
 import { ExternalLink } from "@/theme/ui-elements";
 import {
+  Badge,
   Box,
   Button,
   Divider,
   Flex,
+  GridItem,
   HStack,
   Image,
+  SimpleGrid,
   Text,
   VStack,
 } from "@chakra-ui/react";
 import Link from "next/link";
-import React, { FC } from "react";
+import React, { FC, ReactNode } from "react";
 
 interface AppStoreItemPageProps {
   template: ITemplate;
@@ -62,9 +65,69 @@ const AppStoreItemPage: FC<AppStoreItemPageProps> = (props) => {
           gap="6"
           direction="column"
         >
-          <Image src="/app-store/placeholder-creator.png" w="full" />
-          <Image src="/app-store/placeholder-updatedAt.png" w="full" />
-          <Image src="/app-store/placeholder-category.png" w="full" />
+          <SimpleGrid columns={2} gap={6}>
+            <GridItem>
+              <InfoItem title="Creator">
+                <HStack>
+                  <Image src="/verified.png" w="5" />
+                  <Text fontWeight="medium">Andromeda</Text>
+                </HStack>
+              </InfoItem>
+            </GridItem>
+            <GridItem>
+              <InfoItem title="Version">
+                <Text>1.45</Text>
+              </InfoItem>
+            </GridItem>
+            <GridItem>
+              <InfoItem title="Published">
+                <Text>Sep 19, 2022</Text>
+              </InfoItem>
+            </GridItem>
+            <GridItem>
+              <InfoItem title="Latest update">
+                <Text>Sep 30, 2022</Text>
+              </InfoItem>
+            </GridItem>
+            <GridItem colSpan={2}>
+              <InfoItem title="Category">
+                <Flex gap="2" wrap="wrap">
+                  {CATEGORIES.map((cat) => (
+                    <Badge
+                      px="4"
+                      textTransform="capitalize"
+                      fontWeight="medium"
+                      fontSize="sm"
+                      py="2"
+                      rounded="full"
+                      key={cat}
+                    >
+                      {cat}
+                    </Badge>
+                  ))}
+                </Flex>
+              </InfoItem>
+            </GridItem>
+            <GridItem colSpan={2}>
+              <InfoItem title="Use Case">
+                <Flex gap="2" wrap="wrap">
+                  {USE_CASES.map((cat) => (
+                    <Badge
+                      px="4"
+                      textTransform="capitalize"
+                      fontWeight="medium"
+                      fontSize="sm"
+                      py="2"
+                      rounded="full"
+                      key={cat}
+                    >
+                      {cat}
+                    </Badge>
+                  ))}
+                </Flex>
+              </InfoItem>
+            </GridItem>
+          </SimpleGrid>
           <Box>
             <Text color="dark.500">Documentation</Text>
             {/* <ExternalLink
@@ -88,6 +151,26 @@ const AppStoreItemPage: FC<AppStoreItemPageProps> = (props) => {
     </Box>
   );
 };
+
+interface InfoItemProps {
+  title: string;
+  children?: ReactNode;
+}
+const InfoItem: FC<InfoItemProps> = (props) => {
+  const { title, children } = props;
+
+  return (
+    <VStack spacing={1} alignItems="start" fontSize="md">
+      <Text color="dark.500" fontWeight="light">
+        {title}
+      </Text>
+      <Box fontWeight="medium">{children}</Box>
+    </VStack>
+  );
+};
+
+const CATEGORIES = ["DeFi", "Operations"];
+const USE_CASES = ["Launchpad", "Fundraising", "Charity"];
 
 interface AdoItemProps {
   path: string;

@@ -6,7 +6,7 @@ import { FileCheckIcon, Layout, PageHeader } from "@/modules/common";
 import { useRouter } from "next/router";
 import { useMemo } from "react";
 import { cloneDeep } from "lodash";
-import { IAdoType, ITemplate } from "@/lib/schema/types";
+import { IAdoType, IImportantAdoKeys, ITemplate } from "@/lib/schema/types";
 import { getProxyTemplate } from "@/lib/schema/utils";
 import { useExecuteModal } from "@/modules/modals/hooks";
 import useConstructProxyMsg from "@/modules/sdk/hooks/useConstructProxyMsg";
@@ -28,8 +28,8 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
     const newTemplate = cloneDeep(template);
     newTemplate.name = name;
     const formData = newTemplate.formData ?? {};
-    formData["proxy-message"] = {
-      ...(formData["proxy-message"] ?? {}),
+    formData[IImportantAdoKeys.PROXY_MESSAGE] = {
+      ...(formData[IImportantAdoKeys.PROXY_MESSAGE] ?? {}),
       parent: contract,
       component_name: name,
     };

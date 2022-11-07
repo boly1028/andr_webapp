@@ -1,4 +1,5 @@
 import { ITemplateFormData } from "@/lib/schema/templates/types";
+import { IImportantAdoKeys } from "@/lib/schema/types";
 import { useCallback } from "react";
 import { IProxyMessage } from "../types";
 import { constructMsg } from "../utils";
@@ -14,7 +15,7 @@ export default function useConstructProxyMsg() {
       console.clear();
 
       // Our system ado to store panel data
-      const proxyPanel = data['proxy-message'];
+      const proxyPanel = data[IImportantAdoKeys.PROXY_MESSAGE];
       if (!proxyPanel || !proxyPanel['component_name']) throw new Error("Incorrect publish settings fields");
 
       // Our proxy app contract
@@ -48,7 +49,7 @@ export default function useConstructProxyMsg() {
           filteredMsg[executeId] = msg;
         })
       })
-      
+
       console.log(`Unencoded data`, filteredMsg);
       // Encode filterd msg for proxy
       const base64Encoded = btoa(JSON.stringify(filteredMsg));

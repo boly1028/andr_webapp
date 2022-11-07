@@ -4,7 +4,7 @@ import { Box, Button, HStack, Image, Text } from "@chakra-ui/react";
 import { BackdropCard, ChevronRightIcon } from "@/modules/common";
 import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
 import TemplateCard from "./TemplateCard";
-import { ITemplate } from "@/lib/schema/types";
+import { IImportantAdoKeys, ITemplate } from "@/lib/schema/types";
 import Link from "next/link";
 
 /**
@@ -65,13 +65,11 @@ const AppTemplateItem: FC<AppTemplateListItemProps> = ({ template }) => {
               {template.description}
             </Text>
             <HStack justifyContent="end" mt="auto">
-              <Link href={SITE_LINKS.appStoreItem(template.id)} passHref>
-                <Button
-                  as="a"
-                >
-                  Read More
-                </Button>
-              </Link>
+              {template.id !== IImportantAdoKeys.BLANK_CANVAS && (
+                <Link href={SITE_LINKS.appStoreItem(template.id)} passHref>
+                  <Button as="a">Read More</Button>
+                </Link>
+              )}
             </HStack>
           </Box>
         </BackdropCard>

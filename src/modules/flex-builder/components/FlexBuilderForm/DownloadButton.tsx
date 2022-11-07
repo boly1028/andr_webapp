@@ -8,6 +8,7 @@ import {
   ITemplateSchema,
   ITemplateUiSchema,
 } from "@/lib/schema/templates/types";
+import { IImportantAdoKeys } from "@/lib/schema/types";
 
 /**
  * Download flex component
@@ -43,7 +44,7 @@ function DownloadButton({ schema, uiSchema, formData }: DownloadFlexProps) {
     const url = URL.createObjectURL(flexBlob);
 
     // Create a name from app name
-    const appName = formData["publish-settings"]?.name || "app";
+    const appName = formData[IImportantAdoKeys.PUBLISH_SETTINGS]?.name || "app";
     downloadURI(url, `template_${appName}.flex`);
 
     // Revoke created url to free up space
