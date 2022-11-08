@@ -1,1 +1,95 @@
-{"schema":{"$schema":"http://json-schema.org/draft-07/schema#","title":"Marketplace","type":"object","properties":{"modules":{"type":["array","null"],"items":{"description":"A struct describing a token module, provided with the instantiation message this struct is used to record the info about the module and how/if it should be instantiated","type":"object","required":["address","is_mutable","module_type"],"properties":{"address":{"type":"object","required":["identifier"],"properties":{"identifier":{"description":"Can be either an address or identifier of an ADO in a app.","type":"string"}}},"is_mutable":{"type":"boolean"},"module_type":{"type":"string"}}},"title":"modules"}},"$id":"marketplace","classifier":"","class":"baseADO","version":"0.1.0"},"ui-schema":{},"form-data":{}}
+{
+    "schema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "Marketplace",
+        "description": "The Marketplace is an ADO that allows you to sell your NFTs in a marketplace.",
+        "type": "object",
+        "properties": {
+            "modules": {
+                "type": [
+                    "array",
+                    "null"
+                ],
+                "items": {
+                    "description": "A struct describing a token module, provided with the instantiation message this struct is used to record the info about the module and how/if it should be instantiated",
+                    "type": "object",
+                    "required": [
+                        "address",
+                        "is_mutable",
+                        "module_type"
+                    ],
+                    "properties": {
+                        "address": {
+                            "type": "object",
+                            "required": [
+                                "identifier"
+                            ],
+                            "properties": {
+                                "identifier": {
+                                    "description": "Can be either an address or identifier of an ADO in a app.",
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "is_mutable": {
+                            "type": "boolean"
+                        },
+                        "module_type": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "title": "modules"
+            }
+        },
+        "$id": "marketplace",
+        "classifier": "",
+        "class": "baseADO",
+        "version": "0.1.0"
+    },
+    "ui-schema": {
+        "modules": {
+            "ui:options": {
+                "title": "Modules",
+                "description": "An optional vector of Andromeda Modules. \"rates\", \"address_list\", \"receipt\" modules can be added.",
+                "info": "Each sale is assigned an Id which starts at 1 and increments for each new sale.",
+                "infoType": "info"
+            },
+            "items": {
+                "ui:options": {
+                    "title": "Module"
+                },
+                "ui:order": [
+                    "*",
+                    "is_mutable"
+                ],
+                "address": {
+                    "ui:options": {
+                        "title": "Add Module",
+                        "description": "",
+                        "info": "Allowed modules: \"rates\", \"address_list\", \"receipt\"",
+                        "infoType": "error"
+                    },
+                    "identifier": {
+                        "ui:options": {
+                            "title": "Identifier"
+                        }
+                    }
+                },
+                "module_type": {
+                    "ui:options": {
+                        "title": "Module Type",
+                        "description": "The name of the module to add. Can be set one of the following: \"rates\", \"address_list\", \"receipt\"."
+                    }
+                },
+                "is_mutable": {
+                    "ui:options": {
+                        "title": "Is Module Able to be Modified?",
+                        "description": "Whether the module can be later modified or not."
+                    }
+                }
+            }
+        }
+    },
+    "form-data": {}
+}

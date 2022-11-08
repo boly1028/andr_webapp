@@ -169,7 +169,10 @@
                 ],
                 "address": {
                     "ui:options": {
-                        "title": "Address"
+                        "title": "Add Module",
+                        "description": "",
+                        "info": "Allowed modules: \"address_list\"",
+                        "infoType": "error"
                     },
                     "identifier": {
                         "ui:options": {
@@ -180,12 +183,12 @@
                 "module_type": {
                     "ui:options": {
                         "title": "Module Type",
-                        "description": "The name of the module to add. Can be set one of the following: \"rates\", \"offers\", \"address-list\", \"receipt\"."
+                        "description": "The name of the module to add. Can be set one of the following: \"address_list\"."
                     }
                 },
                 "is_mutable": {
                     "ui:options": {
-                        "title": "Is Mutable?",
+                        "title": "Is Module Able to be Modified?",
                         "description": "Whether the module can be later modified or not."
                     }
                 }
