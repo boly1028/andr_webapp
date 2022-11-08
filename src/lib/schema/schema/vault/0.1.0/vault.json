@@ -1,1 +1,14 @@
-{"schema":{"$schema":"http://json-schema.org/draft-07/schema#","title":"Vault","type":"object","$id":"vault","classifier":"vault","class":"baseADO","version":"0.1.0"},"ui-schema":{},"form-data":{}}
+{
+    "schema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "Vault",
+        "description": "Provide funds for an app with multiple yield strategies",
+        "type": "object",
+        "$id": "vault",
+        "classifier": "vault",
+        "class": "baseADO",
+        "version": "0.1.0"
+    },
+    "ui-schema": {},
+    "form-data": {}
+}
