@@ -198,16 +198,17 @@
             "ui:options": {
                 "title": "Recipients",
                 "description": "The recipient list of the splitter. Can be updated after instantiation.",
-                "info": "A maximum of <b>100</b> recipients can be set.",
+                "info": "To be a valid recipient list the array of AddressPercent structs must meet the following requirements:<ul><li>Be non-empty</li><li>Have percentage amounts less than or equaling 1</li><li>A maximum of <b>100</b> recipients can be set.</li></ul>",
                 "infoType": "warning"
             },
             "items": {
                 "ui:options": {
-                    "title": "Recipient"
+                    "title": "Distribution Percentage"
                 },
                 "percent": {
                     "ui:options": {
-                        "title": "Percent"
+                        "title": "Percentage",
+                        "description": " "
                     }
                 },
                 "recipient": {

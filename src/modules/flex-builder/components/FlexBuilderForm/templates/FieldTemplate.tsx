@@ -123,6 +123,7 @@ const FieldTemplate = (props: FieldTemplateProps) => {
         >
           <AlertIcon />
           <AlertDescription
+            listStylePos='inside'
             dangerouslySetInnerHTML={{
               __html: `${uiOptions.info}`,
             }}
