@@ -113,12 +113,13 @@ const FieldTemplate = (props: FieldTemplateProps) => {
       uiSchema={uiSchema}
       registry={registry}
     >
-      {uiOptions.info && (
+      {!hasWrapper && uiOptions.info && (
         <Alert
           status={uiOptions.infoType as any}
           variant="left-accent"
           rounded="lg"
           fontSize="sm"
+          mb="4"
         >
           <AlertIcon />
           <AlertDescription
@@ -129,7 +130,7 @@ const FieldTemplate = (props: FieldTemplateProps) => {
         </Alert>
       )}
       <FormControl
-        isRequired={required}
+        isRequired={hasWrapper ? false : required}
         isInvalid={rawErrors && rawErrors.length > 0}
         mt="1"
       >

@@ -1,8 +1,8 @@
 {
     "schema": {
         "$schema": "http://json-schema.org/draft-07/schema#",
-        "title": "Token",
-        "description": "Set a new Andromeda Token ADO.",
+        "title": "CW20",
+        "description": "The CW20 Token ADO is an ADO to create a token, The contract supports modules to extend it's functionality.",
         "type": "object",
         "required": [
             "decimals",
@@ -42,11 +42,13 @@
                 }
             },
             "marketing": {
-                "title": "Marketing Information",
+                "title": " ",
+                "description": "",
                 "anyOf": [
                     {
                         "type": "object",
-                        "title": "Logo",
+                        "title": "Marketing Information",
+                        "description": "Optional field to define the marketing information of the project.",
                         "properties": {
                             "description": {
                                 "type": [
@@ -57,14 +59,14 @@
                                 "description": "A longer description of the token and it's utility. Designed for tooltips or such."
                             },
                             "logo": {
-                                "title": "Token Logo",
+                                "title": " ",
                                 "anyOf": [
                                     {
-                                        "title": "Upload",
-                                        "description": "This is used for uploading logo data, or setting it in InstantiateData",
+                                        "title": "Token Logo",
+                                        "description": "A link to the logo, or a comment that there is an on-chain logo stored.",
                                         "oneOf": [
                                             {
-                                                "title": "Externally Hosted",
+                                                "title": "URL",
                                                 "description": "A reference to an externally hosted logo. Must be a valid HTTP or HTTPS URL.",
                                                 "type": "object",
                                                 "required": [
@@ -79,16 +81,16 @@
                                                 "additionalProperties": false
                                             },
                                             {
-                                                "title": "Stored on Chain",
-                                                "description": "Logo content stored on the blockchain. !Enforce maximum size of 5KB on all variants!",
+                                                "title": "Embedded",
+                                                "description": "Logo content stored on the blockchain.",
                                                 "type": "object",
                                                 "required": [
                                                     "embedded"
                                                 ],
                                                 "properties": {
                                                     "embedded": {
-                                                        "title": "Embedded",
-                                                        "description": "This is used to store the logo on the blockchain in an accepted format. Enforce maximum size of 5KB on all variants.",
+                                                        "title": " ",
+                                                        "description": " ",
                                                         "oneOf": [
                                                             {
                                                                 "title": "Logo as SVG",
@@ -129,7 +131,7 @@
                                     },
                                     {
                                         "type": "null",
-                                        "title": "None"
+                                        "title": "No Logo"
                                     }
                                 ]
                             },
@@ -153,32 +155,33 @@
                     },
                     {
                         "type": "null",
-                        "title": "None",
-                        "description": "No Logo Specified "
+                        "title": "No Marketing Information"
                     }
                 ]
             },
             "mint": {
-                "title": "Minter Assignment",
+                "title": " ",
                 "anyOf": [
                     {
-                        "title": "Minter",
+                        "title": "Minter and Cap",
+                        "description": "Optional field to define a minter for the token and an optional cap for the total supply of tokens that can be minted. If not defined, additional tokens cannot be minted.",
                         "type": "object",
                         "required": [
                             "minter"
                         ],
                         "properties": {
                             "cap": {
-                                "title": "Supply Cap",
-                                "description": "A hard cap on total supply that can be achieved by minting. !The cap refers to the total supply. If None, there is unlimited cap.",
+                                "title": " ",
+                                "description": " ",
                                 "anyOf": [
                                     {
                                         "type": "string",
-                                        "title": "Hard cap"
+                                        "title": "Minting Cap",
+                                        "description": "A hard cap on total supply that can be achieved by minting."
                                     },
                                     {
                                         "type": "null",
-                                        "title": "None"
+                                        "title": "Unlimited Cap"
                                     }
                                 ]
                             },
@@ -191,7 +194,7 @@
                     },
                     {
                         "type": "null",
-                        "title": "None"
+                        "title": "No minting information"
                     }
                 ]
             },
@@ -249,6 +252,163 @@
         "version": "0.1.0",
         "class": "baseADO"
     },
-    "ui-schema": {},
+    "ui-schema": {
+        "ui:order": [
+            "name",
+            "symbol",
+            "decimals",
+            "initial_balances",
+            "*"
+        ],
+        "name": {
+            "ui:options": {
+                "title": "Token Name",
+                "description": "The name of the token."
+            }
+        },
+        "symbol": {
+            "ui:options": {
+                "title": "Token Symbol",
+                "description": "The symbol of the token.",
+                "info": "The symbol can only consist of letters and has to be between 3 and 12 characters.",
+                "infoType": "error"
+            }
+        },
+        "decimals": {
+            "ui:options": {
+                "title": "Number of Decimals in Token",
+                "description": "The number of decimals for the token."
+            }
+        },
+        "initial_balances": {
+            "ui:options": {
+                "title": "Starting Balance",
+                "description": "A vector containing a list of addresses and the amount of coin to initialize each."
+            },
+            "items": {
+                "ui:options": {
+                    "title": "Balance",
+                    "description": "Contains an address and the amount of tokens for that address"
+                },
+                "address": {
+                    "ui:options": {
+                        "title": "Address",
+                        "description": "The address to recieve tokens."
+                    }
+                },
+                "amount": {
+                    "ui:options": {
+                        "title": "Amount",
+                        "description": "Amount of tokens"
+                    }
+                }
+            }
+        },
+        "marketing": {
+            "ui:order": [
+                "project",
+                "description",
+                "marketing",
+                "logo",
+                "*"
+            ],
+            "description": {
+                "ui:options": {
+                    "title": "Token Description",
+                    "description": "A longer description of the token and it's utility. Designed for tooltips or such."
+                }
+            },
+            "logo": {
+                "url": {
+                    "ui:options": {
+                        "title": "Logo URL",
+                        "help": "Must be a valid HTTP or HTTPS URL"
+                    }
+                },
+                "embedded": {
+                    "svg": {
+                        "ui:options": {
+                            "title": "SVG File to Store",
+                            "info": "Enforce maximum size of 5KB on all variants",
+                            "infoType": "warning"
+                        }
+                    },
+                    "png": {
+                        "ui:options": {
+                            "title": "PNG File to Store",
+                            "info": "Enforce maximum size of 5KB on all variants",
+                            "infoType": "warning"
+                        }
+                    }
+                }
+            },
+            "marketing": {
+                "ui:options": {
+                    "title": "Authorized Marketing Address",
+                    "description": "The address (if any) who can update this data structure."
+                }
+            },
+            "project": {
+                "ui:options": {
+                    "title": "Project URL",
+                    "description": "A URL pointing to the project behind this token."
+                }
+            }
+        },
+        "mint": {
+            "ui:order": [
+                "minter",
+                "cap",
+                "*"
+            ],
+            "cap": {},
+            "minter": {
+                "ui:options": {
+                    "title": "Minting Address",
+                    "description": "The address to assign as a minter."
+                }
+            }
+        },
+        "modules": {
+            "ui:options": {
+                "title": "Additional Modules",
+                "description": "An optional vector of Andromeda Modules. \"address_list\" module can be added."
+            },
+            "items": {
+                "ui:options": {
+                    "title": "Module"
+                },
+                "ui:order": [
+                    "*",
+                    "is_mutable"
+                ],
+                "address": {
+                    "ui:options": {
+                        "title": "Add Module",
+                        "description": "",
+                        "info": "Allowed modules: \"address_list\"",
+                        "infoType": "error"
+                    },
+                    "identifier": {
+                        "ui:options": {
+                            "title": "Identifier"
+                        }
+                    }
+                },
+                "module_type": {
+                    "ui:options": {
+                        "title": "Module Type",
+                        "description": "The name of the module to add. Can be set one of the following: \"address_list\"."
+                    }
+                },
+                "is_mutable": {
+                    "ui:options": {
+                        "title": "Is Module Able to be Modified?",
+                        "description": "Whether the module can be later modified or not."
+                    }
+                }
+            }
+        }
+    },
     "form-data": {}
 }
