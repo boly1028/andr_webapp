@@ -14,6 +14,7 @@
                 ],
                 "properties": {
                     "recipients": {
+                        "description": "The vector of recipients for the contract. Anytime a `Send` execute message is sent the amount sent will be divided amongst these recipients depending on their assigned percentage.",
                         "type": "array",
                         "items": {
                             "type": "object",
@@ -27,8 +28,10 @@
                                     "type": "string"
                                 },
                                 "recipient": {
+                                    "title": "Recipient",
                                     "oneOf": [
                                         {
+                                            "title": "Non ADO Address",
                                             "description": "An address that is not another ADO. It is assumed that it is a valid address.",
                                             "type": "object",
                                             "required": [
@@ -42,6 +45,8 @@
                                             "additionalProperties": false
                                         },
                                         {
+                                            "title": "ADO Address",
+                                            "description": "An address that is another ADO. It is assumed that it is a valid address.",
                                             "type": "object",
                                             "required": [
                                                 "a_d_o"
@@ -72,12 +77,15 @@
                                                             ]
                                                         },
                                                         "msg": {
+                                                            "title": "Msg",
                                                             "anyOf": [
                                                                 {
+                                                                    "title": "Base64",
                                                                     "description": "Binary is a wrapper around Vec<u8> to add base64 de/serialization with serde. It also adds some helper methods to help encode inline.\n\nThis is only needed as serde-json-{core,wasm} has a horrible encoding for Vec<u8>",
                                                                     "type": "string"
                                                                 },
                                                                 {
+                                                                    "title": "None",
                                                                     "type": "null"
                                                                 }
                                                             ]
@@ -139,10 +147,12 @@
                             },
                             "address": {
                                 "ui:options": {
-                                    "title": "Address"
+                                    "title": "Address",
+                                    "description": "Addr can also be a human-readable identifier used in a app contract."
                                 },
                                 "identifier": {
                                     "ui:options": {
+                                        "description": "Can be either an address or identifier of an ADO in a app.",
                                         "title": "Identifier"
                                     }
                                 }
