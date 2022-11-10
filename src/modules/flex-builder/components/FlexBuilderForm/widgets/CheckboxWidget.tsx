@@ -6,8 +6,9 @@ import {
   FormLabel,
   HStack,
   Text,
+  VStack,
 } from "@chakra-ui/react";
-import { WidgetProps } from "@rjsf/utils";
+import { getUiOptions, WidgetProps } from "@rjsf/utils";
 
 const CheckboxWidget = (props: WidgetProps) => {
   const {
@@ -20,7 +21,10 @@ const CheckboxWidget = (props: WidgetProps) => {
     onFocus,
     label,
     rawErrors,
+    schema,
+    uiSchema,
   } = props;
+  const uiOptions = getUiOptions(uiSchema);
 
   const _onChange = ({
     target: { checked },
@@ -43,11 +47,18 @@ const CheckboxWidget = (props: WidgetProps) => {
         onBlur={_onBlur}
         onFocus={_onFocus}
       >
-        {label && (
-          <Text id={`${id}-label`}>
-            {label}
-          </Text>
-        )}
+        <VStack alignItems='start' spacing='0' ml='2'>
+          {(uiOptions.title || schema.title || label) && (
+            <Text id={`${id}-label`}>
+              {uiOptions.title ?? schema.title ?? label}
+            </Text>
+          )}
+          {(uiOptions.description || schema.description) && (
+            <Text fontSize='xs' textStyle='light' id={`${id}-label-description`}>
+              {uiOptions.description ?? schema.description}
+            </Text>
+          )}
+        </VStack>
       </Checkbox>
     </FormControl>
   );

@@ -7,7 +7,16 @@ import {
   getSchemaType,
 } from "@rjsf/utils";
 
-import { Text, FormControl, FormLabel, Box } from "@chakra-ui/react";
+import {
+  Text,
+  FormControl,
+  FormLabel,
+  Box,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+} from "@chakra-ui/react";
 import { JSONSchema7 } from "json-schema";
 
 const FieldTemplate = (props: FieldTemplateProps) => {
@@ -104,8 +113,25 @@ const FieldTemplate = (props: FieldTemplateProps) => {
       uiSchema={uiSchema}
       registry={registry}
     >
+      {!hasWrapper && uiOptions.info && (
+        <Alert
+          status={uiOptions.infoType as any}
+          variant="left-accent"
+          rounded="lg"
+          fontSize="sm"
+          mb="4"
+        >
+          <AlertIcon />
+          <AlertDescription
+            listStylePos='inside'
+            dangerouslySetInnerHTML={{
+              __html: `${uiOptions.info}`,
+            }}
+          />
+        </Alert>
+      )}
       <FormControl
-        isRequired={required}
+        isRequired={hasWrapper ? false : required}
         isInvalid={rawErrors && rawErrors.length > 0}
         mt="1"
       >
@@ -130,18 +156,6 @@ const FieldTemplate = (props: FieldTemplateProps) => {
 
         {props.help}
         {props.errors}
-
-        {/* We have our own $help field in schema. This is generally done using ui:help but as we are
-        changing schema, it will be best to handle all changes in schema only */}
-        {/* @ts-ignore */}
-        {/* {schema.$help && (
-          <FormHelperText id={id}>
-            {
-              // @ts-ignore
-              schema.$help
-            }
-          </FormHelperText>
-        )} */}
       </FormControl>
     </WrapIfAdditionalTemplate>
   );

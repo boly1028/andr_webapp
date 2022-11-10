@@ -64,10 +64,8 @@ function AddModuleModalItem({
           <ClassifierIcon adoType={data.schema.$id} boxSize={6} />
         </Box>
         <Box flex={1}>
-          <Text fontWeight="bold">{data?.schema?.title}</Text>
-          <Text fontWeight="light" textStyle="light">
-            {data?.schema?.description}
-          </Text>
+          <Text fontWeight="medium" color='base.white'>{data?.schema?.title}</Text>
+          <Text maxW='xs' textStyle="light">{data?.schema?.description}</Text>
           <Link
             href={SITE_LINKS.documentation(data?.schema?.$id)}
             target="_blank"
