@@ -69,6 +69,12 @@
         "version": "0.1.0"
     },
     "ui-schema": {
+        "ui:order": [
+            "token_address",
+            "modules",
+            "can_mint_after_sale",
+            "*"
+        ],
         "can_mint_after_sale": {
             "ui:options": {
                 "title": "Mint after sale allowed?",
