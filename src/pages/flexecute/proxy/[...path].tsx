@@ -1,10 +1,23 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { FlexBuilderForm, StagingDocumentsModal } from "@/modules/flex-builder";
 
-import { Box, Flex, Text } from "@/theme/ui-elements";
-import { FileCheckIcon, Layout, PageHeader } from "@/modules/common";
+import {
+  Box,
+  Flex,
+  HStack,
+  IconButton,
+  Input,
+  Text,
+} from "@/theme/ui-elements";
+import {
+  DownloadIcon,
+  FileCheckIcon,
+  Layout,
+  PageHeader,
+  UploadCloudIcon,
+} from "@/modules/common";
 import { useRouter } from "next/router";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { cloneDeep } from "lodash";
 import { IAdoType, IImportantAdoKeys, ITemplate } from "@/lib/schema/types";
 import { getProxyTemplate } from "@/lib/schema/utils";
@@ -12,6 +25,9 @@ import { useExecuteModal } from "@/modules/modals/hooks";
 import useConstructProxyMsg from "@/modules/sdk/hooks/useConstructProxyMsg";
 import { useGetFunds } from "@/modules/sdk/hooks";
 import { useWallet } from "@/lib/wallet";
+import { parseJsonFromFile } from "@/lib/json";
+import { parseFlexFile } from "@/lib/schema/utils/flexFile";
+import { useToast } from "@chakra-ui/react";
 
 type Props = {
   template: ITemplate;
@@ -25,8 +41,12 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
   const getFunds = useGetFunds();
   const openModal = useExecuteModal(contract);
   const account = useWallet();
+  const toast = useToast({
+    position: "top-right",
+  });
+  const [modifiedTemplate, setModifiedTemplate] = useState(template);
 
-  const modifiedTemplate: ITemplate = useMemo(() => {
+  useEffect(() => {
     const newTemplate = cloneDeep(template);
     newTemplate.name = name;
     const formData = newTemplate.formData ?? {};
@@ -36,8 +56,37 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
       component_name: name,
     };
     newTemplate.formData = formData;
-    return newTemplate;
+    setModifiedTemplate(newTemplate);
   }, [name, contract]);
+
+  const handleFlexInput = async (file: File) => {
+    try {
+      const json = await parseJsonFromFile(file);
+      const _template = await parseFlexFile(json);
+
+      const clone = cloneDeep(modifiedTemplate);
+      clone.ados.forEach((ado) => {
+        if (ado.id === IImportantAdoKeys.PROXY_MESSAGE) return;
+        if (!_template.formData?.[ado.id]) throw new Error("Wrong flex file");
+        if (clone.formData) {
+          clone.formData[ado.id] = {
+            ...clone.formData[ado.id],
+            ..._template.formData?.[ado.id],
+          };
+        }
+      });
+      setModifiedTemplate(clone);
+      toast({
+        title: "Import successfull",
+        status: "success",
+      });
+    } catch (err) {
+      toast({
+        title: "Error while importing",
+        status: "error",
+      });
+    }
+  };
 
   const handleSubmit = async (
     {
@@ -55,11 +104,46 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
   //TODO: Setup staging availability flags for loading staging sections if passed
   const staging_available = false;
 
+  const InputElement = useMemo(
+    () => (
+      <HStack>
+        <Box>
+          <IconButton
+            as="label"
+            htmlFor="flexecute-file-input"
+            variant="outline"
+            aria-label="flex-input"
+            cursor="pointer"
+            icon={<DownloadIcon boxSize={5} color="gray.500" />}
+          />
+          <Input
+            onChange={(e) => {
+              const file = e.target.files?.item(0);
+              if (file) {
+                handleFlexInput(file);
+              }
+            }}
+            multiple={false}
+            type="file"
+            id="flexecute-file-input"
+            // Only Allow flex file
+            accept=".flex"
+            srOnly
+          />
+        </Box>
+      </HStack>
+    ),
+    [handleFlexInput],
+  );
+
+  const UPDATE_KEY = useMemo(() => Math.random(), [modifiedTemplate]);
+
   return (
     <Layout>
       <PageHeader
         title={modifiedTemplate.name}
         desc={modifiedTemplate.description}
+        rightElement={InputElement}
       />
 
       <Box mt={10}>
@@ -105,7 +189,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
         <FlexBuilderForm
           // ID is required to refresh the component after we modify the template. If not provided,
           // form will not populate name and address field on direct visit to the page
-          key={modifiedTemplate.name}
+          key={UPDATE_KEY}
           template={modifiedTemplate}
           onSubmit={handleSubmit}
           onEstimate={(data: any) => handleSubmit(data, true)}

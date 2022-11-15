@@ -1,6 +1,6 @@
 import React, { FC } from "react";
-import { Button, HStack, Input } from "@/theme/ui-elements";
-import { BackdropCard, DownloadIcon } from "@/modules/common";
+import { HStack, Input } from "@/theme/ui-elements";
+import { BackdropCard } from "@/modules/common";
 import { parseJsonFromFile } from "@/lib/json";
 import { JSONSchema7 } from "json-schema";
 import { useRouter } from "next/router";
@@ -23,9 +23,6 @@ interface FlexUploadCardProps {}
 const FlexUploadCard: FC<FlexUploadCardProps> = (props) => {
   const {} = props;
   const router = useRouter();
-
-  /**Custom static template for uploader card */
-  const template = UPLOAD_TEMPLATE;
 
   /**Handle flex file input */
   const handleFileInput = async (file: File) => {
@@ -60,7 +57,7 @@ const FlexUploadCard: FC<FlexUploadCardProps> = (props) => {
       transitionTimingFunction="ease-out"
     >
       <BackdropCard
-        logoComponent={<Image w="50%" mb="20%" src={template.icon} />}
+        logoComponent={<Image w="50%" mb="20%" src={UPLOAD_TEMPLATE.icon} />}
       >
         <Box px="2" h="full">
           <HStack>
@@ -78,7 +75,7 @@ const FlexUploadCard: FC<FlexUploadCardProps> = (props) => {
             fontWeight="bold"
             mt="2"
           >
-            {template.name}
+            {UPLOAD_TEMPLATE.name}
           </Text>
           <Text
             textOverflow="ellipsis"
@@ -91,7 +88,7 @@ const FlexUploadCard: FC<FlexUploadCardProps> = (props) => {
             fontWeight="light"
             color="dark.500"
           >
-            {template.description}
+            {UPLOAD_TEMPLATE.description}
           </Text>
           <HStack mt="auto" justifyContent="end">
             {/* <Button

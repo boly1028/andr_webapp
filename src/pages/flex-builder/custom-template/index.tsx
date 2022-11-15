@@ -1,49 +1,53 @@
-import type { GetStaticProps, NextPage } from "next";
+import type { NextPage } from "next";
 import { FileCheckIcon, Layout, PageHeader } from "@/modules/common";
-import { useMemo } from "react";
+import { useEffect, useState } from "react";
 import { FlexBuilderForm, StagingDocumentsModal } from "@/modules/flex-builder";
 import { Box, Flex, Text } from "@/theme/ui-elements";
-import { DownloadFlexProps } from "@/modules/flex-builder/components/FlexBuilderForm/DownloadButton";
 import { useCodeId } from "@/lib/andrjs";
 import { useConstructAppMsg } from "@/modules/sdk/hooks";
 import { useInstantiateModal } from "@/modules/modals/hooks";
-import { UPLOAD_TEMPLATE } from "@/lib/schema/templates/upload";
-import { ITemplate } from "@/lib/schema/types";
-import { processTemplate } from "@/lib/schema/utils/template";
 import { useWallet } from "@/lib/wallet";
+import { useRouter } from "next/router";
+import { ITemplate } from "@/lib/schema/types";
+import { parseFlexFile, parseFlexUrl } from "@/lib/schema/utils/flexFile";
 
 /**
  * Flex Builder Custom template page which takes flex from session storage and renders
  * as form builder
  */
 
-type Props = {
-  defaultTemplate: ITemplate;
-};
+type Props = {};
 
-const FlexBuilderCustomTemplate: NextPage<Props> = ({ defaultTemplate }) => {
+const FlexBuilderCustomTemplate: NextPage<Props> = ({}) => {
+  const router = useRouter();
+  const templateUri = router.query.data as string;
+
   const codeId = useCodeId("app");
   const construct = useConstructAppMsg();
   const openModal = useInstantiateModal(codeId);
   const account = useWallet();
+  const [template, setTemplate] = useState<ITemplate>();
 
-  /** Template contains same structure as Blank App with schema, formData, uiSchema added from flex file uploaded by user */
-  const template = useMemo(() => {
+  useEffect(() => {
     /**Session Storage is not available for SSR, Only render when window is defined (Client Side) */
     if (typeof window === "undefined") return;
-
-    /** Get Flex from storage. If any validation is required, add it here. Add the same validation
-     * during upload also so user knows early if wrong file is uploaded
-     */
-    const storageData = sessionStorage.getItem("ANDROMEDA_TEMPLATE");
-    if (storageData) {
-      const jsonValue = JSON.parse(storageData) as DownloadFlexProps;
-      return {
-        ...defaultTemplate,
-        ...jsonValue,
-      };
+    if (templateUri) {
+      parseFlexUrl(templateUri).then((res) => {
+        setTemplate(res);
+      });
+    } else {
+      /** Get Flex from storage. If any validation is required, add it here. Add the same validation
+       * during upload also so user knows early if wrong file is uploaded
+       */
+      const storageData = sessionStorage.getItem("ANDROMEDA_TEMPLATE");
+      if (storageData) {
+        const jsonValue = JSON.parse(storageData);
+        parseFlexFile(jsonValue).then((res) => {
+          setTemplate(res);
+        });
+      }
     }
-  }, []);
+  }, [templateUri]);
 
   const handleSubmit = async (
     {
@@ -120,19 +124,6 @@ const FlexBuilderCustomTemplate: NextPage<Props> = ({ defaultTemplate }) => {
       </Box>
     </Layout>
   );
-};
-
-export const getStaticProps: GetStaticProps<Props> = async (ctx) => {
-  const data = await processTemplate(UPLOAD_TEMPLATE);
-  if (!data) {
-    return {
-      notFound: true,
-    };
-  }
-  return {
-    props: { defaultTemplate: data },
-    revalidate: 300,
-  };
 };
 
 export default FlexBuilderCustomTemplate;

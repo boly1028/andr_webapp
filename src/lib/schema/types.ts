@@ -10,7 +10,8 @@ export const IImportantAdoKeys = {
     PUBLISH_SETTINGS: 'publish-settings',
     PROXY_MESSAGE: 'proxy-message',
     FUND: 'fund',
-    APP: 'app'
+    APP: 'app',
+    FLEX_FILE: 'import'
 } as const;
 
 export type IAdoType = keyof typeof allSchema | typeof IImportantAdoKeys.PUBLISH_SETTINGS | typeof IImportantAdoKeys.PROXY_MESSAGE | typeof IImportantAdoKeys.FUND | typeof IImportantAdoKeys.APP;
@@ -22,6 +23,7 @@ export interface IAndromedaSchemaJSON {
 
 export interface IAndromedaSchema extends JSONSchema7 {
     $id: IAdoType;
+    $path: string;
     classifier: string;
     class: string;
     version: string;

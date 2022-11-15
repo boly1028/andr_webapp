@@ -17,7 +17,7 @@ export const SITE_LINKS = {
     // Flex
     flexBuilderHome: () => `/flex-builder`,
     flexBuilder: (id: string) => `/flex-builder/${id}`,
-    flexBuilderTemplate: () => `/flex-builder/custom-template`,
+    flexBuilderTemplate: (uri?: string) => `/flex-builder/custom-template${uri ? `?data=${uri}` : ''}`,
     adoExecute: (path: string, address: string) => `/flexecute/${path}?contract=${address}`,
     proxyApp: (path: string, address: string, name: string) => `/flexecute/proxy/${path}?name=${name}&contract=${address}`,
     // App
