@@ -16,7 +16,7 @@ import { parseFlexFile, parseFlexUrl } from "@/lib/schema/utils/flexFile";
  * as form builder
  */
 
-type Props = {};
+interface Props {}
 
 const FlexBuilderCustomTemplate: NextPage<Props> = ({}) => {
   const router = useRouter();
