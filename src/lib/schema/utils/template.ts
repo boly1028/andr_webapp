@@ -6,7 +6,7 @@ export const processTemplate = async (template: ITemplate) => {
     const definitions: ITemplateSchema['definitions'] = {};
     const properties: ITemplateSchema['properties'] = {};
     const uiSchema: ITemplateUiSchema = {
-        'ui-order': []
+        'ui:order': []
     }
     const formData: ITemplateFormData = {}
 
@@ -23,7 +23,7 @@ export const processTemplate = async (template: ITemplate) => {
 
         uiSchema[ado.id] = schemaADO["ui-schema"]
         // Add ado to ui:order
-        uiSchema["ui-order"].push(ado.id)
+        uiSchema["ui:order"].push(ado.id)
 
         // Add form-data
         formData[ado.id] = template.formData?.[ado.id] ?? schemaADO["form-data"]

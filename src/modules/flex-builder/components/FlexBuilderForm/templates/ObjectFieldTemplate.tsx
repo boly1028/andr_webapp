@@ -63,7 +63,7 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
   } = registry.templates;
 
   const { toggleModule, deleteModule, changePanelName, duplicatePanel } =
-    formContext as Record<any, (...args)=>any | undefined>;
+    formContext as Record<any, (...args) => any | undefined>;
 
   const openPanelRenameModal = usePanelRenameModal();
 
@@ -150,40 +150,44 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
               </Text>
             </Box>
           </HStack>
-          {formData["$removable"] && toggleModule && (
-            <HStack spacing={4}>
-              <Switch
-                id={idSchema.$id}
-                isChecked={!!formData["$enabled"]}
-                colorScheme="primary"
-                onChange={() => {
-                  toggleModule(currentSchemaId, !formData["$enabled"]);
-                }}
-              />
-              {duplicatePanel && (
-                <IconButton
-                  size={"sm"}
-                  variant="outline"
-                  aria-label="open menu"
-                  onClick={() => {
-                    duplicatePanel(currentSchemaId);
-                  }}
-                  icon={<Duplicate width={16} height={16} />}
-                />
-              )}
-              {deleteModule && (
-                <IconButton
-                  size={"sm"}
-                  variant="outline"
-                  aria-label="open menu"
-                  onClick={() => {
-                    deleteModule(currentSchemaId);
-                  }}
-                  icon={<DeleteIcon width={16} height={16} />}
-                />
-              )}
-            </HStack>
-          )}
+          <HStack spacing={4}>
+            {formData["$removable"] && (
+              <>
+                {toggleModule && (
+                  <Switch
+                    id={idSchema.$id}
+                    isChecked={!!formData["$enabled"]}
+                    colorScheme="primary"
+                    onChange={() => {
+                      toggleModule(currentSchemaId, !formData["$enabled"]);
+                    }}
+                  />
+                )}
+                {duplicatePanel && (
+                  <IconButton
+                    size={"sm"}
+                    variant="outline"
+                    aria-label="open menu"
+                    onClick={() => {
+                      duplicatePanel(currentSchemaId);
+                    }}
+                    icon={<Duplicate width={16} height={16} />}
+                  />
+                )}
+                {deleteModule && (
+                  <IconButton
+                    size={"sm"}
+                    variant="outline"
+                    aria-label="open menu"
+                    onClick={() => {
+                      deleteModule(currentSchemaId);
+                    }}
+                    icon={<DeleteIcon width={16} height={16} />}
+                  />
+                )}
+              </>
+            )}
+          </HStack>
         </Flex>
         {formData["$enabled"] && (
           <Box p={8} cursor={formData["$enabled"] ? "default" : "not-allowed"}>

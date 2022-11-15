@@ -102,7 +102,7 @@ export const changeSchemaID = (oldPanelName: string, newPanelName: string, _defa
     _uiSchema['ui:order'] = _uiSchema['ui:order']?.map(id => {
         if (id === oldPanelName) return newPanelName;
         return id;
-    })
+    });
     _formData[`${newPanelName}`] = _formData[`${oldPanelName}`];
 
     // remove previous panel definitions
