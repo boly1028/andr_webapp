@@ -1,11 +1,25 @@
 // Panel container for Flex-Builder: Handles panel name change assosciations
 
+import { parseJsonFromFile } from "@/lib/json";
 import { IAndromedaFormData, IAndromedaSchema } from "@/lib/schema/types";
-import { CopyButton } from "@/modules/common";
+import { CopyButton, FileCheckIcon } from "@/modules/common";
 import usePanelRenameModal from "@/modules/modals/hooks/usePanelRenameModal";
 import ClassifierIcon from "@/theme/icons/classifiers";
 import { Box, Flex, HStack, IconButton, Text } from "@/theme/ui-elements";
-import { Grid, GridItem, Switch } from "@chakra-ui/react";
+import { downloadBlob } from "@/utils/file";
+import { DownloadIcon } from "@chakra-ui/icons";
+import {
+  Button,
+  Grid,
+  GridItem,
+  Icon,
+  Input,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  Switch,
+} from "@chakra-ui/react";
 
 import {
   ObjectFieldTemplateProps,
@@ -16,6 +30,7 @@ import {
 import {
   Copy as Duplicate,
   Edit3 as Rename,
+  MoreVertical,
   Trash2 as DeleteIcon,
 } from "lucide-react";
 import { useMemo } from "react";
@@ -62,8 +77,13 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
     ButtonTemplates: { AddButton },
   } = registry.templates;
 
-  const { toggleModule, deleteModule, changePanelName, duplicatePanel } =
-    formContext as Record<any, (...args) => any | undefined>;
+  const {
+    toggleModule,
+    deleteModule,
+    changePanelName,
+    duplicatePanel,
+    updateFormData,
+  } = formContext as Record<any, (...args) => any | undefined>;
 
   const openPanelRenameModal = usePanelRenameModal();
 
@@ -75,6 +95,21 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
     }
     return rjsfId;
   }, [idSchema]);
+
+  const downloadJson = () => {
+    const blob = new Blob([JSON.stringify(formData)], {
+      type: "text/plain",
+    });
+    downloadBlob(
+      blob,
+      `${schema.$id || "panel"}-${currentSchemaId}-${new Date().getTime()}.json`,
+    );
+  };
+
+  const importJson = async (file: File) => {
+    const parsed = await parseJsonFromFile(file);
+    updateFormData(currentSchemaId, parsed);
+  };
 
   const hasWrapper = formData?.$removable !== undefined;
 
@@ -150,7 +185,7 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
               </Text>
             </Box>
           </HStack>
-          <HStack spacing={4}>
+          <HStack spacing={3}>
             {formData["$removable"] && (
               <>
                 {toggleModule && (
@@ -187,6 +222,47 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
                 )}
               </>
             )}
+
+            {/* Section for Action List */}
+            <Menu placement="bottom-end">
+              <MenuButton
+                as={IconButton}
+                icon={<Icon as={MoreVertical} boxSize={5} />}
+                variant="outline"
+                size="sm"
+              />
+              <MenuList>
+                <MenuItem
+                  onClick={downloadJson}
+                  icon={<DownloadIcon boxSize={4} />}
+                >
+                  Download JSON
+                </MenuItem>
+                <MenuItem
+                  as="label"
+                  htmlFor={`${currentSchemaId}-json-input`}
+                  icon={<FileCheckIcon boxSize={4} />}
+                  cursor="pointer"
+                  disabled={!updateFormData}
+                >
+                  Import JSON
+                  <Input
+                    onChange={(e) => {
+                      const file = e.target.files?.item(0);
+                      if (file) {
+                        importJson(file);
+                      }
+                    }}
+                    multiple={false}
+                    type="file"
+                    id={`${currentSchemaId}-json-input`}
+                    // Only Allow json file
+                    accept=".json"
+                    srOnly
+                  />
+                </MenuItem>
+              </MenuList>
+            </Menu>
           </HStack>
         </Flex>
         {formData["$enabled"] && (

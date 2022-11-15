@@ -17,7 +17,11 @@ import {
 } from "../../utils/schemaTransform";
 
 import { nextSuid, suid } from "@/lib/schema/utils";
-import { IAndromedaSchemaJSON, ITemplate } from "@/lib/schema/types";
+import {
+  IAndromedaFormData,
+  IAndromedaSchemaJSON,
+  ITemplate,
+} from "@/lib/schema/types";
 import { ITemplateUiSchema } from "@/lib/schema/templates/types";
 import Form from "./Form";
 import CopyFlexButton from "./CopyFlexButton";
@@ -108,6 +112,18 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
     [schema, uiSchema, formData],
   );
 
+  const updateFormData = useCallback(
+    (id: string, _formData: IAndromedaFormData) => {
+      // If its not a top level field, return without updating
+      if (_formData.$type === undefined) return;
+      setFormData((prev) => ({
+        ...prev,
+        [id]: _formData,
+      }));
+    },
+    [setFormData],
+  );
+
   // Replicate an existing panel identification key with new name
   const duplicatePanel = useCallback(
     (panelName: any) => {
@@ -187,6 +203,7 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
         deleteModule: deleteModule,
         changePanelName: changePanelName,
         duplicatePanel: duplicatePanel,
+        updateFormData: updateFormData,
         FORM_CONTEXT_UPDATE,
       }}
       onChange={({ formData: _formData }) => {
