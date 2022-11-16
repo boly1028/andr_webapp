@@ -1,5 +1,4 @@
-import { Msg } from "@andromedaprotocol/andromeda.js";
-import { Coin } from "@cosmjs/proto-signing";
+import { getIsTermAccepted } from "../components/DisclaimerModal/utils";
 import { ModalType } from "../types";
 import useGlobalModalContext from "./useGlobalModalContext";
 
@@ -10,5 +9,16 @@ import useGlobalModalContext from "./useGlobalModalContext";
 export default function useWalletModal() {
   const { open } = useGlobalModalContext();
 
-  return () => open(ModalType.Wallet);
+  return () => {
+    const terms = getIsTermAccepted();
+    if (terms) {
+      open(ModalType.Wallet)
+    } else {
+      open(ModalType.Disclaimer, {
+        onAccept: () => {
+          open(ModalType.Wallet)
+        }
+      })
+    }
+  };
 }

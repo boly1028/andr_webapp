@@ -7,6 +7,7 @@ export enum ModalType {
   Confirmation = "confirmation",
   PanelRename = "panelrename",
   AssetInfo = "assetinfo",
+  Disclaimer = "disclaimer"
 }
 
 export interface ExecuteTransactionModalProps {
@@ -57,9 +58,15 @@ export interface AssetInfoModalProps {
   address: string;
 }
 
+export interface DisclaimerModalProps {
+  modalType: ModalType.Disclaimer;
+  onAccept: () => void;
+}
+
 export type ModalProps =
   | TransactionModalProps
   | WalletModalProps
   | ConfirmationModalProps
   | PanelRenameModalProps
-  | AssetInfoModalProps;
+  | AssetInfoModalProps
+  | DisclaimerModalProps
