@@ -85,7 +85,7 @@ export const getProxyTemplate = async (path: string) => {
             { path: path, id: path.split('/').pop() ?? "Execute", required: true },
         ],
         modules: [
-            { 'path': IImportantAdoKeys.FUND }
+            // { 'path': IImportantAdoKeys.FUND }
         ]
     };
 
