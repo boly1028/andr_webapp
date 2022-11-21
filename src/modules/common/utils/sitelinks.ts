@@ -33,5 +33,5 @@ export const SITE_LINKS = {
     learn: () => `/learn`,
 
     // External Documentation
-    documentation: (adoType: string) => `https://docs.andromedaprotocol.io/andromeda/andromeda-digital-objects/${adoType}`
+    documentation: (adoType: string, anchor?: string) => `https://docs.andromedaprotocol.io/andromeda/andromeda-digital-objects/${adoType}#${anchor || adoType}`
 } as const;

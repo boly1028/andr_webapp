@@ -112,18 +112,6 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
     [schema, uiSchema, formData],
   );
 
-  const updateFormData = useCallback(
-    (id: string, _formData: IAndromedaFormData) => {
-      // If its not a top level field, return without updating
-      if (_formData.$type === undefined) return;
-      setFormData((prev) => ({
-        ...prev,
-        [id]: _formData,
-      }));
-    },
-    [setFormData],
-  );
-
   // Replicate an existing panel identification key with new name
   const duplicatePanel = useCallback(
     (panelName: any) => {
@@ -203,7 +191,6 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
         deleteModule: deleteModule,
         changePanelName: changePanelName,
         duplicatePanel: duplicatePanel,
-        updateFormData: updateFormData,
         FORM_CONTEXT_UPDATE,
       }}
       onChange={({ formData: _formData }) => {

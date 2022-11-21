@@ -3,11 +3,12 @@
 import { parseJsonFromFile } from "@/lib/json";
 import { IAndromedaFormData, IAndromedaSchema } from "@/lib/schema/types";
 import { CopyButton, FileCheckIcon } from "@/modules/common";
+import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
 import usePanelRenameModal from "@/modules/modals/hooks/usePanelRenameModal";
 import ClassifierIcon from "@/theme/icons/classifiers";
 import { Box, Flex, HStack, IconButton, Text } from "@/theme/ui-elements";
 import { downloadBlob } from "@/utils/file";
-import { DownloadIcon } from "@chakra-ui/icons";
+import { DownloadIcon, ExternalLinkIcon } from "@chakra-ui/icons";
 import {
   Button,
   Grid,
@@ -34,6 +35,7 @@ import {
   Trash2 as DeleteIcon,
 } from "lucide-react";
 import { useMemo } from "react";
+import { useFieldTemplate } from "./FieldTemplate";
 
 const NON_EDITABLE_CLASS = new Set<string>(["system", "modifier"]);
 
@@ -77,13 +79,10 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
     ButtonTemplates: { AddButton },
   } = registry.templates;
 
-  const {
-    toggleModule,
-    deleteModule,
-    changePanelName,
-    duplicatePanel,
-    updateFormData,
-  } = formContext as Record<any, (...args) => any | undefined>;
+  const { toggleModule, deleteModule, changePanelName, duplicatePanel } =
+    formContext as Record<any, (...args) => any | undefined>;
+
+  const { onChange } = useFieldTemplate();
 
   const openPanelRenameModal = usePanelRenameModal();
 
@@ -96,19 +95,33 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
     return rjsfId;
   }, [idSchema]);
 
+  const adoType = useMemo(() => {
+    const type = schema.$id
+      ?.split("-")
+      .map((t) => t.toLocaleLowerCase())
+      .join("");
+    const baseAdo = schema.$path?.split("/")[0];
+    return {
+      type,
+      baseAdo,
+    };
+  }, [schema]);
+
   const downloadJson = () => {
     const blob = new Blob([JSON.stringify(formData)], {
       type: "text/plain",
     });
     downloadBlob(
       blob,
-      `${schema.$id || "panel"}-${currentSchemaId}-${new Date().getTime()}.json`,
+      `${
+        schema.$id || "panel"
+      }-${currentSchemaId}-${new Date().getTime()}.json`,
     );
   };
 
   const importJson = async (file: File) => {
     const parsed = await parseJsonFromFile(file);
-    updateFormData(currentSchemaId, parsed);
+    onChange(parsed);
   };
 
   const hasWrapper = formData?.$removable !== undefined;
@@ -224,7 +237,7 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
             )}
 
             {/* Section for Action List */}
-            <Menu placement="bottom-end">
+            <Menu placement="bottom-end" colorScheme="dark">
               <MenuButton
                 as={IconButton}
                 icon={<Icon as={MoreVertical} boxSize={5} />}
@@ -243,7 +256,6 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
                   htmlFor={`${currentSchemaId}-json-input`}
                   icon={<FileCheckIcon boxSize={4} />}
                   cursor="pointer"
-                  disabled={!updateFormData}
                 >
                   Import JSON
                   <Input
@@ -261,6 +273,20 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
                     srOnly
                   />
                 </MenuItem>
+                {schema.class !== "system" && (
+                  <MenuItem
+                    as="a"
+                    target="_blank"
+                    referrerPolicy="no-referrer"
+                    href={SITE_LINKS.documentation(
+                      adoType.baseAdo,
+                      adoType.type,
+                    )}
+                    icon={<ExternalLinkIcon boxSize={4} />}
+                  >
+                    Documentation
+                  </MenuItem>
+                )}
               </MenuList>
             </Menu>
           </HStack>
