@@ -7,8 +7,10 @@
 import { useGetSchemaJson } from "@/lib/schema/hooks";
 import { ALL_SCHEMA } from "@/lib/schema/utils/list";
 import { CustomMenuButton } from "@/modules/common";
+import { ChevronDownIcon } from "@chakra-ui/icons";
 import {
   Box,
+  Button,
   Flex,
   Input,
   Menu,
@@ -50,10 +52,15 @@ export const MsgWidget: FC<MsgWidgetProps> = (props) => {
     >
       <Flex direction="row" gap="4">
         <Menu placement="bottom-start">
-          <MenuButton alignSelf="start">
-            <CustomMenuButton>
-              {schemaFile?.schema?.title ?? "Select Schema"}
-            </CustomMenuButton>
+          <MenuButton
+            as={Button}
+            rightIcon={<ChevronDownIcon />}
+            alignSelf="start"
+            minW='max-content'
+          >
+            {/* <CustomMenuButton> */}
+            {schemaFile?.schema?.title ?? "Select Schema"}
+            {/* </CustomMenuButton> */}
           </MenuButton>
           <MenuList maxH="48" overflow="auto">
             {ALL_SCHEMA.map((s) => (
