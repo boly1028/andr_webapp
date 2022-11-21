@@ -31,6 +31,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
     },
     simulate = false,
   ) => {
+    console.log("FORM::DATA",formData)
     // const msg = construct(formData);
     // const funds = getFunds(formData);
     // openModal(msg, simulate, funds);
