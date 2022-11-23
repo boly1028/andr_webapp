@@ -13,6 +13,7 @@ export const getADOPFromPath = async (path: string) => {
 
 export const getSchemaFromPath = async (path: string) => {
     const schema = await import(`../schema/${path}.json`).then(res => res.default) as IAndromedaSchemaJSON;
+    schema.schema.$path = path;
 
     const properties: IAndromedaSchema['properties'] = {
         $type: {
@@ -84,7 +85,7 @@ export const getProxyTemplate = async (path: string) => {
             { path: path, id: path.split('/').pop() ?? "Execute", required: true },
         ],
         modules: [
-            { 'path': IImportantAdoKeys.FUND }
+            // { 'path': IImportantAdoKeys.FUND }
         ]
     };
 

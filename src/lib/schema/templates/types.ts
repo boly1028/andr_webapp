@@ -20,7 +20,7 @@ export interface ITemplate {
 
 export interface ITemplateUiSchema {
     [name: string]: IAndromedaUISchema | string[];
-    "ui-order": string[];
+    "ui:order": string[];
 }
 
 export interface ITemplateFormData {

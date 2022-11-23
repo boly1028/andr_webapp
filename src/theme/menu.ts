@@ -14,6 +14,10 @@ const baseStyleItem = {
   py: "0.7rem",
   fontSize: "sm",
   fontWeight: 500,
+  backgroundColor: "transparent",
+  _hover: {
+    backgroundColor: "dark.300",
+  }
 };
 
 const baseStyle = {

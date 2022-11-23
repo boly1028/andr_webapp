@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useCallback, useContext, useEffect, useRef } from "react";
 
 import {
   FieldTemplateProps,
@@ -18,6 +18,7 @@ import {
   AlertDescription,
 } from "@chakra-ui/react";
 import { JSONSchema7 } from "json-schema";
+import { createContext } from "vm";
 
 const FieldTemplate = (props: FieldTemplateProps) => {
   const {
@@ -41,6 +42,7 @@ const FieldTemplate = (props: FieldTemplateProps) => {
     onChange,
     formData,
     description,
+    hideError,
   } = props;
 
   const uiOptions = getUiOptions(uiSchema);
@@ -88,6 +90,13 @@ const FieldTemplate = (props: FieldTemplateProps) => {
     }
   }, [id, schema]);
 
+  const contextOnChange = useCallback(
+    (data: any) => {
+      onChange(data, undefined, id);
+    },
+    [onChange, id],
+  );
+
   if (hidden) {
     return <>{children}</>;
   }
@@ -100,65 +109,78 @@ const FieldTemplate = (props: FieldTemplateProps) => {
   // const hasWrapper = false;
 
   return (
-    <WrapIfAdditionalTemplate
-      classNames={classNames}
-      disabled={disabled}
-      id={id}
-      label={label}
-      onDropPropertyClick={onDropPropertyClick}
-      onKeyChange={onKeyChange}
-      readonly={readonly}
-      required={required}
-      schema={schema}
-      uiSchema={uiSchema}
-      registry={registry}
-    >
-      {!hasWrapper && uiOptions.info && (
-        <Alert
-          status={uiOptions.infoType as any}
-          variant="left-accent"
-          rounded="lg"
-          fontSize="sm"
-          mb="4"
-        >
-          <AlertIcon />
-          <AlertDescription
-            listStylePos='inside'
-            dangerouslySetInnerHTML={{
-              __html: `${uiOptions.info}`,
-            }}
-          />
-        </Alert>
-      )}
-      <FormControl
-        isRequired={hasWrapper ? false : required}
-        isInvalid={rawErrors && rawErrors.length > 0}
-        mt="1"
+    <FieldTemplateContext.Provider value={{ onChange: contextOnChange }}>
+      <WrapIfAdditionalTemplate
+        classNames={classNames}
+        disabled={disabled}
+        id={id}
+        label={label}
+        onDropPropertyClick={onDropPropertyClick}
+        onKeyChange={onKeyChange}
+        readonly={readonly}
+        required={required}
+        schema={schema}
+        uiSchema={uiSchema}
+        registry={registry}
       >
-        {displayLabel && label ? (
-          <FormLabel
-            mt={hasWrapper ? "2" : "0"}
-            mb="0.5"
-            id={`${id}-new-label`}
-            htmlFor={id}
+        {!hasWrapper && uiOptions.info && (
+          <Alert
+            status={uiOptions.infoType as any}
+            variant="left-accent"
+            rounded="lg"
+            fontSize="sm"
+            mb="4"
           >
-            {label}
-          </FormLabel>
-        ) : null}
-        {displayLabel && <>{description}</>}
-        {hasWrapper ? (
-          <Box key={1} border="1px" borderColor="dark.300" p="6" rounded="lg">
-            {children}
-          </Box>
-        ) : (
-          <>{children}</>
+            <AlertIcon />
+            <AlertDescription
+              listStylePos="inside"
+              dangerouslySetInnerHTML={{
+                __html: `${uiOptions.info}`,
+              }}
+            />
+          </Alert>
         )}
+        <FormControl
+          isRequired={hasWrapper ? false : required}
+          isInvalid={rawErrors && rawErrors.length > 0}
+          mt="1"
+        >
+          {displayLabel && label ? (
+            <FormLabel
+              mt={hasWrapper ? "2" : "0"}
+              mb="0.5"
+              id={`${id}-new-label`}
+              htmlFor={id}
+            >
+              {label}
+            </FormLabel>
+          ) : null}
+          {displayLabel && <>{description}</>}
+          {hasWrapper ? (
+            <Box key={1} border="1px" borderColor="dark.300" p="6" rounded="lg">
+              {children}
+            </Box>
+          ) : (
+            <>{children}</>
+          )}
 
-        {props.help}
-        {props.errors}
-      </FormControl>
-    </WrapIfAdditionalTemplate>
+          {props.help}
+          {!hideError && props.errors}
+        </FormControl>
+      </WrapIfAdditionalTemplate>
+    </FieldTemplateContext.Provider>
   );
 };
+
+interface FieldTemplateContext {
+  onChange: (data: any) => void;
+}
+const defaultValue: FieldTemplateContext = {
+  onChange: () => {
+    throw new Error("Used outside FieldTemplateContext");
+  },
+};
+const FieldTemplateContext = React.createContext(defaultValue);
+export const useFieldTemplate = () => useContext(FieldTemplateContext);
 
 export default FieldTemplate;

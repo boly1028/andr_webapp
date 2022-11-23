@@ -3,16 +3,22 @@ import { Button } from "@/theme/ui-elements";
 import { ButtonProps } from "@chakra-ui/react";
 
 interface CopyButtonProps extends ButtonProps {
-  text: string;
+  text: string | (() => Promise<string>);
   copiedProps?: ButtonProps;
 }
 const CopyButton: FC<CopyButtonProps> = (props) => {
   const { text, children, copiedProps = {}, ...buttonProps } = props;
   const [notification, setNotification] = useState(false);
 
-  const handleCopy = useCallback(() => {
+  const handleCopy = useCallback(async () => {
+    if (typeof text === "function") {
+      await text().then((res) => {
+        navigator.clipboard.writeText(res);
+      });
+    } else {
+      navigator.clipboard.writeText(text);
+    }
     setNotification(true);
-    navigator.clipboard.writeText(text);
   }, [text, setNotification]);
 
   useEffect(() => {
@@ -29,12 +35,7 @@ const CopyButton: FC<CopyButtonProps> = (props) => {
 
   if (notification) {
     return (
-      <Button
-        onClick={handleCopy}
-        p='1'
-        {...buttonProps}
-        {...copiedProps}
-      >
+      <Button onClick={handleCopy} p="1" {...buttonProps} {...copiedProps}>
         Copied!
       </Button>
     );

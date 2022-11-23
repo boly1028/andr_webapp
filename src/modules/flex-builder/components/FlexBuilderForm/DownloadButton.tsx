@@ -2,13 +2,14 @@ import React, { useCallback } from "react";
 import { IconButton } from "@chakra-ui/react";
 
 import { DownloadIcon } from "@/modules/common";
-import { downloadURI } from "@/utils";
 import {
   ITemplateFormData,
   ITemplateSchema,
   ITemplateUiSchema,
 } from "@/lib/schema/templates/types";
 import { IImportantAdoKeys } from "@/lib/schema/types";
+import { createFlexFile } from "@/lib/schema/utils/flexFile";
+import { downloadBlob } from "@/utils/file";
 
 /**
  * Download flex component
@@ -24,31 +25,23 @@ export interface DownloadFlexProps {
 
 function DownloadButton({ schema, uiSchema, formData }: DownloadFlexProps) {
   /**Moved from use effect to useCallback as we only need to calculate url on button click */
-  const handleDownload = useCallback(() => {
+  const handleDownload = useCallback(async () => {
     if (!schema || !uiSchema || !formData) {
       return;
     }
 
-    const flexExport: Record<string, any> = {
+    const flexData = await createFlexFile({
       schema,
-      uiSchema,
       formData,
-    };
+    });
 
     //Load data to be exported by the browser
-    const flexBlob = new Blob([JSON.stringify(flexExport)], {
+    const flexBlob = new Blob([JSON.stringify(flexData)], {
       type: "text/plain",
     });
 
-    // Create URL for form
-    const url = URL.createObjectURL(flexBlob);
-
-    // Create a name from app name
     const appName = formData[IImportantAdoKeys.PUBLISH_SETTINGS]?.name || "app";
-    downloadURI(url, `template_${appName}.flex`);
-
-    // Revoke created url to free up space
-    URL.revokeObjectURL(url);
+    downloadBlob(flexBlob, `template_${appName}.flex`);
   }, [schema, uiSchema, formData]);
 
   return (

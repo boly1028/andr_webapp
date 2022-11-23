@@ -17,9 +17,14 @@ import {
 } from "../../utils/schemaTransform";
 
 import { nextSuid, suid } from "@/lib/schema/utils";
-import { IAndromedaSchemaJSON, ITemplate } from "@/lib/schema/types";
+import {
+  IAndromedaFormData,
+  IAndromedaSchemaJSON,
+  ITemplate,
+} from "@/lib/schema/types";
 import { ITemplateUiSchema } from "@/lib/schema/templates/types";
 import Form from "./Form";
+import CopyFlexButton from "./CopyFlexButton";
 
 type FlexBuilderFormProps = {
   template: ITemplate;
@@ -227,7 +232,11 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
             // onClick={onEstimate}
             aria-disabled="true"
           />
-
+          <CopyFlexButton
+            schema={schema}
+            uiSchema={uiSchema}
+            formData={formData}
+          />
           <DownloadButton
             schema={schema}
             uiSchema={uiSchema}

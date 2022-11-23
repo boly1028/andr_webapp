@@ -2,9 +2,10 @@ import { ITemplate } from "./types";
 import baseAdo from '../schema/baseADO.json'
 import modules from '../schema/module.json'
 import primitive from '../schema/primitive.json'
+import { IImportantAdoKeys } from "../types";
 
 export const UPLOAD_TEMPLATE: ITemplate = {
-    id: "import",
+    id: IImportantAdoKeys.FLEX_FILE,
     adoType: "app",
     name: "Import Template",
     icon: "/app-templates/icons/blank.png",
