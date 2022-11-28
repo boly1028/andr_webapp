@@ -22,7 +22,6 @@ const DisclaimerModal: FC<DisclaimerModalProps> = ({ onAccept }) => {
   const { close } = useGlobalModalContext();
 
   const handleAccept = () => {
-    setTermAccepted();
     onAccept();
   };
 
