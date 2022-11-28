@@ -27,7 +27,7 @@ import {
   canExpand,
   getUiOptions,
   getTemplate,
-} from "@rjsf/utils";
+} from "@rjsf/full/node_modules/@rjsf/utils";
 import {
   Copy as Duplicate,
   Edit3 as Rename,

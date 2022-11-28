@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOMServer from "react-dom/server";
 import { FormControl, FormLabel } from "@chakra-ui/react";
 import rehypeRaw from "rehype-raw";
-import { WidgetProps, getDisplayLabel } from "@rjsf/utils";
+import { WidgetProps, getDisplayLabel } from "@rjsf/full/node_modules/@rjsf/utils";
 // import ChakraUIRenderer from "chakra-ui-markdown-renderer";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";

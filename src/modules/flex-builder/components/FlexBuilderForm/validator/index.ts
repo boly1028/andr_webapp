@@ -1,8 +1,4 @@
-import customizeValidator from "./customizeValidator";
+import { customizeValidator } from "@rjsf/full/node_modules/@rjsf/validator-ajv8";
 
-export { customizeValidator };
-export * from "./types";
 
-/**
- */
 export default customizeValidator();

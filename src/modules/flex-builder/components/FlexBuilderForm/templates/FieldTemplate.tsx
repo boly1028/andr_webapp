@@ -5,7 +5,7 @@ import {
   getTemplate,
   getUiOptions,
   getSchemaType,
-} from "@rjsf/utils";
+} from "@rjsf/full/node_modules/@rjsf/utils";
 
 import {
   Text,

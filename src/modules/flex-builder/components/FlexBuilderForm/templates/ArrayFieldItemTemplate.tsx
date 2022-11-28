@@ -1,5 +1,5 @@
 import { Box, ButtonGroup, VStack } from "@chakra-ui/react";
-import { ArrayFieldTemplateItemType } from "@rjsf/utils";
+import { ArrayFieldTemplateItemType } from "@rjsf/full/node_modules/@rjsf/utils";
 import { FC, useCallback, useMemo } from "react";
 import ChakraIconButton from "../../IconButton";
 
