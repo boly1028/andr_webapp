@@ -17,7 +17,7 @@ const Form: FC<IFormProps> = (props) => {
       }}
       widgets={{ ...defaultWidgets, ...widgets }}
       // Hide Error list at the top as its not intuitive to user
-      // showErrorList={false}
+      showErrorList={false}
       {...otherProps}
     />
   );
