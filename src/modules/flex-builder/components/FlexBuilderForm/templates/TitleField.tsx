@@ -1,6 +1,6 @@
 import React from "react";
 
-import { TitleFieldProps } from "@rjsf/full/node_modules/@rjsf/utils";
+import { TitleFieldProps } from "@andromedarjsf/utils";
 
 import { Text, Divider } from "@chakra-ui/react";
 

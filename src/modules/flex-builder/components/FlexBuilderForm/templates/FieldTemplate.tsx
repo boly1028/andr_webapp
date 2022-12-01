@@ -5,7 +5,7 @@ import {
   getTemplate,
   getUiOptions,
   getSchemaType,
-} from "@rjsf/full/node_modules/@rjsf/utils";
+} from "@andromedarjsf/utils";
 
 import {
   Text,

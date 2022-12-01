@@ -8,7 +8,7 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import { getUiOptions, WidgetProps } from "@rjsf/full/node_modules/@rjsf/utils";
+import { getUiOptions, WidgetProps } from "@andromedarjsf/utils";
 
 const CheckboxWidget = (props: WidgetProps) => {
   const {

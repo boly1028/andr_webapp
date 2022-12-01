@@ -4,7 +4,7 @@ import {
   getTemplate,
   getUiOptions,
   ArrayFieldTemplateProps,
-} from "@rjsf/full/node_modules/@rjsf/utils";
+} from "@andromedarjsf/utils";
 
 import { Box, Grid, GridItem, Button } from "@chakra-ui/react";
 

@@ -1,4 +1,4 @@
-import { TemplatesType } from '@rjsf/full/node_modules/@rjsf/utils'
+import { TemplatesType } from '@andromedarjsf/utils'
 import ArrayFieldItemTemplate from './ArrayFieldItemTemplate';
 import ArrayFieldTemplate from './ArrayFieldTemplate';
 import DescriptionField from './DescriptionField';
