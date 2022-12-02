@@ -1,5 +1,6 @@
 {
     "schema": {
+        "title": "Send NFT",
         "description": "Sends a token to another contract",
         "type": "object",
         "required": [
@@ -38,8 +39,35 @@
     },
     "ui-schema": {
         "send_nft": {
+            "ui:order": [
+                "contract",
+                "token_id",
+                "msg",
+                "*"
+            ],
+            "ui:options": {
+                "title": "Send NFT",
+                "info": "Only available to the token owner/operator/approved address.",
+                "infoType": "error"
+            },
+            "contract": {
+                "ui:options": {
+                    "title": "Recipient Address",
+                    "description": "The address of the receiving contract."
+                }
+            },
             "msg": {
-                "ui:widget": "msg"
+                "ui:widget": "msg",
+                "ui:options": {
+                    "title": "Supporting Message",
+                    "description": " ??? "
+                }
+            },
+            "token_id": {
+                "ui:options": {
+                    "title": "Token/NFT Name",
+                    "description": "The id of the token to be sent."
+                }
             }
         }
     },
