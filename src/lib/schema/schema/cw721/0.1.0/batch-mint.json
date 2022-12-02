@@ -192,17 +192,17 @@
                             }
                         },
                         "attributes": {
-                            "ui:order": [
-                                "trait_type",
-                                "value",
-                                "display_type",
-                                "*"
-                            ],
                             "ui:options": {
                                 "title": "Token Attributes",
                                 "description": "The metadata of the token if it exists can be 1 to many"
                             },
                             "items": {
+                                "ui:order": [
+                                    "trait_type",
+                                    "value",
+                                    "display_type",
+                                    "*"
+                                ],
                                 "ui:options": {
                                     "title": "Metadata Attribute"
                                 },
