@@ -27,7 +27,7 @@ import {
   canExpand,
   getUiOptions,
   getTemplate,
-} from "@rjsf/utils";
+} from "@andromedarjsf/utils";
 import {
   Copy as Duplicate,
   Edit3 as Rename,

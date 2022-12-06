@@ -33,6 +33,7 @@ export const processTemplate = async (template: ITemplate) => {
         definitions: definitions,
         type: "object",
         properties: properties,
+        $id: 'root'
     };
 
     template.uiSchema = uiSchema;

@@ -5,7 +5,7 @@ import {
   getTemplate,
   getUiOptions,
   getSchemaType,
-} from "@rjsf/utils";
+} from "@andromedarjsf/utils";
 
 import {
   Text,
@@ -51,35 +51,6 @@ const FieldTemplate = (props: FieldTemplateProps) => {
     registry,
     uiOptions,
   );
-
-  useEffect(() => {
-    /**
-     * A Hack to by pass required field enforcement for array and boolean.
-     * These fields are supposed to have default values:
-     * array = empty array
-     * boolean = false
-     * So, if default value is not provided and the field is required,
-     * we inject default values ourselves.
-     */
-
-    // RJSF Bug so we need to have a timeout to update form data
-    const tId = setTimeout(() => {
-      if (!required) return;
-      if (schema.default) return;
-      const type = getSchemaType(schema) as JSONSchema7["type"];
-      if (type === "array") {
-        if (!Array.isArray(formData)) {
-          onChange([], undefined, id);
-        }
-      } else if (type === "boolean") {
-        if (formData === undefined) {
-          onChange(false, undefined, id);
-        }
-      }
-    }, 500);
-
-    return () => clearTimeout(tId);
-  }, []);
 
   useEffect(() => {
     if (!displayLabel) return;

@@ -1,4 +1,4 @@
-import { RegistryWidgetsType } from "@rjsf/utils";
+import { RegistryWidgetsType } from "@andromedarjsf/utils";
 import CheckboxWidget from "./CheckboxWidget";
 import { MarkdownWidget } from "./MarkdownWidget";
 import { MsgWidget } from "./MsgWidget";
