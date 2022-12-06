@@ -1,1 +1,48 @@
-{"schema":{"description":"Ends the ongoing sale by completing `limit` number of operations depending on if the minimum number of tokens was sold.","type":"object","required":["end_sale"],"properties":{"end_sale":{"type":"object","properties":{"limit":{"type":["integer","null"],"format":"uint32","minimum":0,"title":"limit"}}}},"additionalProperties":false,"$id":"end-sale","class":"modifier","version":"0.1.0","classifier":""},"ui-schema":{},"form-data":{}}
+{
+    "schema": {
+        "title": "End Sale",
+        "description": "Ends the sale",
+        "type": "object",
+        "required": [
+            "end_sale"
+        ],
+        "properties": {
+            "end_sale": {
+                "type": "object",
+                "properties": {
+                    "limit": {
+                        "type": [
+                            "integer",
+                            "null"
+                        ],
+                        "format": "uint32",
+                        "minimum": 0,
+                        "title": "limit"
+                    }
+                }
+            }
+        },
+        "additionalProperties": false,
+        "$id": "end-sale",
+        "class": "modifier",
+        "version": "0.1.0",
+        "classifier": ""
+    },
+    "ui-schema": {
+        "end_sale": {
+            "ui:options": {
+                "title": "End Sale",
+                "description": " ",
+                "info": "<ul><li>In the case that the minimum sold is not achieved, refunds are sent to the <b>buyers</b> and tokens are <b>burnt</b>.</li><li>If the minimum sold was achieved, the tokens are sent to the <b>buyers</b> and the funds to the <b>recipient</b>.</li></ul>",
+                "infoType": "info"
+            },
+            "limit": {
+                "ui:options": {
+                    "title": "Crowdfund Token Limit",
+                    "description": "An optional limit on the number of transferred tokens in case the sale was a success, or the number of refunds to issue in case the sale did not succeed (min amount not reached)."
+                }
+            }
+        }
+    },
+    "form-data": {}
+}
