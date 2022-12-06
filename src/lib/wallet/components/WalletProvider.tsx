@@ -53,6 +53,7 @@ const WalletProvider: React.FC<WalletProviderProps> = React.memo(
     useEffect(() => {
       const autoconnect = localStorage.getItem(AUTOCONNECT_KEY);
       if (typeof keplr !== "undefined" && autoconnect === keplr?.mode) {
+        // Should we open terms & condition modals before this?
         connect();
       }
     }, [keplr, stateChainId]);
