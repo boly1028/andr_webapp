@@ -1,12 +1,17 @@
 {
   "schema": {
+    "title":"Add Address",
     "description": "Add an address to the address list.",
     "type": "object",
-    "required": ["add_address"],
+    "required": [
+      "add_address"
+    ],
     "properties": {
       "add_address": {
         "type": "object",
-        "required": ["address"],
+        "required": [
+          "address"
+        ],
         "properties": {
           "address": {
             "type": "string",
@@ -26,7 +31,7 @@
       "ui:options": {
         "title": "Add Address to List",
         "info": "Only Owner / Operators can execute Add Address.",
-        "infoType": "warning"
+        "infoType": "error"
       },
       "address": {
         "ui:options": {
