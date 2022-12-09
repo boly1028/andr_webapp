@@ -13,9 +13,6 @@ export async function connectByChainId(chainId: string, keplr: Keplr) {
     console.log(err)
     const keplrConfig = await queryKeplrConfig(chainId)
     await keplr.experimentalSuggestChain(keplrConfig);
-    try {
-    } catch (err) {
-      throw new Error(`Chain ${chainId} is not supported`);
-    }
+    throw new Error(`Chain ${chainId} is not supported`);
   }
 }
