@@ -12,9 +12,6 @@ export async function connectByChainId(chainId: string, keplr: Keplr) {
   } catch (err) {
     console.log(err)
     const keplrConfig = await queryKeplrConfig(chainId)
-    // @ts-ignore
-    keplrConfig.bip44.coinType = parseInt(keplrConfig.bip44.coinType?.toString())
-    console.log(keplrConfig)
     await keplr.experimentalSuggestChain(keplrConfig);
     try {
     } catch (err) {
