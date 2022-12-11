@@ -53,7 +53,7 @@ const WalletConnected = () => {
               size="lg"
             >
               <HStack mr={8}>
-                {!iconUrl ? (
+                {iconUrl ? (
                   <Image src={iconUrl ?? ""} w="6" />
                 ) : (
                   <Icon
