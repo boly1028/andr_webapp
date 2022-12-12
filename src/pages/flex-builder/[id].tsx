@@ -8,6 +8,7 @@ import { useConstructAppMsg } from "@/modules/sdk/hooks";
 import { ITemplate } from "@/lib/schema/types";
 import { getAppTemplateById } from "@/lib/schema/utils";
 import { useWallet } from "@/lib/wallet";
+import { ILinkItemKey } from "@/modules/common/components/Sidebar";
 
 type Props = {
   template: ITemplate;
@@ -34,7 +35,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
   const staging_available = false;
 
   return (
-    <Layout>
+    <Layout activeLink={ILinkItemKey.ADO_BUILDER}>
       <PageHeader title={template.name} desc={template.description} />
 
       <Box mt={10}>

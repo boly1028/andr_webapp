@@ -1,5 +1,6 @@
 export { default as AlertCircleIcon } from "./AlertCircleIcon";
 export { default as AndromedaIcon } from './AndromedaIcon'
+export { default as AppBuilder } from "./AppBuilder";
 export { default as AppStore } from "./AppStore";
 export { default as ArchiveIcon } from "./ArchiveIcon";
 export { default as BarChartIcon } from "./BarChartIcon";
@@ -8,6 +9,7 @@ export { default as BoxIcon } from "./BoxIcon";
 export { default as CheckCircleIcon } from "./CheckCircleIcon";
 export { default as CheckIcon } from "./CheckIcon";
 export { default as ChevronDownIcon } from "./ChevronDownIcon";
+export { default as CliIcon } from "./CliIcon";
 export { default as ChevronRightIcon } from "./ChevronRightIcon";
 export { default as ClockIcon } from "./ClockIcon";
 export { default as CompassIcon } from "./CompassIcon";

@@ -16,8 +16,14 @@ import {
   useWallet,
   useWalletContext,
 } from "@/lib/wallet";
+import { ILinkItemKey } from "./Sidebar";
 
-const Layout: FC<BoxProps> = ({
+interface ILayoutProps extends BoxProps {
+  activeLink?: ILinkItemKey
+}
+
+const Layout: FC<ILayoutProps> = ({
+  activeLink,
   children,
   maxW = "container.lg",
   ...props
@@ -34,8 +40,9 @@ const Layout: FC<BoxProps> = ({
   return (
     <Box minH="100vh">
       <Sidebar
+        activeLink={activeLink}
         onClose={() => onClose}
-        display={{ base: "none", md: "block" }}
+        display={{ base: "none", md: "flex" }}
       />
       <Drawer
         autoFocus={false}
@@ -47,7 +54,7 @@ const Layout: FC<BoxProps> = ({
         size="full"
       >
         <DrawerContent>
-          <Sidebar onClose={onClose} />
+          <Sidebar activeLink={activeLink} onClose={onClose} />
         </DrawerContent>
       </Drawer>
       <Flex justify="center" w={"full"} minH="100vh">
