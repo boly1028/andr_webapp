@@ -17,9 +17,9 @@ const NavItem: FC<Props> = ({ active = false, icon, href, children, ...props }) 
           p="3"
           borderRadius="lg"
           color={active ? 'primary.500' : "base.white"}
+          bg={active ? 'rgba(68, 129, 255, 0.12)' : 'transparent'}
           _hover={{
-            bg: "dark.200",
-            color: "primary.500",
+            bg: active ? 'rgba(68, 129, 255, 0.12)' : 'dark.200'
           }}
           {...props}
         >

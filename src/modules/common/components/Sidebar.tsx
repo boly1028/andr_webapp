@@ -94,9 +94,13 @@ const Sidebar = ({ onClose, activeLink, ...props }: SidebarProps) => {
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
       <Box
+        display='flex'
+        flexDir='column'
+        gap='1'
         flex='1'
         px={4}
         overflowY="auto"
+        pb='2'
       >
         {LinkItems.map((link) => (
           <NavItem active={link.key === activeLink} gap='1' key={link.key} href={link.href} icon={link.icon}>

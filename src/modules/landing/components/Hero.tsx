@@ -38,9 +38,8 @@ const LandingHero: FC<LandingHeroProps> = () => {
           />
           <LandingAppsCard
             icon={<BookOpenIcon boxSize="16" />}
-            link="https://docs.andromedaprotocol.io/andromeda"
+            link={SITE_LINKS.learn()}
             title="Learn ADO's"
-            target="_blank"
           />
           <LandingAppsCard
             icon={<FolderOpenIcon boxSize="16" />}
