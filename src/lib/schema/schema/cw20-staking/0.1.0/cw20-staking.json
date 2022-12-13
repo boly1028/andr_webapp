@@ -228,7 +228,7 @@
             "identifier": {
                 "ui:options": {
                     "title": "Indentifier",
-                    "description": "Can be either an address or identifier of an ADO in an app."
+                    "description": "Can be either an address or app component name of a specific ADO within an app"
                 }
             }
         }

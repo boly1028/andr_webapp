@@ -281,7 +281,8 @@
               },
               "identifier": {
                 "ui:options": {
-                  "title": "Identifier"
+                  "title": "Identifier",
+                  "description":"Can be either an address or app component name of a specific ADO within an app"
                 }
               }
             },
@@ -316,7 +317,7 @@
                 },
                 "identifier": {
                   "ui:options": {
-                    "description": "Can be either an address or identifier of an ADO in a app.",
+                    "description": "Can be either an address or app component name of a specific ADO within an app",
                     "title": "Identifier"
                   }
                 }
