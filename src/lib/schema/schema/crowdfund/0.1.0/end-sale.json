@@ -33,7 +33,7 @@
             "ui:options": {
                 "title": "End Sale",
                 "description": " ",
-                "info": "<ul><li>In the case that the minimum sold is not achieved, refunds are sent to the <b>buyers</b> and tokens are <b>burnt</b>.</li><li>If the minimum sold was achieved, the tokens are sent to the <b>buyers</b> and the funds to the <b>recipient</b>.</li></ul>",
+                "info": "<ul><li>If minimum number of tokens are not sold, refunds are sent to the <b>buyers</b> and tokens are <b>burnt</b>.</li><li>If minimum number of tokens are sold, the tokens are sent to the <b>buyers</b> and the funds to the <b>recipient</b>.</li></ul>",
                 "infoType": "info"
             },
             "limit": {

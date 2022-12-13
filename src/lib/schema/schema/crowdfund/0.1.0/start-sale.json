@@ -26,6 +26,7 @@
                                 "oneOf": [
                                     {
                                         "title": "At height",
+                                        "description": "The height at which the event expires",
                                         "type": "object",
                                         "required": [
                                             "at_height"
@@ -41,6 +42,7 @@
                                     },
                                     {
                                         "title": "At time",
+                                        "description":"The time at which the event expires",
                                         "type": "object",
                                         "required": [
                                             "at_time"
@@ -119,7 +121,7 @@
                     },
                     "recipient": {
                         "title": "Token Purchaser",
-                        "description": "The recipient of the funds if the sale met the min_tokens_sold.",
+                        "description": "The recipient of the funds if the sale met minimum required number of tokens to be sold",
                         "allOf": [
                             {
                                 "oneOf": [
@@ -245,7 +247,7 @@
             "min_tokens_sold": {
                 "ui:options": {
                     "title": "Minimum Tokens Being Sold",
-                    "description": "The minimum amount of tokens sold to go through with the sale."
+                    "description": "The minimum number of tokens required to be sold"
                 }
             },
             "price": {
