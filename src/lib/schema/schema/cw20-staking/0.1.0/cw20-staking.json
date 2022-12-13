@@ -156,8 +156,12 @@
             "ui:options": {
                 "title": "Additional Rewards",
                 "description": "Any rewards in addition to the staking token. This list cannot include the staking token since it is used as a reward by default.",
-                "info": "Can have a maximum of 10 reward tokens.",
-                "infoType": "warning"
+                "alerts": [
+                    {
+                        "text": "Can have a maximum of 10 reward tokens.",
+                        "type": "warning"
+                    }
+                ]
             },
             "items": {
                 "ui:order": [
@@ -222,8 +226,12 @@
             "ui:options": {
                 "title": "Token to Stake",
                 "description": "The cw20 token that can be staked",
-                "info": "The additional rewards should not include the staking token.",
-                "infoType": "error"
+                "alerts": [
+                    {
+                        "text": "The additional rewards should not include the staking token.",
+                        "type": "error"
+                    }
+                ]
             },
             "identifier": {
                 "ui:options": {

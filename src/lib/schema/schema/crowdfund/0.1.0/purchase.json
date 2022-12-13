@@ -33,15 +33,23 @@
             "ui:options": {
                 "title": "Purchase",
                 "description": "",
-                "info": "A sale needs to be in progress in order to purchase tokens.",
-                "infoType": "error"
+                "alerts": [
+                    {
+                        "text": "A sale needs to be in progress in order to purchase tokens.",
+                        "type": "error"
+                    }
+                ]
             },
             "number_of_tokens": {
                 "ui:options": {
                     "title": "Max Tokens Able to Be Purchased",
                     "description": "An optional limit to the number of tokens to purchase.",
-                    "info": "If number_of_tokens is not specified, the maximum number of tokens are purchased based on the funds allocated (Unless we reach the maximum allowed).",
-                    "infoType": "info"
+                    "alerts": [
+                        {
+                            "text": "If number_of_tokens is not specified, the maximum number of tokens are purchased based on the funds allocated (Unless we reach the maximum allowed).",
+                            "type": "info"
+                        }
+                    ]
                 }
             }
         }

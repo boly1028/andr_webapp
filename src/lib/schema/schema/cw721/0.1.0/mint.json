@@ -146,8 +146,12 @@
       "ui:options": {
         "title": "Token/NFT",
         "description": "Token minting information",
-        "info": "Only available to the Minter defined in the ADO.",
-        "infoType": "error"
+        "alerts": [
+          {
+            "text": "Only available to the Minter defined in the ADO.",
+            "type": "error"
+          }
+        ]
       },
       "extension": {
         "ui:order": [
@@ -241,8 +245,12 @@
           "ui:options": {
             "title": "Original Token Publisher",
             "description": "The original publisher of the token (immutable).",
-            "info": "This field is immutable.",
-            "infoType": "warning"
+            "alerts": [
+              {
+                "text": "This field is immutable.",
+                "type": "warning"
+              }
+            ]
           }
         },
         "youtube_url": {

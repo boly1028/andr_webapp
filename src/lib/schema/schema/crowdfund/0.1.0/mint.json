@@ -142,8 +142,20 @@
             "ui:options": {
                 "title": "Mint",
                 "description": " ",
-                "info": "<ul><li>Only the contract owner can execute Mint.</li><li>Minting is only allowed before a sale starts.</li><li>The limit for the number of MintMsg that can be defined at once is 100.</li></ul>",
-                "infoType": "error"
+                "alerts": [
+                    {
+                        "text": "Only the contract owner can execute Mint",
+                        "type": "error"
+                    },
+                    {
+                        "text": "Minting is only allowed before a sale starts",
+                        "type": "error"
+                    },
+                    {
+                        "text": "The limit for the number of MintMsg that can be defined at once is 100",
+                        "type": "error"
+                    }
+                ]
             },
             "items": {
                 "ui:order": [
@@ -156,8 +168,12 @@
                 "ui:options": {
                     "title": "Token/NFT",
                     "description": "Token minting information",
-                    "info": "Only available to the Minter defined in the ADO.",
-                    "infoType": "error"
+                    "alerts": [
+                        {
+                            "text": "Only available to the Minter defined in the ADO.",
+                            "type": "error"
+                        }
+                    ]
                 },
                 "extension": {
                     "ui:order": [
@@ -251,8 +267,12 @@
                         "ui:options": {
                             "title": "Original Token Publisher",
                             "description": "The original publisher of the token (immutable).",
-                            "info": "This field is immutable.",
-                            "infoType": "warning"
+                            "alerts": [
+                                {
+                                    "text": "This field is immutable.",
+                                    "type": "warning"
+                                }
+                            ]
                         }
                     },
                     "youtube_url": {
@@ -266,8 +286,12 @@
                     "ui:options": {
                         "title": "Token/NFT Owner",
                         "description": "The owner of the newly minted NFT.",
-                        "info": " In order to be included in the sale, the owner must not be specified or set as the crowdfund contract.",
-                        "infoType": "info"
+                        "alerts": [
+                            {
+                                "text": " In order to be included in the sale, the owner must not be specified or set as the crowdfund contract.",
+                                "type": "info"
+                            }
+                        ]
                     }
                 },
                 "token_id": {

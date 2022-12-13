@@ -42,7 +42,7 @@
                                     },
                                     {
                                         "title": "At time",
-                                        "description":"The time at which the event expires",
+                                        "description": "The time at which the event expires",
                                         "type": "object",
                                         "required": [
                                             "at_time"
@@ -209,8 +209,12 @@
             "ui:options": {
                 "title": "Start Sale",
                 "description": "",
-                "info": "Only available to the contract owner.",
-                "infoType": "error"
+                "alerts": [
+                    {
+                        "text": "Only available to the contract owner.",
+                        "type": "error"
+                    }
+                ]
             },
             "expiration": {
                 "ui:options": {},
@@ -218,16 +222,24 @@
                     "ui:options": {
                         "title": "Expire Height",
                         "description": " ",
-                        "info": "AtHeight will expire when `env.block.height` >= height",
-                        "infoType": "info"
+                        "alerts": [
+                            {
+                                "text": "AtHeight will expire when `env.block.height` >= height",
+                                "type": "info"
+                            }
+                        ]
                     }
                 },
                 "at_time": {
                     "ui:options": {
                         "title": "Expire Time",
                         "description": "A point in time in nanosecond precision",
-                        "info": "AtTime will expire when env.block.time >= time.",
-                        "infoType": "info"
+                        "alerts": [
+                            {
+                                "text": "AtTime will expire when env.block.time >= time.",
+                                "type": "info"
+                            }
+                        ]
                     }
                 },
                 "never": {

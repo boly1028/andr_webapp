@@ -54,8 +54,12 @@
                 "ui:options": {
                     "title": "Amount Being Sent",
                     "description": "The amount to send.",
-                    "info": "The amount sent might be affected depending on the attached modules.",
-                    "infoType": "warning"
+                    "alerts": [
+                        {
+                            "text": "The amount sent might be affected depending on the attached modules.",
+                            "type": "warning"
+                        }
+                    ]
                 }
             },
             "contract": {

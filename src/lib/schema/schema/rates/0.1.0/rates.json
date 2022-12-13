@@ -237,8 +237,12 @@
           "ui:options": {
             "title": "Tax or Royalty?",
             "description": "An indicator to whether the rate being taken is tax. If tax is_additive is set to 1.",
-            "info": "Taxes are added to the selling price (<b>Paid by buyer</b>) while royalties are deducted from the price (<b>Paid by seller</b>).",
-            "infoType": "error"
+            "alerts": [
+              {
+                "text": "Taxes are added to the selling price (<b>Paid by buyer</b>) while royalties are deducted from the price (<b>Paid by seller</b>).",
+                "type": "error"
+              }
+            ]
           }
         },
         "rate": {
@@ -282,7 +286,7 @@
               "identifier": {
                 "ui:options": {
                   "title": "Identifier",
-                  "description":"Can be either an address or app component name of a specific ADO within an app"
+                  "description": "Can be either an address or app component name of a specific ADO within an app"
                 }
               }
             },

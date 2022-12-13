@@ -47,8 +47,12 @@
             ],
             "ui:options": {
                 "title": "Send NFT",
-                "info": "Only available to the token owner/operator/approved address.",
-                "infoType": "error"
+                "alerts": [
+                    {
+                        "text": "Only available to the token owner/operator/approved address.",
+                        "type": "error"
+                    }
+                ]
             },
             "contract": {
                 "ui:options": {

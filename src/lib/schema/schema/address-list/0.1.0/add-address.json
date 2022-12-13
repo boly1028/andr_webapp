@@ -1,6 +1,6 @@
 {
   "schema": {
-    "title":"Add Address",
+    "title": "Add Address",
     "description": "Add an address to the address list.",
     "type": "object",
     "required": [
@@ -30,8 +30,12 @@
     "add_address": {
       "ui:options": {
         "title": "Add Address to List",
-        "info": "Only Owner / Operators can execute Add Address.",
-        "infoType": "error"
+        "alerts": [
+          {
+            "text": "Only Owner / Operators can execute Add Address.",
+            "type": "error"
+          }
+        ]
       },
       "address": {
         "ui:options": {
