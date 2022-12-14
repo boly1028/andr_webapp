@@ -97,8 +97,9 @@ const FieldTemplate = (props: FieldTemplateProps) => {
         uiSchema={uiSchema}
         registry={registry}
       >
-        {alerts.map(alert => (
+        {alerts.map((alert, idx) => (
           <Alert
+            key={idx}
             status={alert.type}
             variant="left-accent"
             rounded="lg"

@@ -64,7 +64,7 @@
                 "ui:widget": "msg",
                 "ui:options": {
                     "title": "Supporting Message",
-                    "description": " ??? "
+                    "description": "Please enter a relevant message to accompany the the ID of the token being sent. This can be a description of the auction and/or token."
                 }
             },
             "token_id": {
