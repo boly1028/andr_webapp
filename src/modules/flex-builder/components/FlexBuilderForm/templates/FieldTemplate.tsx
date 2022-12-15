@@ -79,6 +79,9 @@ const FieldTemplate = (props: FieldTemplateProps) => {
   const hasWrapper = !!schema?.anyOf || !!schema?.oneOf;
   // const hasWrapper = false;
 
+  const showAlert = !hasWrapper && !!uiOptions.alerts;
+  const alerts: Array<any> = !showAlert ? [] : uiOptions.alerts as Array<any>
+
   return (
     <FieldTemplateContext.Provider value={{ onChange: contextOnChange }}>
       <WrapIfAdditionalTemplate
@@ -94,9 +97,10 @@ const FieldTemplate = (props: FieldTemplateProps) => {
         uiSchema={uiSchema}
         registry={registry}
       >
-        {!hasWrapper && uiOptions.info && (
+        {alerts.map((alert, idx) => (
           <Alert
-            status={uiOptions.infoType as any}
+            key={idx}
+            status={alert.type}
             variant="left-accent"
             rounded="lg"
             fontSize="sm"
@@ -106,11 +110,11 @@ const FieldTemplate = (props: FieldTemplateProps) => {
             <AlertDescription
               listStylePos="inside"
               dangerouslySetInnerHTML={{
-                __html: `${uiOptions.info}`,
+                __html: `${alert.text}`,
               }}
             />
           </Alert>
-        )}
+        ))}
         <FormControl
           isRequired={hasWrapper ? false : required}
           isInvalid={rawErrors && rawErrors.length > 0}

@@ -22,8 +22,12 @@
         "send": {
             "ui:options": {
                 "title": "Send",
-                "info": "You cannot send more than 5 coins with one Send.",
-                "infoType": "error"
+                "alerts": [
+                    {
+                        "text": "You cannot send more than 5 coins with one Send.",
+                        "type": "error"
+                    }
+                ]
             }
         }
     },
