@@ -232,6 +232,7 @@ export default extendTheme({
       baseado: '#FEB059',
       module: '#4D78FF',
       classifier: '#23EEF7',
+      modifier: '#AB582C',
       primitive: '#DF2B5B',
       oracle: '#E863CB',
       asset: '#2187DD',
