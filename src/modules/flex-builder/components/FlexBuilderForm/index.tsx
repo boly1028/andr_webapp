@@ -31,6 +31,7 @@ type FlexBuilderFormProps = {
   onChange?: (data: any) => void;
   onSubmit?: (data: any) => void;
   onError?: () => void;
+  addButtonTitle?: string;
 };
 
 const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
@@ -39,6 +40,7 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
   onError,
   isLoading,
   notReady = false,
+  addButtonTitle
 }) => {
   const toast = useToast({
     position: "top-right",
@@ -208,8 +210,8 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
       }}
     >
       {/* Add Modules Action */}
-      {template.modules && (
-        <AddModuleModal items={template.modules} onAdd={addModule} />
+      {(template.modules && template.modules.length > 0) && (
+        <AddModuleModal title={addButtonTitle} items={template.modules} onAdd={addModule} />
       )}
 
       {/* Action Footer */}

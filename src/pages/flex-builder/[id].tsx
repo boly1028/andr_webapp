@@ -82,6 +82,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
           template={template}
           onSubmit={handleSubmit}
           notReady={!codeId || codeId === -1 || !account}
+          addButtonTitle="Add App Component"
         />
       </Box>
     </Layout>

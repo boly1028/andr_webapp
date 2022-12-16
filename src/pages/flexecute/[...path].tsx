@@ -90,6 +90,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
           template={template}
           onSubmit={handleSubmit}
           notReady={!account}
+          addButtonTitle="Add Attachment"
         />
       </Box>
     </Layout>
