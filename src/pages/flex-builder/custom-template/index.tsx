@@ -118,8 +118,6 @@ const FlexBuilderCustomTemplate: NextPage<Props> = ({ }) => {
         <FlexBuilderForm
           template={template}
           onSubmit={handleSubmit}
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          onEstimate={(data: any) => handleSubmit(data, true)}
           notReady={!codeId || codeId === -1 || !account}
         />
       </Box>

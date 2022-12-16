@@ -89,7 +89,6 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
           key={template.name}
           template={template}
           onSubmit={handleSubmit}
-          onEstimate={(data: any) => handleSubmit(data, true)}
           notReady={!account}
         />
       </Box>

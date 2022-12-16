@@ -14,12 +14,11 @@ import {
   FileCheckIcon,
   Layout,
   PageHeader,
-  UploadCloudIcon,
 } from "@/modules/common";
 import { useRouter } from "next/router";
 import { useEffect, useMemo, useState } from "react";
 import { cloneDeep } from "lodash";
-import { IAdoType, IImportantAdoKeys, ITemplate } from "@/lib/schema/types";
+import { IImportantAdoKeys, ITemplate } from "@/lib/schema/types";
 import { getProxyTemplate } from "@/lib/schema/utils";
 import { useExecuteModal } from "@/modules/modals/hooks";
 import useConstructProxyMsg from "@/modules/sdk/hooks/useConstructProxyMsg";
@@ -192,7 +191,6 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
           key={UPDATE_KEY}
           template={modifiedTemplate}
           onSubmit={handleSubmit}
-          onEstimate={(data: any) => handleSubmit(data, true)}
           notReady={!account}
         />
       </Box>

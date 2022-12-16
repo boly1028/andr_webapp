@@ -18,9 +18,6 @@ type Props = {
 const TemplatePage: NextPage<Props> = ({ template }) => {
   const router = useRouter();
   const contract = router.query.contract as string;
-  const construct = useConstructADOExecuteMsg();
-  const getFunds = useGetFunds();
-  const openModal = useExecuteModal(contract);
   const account = useWallet();
 
   const handleSubmit = async (
@@ -28,10 +25,8 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
       formData,
     }: {
       formData: any;
-    },
-    simulate = false,
-  ) => {
-    console.log("FORM::DATA",formData)
+    }) => {
+    console.log("FORM::DATA", formData)
     // const msg = construct(formData);
     // const funds = getFunds(formData);
     // openModal(msg, simulate, funds);
@@ -90,7 +85,6 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
           key={template.name}
           template={template}
           onSubmit={handleSubmit}
-          onEstimate={(data: any) => handleSubmit(data, true)}
           notReady={!account}
         />
       </Box>
