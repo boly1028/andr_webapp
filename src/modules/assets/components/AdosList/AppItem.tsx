@@ -93,7 +93,7 @@ const AppItem: FC<AppItemProps> = ({ app }) => {
             <InlineStat label="Address" value={truncate(app.address ?? "")} />
           </CopyButton>
         </Box>
-        <Flex alignItems="center" gap="1" alignSelf="center">
+        <Flex alignItems="center" gap="1" alignSelf="center" w='28'>
           {/* Section for Action List */}
           <Box>
             <Button
