@@ -1,0 +1,1 @@
+{"schema":{"type":"object","required":["add"],"properties":{"add":{"type":"object","required":["process"],"properties":{"process":{"type":"string","title":"Process"}},"additionalProperties":false,"title":"Add"}},"additionalProperties":false,"title":"Add","$id":"add","class":"modifier","version":"0.1.0","classifier":""},"ui-schema":{},"form-data":{}}

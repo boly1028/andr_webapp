@@ -1,0 +1,1 @@
+{"schema":{"$schema":"http://json-schema.org/draft-07/schema#","title":"Free space","type":"boolean","properties":{},"$id":"free_space","version":"0.1.0","classifier":"response","class":"response"},"ui-schema":{},"form-data":{}}

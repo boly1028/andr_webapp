@@ -1,1 +1,1 @@
-{"modifiers":["mint","buy","update-required-coin","set-sale-details","switch-status"]}
+{"modifiers":["mint","buy","update-required-coin","set-sale-details","switch-status"],"queries":["andr-query.query","number-of-nfts.query","sale-details.query","status.query"],"responses":["andr-query.response","number-of-nfts.response","sale-details.response","status.response"]}

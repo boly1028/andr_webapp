@@ -113,8 +113,7 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
     });
     downloadBlob(
       blob,
-      `${
-        schema.$id || "panel"
+      `${schema.$id || "panel"
       }-${currentSchemaId}-${new Date().getTime()}.json`,
     );
   };
@@ -159,6 +158,11 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
                 </Text>
                 {!NON_EDITABLE_CLASS.has(schema.class ?? "") && (
                   <>
+                    <Text fontSize="xs"
+                      color="dark.500"
+                      fontWeight="light">
+                      @{schema.version ?? 'latest'}
+                    </Text>
                     <CopyButton
                       variant="link"
                       fontSize="xs"

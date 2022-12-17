@@ -1,1 +1,1 @@
-{"modifiers":["receive-nft","unstake","claim","update-allowed-contracts","add-allowed-contract","remove-allowed-contract","update-unbonding-period"]}
+{"modifiers":["receive-nft","unstake","claim","update-allowed-contracts","add-allowed-contract","remove-allowed-contract","update-unbonding-period"],"queries":["andr-query.query","staked-nft.query","allowed-contracts.query","unbonding-period.query","reward.query"],"responses":["allowed-contracts.response","andr-query.response","reward.response","staked-nft.response","unbonding-period.response"]}

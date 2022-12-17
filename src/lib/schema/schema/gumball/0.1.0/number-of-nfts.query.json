@@ -1,0 +1,1 @@
+{"schema":{"type":"object","required":["number_of_nfts"],"properties":{"number_of_nfts":{"type":"object","additionalProperties":false,"title":"Number of nfts"}},"additionalProperties":false,"title":"Number of nfts","$id":"number-of-nfts","class":"query","version":"0.1.0","classifier":""},"ui-schema":{},"form-data":{}}

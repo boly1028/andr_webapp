@@ -33,19 +33,21 @@ import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
 import { MoreVertical } from "lucide-react";
 import { useGetSchemaADOP } from "@/lib/schema/hooks/useGetSchemaADOP";
 import { IAdoType } from "@/lib/schema/types";
-import { getSchemaMeta } from "@/lib/schema/utils";
+import { useGetSchemaVersions } from "@/lib/schema/hooks/useGetSchemaVersion";
 
 interface AppItemProps {
   app: AdoAsset;
 }
 const AppItem: FC<AppItemProps> = ({ app }) => {
   const { data: appInfo, loading, error } = useQueryAppInfo(app.address);
-  const $version = "0.1.0";
+
   // Creating a proxy for app type as it is now reference as app-contract
   const adoType =
     app?.adoType === "app" ? "app-contract" : (app?.adoType as IAdoType);
 
-  const { data: adopData, isLoading } = useGetSchemaADOP(adoType);
+  const { data: appVersion } = useGetSchemaVersions(adoType);
+
+  const { data: adopData, isLoading } = useGetSchemaADOP(adoType, appVersion?.latest);
 
   const open = useAssetInfoModal();
   const { getButtonProps, getDisclosureProps, isOpen } = useDisclosure();
@@ -72,7 +74,7 @@ const AppItem: FC<AppItemProps> = ({ app }) => {
           {/* <InlineStat label="{type}" value={name} reverse /> */}
         </Box>
         <Box flex={1}>
-          <InlineStat label="Type" value={`${app.adoType}@${$version}`} />
+          <InlineStat label="Type" value={`${app.adoType}@${appVersion?.latest}`} />
         </Box>
         {/* <Box flex={1}>
       <InlineStat label="Version" value={version} />
@@ -116,7 +118,7 @@ const AppItem: FC<AppItemProps> = ({ app }) => {
             />
             <MenuList>
               {adopData?.modifiers?.map((action) => {
-                const path = `${adoType}/${$version}/${formatActionPath(
+                const path = `${adoType}/${appVersion?.latest}/${formatActionPath(
                   action,
                 )}`;
                 return (

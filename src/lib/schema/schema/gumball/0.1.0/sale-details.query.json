@@ -1,0 +1,1 @@
+{"schema":{"type":"object","required":["sale_details"],"properties":{"sale_details":{"type":"object","additionalProperties":false,"title":"Sale details"}},"additionalProperties":false,"title":"Sale details","$id":"sale-details","class":"query","version":"0.1.0","classifier":""},"ui-schema":{},"form-data":{}}

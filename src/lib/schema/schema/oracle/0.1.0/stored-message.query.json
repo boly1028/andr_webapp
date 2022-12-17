@@ -1,0 +1,1 @@
+{"schema":{"type":"object","required":["stored_message"],"properties":{"stored_message":{"type":"object","additionalProperties":false,"title":"Stored message"}},"additionalProperties":false,"title":"Stored message","$id":"stored-message","class":"query","version":"0.1.0","classifier":""},"ui-schema":{},"form-data":{}}

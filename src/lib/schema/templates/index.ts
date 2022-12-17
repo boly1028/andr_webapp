@@ -1,7 +1,5 @@
-import baseAdo from "../schema/baseADO.json";
-import modules from "../schema/module.json";
-import primitive from "../schema/primitive.json";
 import { IImportantAdoKeys } from "../types";
+import { BASE_ADOS, MODULES, PRIMITIVES } from "../utils/list";
 import { ITemplate } from "./types";
 
 const APP_TEMPLATES: ITemplate[] = [
@@ -27,9 +25,9 @@ const APP_TEMPLATES: ITemplate[] = [
     ],
 
     modules: [
-      ...baseAdo.map((ado) => ({ path: ado.source })),
-      ...modules.map((ado) => ({ path: ado.source })),
-      ...primitive.map((ado) => ({ path: ado.source })),
+      ...BASE_ADOS.map((ado) => ({ path: ado.source })),
+      ...MODULES.map((ado) => ({ path: ado.source })),
+      ...PRIMITIVES.map((ado) => ({ path: ado.source })),
     ],
     system: true,
     starter: true,
@@ -47,10 +45,10 @@ const APP_TEMPLATES: ITemplate[] = [
         id: IImportantAdoKeys.PUBLISH_SETTINGS,
         required: true,
       },
-      { path: "cw721/0.1.0/cw721", id: "tokens", required: true },
-      { path: "crowdfund/0.1.0/crowdfund", id: "crowdfund", required: true },
-      { path: "vault/0.1.0/vault", id: "vault", required: true },
-      { path: "rates/0.1.0/rates", id: "rates", required: true },
+      { path: "cw721/latest/cw721", id: "tokens", required: true },
+      { path: "crowdfund/latest/crowdfund", id: "crowdfund", required: true },
+      { path: "vault/latest/vault", id: "vault", required: true },
+      { path: "rates/latest/rates", id: "rates", required: true },
     ],
     icon: "/app-templates/icons/crowdfund.png",
     installed: true,
@@ -69,9 +67,9 @@ const APP_TEMPLATES: ITemplate[] = [
         id: IImportantAdoKeys.PUBLISH_SETTINGS,
         required: true,
       },
-      { path: "cw721/0.1.0/cw721", id: "tokens", required: true },
-      { path: "auction/0.1.0/auction", id: "auction", required: true },
-      { path: "rates/0.1.0/rates", id: "rates", required: true },
+      { path: "cw721/latest/cw721", id: "tokens", required: true },
+      { path: "auction/latest/auction", id: "auction", required: true },
+      { path: "rates/latest/rates", id: "rates", required: true },
     ],
     icon: "/app-templates/icons/auction-market.png",
     installed: true,
@@ -90,15 +88,15 @@ const APP_TEMPLATES: ITemplate[] = [
         id: IImportantAdoKeys.PUBLISH_SETTINGS,
         required: true,
       },
-      { path: "cw721/0.1.0/cw721", id: "tokens", required: true },
+      { path: "cw721/latest/cw721", id: "tokens", required: true },
       {
-        path: "marketplace/0.1.0/marketplace",
+        path: "marketplace/latest/marketplace",
         id: "marketplace",
         required: true,
       },
-      { path: "rates/0.1.0/rates", id: "rates", required: true },
+      { path: "rates/latest/rates", id: "rates", required: true },
       {
-        path: "address-list/0.1.0/address-list",
+        path: "address-list/latest/address-list",
         id: "whitelist",
         required: true,
       },
@@ -120,9 +118,9 @@ const APP_TEMPLATES: ITemplate[] = [
         id: IImportantAdoKeys.PUBLISH_SETTINGS,
         required: true,
       },
-      { path: "cw20/0.1.0/cw20", id: "tokens", required: true },
+      { path: "cw20/latest/cw20", id: "tokens", required: true },
       {
-        path: "cw20-staking/0.1.0/cw20-staking",
+        path: "cw20-staking/latest/cw20-staking",
         id: "staking",
         required: true,
       },

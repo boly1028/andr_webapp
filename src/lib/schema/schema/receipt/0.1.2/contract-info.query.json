@@ -1,0 +1,1 @@
+{"schema":{"description":"The current contract config.","type":"object","required":["contract_info"],"properties":{"contract_info":{"type":"object","additionalProperties":false,"title":"Contract info"}},"additionalProperties":false,"title":"Contract info","$id":"contract-info","class":"query","version":"0.1.2","classifier":""},"ui-schema":{},"form-data":{}}

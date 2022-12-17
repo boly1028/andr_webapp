@@ -1,1 +1,1 @@
-{"modifiers":["receive","add-reward-token","unstake-tokens","claim-rewards","update-global-indexes"]}
+{"modifiers":["receive","add-reward-token","unstake-tokens","claim-rewards","update-global-indexes"],"queries":["andr-query.query","config.query","state.query","staker.query","stakers.query","timestamp.query"],"responses":["andr-query.response","config.response","staker.response","stakers.response","state.response","timestamp.response"]}

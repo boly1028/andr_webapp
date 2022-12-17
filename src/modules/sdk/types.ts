@@ -7,11 +7,12 @@ export interface IAppContract {
     [index: string]: any;
     name: string;
     primitive_contract: string;
-    app: Array<{
+    app_components: Array<{
         ado_type: IAdoType;
         instantiate_msg: string;
         name: string;
     }>;
+    target_ados?: string[]
 }
 
 /**

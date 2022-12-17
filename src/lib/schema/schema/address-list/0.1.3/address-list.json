@@ -1,0 +1,1 @@
+{"schema":{"$schema":"http://json-schema.org/draft-07/schema#","title":"Address list","type":"object","required":["is_inclusive"],"properties":{"is_inclusive":{"type":"boolean","title":"Is inclusive"}},"additionalProperties":false,"$id":"address-list","version":"0.1.3","classifier":"address","class":"module"},"ui-schema":{},"form-data":{}}

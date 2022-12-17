@@ -1,0 +1,1 @@
+{"schema":{"$schema":"http://json-schema.org/draft-07/schema#","title":"Code id","type":"integer","format":"uint64","minimum":0,"properties":{},"$id":"code_id","version":"0.1.1","classifier":"response","class":"response"},"ui-schema":{},"form-data":{}}

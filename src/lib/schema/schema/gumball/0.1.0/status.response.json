@@ -1,0 +1,1 @@
+{"schema":{"$schema":"http://json-schema.org/draft-07/schema#","title":"Status","type":"object","required":["status"],"properties":{"status":{"type":"boolean","title":"Status"}},"additionalProperties":false,"$id":"status","version":"0.1.0","classifier":"response","class":"response"},"ui-schema":{},"form-data":{}}

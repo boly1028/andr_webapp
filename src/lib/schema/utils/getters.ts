@@ -3,8 +3,30 @@ import { ITemplate } from "../templates/types";
 import { IAndromedaSchema, IAndromedaSchemaJSON, IImportantAdoKeys } from "../types";
 import { processTemplate } from "./template";
 
+export const getADOVersion = async (ado: string) => {
+    const version = await import(`../schema/${ado}/version.json`).then(res => res.default) as {
+        latest: string;
+        versions: string[]
+    }
+    return version;
+}
+
+export const resolveVersionInPath = async (path: string) => {
+    try {
+        if (path.includes('/latest/')) {
+            const ado = path.split('/')[0];
+            const adoVersion = await getADOVersion(ado);
+            // If we are referencing ado with latest version, get the latest version number and update it
+            path = path.replace('/latest/', `/${adoVersion.latest}/`)
+        }
+    } catch (err) {
+        console.warn(err)
+    }
+    return path
+}
 
 export const getADOPFromPath = async (path: string) => {
+    path = await resolveVersionInPath(path)
     const adop = await import(`../schema/${path}.json`).then(res => res.default) as {
         modifiers: string[]
     }
@@ -12,6 +34,7 @@ export const getADOPFromPath = async (path: string) => {
 }
 
 export const getSchemaFromPath = async (path: string) => {
+    path = await resolveVersionInPath(path)
     const schema = await import(`../schema/${path}.json`).then(res => res.default) as IAndromedaSchemaJSON;
     schema.schema.$path = path;
 

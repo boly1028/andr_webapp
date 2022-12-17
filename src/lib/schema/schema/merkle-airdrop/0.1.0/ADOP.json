@@ -1,1 +1,1 @@
-{"modifiers":["register-merkle-root","claim","burn"]}
+{"modifiers":["register-merkle-root","claim","burn"],"queries":["andr-query.query","config.query","merkle-root.query","latest-stage.query","is-claimed.query","total-claimed.query"],"responses":["andr-query.response","config.response","is-claimed.response","latest-stage.response","merkle-root.response","total-claimed.response"]}

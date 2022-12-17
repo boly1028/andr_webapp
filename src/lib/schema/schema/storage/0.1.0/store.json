@@ -1,0 +1,1 @@
+{"schema":{"type":"object","required":["store"],"properties":{"store":{"type":"object","required":["process"],"properties":{"process":{"type":"string","title":"Process"}},"additionalProperties":false,"title":"Store"}},"additionalProperties":false,"title":"Store","$id":"store","class":"modifier","version":"0.1.0","classifier":""},"ui-schema":{},"form-data":{}}

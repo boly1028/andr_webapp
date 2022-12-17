@@ -1,0 +1,1 @@
+{"schema":{"type":"object","required":["target"],"properties":{"target":{"type":"object","additionalProperties":false,"title":"Target"}},"additionalProperties":false,"title":"Target","$id":"target","class":"query","version":"0.1.0","classifier":""},"ui-schema":{},"form-data":{}}

@@ -1,1 +1,1 @@
-{"schema":{"$schema":"http://json-schema.org/draft-07/schema#","title":"Cw721 timelock","type":"object","$id":"cw721-timelock","classifier":"escrow","class":"baseADO","version":"0.1.0"},"ui-schema":{},"form-data":{}}
+{"schema":{"$schema":"http://json-schema.org/draft-07/schema#","title":"Cw721 timelock","type":"object","additionalProperties":false,"$id":"cw721-timelock","version":"0.1.0","classifier":"escrow","class":"baseADO"},"ui-schema":{},"form-data":{}}

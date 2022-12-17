@@ -1,0 +1,1 @@
+{"schema":{"$schema":"http://json-schema.org/draft-07/schema#","title":"Timestamp","type":"integer","format":"uint64","minimum":0,"properties":{},"$id":"timestamp","version":"0.1.0","classifier":"response","class":"response"},"ui-schema":{},"form-data":{}}

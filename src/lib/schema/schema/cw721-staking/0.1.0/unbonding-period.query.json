@@ -1,0 +1,1 @@
+{"schema":{"type":"object","required":["unbonding_period"],"properties":{"unbonding_period":{"type":"object","additionalProperties":false,"title":"Unbonding period"}},"additionalProperties":false,"title":"Unbonding period","$id":"unbonding-period","class":"query","version":"0.1.0","classifier":""},"ui-schema":{},"form-data":{}}
