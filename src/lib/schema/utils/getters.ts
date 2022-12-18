@@ -1,9 +1,9 @@
 import APP_TEMPLATES from "../templates";
 import { ITemplate } from "../templates/types";
-import { IAndromedaSchema, IAndromedaSchemaJSON, IImportantAdoKeys } from "../types";
+import { IAdoType, IAndromedaSchema, IAndromedaSchemaJSON, IImportantAdoKeys, ISchemaVersion } from "../types";
 import { processTemplate } from "./template";
 
-export const getADOVersion = async (ado: string) => {
+export const getADOVersion = async (ado: IAdoType) => {
     const version = await import(`../schema/${ado}/version.json`).then(res => res.default) as {
         latest: string;
         versions: string[]
@@ -11,10 +11,18 @@ export const getADOVersion = async (ado: string) => {
     return version;
 }
 
+export const getADOVersionDetails = async (ado: IAdoType, version = 'latest') => {
+    if (version === 'latest') {
+        version = await getADOVersion(ado).then(res => res.latest);
+    }
+    const versionDetails: ISchemaVersion = await import(`../schema/${ado}/version.json`).then(res => res.default)
+    return versionDetails;
+}
+
 export const resolveVersionInPath = async (path: string) => {
     try {
         if (path.includes('/latest/')) {
-            const ado = path.split('/')[0];
+            const ado = path.split('/')[0] as IAdoType;
             const adoVersion = await getADOVersion(ado);
             // If we are referencing ado with latest version, get the latest version number and update it
             path = path.replace('/latest/', `/${adoVersion.latest}/`)

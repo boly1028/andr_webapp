@@ -1,6 +1,8 @@
 import { UiSchema } from "@andromedarjsf/utils";
 import { JSONSchema7 } from "json-schema";
-import allSchema from './schema/classifier.json';
+import versions from './schema/version.json';
+
+export type ISchemaVersion = (typeof versions)[keyof typeof versions];
 
 
 export type { ITemplate } from './templates/types'
@@ -14,7 +16,7 @@ export const IImportantAdoKeys = {
     FLEX_FILE: 'import'
 } as const;
 
-export type IAdoType = keyof typeof allSchema | typeof IImportantAdoKeys.PUBLISH_SETTINGS | typeof IImportantAdoKeys.PROXY_MESSAGE | typeof IImportantAdoKeys.FUND | typeof IImportantAdoKeys.APP;
+export type IAdoType = keyof typeof versions | typeof IImportantAdoKeys.PUBLISH_SETTINGS | typeof IImportantAdoKeys.PROXY_MESSAGE | typeof IImportantAdoKeys.FUND | typeof IImportantAdoKeys.APP;
 export interface IAndromedaSchemaJSON {
     'schema': IAndromedaSchema;
     'ui-schema': IAndromedaUISchema;
