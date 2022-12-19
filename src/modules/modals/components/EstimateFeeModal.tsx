@@ -198,8 +198,7 @@ const EstimateFeeModal: FC<TransactionModalProps & OptionalProps> = (props) => {
             >
               Cancel
             </Button>
-            {/* Only when the estimate fee modal is a part of the broadbasting process should we show a broadcast /publish button */}
-            {props.simulate && props.onNextStage && (
+            {props.onNextStage && (
               <Button
                 variant="solid"
                 bg="#7F56D9"

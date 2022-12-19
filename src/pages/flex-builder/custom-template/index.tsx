@@ -55,15 +55,14 @@ const FlexBuilderCustomTemplate: NextPage<Props> = ({ }) => {
       formData,
     }: {
       formData: any;
-    },
-    simulate = false,
+    }
   ) => {
     if (codeId === -1) {
       console.warn("Code ID not fetched");
       return;
     }
     const msg = construct(formData);
-    openModal(msg, simulate);
+    openModal(msg);
   };
 
   //TODO: Setup staging availability flags for loading staging sections if passed

@@ -92,12 +92,11 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
       formData,
     }: {
       formData: any;
-    },
-    simulate = false,
+    }
   ) => {
     const msg = construct(formData);
     const funds = getFunds(formData);
-    openModal(msg, simulate, funds);
+    openModal(msg, funds);
   };
 
   //TODO: Setup staging availability flags for loading staging sections if passed

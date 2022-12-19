@@ -24,7 +24,7 @@ export interface InstantiateTransactionModalProps {
 export type TransactionModalProps = (
   | ExecuteTransactionModalProps
   | InstantiateTransactionModalProps
-) & { simulate: boolean; msg: Msg; modalType: ModalType.Transaction; fee?: Fee, memo?: string };
+) & { msg: Msg; modalType: ModalType.Transaction; fee?: Fee, memo?: string };
 
 export interface AddFundsModalProps {
   funds: Coin[];
