@@ -1,10 +1,11 @@
+import { cloneDeep } from "@apollo/client/utilities";
 import APP_TEMPLATES from "../templates";
 import { ITemplate } from "../templates/types";
 import { IAdoType, IAndromedaSchema, IAndromedaSchemaJSON, IImportantAdoKeys, ISchemaVersion } from "../types";
 import { processTemplate } from "./template";
 
 export const getADOVersion = async (ado: IAdoType) => {
-    const version = await import(`../schema/${ado}/version.json`).then(res => res.default) as {
+    const version = await import(`../schema/${ado}/version.json`).then(res => res.default).then(data => cloneDeep(data)) as {
         latest: string;
         versions: string[]
     }
@@ -15,7 +16,7 @@ export const getADOVersionDetails = async (ado: IAdoType, version = 'latest') =>
     if (version === 'latest') {
         version = await getADOVersion(ado).then(res => res.latest);
     }
-    const versionDetails: ISchemaVersion = await import(`../schema/${ado}/version.json`).then(res => res.default)
+    const versionDetails: ISchemaVersion = await import(`../schema/${ado}/version.json`).then(res => res.default).then(data => cloneDeep(data))
     return versionDetails;
 }
 
@@ -35,7 +36,7 @@ export const resolveVersionInPath = async (path: string) => {
 
 export const getADOPFromPath = async (path: string) => {
     path = await resolveVersionInPath(path)
-    const adop = await import(`../schema/${path}.json`).then(res => res.default) as {
+    const adop = await import(`../schema/${path}.json`).then(res => res.default).then(data => cloneDeep(data)) as {
         modifiers: string[]
     }
     return adop;
@@ -43,7 +44,7 @@ export const getADOPFromPath = async (path: string) => {
 
 export const getSchemaFromPath = async (path: string) => {
     path = await resolveVersionInPath(path)
-    const schema = await import(`../schema/${path}.json`).then(res => res.default) as IAndromedaSchemaJSON;
+    const schema = await import(`../schema/${path}.json`).then(res => res.default).then(data => cloneDeep(data)) as IAndromedaSchemaJSON;
     schema.schema.$path = path;
 
     const properties: IAndromedaSchema['properties'] = {
