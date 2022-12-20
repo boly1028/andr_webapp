@@ -13,6 +13,7 @@ import NavItem from "./NavItem";
 import {
   BookOpenIcon,
   CubeIcon,
+  GlobeIcon,
   SparklesIcon,
   FolderOpenIcon,
   AppBuilder,
@@ -28,6 +29,7 @@ export enum ILinkItemKey {
   ASSETS = "assets",
   APP_STORE = "appstore",
   CLI = "cli",
+  EMBEDDABLES = "embeddables",
 }
 interface ILinkItem {
   name: string;
@@ -59,6 +61,12 @@ const LinkItems: ILinkItem[] = [
     icon: <FolderOpenIcon boxSize={5} />,
     href: SITE_LINKS.assets(),
     key: ILinkItemKey.ASSETS,
+  },
+  {
+    name: "Embeddables",
+    icon: <GlobeIcon boxSize={5} />,
+    href: SITE_LINKS.embeddables(),
+    key: ILinkItemKey.EMBEDDABLES,
   },
   {
     name: "App Store",
