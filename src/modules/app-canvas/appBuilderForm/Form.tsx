@@ -60,9 +60,6 @@ const AppBuilderForm: FC<AppBuilderFormProps> = (props) => {
             formContext={{
                 name: name
             }}
-            onSubmit={() => {
-
-            }}
             ref={ref}
         >
             <>
