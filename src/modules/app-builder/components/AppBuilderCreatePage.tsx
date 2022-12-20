@@ -10,7 +10,7 @@ import ReactFlow, {
   Background,
   useNodesState,
   useEdgesState,
-} from "react-flow-renderer";
+} from "reactflow";
 import _ from "lodash";
 import { v4 as uuidv4 } from "uuid";
 
@@ -550,10 +550,10 @@ const AppBuilderCreatePage = () => {
           console.log("--Building Parent--> " + parentName);
           console.log(
             schemaInfo["title"] +
-              "|" +
-              schemaInfo["description"] +
-              " | " +
-              schemaInfo["class"],
+            "|" +
+            schemaInfo["description"] +
+            " | " +
+            schemaInfo["class"],
           );
           addParent(
             schemaInfo["class"],

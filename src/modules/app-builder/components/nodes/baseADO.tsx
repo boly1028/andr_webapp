@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { Handle, Position } from "react-flow-renderer";
+import { Handle, Position } from "reactflow";
 
 // Import Visual Elements
 import { Box, Button, Circle, Text, Icon, HStack } from "@chakra-ui/react";

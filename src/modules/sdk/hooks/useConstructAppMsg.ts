@@ -17,16 +17,19 @@ export default function useConstructAppMsg() {
   const { registryAddress } = useAndromedaContext();
 
   const constructAppMsg = useCallback(
-    (data: ITemplateFormData) => {
+    (data: ITemplateFormData, appName?: string) => {
       console.clear();
+      if (!appName) {
+        // Our system panel name is 'publish-settings'. Refer app template in schema
+        const publishSettingsPanel = data[IImportantAdoKeys.PUBLISH_SETTINGS];
+        if (!publishSettingsPanel || !publishSettingsPanel.name) throw new Error("Incorrect publish settings fields");
+        appName = publishSettingsPanel.name
+      }
 
-      // Our system panel name is 'publish-settings'. Refer app template in schema
-      const publishSettingsPanel = data[IImportantAdoKeys.PUBLISH_SETTINGS];
-      if (!publishSettingsPanel || !publishSettingsPanel.name) throw new Error("Incorrect publish settings fields");
-
+      if (!appName) throw new Error("App name is required")
       // App contract which we will use to initialise. We will add app components in app list here.
       const appContract: IAppContract = {
-        name: publishSettingsPanel.name,
+        name: appName,
         app_components: [],
         primitive_contract: registryAddress
       };

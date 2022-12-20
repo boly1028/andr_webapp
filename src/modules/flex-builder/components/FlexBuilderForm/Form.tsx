@@ -6,10 +6,13 @@ import validator from "./validator";
 import defaultWidgets from "./widgets";
 
 interface IFormProps extends Omit<FormProps<any, any>, "validator"> { }
-const Form: FC<IFormProps> = (props) => {
+const Form = (props: IFormProps, ref: any) => {
   const { templates = {}, widgets = {}, ...otherProps } = props;
+
   return (
     <ChakraForm
+      // @ts-ignore
+      ref={ref}
       validator={validator}
       templates={{
         ...defaultTemplates,
@@ -22,4 +25,4 @@ const Form: FC<IFormProps> = (props) => {
     />
   );
 };
-export default Form;
+export default React.forwardRef<any, IFormProps>(Form)
