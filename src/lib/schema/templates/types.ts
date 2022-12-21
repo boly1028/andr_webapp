@@ -1,5 +1,6 @@
 import { IAdoType, IAndromedaFormData, IAndromedaSchema, IAndromedaSchemaJSON, IAndromedaUISchema } from "../types";
 
+// Template interface used in flex builder processing
 export interface ITemplate {
     id: string;
     adoType: IAdoType;
@@ -10,6 +11,7 @@ export interface ITemplate {
     ados: IAdo[];
     modules?: IModule[];
     disabled?: boolean;
+    // Schema, uiSchema is created and inserted after template processing
     schema?: ITemplateSchema;
     uiSchema?: ITemplateUiSchema;
     formData?: ITemplateFormData;
@@ -18,13 +20,14 @@ export interface ITemplate {
     system?: boolean;
 }
 
+// UI Schema for template which enforces ui:order field. ui:order field confirms panel position in the array
 export interface ITemplateUiSchema {
     [name: string]: IAndromedaUISchema | string[];
     "ui:order": string[];
 }
 
 export interface ITemplateFormData {
-    [name: string]: IAndromedaFormData;
+    [appName: string]: IAndromedaFormData;
 }
 
 export interface ITemplateSchema {
@@ -45,6 +48,7 @@ interface IAdo {
     enabled?: boolean;
 }
 
+// TODO: Remove fields from modules which are not needed
 interface IModule {
     path: string;
     schema?: IAndromedaSchemaJSON;

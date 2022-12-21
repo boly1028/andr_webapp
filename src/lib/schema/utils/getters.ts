@@ -1,3 +1,8 @@
+/**
+ * This file contains schema related getter functions which wrap most of the repetitive functions and interactions with
+ * schema jsons. You get nice Promise based functions for interecting with schema.
+ */
+
 import { cloneDeep } from "@apollo/client/utilities";
 import APP_TEMPLATES from "../templates";
 import { ITemplate } from "../templates/types";
@@ -44,7 +49,14 @@ export const getADOPFromPath = async (path: string) => {
 
 export const getSchemaFromPath = async (path: string) => {
     path = await resolveVersionInPath(path)
-    const schema = await import(`../schema/${path}.json`).then(res => res.default).then(data => cloneDeep(data)) as IAndromedaSchemaJSON;
+
+    const schema = await import(`../schema/${path}.json`).then(res => res.default).then(data => {
+        /**Interesting bug here. If you do not deep clone here, all imports have same reference, so when you process
+         * same schema again, the transformations below are applied to every reference
+         */
+        return cloneDeep(data)
+    }) as IAndromedaSchemaJSON;
+    
     schema.schema.$path = path;
 
     const properties: IAndromedaSchema['properties'] = {
