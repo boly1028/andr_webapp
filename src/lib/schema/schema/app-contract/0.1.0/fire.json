@@ -1,0 +1,1 @@
+{"schema":{"type":"object","required":["fire"],"properties":{"fire":{"type":"object","additionalProperties":false,"title":"Fire"}},"additionalProperties":false,"title":"Fire","$id":"fire","class":"modifier","version":"0.1.0","classifier":""},"ui-schema":{},"form-data":{}}

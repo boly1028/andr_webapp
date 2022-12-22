@@ -2,11 +2,10 @@
 // updateForm(), addSchemaModule(), removeSchemaModule(), changeSchemaID
 // addModule, removeModule, deleteModule, changePanelName
 import React, { FC, useState, useCallback, useEffect } from "react";
-import { Button, HStack, Flex, IconButton, useToast } from "@chakra-ui/react";
+import { Button, HStack, Flex, useToast } from "@chakra-ui/react";
 import { JSONSchema7 } from "json-schema";
 import { cloneDeep } from "lodash";
 
-import { GasIcon } from "@/modules/common";
 import { AddModuleModal, DownloadButton } from "@/modules/flex-builder";
 
 import {
@@ -18,7 +17,6 @@ import {
 
 import { nextSuid, suid } from "@/lib/schema/utils";
 import {
-  IAndromedaFormData,
   IAndromedaSchemaJSON,
   ITemplate,
 } from "@/lib/schema/types";
@@ -33,7 +31,7 @@ type FlexBuilderFormProps = {
   onChange?: (data: any) => void;
   onSubmit?: (data: any) => void;
   onError?: () => void;
-  onEstimate?: (data: any) => void;
+  addButtonTitle?: string;
 };
 
 const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
@@ -41,8 +39,8 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
   onSubmit,
   onError,
   isLoading,
-  onEstimate,
   notReady = false,
+  addButtonTitle
 }) => {
   const toast = useToast({
     position: "top-right",
@@ -212,28 +210,13 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
       }}
     >
       {/* Add Modules Action */}
-      {template.modules && (
-        <AddModuleModal items={template.modules} onAdd={addModule} />
+      {(template.modules && template.modules.length > 0) && (
+        <AddModuleModal title={addButtonTitle} items={template.modules} onAdd={addModule} />
       )}
 
       {/* Action Footer */}
       <Flex mt={8} justify="right">
         <HStack spacing={4}>
-          {/* TODO
-                Temporarily disabling Estimate fee button as this process method:
-                #1) should require form validation prior to processing
-                #2 is loosing data upon processing 
-                -needs state mgmt 
-                or
-                -closure operations for modals return to form repopulation
-            */}
-          <IconButton
-            aria-label="Estimate gas cost"
-            variant="outline"
-            icon={<GasIcon boxSize={5} color="gray.500" />}
-            // onClick={onEstimate}
-            aria-disabled="true"
-          />
           <CopyFlexButton
             schema={schema}
             uiSchema={uiSchema}

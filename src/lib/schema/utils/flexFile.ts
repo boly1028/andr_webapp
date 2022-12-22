@@ -15,6 +15,13 @@ interface ICreateInput {
     schema: ITemplateSchema;
     formData: ITemplateFormData;
 }
+
+/**
+ * Creates a flex file from the current schema and formData. It stores formData as it is and process
+ * schema to extract id and path and insert them in ados field for template
+ * @param {schema, formData}: Data you want to insert in flex template
+ * @returns flex template
+ */
 export const createFlexFile = async ({ schema, formData }: ICreateInput) => {
     const template: ITemplate = cloneDeep(UPLOAD_TEMPLATE);
     Object.keys(schema.properties).map((id) => {
@@ -30,6 +37,8 @@ export const createFlexFile = async ({ schema, formData }: ICreateInput) => {
     return template
 }
 
+
+// Just a cool feature to create json crush encoded url for template data
 export const createFlexUrl = async (data: ICreateInput) => {
     const temp = await createFlexFile(data);
     const compressed = JSONCrush.crush(JSON.stringify(temp));

@@ -97,10 +97,11 @@ function AddModuleModalItem({
 interface AddModuleModalProps {
   items: NonNullable<ITemplate["modules"]>;
   onAdd: (item: IAndromedaSchemaJSON) => void;
+  title?: string
 }
 
 // TODO: This modal need an API to get the list of ADOs and to add a module
-function AddModuleModal({ onAdd, items }: AddModuleModalProps) {
+function AddModuleModal({ onAdd, items, title = 'Add Component' }: AddModuleModalProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selected, setSelected] = useState<
     AddModuleModalProps["items"][number] | null
@@ -186,14 +187,14 @@ function AddModuleModal({ onAdd, items }: AddModuleModalProps) {
           bg: "dark.100",
         }}
       >
-        Add Component
+        {title}
       </Button>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent maxW="700px">
           <ModalBody px={0} pb={0}>
             <Box px={6} mb={8}>
-              <Text textStyle="h1">Add Component</Text>
+              <Text textStyle="h1">{title}</Text>
             </Box>
 
             {/* Sorting and Filtering Controls */}
@@ -258,7 +259,7 @@ function AddModuleModal({ onAdd, items }: AddModuleModalProps) {
             <Flex
               pt={6}
               justify="space-between"
-              // boxShadow="0px -1px 20px rgba(10, 10, 31, 0.2);"
+            // boxShadow="0px -1px 20px rgba(10, 10, 31, 0.2);"
             >
               <Box textAlign="right">
                 {/* <Text textStyle="light">Estimated Fee</Text>
@@ -272,7 +273,7 @@ function AddModuleModal({ onAdd, items }: AddModuleModalProps) {
                 colorScheme="module"
                 leftIcon={<Icon as={PlusIcon} boxSize={6} />}
               >
-                Add Component
+                {title}
               </Button>
             </Flex>
           </ModalBody>

@@ -33,6 +33,7 @@ import {
 } from "@/modules/common";
 import useWalletModal from "@/modules/modals/hooks/useWalletModal";
 import { useAllChainConfig, useChainConfig } from "@/lib/andrjs";
+import ChainFallbackIcon from "./icons/ChainFallbackIcon";
 
 const WalletConnected = () => {
   const wallet = useWallet();
@@ -41,7 +42,7 @@ const WalletConnected = () => {
   const { chainId, setChainId } = useWalletContext();
   const { data: currentConfig } = useChainConfig(chainId);
   const { data: configs } = useAllChainConfig();
-
+  const iconUrl = currentConfig?.iconUrls?.sm || currentConfig?.iconUrls?.lg;
   return (
     <Popover placement="bottom-end">
       {({ isOpen }) => (
@@ -52,7 +53,14 @@ const WalletConnected = () => {
               size="lg"
             >
               <HStack mr={8}>
-                <Image src={currentConfig?.iconUrls?.sm ?? ""} w="6" />
+                {iconUrl ? (
+                  <Image src={iconUrl ?? ""} w="6" />
+                ) : (
+                  <Icon
+                    as={ChainFallbackIcon}
+                    boxSize='6'
+                  />
+                )}
                 <Text fontSize="sm">{address}</Text>
                 <Badge
                   colorScheme={
@@ -71,15 +79,15 @@ const WalletConnected = () => {
           <PopoverContent>
             <PopoverBody>
               <HStack mb={3} justifyContent="space-between">
-                {/* <Icon
-                  boxSize={9}
-                  p={1}
-                  borderRadius="full"
-                  border="1px solid"
-                  borderColor="gray.300"
-                /> */}
                 <HStack>
-                  <Image src={currentConfig?.iconUrls?.sm ?? ""} w="5" />
+                  {iconUrl ? (
+                    <Image src={iconUrl ?? ""} w="5" />
+                  ) : (
+                    <Icon
+                      as={ChainFallbackIcon}
+                      boxSize='5'
+                    />
+                  )}
                   <Text fontWeight={600} color="base.white">
                     {currentConfig?.chainName ?? chainId}
                   </Text>
@@ -114,15 +122,26 @@ const WalletConnected = () => {
                           gap="2"
                           w="full"
                         >
-                          <Image
-                            src={config?.iconUrls?.sm ?? ""}
-                            w="5"
-                            h="5"
-                            overflow="hidden"
-                            p="1"
-                            bg="gray.200"
-                            rounded="full"
-                          />
+                          {config?.iconUrls?.sm ? (
+                            <Image src={config?.iconUrls?.sm ?? ""}
+                              w="5"
+                              h="5"
+                              overflow="hidden"
+                              p="0.5"
+                              bg="dark.200"
+                              rounded="full" />
+                          ) : (
+                            <Icon
+                              as={ChainFallbackIcon}
+                              boxSize='5'
+                              w="5"
+                              h="5"
+                              overflow="hidden"
+                              p="0.5"
+                              bg="dark.200"
+                              rounded="full"
+                            />
+                          )}
                           <Text fontWeight={600} color="base.white" mr="1">
                             {config?.chainName ?? chainId}
                           </Text>

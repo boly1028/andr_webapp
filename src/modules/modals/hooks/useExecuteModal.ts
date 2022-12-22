@@ -18,12 +18,11 @@ import useGlobalModalContext from "./useGlobalModalContext";
 export default function useExecuteModal(contractAddress: string) {
   const { open } = useGlobalModalContext();
 
-  return (msg: Msg, simulate = false, funds: Coin[] = []) =>
+  return (msg: Msg, funds: Coin[] = []) =>
     open(ModalType.Transaction, {
       type: "execute",
       msg,
       funds,
       contractAddress,
-      simulate,
     });
 }

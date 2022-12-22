@@ -113,8 +113,7 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
     });
     downloadBlob(
       blob,
-      `${
-        schema.$id || "panel"
+      `${schema.$id || "panel"
       }-${currentSchemaId}-${new Date().getTime()}.json`,
     );
   };
@@ -156,6 +155,11 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
               <HStack mb={1}>
                 <Text fontSize="sm" color="base.white" fontWeight={600}>
                   {uiOptions.title || title}
+                </Text>
+                <Text fontSize="xs"
+                  color="dark.500"
+                  fontWeight="light">
+                  @{schema.version ?? 'latest'}
                 </Text>
                 {!NON_EDITABLE_CLASS.has(schema.class ?? "") && (
                   <>

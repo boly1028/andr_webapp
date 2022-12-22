@@ -2,9 +2,11 @@ import { ITemplateFormData, ITemplateSchema, ITemplateUiSchema } from "../templa
 import { ITemplate } from "../types";
 import { getSchemaFromPath } from "./getters";
 
+/** Process the template by resolving schema paths found in ados and moodules list */
 export const processTemplate = async (template: ITemplate) => {
     const definitions: ITemplateSchema['definitions'] = {};
     const properties: ITemplateSchema['properties'] = {};
+    // Store ados in ui:order in order of their appearance in schema
     const uiSchema: ITemplateUiSchema = {
         'ui:order': []
     }

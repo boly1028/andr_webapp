@@ -1,1 +1,1 @@
-{"modifiers":["mint","start-sale","purchase","purchase-by-token-id","claim-refund","end-sale"]}
+{"modifiers":["mint","start-sale","purchase","purchase-by-token-id","claim-refund","end-sale"],"queries":["andr-query.query","state.query","config.query","available-tokens.query","is-token-available.query"],"responses":["andr-query.response","available-tokens.response","config.response","is-token-available.response","state.response"]}

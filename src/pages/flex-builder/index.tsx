@@ -5,13 +5,14 @@ import { Layout } from "@/modules/common";
 import { FlexBuilderPage } from "@/modules/flex-builder";
 import { ITemplate } from "@/lib/schema/types";
 import APP_TEMPLATES from "@/lib/schema/templates";
+import { ILinkItemKey } from "@/modules/common/components/Sidebar";
 
 type Props = {
   templateList: Array<ITemplate>;
 };
 
 const FlexBuilderIndexPage: NextPage<Props> = ({ templateList }) => (
-  <Layout>
+  <Layout activeLink={ILinkItemKey.ADO_BUILDER}>
     <FlexBuilderPage templateList={templateList} />
   </Layout>
 );

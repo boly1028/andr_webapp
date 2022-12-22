@@ -1,8 +1,11 @@
 import { ITemplate } from "./types";
-import baseAdo from '../schema/baseADO.json'
-import modules from '../schema/module.json'
-import primitive from '../schema/primitive.json'
 import { IImportantAdoKeys } from "../types";
+import { BASE_ADOS, MODULES, PRIMITIVES } from "../utils/list";
+
+/** Upload template is used as base structure for importing a flex file
+ * Flex file contains list of ados and formData, modules are inserted from this template.
+ * See flex file processing at ../utils/flexFile
+ */
 
 export const UPLOAD_TEMPLATE: ITemplate = {
     id: IImportantAdoKeys.FLEX_FILE,
@@ -18,8 +21,8 @@ export const UPLOAD_TEMPLATE: ITemplate = {
     ],
     ados: [],
     modules: [
-        ...baseAdo.map(ado => ({ path: ado.source })),
-        ...modules.map(ado => ({ path: ado.source })),
-        ...primitive.map(ado => ({ path: ado.source })),
+        ...BASE_ADOS.map(ado => ({ path: ado.source })),
+        ...MODULES.map(ado => ({ path: ado.source })),
+        ...PRIMITIVES.map(ado => ({ path: ado.source })),
     ],
 };

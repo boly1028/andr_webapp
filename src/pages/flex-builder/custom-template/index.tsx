@@ -10,15 +10,16 @@ import { useWallet } from "@/lib/wallet";
 import { useRouter } from "next/router";
 import { ITemplate } from "@/lib/schema/types";
 import { parseFlexFile, parseFlexUrl } from "@/lib/schema/utils/flexFile";
+import { ILinkItemKey } from "@/modules/common/components/Sidebar";
 
 /**
  * Flex Builder Custom template page which takes flex from session storage and renders
  * as form builder
  */
 
-interface Props {}
+interface Props { }
 
-const FlexBuilderCustomTemplate: NextPage<Props> = ({}) => {
+const FlexBuilderCustomTemplate: NextPage<Props> = ({ }) => {
   const router = useRouter();
   const templateUri = router.query.data as string;
 
@@ -54,15 +55,14 @@ const FlexBuilderCustomTemplate: NextPage<Props> = ({}) => {
       formData,
     }: {
       formData: any;
-    },
-    simulate = false,
+    }
   ) => {
     if (codeId === -1) {
       console.warn("Code ID not fetched");
       return;
     }
     const msg = construct(formData);
-    openModal(msg, simulate);
+    openModal(msg);
   };
 
   //TODO: Setup staging availability flags for loading staging sections if passed
@@ -71,7 +71,7 @@ const FlexBuilderCustomTemplate: NextPage<Props> = ({}) => {
   if (!template) return null;
 
   return (
-    <Layout>
+    <Layout activeLink={ILinkItemKey.ADO_BUILDER}>
       <PageHeader title={template.name} desc={template.description} />
 
       <Box mt={10}>
@@ -117,9 +117,8 @@ const FlexBuilderCustomTemplate: NextPage<Props> = ({}) => {
         <FlexBuilderForm
           template={template}
           onSubmit={handleSubmit}
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          onEstimate={(data: any) => handleSubmit(data, true)}
           notReady={!codeId || codeId === -1 || !account}
+          addButtonTitle="Add App Component"
         />
       </Box>
     </Layout>

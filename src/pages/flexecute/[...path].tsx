@@ -28,12 +28,11 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
       formData,
     }: {
       formData: any;
-    },
-    simulate = false,
+    }
   ) => {
     const msg = construct(formData);
     const funds = getFunds(formData);
-    openModal(msg, simulate, funds);
+    openModal(msg, funds);
   };
 
   //TODO: Setup staging availability flags for loading staging sections if passed
@@ -89,8 +88,8 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
           key={template.name}
           template={template}
           onSubmit={handleSubmit}
-          onEstimate={(data: any) => handleSubmit(data, true)}
           notReady={!account}
+          addButtonTitle="Add Attachment"
         />
       </Box>
     </Layout>

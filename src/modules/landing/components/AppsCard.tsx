@@ -19,7 +19,7 @@ const AppsCard: FC<AppsCardProps> = ({ icon, link, title, target }) => {
         target={target}
         referrerPolicy="no-referrer"
         p="10"
-        w="52"
+        w="full"
         rounded={"xl"}
         overflow={"hidden"}
         textAlign="center"

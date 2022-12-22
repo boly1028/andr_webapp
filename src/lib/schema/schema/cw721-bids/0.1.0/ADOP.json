@@ -1,1 +1,1 @@
-{"modifiers":["place-bid","cancel-bid","accept-bid"]}
+{"modifiers":["place-bid","cancel-bid","accept-bid"],"queries":["andr-hook.query","bid.query","all-bids.query"],"responses":["all-bids.response","andr-hook.response","bid.response"]}

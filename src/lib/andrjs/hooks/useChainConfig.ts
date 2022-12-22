@@ -29,7 +29,9 @@ export function useAllChainConfig(
   return useQuery(
     ["chain"],
     () => {
-      return queryAllChainConfigs();
+      return queryAllChainConfigs().then(allConfigs => allConfigs.filter(config => !DISABLED_CHAIN_IDS.includes(config.chainId)));
     }
   );
 }
+
+const DISABLED_CHAIN_IDS: string[] = ['atlantic-1','pisco-1']

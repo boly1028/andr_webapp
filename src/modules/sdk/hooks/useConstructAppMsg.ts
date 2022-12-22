@@ -27,7 +27,7 @@ export default function useConstructAppMsg() {
       // App contract which we will use to initialise. We will add app components in app list here.
       const appContract: IAppContract = {
         name: publishSettingsPanel.name,
-        app: [],
+        app_components: [],
         primitive_contract: registryAddress
       };
 
@@ -50,7 +50,7 @@ export default function useConstructAppMsg() {
         const instantiateMsg = btoa(JSON.stringify(msg));
 
         // Push current app data to app list of the contract
-        appContract.app.push({
+        appContract.app_components.push({
           'name': id,
           'ado_type': adoType,
           'instantiate_msg': instantiateMsg

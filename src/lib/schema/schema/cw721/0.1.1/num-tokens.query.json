@@ -1,0 +1,1 @@
+{"schema":{"description":"Amount of tokens minted by the contract","type":"object","required":["num_tokens"],"properties":{"num_tokens":{"type":"object","additionalProperties":false,"title":"Num tokens"}},"additionalProperties":false,"title":"Num tokens","$id":"num-tokens","class":"query","version":"0.1.1","classifier":""},"ui-schema":{},"form-data":{}}

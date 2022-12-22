@@ -26,12 +26,13 @@ export interface AndromedaProviderProps {
  */
 const AndromedaProvider: React.FC<AndromedaProviderProps> = memo(
   function AndromedaProvider({ children, signer, chainId }) {
-    const { data: config } = useChainConfig(chainId);
+    const { data: config, isLoading } = useChainConfig(chainId);
     const client = useMemo(() => new AndromedaClient(), []);
     const [connected, setConnected] = useState(false);
     const [factoryAddress, setFactoryAddress] = useState("");
 
     useEffect(() => {
+      if (isLoading) return;
       if (!config) {
         console.warn(`No config for chain ID ${chainId}`);
         return;

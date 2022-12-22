@@ -1,11 +1,11 @@
-import { AndromedaIcon, AppStore, BookOpenIcon, FolderOpenIcon } from "@/modules/common";
+import { AndromedaIcon, AppBuilder, AppStore, BookOpenIcon, CliIcon, FolderOpenIcon, SparklesIcon } from "@/modules/common";
 import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
-import { Flex, VStack, Text, HStack, Icon, Stack } from "@chakra-ui/react";
+import { Flex, VStack, Text, HStack, Icon, Stack, SimpleGrid } from "@chakra-ui/react";
 import { Layers } from "lucide-react";
 import React, { FC } from "react";
 import { LandingAppsCard } from ".";
 
-interface LandingHeroProps {}
+interface LandingHeroProps { }
 const LandingHero: FC<LandingHeroProps> = () => {
   return (
     <Flex
@@ -26,31 +26,35 @@ const LandingHero: FC<LandingHeroProps> = () => {
           fringilla urna.
         </Text>
       </VStack>
-      <VStack mt="12" spacing="6">
+      <VStack mt="12" spacing="6" w='full'>
         <Text fontWeight="light" color="gray.400" textTransform="uppercase">
           Recommended links for you
         </Text>
-        <Flex direction='row' justifyContent='center' w="full" gap="6" wrap="wrap">
+        <SimpleGrid columns={3} w="full" gap="6" alignSelf='center' maxW='container.lg'>
           <LandingAppsCard
-            icon={<Icon as={Layers} boxSize="16" />}
+            icon={<AppBuilder boxSize="16" />}
             link={SITE_LINKS.flexBuilderHome()}
             title="Build an App"
           />
           <LandingAppsCard
             icon={<BookOpenIcon boxSize="16" />}
-            link="https://docs.andromedaprotocol.io/andromeda"
+            link={SITE_LINKS.learn()}
             title="Learn ADO's"
-            target="_blank"
           />
           <LandingAppsCard
             icon={<FolderOpenIcon boxSize="16" />}
             link={SITE_LINKS.assets()}
             title="Your Assets"
           />
-           <LandingAppsCard
-            icon={<AppStore boxSize="16" />}
+          <LandingAppsCard
+            icon={<SparklesIcon boxSize="16" />}
             link={SITE_LINKS.appStore()}
             title="App Store"
+          />
+          <LandingAppsCard
+            icon={<CliIcon boxSize="16" />}
+            link={SITE_LINKS.cli()}
+            title="CLI"
           />
           <LandingAppsCard
             icon={<AndromedaIcon boxSize="16" />}
@@ -58,7 +62,7 @@ const LandingHero: FC<LandingHeroProps> = () => {
             title="Visit Website"
             target="_blank"
           />
-        </Flex>
+        </SimpleGrid>
       </VStack>
     </Flex>
   );

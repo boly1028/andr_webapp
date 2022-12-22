@@ -1,0 +1,1 @@
+{"schema":{"type":"object","required":["processes"],"properties":{"processes":{"type":"object","additionalProperties":false,"title":"Processes"}},"additionalProperties":false,"title":"Processes","$id":"processes","class":"query","version":"0.1.0","classifier":""},"ui-schema":{},"form-data":{}}

@@ -1,104 +1,139 @@
-import React, { FC } from "react";
-import { Box, BoxProps, Flex, CloseButton, Image } from "@chakra-ui/react";
+import React from "react";
+import {
+  Box,
+  BoxProps,
+  Flex,
+  CloseButton,
+  Image,
+  Divider,
+  Text,
+} from "@chakra-ui/react";
 
 import NavItem from "./NavItem";
-import Logo from "./Logo";
 import {
-  AppStore,
-  CompassIcon,
   BookOpenIcon,
   CubeIcon,
+  GlobeIcon,
   SparklesIcon,
   FolderOpenIcon,
+  AppBuilder,
+  CliIcon,
 } from "./icons";
 import { SITE_LINKS } from "../utils/sitelinks";
+import Link from "next/link";
 
-interface LinkItemProps {
+export enum ILinkItemKey {
+  LEARN = "learn",
+  ADO_BUILDER = "adobuilder",
+  APP_BUILDER = "appbuilder",
+  ASSETS = "assets",
+  APP_STORE = "appstore",
+  CLI = "cli",
+  EMBEDDABLES = "embeddables",
+}
+interface ILinkItem {
   name: string;
   icon: React.ReactNode;
   href: string;
+  key: ILinkItemKey;
 }
-
-const LinkItems: LinkItemProps[] = [
-  // {
-  //   name: "Overview",
-  //   icon: <CompassIcon boxSize={5} />,
-  //   href: SITE_LINKS.dashboard(),
-  // },
+const LinkItems: ILinkItem[] = [
   {
-    name: "App Store",
-    icon: <AppStore boxSize={5} />,
-    href: SITE_LINKS.appStore(),
+    name: "Learn",
+    icon: <BookOpenIcon boxSize={5} />,
+    href: SITE_LINKS.learn(),
+    key: ILinkItemKey.LEARN,
   },
-  { name: "Create", icon: <CubeIcon boxSize={5} />, href: "#" },
   {
-    name: "ADOs",
-    icon: <CubeIcon boxSize={5} pl={8} />,
+    name: "ADO Builder",
+    icon: <CubeIcon boxSize={5} />,
     href: SITE_LINKS.flexBuilderHome(),
+    key: ILinkItemKey.ADO_BUILDER,
   },
   {
-    name: "Apps",
-    icon: <CubeIcon boxSize={5} pl={8} />,
+    name: "App Builder",
+    icon: <AppBuilder boxSize={5} />,
     href: SITE_LINKS.appBuilder(),
+    key: ILinkItemKey.APP_BUILDER,
   },
   {
     name: "Assets",
     icon: <FolderOpenIcon boxSize={5} />,
     href: SITE_LINKS.assets(),
+    key: ILinkItemKey.ASSETS,
   },
   {
     name: "Embeddables",
-    icon: <SparklesIcon boxSize={5} />,
+    icon: <GlobeIcon boxSize={5} />,
     href: SITE_LINKS.embeddables(),
+    key: ILinkItemKey.EMBEDDABLES,
   },
-  // {
-  //   name: "Market",
-  //   icon: <SparklesIcon boxSize={5} pl={8} />,
-  //   href: "/explore",
-  // },
-  // {
-  //   name: "Crowdfund",
-  //   icon: <SparklesIcon boxSize={5} pl={8} />,
-  //   href: "#",
-  // },
-  // {
-  //   name: "Dashboards",
-  //   icon: <SparklesIcon boxSize={5} pl={8} />,
-  //   href: "#",
-  // },
   {
-    name: "Learn",
-    icon: <BookOpenIcon boxSize={5} />,
-    href: SITE_LINKS.learn(),
+    name: "App Store",
+    icon: <SparklesIcon boxSize={5} />,
+    href: SITE_LINKS.appStore(),
+    key: ILinkItemKey.APP_STORE,
+  },
+  {
+    name: "CLI",
+    icon: <CliIcon boxSize={5} />,
+    href: SITE_LINKS.cli(),
+    key: ILinkItemKey.CLI,
   },
 ];
 
 interface SidebarProps extends BoxProps {
   onClose: () => void;
+  activeLink?: ILinkItemKey;
 }
 
-const Sidebar = ({ onClose, ...props }: SidebarProps) => {
+const Sidebar = ({ onClose, activeLink, ...props }: SidebarProps) => {
   return (
     <Box
-      transition="3s ease"
+      display="flex"
+      flexDirection="column"
+      transition="1s ease"
       bg="dark.50"
       w={60}
       pos="fixed"
       h="full"
-      overflowY="auto"
-      px={4}
+      px="2"
+      py="1"
       {...props}
     >
-      <Flex h={20} alignItems="center" justifyContent="space-between">
-        <Image src="/logo_header.png" w='60%' />
+      <Flex h={20} pl="4" alignItems="center" justifyContent="space-between">
+        <Link href={SITE_LINKS.landing()} passHref>
+          <a>
+            <Image src="/logo_header.png" w="60%" />
+          </a>
+        </Link>
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
-
-      {LinkItems.map((link) => (
-        <NavItem key={link.name} href={link.href} icon={link.icon}>
-          {link.name}
-        </NavItem>
-      ))}
+      <Box
+        display="flex"
+        flexDir="column"
+        gap="1"
+        flex="1"
+        px={4}
+        overflowY="auto"
+        pb="2"
+      >
+        {LinkItems.map((link) => (
+          <NavItem
+            active={link.key === activeLink}
+            gap="1"
+            key={link.key}
+            href={link.href}
+            icon={link.icon}
+          >
+            {link.name}
+          </NavItem>
+        ))}
+      </Box>
+      <Divider justifySelf="end" />
+      <Text pl="4" my="2" fontSize="xs" fontWeight="light" fontStyle="light">
+        Andromeda App 1.5.0
+      </Text>
     </Box>
   );
 };

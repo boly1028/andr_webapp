@@ -8,6 +8,7 @@ import { useConstructAppMsg } from "@/modules/sdk/hooks";
 import { ITemplate } from "@/lib/schema/types";
 import { getAppTemplateById } from "@/lib/schema/utils";
 import { useWallet } from "@/lib/wallet";
+import { ILinkItemKey } from "@/modules/common/components/Sidebar";
 
 type Props = {
   template: ITemplate;
@@ -19,7 +20,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
 
   const construct = useConstructAppMsg();
   const openModal = useInstantiateModal(codeId);
-  const handleSubmit = async (data, simulate = false) => {
+  const handleSubmit = async (data) => {
     if (codeId === -1) {
       console.warn("Code ID not fetched");
       return;
@@ -27,14 +28,14 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
     const { formData } = data;
     console.log(formData);
     const msg = construct(formData);
-    openModal(msg, simulate);
+    openModal(msg);
   };
 
   //TODO: Setup staging availability flags for loading staging sections if passed
   const staging_available = false;
 
   return (
-    <Layout>
+    <Layout activeLink={ILinkItemKey.ADO_BUILDER}>
       <PageHeader title={template.name} desc={template.description} />
 
       <Box mt={10}>
@@ -80,9 +81,8 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
         <FlexBuilderForm
           template={template}
           onSubmit={handleSubmit}
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          onEstimate={(data: any) => handleSubmit(data, true)}
           notReady={!codeId || codeId === -1 || !account}
+          addButtonTitle="Add App Component"
         />
       </Box>
     </Layout>

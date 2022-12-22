@@ -3,10 +3,11 @@ import React from "react";
 import { Layout } from "@/modules/common";
 import { AppBuilderPage } from "@/modules/app-builder";
 import PagePlaceholder from "@/modules/common/components/PagePlaceholder";
+import { ILinkItemKey } from "@/modules/common/components/Sidebar";
 
 export default function AppBuilderCreate() {
   return (
-    <Layout>
+    <Layout activeLink={ILinkItemKey.APP_BUILDER}>
       {/* <AppBuilderPage /> */}
       <PagePlaceholder
         imageUrl="/placeholders/app-builder.png"

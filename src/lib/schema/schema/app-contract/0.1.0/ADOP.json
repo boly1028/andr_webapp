@@ -1,1 +1,1 @@
-{"modifiers":["add-app-component","claim-ownership","proxy-message","update-address"]}
+{"modifiers":["add-app-component","claim-ownership","fire","proxy-message","update-address"],"queries":["andr-query.query","get-address.query","get-components.query","component-exists.query","get-addresses-with-names.query","config.query"],"responses":["andr-query.response","component-exists.response","config.response","get-address.response","get-addresses-with-names.response","get-components.response"]}

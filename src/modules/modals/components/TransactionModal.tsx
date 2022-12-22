@@ -1,4 +1,3 @@
-import { ProgressBar } from "@/modules/common/components";
 import { Box } from "@chakra-ui/react";
 import React, { memo, useEffect, useMemo, useState } from "react";
 import { useGlobalModalContext } from "../hooks";
@@ -67,9 +66,6 @@ const TransactionModal: React.FC<TransactionModalProps> = memo(
     return (
       <Box py="30px">
         {StageComponent}
-        {!props.simulate && (
-          <ProgressBar stages={MAX_STAGE} currentStage={stage} mt="60px" />
-        )}
       </Box>
     );
   },

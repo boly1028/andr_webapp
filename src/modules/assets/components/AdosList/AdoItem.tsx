@@ -21,16 +21,16 @@ import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
 import ClassifierIcon from "@/theme/icons/classifiers";
 import { useGetSchemaADOP } from "@/lib/schema/hooks/useGetSchemaADOP";
 import { IAdoType } from "@/lib/schema/types";
-import { useGetSchemaJson } from "@/lib/schema/hooks";
+import { useGetSchemaVersions } from "@/lib/schema/hooks/useGetSchemaVersion";
 
 interface AdoItemProps {
   ado: AppComponent;
   appAddress?: string;
 }
 const AdoItem: FC<AdoItemProps> = ({ ado, appAddress }) => {
-  const $version = "0.1.0";
   const adoType = ado.adoType as IAdoType;
-  const { data: adopData, isLoading } = useGetSchemaADOP(adoType);
+  const { data: appVersion } = useGetSchemaVersions(adoType);
+  const { data: adopData, isLoading } = useGetSchemaADOP(adoType, appVersion?.latest);
 
   return (
     <Flex
@@ -53,7 +53,7 @@ const AdoItem: FC<AdoItemProps> = ({ ado, appAddress }) => {
           {/* <InlineStat label="{type}" value={name} reverse /> */}
         </Box>
         <Box flex={1}>
-          <InlineStat label="Type" value={`${ado.adoType}@${$version}`} />
+          <InlineStat label="Type" value={`${ado.adoType}@${appVersion?.latest}`} />
         </Box>
         {/* <Box flex={1}>
       <InlineStat label="Version" value={version} />
@@ -80,7 +80,7 @@ const AdoItem: FC<AdoItemProps> = ({ ado, appAddress }) => {
           />
           <MenuList>
             {adopData?.modifiers?.map((action) => {
-              const path = `${ado.adoType}/${$version}/${formatActionPath(
+              const path = `${ado.adoType}/${appVersion?.latest}/${formatActionPath(
                 action,
               )}`;
               return (

@@ -1,1 +1,1 @@
-{"modifiers":["receive-nft"]}
+{"modifiers":["receive-nft"],"queries":["andr-query.query","n-f-t-contract-address.query"],"responses":["andr-query.response","n-f-t-contract-address.response"]}

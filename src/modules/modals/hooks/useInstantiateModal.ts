@@ -17,6 +17,6 @@ import useGlobalModalContext from "./useGlobalModalContext";
 export default function useInstantiateModal(codeId: number) {
   const { open } = useGlobalModalContext();
 
-  return (msg: Msg, simulate = false) =>
-    open(ModalType.Transaction, { type: "instantiate", codeId, msg, simulate });
+  return (msg: Msg) =>
+    open(ModalType.Transaction, { type: "instantiate", codeId, msg });
 }
