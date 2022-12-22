@@ -30,7 +30,8 @@ export interface ITemplateFormData {
 export interface ITemplateSchema {
     definitions: Record<string, IAndromedaSchema>;
     properties: Record<string, ITemplateProperty>;
-    type: 'object'
+    type: 'object',
+    $id: string
 }
 
 interface ITemplateProperty {

@@ -1,4 +1,4 @@
-import { UiSchema } from "@rjsf/utils";
+import { UiSchema } from "@andromedarjsf/utils";
 import { JSONSchema7 } from "json-schema";
 import allSchema from './schema/classifier.json';
 

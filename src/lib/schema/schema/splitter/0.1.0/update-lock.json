@@ -32,15 +32,23 @@
         "update_lock": {
             "ui:options": {
                 "title": "Update Lock",
-                "info": "Only available to the contract owner/operator when the contract is not already locked.",
-                "infoType": "error"
+                "alerts": [
+                    {
+                        "text": "Only available to the contract owner/operator when the contract is not already locked.",
+                        "type": "error"
+                    }
+                ]
             },
             "lock_time": {
                 "ui:options": {
                     "title": "Lock Time",
                     "description": "How long the splitter is locked. When locked, no recipients can be added/changed.",
-                    "info": "The minimum time that can be set is <b>86,400</b> which is 1 day. <br/>The maximum time that can be set is <b>31,536,000</b> which is 1 year.",
-                    "infoType": "info"
+                    "alerts": [
+                        {
+                            "text": "The minimum time that can be set is <b>86,400</b> which is 1 day. <br/>The maximum time that can be set is <b>31,536,000</b> which is 1 year.",
+                            "type": "info"
+                        }
+                    ]
                 }
             }
         }

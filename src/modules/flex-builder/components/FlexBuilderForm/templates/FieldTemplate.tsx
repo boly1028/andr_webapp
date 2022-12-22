@@ -5,7 +5,7 @@ import {
   getTemplate,
   getUiOptions,
   getSchemaType,
-} from "@rjsf/utils";
+} from "@andromedarjsf/utils";
 
 import {
   Text,
@@ -53,35 +53,6 @@ const FieldTemplate = (props: FieldTemplateProps) => {
   );
 
   useEffect(() => {
-    /**
-     * A Hack to by pass required field enforcement for array and boolean.
-     * These fields are supposed to have default values:
-     * array = empty array
-     * boolean = false
-     * So, if default value is not provided and the field is required,
-     * we inject default values ourselves.
-     */
-
-    // RJSF Bug so we need to have a timeout to update form data
-    const tId = setTimeout(() => {
-      if (!required) return;
-      if (schema.default) return;
-      const type = getSchemaType(schema) as JSONSchema7["type"];
-      if (type === "array") {
-        if (!Array.isArray(formData)) {
-          onChange([], undefined, id);
-        }
-      } else if (type === "boolean") {
-        if (formData === undefined) {
-          onChange(false, undefined, id);
-        }
-      }
-    }, 500);
-
-    return () => clearTimeout(tId);
-  }, []);
-
-  useEffect(() => {
     if (!displayLabel) return;
     if (typeof document === "undefined") return;
     const el = document?.getElementById(`${id}-label`);
@@ -108,6 +79,9 @@ const FieldTemplate = (props: FieldTemplateProps) => {
   const hasWrapper = !!schema?.anyOf || !!schema?.oneOf;
   // const hasWrapper = false;
 
+  const showAlert = !hasWrapper && !!uiOptions.alerts;
+  const alerts: Array<any> = !showAlert ? [] : uiOptions.alerts as Array<any>
+
   return (
     <FieldTemplateContext.Provider value={{ onChange: contextOnChange }}>
       <WrapIfAdditionalTemplate
@@ -123,9 +97,10 @@ const FieldTemplate = (props: FieldTemplateProps) => {
         uiSchema={uiSchema}
         registry={registry}
       >
-        {!hasWrapper && uiOptions.info && (
+        {alerts.map((alert, idx) => (
           <Alert
-            status={uiOptions.infoType as any}
+            key={idx}
+            status={alert.type}
             variant="left-accent"
             rounded="lg"
             fontSize="sm"
@@ -135,11 +110,11 @@ const FieldTemplate = (props: FieldTemplateProps) => {
             <AlertDescription
               listStylePos="inside"
               dangerouslySetInnerHTML={{
-                __html: `${uiOptions.info}`,
+                __html: `${alert.text}`,
               }}
             />
           </Alert>
-        )}
+        ))}
         <FormControl
           isRequired={hasWrapper ? false : required}
           isInvalid={rawErrors && rawErrors.length > 0}

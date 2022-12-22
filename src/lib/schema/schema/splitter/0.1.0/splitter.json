@@ -172,12 +172,17 @@
                     "ui:options": {
                         "title": "Add Module",
                         "description": "",
-                        "info": "Allowed modules: \"address_list\"",
-                        "infoType": "error"
+                        "alerts": [
+                            {
+                                "text": "Allowed modules: \"address_list\"",
+                                "type": "error"
+                            }
+                        ]
                     },
                     "identifier": {
                         "ui:options": {
-                            "title": "Identifier"
+                            "title": "Identifier",
+                            "description": "Can be either an address or app component name of a specific ADO within an app"
                         }
                     }
                 },
@@ -199,8 +204,12 @@
             "ui:options": {
                 "title": "Recipients",
                 "description": "The recipient list of the splitter. Can be updated after instantiation.",
-                "info": "To be a valid recipient list the array of AddressPercent structs must meet the following requirements:<ul><li>Be non-empty</li><li>Have percentage amounts less than or equaling 1</li><li>A maximum of <b>100</b> recipients can be set.</li></ul>",
-                "infoType": "warning"
+                "alerts": [
+                    {
+                        "text": "To be a valid recipient list the array of AddressPercent structs must meet the following requirements:<ul><li>Be non-empty</li><li>Have percentage amounts less than or equaling 1</li><li>A maximum of <b>100</b> recipients can be set.</li></ul>",
+                        "type": "warning"
+                    }
+                ]
             },
             "items": {
                 "ui:options": {
@@ -230,7 +239,7 @@
                             },
                             "identifier": {
                                 "ui:options": {
-                                    "description": "Can be either an address or identifier of an ADO in a app.",
+                                    "description": "Can be either an address or app component name of a specific ADO within an app",
                                     "title": "Identifier"
                                 }
                             }

@@ -26,7 +26,7 @@
                             ],
                             "properties": {
                                 "identifier": {
-                                    "description": "Can be either an address or identifier of an ADO in a app.",
+                                    "description": "Can be either an address or app component name of a specific ADO within an app",
                                     "type": "string"
                                 }
                             }
@@ -65,12 +65,17 @@
                     "ui:options": {
                         "title": "Add Module",
                         "description": "",
-                        "info": "Allowed modules: \"rates\", \"address-list\", and \"receipt\"",
-                        "infoType": "error"
+                        "alerts": [
+                            {
+                                "text": "Allowed modules: \"rates\", \"address-list\", and \"receipt\"",
+                                "type": "error"
+                            }
+                        ]
                     },
                     "identifier": {
                         "ui:options": {
-                            "title": "Identifier"
+                            "title": "Identifier",
+                            "description": "Can be either an address or app component name of a specific ADO within an app"
                         }
                     }
                 },

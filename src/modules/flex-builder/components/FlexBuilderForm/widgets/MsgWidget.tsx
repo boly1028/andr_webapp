@@ -18,7 +18,7 @@ import {
   MenuItem,
   MenuList,
 } from "@chakra-ui/react";
-import { WidgetProps } from "@rjsf/utils";
+import { WidgetProps } from "@andromedarjsf/utils";
 
 import React, { FC, useEffect, useState } from "react";
 import Form from "../Form";

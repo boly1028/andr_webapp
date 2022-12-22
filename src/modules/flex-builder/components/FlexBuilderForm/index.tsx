@@ -206,6 +206,8 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
           description: "Found errors while validating",
           status: "error",
         });
+        console.log("TEST::FORM::", errors)
+        console.log("TEST::FORM::", schema)
         onError?.();
       }}
     >

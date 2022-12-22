@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 
-import { DescriptionFieldProps } from "@rjsf/utils";
+import { DescriptionFieldProps } from "@andromedarjsf/utils";
 
 import { Text } from "@chakra-ui/react";
 
