@@ -1,0 +1,51 @@
+import BlogLayout from "@/modules/learn/components/BlogLayout"
+export const meta = {
+    title: 'Asset Explorer/My Assets',
+    author: 'Anshudhar Kumar Singh'
+}
+
+# Intro
+
+The Asset Explorer/My Assets is a section in the Andromeda web-app that contains all of the assets of the logged in user. The asset explorer contains all the Apps, ADOs, NFTs, etc. that the user has previously published and is used to interact with these assets.
+
+To get to the asset explorer, you need to choose select from the navigation bar on the left-hand side of the Andromeda web-app:
+
+![Assets Navitem Image](/learn/blogs/assets-explore/nav.png "Assets Nav Item")
+
+The asset page should open and will look something like this:
+
+![Assets Layout Image](/learn/blogs/assets-explore/ui.png "Assets Layout")
+
+You might notice that there are no assets listed here. This is because only assets that belong to the connected chain/user will show. Since I have not built anything on JUNO, my assets list is empty. Now, let me connect to another chain that I have previously built Andromeda Apps on. This is possible by clicking the address on the top right of the screen and then choosing Switch and picking the chain I want to connect to:
+
+![Connect Wallet Image](/learn/blogs/assets-explore/connect.png "Connect Wallet")
+
+Here I have chosen to connect to the Stargaze test-net knowing that I have previously built some assets on it:
+
+![Assets Image](/learn/blogs/assets-explore/assets.png "Assets")
+
+As you can see, the assets have appeared. For each asset, the following information is showcased:
+- The Classifier of the asset. More on classifiers can be found here (Link to classifiers)
+- The name of the asset
+- The type of asset including the version
+- The block height that the asset was published
+- The contract address of the ADO
+
+You can get the same information for each ADO in the App by clicking on View:
+
+![App Asset Image](/learn/blogs/assets-explore/app.png "App Asset")
+
+The assets can be filtered by type which makes searching for a specific asset fast and easy.
+
+# Interacting with Assets
+
+As discussed before, the assets page is used to interact with the Apps/ADOs/NFTs of a user. This is done by clicking on the three dots (ellipses) of the components we want to interact with:
+
+![Interact with Asset Image](/learn/blogs/assets-explore/interact.png "Interact with Asset")
+
+When pressed, the list of actions/messages that can be performed on the component will be shown. You can then choose the one you want to perform/execute.
+
+The chosen action/message will load the appropriate panels/components to be filled in by you. Once completed, you can publish the action/message which will execute it on chain.
+
+
+export default ({children})=><BlogLayout meta={meta}>{children}</BlogLayout>
