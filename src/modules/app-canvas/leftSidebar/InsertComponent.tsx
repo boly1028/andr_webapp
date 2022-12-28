@@ -18,8 +18,9 @@ const InsertComponent: FC<InsertComponentProps> = (props) => {
             <InputGroup size='lg'>
                 <InputLeftElement
                     pointerEvents='none'
-                    children={<SearchIcon color='gray.300' />}
-                />
+                >
+                    <SearchIcon color='gray.300' />
+                </InputLeftElement>
                 <Input placeholder='Search' />
             </InputGroup>
             <Text>Components</Text>
