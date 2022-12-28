@@ -1,56 +1,56 @@
 import { IAndromedaSchemaJSON } from '@/lib/schema/types';
-import { cloneDeep } from '@apollo/client/utilities';
 import React, { createContext, createRef, FC, ReactNode, useCallback, useContext, useMemo, useRef, useState } from 'react'
-import { applyNodeChanges, Edge, Node, OnNodesChange } from 'reactflow';
+import { addEdge, applyEdgeChanges, applyNodeChanges, Edge, Node, OnConnect, OnEdgesChange, OnNodesChange, useReactFlow as useReactFlowFromReactFLow } from 'reactflow';
+import { IEditorRef, IFormRefs } from '../types';
 
 interface AppBuilderProviderProps {
     children?: ReactNode;
 }
 const AppBuilderProvider: FC<AppBuilderProviderProps> = (props) => {
     const { children } = props
-    const [nodes, setNodes] = useState<Node[]>([])
-    const [edges, setEdges] = useState<Edge[]>([])
-    const formRefs = useRef({})
+    const { deleteElements, addNodes } = useReactFlow()
+    const [nodes, setNodes] = useState<AppBuilderContext['nodes']>([])
+    const [edges, setEdges] = useState<AppBuilderContext['edges']>([])
+    const formRefs = useRef<IFormRefs>({})
+    const editorRef = useRef<IEditorRef>({})
 
     const addNode: AppBuilderContext['addNode'] = useCallback((schema, name) => {
-        setNodes(prev => {
-            const clone = cloneDeep(prev);
-            clone.push({
-                'id': name,
-                'data': {
-                    name: name,
-                    andromedaSchema: schema
-                },
-                'position': {
-                    x: 0,
-                    y: 0
-                },
-                draggable: true,
-                'deletable': true,
-                type: 'form'
-            })
-            return clone;
+        addNodes({
+            'id': name,
+            'data': {
+                name: name,
+                andromedaSchema: schema
+            },
+            'position': {
+                x: 0,
+                y: 0
+            },
+            draggable: true,
+            'deletable': true,
+            type: 'form'
         })
-    }, [setNodes, setEdges])
+    }, [addNodes])
 
     const onNodesChange: AppBuilderContext['onNodesChange'] = useCallback((changes) => {
         setNodes(prev => applyNodeChanges(changes, prev))
-    }, [setNodes, setEdges])
+    }, [setNodes])
+
+    const onEdgesChange: AppBuilderContext['onEdgesChange'] = useCallback((changes) => {
+        console.log(changes)
+        setEdges(prev => applyEdgeChanges(changes, prev))
+    }, [setEdges])
+
+    const onEdgesConnect: AppBuilderContext['onEdgesConnect'] = useCallback((connection) => {
+        console.log(connection)
+        setEdges(prev => addEdge(connection, prev))
+    }, [setEdges])
 
     const deleteNode: AppBuilderContext['deleteNode'] = useCallback((name) => {
-        /**
-         * NODE Deletion will also need removal of edges whichh are source and target.
-         * We can get edge list from our own implementation or helper functions which reactflow
-         * provides
-         */
-        setNodes(prev => {
-            const clone = cloneDeep(prev).filter(node => node.id !== name);
-            return clone;
-        })
+        deleteElements({ nodes: [{ id: name }] })
         if (formRefs.current[name]) {
             delete formRefs.current[name]
         }
-    }, [setNodes, setEdges])
+    }, [deleteElements])
 
     const value: AppBuilderContext = useMemo(() => {
         return {
@@ -58,10 +58,13 @@ const AppBuilderProvider: FC<AppBuilderProviderProps> = (props) => {
             edges,
             addNode,
             onNodesChange,
+            onEdgesChange,
+            onEdgesConnect,
             deleteNode,
-            formRefs
+            formRefs,
+            editorRef
         }
-    }, [nodes, edges, onNodesChange, addNode, deleteNode, formRefs])
+    }, [nodes, edges, onNodesChange, addNode, deleteNode, formRefs, editorRef, onEdgesChange, onEdgesConnect])
 
     return (
         <context.Provider value={value}>
@@ -71,12 +74,20 @@ const AppBuilderProvider: FC<AppBuilderProviderProps> = (props) => {
 }
 
 export interface AppBuilderContext {
-    nodes: Node[];
+    nodes: Node<INodeData>[];
     edges: Edge[];
     addNode: (schema: IAndromedaSchemaJSON, name: string) => void;
     onNodesChange: OnNodesChange;
+    onEdgesChange: OnEdgesChange;
+    onEdgesConnect: OnConnect;
     deleteNode: (name: string) => void;
-    formRefs: React.MutableRefObject<any>;
+    formRefs: React.MutableRefObject<IFormRefs>;
+    editorRef: React.MutableRefObject<IEditorRef>;
+}
+
+export interface INodeData {
+    name: string;
+    andromedaSchema: IAndromedaSchemaJSON
 }
 
 const defaultValue: AppBuilderContext = {
@@ -84,10 +95,14 @@ const defaultValue: AppBuilderContext = {
     edges: [],
     addNode: () => { throw new Error("OUTSIDE COONTEXT") },
     onNodesChange: () => { throw new Error("OUTSIDE COONTEXT") },
+    onEdgesChange: () => { throw new Error("OUTSIDE COONTEXT") },
+    onEdgesConnect: () => { throw new Error("OUTSIDE COONTEXT") },
     deleteNode: () => { throw new Error("OUTSIDE COONTEXT") },
-    formRefs: createRef(),
+    formRefs: createRef<IFormRefs>() as any,
+    editorRef: createRef<IEditorRef>() as any,
 }
 const context = createContext(defaultValue);
 export const useAppBuilder = () => useContext(context)
+export const useReactFlow = () => useReactFlowFromReactFLow<INodeData>();
 
 export default AppBuilderProvider

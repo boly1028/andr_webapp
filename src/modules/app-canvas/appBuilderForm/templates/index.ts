@@ -1,4 +1,4 @@
-import { TemplatesType } from '@rjsf/utils'
+import { TemplatesType } from '@andromedarjsf/utils'
 import FieldTemplate from './FieldTemplate';
 import ObjectFieldTemplate from './ObjectFieldTemplate';
 

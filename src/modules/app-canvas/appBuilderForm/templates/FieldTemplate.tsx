@@ -5,7 +5,7 @@ import {
   getTemplate,
   getUiOptions,
   getSchemaType,
-} from "@rjsf/utils";
+} from "@andromedarjsf/utils";
 
 import {
   Text,
@@ -18,6 +18,7 @@ import {
   AlertDescription,
 } from "@chakra-ui/react";
 import { JSONSchema7 } from "json-schema";
+import { Handle, Position } from "reactflow";
 
 const FieldTemplate = (props: FieldTemplateProps) => {
   const {
@@ -42,6 +43,7 @@ const FieldTemplate = (props: FieldTemplateProps) => {
     formData,
     description,
     hideError,
+    formContext
   } = props;
 
   const uiOptions = getUiOptions(uiSchema);
@@ -104,6 +106,9 @@ const FieldTemplate = (props: FieldTemplateProps) => {
     return <>{children}</>;
   }
 
+
+  const isIdentifier = id.endsWith('identifier')
+
   const hasWrapper = !!schema?.anyOf || !!schema?.oneOf;
   // const hasWrapper = false;
 
@@ -122,6 +127,12 @@ const FieldTemplate = (props: FieldTemplateProps) => {
         uiSchema={uiSchema}
         registry={registry}
       >
+        {isIdentifier && (
+          <>
+            <Handle id={`${formContext.name}-${id}-target`} type='target' position={Position.Left} style={{ backgroundColor: 'teal', border: '0px' }} />
+            <Handle id={`${formContext.name}-${id}-source`} type='source' position={Position.Right} style={{ backgroundColor: 'teal', border: '0px' }} />
+          </>
+        )}
         {!hasWrapper && uiOptions.info && (
           <Alert
             status={uiOptions.infoType as any}
@@ -143,6 +154,7 @@ const FieldTemplate = (props: FieldTemplateProps) => {
           isRequired={hasWrapper ? false : required}
           isInvalid={rawErrors && rawErrors.length > 0}
           mt="1"
+          position='relative'
         >
           {displayLabel && label ? (
             <FormLabel

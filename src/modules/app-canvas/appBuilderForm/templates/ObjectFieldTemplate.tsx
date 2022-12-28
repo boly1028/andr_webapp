@@ -27,7 +27,7 @@ import {
   canExpand,
   getUiOptions,
   getTemplate,
-} from "@rjsf/utils";
+} from "@andromedarjsf/utils";
 import {
   Copy as Duplicate,
   Edit3 as Rename,
@@ -37,6 +37,7 @@ import {
 import { useMemo } from "react";
 import { useAppBuilder } from "../../canvas/Provider";
 import { useFieldTemplate } from "./FieldTemplate";
+import { Handle, Position, useReactFlow } from "reactflow";
 
 const NON_EDITABLE_CLASS = new Set<string>(["system", "modifier"]);
 
@@ -142,6 +143,9 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
         borderRadius="lg"
         w='30rem'
       >
+        <Handle id={`${formContext.name}-target`} type='target' position={Position.Top} style={{ backgroundColor: 'yellow', border: '0px' }} />
+        <Handle id={`${formContext.name}-target`} type='source' position={Position.Bottom} style={{ backgroundColor: 'yellow', border: '0px' }} />
+
         <Flex>
           <HStack spacing={5} w="full" align="flex-start">
             <ClassifierIcon

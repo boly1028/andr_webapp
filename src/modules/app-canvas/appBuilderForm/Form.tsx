@@ -1,10 +1,10 @@
 import { IAndromedaSchemaJSON, IAndromedaUISchema } from '@/lib/schema/types'
 import Form from '@/modules/flex-builder/components/FlexBuilderForm/Form';
 import { cloneDeep } from '@apollo/client/utilities';
-import { Button } from '@chakra-ui/react';
 import React, { FC, useCallback, useEffect, useRef, useState } from 'react'
 import { NodeProps } from 'reactflow';
 import { useAppBuilder } from '../canvas/Provider';
+import { IFormRef } from '../types';
 import templates from './templates';
 
 
@@ -27,7 +27,7 @@ const AppBuilderForm: FC<AppBuilderFormProps> = (props) => {
     const [formData, setFormData] = useState(cloneDeep(andromedaSchema['form-data'] ?? {}));
     const ref = useRef<any>()
 
-    const validate = useCallback(() => {
+    const validate: IFormRef['validate'] = useCallback(() => {
         try {
             const _formData = ref.current.state.formData;
             console.log("VALIDATING", _formData)
@@ -54,7 +54,6 @@ const AppBuilderForm: FC<AppBuilderFormProps> = (props) => {
             uiSchema={uiSchema}
             formData={formData}
             onChange={({ formData: _formData }) => {
-                console.log(_formData)
                 setFormData(_formData);
             }}
             formContext={{
