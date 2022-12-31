@@ -4,7 +4,6 @@ import { parseJsonFromFile } from "@/lib/json";
 import { IAndromedaFormData, IAndromedaSchema } from "@/lib/schema/types";
 import { CopyButton, FileCheckIcon } from "@/modules/common";
 import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
-import usePanelRenameModal from "@/modules/modals/hooks/usePanelRenameModal";
 import ClassifierIcon from "@/theme/icons/classifiers";
 import { Box, Flex, HStack, IconButton, Text } from "@/theme/ui-elements";
 import { downloadBlob } from "@/utils/file";
@@ -82,13 +81,15 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
     ButtonTemplates: { AddButton },
   } = registry.templates;
 
-  const { onChange } = useFieldTemplate();
+  const { fieldRef } = useFieldTemplate();
 
   const toggleModule = () => {
     if (formData === undefined) return;
-    formData.$enabled = !formData.$enabled
-    onChange({
-      ...formData
+    const newFormData = { ...formData }
+    newFormData.$enabled = !newFormData.$enabled
+    console.log("here", newFormData, fieldRef.current)
+    fieldRef.current?.onChange?.({
+      ...newFormData
     })
   }
 
@@ -118,7 +119,7 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
 
   const importJson = async (file: File) => {
     const parsed = await parseJsonFromFile(file);
-    onChange(parsed);
+    fieldRef.current?.onChange?.(parsed);
   };
 
   const hasWrapper = formData?.$removable !== undefined;
@@ -143,9 +144,8 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
         borderRadius="lg"
         w='30rem'
       >
-        <Handle id={`${formContext.name}-target`} type='target' position={Position.Top} style={{ backgroundColor: 'yellow', border: '0px' }} />
-        <Handle id={`${formContext.name}-target`} type='source' position={Position.Bottom} style={{ backgroundColor: 'yellow', border: '0px' }} />
-
+        <Handle id={`${formContext.name}-target-up`} type='target' position={Position.Top} style={{ backgroundColor: 'yellow', border: '0px' }} />
+        <Handle id={`${formContext.name}-target-down`} type='target' position={Position.Top} style={{ backgroundColor: 'yellow', border: '0px' }} />
         <Flex>
           <HStack spacing={5} w="full" align="flex-start">
             <ClassifierIcon
@@ -291,7 +291,7 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
           </HStack>
         </Flex>
         {formData["$enabled"] && (
-          <Box p={8} cursor={formData["$enabled"] ? "default" : "not-allowed"}>
+          <Box py='4' cursor={formData["$enabled"] ? "default" : "not-allowed"}>
             <Grid
               gap={8}
               opacity={formData["$enabled"] ? 1 : 0.3}
@@ -327,15 +327,7 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
             registry={registry}
           />
         )}
-        {description && (
-          <DescriptionFieldTemplate
-            id={`${idSchema.$id}-description`}
-            description={description}
-            schema={schema}
-            registry={registry}
-          />
-        )}
-        <Grid gap={description ? 2 : 4} mb={4} mt={hasGroup ? 6 : 0}>
+        <Grid gap={1} mb={2} mt={hasGroup ? 2 : 0}>
           {properties.map((element, index) =>
             element.hidden ? (
               element.content

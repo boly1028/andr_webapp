@@ -6,6 +6,7 @@ import { NodeProps } from 'reactflow';
 import { useAppBuilder } from '../canvas/Provider';
 import { IFormRef } from '../types';
 import templates from './templates';
+import widgets from './widgets';
 
 
 
@@ -50,6 +51,7 @@ const AppBuilderForm: FC<AppBuilderFormProps> = (props) => {
     return (
         <Form
             templates={templates}
+            widgets={widgets}
             schema={schema}
             uiSchema={uiSchema}
             formData={formData}

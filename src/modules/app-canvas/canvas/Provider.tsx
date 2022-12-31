@@ -1,5 +1,5 @@
 import { IAndromedaSchemaJSON } from '@/lib/schema/types';
-import React, { createContext, createRef, FC, ReactNode, useCallback, useContext, useMemo, useRef, useState } from 'react'
+import React, { createContext, createRef, FC, ReactNode, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { addEdge, applyEdgeChanges, applyNodeChanges, Edge, Node, OnConnect, OnEdgesChange, OnNodesChange, useReactFlow as useReactFlowFromReactFLow } from 'reactflow';
 import { IEditorRef, IFormRefs } from '../types';
 
@@ -27,7 +27,9 @@ const AppBuilderProvider: FC<AppBuilderProviderProps> = (props) => {
             },
             draggable: true,
             'deletable': true,
-            type: 'form'
+            type: 'form',
+            zIndex:0,
+            selectable:false
         })
     }, [addNodes])
 
@@ -36,7 +38,6 @@ const AppBuilderProvider: FC<AppBuilderProviderProps> = (props) => {
     }, [setNodes])
 
     const onEdgesChange: AppBuilderContext['onEdgesChange'] = useCallback((changes) => {
-        console.log(changes)
         setEdges(prev => applyEdgeChanges(changes, prev))
     }, [setEdges])
 
@@ -65,6 +66,7 @@ const AppBuilderProvider: FC<AppBuilderProviderProps> = (props) => {
             editorRef
         }
     }, [nodes, edges, onNodesChange, addNode, deleteNode, formRefs, editorRef, onEdgesChange, onEdgesConnect])
+    console.log(edges)
 
     return (
         <context.Provider value={value}>

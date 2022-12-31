@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useRef } from "react";
+import React, { createRef, useCallback, useContext, useEffect, useLayoutEffect, useMemo, useRef } from "react";
 
 import {
   FieldTemplateProps,
@@ -16,9 +16,11 @@ import {
   AlertIcon,
   AlertTitle,
   AlertDescription,
+  useId,
 } from "@chakra-ui/react";
 import { JSONSchema7 } from "json-schema";
-import { Handle, Position } from "reactflow";
+import { Handle, OnConnect, Position, useUpdateNodeInternals } from "reactflow";
+import { AppBuilderContext, useAppBuilder, useReactFlow } from "../../canvas/Provider";
 
 const FieldTemplate = (props: FieldTemplateProps) => {
   const {
@@ -41,10 +43,54 @@ const FieldTemplate = (props: FieldTemplateProps) => {
     registry,
     onChange,
     formData,
-    description,
     hideError,
     formContext
   } = props;
+
+  const { edges, nodes } = useAppBuilder()
+  const mountId = useId()
+
+  const { deleteElements } = useReactFlow()
+  const updateNodeInternals = useUpdateNodeInternals();
+
+  const handlerPrefix = useMemo(() => {
+    // @ts-ignore
+    if (!!schema?.properties?.address?.properties?.identifier) {
+      return `${formContext.name}-${id}-${mountId}-source-`
+    }
+  }, [schema, formContext.name, id])
+
+  const connectedEdge = useMemo(() => {
+    if (handlerPrefix) {
+      return edges.find(edge => edge.sourceHandle?.startsWith(handlerPrefix))
+    }
+  }, [edges, handlerPrefix])
+
+  const handleConnect: OnConnect = (connection) => {
+    const targetNode = nodes.find(node => node.id === connection.target)
+    if (targetNode) {
+      const adoType = targetNode.data.andromedaSchema.schema.$id
+      const targetName = targetNode.data.name;
+      fieldContextRef.current.onChange?.({
+        ...formData,
+        address: {
+          identifier: targetName
+        },
+        module_type: adoType
+      })
+    }
+    if (connectedEdge) {
+      deleteElements({ edges: [{ id: connectedEdge.id }] })
+    }
+  }
+
+
+  useEffect(() => {
+    fieldContextRef.current.connectedEdge = connectedEdge;
+    updateNodeInternals(formContext.name)
+  }, [connectedEdge])
+
+  const fieldContextRef = useRef<IFieldRef>({})
 
   const uiOptions = getUiOptions(uiSchema);
   const WrapIfAdditionalTemplate = getTemplate<"WrapIfAdditionalTemplate">(
@@ -82,21 +128,21 @@ const FieldTemplate = (props: FieldTemplateProps) => {
     return () => clearTimeout(tId);
   }, []);
 
-  useEffect(() => {
-    if (!displayLabel) return;
-    if (typeof document === "undefined") return;
-    const el = document?.getElementById(`${id}-label`);
-    if (el) {
-      el.style.display = "none";
+  useLayoutEffect(() => {
+    return () => {
+      if (fieldContextRef.current.connectedEdge) {
+        console.log("Connected here")
+        deleteElements({ edges: [{ id: fieldContextRef.current.connectedEdge.id }] })
+      }
     }
-  }, [id, schema]);
+  }, [])
 
-  const contextOnChange = useCallback(
-    (data: any) => {
+  useEffect(() => {
+    fieldContextRef.current.onChange = (data: any) => {
+      updateNodeInternals(formContext.name)
       onChange(data, undefined, id);
-    },
-    [onChange, id],
-  );
+    }
+  }, [onChange, id, fieldContextRef, formContext.name])
 
   if (hidden) {
     return <>{children}</>;
@@ -106,14 +152,10 @@ const FieldTemplate = (props: FieldTemplateProps) => {
     return <>{children}</>;
   }
 
-
-  const isIdentifier = id.endsWith('identifier')
-
   const hasWrapper = !!schema?.anyOf || !!schema?.oneOf;
-  // const hasWrapper = false;
 
   return (
-    <FieldTemplateContext.Provider value={{ onChange: contextOnChange }}>
+    <FieldTemplateContext.Provider value={{ fieldRef: fieldContextRef }}>
       <WrapIfAdditionalTemplate
         classNames={classNames}
         disabled={disabled}
@@ -127,12 +169,6 @@ const FieldTemplate = (props: FieldTemplateProps) => {
         uiSchema={uiSchema}
         registry={registry}
       >
-        {isIdentifier && (
-          <>
-            <Handle id={`${formContext.name}-${id}-target`} type='target' position={Position.Left} style={{ backgroundColor: 'teal', border: '0px' }} />
-            <Handle id={`${formContext.name}-${id}-source`} type='source' position={Position.Right} style={{ backgroundColor: 'teal', border: '0px' }} />
-          </>
-        )}
         {!hasWrapper && uiOptions.info && (
           <Alert
             status={uiOptions.infoType as any}
@@ -150,48 +186,50 @@ const FieldTemplate = (props: FieldTemplateProps) => {
             />
           </Alert>
         )}
-        <FormControl
-          isRequired={hasWrapper ? false : required}
-          isInvalid={rawErrors && rawErrors.length > 0}
-          mt="1"
-          position='relative'
-        >
-          {displayLabel && label ? (
-            <FormLabel
-              mt={hasWrapper ? "2" : "0"}
-              mb="0.5"
-              id={`${id}-new-label`}
-              htmlFor={id}
-            >
-              {label}
-            </FormLabel>
-          ) : null}
-          {displayLabel && <>{description}</>}
-          {hasWrapper ? (
-            <Box key={1} border="1px" borderColor="dark.300" p="6" rounded="lg">
-              {children}
-            </Box>
-          ) : (
-            <>{children}</>
+        <Box position='relative' px={handlerPrefix ? '4' : 0}>
+          {handlerPrefix && (
+            <>
+              <Handle onConnect={handleConnect} id={`${handlerPrefix}-left`} type='source' position={Position.Left} style={{ backgroundColor: 'teal', border: '0px' }} />
+              <Handle onConnect={handleConnect} id={`${handlerPrefix}-right`} type='source' position={Position.Right} style={{ backgroundColor: 'teal', border: '0px' }} />
+            </>
           )}
+          <FormControl
+            isRequired={hasWrapper ? false : required}
+            isInvalid={rawErrors && rawErrors.length > 0}
+            position='relative'
+          >
+            {/* {displayLabel && <>{description}</>} */}
+            {hasWrapper ? (
+              <Box key={1} border="1px" borderColor="dark.300" p="2" rounded="lg">
+                {children}
+              </Box>
+            ) : (
+              <>{children}</>
+            )}
 
-          {props.help}
-          {!hideError && props.errors}
-        </FormControl>
+            {/* {props.help} */}
+            {!hideError && props.errors}
+          </FormControl>
+        </Box>
       </WrapIfAdditionalTemplate>
     </FieldTemplateContext.Provider>
   );
 };
 
 interface FieldTemplateContext {
-  onChange: (data: any) => void;
+  fieldRef: React.MutableRefObject<IFieldRef>
 }
+
+interface IFieldRef {
+  onChange?: (data: any) => void;
+  connectedEdge?: AppBuilderContext['edges'][number];
+}
+
 const defaultValue: FieldTemplateContext = {
-  onChange: () => {
-    throw new Error("Used outside FieldTemplateContext");
-  },
+  fieldRef: createRef<IFieldRef>() as any
 };
+
 const FieldTemplateContext = React.createContext(defaultValue);
 export const useFieldTemplate = () => useContext(FieldTemplateContext);
 
-export default FieldTemplate;
+export default FieldTemplate
