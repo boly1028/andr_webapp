@@ -11,4 +11,5 @@ export interface ILearnPageSubItem {
     icon: FC<any>;
     title: string;
     description: string;
+    link?: string;
 }

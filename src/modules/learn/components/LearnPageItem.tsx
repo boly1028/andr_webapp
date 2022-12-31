@@ -1,4 +1,5 @@
 import { Box, Center, Flex, GridItem, HStack, Icon, SimpleGrid, Text } from '@chakra-ui/react';
+import Link from 'next/link';
 import React, { FC } from 'react'
 import { ILearnPageItem, ILearnPageSubItem } from '../types'
 
@@ -47,9 +48,11 @@ const LearnPageSubItem: FC<LearnPageSubItemProps> = (props) => {
 
     return (
         <Box>
-            <Center bg='dark.100' rounded='xl' h='40'>
-                <Icon as={subItem.icon} boxSize='16' />
-            </Center>
+            <Link href={subItem.link || '#'} passHref>
+                <Center as='a' bg='dark.100' rounded='xl' h='40' cursor='pointer'>
+                    <Icon as={subItem.icon} boxSize='16' />
+                </Center>
+            </Link>
             <Box mt='4' ml='1'>
                 <Text fontSize='lg' fontWeight='medium'>{subItem.title}</Text>
                 <Text mt='2' fontSize='sm' color='dark.500'>{subItem.description}</Text>

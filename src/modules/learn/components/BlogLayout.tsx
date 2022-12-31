@@ -19,6 +19,8 @@ interface BlogLayoutProps {
     meta: {
         title: string;
         author: string;
+        description?: string;
+        tags: string[];
     }
 }
 const BlogLayout: FC<BlogLayoutProps> = (props) => {

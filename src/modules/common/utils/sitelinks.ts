@@ -29,7 +29,7 @@ export const SITE_LINKS = {
     embeddables: () => `/embeddables`,
     // embeddables: () => `https://andromedaprotocol.github.io/embeddable-marketplace-demo`,
     learn: () => `/learn`,
-    learnItem: (slug: string) => `/learn/${slug}`,
+    learnItem: (slug: string) => `/learn${slug}`,
     cli: () => `/cli`,
 
     // External Documentation

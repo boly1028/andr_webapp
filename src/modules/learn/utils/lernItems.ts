@@ -1,4 +1,5 @@
 import { AndromedaIcon, AppBuilder, CliIcon, CubeIcon, PlusIcon } from "@/modules/common";
+import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
 import { Puzzle, Triangle, Wallet } from "lucide-react";
 import { ILearnPageItem } from "../types";
 
@@ -31,7 +32,8 @@ export const LEARN_PAGE_ITEMS: ILearnPageItem[] = [
             {
                 title: 'Setting up your wallet',
                 description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus venenati.',
-                icon: Wallet
+                icon: Wallet,
+                link:SITE_LINKS.learnItem('/andromeda/assets-explore')
             },
             {
                 title: 'What is an ADO?',
@@ -52,12 +54,14 @@ export const LEARN_PAGE_ITEMS: ILearnPageItem[] = [
             {
                 title: 'Build your first ADO',
                 description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus venenati.',
-                icon: PlusIcon
+                icon: PlusIcon,
+                link:SITE_LINKS.learnItem('/andromeda/ado-builder')
             },
             {
                 title: 'Build your first App',
                 description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus venenati.',
-                icon: Puzzle
+                icon: Puzzle,
+                link:SITE_LINKS.learnItem('/andromeda/app-builder')
             },
             {
                 title: 'How to use the CLI?',
