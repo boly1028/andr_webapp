@@ -1,6 +1,6 @@
 import { IAndromedaSchemaJSON } from '@/lib/schema/types';
 import React, { createContext, createRef, FC, ReactNode, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
-import { addEdge, applyEdgeChanges, applyNodeChanges, Edge, Node, OnConnect, OnEdgesChange, OnNodesChange, useReactFlow as useReactFlowFromReactFLow } from 'reactflow';
+import { addEdge, applyEdgeChanges, applyNodeChanges, Edge, Node, OnConnect, OnEdgesChange, OnNodesChange, useEdgesState, useNodesState, useReactFlow as useReactFlowFromReactFLow } from 'reactflow';
 import { IEditorRef, IFormRefs } from '../types';
 
 interface AppBuilderProviderProps {
@@ -9,8 +9,8 @@ interface AppBuilderProviderProps {
 const AppBuilderProvider: FC<AppBuilderProviderProps> = (props) => {
     const { children } = props
     const { deleteElements, addNodes } = useReactFlow()
-    const [nodes, setNodes] = useState<AppBuilderContext['nodes']>([])
-    const [edges, setEdges] = useState<AppBuilderContext['edges']>([])
+    const [nodes, setNodes, onNodesChange] = useNodesState<INodeData>([])
+    const [edges, setEdges, onEdgesChange] = useEdgesState<INodeData>([])
     const formRefs = useRef<IFormRefs>({})
     const editorRef = useRef<IEditorRef>({})
 
@@ -28,23 +28,11 @@ const AppBuilderProvider: FC<AppBuilderProviderProps> = (props) => {
             draggable: true,
             'deletable': true,
             type: 'form',
-            zIndex:0,
-            selectable:false
+            zIndex: 0,
+            selectable: false
         })
     }, [addNodes])
 
-    const onNodesChange: AppBuilderContext['onNodesChange'] = useCallback((changes) => {
-        setNodes(prev => applyNodeChanges(changes, prev))
-    }, [setNodes])
-
-    const onEdgesChange: AppBuilderContext['onEdgesChange'] = useCallback((changes) => {
-        setEdges(prev => applyEdgeChanges(changes, prev))
-    }, [setEdges])
-
-    const onEdgesConnect: AppBuilderContext['onEdgesConnect'] = useCallback((connection) => {
-        console.log(connection)
-        setEdges(prev => addEdge(connection, prev))
-    }, [setEdges])
 
     const deleteNode: AppBuilderContext['deleteNode'] = useCallback((name) => {
         deleteElements({ nodes: [{ id: name }] })
@@ -60,12 +48,11 @@ const AppBuilderProvider: FC<AppBuilderProviderProps> = (props) => {
             addNode,
             onNodesChange,
             onEdgesChange,
-            onEdgesConnect,
             deleteNode,
             formRefs,
             editorRef
         }
-    }, [nodes, edges, onNodesChange, addNode, deleteNode, formRefs, editorRef, onEdgesChange, onEdgesConnect])
+    }, [nodes, edges, onNodesChange, addNode, deleteNode, formRefs, editorRef, onEdgesChange])
     console.log(edges)
 
     return (
@@ -77,11 +64,10 @@ const AppBuilderProvider: FC<AppBuilderProviderProps> = (props) => {
 
 export interface AppBuilderContext {
     nodes: Node<INodeData>[];
-    edges: Edge[];
+    edges: Edge<IEdgeData>[];
     addNode: (schema: IAndromedaSchemaJSON, name: string) => void;
     onNodesChange: OnNodesChange;
     onEdgesChange: OnEdgesChange;
-    onEdgesConnect: OnConnect;
     deleteNode: (name: string) => void;
     formRefs: React.MutableRefObject<IFormRefs>;
     editorRef: React.MutableRefObject<IEditorRef>;
@@ -92,13 +78,15 @@ export interface INodeData {
     andromedaSchema: IAndromedaSchemaJSON
 }
 
+export interface IEdgeData {
+}
+
 const defaultValue: AppBuilderContext = {
     nodes: [],
     edges: [],
     addNode: () => { throw new Error("OUTSIDE COONTEXT") },
     onNodesChange: () => { throw new Error("OUTSIDE COONTEXT") },
     onEdgesChange: () => { throw new Error("OUTSIDE COONTEXT") },
-    onEdgesConnect: () => { throw new Error("OUTSIDE COONTEXT") },
     deleteNode: () => { throw new Error("OUTSIDE COONTEXT") },
     formRefs: createRef<IFormRefs>() as any,
     editorRef: createRef<IEditorRef>() as any,

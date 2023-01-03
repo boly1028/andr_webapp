@@ -37,6 +37,7 @@ import { useMemo } from "react";
 import { useAppBuilder } from "../../canvas/Provider";
 import { useFieldTemplate } from "./FieldTemplate";
 import { Handle, Position, useReactFlow } from "reactflow";
+import { DIRECTION, getPanelTargetHandlePrefix } from "../connections/utils";
 
 const NON_EDITABLE_CLASS = new Set<string>(["system", "modifier"]);
 
@@ -82,6 +83,10 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
   } = registry.templates;
 
   const { fieldRef } = useFieldTemplate();
+
+  const [upHandle, downHandle] = useMemo(() => {
+    return [getPanelTargetHandlePrefix(formContext.name, DIRECTION.UP), getPanelTargetHandlePrefix(formContext.name, DIRECTION.DOWN)]
+  }, [formContext.name])
 
   const toggleModule = () => {
     if (formData === undefined) return;
@@ -144,8 +149,8 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
         borderRadius="lg"
         w='30rem'
       >
-        <Handle id={`${formContext.name}-target-up`} type='target' position={Position.Top} style={{ backgroundColor: 'yellow', border: '0px' }} />
-        <Handle id={`${formContext.name}-target-down`} type='target' position={Position.Top} style={{ backgroundColor: 'yellow', border: '0px' }} />
+        <Handle id={upHandle} type='target' position={Position.Top} style={{ backgroundColor: 'yellow', border: '0px' }} />
+        <Handle id={downHandle} type='target' position={Position.Bottom} style={{ backgroundColor: 'yellow', border: '0px' }} />
         <Flex>
           <HStack spacing={5} w="full" align="flex-start">
             <ClassifierIcon

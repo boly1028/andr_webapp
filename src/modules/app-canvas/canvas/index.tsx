@@ -9,7 +9,7 @@ interface AppBuilderCanvasProps {
 }
 const AppBuilderCanvas: FC<AppBuilderCanvasProps> = (props) => {
     const { } = props
-    const { nodes, edges, onNodesChange, onEdgesChange, onEdgesConnect } = useAppBuilder()
+    const { nodes, edges, onNodesChange, onEdgesChange } = useAppBuilder()
 
     const NODE_TYPES: NodeTypes = useMemo(() => {
         return {
@@ -27,7 +27,6 @@ const AppBuilderCanvas: FC<AppBuilderCanvasProps> = (props) => {
             edges={edges}
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}
-            onConnect={onEdgesConnect}
             nodeTypes={NODE_TYPES}
             fitView
             zoomOnPinch={true}
