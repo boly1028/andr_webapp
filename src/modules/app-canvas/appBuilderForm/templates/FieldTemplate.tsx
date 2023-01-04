@@ -23,6 +23,7 @@ import { Handle, OnConnect, Position, useUpdateNodeInternals } from "reactflow";
 import { AppBuilderContext, useAppBuilder, useReactFlow } from "../../canvas/Provider";
 import { useIsIdentifier } from "../connections/identifier";
 import { DIRECTION, getSourceHandlePrefix } from "../connections/utils";
+import { useIsModule } from "../connections/module";
 
 const FieldTemplate = (props: FieldTemplateProps) => {
   const {
@@ -54,7 +55,9 @@ const FieldTemplate = (props: FieldTemplateProps) => {
 
   const fieldContextRef = useRef<IFieldRef>({})
 
-  const { isIdentifier, handleConnect, edgeId } = useIsIdentifier(formContext.name, schema, formData, fieldContextRef)
+  const { isIdentifier, handleConnect, edgeId } = useIsIdentifier(formContext.name, id, formData, fieldContextRef)
+  const { isModule } = useIsModule(schema, formData, fieldContextRef)
+
   const [leftHandle, rightHandle] = useMemo(() => {
     return [getSourceHandlePrefix(edgeId, DIRECTION.LEFT), getSourceHandlePrefix(edgeId, DIRECTION.RIGHT)]
   }, [edgeId])

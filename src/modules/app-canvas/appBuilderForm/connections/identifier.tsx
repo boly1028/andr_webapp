@@ -1,36 +1,30 @@
 import { MutableRefObject, useCallback, useEffect, useLayoutEffect, useMemo } from "react"
 import { OnConnect } from "reactflow"
-import { AppBuilderContext, useAppBuilder, useReactFlow } from "../../canvas/Provider"
+import { useReactFlow } from "../../canvas/Provider"
 import { IFieldRef } from "../templates/FieldTemplate"
 import { debounce } from 'lodash'
 import { useId } from "@chakra-ui/react"
 import { DIRECTION, getPanelTargetHandlePrefix, getSourceHandlePrefix } from "./utils"
 
-export const useIsIdentifier = (nodeId: string, schema: any, formData: any, ref: MutableRefObject<IFieldRef>) => {
+export const useIsIdentifier = (nodeId: string, fieldId: string, formData: any, ref: MutableRefObject<IFieldRef>) => {
     const edgeId = useId()
     const { deleteElements, addEdges, getNode, getEdge } = useReactFlow()
 
     const isIdentifier = useMemo(() => {
-        return !!schema?.properties?.address?.properties?.identifier
-    }, [schema])
+        return fieldId.split('_').pop() === 'identifier'
+    }, [fieldId])
 
     const identifierValue: string = useMemo(() => {
-        return formData?.address?.identifier ?? ''
+        return formData || ''
     }, [formData])
 
     const handleConnect: OnConnect = useCallback((connection) => {
         const targetNode = getNode(connection.target ?? '');
         const sourceNode = getNode(nodeId);
         if (targetNode) {
-            const adoType = targetNode.data.andromedaSchema.schema.$id
             const targetName = targetNode.data.name;
-            ref.current.onChange?.({
-                ...formData,
-                address: {
-                    identifier: targetName
-                },
-                module_type: adoType
-            })
+            console.log("Updating for", edgeId, connection.target)
+            ref.current.onChange?.(targetName)
             deleteElements({
                 edges: [{ id: edgeId }]
             })

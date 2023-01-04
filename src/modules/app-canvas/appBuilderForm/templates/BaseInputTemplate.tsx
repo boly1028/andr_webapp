@@ -26,7 +26,6 @@ const BaseInputTemplate = (props: WidgetProps) => {
   const { schemaUtils } = registry;
   const uiOptions = getUiOptions(uiSchema);
 
-
   const _onChange = ({
     target: { value },
   }: React.ChangeEvent<HTMLInputElement>) =>
