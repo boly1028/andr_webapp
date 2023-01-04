@@ -114,29 +114,6 @@
                                         }
                                     },
                                     "additionalProperties": false
-                                },
-                                {
-                                    "title": "CW1155",
-                                    "type": "object",
-                                    "required": [
-                                        "cw1155"
-                                    ],
-                                    "properties": {
-                                        "cw1155": {
-                                            "type": "array",
-                                            "items": [
-                                                {
-                                                    "type": "string"
-                                                },
-                                                {
-                                                    "type": "string"
-                                                }
-                                            ],
-                                            "maxItems": 2,
-                                            "minItems": 2
-                                        }
-                                    },
-                                    "additionalProperties": false
                                 }
                             ]
                         }
