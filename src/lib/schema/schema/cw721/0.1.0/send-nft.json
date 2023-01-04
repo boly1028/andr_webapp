@@ -1,1 +1,79 @@
-{"schema":{"description":"Sends a token to another contract","type":"object","required":["send_nft"],"properties":{"send_nft":{"type":"object","required":["contract","msg","token_id"],"properties":{"contract":{"type":"string","title":"contract"},"msg":{"description":"Binary is a wrapper around Vec<u8> to add base64 de/serialization with serde. It also adds some helper methods to help encode inline.\n\nThis is only needed as serde-json-{core,wasm} has a horrible encoding for Vec<u8>","type":"string","title":"msg"},"token_id":{"type":"string","title":"token_id"}}}},"additionalProperties":false,"$id":"send-nft","class":"modifier","version":"0.1.0","classifier":""},"ui-schema":{},"form-data":{}}
+{
+    "schema": {
+        "title": "Send nft",
+        "description": "Sends a token to another contract",
+        "type": "object",
+        "required": [
+            "send_nft"
+        ],
+        "properties": {
+            "send_nft": {
+                "type": "object",
+                "required": [
+                    "contract",
+                    "msg",
+                    "token_id"
+                ],
+                "properties": {
+                    "contract": {
+                        "type": "string",
+                        "title": "contract"
+                    },
+                    "msg": {
+                        "description": "Binary is a wrapper around Vec<u8> to add base64 de/serialization with serde. It also adds some helper methods to help encode inline.\n\nThis is only needed as serde-json-{core,wasm} has a horrible encoding for Vec<u8>",
+                        "type": "string",
+                        "title": "msg"
+                    },
+                    "token_id": {
+                        "type": "string",
+                        "title": "token_id"
+                    }
+                }
+            }
+        },
+        "additionalProperties": false,
+        "$id": "send-nft",
+        "class": "modifier",
+        "version": "0.1.0",
+        "classifier": ""
+    },
+    "ui-schema": {
+        "send_nft": {
+            "ui:order": [
+                "contract",
+                "token_id",
+                "msg",
+                "*"
+            ],
+            "ui:options": {
+                "title": "Send NFT",
+                "alerts": [
+                    {
+                        "text": "Only available to the token owner/operator/approved address.",
+                        "type": "error"
+                    }
+                ]
+            },
+            "contract": {
+                "ui:options": {
+                    "title": "Recipient Address",
+                    "description": "The address of the receiving contract."
+                }
+            },
+            "msg": {
+                "ui:widget": "msg",
+                "ui:options": {
+                    "title": "Supporting Message",
+                    "description": "Please enter a relevant message to accompany the the ID of the token being sent. This can be a description of the auction and/or token."
+                }
+            },
+            "token_id": {
+                "ui:options": {
+                    "title": "Token/NFT Name",
+                    "description": "The id of the token to be sent."
+                }
+            }
+        }
+    },
+    "form-data": {}
+}
