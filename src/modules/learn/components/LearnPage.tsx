@@ -1,3 +1,4 @@
+import { SITE_LINKS } from '@/modules/common/utils/sitelinks'
 import { Box, Button, Flex, GridItem, Heading, Icon, Image, SimpleGrid, Text, VStack } from '@chakra-ui/react'
 import { ArrowRight, List } from 'lucide-react'
 import React, { FC } from 'react'
@@ -41,6 +42,9 @@ const LearnPage: FC<LearnPageProps> = (props) => {
                     <Text mt='2' fontSize='sm' color='dark.500'>Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus venenati.</Text>
                 </Box>
                 <Button
+                    as='a'
+                    href={SITE_LINKS.doc()}
+                    target='_blank'
                     rightIcon={<Icon as={ArrowRight} />}
                     colorScheme='primary'
                     ml='auto'

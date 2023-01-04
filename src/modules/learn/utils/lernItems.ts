@@ -61,7 +61,7 @@ export const LEARN_PAGE_ITEMS: ILearnPageItem[] = [
                 title: 'Build your first App',
                 description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus venenati.',
                 icon: Puzzle,
-                link:SITE_LINKS.learnItem('/andromeda/app-builder')
+                link:SITE_LINKS.learnItem('/andromeda/app-store')
             },
             {
                 title: 'How to use the CLI?',

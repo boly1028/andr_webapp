@@ -33,5 +33,6 @@ export const SITE_LINKS = {
     cli: () => `/cli`,
 
     // External Documentation
-    documentation: (adoType: string, anchor?: string) => `https://docs.andromedaprotocol.io/andromeda/andromeda-digital-objects/${adoType}#${anchor || adoType}`
+    documentation: (adoType: string, anchor?: string) => `https://docs.andromedaprotocol.io/andromeda/andromeda-digital-objects/${adoType}#${anchor || adoType}`,
+    doc: () => `https://docs.andromedaprotocol.io/andromeda`,
 } as const;
