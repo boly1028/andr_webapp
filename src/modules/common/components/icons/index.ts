@@ -14,6 +14,7 @@ export { default as ChevronRightIcon } from "./ChevronRightIcon";
 export { default as ClockIcon } from "./ClockIcon";
 export { default as CompassIcon } from "./CompassIcon";
 export { default as CopyIcon } from "./CopyIcon";
+export { default as CodeBrowser } from "./CodeBrowser";
 export { default as CubeIcon } from "./CubeIcon";
 export { default as DiscordIcon } from "./DiscordIcon";
 export { default as DollarSignIcon } from "./DollarSignIcon";

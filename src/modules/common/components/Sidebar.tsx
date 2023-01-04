@@ -18,6 +18,7 @@ import {
   FolderOpenIcon,
   AppBuilder,
   CliIcon,
+  CodeBrowser,
 } from "./icons";
 import { SITE_LINKS } from "../utils/sitelinks";
 import Link from "next/link";
@@ -64,7 +65,7 @@ const LinkItems: ILinkItem[] = [
   },
   {
     name: "Embeddables",
-    icon: <GlobeIcon boxSize={5} />,
+    icon: <CodeBrowser boxSize={5} />,
     href: SITE_LINKS.embeddables(),
     key: ILinkItemKey.EMBEDDABLES,
   },
