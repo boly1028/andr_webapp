@@ -10,6 +10,7 @@ import { downloadBlob } from "@/utils/file";
 import { DownloadIcon, ExternalLinkIcon } from "@chakra-ui/icons";
 import {
   Button,
+  Divider,
   Grid,
   GridItem,
   Icon,
@@ -139,49 +140,51 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
        */
       // < allowToggle defaultIndex={defaultIndex}>
       <Box
-        _hover={{
-          bg: "dark.100",
-        }}
-        p={4}
         bg="dark.50"
-        border="1px solid"
-        borderColor="dark.300"
-        borderRadius="lg"
-        w='30rem'
       >
-        <Handle id={upHandle} type='target' position={Position.Top} style={{ backgroundColor: 'yellow', border: '0px' }} />
-        <Handle id={downHandle} type='target' position={Position.Bottom} style={{ backgroundColor: 'yellow', border: '0px' }} />
-        <Flex>
-          <HStack spacing={5} w="full" align="flex-start">
-            <ClassifierIcon
-              adoType={schema.$id}
-              schemaClass={schema?.class as any}
-              schemaClassifier={schema?.classifier as any}
-              boxSize={5}
-            />
-            <Box>
-              <HStack mb={1}>
-                <Text fontSize="sm" color="base.white" fontWeight={600}>
-                  {uiOptions.title || title}
-                </Text>
-                <Text fontSize="xs"
-                  color="dark.500"
-                  fontWeight="light">
-                  @{schema.version ?? 'latest'}
-                </Text>
-                {!NON_EDITABLE_CLASS.has(schema.class ?? "") && (
-                  <>
-                    <CopyButton
-                      variant="link"
-                      fontSize="xs"
-                      color="dark.500"
-                      fontWeight="light"
-                      text={name}
-                    >
-                      {name}
-                    </CopyButton>
-                    {/* ENABLE THIS AFTER COPY NODE IS COMPLETE */}
-                    {/* <IconButton
+        <Box
+          _hover={{
+            bg:'#ffffff05',
+          }}
+          py={4}
+          border="1px solid"
+          borderColor="dark.300"
+          borderRadius="lg"
+          w='30rem'
+        >
+          <Handle id={upHandle} type='target' position={Position.Top} style={{ backgroundColor: 'yellow', border: '0px' }} />
+          <Handle id={downHandle} type='target' position={Position.Bottom} style={{ backgroundColor: 'yellow', border: '0px' }} />
+          <Flex px='4'>
+            <HStack spacing={5} w="full" align="flex-start">
+              <ClassifierIcon
+                adoType={schema.$id}
+                schemaClass={schema?.class as any}
+                schemaClassifier={schema?.classifier as any}
+                boxSize={5}
+              />
+              <Box>
+                <HStack mb={1}>
+                  <Text fontSize="sm" color="base.white" fontWeight={600}>
+                    {uiOptions.title || title}
+                  </Text>
+                  <Text fontSize="xs"
+                    color="dark.500"
+                    fontWeight="light">
+                    @{schema.version ?? 'latest'}
+                  </Text>
+                  {!NON_EDITABLE_CLASS.has(schema.class ?? "") && (
+                    <>
+                      <CopyButton
+                        variant="link"
+                        fontSize="xs"
+                        color="dark.500"
+                        fontWeight="light"
+                        text={name}
+                      >
+                        {name}
+                      </CopyButton>
+                      {/* ENABLE THIS AFTER COPY NODE IS COMPLETE */}
+                      {/* <IconButton
                       size={"sm"}
                       variant="outline"
                       aria-label="open menu"
@@ -200,26 +203,26 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
                       }}
                       icon={<Rename width={16} height={16} />}
                     /> */}
-                  </>
-                )}
-              </HStack>
-              <Text textStyle="light" color="dark.500">
-                {uiOptions.description || description}
-              </Text>
-            </Box>
-          </HStack>
-          <HStack spacing={3}>
-            {formData["$removable"] && (
-              <>
-                <Switch
-                  id={idSchema.$id}
-                  isChecked={!!formData["$enabled"]}
-                  colorScheme="primary"
-                  onChange={() => {
-                    toggleModule();
-                  }}
-                />
-                {/* <IconButton
+                    </>
+                  )}
+                </HStack>
+                <Text textStyle="light" color="dark.500">
+                  {uiOptions.description || description}
+                </Text>
+              </Box>
+            </HStack>
+            <HStack spacing={3}>
+              {formData["$removable"] && (
+                <>
+                  <Switch
+                    id={idSchema.$id}
+                    isChecked={!!formData["$enabled"]}
+                    colorScheme="primary"
+                    onChange={() => {
+                      toggleModule();
+                    }}
+                  />
+                  {/* <IconButton
                   size={"sm"}
                   variant="outline"
                   aria-label="open menu"
@@ -228,92 +231,92 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
                   }}
                   icon={<Duplicate width={16} height={16} />}
                 /> */}
-                <IconButton
-                  size={"sm"}
-                  variant="outline"
-                  aria-label="open menu"
-                  onClick={() => {
-                    deleteNode(name);
-                  }}
-                  icon={<DeleteIcon width={16} height={16} />}
-                />
-              </>
-            )}
-
-            {/* Section for Action List */}
-            <Menu placement="bottom-end" colorScheme="dark">
-              <MenuButton
-                as={IconButton}
-                icon={<Icon as={MoreVertical} boxSize={5} />}
-                variant="outline"
-                size="sm"
-              />
-              <MenuList>
-                <MenuItem
-                  onClick={downloadJson}
-                  icon={<DownloadIcon boxSize={4} />}
-                >
-                  Download JSON
-                </MenuItem>
-                <MenuItem
-                  as="label"
-                  htmlFor={`${name}-json-input`}
-                  icon={<FileCheckIcon boxSize={4} />}
-                  cursor="pointer"
-                >
-                  Import JSON
-                  <Input
-                    onChange={(e) => {
-                      const file = e.target.files?.item(0);
-                      if (file) {
-                        importJson(file);
-                      }
+                  <IconButton
+                    size={"sm"}
+                    variant="outline"
+                    aria-label="open menu"
+                    onClick={() => {
+                      deleteNode(name);
                     }}
-                    multiple={false}
-                    type="file"
-                    id={`${name}-json-input`}
-                    // Only Allow json file
-                    accept=".json"
-                    srOnly
+                    icon={<DeleteIcon width={16} height={16} />}
                   />
-                </MenuItem>
-                {schema.class !== "system" && (
-                  <MenuItem
-                    as="a"
-                    target="_blank"
-                    referrerPolicy="no-referrer"
-                    href={SITE_LINKS.documentation(
-                      adoType.baseAdo,
-                      adoType.type,
-                    )}
-                    icon={<ExternalLinkIcon boxSize={4} />}
-                  >
-                    Documentation
-                  </MenuItem>
-                )}
-              </MenuList>
-            </Menu>
-          </HStack>
-        </Flex>
-        {formData["$enabled"] && (
-          <Box py='4' cursor={formData["$enabled"] ? "default" : "not-allowed"}>
-            <Grid
-              gap={8}
-              opacity={formData["$enabled"] ? 1 : 0.3}
-              pointerEvents={formData["$enabled"] ? "auto" : "none"}
-            >
-              {properties.map((element, index) =>
-                element.hidden ? (
-                  element.content
-                ) : (
-                  <GridItem key={`${idSchema.$id}-${element.name}-${index}`}>
-                    {element.content}
-                  </GridItem>
-                ),
+                </>
               )}
-            </Grid>
-          </Box>
-        )}
+
+              {/* Section for Action List */}
+              <Menu placement="bottom-end" colorScheme="dark">
+                <MenuButton
+                  as={IconButton}
+                  icon={<Icon as={MoreVertical} boxSize={5} />}
+                  variant="outline"
+                  size="sm"
+                />
+                <MenuList>
+                  <MenuItem
+                    onClick={downloadJson}
+                    icon={<DownloadIcon boxSize={4} />}
+                  >
+                    Download JSON
+                  </MenuItem>
+                  <MenuItem
+                    as="label"
+                    htmlFor={`${name}-json-input`}
+                    icon={<FileCheckIcon boxSize={4} />}
+                    cursor="pointer"
+                  >
+                    Import JSON
+                    <Input
+                      onChange={(e) => {
+                        const file = e.target.files?.item(0);
+                        if (file) {
+                          importJson(file);
+                        }
+                      }}
+                      multiple={false}
+                      type="file"
+                      id={`${name}-json-input`}
+                      // Only Allow json file
+                      accept=".json"
+                      srOnly
+                    />
+                  </MenuItem>
+                  {schema.class !== "system" && (
+                    <MenuItem
+                      as="a"
+                      target="_blank"
+                      referrerPolicy="no-referrer"
+                      href={SITE_LINKS.documentation(
+                        adoType.baseAdo,
+                        adoType.type,
+                      )}
+                      icon={<ExternalLinkIcon boxSize={4} />}
+                    >
+                      Documentation
+                    </MenuItem>
+                  )}
+                </MenuList>
+              </Menu>
+            </HStack>
+          </Flex>
+          {formData["$enabled"] && (
+            <Box py='4' cursor={formData["$enabled"] ? "default" : "not-allowed"}>
+              <Grid
+                opacity={formData["$enabled"] ? 1 : 0.3}
+                pointerEvents={formData["$enabled"] ? "auto" : "none"}
+              >
+                {properties.map((element, index) =>
+                  element.hidden ? (
+                    element.content
+                  ) : (
+                    <GridItem key={`${idSchema.$id}-${element.name}-${index}`}>
+                      {element.content}
+                    </GridItem>
+                  ),
+                )}
+              </Grid>
+            </Box>
+          )}
+        </Box>
       </Box>
     );
   } else {
@@ -321,7 +324,7 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
      *  Default behavior
      */
     return (
-      <>
+      <Box>
         {(uiOptions.title || title) && !hasGroup && (
           <TitleFieldTemplate
             id={`${idSchema.$id}-title`}
@@ -332,7 +335,7 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
             registry={registry}
           />
         )}
-        <Grid gap={1} mb={2} mt={hasGroup ? 2 : 0}>
+        <Grid>
           {properties.map((element, index) =>
             element.hidden ? (
               element.content
@@ -353,7 +356,7 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
             </GridItem>
           )}
         </Grid>
-      </>
+      </Box>
     );
   }
 };

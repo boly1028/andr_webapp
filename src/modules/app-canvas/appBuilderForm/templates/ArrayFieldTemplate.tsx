@@ -7,6 +7,7 @@ import {
 } from "@andromedarjsf/utils";
 
 import { Box, Grid, GridItem, Button } from "@chakra-ui/react";
+import { AddIcon } from "@chakra-ui/icons";
 
 
 const ArrayFieldTemplate = (props: ArrayFieldTemplateProps) => {
@@ -36,7 +37,11 @@ const ArrayFieldTemplate = (props: ArrayFieldTemplateProps) => {
   } = registry.templates;
 
   return (
-    <Box>
+    <Box my='1'
+      py='2'
+      bg='#ffffff05'
+
+    >
       <ArrayFieldTitleTemplate
         idSchema={idSchema}
         title={uiOptions.title || title}
@@ -45,13 +50,13 @@ const ArrayFieldTemplate = (props: ArrayFieldTemplateProps) => {
         required={required}
         registry={registry}
       />
-      <ArrayFieldDescriptionTemplate
+      {/* <ArrayFieldDescriptionTemplate
         idSchema={idSchema}
         description={uiOptions.description || schema.description}
         schema={schema}
         uiSchema={uiSchema}
         registry={registry}
-      />
+      /> */}
 
       <Grid key={`array-item-list-${props.idSchema.$id}`}>
         <GridItem>
@@ -61,15 +66,18 @@ const ArrayFieldTemplate = (props: ArrayFieldTemplateProps) => {
             ))}
         </GridItem>
         {props.canAdd && (
-          <GridItem justifySelf={"flex-end"}>
-            <Box mt={1}>
-              <AddButton
-                className="array-item-add"
-                onClick={props.onAddClick}
-                disabled={props.disabled || props.readonly}
-                uiSchema={uiSchema}
-              />
-            </Box>
+          <GridItem w='full' mt='1'>
+            <Button
+              className="array-item-add"
+              onClick={props.onAddClick}
+              disabled={props.disabled || props.readonly}
+              variant='ghost'
+              size='xs'
+              w='full'
+              leftIcon={(<AddIcon boxSize='2' />)}
+            >
+              Add Item
+            </Button>
           </GridItem>
         )}
       </Grid>

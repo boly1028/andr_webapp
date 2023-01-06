@@ -18,8 +18,6 @@ const ArrayFieldItemTemplate: FC<ArrayFieldTemplateItemType> = (props) => {
     registry,
   } = props;
 
-  const { MoveDownButton, MoveUpButton, RemoveButton } =
-    registry.templates.ButtonTemplates;
 
   const onRemoveClick = useMemo(
     () => onDropIndexClick(index),
@@ -38,23 +36,22 @@ const ArrayFieldItemTemplate: FC<ArrayFieldTemplateItemType> = (props) => {
 
   return (
     <VStack
-      border="1px"
-      my="2"
-      borderColor="dark.300"
-      rounded="lg"
-      p="2"
+      my='3'
+      py='1'
       alignItems={"flex-end"}
+      bg='#ffffff05'
     >
-      <Box w="full">{children}</Box>
+      <Box w="full" mt='2'>{children}</Box>
 
       {props.hasToolbar && (
-        <Box>
+        <Box px='4'>
           <ButtonGroup isAttached mb={1}>
             {(hasMoveUp || hasMoveDown) && (
               <ChakraIconButton
                 icon="arrow-up"
                 disabled={disabled || readonly || !hasMoveUp}
                 onClick={onArrowUpClick}
+                size='xs'
               />
             )}
             {(hasMoveUp || hasMoveDown) && (
@@ -62,6 +59,7 @@ const ArrayFieldItemTemplate: FC<ArrayFieldTemplateItemType> = (props) => {
                 icon="arrow-down"
                 disabled={disabled || readonly || !hasMoveDown}
                 onClick={onArrowDownClick}
+                size='xs'
               />
             )}
             {hasRemove && (
@@ -69,6 +67,7 @@ const ArrayFieldItemTemplate: FC<ArrayFieldTemplateItemType> = (props) => {
                 icon="remove"
                 disabled={disabled || readonly}
                 onClick={onRemoveClick}
+                size='xs'
               />
             )}
           </ButtonGroup>

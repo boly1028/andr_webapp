@@ -17,6 +17,7 @@ import {
   AlertTitle,
   AlertDescription,
   useId,
+  Divider,
 } from "@chakra-ui/react";
 import { JSONSchema7 } from "json-schema";
 import { Handle, OnConnect, Position, useUpdateNodeInternals } from "reactflow";
@@ -128,11 +129,14 @@ const FieldTemplate = (props: FieldTemplateProps) => {
             />
           </Alert>
         )}
-        <Box position='relative' px={isIdentifier ? '4' : 0}>
+        <Box position='relative' py={hasWrapper ? '4' : '0'}
+        // bg={hasWrapper?'#ffffff04':'transparent'}0
+        >
+          {hasWrapper && <Divider mb='2' mx='auto' w='95%' />}
           {isIdentifier && (
             <>
-              <Handle onConnect={handleConnect} id={leftHandle} type='source' position={Position.Left} style={{ backgroundColor: 'teal', border: '0px' }} />
-              <Handle onConnect={handleConnect} id={rightHandle} type='source' position={Position.Right} style={{ backgroundColor: 'teal', border: '0px' }} />
+              <Handle onConnect={handleConnect} id={leftHandle} type='source' position={Position.Left} style={{ backgroundColor: 'teal', border: '0px', left: '-5px', padding: '4px' }} />
+              <Handle onConnect={handleConnect} id={rightHandle} type='source' position={Position.Right} style={{ backgroundColor: 'teal', border: '0px', right: '-5px', padding: '4px' }} />
             </>
           )}
           <FormControl
@@ -142,13 +146,12 @@ const FieldTemplate = (props: FieldTemplateProps) => {
           >
             {/* {displayLabel && <>{description}</>} */}
 
-            <Box border={hasWrapper ? '1px' : '0px'} borderColor="dark.300" p={hasWrapper ? 2 : 0} rounded="lg">
-              {children}
-            </Box>
+            {children}
 
             {/* {props.help} */}
             {!hideError && props.errors}
           </FormControl>
+          {hasWrapper && <Divider mt='2' mx='auto' w='95%' />}
         </Box>
       </WrapIfAdditionalTemplate>
     </FieldTemplateContext.Provider>

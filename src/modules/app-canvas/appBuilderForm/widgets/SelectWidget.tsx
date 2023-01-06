@@ -1,5 +1,5 @@
 import React, { ChangeEvent, FocusEvent, useCallback } from "react";
-import { Select as ChakraSelect, FormControl, FormLabel } from "@chakra-ui/react";
+import { Select as ChakraSelect, FormControl, FormLabel, Text } from "@chakra-ui/react";
 import { getUiOptions, processSelectValue, WidgetProps } from "@andromedarjsf/utils";
 
 const SelectWidget = (props: WidgetProps) => {
@@ -21,6 +21,7 @@ const SelectWidget = (props: WidgetProps) => {
     rawErrors = [],
     uiSchema,
   } = props;
+  const uiOptions = getUiOptions(uiSchema)
   const { enumOptions, enumDisabled } = options;
 
   const emptyValue = multiple ? [] : "";
@@ -51,15 +52,16 @@ const SelectWidget = (props: WidgetProps) => {
 
   return (
     <FormControl
-      mb={1}
       isDisabled={disabled || readonly}
       isRequired={required}
       isReadOnly={readonly}
       isInvalid={rawErrors && rawErrors.length > 0}
+      px='4'
+      mb='2'
     >
       {(label || schema.title) && (
-        <FormLabel htmlFor={multiple ? undefined : id}>
-          {label || schema.title}
+        <FormLabel htmlFor={multiple ? undefined : id} fontSize='xs'>
+          {label || uiOptions.title || schema.title}
         </FormLabel>
       )}
       <ChakraSelect
@@ -75,17 +77,18 @@ const SelectWidget = (props: WidgetProps) => {
         onFocus={handleFocus}
         onChange={handleChange}
         size='sm'
+        fontSize='xs'
       >
         {!multiple && schema.default === undefined && (
-          <option value="">{placeholder}</option>
+          <Text as='option' fontSize='md' value="">{placeholder}</Text>
         )}
         {Array.isArray(enumOptions) &&
           enumOptions.map(({ value, label }, i) => {
             const disabled = enumDisabled && enumDisabled.indexOf(value) != -1;
             return (
-              <option key={i} value={value} disabled={disabled}>
+              <Text as='option' fontSize='md' key={i} value={value} disabled={disabled}>
                 {label}
-              </option>
+              </Text>
             );
           })}
       </ChakraSelect>

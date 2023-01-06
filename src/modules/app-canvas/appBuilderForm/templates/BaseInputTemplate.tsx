@@ -1,5 +1,5 @@
 import * as React from "react";
-import { FormControl, FormLabel, Input } from "@chakra-ui/react";
+import { Box, FormControl, FormLabel, Input } from "@chakra-ui/react";
 import { getInputProps, getUiOptions, WidgetProps } from "@andromedarjsf/utils";
 
 const BaseInputTemplate = (props: WidgetProps) => {
@@ -51,12 +51,16 @@ const BaseInputTemplate = (props: WidgetProps) => {
       flexDirection='row'
       alignItems='center'
       gap='2'
+      px='4'
+      my='2'
     >
-      {displayLabel ? (
-        <FormLabel htmlFor={id} id={`${id}-label`} flex='0' m='0'>
-          {label || uiOptions.label || schema.label}
-        </FormLabel>
-      ) : null}
+      <Box w='25%'>
+        {displayLabel ? (
+          <FormLabel htmlFor={id} id={`${id}-label`} flex='0' m='0' fontSize='xs'>
+            {label || uiOptions.label || schema.label}
+          </FormLabel>
+        ) : null}
+      </Box>
       <Input
         id={id}
         name={id}
@@ -71,6 +75,8 @@ const BaseInputTemplate = (props: WidgetProps) => {
         list={schema.examples ? `examples_${id}` : undefined}
         size='sm'
         rounded='md'
+        fontSize='xs'
+        py='0'
       />
       {schema.examples ? (
         <datalist id={`examples_${id}`}>
