@@ -53,7 +53,6 @@ const AppBuilderProvider: FC<AppBuilderProviderProps> = (props) => {
             editorRef
         }
     }, [nodes, edges, onNodesChange, addNode, deleteNode, formRefs, editorRef, onEdgesChange])
-    console.log(edges)
 
     return (
         <context.Provider value={value}>

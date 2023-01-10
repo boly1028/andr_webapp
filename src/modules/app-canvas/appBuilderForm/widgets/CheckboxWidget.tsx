@@ -6,9 +6,11 @@ import {
   FormLabel,
   HStack,
   Text,
+  Tooltip,
   VStack,
 } from "@chakra-ui/react";
 import { getUiOptions, WidgetProps } from "@andromedarjsf/utils";
+import { InfoIcon } from "@chakra-ui/icons";
 
 const CheckboxWidget = (props: WidgetProps) => {
   const {
@@ -36,6 +38,8 @@ const CheckboxWidget = (props: WidgetProps) => {
     target: { value },
   }: React.FocusEvent<HTMLInputElement | any>) => onFocus(id, value);
 
+  const description = uiOptions.description || schema.description;
+
   return (
     <FormControl px='4' my='2'>
       <Checkbox
@@ -48,18 +52,18 @@ const CheckboxWidget = (props: WidgetProps) => {
         onFocus={_onFocus}
         size='md'
       >
-        <VStack alignItems='start' spacing='0' ml='1'>
+        <HStack alignItems='center' spacing='0' ml='1'>
           {(uiOptions.title || schema.title || label) && (
             <Text id={`${id}-label`} fontSize='xs'>
               {uiOptions.title ?? schema.title ?? label}
             </Text>
           )}
-          {(uiOptions.description || schema.description) && (
-            <Text fontSize='xs' textStyle='light' id={`${id}-label-description`}>
-              {uiOptions.description ?? schema.description}
-            </Text>
+          {(description) && (
+            <Tooltip label={description} fontSize='xs' size='xs' textColor='dark.500'>
+              <InfoIcon boxSize='4' cursor='pointer' color='dark.300' _hover={{ color: 'dark.500' }} />
+            </Tooltip>
           )}
-        </VStack>
+        </HStack>
       </Checkbox>
     </FormControl>
   );

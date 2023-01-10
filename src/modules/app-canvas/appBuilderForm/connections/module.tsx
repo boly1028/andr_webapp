@@ -31,7 +31,7 @@ export const useIsModule = (schema: any, formData: any, ref: MutableRefObject<IF
         if (isModule) {
             const tId = setTimeout(() => {
                 update(identifierValue)
-            }, 500)
+            }, 1000)
             return () => clearTimeout(tId)
         }
     }, [identifierValue, isModule])

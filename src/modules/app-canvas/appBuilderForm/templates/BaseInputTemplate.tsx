@@ -1,6 +1,7 @@
 import * as React from "react";
-import { Box, FormControl, FormLabel, Input } from "@chakra-ui/react";
+import { Box, FormControl, FormLabel, Input, InputGroup, InputRightElement, Tooltip } from "@chakra-ui/react";
 import { getInputProps, getUiOptions, WidgetProps } from "@andromedarjsf/utils";
+import { InfoIcon } from "@chakra-ui/icons";
 
 const BaseInputTemplate = (props: WidgetProps) => {
   const {
@@ -40,6 +41,8 @@ const BaseInputTemplate = (props: WidgetProps) => {
     schemaUtils.getDisplayLabel(schema, uiSchema) &&
     (!!label || !!schema.title);
 
+  const description = uiOptions.description || schema.description;
+
   return (
     <FormControl
       mb={1}
@@ -61,23 +64,32 @@ const BaseInputTemplate = (props: WidgetProps) => {
           </FormLabel>
         ) : null}
       </Box>
-      <Input
-        id={id}
-        name={id}
-        value={value || value === 0 ? value : ""}
-        flex='1'
-        onChange={_onChange}
-        onBlur={_onBlur}
-        onFocus={_onFocus}
-        autoFocus={autofocus}
-        placeholder={placeholder}
-        {...inputProps}
-        list={schema.examples ? `examples_${id}` : undefined}
-        size='sm'
-        rounded='md'
-        fontSize='xs'
-        py='0'
-      />
+      <InputGroup size='sm' alignItems='center'>
+        <Input
+          id={id}
+          name={id}
+          value={value || value === 0 ? value : ""}
+          flex='1'
+          onChange={_onChange}
+          onBlur={_onBlur}
+          onFocus={_onFocus}
+          autoFocus={autofocus}
+          placeholder={placeholder}
+          {...inputProps}
+          list={schema.examples ? `examples_${id}` : undefined}
+          size='sm'
+          rounded='md'
+          fontSize='xs'
+          py='0'
+        />
+        {description && (
+          <InputRightElement>
+            <Tooltip label={description} fontSize='xs' size='xs' textColor='dark.500'>
+              <InfoIcon boxSize='4' cursor='pointer' color='dark.300' _hover={{color:'dark.500'}} />
+            </Tooltip>
+          </InputRightElement>
+        )}
+      </InputGroup>
       {schema.examples ? (
         <datalist id={`examples_${id}`}>
           {(schema.examples as string[])

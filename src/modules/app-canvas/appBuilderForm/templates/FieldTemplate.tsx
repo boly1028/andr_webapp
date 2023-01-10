@@ -149,7 +149,7 @@ const FieldTemplate = (props: FieldTemplateProps) => {
             {children}
 
             {/* {props.help} */}
-            {!hideError && props.errors}
+            {!hideError && (<Box px='4'>{props.errors}</Box>)}
           </FormControl>
           {hasWrapper && <Divider mt='2' mx='auto' w='95%' />}
         </Box>

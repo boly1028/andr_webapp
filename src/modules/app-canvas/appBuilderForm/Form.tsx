@@ -1,7 +1,7 @@
 import { IAndromedaSchemaJSON, IAndromedaUISchema } from '@/lib/schema/types'
 import Form from '@/modules/flex-builder/components/FlexBuilderForm/Form';
 import { cloneDeep } from '@apollo/client/utilities';
-import React, { FC, useCallback, useEffect, useRef, useState } from 'react'
+import React, { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { NodeProps } from 'reactflow';
 import { useAppBuilder } from '../canvas/Provider';
 import { IFormRef } from '../types';
@@ -21,10 +21,8 @@ const AppBuilderForm: FC<AppBuilderFormProps> = (props) => {
     const { andromedaSchema, name } = data
     const { formRefs } = useAppBuilder()
 
-    const [schema, setSchema] = useState(cloneDeep(andromedaSchema.schema));
-    const [uiSchema, setUiSchema] = useState(
-        cloneDeep(andromedaSchema['ui-schema'] ?? ({} as IAndromedaUISchema)),
-    );
+    const schema = useMemo(() => cloneDeep(andromedaSchema.schema), [andromedaSchema.schema])
+    const uiSchema = useMemo(() => cloneDeep(andromedaSchema['ui-schema'] ?? ({} as IAndromedaUISchema)), [andromedaSchema['ui-schema']])
     const [formData, setFormData] = useState(cloneDeep(andromedaSchema['form-data'] ?? {}));
     const ref = useRef<any>()
 

@@ -62,7 +62,7 @@ export const useIsIdentifier = (nodeId: string, fieldId: string, formData: any, 
             })
         }
 
-    }, 500), [getNode, edgeId, getEdge])
+    }, 1000), [getNode, edgeId, getEdge])
 
     useLayoutEffect(() => {
         if (isIdentifier) {

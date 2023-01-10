@@ -59,7 +59,7 @@ const SelectWidget = (props: WidgetProps) => {
       px='4'
       mb='2'
     >
-      {(label || schema.title) && (
+      {(label || uiOptions.title || schema.title) && (
         <FormLabel htmlFor={multiple ? undefined : id} fontSize='xs'>
           {label || uiOptions.title || schema.title}
         </FormLabel>
@@ -83,7 +83,8 @@ const SelectWidget = (props: WidgetProps) => {
           <Text as='option' fontSize='md' value="">{placeholder}</Text>
         )}
         {Array.isArray(enumOptions) &&
-          enumOptions.map(({ value, label }, i) => {
+          enumOptions.map((option, i) => {
+            const { value, label } = option;
             const disabled = enumDisabled && enumDisabled.indexOf(value) != -1;
             return (
               <Text as='option' fontSize='md' key={i} value={value} disabled={disabled}>
