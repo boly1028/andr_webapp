@@ -65,8 +65,9 @@ const AppBuilderProvider: FC<AppBuilderProviderProps> = (props) => {
         })
 
         // Now we want to update our edges by deleting the edges which originated from current node  and also delete current node
-        deleteElements({ edges: edges.filter(edge => edge.source === nodeId), nodes: [{ id: nodeId }] })
-    }, [deleteElements, addNode, getNode, setEdges, edges])
+        deleteElements({ edges: edges.filter(edge => edge.source === nodeId) })
+        deleteNode(nodeId)
+    }, [deleteElements, deleteNode, addNode, getNode, setEdges, edges])
 
     const value: AppBuilderContext = useMemo(() => {
         return {
