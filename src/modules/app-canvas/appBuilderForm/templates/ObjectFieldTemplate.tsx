@@ -7,7 +7,7 @@ import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
 import ClassifierIcon from "@/theme/icons/classifiers";
 import { Box, Flex, HStack, IconButton, Text } from "@/theme/ui-elements";
 import { downloadBlob } from "@/utils/file";
-import { DownloadIcon, ExternalLinkIcon } from "@chakra-ui/icons";
+import { DownloadIcon, EditIcon, ExternalLinkIcon } from "@chakra-ui/icons";
 import {
   Button,
   Divider,
@@ -39,6 +39,7 @@ import { useAppBuilder } from "../../canvas/Provider";
 import { useFieldTemplate } from "./FieldTemplate";
 import { Handle, Position, useReactFlow } from "reactflow";
 import { DIRECTION, getPanelTargetHandlePrefix } from "../connections/utils";
+import usePanelRenameModal from "@/modules/modals/hooks/usePanelRenameModal";
 
 const NON_EDITABLE_CLASS = new Set<string>(["system", "modifier"]);
 
@@ -64,7 +65,7 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
     formContext, //used as prop drilling form action calls: toogleModule() / deleteModule() / renameModule(),
   } = props;
   const uiOptions = getUiOptions(uiSchema);
-  const { deleteNode } = useAppBuilder();
+  const { deleteNode, renameNode, nodes } = useAppBuilder();
   const { name } = formContext
 
   const TitleFieldTemplate = getTemplate<"TitleFieldTemplate">(
@@ -84,20 +85,21 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
   } = registry.templates;
 
   const { fieldRef } = useFieldTemplate();
+  const openPanelRenameModal = usePanelRenameModal();
 
   const [upHandle, downHandle] = useMemo(() => {
     return [getPanelTargetHandlePrefix(formContext.name, DIRECTION.UP), getPanelTargetHandlePrefix(formContext.name, DIRECTION.DOWN)]
   }, [formContext.name])
 
-  const toggleModule = () => {
-    if (formData === undefined) return;
-    const newFormData = { ...formData }
-    newFormData.$enabled = !newFormData.$enabled
-    console.log("here", newFormData, fieldRef.current)
-    fieldRef.current?.onChange?.({
-      ...newFormData
-    })
-  }
+  // const toggleModule = () => {
+  //   if (formData === undefined) return;
+  //   const newFormData = { ...formData }
+  //   newFormData.$enabled = !newFormData.$enabled
+  //   console.log("here", newFormData, fieldRef.current)
+  //   fieldRef.current?.onChange?.({
+  //     ...newFormData
+  //   })
+  // }
 
 
   const adoType = useMemo(() => {
@@ -144,7 +146,7 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
       >
         <Box
           _hover={{
-            bg:'#ffffff05',
+            bg: '#ffffff05',
           }}
           py={4}
           border="1px solid"
@@ -174,15 +176,6 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
                   </Text>
                   {!NON_EDITABLE_CLASS.has(schema.class ?? "") && (
                     <>
-                      <CopyButton
-                        variant="link"
-                        fontSize="xs"
-                        color="dark.500"
-                        fontWeight="light"
-                        text={name}
-                      >
-                        {name}
-                      </CopyButton>
                       {/* ENABLE THIS AFTER COPY NODE IS COMPLETE */}
                       {/* <IconButton
                       size={"sm"}
@@ -211,37 +204,33 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
                 </Text>
               </Box>
             </HStack>
-            <HStack spacing={3}>
-              {formData["$removable"] && (
-                <>
-                  <Switch
-                    id={idSchema.$id}
-                    isChecked={!!formData["$enabled"]}
-                    colorScheme="primary"
-                    onChange={() => {
-                      toggleModule();
+            <HStack spacing={2}>
+              <CopyButton
+                variant="solid"
+                size='sm'
+                fontSize="xs"
+                colorScheme='blackAlpha'
+                text={name}
+                rightIcon={(
+                  <IconButton size='sm' variant='ghost' aria-label="edit-name" icon={<EditIcon boxSize='4' />}
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      openPanelRenameModal({
+                        callback: (newName) => {
+                          renameNode(name, newName);
+                        },
+                        defaultName: name,
+                        reservedNames: nodes.map(node => node.id),
+                        title: "Rename ADO",
+                        body: "Change the assigned name of this component",
+                      });
                     }}
                   />
-                  {/* <IconButton
-                  size={"sm"}
-                  variant="outline"
-                  aria-label="open menu"
-                  onClick={() => {
-                    duplicatePanel(currentSchemaId);
-                  }}
-                  icon={<Duplicate width={16} height={16} />}
-                /> */}
-                  <IconButton
-                    size={"sm"}
-                    variant="outline"
-                    aria-label="open menu"
-                    onClick={() => {
-                      deleteNode(name);
-                    }}
-                    icon={<DeleteIcon width={16} height={16} />}
-                  />
-                </>
-              )}
+                )}
+                pr='0'
+              >
+                {name}
+              </CopyButton>
 
               {/* Section for Action List */}
               <Menu placement="bottom-end" colorScheme="dark">
@@ -252,6 +241,15 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
                   size="sm"
                 />
                 <MenuList>
+                  {formData["$removable"] && (
+                    <MenuItem
+                      onClick={() => deleteNode(name)}
+                      icon={<Icon as={DeleteIcon} boxSize={4} />}
+                      color='red'
+                    >
+                      Delete
+                    </MenuItem>
+                  )}
                   <MenuItem
                     onClick={downloadJson}
                     icon={<DownloadIcon boxSize={4} />}

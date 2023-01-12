@@ -71,15 +71,6 @@ const FieldTemplate = (props: FieldTemplateProps) => {
     uiOptions,
   );
 
-  useLayoutEffect(() => {
-    return () => {
-      if (fieldContextRef.current.connectedEdge) {
-        console.log("Connected here")
-        deleteElements({ edges: [{ id: fieldContextRef.current.connectedEdge.id }] })
-      }
-    }
-  }, [])
-
   useEffect(() => {
     fieldContextRef.current.onChange = (data: any) => {
       updateNodeInternals(formContext.name)
@@ -164,7 +155,6 @@ interface FieldTemplateContext {
 
 export interface IFieldRef {
   onChange?: (data: any) => void;
-  connectedEdge?: AppBuilderContext['edges'][number];
 }
 
 const defaultValue: FieldTemplateContext = {

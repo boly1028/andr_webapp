@@ -1,6 +1,7 @@
 import { IAndromedaSchemaJSON } from '@/lib/schema/types';
-import React, { createContext, createRef, FC, ReactNode, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
+import React, { createContext, createRef, FC, MutableRefObject, ReactNode, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { addEdge, applyEdgeChanges, applyNodeChanges, Edge, Node, OnConnect, OnEdgesChange, OnNodesChange, useEdgesState, useNodesState, useReactFlow as useReactFlowFromReactFLow } from 'reactflow';
+import { IFieldRef } from '../appBuilderForm/templates/FieldTemplate';
 import { IEditorRef, IFormRefs } from '../types';
 
 interface AppBuilderProviderProps {
@@ -8,27 +9,28 @@ interface AppBuilderProviderProps {
 }
 const AppBuilderProvider: FC<AppBuilderProviderProps> = (props) => {
     const { children } = props
-    const { deleteElements, addNodes } = useReactFlow()
+    const { deleteElements, addNodes, getNode } = useReactFlow()
     const [nodes, setNodes, onNodesChange] = useNodesState<INodeData>([])
-    const [edges, setEdges, onEdgesChange] = useEdgesState<INodeData>([])
+    const [edges, setEdges, onEdgesChange] = useEdgesState<IEdgeData>([])
     const formRefs = useRef<IFormRefs>({})
     const editorRef = useRef<IEditorRef>({})
 
-    const addNode: AppBuilderContext['addNode'] = useCallback((schema, name) => {
+    const addNode: AppBuilderContext['addNode'] = useCallback((schema, name, defaultNodeData = {}) => {
         addNodes({
+            ...defaultNodeData,
             'id': name,
             'data': {
                 name: name,
                 andromedaSchema: schema
             },
-            'position': {
+            'position': defaultNodeData.position ?? {
                 x: 0,
                 y: 0
             },
             draggable: true,
             'deletable': true,
             type: 'form',
-            zIndex: 0,
+            zIndex: defaultNodeData.zIndex ?? 0,
             selectable: false
         })
     }, [addNodes])
@@ -41,6 +43,31 @@ const AppBuilderProvider: FC<AppBuilderProviderProps> = (props) => {
         }
     }, [deleteElements])
 
+    const renameNode: AppBuilderContext['renameNode'] = useCallback((nodeId, newNodeId) => {
+        const oldNode = getNode(nodeId);
+        const isNewNodePresent = getNode(newNodeId);
+        if (!oldNode) throw new Error("Node not present");
+        if (isNewNodePresent) throw new Error(`Node with id: ${newNodeId} already present`)
+        const formData = formRefs.current[nodeId]?.formData()
+        // Add New Node with latest nodeId
+        oldNode.data.andromedaSchema['form-data'] = formData
+        addNode(oldNode.data.andromedaSchema, newNodeId, oldNode)
+
+        // Now we want to update formData of all incoming edges for the old node.
+        // Why Incoming? Because incoming edges are linked to the nodes while outgoing are linked to fields
+        const edgesData = edges.filter(edge => edge.target === nodeId).map(edge => edge.data);
+        edgesData.forEach(edgeData => {
+            if (!edgeData) return;
+            if (edgeData.isIdentifier) {
+                // Change the value of identifier field. All effects will run automatically and link new node based on that
+                edgeData?.fieldRef?.current?.onChange?.(newNodeId)
+            }
+        })
+
+        // Now we want to update our edges by deleting the edges which originated from current node  and also delete current node
+        deleteElements({ edges: edges.filter(edge => edge.source === nodeId), nodes: [{ id: nodeId }] })
+    }, [deleteElements, addNode, getNode, setEdges, edges])
+
     const value: AppBuilderContext = useMemo(() => {
         return {
             nodes,
@@ -50,9 +77,10 @@ const AppBuilderProvider: FC<AppBuilderProviderProps> = (props) => {
             onEdgesChange,
             deleteNode,
             formRefs,
-            editorRef
+            editorRef,
+            renameNode
         }
-    }, [nodes, edges, onNodesChange, addNode, deleteNode, formRefs, editorRef, onEdgesChange])
+    }, [nodes, edges, onNodesChange, addNode, deleteNode, formRefs, editorRef, onEdgesChange, renameNode])
 
     return (
         <context.Provider value={value}>
@@ -64,12 +92,13 @@ const AppBuilderProvider: FC<AppBuilderProviderProps> = (props) => {
 export interface AppBuilderContext {
     nodes: Node<INodeData>[];
     edges: Edge<IEdgeData>[];
-    addNode: (schema: IAndromedaSchemaJSON, name: string) => void;
+    addNode: (schema: IAndromedaSchemaJSON, name: string, nodeData?: Partial<Node<INodeData>>) => void;
     onNodesChange: OnNodesChange;
     onEdgesChange: OnEdgesChange;
     deleteNode: (name: string) => void;
     formRefs: React.MutableRefObject<IFormRefs>;
     editorRef: React.MutableRefObject<IEditorRef>;
+    renameNode: (nodeId: string, newNodeId: string) => void;
 }
 
 export interface INodeData {
@@ -78,6 +107,8 @@ export interface INodeData {
 }
 
 export interface IEdgeData {
+    fieldRef: MutableRefObject<IFieldRef>;
+    isIdentifier: boolean;
 }
 
 const defaultValue: AppBuilderContext = {
@@ -89,9 +120,10 @@ const defaultValue: AppBuilderContext = {
     deleteNode: () => { throw new Error("OUTSIDE COONTEXT") },
     formRefs: createRef<IFormRefs>() as any,
     editorRef: createRef<IEditorRef>() as any,
+    renameNode: () => { throw new Error("OUTSIDE COONTEXT") }
 }
 const context = createContext(defaultValue);
 export const useAppBuilder = () => useContext(context)
-export const useReactFlow = () => useReactFlowFromReactFLow<INodeData>();
+export const useReactFlow = () => useReactFlowFromReactFLow<INodeData, IEdgeData>();
 
 export default AppBuilderProvider

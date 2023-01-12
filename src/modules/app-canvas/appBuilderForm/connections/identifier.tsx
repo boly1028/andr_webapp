@@ -37,7 +37,8 @@ export const useIsIdentifier = (nodeId: string, fieldId: string, formData: any, 
                 targetHandle: connection.targetHandle,
                 targetNode: targetNode,
                 data: {
-                    // Add any data needed for edge rendering here
+                    fieldRef: ref,
+                    isIdentifier: true
                 }
             })
         }
