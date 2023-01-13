@@ -9,8 +9,6 @@
  * - Do not end route with '/' (if manually adding routes, a consistence design will be created)
  */
 
-import { IAdoType } from "@/lib/schema/types";
-
 export const SITE_LINKS = {
     landing: () => `/`,
     dashboard: () => `/dashboard`,
@@ -31,8 +29,10 @@ export const SITE_LINKS = {
     embeddables: () => `/embeddables`,
     // embeddables: () => `https://andromedaprotocol.github.io/embeddable-marketplace-demo`,
     learn: () => `/learn`,
+    learnItem: (slug: string) => `/learn${slug}`,
     cli: () => `/cli`,
 
     // External Documentation
-    documentation: (adoType: string, anchor?: string) => `https://docs.andromedaprotocol.io/andromeda/andromeda-digital-objects/${adoType}#${anchor || adoType}`
+    documentation: (adoType: string, anchor?: string) => `https://docs.andromedaprotocol.io/andromeda/andromeda-digital-objects/${adoType}#${anchor || adoType}`,
+    doc: () => `https://docs.andromedaprotocol.io/andromeda`,
 } as const;
