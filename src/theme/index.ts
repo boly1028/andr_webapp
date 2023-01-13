@@ -241,7 +241,7 @@ export default extendTheme({
       other1: '#B056DB',
       other2: '#00CB79',
       other3: '#FFE485'
-    }
+    },
   },
   textStyles: {
     h1: {
