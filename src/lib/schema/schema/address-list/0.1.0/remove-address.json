@@ -1,1 +1,49 @@
-{"schema":{"description":"Remove an address from the address list","type":"object","required":["remove_address"],"properties":{"remove_address":{"type":"object","required":["address"],"properties":{"address":{"type":"string","title":"address"}}}},"additionalProperties":false,"$id":"remove-address","class":"modifier","version":"0.1.0","classifier":""},"ui-schema":{},"form-data":{}}
+{
+    "schema": {
+        "description": "Remove an address from the address list.",
+        "type": "object",
+        "required": [
+            "remove_address"
+        ],
+        "properties": {
+            "remove_address": {
+                "type": "object",
+                "required": [
+                    "address"
+                ],
+                "properties": {
+                    "address": {
+                        "type": "string",
+                        "title": "address"
+                    }
+                }
+            }
+        },
+        "additionalProperties": false,
+        "$id": "remove-address",
+        "class": "modifier",
+        "version": "0.1.0",
+        "classifier": ""
+    },
+    "ui-schema": {
+        "remove_address": {
+            "ui:options": {
+                "title": "Remove Address from List",
+                "alerts": [
+                    {
+                        "text": "Only Owner / Operators can execute Remove Address.",
+                        "type": "warning"
+                    }
+                ]
+            },
+            "address": {
+                "ui:options": {
+                    "title": "Address to Remove",
+                    "description": "The address to remove from the list.",
+                    "help": ""
+                }
+            }
+        }
+    },
+    "form-data": {}
+}

@@ -1,1 +1,159 @@
-{"schema":{"$schema":"http://json-schema.org/draft-07/schema#","title":"Cw721","type":"object","required":["minter","name","symbol"],"properties":{"minter":{"description":"The minter is the only one who can create new NFTs. This is designed for a base NFT that is controlled by an external program or contract. You will likely replace this with custom logic in custom NFTs","allOf":[{"type":"object","required":["identifier"],"properties":{"identifier":{"description":"Can be either an address or identifier of an ADO in a app.","type":"string"}}}],"title":"minter"},"modules":{"description":"The attached Andromeda modules","type":["array","null"],"items":{"description":"A struct describing a token module, provided with the instantiation message this struct is used to record the info about the module and how/if it should be instantiated","type":"object","required":["address","is_mutable","module_type"],"properties":{"address":{"type":"object","required":["identifier"],"properties":{"identifier":{"description":"Can be either an address or identifier of an ADO in a app.","type":"string"}}},"is_mutable":{"type":"boolean"},"module_type":{"type":"string"}}},"title":"modules"},"name":{"description":"Name of the NFT contract","type":"string","title":"name"},"symbol":{"description":"Symbol of the NFT contract","type":"string","title":"symbol"}},"$id":"cw721","classifier":"collectible","class":"baseADO","version":"0.1.0"},"ui-schema":{},"form-data":{}}
+{
+    "schema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "CW721",
+        "description": "Allows users to launch their own custom NFT projects.",
+        "type": "object",
+        "required": [
+            "minter",
+            "name",
+            "symbol"
+        ],
+        "properties": {
+            "minter": {
+                "description": "The minter is the only one who can create new NFTs. This is designed for a base NFT that is controlled by an external program or contract. You will likely replace this with custom logic in custom NFTs",
+                "allOf": [
+                    {
+                        "type": "object",
+                        "required": [
+                            "identifier"
+                        ],
+                        "properties": {
+                            "identifier": {
+                                "description": "Can be either an address or identifier of an ADO in a app.",
+                                "type": "string"
+                            }
+                        }
+                    }
+                ],
+                "title": "minter"
+            },
+            "modules": {
+                "description": "The attached Andromeda modules",
+                "type": [
+                    "array",
+                    "null"
+                ],
+                "items": {
+                    "description": "A struct describing a token module, provided with the instantiation message this struct is used to record the info about the module and how/if it should be instantiated",
+                    "type": "object",
+                    "required": [
+                        "address",
+                        "is_mutable",
+                        "module_type"
+                    ],
+                    "properties": {
+                        "address": {
+                            "type": "object",
+                            "required": [
+                                "identifier"
+                            ],
+                            "properties": {
+                                "identifier": {
+                                    "description": "Can be either an address or identifier of an ADO in a app.",
+                                    "type": "string"
+                                }
+                            }
+                        },
+                        "is_mutable": {
+                            "type": "boolean"
+                        },
+                        "module_type": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "title": "modules"
+            },
+            "name": {
+                "description": "Name of the NFT contract",
+                "type": "string",
+                "title": "name"
+            },
+            "symbol": {
+                "description": "Symbol of the NFT contract",
+                "type": "string",
+                "title": "symbol"
+            }
+        },
+        "$id": "cw721",
+        "classifier": "collectible",
+        "class": "baseADO",
+        "version": "0.1.0"
+    },
+    "ui-schema": {
+        "name": {
+            "ui:options": {
+                "title": "Token/NFT Name",
+                "description": "The name of the token.",
+                "help": "Has to be between 3 and 30 characters."
+            }
+        },
+        "symbol": {
+            "ui:options": {
+                "title": "Token/NFT Symbol",
+                "description": "The address of the token minter.",
+                "help": "Has to be between 3 and 12 alphabetic characters."
+            }
+        },
+        "minter": {
+            "ui:options": {
+                "title": "Minter Address",
+                "description": "The address of the token minter."
+            },
+            "identifier": {
+                "ui:options": {
+                    "title": "Identifier Address",
+                    "description": " ",
+                    "help": "Can be either an address or app component name of a specific ADO within an app"
+                }
+            }
+        },
+        "modules": {
+            "ui:options": {
+                "title": "Selected Modules",
+                "description": "An optional vector of Andromeda Modules that can be attached to the contract. \"rates\", \"address-list\", and \"receipt\" modules can be added."
+            },
+            "items": {
+                "ui:options": {
+                    "title": "Module"
+                },
+                "ui:order": [
+                    "*",
+                    "is_mutable"
+                ],
+                "address": {
+                    "ui:options": {
+                        "title": "Associated Modules",
+                        "description": "",
+                        "alerts": [
+                            {
+                                "text": "Allowed modules: \"rates\", \"address-list\",\"offers\" and \"receipt\"",
+                                "type": "error"
+                            }
+                        ]
+                    },
+                    "identifier": {
+                        "ui:options": {
+                            "title": "Identifier",
+                            "description": "Can be either an address or app component name of a specific ADO within an app"
+                        }
+                    }
+                },
+                "module_type": {
+                    "ui:options": {
+                        "title": "Module Type",
+                        "description": "The name of the module to add. Can be set one of the following: \"rates\", \"address-list\",\"offers\" and \"receipt\"."
+                    }
+                },
+                "is_mutable": {
+                    "ui:options": {
+                        "title": "Is Module Able to be Modified?",
+                        "description": "Whether the module can be later modified or not."
+                    }
+                }
+            }
+        }
+    },
+    "form-data": {}
+}

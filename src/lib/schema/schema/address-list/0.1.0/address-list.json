@@ -1,1 +1,31 @@
-{"schema":{"$schema":"http://json-schema.org/draft-07/schema#","title":"Address list","type":"object","required":["is_inclusive"],"properties":{"is_inclusive":{"type":"boolean","title":"is_inclusive"}},"$id":"address-list","classifier":"address","class":"module","version":"0.1.0"},"ui-schema":{},"form-data":{}}
+{
+    "schema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "Address list",
+        "description": "ADO that is used to store a list of addresses.",
+        "type": "object",
+        "required": [
+            "is_inclusive"
+        ],
+        "properties": {
+            "is_inclusive": {
+                "type": "boolean",
+                "title": "is_inclusive"
+            }
+        },
+        "$id": "address-list",
+        "classifier": "address",
+        "class": "module",
+        "version": "0.1.0"
+    },
+    "ui-schema": {
+        "is_inclusive": {
+            "ui:options": {
+                "title": "Is Inclusive",
+                "description": "Whether or not the address list is inclusive.",
+                "help": "If true the address list is a whitelist. If false the address list is a blacklist."
+            }
+        }
+    },
+    "form-data": {}
+}
