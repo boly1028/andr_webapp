@@ -199,9 +199,9 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
                     </>
                   )}
                 </HStack>
-                <Text textStyle="light" color="dark.500">
-                  {uiOptions.description || description}
-                </Text>
+                {/* <Text textStyle="light" color="dark.500"> */}
+                  {/* {uiOptions.description || description} */}
+                {/* </Text> */}
               </Box>
             </HStack>
             <HStack spacing={2}>

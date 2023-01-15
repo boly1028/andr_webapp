@@ -78,6 +78,7 @@ export const useIsIdentifier = (nodeId: string, fieldId: string, formData: any, 
 
     useEffect(() => {
         if (isIdentifier) {
+            console.log("Updating", fieldId)
             debouncedUpdate(identifierValue)
         }
     }, [identifierValue, isIdentifier])

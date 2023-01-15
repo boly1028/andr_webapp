@@ -1,10 +1,9 @@
 import React, { createRef, useCallback, useContext, useEffect, useLayoutEffect, useMemo, useRef } from "react";
-
 import {
   FieldTemplateProps,
   getTemplate,
   getUiOptions,
-  getSchemaType,
+  getSchemaType
 } from "@andromedarjsf/utils";
 
 import {
@@ -73,8 +72,9 @@ const FieldTemplate = (props: FieldTemplateProps) => {
 
   useEffect(() => {
     fieldContextRef.current.onChange = (data: any) => {
-      updateNodeInternals(formContext.name)
+      console.log("OnChange", data, id)
       onChange(data, undefined, id);
+      updateNodeInternals(formContext.name)
     }
   }, [onChange, id, fieldContextRef, formContext.name])
 

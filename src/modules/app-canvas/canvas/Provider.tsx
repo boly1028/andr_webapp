@@ -56,11 +56,16 @@ const AppBuilderProvider: FC<AppBuilderProviderProps> = (props) => {
         // Now we want to update formData of all incoming edges for the old node.
         // Why Incoming? Because incoming edges are linked to the nodes while outgoing are linked to fields
         const edgesData = edges.filter(edge => edge.target === nodeId).map(edge => edge.data);
-        edgesData.forEach(edgeData => {
+        edgesData.reverse().forEach((edgeData, idx) => {
             if (!edgeData) return;
             if (edgeData.isIdentifier) {
                 // Change the value of identifier field. All effects will run automatically and link new node based on that
-                edgeData?.fieldRef?.current?.onChange?.(newNodeId)
+                const tId = setTimeout(() => {
+                    edgeData?.fieldRef?.current?.onChange?.(newNodeId)
+                }, idx * 200);
+                // We need timeout of 200 between each onChange call because rjsf pools all the onChange and only execute the last one
+                // TODO: Smart Pooling: Pool only onChange for a single node because different nodes are different rjsf instance and do not need pooling
+                // TODO: Change execution to asyn await so that rename function will wait until all execution is complete
             }
         })
 
