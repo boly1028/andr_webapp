@@ -7,7 +7,7 @@ import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
 import ClassifierIcon from "@/theme/icons/classifiers";
 import { Box, Flex, HStack, IconButton, Text } from "@/theme/ui-elements";
 import { downloadBlob } from "@/utils/file";
-import { DownloadIcon, EditIcon, ExternalLinkIcon } from "@chakra-ui/icons";
+import { DownloadIcon, EditIcon, ExternalLinkIcon, InfoIcon } from "@chakra-ui/icons";
 import {
   Button,
   Divider,
@@ -20,6 +20,7 @@ import {
   MenuItem,
   MenuList,
   Switch,
+  Tooltip,
 } from "@chakra-ui/react";
 
 import {
@@ -70,11 +71,6 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
 
   const TitleFieldTemplate = getTemplate<"TitleFieldTemplate">(
     "TitleFieldTemplate",
-    registry,
-    uiOptions,
-  );
-  const DescriptionFieldTemplate = getTemplate<"DescriptionFieldTemplate">(
-    "DescriptionFieldTemplate",
     registry,
     uiOptions,
   );
@@ -135,6 +131,7 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
   // It should be handled using ui:schema util from rjsf?
   const hasGroup = uiOptions.group;
 
+
   if (hasWrapper) {
     return (
       /**
@@ -157,7 +154,7 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
           <Handle id={upHandle} type='target' position={Position.Top} style={{ backgroundColor: 'yellow', border: '0px' }} />
           <Handle id={downHandle} type='target' position={Position.Bottom} style={{ backgroundColor: 'yellow', border: '0px' }} />
           <Flex px='4'>
-            <HStack spacing={5} w="full" align="flex-start">
+            <HStack spacing={5} w="full">
               <ClassifierIcon
                 adoType={schema.$id}
                 schemaClass={schema?.class as any}
@@ -174,6 +171,12 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
                     fontWeight="light">
                     @{schema.version ?? 'latest'}
                   </Text>
+                  {(uiOptions.description || description) && (
+                    <Tooltip label={uiOptions.description || description} fontSize='xs' size='xs' textColor='dark.500'>
+                      <InfoIcon boxSize='4' cursor='pointer' color='dark.300' _hover={{ color: 'dark.500' }} />
+                    </Tooltip>
+                  )}
+
                   {!NON_EDITABLE_CLASS.has(schema.class ?? "") && (
                     <>
                       {/* ENABLE THIS AFTER COPY NODE IS COMPLETE */}
@@ -200,7 +203,7 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
                   )}
                 </HStack>
                 {/* <Text textStyle="light" color="dark.500"> */}
-                  {/* {uiOptions.description || description} */}
+                {/* {uiOptions.description || description} */}
                 {/* </Text> */}
               </Box>
             </HStack>

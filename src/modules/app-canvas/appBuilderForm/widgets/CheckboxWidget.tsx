@@ -52,7 +52,7 @@ const CheckboxWidget = (props: WidgetProps) => {
         onFocus={_onFocus}
         size='md'
       >
-        <HStack alignItems='center' spacing='0' ml='1'>
+        <HStack alignItems='center' spacing='2' ml='1'>
           {(uiOptions.title || schema.title || label) && (
             <Text id={`${id}-label`} fontSize='xs'>
               {uiOptions.title ?? schema.title ?? label}

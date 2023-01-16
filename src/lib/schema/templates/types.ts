@@ -1,3 +1,4 @@
+import { XYPosition } from "reactflow";
 import { IAdoType, IAndromedaFormData, IAndromedaSchema, IAndromedaSchemaJSON, IAndromedaUISchema } from "../types";
 
 // Template interface used in flex builder processing
@@ -41,11 +42,12 @@ interface ITemplateProperty {
     $ref: `#/definitions/${string}`
 }
 
-interface IAdo {
+export interface IAdo {
     path: string;
     id: string;
     required?: boolean;
     enabled?: boolean;
+    pos?: XYPosition;
 }
 
 // TODO: Remove fields from modules which are not needed

@@ -1,4 +1,4 @@
-import { ITemplateFormData, ITemplateSchema, ITemplateUiSchema } from "../templates/types";
+import { IAdo, ITemplateFormData, ITemplateSchema, ITemplateUiSchema } from "../templates/types";
 import { ITemplate } from "../types";
 import { getSchemaFromPath } from "./getters";
 
@@ -13,7 +13,7 @@ export const processTemplate = async (template: ITemplate) => {
     const formData: ITemplateFormData = {}
 
     for (const ado of template.ados) {
-        const schemaADO = await getSchemaFromPath(ado.path);
+        const schemaADO = await processTemplateAdo(ado)
 
         // Set Definition
         definitions[schemaADO.schema.$id] = schemaADO.schema;
@@ -57,4 +57,13 @@ export const processTemplate = async (template: ITemplate) => {
     }
 
     return template;
+}
+
+export const processTemplateAdo = async (ado: IAdo) => {
+    const schemaADO = await getSchemaFromPath(ado.path);
+    // Set ADO Removable status
+    schemaADO.schema.properties.$removable.default = !ado.required;
+    schemaADO.schema.properties.$enabled.default = !!ado.required;
+    
+    return schemaADO;
 }
