@@ -26,24 +26,19 @@ const AppBuilderForm: FC<AppBuilderFormProps> = (props) => {
     const [formData, setFormData] = useState(cloneDeep(andromedaSchema['form-data'] ?? {}));
     const ref = useRef<any>()
 
-    const getFormData: IFormRef['formData'] = useCallback(() => {
-        const _formData = ref.current.state.formData ?? {};
-        return _formData
-    }, [ref])
-
     const validate: IFormRef['validate'] = useCallback(() => {
         const valid: boolean = ref.current?.validateForm();
         if (!valid) throw Error("Not valid form")
-    }, [ref, getFormData])
+    }, [ref])
 
     useEffect(() => {
         if (formRefs.current) {
             formRefs.current[name] = {
                 validate,
-                formData: getFormData
+                formData: formData,
             }
         }
-    }, [validate, formRefs, getFormData])
+    }, [validate, formRefs, formData])
 
     return (
         <Form

@@ -4,6 +4,8 @@ import InsertButton from '../common/insert';
 import AppNameButton from '../common/appName';
 import PublishButton from '../common/publish';
 import { Wallet } from '@/modules/common';
+import DownloadFlexButton from '../common/downloadFlex';
+import ImportFlexButton from '../common/importFlex';
 
 interface TopBarProps {
 
@@ -17,7 +19,11 @@ const TopBar: FC<TopBarProps> = (props) => {
                 <AppNameButton />
                 <InsertButton />
             </HStack>
-            <HStack ml='auto'>
+            <HStack mx='auto'>
+                <DownloadFlexButton />
+                <ImportFlexButton />
+            </HStack>
+            <HStack>
                 <PublishButton />
                 <Wallet />
             </HStack>

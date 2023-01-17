@@ -235,6 +235,15 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
                 {name}
               </CopyButton>
 
+              <IconButton
+                aria-label="delete-button"
+                onClick={() => deleteNode(name)}
+                icon={<Icon as={DeleteIcon} boxSize={5} />}
+                variant='ghost'
+                size='sm'
+                color='red.200'
+              />
+
               {/* Section for Action List */}
               <Menu placement="bottom-end" colorScheme="dark">
                 <MenuButton
@@ -244,15 +253,6 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
                   size="sm"
                 />
                 <MenuList>
-                  {formData["$removable"] && (
-                    <MenuItem
-                      onClick={() => deleteNode(name)}
-                      icon={<Icon as={DeleteIcon} boxSize={4} />}
-                      color='red'
-                    >
-                      Delete
-                    </MenuItem>
-                  )}
                   <MenuItem
                     onClick={downloadJson}
                     icon={<DownloadIcon boxSize={4} />}

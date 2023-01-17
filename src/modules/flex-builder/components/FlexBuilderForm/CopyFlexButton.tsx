@@ -7,7 +7,7 @@ import {
   ITemplateSchema,
   ITemplateUiSchema,
 } from "@/lib/schema/templates/types";
-import { createFlexUrl } from "@/lib/schema/utils/flexFile";
+import { createFlexFile, createFlexUrl } from "@/lib/schema/utils/flexFile";
 import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
 
 /**
@@ -27,11 +27,11 @@ function CopyFlexButton({ schema, uiSchema, formData }: CopyFlexProps) {
     if (!schema || !uiSchema || !formData) {
       return "";
     }
-
-    const flexURI = await createFlexUrl({
+    const flexFile = await createFlexFile({
       schema,
-      formData,
-    });
+      formData
+    })
+    const flexURI = await createFlexUrl(flexFile);
 
     return window.origin + SITE_LINKS.flexBuilderTemplate(flexURI);
   }, [schema, uiSchema, formData]);

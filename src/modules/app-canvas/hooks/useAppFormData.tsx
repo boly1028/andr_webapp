@@ -10,7 +10,7 @@ export const useAppFormData = () => {
         const ados = formRefs.current ?? {};
         Object.keys(ados).forEach(adoKey => {
             console.log(adoKey);
-            const adoFormData = ados[adoKey].formData();
+            const adoFormData = ados[adoKey].formData;
             publishData[adoKey] = adoFormData;
         })
         return publishData

@@ -1,6 +1,6 @@
 import { useAndromedaContext } from "@/lib/andrjs";
 import { ITemplateFormData } from "@/lib/schema/templates/types";
-import { IAdoType, IImportantAdoKeys } from "@/lib/schema/types";
+import { IAdoType, IImportantAdoKeys, IPublishSettingsFormData } from "@/lib/schema/types";
 import { useCallback } from "react";
 import { IAppContract } from "../types";
 import { constructMsg } from "../utils";
@@ -21,7 +21,7 @@ export default function useConstructAppMsg() {
       console.clear();
       if (!appName) {
         // Our system panel name is 'publish-settings'. Refer app template in schema
-        const publishSettingsPanel = data[IImportantAdoKeys.PUBLISH_SETTINGS];
+        const publishSettingsPanel = data[IImportantAdoKeys.PUBLISH_SETTINGS] as IPublishSettingsFormData;
         if (!publishSettingsPanel || !publishSettingsPanel.name) throw new Error("Incorrect publish settings fields");
         appName = publishSettingsPanel.name
       }

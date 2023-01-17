@@ -7,7 +7,7 @@ export interface IFormRefs {
 
 export interface IFormRef {
     validate: () => void;
-    formData: () => IAndromedaFormData;
+    formData: IAndromedaFormData;
 }
 
 export interface IEditorRef {

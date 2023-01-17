@@ -1,5 +1,5 @@
 import { IAdo, ITemplateFormData, ITemplateSchema, ITemplateUiSchema } from "../templates/types";
-import { ITemplate } from "../types";
+import { IAndromedaFormData, ITemplate } from "../types";
 import { getSchemaFromPath } from "./getters";
 
 /** Process the template by resolving schema paths found in ados and moodules list */
@@ -13,7 +13,7 @@ export const processTemplate = async (template: ITemplate) => {
     const formData: ITemplateFormData = {}
 
     for (const ado of template.ados) {
-        const schemaADO = await processTemplateAdo(ado)
+        const schemaADO = await processTemplateAdo(ado, template.formData?.[ado.id])
 
         // Set Definition
         definitions[schemaADO.schema.$id] = schemaADO.schema;
@@ -59,11 +59,14 @@ export const processTemplate = async (template: ITemplate) => {
     return template;
 }
 
-export const processTemplateAdo = async (ado: IAdo) => {
+export const processTemplateAdo = async (ado: IAdo, formData?: IAndromedaFormData) => {
     const schemaADO = await getSchemaFromPath(ado.path);
     // Set ADO Removable status
     schemaADO.schema.properties.$removable.default = !ado.required;
     schemaADO.schema.properties.$enabled.default = !!ado.required;
-    
+    if (formData) {
+        schemaADO['form-data'] = formData
+    }
+
     return schemaADO;
 }

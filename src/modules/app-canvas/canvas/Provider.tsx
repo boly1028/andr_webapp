@@ -48,7 +48,7 @@ const AppBuilderProvider: FC<AppBuilderProviderProps> = (props) => {
         const isNewNodePresent = getNode(newNodeId);
         if (!oldNode) throw new Error("Node not present");
         if (isNewNodePresent) throw new Error(`Node with id: ${newNodeId} already present`)
-        const formData = formRefs.current[nodeId]?.formData()
+        const formData = formRefs.current[nodeId]?.formData
         // Add New Node with latest nodeId
         oldNode.data.andromedaSchema['form-data'] = formData
         addNode(oldNode.data.andromedaSchema, newNodeId, oldNode)
