@@ -1,6 +1,6 @@
 import { MutableRefObject, useCallback, useEffect, useLayoutEffect, useMemo } from "react"
 import { OnConnect } from "reactflow"
-import { useReactFlow } from "../../canvas/Provider"
+import { useAppBuilder, useReactFlow } from "../../canvas/Provider"
 import { IFieldRef } from "../templates/FieldTemplate"
 import { debounce } from 'lodash'
 import { useId } from "@chakra-ui/react"
@@ -9,6 +9,7 @@ import { DIRECTION, getPanelTargetHandlePrefix, getSourceHandlePrefix } from "./
 export const useIsIdentifier = (nodeId: string, fieldId: string, formData: any, ref: MutableRefObject<IFieldRef>) => {
     const edgeId = useId()
     const { deleteElements, addEdges, getNode, getEdge } = useReactFlow()
+    const { nodeUpdater } = useAppBuilder()
 
     const isIdentifier = useMemo(() => {
         return fieldId.split('_').pop() === 'identifier'
@@ -78,10 +79,10 @@ export const useIsIdentifier = (nodeId: string, fieldId: string, formData: any, 
 
     useEffect(() => {
         if (isIdentifier) {
-            console.log("Updating", fieldId)
+            console.log("Updating", fieldId, nodeId)
             debouncedUpdate(identifierValue)
         }
-    }, [identifierValue, isIdentifier])
+    }, [identifierValue, isIdentifier, nodeUpdater])
 
 
     return { isIdentifier, handleConnect, edgeId }

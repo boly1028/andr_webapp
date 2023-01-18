@@ -14,6 +14,7 @@ const AppBuilderProvider: FC<AppBuilderProviderProps> = (props) => {
     const [edges, setEdges, onEdgesChange] = useEdgesState<IEdgeData>([])
     const formRefs = useRef<IFormRefs>({})
     const editorRef = useRef<IEditorRef>({})
+    const [nodeUpdater, setNodeUpdater] = useState<number>(0)
 
     const addNode: AppBuilderContext['addNode'] = useCallback((schema, name, defaultNodeData = {}) => {
         addNodes({
@@ -33,7 +34,8 @@ const AppBuilderProvider: FC<AppBuilderProviderProps> = (props) => {
             zIndex: defaultNodeData.zIndex ?? 0,
             selectable: false
         })
-    }, [addNodes])
+        setNodeUpdater(prev => prev + (Math.random() - 0.5))
+    }, [addNodes, setNodeUpdater])
 
 
     const deleteNode: AppBuilderContext['deleteNode'] = useCallback((name) => {
@@ -41,7 +43,8 @@ const AppBuilderProvider: FC<AppBuilderProviderProps> = (props) => {
         if (formRefs.current[name]) {
             delete formRefs.current[name]
         }
-    }, [deleteElements])
+        setNodeUpdater(prev => prev + (Math.random() - 0.5))
+    }, [deleteElements, setNodeUpdater])
 
     const renameNode: AppBuilderContext['renameNode'] = useCallback((nodeId, newNodeId) => {
         const oldNode = getNode(nodeId);
@@ -84,9 +87,10 @@ const AppBuilderProvider: FC<AppBuilderProviderProps> = (props) => {
             deleteNode,
             formRefs,
             editorRef,
-            renameNode
+            renameNode,
+            nodeUpdater
         }
-    }, [nodes, edges, onNodesChange, addNode, deleteNode, formRefs, editorRef, onEdgesChange, renameNode])
+    }, [nodes, edges, onNodesChange, addNode, deleteNode, formRefs, editorRef, onEdgesChange, renameNode, nodeUpdater])
 
     return (
         <context.Provider value={value}>
@@ -105,6 +109,7 @@ export interface AppBuilderContext {
     formRefs: React.MutableRefObject<IFormRefs>;
     editorRef: React.MutableRefObject<IEditorRef>;
     renameNode: (nodeId: string, newNodeId: string) => void;
+    nodeUpdater: number;
 }
 
 export interface INodeData {
@@ -126,7 +131,8 @@ const defaultValue: AppBuilderContext = {
     deleteNode: () => { throw new Error("OUTSIDE COONTEXT") },
     formRefs: createRef<IFormRefs>() as any,
     editorRef: createRef<IEditorRef>() as any,
-    renameNode: () => { throw new Error("OUTSIDE COONTEXT") }
+    renameNode: () => { throw new Error("OUTSIDE COONTEXT") },
+    nodeUpdater: 0,
 }
 const context = createContext(defaultValue);
 export const useAppBuilder = () => useContext(context)

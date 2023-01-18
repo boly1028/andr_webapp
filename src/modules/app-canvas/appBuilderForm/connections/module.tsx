@@ -1,7 +1,6 @@
 import { MutableRefObject, useCallback, useEffect, useMemo } from "react"
 import { useReactFlow } from "../../canvas/Provider"
 import { IFieldRef } from "../templates/FieldTemplate"
-import { debounce } from 'lodash'
 
 export const useIsModule = (schema: any, formData: any, ref: MutableRefObject<IFieldRef>) => {
     const { getNode } = useReactFlow()
@@ -12,7 +11,7 @@ export const useIsModule = (schema: any, formData: any, ref: MutableRefObject<IF
 
     const identifierValue: string = useMemo(() => {
         return formData?.address?.identifier ?? ''
-    }, [formData])
+    }, [formData?.address?.identifier])
 
 
     const update = useCallback((identifier: string) => {
