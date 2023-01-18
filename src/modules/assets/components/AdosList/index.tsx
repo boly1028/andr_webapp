@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from "react";
-import { Box } from "@/theme/ui-elements";
+import { Box, Button } from "@/theme/ui-elements";
 import { useQueryAssets } from "@/lib/graphql";
 import { useWallet } from "@/lib/wallet";
 import AppItem from "./AppItem";
@@ -73,23 +73,25 @@ const AdosList: FC = () => {
         hasMore={hasMore}
         dataLength={data?.length ?? 0}
         loader={
-          <Stack>
-            <Skeleton h="14" rounded="xl" />
-            <Skeleton h="14" rounded="xl" />
-            <Skeleton h="14" rounded="xl" />
-          </Stack>
+          <Skeleton h="14" rounded="xl" />
         }
       >
         {data?.map((item) => {
           return <AppItem key={item.address} app={item} />;
         })}
       </InfiniteScroll>
-      {loading && (
-        <Stack>
+      {loading ? (
+        <Stack mt='6' gap='4'>
           <Skeleton h="14" rounded="xl" />
           <Skeleton h="14" rounded="xl" />
           <Skeleton h="14" rounded="xl" />
         </Stack>
+      ) : hasMore && (
+        <Center mt='6'>
+          <Button variant='ghost' onClick={fetchMoreAsset}>
+            Load more
+          </Button>
+        </Center>
       )}
     </Box>
   );
