@@ -1,103 +1,203 @@
+import useQueryAppInfo from "@/lib/graphql/hooks/useQueryAppInfo";
 import React, { FC } from "react";
-import NextLink from "next/link";
-import { AppComponent } from "@/lib/graphql/hooks/useQueryAppInfo";
-
 import { v4 as keyGen } from "uuid"; // Used as key assignments for function elements
-
-import InlineStat from "./InlineStat";
-import { CopyButton, MoreHorizontalIcon, truncate } from "@/modules/common";
+import NextLink from "next/link";
+import styles from './ado.module.css'
 
 import {
   Flex,
   Box,
   Icon,
+  Button,
   Menu,
-  IconButton,
   MenuButton,
+  IconButton,
   MenuList,
   MenuItem,
 } from "@/theme/ui-elements";
-import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
+import InlineStat from "./InlineStat";
+import { useDisclosure } from "@chakra-ui/hooks";
+import {
+  ChevronDownIcon,
+  CopyButton,
+  FallbackPlaceholder,
+  truncate,
+} from "@/modules/common";
+import { CloseIcon } from "@chakra-ui/icons";
+import { Center, Stack } from "@chakra-ui/layout";
+import { Skeleton } from "@chakra-ui/skeleton";
 import ClassifierIcon from "@/theme/icons/classifiers";
+import useAssetInfoModal from "@/modules/modals/hooks/useAssetInfoModal";
+import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
+import { MoreVertical } from "lucide-react";
 import { useGetSchemaADOP } from "@/lib/schema/hooks/useGetSchemaADOP";
 import { IAdoType } from "@/lib/schema/types";
 import { useGetSchemaVersions } from "@/lib/schema/hooks/useGetSchemaVersion";
+import useQueryAndrQuery from "@/lib/graphql/hooks/useQueryAndrQuery";
 
 interface AdoItemProps {
-  ado: AppComponent;
-  appAddress?: string;
+  address: string;
+  adoType: IAdoType;
+  name?: string;
+  proxyAddress?: string;
 }
-const AdoItem: FC<AdoItemProps> = ({ ado, appAddress }) => {
-  const adoType = ado.adoType as IAdoType;
-  const { data: appVersion } = useGetSchemaVersions(adoType);
-  const { data: adopData, isLoading } = useGetSchemaADOP(adoType, appVersion?.latest);
+
+const AdoItem: FC<AdoItemProps> = ({ address, adoType: _adoType, name, proxyAddress }) => {
+  const { data: andrResult } = useQueryAndrQuery(_adoType, address)
+
+  // Creating a proxy for app type as it is now reference as app-contract
+  const adoType = _adoType === "app" ? "app-contract" : (_adoType);
+  const { data: appInfo, loading, error } = useQueryAppInfo(address, adoType !== 'app-contract')
+
+
+  const { data: _version } = useGetSchemaVersions(adoType);
+  const version = andrResult?.version || _version?.latest;
+  const { data: adopData, isLoading } = useGetSchemaADOP(adoType, version);
+
+  const open = useAssetInfoModal();
+  const { getButtonProps, getDisclosureProps, isOpen } = useDisclosure();
+
+  const buttonProps = getButtonProps();
+  const disclosureProps = getDisclosureProps();
 
   return (
     <Flex
+      border="1px solid"
+      borderColor="dark.300"
       p={5}
+      borderRadius="lg"
       mb={4}
       _last={{ mb: 0 }}
       direction="column"
-      rounded="lg"
-      _hover={{
-        background: "dark.100",
-      }}
     >
-      <Flex align="center">
-        <Box w={8} h={8} borderRadius="lg" mr={6}>
-          <ClassifierIcon adoType={adoType} boxSize={6} />
+      <Flex
+        align="start"
+        gap="2"
+        className={styles.container}
+      >
+        <Box w={8} h={8} borderRadius="lg" mr={6} alignSelf="center">
+          <ClassifierIcon adoType={adoType} boxSize={5} />
         </Box>
 
-        <Box flex={1}>
-          <InlineStat label="Name" value={ado.name} />
+        <Box flex={1.5}>
+          <InlineStat label="Name" value={appInfo?.name ?? name ?? _adoType} />
           {/* <InlineStat label="{type}" value={name} reverse /> */}
         </Box>
         <Box flex={1}>
-          <InlineStat label="Type" value={`${ado.adoType}@${appVersion?.latest}`} />
+          <InlineStat label="Type" value={`${_adoType}@${version}`} />
         </Box>
-        {/* <Box flex={1}>
-      <InlineStat label="Version" value={version} />
-    </Box> */}
-        {/* <Box flex={1}>
-          <InlineStat label="Block Height" value={ado.height?.toString()} />
-        </Box> */}
+        <Box flex={1}>
+          <InlineStat
+            label="Block Height"
+            value={andrResult?.blockHeightUponCreation ?? ''}
+          />
+        </Box>
         <Box flex={1}>
           <CopyButton
             as={Box}
             variant="unstyled"
             cursor="pointer"
-            text={ado.address}
+            text={address}
           >
-            <InlineStat label="Address" value={truncate(ado.address)} />
+            <InlineStat label="Address" value={truncate(address ?? "")} />
           </CopyButton>
         </Box>
-        {/* Section for Action List */}
-        <Menu placement="bottom-end">
-          <MenuButton
-            as={IconButton}
-            icon={<Icon as={MoreHorizontalIcon} boxSize={6} />}
-            variant="link"
+        <Flex alignItems="center" gap="1" alignSelf="center" w='28' justifyContent='end'>
+          {/* Section for Action List */}
+          <Box className={styles.onHover}>
+            <Button
+              onClick={() => {
+                open(address, _adoType);
+              }}
+              variant="link"
+              colorScheme="blue"
+            >
+              View
+            </Button>
+          </Box>
+          <Menu placement="bottom-end">
+            <MenuButton
+              as={IconButton}
+              icon={<Icon as={MoreVertical} boxSize={5} />}
+              variant="link"
+              px="0"
+              minW="0"
+              className={styles.onHover}
+            />
+            <MenuList>
+              {adopData?.modifiers?.map((action) => {
+                const path = `${adoType}/${version}/${formatActionPath(
+                  action,
+                )}`;
+                return (
+                  <NextLink
+                    key={keyGen()}
+                    href={(proxyAddress && name) ? SITE_LINKS.proxyApp(path, proxyAddress, name) : SITE_LINKS.adoExecute(path, address ?? "")}
+                    passHref
+                  >
+                    <MenuItem key={action}>
+                      {/* <MenuItem icon={<Icon as={EyeIcon} boxSize={5} />}> */}
+                      {formatActionTitles(action)}
+                    </MenuItem>
+                  </NextLink>
+                );
+              })}
+            </MenuList>
+          </Menu>
+          {adoType === 'app-contract' && (
+            <Box>
+              <Button {...buttonProps} variant="unstyled" size="sm">
+                {isOpen ? (
+                  <CloseIcon boxSize="2" />
+                ) : (
+                  <ChevronDownIcon boxSize="4" />
+                )}
+              </Button>
+            </Box>
+          )}
+        </Flex>
+      </Flex>
+      <Flex
+        {...disclosureProps}
+        mt="4"
+        rounded="xl"
+        direction="column"
+      // bg="dark.50"
+      >
+        {loading && (
+          <Stack>
+            <Skeleton h="14" rounded="xl" />
+            <Skeleton h="14" rounded="xl" />
+          </Stack>
+        )}
+        {error && (
+          <Center pt="4">
+            <FallbackPlaceholder
+              title="ERROR!"
+              desc={
+                error.message ||
+                "Something went wrong, we were not able to fetch data properly"
+              }
+            />
+          </Center>
+        )}
+        {appInfo?.components?.length === 0 && (
+          <Center pt="4">
+            <FallbackPlaceholder
+              title="Empty list"
+              desc="You don't have any components associated with this app."
+            />
+          </Center>
+        )}
+        {appInfo?.components?.map((ado) => (
+          <AdoItem
+            key={ado.address}
+            address={ado.address}
+            adoType={ado.adoType as IAdoType}
+            proxyAddress={appInfo.contractAddress}
+            name={ado.name}
           />
-          <MenuList>
-            {adopData?.modifiers?.map((action) => {
-              const path = `${ado.adoType}/${appVersion?.latest}/${formatActionPath(
-                action,
-              )}`;
-              return (
-                <NextLink
-                  key={keyGen()}
-                  href={SITE_LINKS.proxyApp(path, appAddress ?? "", ado.name)}
-                  passHref
-                >
-                  <MenuItem key={action}>
-                    {/* <MenuItem icon={<Icon as={EyeIcon} boxSize={5} />}> */}
-                    {formatActionTitles(action)}
-                  </MenuItem>
-                </NextLink>
-              );
-            })}
-          </MenuList>
-        </Menu>
+        ))}
       </Flex>
     </Flex>
   );

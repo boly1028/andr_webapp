@@ -2,11 +2,12 @@ import React, { FC, useEffect, useState } from "react";
 import { Box, Button } from "@/theme/ui-elements";
 import { useQueryAssets } from "@/lib/graphql";
 import { useWallet } from "@/lib/wallet";
-import AppItem from "./AppItem";
+import AdoItem from "./AdoItem";
 import { Create, FallbackPlaceholder } from "@/modules/common";
 import { Skeleton } from "@chakra-ui/skeleton";
 import { Center, Stack } from "@chakra-ui/layout";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { IAdoType } from "@/lib/schema/types";
 
 const LIMIT = 10;
 const AdosList: FC = () => {
@@ -77,7 +78,7 @@ const AdosList: FC = () => {
         }
       >
         {data?.map((item) => {
-          return <AppItem key={item.address} app={item} />;
+          return <AdoItem key={item.address} address={item.address} adoType={item.adoType as IAdoType} />;
         })}
       </InfiniteScroll>
       {loading ? (

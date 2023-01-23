@@ -1,3 +1,4 @@
+import useQueryAndrQuery from "@/lib/graphql/hooks/useQueryAndrQuery";
 import useQueryAppInfo from "@/lib/graphql/hooks/useQueryAppInfo";
 import {
   CopyButton,
@@ -26,16 +27,16 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import { AlertCircle } from "lucide-react";
-import { FC, memo, useCallback, useMemo } from "react";
+import { FC, memo, useCallback } from "react";
 import { useGlobalModalContext } from "../hooks";
 import { AssetInfoModalProps } from "../types";
 
 const AssetInfoModal: FC<AssetInfoModalProps> = memo(function AssetInfoModal({
   address,
+  adoType
 }) {
   const { close } = useGlobalModalContext();
-  const { data: appInfo, loading, error } = useQueryAppInfo(address);
+  const { data: andrResult, loading, error } = useQueryAndrQuery(adoType, address);
 
   const onCallback = useCallback(() => {
     close();
@@ -65,7 +66,7 @@ const AssetInfoModal: FC<AssetInfoModalProps> = memo(function AssetInfoModal({
           <ClassifierIcon adoType="app" boxSize={6} />
         </Box>
         <VStack align="start">
-          <Text fontWeight="bold">{appInfo?.name ?? "App Info"}</Text>
+          <Text fontWeight="bold">{"ADO Info"}</Text>
         </VStack>
       </Flex>
       <TableContainer
@@ -78,8 +79,12 @@ const AssetInfoModal: FC<AssetInfoModalProps> = memo(function AssetInfoModal({
         <Table variant="simple" fontSize="sm">
           <Tbody>
             <Tr>
-              <Td fontWeight="light">Name</Td>
-              <Td>{appInfo?.name}</Td>
+              <Td fontWeight="light">Type</Td>
+              <Td>{andrResult?.type}@{andrResult?.version}</Td>
+            </Tr>
+            <Tr>
+              <Td fontWeight="light">Block Height</Td>
+              <Td>{andrResult?.blockHeightUponCreation}</Td>
             </Tr>
             <Tr>
               <Td fontWeight="light">Contract Address</Td>
@@ -88,25 +93,55 @@ const AssetInfoModal: FC<AssetInfoModalProps> = memo(function AssetInfoModal({
                   variant="link"
                   colorScheme="gray"
                   gap="2"
-                  text={appInfo?.contractAddress ?? ""}
+                  text={andrResult?.address ?? ''}
                 >
-                  {truncate(appInfo?.contractAddress)}
+                  {truncate(andrResult?.address)}
+                  <CopyIcon boxSize="4" />
+                </CopyButton>
+              </Td>
+            </Tr>
+            <Tr>
+              <Td fontWeight="light">
+                Owner
+              </Td>
+              <Td>
+                <CopyButton
+                  variant="link"
+                  colorScheme="gray"
+                  gap="2"
+                  text={andrResult?.owner ?? ''}
+                >
+                  {truncate(andrResult?.owner)}
+                  <CopyIcon boxSize="4" />
+                </CopyButton>
+              </Td>
+            </Tr>
+            <Tr>
+              <Td fontWeight="light">Creator</Td>
+              <Td>
+                <CopyButton
+                  variant="link"
+                  colorScheme="gray"
+                  gap="2"
+                  text={andrResult?.creator ?? ''}
+                >
+                  {truncate(andrResult?.creator)}
                   <CopyIcon boxSize="4" />
                 </CopyButton>
               </Td>
             </Tr>
             <Tr>
               <Td borderBottom={0} fontWeight="light">
-                Owner
+                Original Publisher
               </Td>
               <Td borderBottom={0}>
                 <CopyButton
                   variant="link"
                   colorScheme="gray"
                   gap="2"
-                  text={appInfo?.owner ?? ""}
+                  text={andrResult?.originalPublisher ?? ''}
                 >
-                  {truncate(appInfo?.owner)}
+                  {truncate(andrResult?.originalPublisher)}
                   <CopyIcon boxSize="4" />
                 </CopyButton>
               </Td>
