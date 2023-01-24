@@ -1,68 +1,52 @@
+import { useAndromedaClient } from "@/lib/andrjs";
 import { IAdoType } from "@/lib/schema/types";
-import { gql, useQuery } from "@apollo/client";
-import { useMemo } from "react";
+import { useQuery } from "@tanstack/react-query";
 
 
 /**
- * Get Andr Result for given ADO. TODO: Create a gql query for ADO irrespective of ADO type from which we can query
- * andr result based on address directly
- * @param adoType
+ * Get Andr Result for given ADO.
  * @param address
  * @returns
  */
 export default function useQueryAndrQuery(
-  adoType: IAdoType,
   address: string
 ) {
 
-  const QUERY = useMemo(() => {
-    return createAndrQuery(adoType)
-  }, [adoType])
+  const client = useAndromedaClient()
 
-  const { loading, data, error } = useQuery(
-    gql`
-      ${QUERY}
-    `,
+  const { data, error, isLoading } = useQuery(
+    ["query", "andr", address],
+    async () => {
+      console.log("REFETCHING", address)
+      const result: IAndrResult = {
+        owner: await client.ado.getOwner(address),
+        version: await client.ado.getVersion(address),
+        blockHeightUponCreation: await client.ado.getCreatedHeight(address),
+        type: await client.ado.getType(address) as IAdoType,
+        address: address,
+        originalPublisher: await client.ado.getPublisher(address),
+      };
+      return result;
+    },
     {
-      variables: { address },
-    });
-
-    console.log(error, QUERY)
+      refetchOnWindowFocus: false,
+      retry: false,
+      enabled: client.isConnected,
+    }
+  )
 
   return {
-    loading,
+    loading: isLoading,
     error,
-    data: data?.ADO?.[adoType]?.andr as IAndrResult | undefined,
+    data: data,
   };
 }
 
 interface IAndrResult {
   version: string;
-  blockHeightUponCreation: string;
+  blockHeightUponCreation: number;
   owner: string;
   type: IAdoType;
-  creator: string;
   address: string;
   originalPublisher: string;
-}
-
-const createAndrQuery = (adoType: string) => {
-  adoType = adoType.replaceAll('-', '_');
-  return `
-    query QUERY_ANDR($address: String!) {
-      ADO{
-        ${adoType}(address: $address) {
-          andr{
-            version,
-            blockHeightUponCreation,
-            owner,
-            type,
-            address,
-            creator,
-            originalPublisher
-          }
-        }
-      }
-    }
-  `
 }

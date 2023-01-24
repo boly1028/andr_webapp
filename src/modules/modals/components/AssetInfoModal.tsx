@@ -37,7 +37,7 @@ const AssetInfoModal: FC<AssetInfoModalProps> = memo(function AssetInfoModal({
   adoType
 }) {
   const { close } = useGlobalModalContext();
-  const { data: andrResult, loading, error } = useQueryAndrQuery(adoType, address);
+  const { data: andrResult, loading, error } = useQueryAndrQuery(address);
 
   const onCallback = useCallback(() => {
     close();
@@ -112,20 +112,6 @@ const AssetInfoModal: FC<AssetInfoModalProps> = memo(function AssetInfoModal({
                     text={andrResult?.owner ?? ''}
                   >
                     {truncate(andrResult?.owner)}
-                    <CopyIcon boxSize="4" />
-                  </CopyButton>
-                </Td>
-              </Tr>
-              <Tr>
-                <Td fontWeight="light">Creator</Td>
-                <Td>
-                  <CopyButton
-                    variant="link"
-                    colorScheme="gray"
-                    gap="2"
-                    text={andrResult?.creator ?? ''}
-                  >
-                    {truncate(andrResult?.creator)}
                     <CopyIcon boxSize="4" />
                   </CopyButton>
                 </Td>

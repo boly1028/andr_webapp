@@ -43,7 +43,7 @@ interface AdoItemProps {
 }
 
 const AdoItem: FC<AdoItemProps> = ({ address, adoType: _adoType, name, proxyAddress }) => {
-  const { data: andrResult } = useQueryAndrQuery(_adoType, address)
+  const { data: andrResult } = useQueryAndrQuery(address)
 
   // Creating a proxy for app type as it is now reference as app-contract
   const adoType = _adoType === "app" ? "app-contract" : (_adoType);
@@ -89,7 +89,7 @@ const AdoItem: FC<AdoItemProps> = ({ address, adoType: _adoType, name, proxyAddr
         <Box flex={1}>
           <InlineStat
             label="Block Height"
-            value={andrResult?.blockHeightUponCreation ?? ''}
+            value={andrResult?.blockHeightUponCreation?.toString() ?? ''}
           />
         </Box>
         <Box flex={1}>
