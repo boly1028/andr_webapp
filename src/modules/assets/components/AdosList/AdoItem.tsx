@@ -157,48 +157,50 @@ const AdoItem: FC<AdoItemProps> = ({ address, adoType: _adoType, name, proxyAddr
           )}
         </Flex>
       </Flex>
-      <Flex
-        {...disclosureProps}
-        mt="4"
-        rounded="xl"
-        direction="column"
-      // bg="dark.50"
-      >
-        {loading && (
-          <Stack>
-            <Skeleton h="14" rounded="xl" />
-            <Skeleton h="14" rounded="xl" />
-          </Stack>
-        )}
-        {error && (
-          <Center pt="4">
-            <FallbackPlaceholder
-              title="ERROR!"
-              desc={
-                error.message ||
-                "Something went wrong, we were not able to fetch data properly"
-              }
+      {isOpen && (
+        <Flex
+          {...disclosureProps}
+          mt="4"
+          rounded="xl"
+          direction="column"
+        // bg="dark.50"
+        >
+          {loading && (
+            <Stack>
+              <Skeleton h="14" rounded="xl" />
+              <Skeleton h="14" rounded="xl" />
+            </Stack>
+          )}
+          {error && (
+            <Center pt="4">
+              <FallbackPlaceholder
+                title="ERROR!"
+                desc={
+                  error.message ||
+                  "Something went wrong, we were not able to fetch data properly"
+                }
+              />
+            </Center>
+          )}
+          {appInfo?.components?.length === 0 && (
+            <Center pt="4">
+              <FallbackPlaceholder
+                title="Empty list"
+                desc="You don't have any components associated with this app."
+              />
+            </Center>
+          )}
+          {appInfo?.components?.map((ado) => (
+            <AdoItem
+              key={ado.address}
+              address={ado.address}
+              adoType={ado.adoType as IAdoType}
+              proxyAddress={appInfo.contractAddress}
+              name={ado.name}
             />
-          </Center>
-        )}
-        {appInfo?.components?.length === 0 && (
-          <Center pt="4">
-            <FallbackPlaceholder
-              title="Empty list"
-              desc="You don't have any components associated with this app."
-            />
-          </Center>
-        )}
-        {appInfo?.components?.map((ado) => (
-          <AdoItem
-            key={ado.address}
-            address={ado.address}
-            adoType={ado.adoType as IAdoType}
-            proxyAddress={appInfo.contractAddress}
-            name={ado.name}
-          />
-        ))}
-      </Flex>
+          ))}
+        </Flex>
+      )}
     </Flex>
   );
 };

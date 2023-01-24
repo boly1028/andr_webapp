@@ -17,7 +17,6 @@ export default function useQueryAndrQuery(
   const { data, error, isLoading } = useQuery(
     ["query", "andr", address],
     async () => {
-      console.log("REFETCHING", address)
       const result: IAndrResult = {
         owner: await client.ado.getOwner(address),
         version: await client.ado.getVersion(address),
