@@ -16,6 +16,7 @@ import {
   Button,
 } from "@/theme/ui-elements";
 import {
+  Center,
   Skeleton,
   Stack,
   Table,
@@ -42,23 +43,6 @@ const AssetInfoModal: FC<AssetInfoModalProps> = memo(function AssetInfoModal({
     close();
   }, [close]);
 
-  if (error) {
-    <Box>
-      <FallbackPlaceholder
-        title="ERROR!"
-        desc="Something went wrong, we were not able to fetch data properly"
-      ></FallbackPlaceholder>
-    </Box>;
-  }
-
-  if (loading) {
-    <Stack>
-      <Skeleton h="14" rounded="xl" />
-      <Skeleton h="14" rounded="xl" />
-      <Skeleton h="14" rounded="xl" />
-    </Stack>;
-  }
-
   return (
     <Box>
       <Flex align="center" direction="row">
@@ -69,86 +53,103 @@ const AssetInfoModal: FC<AssetInfoModalProps> = memo(function AssetInfoModal({
           <Text fontWeight="bold">{"ADO Info"}</Text>
         </VStack>
       </Flex>
-      <TableContainer
-        p="2"
-        rounded="xl"
-        border="1px"
-        borderColor="dark.300"
-        mt="6"
-      >
-        <Table variant="simple" fontSize="sm">
-          <Tbody>
-            <Tr>
-              <Td fontWeight="light">Type</Td>
-              <Td>{andrResult?.type}@{andrResult?.version}</Td>
-            </Tr>
-            <Tr>
-              <Td fontWeight="light">Block Height</Td>
-              <Td>{andrResult?.blockHeightUponCreation}</Td>
-            </Tr>
-            <Tr>
-              <Td fontWeight="light">Contract Address</Td>
-              <Td>
-                <CopyButton
-                  variant="link"
-                  colorScheme="gray"
-                  gap="2"
-                  text={andrResult?.address ?? ''}
-                >
-                  {truncate(andrResult?.address)}
-                  <CopyIcon boxSize="4" />
-                </CopyButton>
-              </Td>
-            </Tr>
-            <Tr>
-              <Td fontWeight="light">
-                Owner
-              </Td>
-              <Td>
-                <CopyButton
-                  variant="link"
-                  colorScheme="gray"
-                  gap="2"
-                  text={andrResult?.owner ?? ''}
-                >
-                  {truncate(andrResult?.owner)}
-                  <CopyIcon boxSize="4" />
-                </CopyButton>
-              </Td>
-            </Tr>
-            <Tr>
-              <Td fontWeight="light">Creator</Td>
-              <Td>
-                <CopyButton
-                  variant="link"
-                  colorScheme="gray"
-                  gap="2"
-                  text={andrResult?.creator ?? ''}
-                >
-                  {truncate(andrResult?.creator)}
-                  <CopyIcon boxSize="4" />
-                </CopyButton>
-              </Td>
-            </Tr>
-            <Tr>
-              <Td borderBottom={0} fontWeight="light">
-                Original Publisher
-              </Td>
-              <Td borderBottom={0}>
-                <CopyButton
-                  variant="link"
-                  colorScheme="gray"
-                  gap="2"
-                  text={andrResult?.originalPublisher ?? ''}
-                >
-                  {truncate(andrResult?.originalPublisher)}
-                  <CopyIcon boxSize="4" />
-                </CopyButton>
-              </Td>
-            </Tr>
-          </Tbody>
-        </Table>
-      </TableContainer>
+      {error && (
+        <Center mt='6'>
+          <FallbackPlaceholder
+            title="ERROR!"
+            desc={`Something went wrong, we were not able to fetch data properly`}
+          ></FallbackPlaceholder>
+        </Center>
+      )}
+      {loading && (
+        <Stack mt='6'>
+          <Skeleton h="14" rounded="xl" />
+          <Skeleton h="14" rounded="xl" />
+          <Skeleton h="14" rounded="xl" />
+        </Stack>
+      )}
+      {andrResult && (
+        <TableContainer
+          p="2"
+          rounded="xl"
+          border="1px"
+          borderColor="dark.300"
+          mt="6"
+        >
+          <Table variant="simple" fontSize="sm">
+            <Tbody>
+              <Tr>
+                <Td fontWeight="light">Type</Td>
+                <Td>{andrResult?.type}@{andrResult?.version}</Td>
+              </Tr>
+              <Tr>
+                <Td fontWeight="light">Block Height</Td>
+                <Td>{andrResult?.blockHeightUponCreation}</Td>
+              </Tr>
+              <Tr>
+                <Td fontWeight="light">Contract Address</Td>
+                <Td>
+                  <CopyButton
+                    variant="link"
+                    colorScheme="gray"
+                    gap="2"
+                    text={andrResult?.address ?? ''}
+                  >
+                    {truncate(andrResult?.address)}
+                    <CopyIcon boxSize="4" />
+                  </CopyButton>
+                </Td>
+              </Tr>
+              <Tr>
+                <Td fontWeight="light">
+                  Owner
+                </Td>
+                <Td>
+                  <CopyButton
+                    variant="link"
+                    colorScheme="gray"
+                    gap="2"
+                    text={andrResult?.owner ?? ''}
+                  >
+                    {truncate(andrResult?.owner)}
+                    <CopyIcon boxSize="4" />
+                  </CopyButton>
+                </Td>
+              </Tr>
+              <Tr>
+                <Td fontWeight="light">Creator</Td>
+                <Td>
+                  <CopyButton
+                    variant="link"
+                    colorScheme="gray"
+                    gap="2"
+                    text={andrResult?.creator ?? ''}
+                  >
+                    {truncate(andrResult?.creator)}
+                    <CopyIcon boxSize="4" />
+                  </CopyButton>
+                </Td>
+              </Tr>
+              <Tr>
+                <Td borderBottom={0} fontWeight="light">
+                  Original Publisher
+                </Td>
+                <Td borderBottom={0}>
+                  <CopyButton
+                    variant="link"
+                    colorScheme="gray"
+                    gap="2"
+                    text={andrResult?.originalPublisher ?? ''}
+                  >
+                    {truncate(andrResult?.originalPublisher)}
+                    <CopyIcon boxSize="4" />
+                  </CopyButton>
+                </Td>
+              </Tr>
+            </Tbody>
+          </Table>
+        </TableContainer>
+      )}
       <Flex justify="end" mt="6">
         <Button variant="solid" onClick={close} colorScheme="primary">
           Dismiss
