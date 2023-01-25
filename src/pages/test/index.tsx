@@ -8,10 +8,8 @@ import React, { FC } from 'react'
 import Link from "next/link";
 import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
 
-type Props = {
-};
 
-const Page: NextPage<Props> = ({ }) => {
+const Page: NextPage = ({ }) => {
 
     return (
         <Layout>
@@ -37,8 +35,9 @@ const SchemaComponent: FC<SchemaComponentProps> = (props) => {
             <InputGroup size='lg'>
                 <InputLeftElement
                     pointerEvents='none'
-                    children={<SearchIcon color='gray.300' />}
-                />
+                >
+                    <SearchIcon color='gray.300' />
+                </InputLeftElement>
                 <Input placeholder='Search' />
             </InputGroup>
             <Text>Schemas</Text>
