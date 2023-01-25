@@ -90,7 +90,7 @@
                             "description": "The asset used as a reward.",
                             "oneOf": [
                                 {
-                                    "title": "CW20",
+                                    "title": "Native",
                                     "type": "object",
                                     "required": [
                                         "native"
@@ -103,7 +103,7 @@
                                     "additionalProperties": false
                                 },
                                 {
-                                    "title": "Native",
+                                    "title": "CW20",
                                     "type": "object",
                                     "required": [
                                         "cw20"
