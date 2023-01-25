@@ -1,6 +1,8 @@
 import { useAndromedaClient } from "@/lib/andrjs";
 import { IAdoType } from "@/lib/schema/types";
+import { IndexedTx } from "@cosmjs/stargate";
 import { useQuery } from "@tanstack/react-query";
+import useQueryTxByAddress from "./useQueryTxByAddress";
 
 
 /**
@@ -17,6 +19,11 @@ export default function useQueryAndrQuery(
   const { data, error, isLoading } = useQuery(
     ["query", "andr", address],
     async () => {
+      const txs = await client.cosmWasmClient?.searchTx({
+        tags: [
+          { key: 'wasm._contract_address', value: address },
+        ],
+      })
       const result: IAndrResult = {
         owner: await client.ado.getOwner(address),
         version: await client.ado.getVersion(address),
@@ -24,6 +31,7 @@ export default function useQueryAndrQuery(
         type: await client.ado.getType(address) as IAdoType,
         address: address,
         originalPublisher: await client.ado.getPublisher(address),
+        txs: txs ?? []
       };
       return result;
     },
@@ -48,4 +56,5 @@ interface IAndrResult {
   type: IAdoType;
   address: string;
   originalPublisher: string;
+  txs: readonly IndexedTx[]
 }
