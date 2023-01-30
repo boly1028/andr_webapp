@@ -1,3 +1,4 @@
+import { IAdoType } from "@/lib/schema/types";
 import { useCallback } from "react";
 import { ModalType } from "../types";
 import useGlobalModalContext from "./useGlobalModalContext";
@@ -8,8 +9,10 @@ import useGlobalModalContext from "./useGlobalModalContext";
 export default function useAssetInfoModal() {
   const { open } = useGlobalModalContext();
 
-  return useCallback((address: string) =>
+  return useCallback((address: string, adoType: IAdoType) =>
     open(ModalType.AssetInfo, {
-      address
+      address,
+      adoType
+
     }), [open]);
 }

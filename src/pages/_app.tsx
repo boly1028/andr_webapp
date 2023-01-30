@@ -25,7 +25,14 @@ import "@/modules/app-builder/style/controls.css";
 import "@/modules/app-builder/style/nodes.css";
 
 const Main = ({ Component, pageProps }: AppProps<Record<string, any>>) => {
-  const [queryClient] = React.useState(() => new QueryClient());
+  const [queryClient] = React.useState(() => new QueryClient({
+    defaultOptions: {
+      'queries': {
+        cacheTime: 1000 * 60 * 5,
+        staleTime: 1000 * 60 * 5
+      }
+    }
+  }));
   const { chainId, signer } = useWalletContext();
 
   return (

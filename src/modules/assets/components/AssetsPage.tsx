@@ -1,16 +1,10 @@
 import React, { useState } from "react";
 
-import { NftsList, AdosList } from "@/modules/assets";
+import { AdosList } from "@/modules/assets";
 import { PageHeader, Wallet, FallbackPlaceholder } from "@/modules/common";
 
 import {
   Box,
-  Tabs,
-  TabList,
-  TabPanels,
-  Tab,
-  TabPanel,
-  Flex,
   Center,
   Button,
   Icon,
@@ -18,9 +12,7 @@ import {
 } from "@/theme/ui-elements";
 import { useWallet } from "@/lib/wallet";
 import { useApolloClient } from "@apollo/client";
-import { QUERY_APP, QUERY_ASSETS } from "@andromedaprotocol/andromeda.js";
 import { RefreshCw } from "lucide-react";
-import InlineStat from "./AdosList/InlineStat";
 
 const AssetsPage = () => {
   /**Check If wallet is connected, If yes then user is logged in */
