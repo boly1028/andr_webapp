@@ -1,12 +1,13 @@
 import React, { FC, useEffect, useState } from "react";
-import { Box } from "@/theme/ui-elements";
+import { Box, Button } from "@/theme/ui-elements";
 import { useQueryAssets } from "@/lib/graphql";
 import { useWallet } from "@/lib/wallet";
-import AppItem from "./AppItem";
+import AdoItem from "./AdoItem";
 import { Create, FallbackPlaceholder } from "@/modules/common";
 import { Skeleton } from "@chakra-ui/skeleton";
 import { Center, Stack } from "@chakra-ui/layout";
 import InfiniteScroll from "react-infinite-scroll-component";
+import { IAdoType } from "@/lib/schema/types";
 
 const LIMIT = 10;
 const AdosList: FC = () => {
@@ -73,23 +74,25 @@ const AdosList: FC = () => {
         hasMore={hasMore}
         dataLength={data?.length ?? 0}
         loader={
-          <Stack>
-            <Skeleton h="14" rounded="xl" />
-            <Skeleton h="14" rounded="xl" />
-            <Skeleton h="14" rounded="xl" />
-          </Stack>
+          <Skeleton h="14" rounded="xl" />
         }
       >
         {data?.map((item) => {
-          return <AppItem key={item.address} app={item} />;
+          return <AdoItem key={item.address} address={item.address} adoType={item.adoType as IAdoType} />;
         })}
       </InfiniteScroll>
-      {loading && (
-        <Stack>
+      {loading ? (
+        <Stack mt='6' gap='4'>
           <Skeleton h="14" rounded="xl" />
           <Skeleton h="14" rounded="xl" />
           <Skeleton h="14" rounded="xl" />
         </Stack>
+      ) : hasMore && (
+        <Center mt='6'>
+          <Button variant='ghost' onClick={fetchMoreAsset}>
+            Load more
+          </Button>
+        </Center>
       )}
     </Box>
   );

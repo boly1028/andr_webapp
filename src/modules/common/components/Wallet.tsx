@@ -34,6 +34,7 @@ import {
 import useWalletModal from "@/modules/modals/hooks/useWalletModal";
 import { useAllChainConfig, useChainConfig } from "@/lib/andrjs";
 import ChainFallbackIcon from "./icons/ChainFallbackIcon";
+import { SITE_LINKS } from "../utils/sitelinks";
 
 const WalletConnected = () => {
   const wallet = useWallet();
@@ -183,12 +184,7 @@ const WalletConnected = () => {
                 </CopyButton>
                 <Button
                   as="a"
-                  href={
-                    currentConfig?.blockExplorerAddressPages[0]?.replaceAll(
-                      "${address}",
-                      wallet?.address ?? "",
-                    ) ?? ""
-                  }
+                  href={(currentConfig && wallet?.address) ? SITE_LINKS.blockExplorerAccount(currentConfig, wallet.address) : ''}
                   target="_blank"
                   leftIcon={<ExternalLinkIcon boxSize={4} />}
                   variant="outline"

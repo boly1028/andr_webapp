@@ -31,12 +31,13 @@ export interface QueryAppInfoProps
  */
 export default function useQueryAppInfo(
   contractAddress: string,
+  skip = false
 ): QueryAppInfoProps {
   const { data, loading, error } = useQuery<QueryAppResponse, QueryApp>(
     gql`
       ${QUERY_APP}
     `,
-    { variables: { contractAddress } },
+    { variables: { contractAddress }, skip: skip },
   );
 
   const appInfo = useMemo(() => {

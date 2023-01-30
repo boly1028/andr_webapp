@@ -1,13 +1,13 @@
 import {
   ChainConfig,
-  QueryTxByAccount,
-  QueryTxByAccountResponse,
-  QUERY_TX_BY_ACCOUNT,
+  QueryTxByContract as Query,
+  QueryTxByContractResponse as QueryResponse,
+  QUERY_TX_BY_CONTRACT as QueryText,
   TxInfo,
 } from "@andromedaprotocol/andromeda.js";
 import { QueryResult, useQuery, gql } from "@apollo/client";
 
-export interface QueryTxByAddressProps
+export interface QueryProps
   extends Pick<QueryResult, "loading" | "error"> {
   data: TxInfo[];
 }
@@ -20,24 +20,24 @@ export interface QueryTxByAddressProps
  * @returns
  */
 export default function useQueryTxByAddress(
-  address: string,
+  contractAddress: string,
   chainId: ChainConfig['chainId'],
   maxHeight?: number,
   minHeight?: number,
-): QueryTxByAddressProps {
+): QueryProps {
   const { loading, data, error } = useQuery<
-    QueryTxByAccountResponse,
-    QueryTxByAccount
+    QueryResponse,
+    Query
   >(
     gql`
-      ${QUERY_TX_BY_ACCOUNT}
+      ${QueryText}
     `,
-    { variables: { address, minHeight, maxHeight, chainId } },
+    { variables: { contractAddress, minHeight, maxHeight, chainId } },
   );
 
   return {
     loading,
     error,
-    data: data ? data.tx.byAccount : [],
+    data: data ? data.tx.byContract : [],
   };
 }

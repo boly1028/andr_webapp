@@ -26,7 +26,7 @@ export default function useQueryAssets(
     gql`
       ${QUERY_ASSETS}
     `,
-    { variables: { walletAddress, limit, offset } },
+    { variables: { walletAddress, limit, offset }, notifyOnNetworkStatusChange: true },
   );
 
   // Converting assets to any and then to array to get proper typing at the end. It should be removed once type has been fixed in the library
