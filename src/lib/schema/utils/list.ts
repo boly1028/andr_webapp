@@ -23,5 +23,3 @@ export const PRIMITIVES = primitive;
 export const QUERIES = query;
 export const QUERY_RESPONSES = response
 export const SYSTEM_ADOS = system
-
-export const ALL_SCHEMA = [...BASE_ADOS, ...MODIFIERS]
