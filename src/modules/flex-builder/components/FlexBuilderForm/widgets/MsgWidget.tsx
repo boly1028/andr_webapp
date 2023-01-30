@@ -6,7 +6,6 @@
 
 import { useGetSchemaJson } from "@/lib/schema/hooks";
 import { ALL_SCHEMA } from "@/lib/schema/utils/list";
-import { CustomMenuButton } from "@/modules/common";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import {
   Box,
@@ -22,8 +21,9 @@ import { WidgetProps } from "@andromedarjsf/utils";
 
 import React, { FC, useEffect, useState } from "react";
 import Form from "../Form";
+import { constructMsg } from "@/modules/sdk/utils";
 
-interface MsgWidgetProps extends WidgetProps {}
+interface MsgWidgetProps extends WidgetProps { }
 export const MsgWidget: FC<MsgWidgetProps> = (props) => {
   const { id, schema, onFocus, onBlur, value, onChange } = props;
 
@@ -34,7 +34,8 @@ export const MsgWidget: FC<MsgWidgetProps> = (props) => {
   useEffect(() => {
     const tId = setTimeout(() => {
       if (formData) {
-        onChange(btoa(JSON.stringify(formData)));
+        const data = constructMsg(formData)
+        onChange(btoa(JSON.stringify(data)));
       }
     }, 100);
     return () => clearTimeout(tId);
@@ -67,6 +68,9 @@ export const MsgWidget: FC<MsgWidgetProps> = (props) => {
               <MenuItem
                 key={s.source}
                 onClick={() => {
+                  if(s.source !== currentSchema){
+                    setFormData(undefined)
+                  }
                   setCurrentSchema(s.source);
                 }}
               >
