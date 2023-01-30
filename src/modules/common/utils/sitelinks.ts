@@ -9,6 +9,8 @@
  * - Do not end route with '/' (if manually adding routes, a consistence design will be created)
  */
 
+import { ChainConfig } from "@andromedaprotocol/andromeda.js";
+
 export const SITE_LINKS = {
     landing: () => `/`,
     dashboard: () => `/dashboard`,
@@ -35,4 +37,8 @@ export const SITE_LINKS = {
     // External Documentation
     documentation: (adoType: string, anchor?: string) => `https://docs.andromedaprotocol.io/andromeda/andromeda-digital-objects/${adoType}#${anchor || adoType}`,
     doc: () => `https://docs.andromedaprotocol.io/andromeda`,
+    blockExplorerAccount: (config: ChainConfig, address: string) => config.blockExplorerAddressPages[0]?.replaceAll("${address}", address),
+    blockExplorerTx: (config: ChainConfig, txHash: string) => config.blockExplorerTxPages[0]?.replaceAll("${txHash}", txHash),
+    
+    testSchema: (path: string) => `/test/schema/${path}`
 } as const;

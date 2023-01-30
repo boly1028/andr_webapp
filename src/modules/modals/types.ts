@@ -1,3 +1,4 @@
+import { IAdoType } from "@/lib/schema/types";
 import { Fee, Msg } from "@andromedaprotocol/andromeda.js";
 import { Coin } from "@cosmjs/proto-signing";
 
@@ -56,6 +57,7 @@ export interface PanelRenameModalProps {
 export interface AssetInfoModalProps {
   modalType: ModalType.AssetInfo;
   address: string;
+  adoType: IAdoType;
 }
 
 export interface DisclaimerModalProps {
