@@ -39,4 +39,6 @@ export const SITE_LINKS = {
     doc: () => `https://docs.andromedaprotocol.io/andromeda`,
     blockExplorerAccount: (config: ChainConfig, address: string) => config.blockExplorerAddressPages[0]?.replaceAll("${address}", address),
     blockExplorerTx: (config: ChainConfig, txHash: string) => config.blockExplorerTxPages[0]?.replaceAll("${txHash}", txHash),
+    
+    testSchema: (path: string) => `/test/schema/${path}`
 } as const;
