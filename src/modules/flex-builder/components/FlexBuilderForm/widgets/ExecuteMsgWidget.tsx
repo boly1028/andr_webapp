@@ -22,19 +22,23 @@ import { WidgetProps } from "@andromedarjsf/utils";
 import React, { FC, useEffect, useState } from "react";
 import Form from "../Form";
 import { constructMsg } from "@/modules/sdk/utils";
+import { useGetSchemaADOP } from "@/lib/schema/hooks/useGetSchemaADOP";
+import { IAdoType } from "@/lib/schema/types";
 
-interface MsgWidgetProps extends WidgetProps { }
-export const MsgWidget: FC<MsgWidgetProps> = (props) => {
+interface ExecuteMsgWidgetProps extends WidgetProps { }
+export const ExecuteMsgWidget: FC<ExecuteMsgWidgetProps> = (props) => {
   const { id, schema, onFocus, onBlur, value, onChange } = props;
 
+  const [currentBaseAdo, setCurrentBaseAdo] = useState<IAdoType>();
   const [currentSchema, setCurrentSchema] = useState<string>();
+  const { data: adops } = useGetSchemaADOP(currentBaseAdo ?? 'app-contract')
   const { data: schemaFile } = useGetSchemaJson(currentSchema ?? "");
   const [formData, setFormData] = useState<any>();
 
   useEffect(() => {
     const tId = setTimeout(() => {
       if (formData) {
-        const data = constructMsg(formData);
+        const data = constructMsg(formData)
         onChange(btoa(JSON.stringify(data)));
       } else {
         onChange('')
@@ -62,7 +66,7 @@ export const MsgWidget: FC<MsgWidgetProps> = (props) => {
             minW='max-content'
           >
             {/* <CustomMenuButton> */}
-            {schemaFile?.schema?.title ?? "Select Schema"}
+            {currentBaseAdo ?? "Select Base Ado"}
             {/* </CustomMenuButton> */}
           </MenuButton>
           <MenuList maxH="48" overflow="auto">
@@ -70,6 +74,7 @@ export const MsgWidget: FC<MsgWidgetProps> = (props) => {
               onClick={() => {
                 setCurrentSchema(undefined)
                 setFormData(undefined)
+                setCurrentBaseAdo(undefined);
               }}
               opacity='0.2'
             >
@@ -79,13 +84,42 @@ export const MsgWidget: FC<MsgWidgetProps> = (props) => {
               <MenuItem
                 key={s.source}
                 onClick={() => {
-                  if (s.source !== currentSchema) {
+                  if (s.$id !== currentBaseAdo) {
+                    setCurrentSchema(undefined)
                     setFormData(undefined)
                   }
-                  setCurrentSchema(s.source);
+                  setCurrentBaseAdo(s.$id as any);
                 }}
               >
                 {s.$id}
+              </MenuItem>
+            ))}
+          </MenuList>
+        </Menu>
+        <Menu placement="bottom-start">
+          <MenuButton
+            as={Button}
+            rightIcon={<ChevronDownIcon />}
+            alignSelf="start"
+            minW='max-content'
+          >
+            {/* <CustomMenuButton> */}
+            {schemaFile?.schema?.title ?? "Select Modifier"}
+            {/* </CustomMenuButton> */}
+          </MenuButton>
+          <MenuList maxH="48" overflow="auto">
+            {adops?.modifiers.map((s) => (
+              <MenuItem
+                key={s}
+                onClick={() => {
+                  const path = `${adops.basePath}/${s}`
+                  if (path !== currentSchema) {
+                    setFormData(undefined)
+                  }
+                  setCurrentSchema(path);
+                }}
+              >
+                {s}
               </MenuItem>
             ))}
           </MenuList>

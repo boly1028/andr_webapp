@@ -95,6 +95,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
     }
   ) => {
     const msg = construct(formData);
+    // console.log(msg)
     const funds = getFunds(formData);
     openModal(msg, funds);
   };
