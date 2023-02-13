@@ -23,6 +23,7 @@ import "react-toastify/dist/ReactToastify.css";
 //Import stylization setups for use in App-Builder
 import "@/modules/app-builder/style/controls.css";
 import "@/modules/app-builder/style/nodes.css";
+import { DEFAULT_CHAIN } from "@/constants/constants";
 
 const Main = ({ Component, pageProps }: AppProps<Record<string, any>>) => {
   const [queryClient] = React.useState(() => new QueryClient({
@@ -58,7 +59,7 @@ const Main = ({ Component, pageProps }: AppProps<Record<string, any>>) => {
 };
 
 const MyApp = (props: AppProps) => (
-  <WalletProvider chainId="uni-5">
+  <WalletProvider chainId={DEFAULT_CHAIN}>
     <ApolloProvider client={apolloClient}>
       <Main {...props} />
     </ApolloProvider>
