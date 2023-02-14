@@ -1,0 +1,26 @@
+[
+    {
+        "$id": "cw721-start-auction",
+        "class": "receive",
+        "classifier": "",
+        "title": "Cw721 start auction",
+        "description": "Starts a new auction with the given parameters. The auction info can be modified before it has started but is immutable after that.",
+        "source": "auction/0.1.2/cw721-start-auction.receive",
+        "version": "0.1.2",
+        "estimated-cost": "",
+        "estimated-cost-denom": "",
+        "coming-soon": ""
+    },
+    {
+        "$id": "cw721-start-sale",
+        "class": "receive",
+        "classifier": "",
+        "title": "Cw721 start sale",
+        "description": "Starts a new sale with the given parameters. The sale info can be modified before it has started but is immutable after that.",
+        "source": "marketplace/0.1.0/cw721-start-sale.receive",
+        "version": "0.1.0",
+        "estimated-cost": "",
+        "estimated-cost-denom": "",
+        "coming-soon": ""
+    }
+]
