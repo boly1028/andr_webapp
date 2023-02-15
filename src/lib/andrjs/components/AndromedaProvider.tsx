@@ -64,7 +64,7 @@ const AndromedaProvider: React.FC<AndromedaProviderProps> = memo(
             console.log("Andromeda Client connected");
           }
         } catch (error) {
-          console.error(error);
+          console.error("CLIENT CONNECT ERROR::",error);
         }
       };
       setConnected(false);

@@ -11,7 +11,7 @@
     "tsc": "tsc"
   },
   "dependencies": {
-    "@andromedaprotocol/andromeda.js": "^0.1.7",
+    "@andromedaprotocol/andromeda.js": "^0.1.9",
     "@andromedarjsf/chakra-ui": "file:./local_lib/andromedarjsf-chakra-ui-5.0.1.tgz",
     "@andromedarjsf/core": "file:./local_lib/andromedarjsf-core-5.0.1.tgz",
     "@andromedarjsf/utils": "file:./local_lib/andromedarjsf-utils-5.0.1.tgz",
