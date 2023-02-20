@@ -18,8 +18,7 @@ export const SITE_LINKS = {
     flexBuilderHome: () => `/flex-builder`,
     flexBuilder: (id: string) => `/flex-builder/${id}`,
     flexBuilderTemplate: (uri?: string) => `/flex-builder/custom-template${uri ? `?data=${uri}` : ''}`,
-    adoExecute: (path: string, address: string) => `/flexecute/${path}?contract=${address}`,
-    proxyApp: (path: string, address: string, name: string) => `/flexecute/proxy/${path}?name=${name}&contract=${address}`,
+    adoExecute: (path: string, address: string, name?: string, appAddress?: string) => `/flexecute/${path}?address=${address}&name=${name || ''}&appAddress=${appAddress || ''}`,
     // App
     appStore: () => `/app-store`,
     appStoreItem: (id: string) => `/app-store/${id}`,
@@ -39,6 +38,6 @@ export const SITE_LINKS = {
     doc: () => `https://docs.andromedaprotocol.io/andromeda`,
     blockExplorerAccount: (config: ChainConfig, address: string) => config.blockExplorerAddressPages[0]?.replaceAll("${address}", address),
     blockExplorerTx: (config: ChainConfig, txHash: string) => config.blockExplorerTxPages[0]?.replaceAll("${txHash}", txHash),
-    
+
     testSchema: (path: string) => `/test/schema/${path}`
 } as const;

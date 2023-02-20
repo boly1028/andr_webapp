@@ -23,13 +23,6 @@
       }
     }
   },
-  "ui-schema": {
-    "parent": {
-      "ui:readonly": "readonly"
-    },
-    "component_name": {
-      "ui:readonly": "readonly"
-    }
-  },
+  "ui-schema": {},
   "form-data": {}
 }
