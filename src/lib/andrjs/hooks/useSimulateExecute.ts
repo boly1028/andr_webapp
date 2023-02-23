@@ -1,4 +1,5 @@
 import type { Msg } from "@andromedaprotocol/andromeda.js";
+import { StdFee } from "@cosmjs/amino";
 import { Coin } from "@cosmjs/proto-signing";
 import { useCallback } from "react";
 import useClient from "./useAndromedaClient";
@@ -12,8 +13,8 @@ export default function useSimulateExecute(address: string) {
   const client = useClient();
 
   const simulate = useCallback(
-    async (msg: Msg, funds: Coin[], memo?: string) => {
-      return client.estimateExecuteFee(address, msg, funds, memo);
+    async (msg: Msg, funds: Coin[], fee?: StdFee, memo?: string) => {
+      return client.estimateExecuteFee(address, msg, funds, fee, memo);
     },
     [address, client],
   );

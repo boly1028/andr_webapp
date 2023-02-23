@@ -1,5 +1,6 @@
 import { IAdoType } from "@/lib/schema/types";
 import { Fee, Msg } from "@andromedaprotocol/andromeda.js";
+import { StdFee } from "@cosmjs/amino";
 import { Coin } from "@cosmjs/proto-signing";
 
 export enum ModalType {
@@ -25,7 +26,7 @@ export interface InstantiateTransactionModalProps {
 export type TransactionModalProps = (
   | ExecuteTransactionModalProps
   | InstantiateTransactionModalProps
-) & { msg: Msg; modalType: ModalType.Transaction; fee?: Fee, memo?: string };
+) & { msg: Msg; modalType: ModalType.Transaction; fee?: StdFee, memo?: string };
 
 export interface AddFundsModalProps {
   funds: Coin[];

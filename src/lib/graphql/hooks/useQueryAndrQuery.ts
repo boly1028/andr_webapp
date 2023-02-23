@@ -19,7 +19,7 @@ export default function useQueryAndrQuery(
   const { data, error, isLoading } = useQuery(
     ["query", "andr", address],
     async () => {
-      const txs = await client.cosmWasmClient?.searchTx({
+      const txs = await client.chainClient?.queryClient?.searchTx({
         tags: [
           { key: 'wasm._contract_address', value: address },
         ],

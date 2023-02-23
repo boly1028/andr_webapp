@@ -8,13 +8,12 @@ import { TransactionModalProps } from "../types";
 import { GasIcon } from "@/modules/common";
 import { Box, Button, Center, Divider, Text } from "@/theme/ui-elements";
 import ModalLoading from "./ModalLoading";
-import { Fee } from "@andromedaprotocol/andromeda.js";
 import { sumCoins } from "@/modules/sdk/hooks/useGetFunds";
 
 interface OptionalProps {
   onNextStage?: () => void;
   onPrevStage?: () => void;
-  updateFee: (fee: Fee) => void;
+  updateFee: (fee: StdFee) => void;
 }
 
 const FeeAmount: FC<{ coin: Coin; text: string }> = memo(function FeeAmount({
@@ -65,13 +64,13 @@ const EstimateFeeModal: FC<TransactionModalProps & OptionalProps> = (props) => {
         switch (props.type) {
           case "execute":
             console.log(props.funds);
-            return client.encodeExecuteMsg(
+            return client.chainClient?.encodeExecuteMsg(
               props.contractAddress,
               props.msg,
               props.funds,
             );
           case "instantiate":
-            return client.encodeInstantiateMsg(
+            return client.chainClient?.encodeInstantiateMsg(
               props.codeId,
               props.msg,
               "Instantiate",
@@ -80,10 +79,11 @@ const EstimateFeeModal: FC<TransactionModalProps & OptionalProps> = (props) => {
       })();
 
       try {
+        if (!msg) throw new Error("MSG undefined")
         console.log(msg);
-        const fee = await client.estimateFee([msg], props?.memo ?? "");
-        console.log(fee);
-        setFee(fee);
+        const estimatedFee = await client.estimateFee([msg], props.fee, props?.memo ?? "");
+        console.log(estimatedFee);
+        setFee(estimatedFee);
         setLoading(false);
       } catch (error) {
         setError(error as Error);
