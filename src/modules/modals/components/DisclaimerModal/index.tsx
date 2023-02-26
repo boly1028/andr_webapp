@@ -34,7 +34,7 @@ const DisclaimerModal: FC<DisclaimerModalProps> = ({ onAccept }) => {
       <Text fontSize="xs" textStyle="light" color="dark.500" mt="2">
         Please check the boxes below to confirm your agreement to the Andromeda
         Protocol&nbsp;
-        <Link textDecoration="underline">Terms and Conditions</Link>
+        <Link target='_blank' href="https://github.com/andromedaprotocol/andromeda-core/blob/development/LICENSE/LICENSE.md" textDecoration="underline">Terms and Conditions</Link>
       </Text>
       <Divider mt="4" />
       <VStack
