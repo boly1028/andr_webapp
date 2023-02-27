@@ -39,7 +39,8 @@ const BroadcastingModal: FC<TransactionModalProps & OptionalProps> = memo(
             props.contractAddress,
             props.msg,
             // Here props fee can be used to set gas price from the estimated result. However gas price calculated is low so using auto till its fixed
-            "auto",
+            // Update: Fee is fixed, adding gas price here
+            props.fee,
             props.memo,
             props.funds,
           );
@@ -48,7 +49,11 @@ const BroadcastingModal: FC<TransactionModalProps & OptionalProps> = memo(
             props.codeId,
             props.msg,
             "Instantiate",
-            "auto",
+            props.fee,
+            {
+              memo: props.memo,
+              'funds': props.funds
+            }
           );
       }
     }, [props, connected, client]);

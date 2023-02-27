@@ -11,7 +11,7 @@
     "tsc": "tsc"
   },
   "dependencies": {
-    "@andromedaprotocol/andromeda.js": "^0.2.1",
+    "@andromedaprotocol/andromeda.js": "^0.2.3",
     "@andromedarjsf/chakra-ui": "file:./local_lib/andromedarjsf-chakra-ui-5.0.2.tgz",
     "@andromedarjsf/core": "file:./local_lib/andromedarjsf-core-5.0.2.tgz",
     "@andromedarjsf/utils": "file:./local_lib/andromedarjsf-utils-5.0.2.tgz",
@@ -55,7 +55,7 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "@keplr-wallet/types": "^0.10.12",
+    "@keplr-wallet/types": "^0.11.44",
     "@types/cors": "^2.8.12",
     "@types/node": "^18.6.1",
     "@types/react": "17.0.38",

@@ -14,7 +14,6 @@ export enum ModalType {
 
 export interface ExecuteTransactionModalProps {
   contractAddress: string;
-  funds: Coin[];
   type: "execute";
 }
 
@@ -26,7 +25,7 @@ export interface InstantiateTransactionModalProps {
 export type TransactionModalProps = (
   | ExecuteTransactionModalProps
   | InstantiateTransactionModalProps
-) & { msg: Msg; modalType: ModalType.Transaction; fee?: StdFee, memo?: string };
+) & { msg: Msg; modalType: ModalType.Transaction; fee?: StdFee, memo?: string, funds: Coin[]; };
 
 export interface AddFundsModalProps {
   funds: Coin[];

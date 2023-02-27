@@ -47,6 +47,20 @@ export default function useGetKeplrOnStart(): KeplrStatus {
   );
 
   useEffect(() => {
+    if (window.keplr) {
+      window.keplr.defaultOptions = {
+        // Use these fields to change keplr way of showing fee and memo. If you need your set fee to be
+        // Enabled by default, change value to true. Same for memo however user won't have option to override memo but
+        // they can override fee
+        sign: {
+          preferNoSetFee: false,
+          preferNoSetMemo: false
+        }
+      }
+    }
+  }, [keplr])
+
+  useEffect(() => {
     const updateStatus = async () => {
       const keplr = await getKeplr();
       if (keplr) {
