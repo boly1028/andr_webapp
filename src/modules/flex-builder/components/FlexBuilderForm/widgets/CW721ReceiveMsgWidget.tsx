@@ -16,6 +16,7 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
+  Text,
 } from "@chakra-ui/react";
 import { WidgetProps } from "@andromedarjsf/utils";
 
@@ -24,6 +25,7 @@ import Form from "../Form";
 import { constructMsg } from "@/modules/sdk/utils";
 import { useGetSchemaADOP } from "@/lib/schema/hooks/useGetSchemaADOP";
 import { IAdoType } from "@/lib/schema/types";
+import { CopyButton } from "@/modules/common";
 
 interface Cw721ReceiveMsgWidgetProps extends WidgetProps { }
 export const Cw721ReceiveMsgWidget: FC<Cw721ReceiveMsgWidgetProps> = (props) => {
@@ -119,21 +121,23 @@ export const Cw721ReceiveMsgWidget: FC<Cw721ReceiveMsgWidgetProps> = (props) => 
                   setCurrentSchema(path);
                 }}
               >
-                {s.replace('.receive','')}
+                {s.replace('.receive', '')}
               </MenuItem>
             ))}
           </MenuList>
         </Menu>
-        <Input
-          value={value}
-          isRequired={props.required}
-          isInvalid={!!props.rawErrors}
-          aria-label={props.label}
-          placeholder={props.placeholder || "Base64 message"}
-          readOnly
-          disabled
-          w="full"
-        />
+        <CopyButton text={value} variant='unstyled' w='full'>
+          <Input
+            value={value}
+            isRequired={props.required}
+            isInvalid={!!props.rawErrors}
+            aria-label={props.label}
+            placeholder={props.placeholder || "Base64 message"}
+            readOnly
+            w="full"
+            cursor='pointer'
+          />
+        </CopyButton>
       </Flex>
       <Box w="full" mt="4">
         {schemaFile?.schema && (
