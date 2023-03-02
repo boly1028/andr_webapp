@@ -59,29 +59,26 @@ const EstimateFeeModal: FC<TransactionModalProps & OptionalProps> = (props) => {
   useEffect(() => {
     const simulateFee = async () => {
       setLoading(true);
-      const msg = (() => {
+      const getFee = () => {
         // Select message execution type of execute or instantiate by passed prop
         switch (props.type) {
           case "execute":
-            console.log(props.funds);
-            return client.chainClient?.encodeExecuteMsg(
+            return client.estimateExecuteFee(
               props.contractAddress,
               props.msg,
               props.funds,
             );
           case "instantiate":
-            return client.chainClient?.encodeInstantiateMsg(
+            return client.estimateInstantiationFee(
               props.codeId,
               props.msg,
               "Instantiate",
             );
         }
-      })();
+      }
 
       try {
-        if (!msg) throw new Error("MSG undefined")
-        console.log(msg);
-        const estimatedFee = await client.estimateFee([msg], props.fee, props?.memo ?? "");
+        const estimatedFee = await getFee();
         console.log(estimatedFee);
         setFee(estimatedFee);
         setLoading(false);
