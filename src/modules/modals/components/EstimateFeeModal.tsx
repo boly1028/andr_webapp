@@ -8,13 +8,12 @@ import { TransactionModalProps } from "../types";
 import { GasIcon } from "@/modules/common";
 import { Box, Button, Center, Divider, Text } from "@/theme/ui-elements";
 import ModalLoading from "./ModalLoading";
-import { Fee } from "@andromedaprotocol/andromeda.js";
 import { sumCoins } from "@/modules/sdk/hooks/useGetFunds";
 
 interface OptionalProps {
   onNextStage?: () => void;
   onPrevStage?: () => void;
-  updateFee: (fee: Fee) => void;
+  updateFee: (fee: StdFee) => void;
 }
 
 const FeeAmount: FC<{ coin: Coin; text: string }> = memo(function FeeAmount({
@@ -60,30 +59,28 @@ const EstimateFeeModal: FC<TransactionModalProps & OptionalProps> = (props) => {
   useEffect(() => {
     const simulateFee = async () => {
       setLoading(true);
-      const msg = (() => {
+      const getFee = () => {
         // Select message execution type of execute or instantiate by passed prop
         switch (props.type) {
           case "execute":
-            console.log(props.funds);
-            return client.encodeExecuteMsg(
+            return client.estimateExecuteFee(
               props.contractAddress,
               props.msg,
               props.funds,
             );
           case "instantiate":
-            return client.encodeInstantiateMsg(
+            return client.estimateInstantiationFee(
               props.codeId,
               props.msg,
               "Instantiate",
             );
         }
-      })();
+      }
 
       try {
-        console.log(msg);
-        const fee = await client.estimateFee([msg], props?.memo ?? "");
-        console.log(fee);
-        setFee(fee);
+        const estimatedFee = await getFee();
+        console.log(estimatedFee);
+        setFee(estimatedFee);
         setLoading(false);
       } catch (error) {
         setError(error as Error);

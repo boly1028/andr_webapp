@@ -11,35 +11,19 @@ export default function useCodeId(adoType: string) {
   const [codeId, setCodeId] = useState<number>(-1);
   const { factoryAddress, connected } = useAndromedaContext();
   const client = useAndromedaClient();
-  const queryMsg = useMemo(
-    () => ({
-      code_id: {
-        key: adoType,
-      },
-    }),
-    [adoType],
-  );
 
   useEffect(() => {
     const getCodeId = async () => {
-      if (!connected) {
-        console.warn("Querying Code ID before client connected");
-        return;
-      }
-
-      if (factoryAddress.length === 0) {
-        console.warn("No factory address");
-        return;
-      }
-
-      if (client.isConnected) {
-        const _codeId = await client.queryContract(factoryAddress, queryMsg);
+      if (connected && client.isConnected) {
+        const _codeId = await client?.adoDB?.getCodeId(adoType, factoryAddress)
         console.log(_codeId)
         setCodeId(_codeId);
+      } else {
+        console.warn("Querying Code ID before client connected");
       }
     };
     getCodeId();
-  }, [factoryAddress, queryMsg, client, connected]);
+  }, [factoryAddress, adoType, client, connected]);
 
   // console.log(connected, factoryAddress)
 
