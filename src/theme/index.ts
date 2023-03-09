@@ -242,6 +242,13 @@ export default extendTheme({
       other2: '#00CB79',
       other3: '#FFE485'
     },
+    content: {
+      high: 'rgba(255, 255, 255, 0.87)',
+      medium: 'rgba(255, 255, 255, 0.6)',
+      low: 'rgba(255, 255, 255, 0.38)',
+      primarylow: '#81A2FF'
+      
+    }
   },
   textStyles: {
     h1: {
