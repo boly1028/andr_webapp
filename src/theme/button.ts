@@ -102,7 +102,7 @@ const sizes: Record<string, SystemStyleObject> = {
     fontSize: "sm",
   },
   lg: {
-    h: "44px",
+    h: "40px",
     fontSize: "sm",
     px: 2.5,
   },

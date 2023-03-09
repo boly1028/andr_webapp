@@ -235,8 +235,9 @@ const Wallet: FC = () => {
   return (
     <>
       <Button
-        leftIcon={<PlusIcon boxSize={4} />}
+        leftIcon={<PlusIcon boxSize={6} />}
         colorScheme="primary"
+        variant="solid"
         onClick={onOpen}
         size="lg"
       >

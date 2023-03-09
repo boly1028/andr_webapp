@@ -22,6 +22,7 @@ const Create: FC = () => {
         minWidth="100px"
         fontWeight={'500'}
         variant="soliddark"
+        maxHeight="40px"
       >
         <Flex justifyContent="space-around" alignItems="center">
           <PlusIcon boxSize={6} />
