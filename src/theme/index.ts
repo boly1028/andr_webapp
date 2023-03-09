@@ -242,6 +242,12 @@ export default extendTheme({
       other2: '#00CB79',
       other3: '#FFE485'
     },
+    backgroundstates: {
+      idle: 'rgba(255, 255, 255, 0.09)',
+      hover: 'rgba(255, 255, 255, 0.13)',
+      active: 'rgba(255, 255, 255, 0.05)',
+      disabled: 'rgba(255, 255, 255, 0.02)'
+    },
     content: {
       high: 'rgba(255, 255, 255, 0.87)',
       medium: 'rgba(255, 255, 255, 0.6)',
