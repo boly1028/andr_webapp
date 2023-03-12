@@ -14,6 +14,8 @@ import Switch from "./switch";
 
 import shadows from "./shadows";
 
+// Deployment commit for theme alterations pushed to branch by non-membered Vercel account. - LS (This comment can be removed post push)
+
 const config: ThemeConfig = {
   initialColorMode: 'dark',
   useSystemColorMode: false,
