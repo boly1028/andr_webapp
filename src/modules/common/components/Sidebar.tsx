@@ -133,7 +133,7 @@ const Sidebar = ({ onClose, activeLink, ...props }: SidebarProps) => {
       </Box>
       <Divider justifySelf="end" />
       <Text pl="4" my="2" fontSize="xs" fontWeight="light" fontStyle="light">
-        Andromeda App 1.5.0
+        Andromeda App - Internal Review
       </Text>
     </Box>
   );

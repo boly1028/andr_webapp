@@ -34,4 +34,4 @@ export function useAllChainConfig(
   );
 }
 
-const DISABLED_CHAIN_IDS: string[] = ['atlantic-1','pisco-1']
+const DISABLED_CHAIN_IDS: string[] = ['atlantic-1']

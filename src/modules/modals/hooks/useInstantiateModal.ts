@@ -1,5 +1,5 @@
 import { Msg } from "@andromedaprotocol/andromeda.js";
-import { ModalType } from "../types";
+import { ModalType, TransactionModalProps } from "../types";
 import useGlobalModalContext from "./useGlobalModalContext";
 
 /**
@@ -17,6 +17,6 @@ import useGlobalModalContext from "./useGlobalModalContext";
 export default function useInstantiateModal(codeId: number) {
   const { open } = useGlobalModalContext();
 
-  return (msg: Msg) =>
-    open(ModalType.Transaction, { type: "instantiate", codeId, msg });
+  return (msg: Msg, funds: TransactionModalProps['funds'] = []) =>
+    open(ModalType.Transaction, { type: "instantiate", codeId, msg, memo: "Instantiate", funds });
 }

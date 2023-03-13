@@ -132,7 +132,7 @@ const AdoItem: FC<AdoItemProps> = ({ address, adoType: _adoType, name, proxyAddr
                 return (
                   <NextLink
                     key={keyGen()}
-                    href={(proxyAddress && name) ? SITE_LINKS.proxyApp(path, proxyAddress, name) : SITE_LINKS.adoExecute(path, address ?? "")}
+                    href={SITE_LINKS.adoExecute(path, address ?? "", name, proxyAddress)}
                     passHref
                   >
                     <MenuItem key={action}>

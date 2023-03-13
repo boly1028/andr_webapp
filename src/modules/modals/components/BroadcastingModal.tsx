@@ -49,6 +49,10 @@ const BroadcastingModal: FC<TransactionModalProps & OptionalProps> = memo(
             props.msg,
             "Instantiate",
             "auto",
+            {
+              memo: props.memo,
+              'funds': props.funds
+            }
           );
       }
     }, [props, connected, client]);
