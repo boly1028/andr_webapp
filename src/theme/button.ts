@@ -49,6 +49,29 @@ const variantSolid: SystemStyleFunction = (props) => {
   };
 };
 
+const variantSolidDark: SystemStyleFunction = (props) => {
+  const { colorScheme: c, theme } = props;
+
+  return {
+    bg: `backgroundstates.idle`,
+    color: "base.white",
+    _active: {
+      bg: 'backgroundstates.active'
+    },
+    _focus: {
+      bg: `backgroundstates.active`,
+      borderColor: `${c}.300`,
+      boxShadow: `0 0 0 0`,
+    },
+    _hover: {
+      bg: `backgroundstates.hover`,
+      _disabled: {
+        bg: `backgroundstates.disabled`,
+      },
+    }
+  };
+};
+
 const variantGhost: SystemStyleFunction = (props) => {
   const { colorScheme: c, theme } = props;
 
@@ -68,6 +91,7 @@ const variants = {
   outline: variantOutline,
   solid: variantSolid,
   ghost: variantGhost,
+  soliddark: variantSolidDark,
 };
 
 const sizes: Record<string, SystemStyleObject> = {
@@ -78,7 +102,7 @@ const sizes: Record<string, SystemStyleObject> = {
     fontSize: "sm",
   },
   lg: {
-    h: "44px",
+    h: "40px",
     fontSize: "sm",
     px: 2.5,
   },

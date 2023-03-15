@@ -7,6 +7,7 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
+  Flex
 } from "@chakra-ui/react";
 import { PlusIcon } from "@/modules/common";
 import { SITE_LINKS } from "../utils/sitelinks";
@@ -16,12 +17,16 @@ const Create: FC = () => {
     <Menu placement="bottom-end">
       <MenuButton
         as={Button}
-        icon={<PlusIcon boxSize={5} />}
-        variant="outline"
+        icon={<PlusIcon boxSize={10} />}
         size="lg"
+        minWidth="100px"
+        fontWeight={'500'}
+        variant="soliddark"
       >
-        <PlusIcon boxSize={5} />
-        Create
+        <Flex justifyContent="space-around" alignItems="center">
+          <PlusIcon boxSize={6} />
+          Create
+        </Flex>
       </MenuButton>
 
       <MenuList>

@@ -132,8 +132,8 @@ const Sidebar = ({ onClose, activeLink, ...props }: SidebarProps) => {
         ))}
       </Box>
       <Divider justifySelf="end" />
-      <Text pl="4" my="2" fontSize="xs" fontWeight="light" fontStyle="light">
-        Andromeda App - Internal Review
+      <Text pl="4" my="2" fontSize="xs" fontWeight="light" fontStyle="light" color="content.medium">
+        Andromeda App - Beta
       </Text>
     </Box>
   );

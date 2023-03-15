@@ -14,6 +14,8 @@ import Switch from "./switch";
 
 import shadows from "./shadows";
 
+// Deployment commit for theme alterations pushed to branch by non-membered Vercel account. - LS (This comment can be removed post push)
+
 const config: ThemeConfig = {
   initialColorMode: 'dark',
   useSystemColorMode: false,
@@ -45,7 +47,7 @@ export default extendTheme({
       },
 
       body: {
-        bg: "dark.25",
+        bg: "background.900",
       },
       span: {
         color: 'white'
@@ -242,6 +244,25 @@ export default extendTheme({
       other2: '#00CB79',
       other3: '#FFE485'
     },
+    backgroundstates: {
+      idle: 'rgba(255, 255, 255, 0.09)',
+      hover: 'rgba(255, 255, 255, 0.13)',
+      active: 'rgba(255, 255, 255, 0.05)',
+      disabled: 'rgba(255, 255, 255, 0.02)'
+    },
+    content: {
+      high: 'rgba(255, 255, 255, 0.87)',
+      medium: 'rgba(255, 255, 255, 0.6)',
+      low: 'rgba(255, 255, 255, 0.38)',
+      primarylow: '#81A2FF'
+    },
+    background: {
+      500: 'rgba(255, 255, 255, 0.09)',
+      600: 'rgba(255, 255, 255, 0.08)',
+      700: 'rgba(255, 255, 255, 0.07)',
+      800: 'rgba(255, 255, 255, 0.05)',
+      900: '#101216'
+    }
   },
   textStyles: {
     h1: {

@@ -14,9 +14,10 @@ const NavItem: FC<Props> = ({ active = false, icon, href, children, ...props }) 
     <NextLink href={href} passHref>
       <a>
         <HStack
-          p="3"
+          px="3"
+          py="2"
           borderRadius="lg"
-          color={active ? 'primary.500' : "base.white"}
+          color={active ? 'content.primarylow' : "content.medium"}
           bg={active ? 'rgba(68, 129, 255, 0.12)' : 'transparent'}
           _hover={{
             bg: active ? 'rgba(68, 129, 255, 0.12)' : 'dark.200'

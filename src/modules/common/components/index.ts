@@ -15,5 +15,6 @@ export { default as ProgressBar } from "./ProgressBar";
 export { default as FallbackPlaceholder } from './FallbackPlaceholder'
 export { default as CopyButton } from "./CopyButton";
 export { default as BackdropCard } from "./BackdropCard";
+export { default as SearchBar } from './SearchBar'
 
 export * from "./icons";

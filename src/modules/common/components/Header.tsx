@@ -7,7 +7,7 @@ import {
   Link as _Link,
 } from "@chakra-ui/react";
 
-import { Wallet, MenuIcon, Create } from "@/modules/common";
+import { Wallet, MenuIcon, Create, SearchBar } from "@/modules/common";
 import {
   ArchiveIcon,
   CheckCircleIcon,
@@ -25,7 +25,7 @@ const Header: FC<Props> = ({ onOpen, ...props }) => {
     <Flex
       height="20"
       alignItems="center"
-      justifyContent={{ base: "space-between", md: "flex-end" }}
+      justifyContent={{ base: "space-between", md: "space-between" }}
       {...props}
     >
       <IconButton
@@ -35,6 +35,13 @@ const Header: FC<Props> = ({ onOpen, ...props }) => {
         aria-label="open menu"
         icon={<MenuIcon />}
       />
+      <HStack 
+        spacing={{ base: "0", md: "6" }} 
+        display={{ base: "none", md: "flex" }}
+      >
+        <SearchBar />
+      </HStack>
+    
       <HStack spacing={{ base: "0", md: "6" }}>
         <Flex alignItems={"center"}>
           <HStack spacing={2}>
@@ -45,6 +52,7 @@ const Header: FC<Props> = ({ onOpen, ...props }) => {
             >
               Create
             </Button> */}
+
             <Create />
             <Wallet />
           </HStack>
