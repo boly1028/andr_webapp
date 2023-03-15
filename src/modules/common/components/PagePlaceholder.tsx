@@ -20,17 +20,37 @@ const PagePlaceholder: FC<PagePlaceholderProps> = (props) => {
     <Box>
       <Flex direction="column" alignItems="center">
         <Image src={imageUrl} w="full" />
-        <Box maxW='md' position="fixed" top="24" bg='dark.50' border='1px' borderColor='dark.300' rounded='xl' p='4'>
-          <VStack>
-            <HStack>
-              <Icon color='yellow.500' as={AlertCircleIcon} />
-              <Text fontWeight='bold' fontSize='lg'>Coming Soon!</Text>
-            </HStack>
-            <Text whiteSpace='pre-line' fontSize='xs' fontWeight='light' textAlign='center'>
+        {description ? (
+          <Box
+            maxW="md"
+            position="fixed"
+            top="24"
+            bg="dark.50"
+            border="1px"
+            borderColor="dark.300"
+            rounded="xl"
+            p="4"
+          >
+            <VStack>
+              <HStack>
+                <Icon color="yellow.500" as={AlertCircleIcon} />
+                <Text fontWeight="bold" fontSize="lg">
+                  Coming Soon!
+                </Text>
+              </HStack>
+              <Text
+                whiteSpace="pre-line"
+                fontSize="xs"
+                fontWeight="light"
+                textAlign="center"
+              >
                 {description}
-            </Text>
-          </VStack>
-        </Box>
+              </Text>
+            </VStack>
+          </Box>
+        ) : (
+          <></>
+        )}
       </Flex>
     </Box>
   );

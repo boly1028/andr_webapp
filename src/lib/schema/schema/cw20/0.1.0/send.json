@@ -75,7 +75,7 @@
           "title": "Supporting Message",
           "description": "???"
         },
-        "ui:widget": "msg"
+        "ui:widget": "cw721ReceiveMsg"
       }
     }
   },

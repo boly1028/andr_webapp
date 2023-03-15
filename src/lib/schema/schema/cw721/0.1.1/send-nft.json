@@ -63,7 +63,7 @@
                 }
             },
             "msg": {
-                "ui:widget": "msg",
+                "ui:widget": "cw721ReceiveMsg",
                 "ui:options": {
                     "title": "Supporting Message",
                     "description": "Please enter a relevant message to accompany the the ID of the token being sent. This can be a description of the auction and/or token."

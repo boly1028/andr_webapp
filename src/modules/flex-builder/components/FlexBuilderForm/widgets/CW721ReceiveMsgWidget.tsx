@@ -5,7 +5,7 @@
  */
 
 import { useGetSchemaJson } from "@/lib/schema/hooks";
-import { BASE_ADOS, MODULES } from "@/lib/schema/utils/list";
+import { BASE_ADOS, MODULES, RECEIVES } from "@/lib/schema/utils/list";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import {
   Box,
@@ -16,25 +16,31 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
+  Text,
 } from "@chakra-ui/react";
 import { WidgetProps } from "@andromedarjsf/utils";
 
 import React, { FC, useEffect, useState } from "react";
 import Form from "../Form";
 import { constructMsg } from "@/modules/sdk/utils";
+import { useGetSchemaADOP } from "@/lib/schema/hooks/useGetSchemaADOP";
+import { IAdoType } from "@/lib/schema/types";
+import { CopyButton } from "@/modules/common";
 
-interface MsgWidgetProps extends WidgetProps { }
-export const MsgWidget: FC<MsgWidgetProps> = (props) => {
+interface Cw721ReceiveMsgWidgetProps extends WidgetProps { }
+export const Cw721ReceiveMsgWidget: FC<Cw721ReceiveMsgWidgetProps> = (props) => {
   const { id, schema, onFocus, onBlur, value, onChange } = props;
 
+  const [currentBaseAdo, setCurrentBaseAdo] = useState<IAdoType>();
   const [currentSchema, setCurrentSchema] = useState<string>();
+  const { data: adops } = useGetSchemaADOP(currentBaseAdo ?? 'app-contract')
   const { data: schemaFile } = useGetSchemaJson(currentSchema ?? "");
   const [formData, setFormData] = useState<any>();
 
   useEffect(() => {
     const tId = setTimeout(() => {
       if (formData) {
-        const data = constructMsg(formData);
+        const data = constructMsg(formData)
         onChange(btoa(JSON.stringify(data)));
       } else {
         onChange('')
@@ -62,7 +68,7 @@ export const MsgWidget: FC<MsgWidgetProps> = (props) => {
             minW='max-content'
           >
             {/* <CustomMenuButton> */}
-            {schemaFile?.schema?.title ?? "Select Schema"}
+            {currentBaseAdo ?? "Select Base Ado"}
             {/* </CustomMenuButton> */}
           </MenuButton>
           <MenuList maxH="48" overflow="auto">
@@ -70,36 +76,68 @@ export const MsgWidget: FC<MsgWidgetProps> = (props) => {
               onClick={() => {
                 setCurrentSchema(undefined)
                 setFormData(undefined)
+                setCurrentBaseAdo(undefined);
               }}
               opacity='0.2'
             >
               Reset
             </MenuItem>
-            {[...BASE_ADOS, ...MODULES].map((s) => (
+            {[...BASE_ADOS, ...MODULES].filter(ado => RECEIVES.some(rAdo => rAdo.source.split('/')[0] === ado.$id)).map((s) => (
               <MenuItem
                 key={s.source}
                 onClick={() => {
-                  if (s.source !== currentSchema) {
+                  if (s.$id !== currentBaseAdo) {
+                    setCurrentSchema(undefined)
                     setFormData(undefined)
                   }
-                  setCurrentSchema(s.source);
+                  setCurrentBaseAdo(s.$id as any);
                 }}
               >
-                {s.$id}
+                {s.title}
               </MenuItem>
             ))}
           </MenuList>
         </Menu>
-        <Input
-          value={value}
-          isRequired={props.required}
-          isInvalid={!!props.rawErrors}
-          aria-label={props.label}
-          placeholder={props.placeholder || "Base64 message"}
-          readOnly
-          disabled
-          w="full"
-        />
+        <Menu placement="bottom-start">
+          <MenuButton
+            as={Button}
+            rightIcon={<ChevronDownIcon />}
+            alignSelf="start"
+            minW='max-content'
+          >
+            {/* <CustomMenuButton> */}
+            {schemaFile?.schema?.title ?? "Select Receiver"}
+            {/* </CustomMenuButton> */}
+          </MenuButton>
+          <MenuList maxH="48" overflow="auto">
+            {adops?.cw721receives?.map((s) => (
+              <MenuItem
+                key={s}
+                onClick={() => {
+                  const path = `${adops.basePath}/${s}`
+                  if (path !== currentSchema) {
+                    setFormData(undefined)
+                  }
+                  setCurrentSchema(path);
+                }}
+              >
+                {s.replace('.receive', '')}
+              </MenuItem>
+            ))}
+          </MenuList>
+        </Menu>
+        <CopyButton text={value} variant='unstyled' w='full'>
+          <Input
+            value={value}
+            isRequired={props.required}
+            isInvalid={!!props.rawErrors}
+            aria-label={props.label}
+            placeholder={props.placeholder || "Base64 message"}
+            readOnly
+            w="full"
+            cursor='pointer'
+          />
+        </CopyButton>
       </Flex>
       <Box w="full" mt="4">
         {schemaFile?.schema && (

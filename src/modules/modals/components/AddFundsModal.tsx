@@ -26,7 +26,7 @@ const AddFundsModal: FC<AddFundsModalProps & OptionalProps> = memo(
         </Text>
         <Text textStyle="light" color='dark.500'>Assigned funds for transaction</Text>
         {funds.length === 0 && (
-          <Box bg='gray.100' rounded='2xl' pt="4" mt="6" w="full">
+          <Box bg='dark.100' rounded='2xl' pt="4" mt="6" w="full">
             <Center>
               <FallbackPlaceholder
                 title="No Funds"

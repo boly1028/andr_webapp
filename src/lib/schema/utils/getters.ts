@@ -42,7 +42,8 @@ export const resolveVersionInPath = async (path: string) => {
 export const getADOPFromPath = async (path: string) => {
     path = await resolveVersionInPath(path)
     const adop = await import(`../schema/${path}.json`).then(res => res.default).then(data => cloneDeep(data)) as {
-        modifiers: string[]
+        modifiers: string[],
+        cw721receives: string[]
     }
     return adop;
 }
@@ -56,7 +57,7 @@ export const getSchemaFromPath = async (path: string) => {
          */
         return cloneDeep(data)
     }) as IAndromedaSchemaJSON;
-    
+
     schema.schema.$path = path;
 
     const properties: IAndromedaSchema['properties'] = {
