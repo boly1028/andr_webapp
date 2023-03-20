@@ -23,8 +23,9 @@ import {
 import { ITemplateUiSchema } from "@/lib/schema/templates/types";
 import Form from "./Form";
 import CopyFlexButton from "./CopyFlexButton";
+import CopyCliButton from "./CopyCliButton";
 
-type FlexBuilderFormProps = {
+export type FlexBuilderFormProps = {
   template: ITemplate;
   isLoading?: boolean;
   notReady?: boolean;
@@ -32,6 +33,7 @@ type FlexBuilderFormProps = {
   onSubmit?: (data: any) => void;
   onError?: () => void;
   addButtonTitle?: string;
+  onCliCopy: (formData: any) => string;
 };
 
 const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
@@ -40,7 +42,9 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
   onError,
   isLoading,
   notReady = false,
-  addButtonTitle
+  addButtonTitle,
+  onCliCopy
+
 }) => {
   const toast = useToast({
     position: "top-right",
@@ -217,6 +221,10 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
       {/* Action Footer */}
       <Flex mt={8} justify="right">
         <HStack spacing={4}>
+          <CopyCliButton
+            formData={formData}
+            onCopy={onCliCopy}
+          />
           <CopyFlexButton
             schema={schema}
             uiSchema={uiSchema}

@@ -1,14 +1,11 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
-import { FlexBuilderForm, StagingDocumentsModal } from "@/modules/flex-builder";
+import { FlexBuilderForm } from "@/modules/flex-builder";
 
-import { Box, Flex, Text } from "@/theme/ui-elements";
-import { FileCheckIcon, Layout, PageHeader, truncate } from "@/modules/common";
+import { Box } from "@/theme/ui-elements";
+import { Layout, PageHeader } from "@/modules/common";
 import { useRouter } from "next/router";
 import { ITemplate } from "@/lib/schema/types";
-import { useExecuteModal } from "@/modules/modals/hooks";
 import { getADOExecuteTemplate } from "@/lib/schema/utils";
-import useConstructADOExecuteMsg from "@/modules/sdk/hooks/useConstructaADOExecuteMsg";
-import { useGetFunds } from "@/modules/sdk/hooks";
 import { useWallet } from "@/lib/wallet";
 
 type Props = {
@@ -40,45 +37,6 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
       <PageHeader title={`Execute message`} desc={`App address ${contract}`} />
 
       <Box mt={10}>
-        {/* Staging section to be shown when declared */}
-        {/* ToDO: Modularize as component? */}
-        {staging_available && (
-          <Flex
-            align="center"
-            border="1px solid"
-            borderColor="primary.300"
-            borderRadius="lg"
-            bg="primary.25"
-            mb={4}
-            p={3}
-          >
-            <Box mr={4}>
-              <Flex
-                justify="center"
-                align="center"
-                bg="primary.100"
-                color="primary.700"
-                borderRadius="full"
-                p={3}
-              >
-                <FileCheckIcon boxSize={6} />
-              </Flex>
-            </Box>
-
-            <Box flex={1}>
-              <Text color="primary.700" fontWeight={500}>
-                Staging Available
-              </Text>
-              <Text color="primary.600" fontSize="sm">
-                Need to perform this operation multiple times? Staging documents
-                are available.
-              </Text>
-            </Box>
-
-            <StagingDocumentsModal />
-          </Flex>
-        )}
-        {/* end of toggleable staging section */}
         <FlexBuilderForm
           // ID is required to refresh the component after we modify the template. If not provided,
           // form will not populate name and address field on direct visit to the page
@@ -86,6 +44,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
           template={template}
           onSubmit={handleSubmit}
           notReady={!account}
+          onCliCopy={() => ``}
         />
       </Box>
     </Layout>
