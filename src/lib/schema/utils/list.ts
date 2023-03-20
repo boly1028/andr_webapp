@@ -15,12 +15,12 @@ import { IAdoType } from '../types'
 /** Skipping base ados which are not yet ready for processing. Instead of removing these from schema parser
  * We can disable it here, so they will still be availaible for testing purpose if directly enabled
  */
-const SKIP_BASE_ADOS: IAdoType[] = ['adodb', 'oracle', 'process', 'storage', 'task-balancer'];
+const INCLUDE_ADO: IAdoType[] = ['cw721', 'auction', 'splitter', 'rates', 'address-list'];
 
-export const BASE_ADOS = baseAdo.filter(ado => !SKIP_BASE_ADOS.includes(ado.$id as IAdoType));
+export const BASE_ADOS = baseAdo.filter(ado => INCLUDE_ADO.includes(ado.$id as IAdoType));
 export const MODIFIERS = modifier;
-export const MODULES = moduleAdos;
-export const PRIMITIVES = primitive;
+export const MODULES = moduleAdos.filter(ado => INCLUDE_ADO.includes(ado.$id as IAdoType));
+export const PRIMITIVES = primitive.filter(ado => INCLUDE_ADO.includes(ado.$id as IAdoType));
 export const RECEIVES = receive;
 export const QUERIES = query;
 export const QUERY_RESPONSES = response

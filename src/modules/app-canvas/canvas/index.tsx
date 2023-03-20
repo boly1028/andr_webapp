@@ -36,6 +36,12 @@ const AppBuilderCanvas: FC<AppBuilderCanvasProps> = (props) => {
                 'markerEnd': MarkerType.ArrowClosed,
                 'zIndex': 999
             }}
+            minZoom={0.1}
+            defaultViewport={{
+                x: 50,
+                y: 50,
+                zoom: 1
+            }}
         >
             <Background variant={BackgroundVariant.Dots} gap={20} size={0.75} color='#ffffff' />
             {/* <MiniMap zoomable pannable /> */}
