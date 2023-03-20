@@ -10,7 +10,7 @@ export type ICliQueryGenerator = (data: {
 
 export const EXECUTE_CLI_QUERY: ICliQueryGenerator = ({ msg, address, funds }) => {
     if (typeof address === 'undefined') throw new Error("Address is required")
-    let query = ['wasm', 'execute', address];
+    const query = ['wasm', 'execute', address];
     query.push("'" + JSON.stringify(msg) + "'")
     // if (funds) {
     //     query.push('--funds')
@@ -22,7 +22,7 @@ export const EXECUTE_CLI_QUERY: ICliQueryGenerator = ({ msg, address, funds }) =
 
 export const INSTANTIATE_CLI_QUERY: ICliQueryGenerator = ({ msg, address, funds, codeId }) => {
     if (typeof codeId === 'undefined') throw new Error("CodeID is required")
-    let query = ['wasm', 'instantiate', codeId.toString()];
+    const query = ['wasm', 'instantiate', codeId.toString()];
     query.push("'" + JSON.stringify(msg) + "'")
     // if (funds) {
     //     query.push('--funds')
