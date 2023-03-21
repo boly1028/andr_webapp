@@ -44,6 +44,7 @@ const BroadcastingModal: FC<TransactionModalProps & OptionalProps> = memo(
             props.funds,
           );
         case "instantiate":
+          console.log('FEE is::', props.fee)
           return client.instantiate(
             props.codeId,
             props.msg,

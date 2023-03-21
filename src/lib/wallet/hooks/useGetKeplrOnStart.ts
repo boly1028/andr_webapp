@@ -53,8 +53,8 @@ export default function useGetKeplrOnStart(): KeplrStatus {
         // Enabled by default, change value to true. Same for memo however user won't have option to override memo but
         // they can override fee
         sign: {
-          preferNoSetFee: false,
-          preferNoSetMemo: false
+          // preferNoSetFee: false,
+          // preferNoSetMemo: false
         }
       }
     }

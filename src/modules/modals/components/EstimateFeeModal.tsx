@@ -1,6 +1,6 @@
 import { FC, memo, useEffect, useMemo, useState } from "react";
 import { useAndromedaContext, useGetBalance } from "@/lib/andrjs";
-import { Coin, StdFee } from "@cosmjs/stargate";
+import { Coin, coins, StdFee } from "@cosmjs/stargate";
 
 import { useGlobalModalContext } from "../hooks";
 import { TransactionModalProps } from "../types";
@@ -9,6 +9,8 @@ import { GasIcon } from "@/modules/common";
 import { Box, Button, Center, Divider, Text } from "@/theme/ui-elements";
 import ModalLoading from "./ModalLoading";
 import { sumCoins } from "@/modules/sdk/hooks/useGetFunds";
+// import { useCurrentChainConfig } from "@/lib/andrjs/hooks/useKeplrChainConfig";
+// import { CoinPretty } from "@keplr-wallet/unit";
 
 interface OptionalProps {
   onNextStage?: () => void;
@@ -17,9 +19,26 @@ interface OptionalProps {
 }
 
 const FeeAmount: FC<{ coin: Coin; text: string }> = memo(function FeeAmount({
-  coin: { amount, denom },
+  coin,
   text,
 }) {
+  // const chainConfig = useCurrentChainConfig()
+  const formattedCoin = useMemo(() => {
+    /** Commenting out denom conversion as some conversions, like injective, are not working properly.
+     * Will have to look more into keplrs internal hooks to see how they handle denoms.
+     * @see: https://github.com/chainapsis/keplr-wallet/blob/master/packages/hooks/src/tx/fee.ts
+     */
+    return coin
+    // const currency = chainConfig?.currencies.find(c => c.coinMinimalDenom === coin.denom);
+    // if (!currency) return { ...coin };
+    // const keplrCoin = new CoinPretty({
+    //   ...currency
+    // }, coin.amount)
+    // return {
+    //   amount: keplrCoin.hideDenom(true).toString(),
+    //   denom: keplrCoin.denom
+    // }
+  }, [coin])
   return (
     <>
       <Box
@@ -33,8 +52,8 @@ const FeeAmount: FC<{ coin: Coin; text: string }> = memo(function FeeAmount({
       >
         <Box>{text}</Box>
         <Box>
-          {parseInt(amount) / 1000000}{" "}
-          <b>{denom.replace("u", "").toUpperCase()} </b>
+          {formattedCoin?.amount}{" "}
+          <b>{formattedCoin?.denom} </b>
         </Box>
       </Box>
     </>
@@ -50,10 +69,8 @@ const EstimateFeeModal: FC<TransactionModalProps & OptionalProps> = (props) => {
   const [fee, setFee] = useState<StdFee>({ amount: [], gas: "0" });
 
   const totalFunds = useMemo(() => {
-    if (props.type === "execute") {
-      const sum = sumCoins([...fee.amount, ...props.funds]);
-      return sum;
-    }
+    const sum = sumCoins([...fee.amount, ...props.funds]);
+    return sum;
   }, [fee, props]);
 
   useEffect(() => {
