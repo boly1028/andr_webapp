@@ -23,13 +23,12 @@ function CopyCliButton({ formData, onCopy }: CopyCliProps) {
 
   return (
     <CopyButton text={handleCopy} variant="unstyled">
-      <Button
-        aria-label="Copy Template"
+      <IconButton
+        aria-label="Export to CLI"
         variant="outline"
-        rightIcon={<CliIcon boxSize={5} color="gray.500" />}
+        icon={<CliIcon boxSize={5} color="gray.500" />}
       >
-        CCLI
-      </Button>
+      </IconButton>
     </CopyButton>
   );
 }

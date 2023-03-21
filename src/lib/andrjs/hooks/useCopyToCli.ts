@@ -28,6 +28,7 @@ export const EXECUTE_CLI_QUERY: ICliQueryGenerator = ({ msg, address, funds }) =
         query.push('--funds')
         query.push(fundsQuery)
     }
+    query.push('--print')
     query.push('--simulate')
     return query.join(' ');
 }
@@ -41,7 +42,7 @@ export const INSTANTIATE_CLI_QUERY: ICliQueryGenerator = ({ msg, codeId, funds }
         query.push('--funds')
         query.push(fundsQuery)
     }
-    query.push('--simulate')
     query.push('--print')
+    query.push('--simulate')
     return query.join(' ');
 }
