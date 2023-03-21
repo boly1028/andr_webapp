@@ -17,9 +17,9 @@ interface CopyCliProps {
 }
 
 function CopyCliButton({ formData, onCopy }: CopyCliProps) {
-  const handleCopy = useCallback(async () => {
+  const handleCopy = async () => {
     return onCopy(formData)
-  }, [formData]);
+  };
 
   return (
     <CopyButton text={handleCopy} variant="unstyled">

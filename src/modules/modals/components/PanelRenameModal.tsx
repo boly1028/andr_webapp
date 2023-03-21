@@ -27,7 +27,6 @@ const PanelRenameModal: FC<PanelRenameModalProps> = memo(
           setError("Name cannot be empty");
           return;
         }
-        /**Disabling alpha numeric check for now */
         const match = /^[a-z0-9A-Z-_]+$/i;
         if (!_name.match(match)) {
           setError("Name should be alphanumeric");

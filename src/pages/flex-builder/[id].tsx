@@ -1,8 +1,8 @@
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { INSTANTIATE_CLI_QUERY, useCodeId } from "@/lib/andrjs";
-import { FileCheckIcon, Layout, PageHeader } from "@/modules/common";
-import { FlexBuilderForm, StagingDocumentsModal } from "@/modules/flex-builder";
+import { Layout, PageHeader } from "@/modules/common";
+import { FlexBuilderForm } from "@/modules/flex-builder";
 import { useInstantiateModal } from "@/modules/modals/hooks";
 import { useConstructAppMsg } from "@/modules/sdk/hooks";
 import { ITemplate } from "@/lib/schema/types";
@@ -10,6 +10,7 @@ import { getAppTemplateById } from "@/lib/schema/utils";
 import { useWallet } from "@/lib/wallet";
 import { ILinkItemKey } from "@/modules/common/components/Sidebar";
 import { FlexBuilderFormProps } from "@/modules/flex-builder/components/FlexBuilderForm";
+import { useCallback } from "react";
 
 type Props = {
   template: ITemplate;
@@ -37,7 +38,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
     openModal(msg);
   };
 
-  const handleCliCopy: FlexBuilderFormProps['onCliCopy'] = (formData) => {
+  const handleCliCopy: FlexBuilderFormProps['onCliCopy'] = useCallback((formData) => {
     if (codeId === -1) {
       console.warn("Code ID not fetched");
       return '';
@@ -45,16 +46,16 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
     const msg = getMsg(formData);
     const query = INSTANTIATE_CLI_QUERY({
       msg,
-      codeId
+      codeId: codeId
     })
-    console.log(query, "QUERY")
+    console.log(query)
     return query
-  }
+  }, [codeId])
+
 
   return (
     <Layout activeLink={ILinkItemKey.ADO_BUILDER}>
       <PageHeader title={template.name} desc={template.description} />
-
       <Box mt={10}>
         <FlexBuilderForm
           template={template}

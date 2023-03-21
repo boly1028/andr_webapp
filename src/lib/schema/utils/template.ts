@@ -16,12 +16,10 @@ export const processTemplate = async (template: ITemplate) => {
         const schemaADO = await getSchemaFromPath(ado.path);
 
         // Set Definition
-        definitions[ado.id] = schemaADO.schema;
-        definitions[ado.id].properties.$removable.default = !ado.required;
-        definitions[ado.id].properties.$enabled.default = !!ado.required;
+        definitions[schemaADO.schema.$id] = schemaADO.schema;
 
         // Set property ref
-        properties[ado.id] = { $ref: `#/definitions/${ado.id}` }
+        properties[ado.id] = { $ref: `#/definitions/${schemaADO.schema.$id}` }
 
         uiSchema[ado.id] = schemaADO["ui-schema"]
         // Add ado to ui:order
@@ -29,6 +27,10 @@ export const processTemplate = async (template: ITemplate) => {
 
         // Add form-data
         formData[ado.id] = template.formData?.[ado.id] ?? schemaADO["form-data"]
+
+        // Set Panel States
+        formData[ado.id].$removable = !ado.required;
+        formData[ado.id].$enabled = !!ado.required;
     }
 
     template.schema = {
