@@ -167,7 +167,7 @@ const TemplatePage: NextPage<Props> = ({ executeTemplate, proxyTemplate }) => {
     <Layout>
       <PageHeader
         title={modifiedTemplate.name || `Execute message`}
-        desc={modifiedTemplate.description || `App address ${ADO_DATA.address}`}
+        desc={modifiedTemplate.description || `${toggleProxy ? 'App' : 'Ado'} address ${toggleProxy ? ADO_DATA.appAddress : ADO_DATA.address}`}
         rightElement={InputElement}
       />
 

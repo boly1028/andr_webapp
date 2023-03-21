@@ -49,7 +49,7 @@
         "add_app_component": {
             "component": {
                 "instantiate_msg": {
-                    "ui:widget": "msg"
+                    "ui:widget": "instantiateMsg"
                 }
             }
         }
