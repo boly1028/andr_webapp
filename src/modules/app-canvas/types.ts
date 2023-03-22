@@ -1,5 +1,6 @@
 import { IAndromedaFormData } from "@/lib/schema/types"
 import { DIRECTION } from "./appBuilderForm/connections/utils";
+import { InsertComponentProps } from "./leftSidebar/InsertComponent";
 
 export interface IFormRefs {
     [id: string]: IFormRef
@@ -21,5 +22,12 @@ export interface IEditorRef {
 }
 
 export enum IUIComponents {
-    INSERT = 'insert'
+    INSERT = 'insert',
+    ADO_LIST = 'adolist'
 }
+
+export type _InsertProps = InsertComponentProps & {
+    type: IUIComponents.INSERT
+}
+
+export type IUIComponentProps = _InsertProps;

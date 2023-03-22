@@ -17,7 +17,7 @@ const LeftSidebar: FC<LeftSidebarProps> = (props) => {
     }, [setActiveComponent])
 
     return (
-        <Box w='60' p='4'>
+        <Box w='20vw' maxW='20rem' p='4'>
             <RenderUiComponent component={activeComponent} />
         </Box>
     )

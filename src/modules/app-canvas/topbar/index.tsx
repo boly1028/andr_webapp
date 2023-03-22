@@ -1,6 +1,5 @@
 import React, { FC } from 'react'
-import { Flex, HStack } from '@chakra-ui/react';
-import InsertButton from '../common/insert';
+import { Box, Flex, HStack } from '@chakra-ui/react';
 import AppNameButton from '../common/appName';
 import PublishButton from '../common/publish';
 import { Wallet } from '@/modules/common';
@@ -14,16 +13,13 @@ const TopBar: FC<TopBarProps> = (props) => {
     const { } = props
 
     return (
-        <Flex direction='row' px='2'>
-            <HStack>
+        <Flex direction='row' px='2' py='1'>
+            <HStack flex={1}>
                 <AppNameButton />
-                <InsertButton />
-            </HStack>
-            <HStack mx='auto'>
-                <DownloadFlexButton />
                 <ImportFlexButton />
             </HStack>
             <HStack>
+                <DownloadFlexButton />
                 <PublishButton />
                 <Wallet />
             </HStack>

@@ -13,6 +13,7 @@ import Tooltip from "./tooltip";
 import Switch from "./switch";
 
 import shadows from "./shadows";
+import { COLORS } from "./new-system-tmp/colors";
 
 // Deployment commit for theme alterations pushed to branch by non-membered Vercel account. - LS (This comment can be removed post push)
 
@@ -72,9 +73,12 @@ export default extendTheme({
     Spinner,
     Tabs,
     Tooltip,
-    Switch
+    Switch,
   },
   colors: {
+    newSystem: {
+      ...COLORS
+    },
     base: {
       black: "#000000",
       white: "#FFFFFF"
@@ -98,7 +102,7 @@ export default extendTheme({
       600: "#3561D1",
       700: "#284AA3",
       800: "#1A3475",
-      900: "#0D1D47",
+      900: "#0D1D47"
     },
     gray: {
       25: "#FCFCFD",

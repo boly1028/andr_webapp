@@ -19,7 +19,7 @@ const AppBuilderCanvas: FC<AppBuilderCanvasProps> = (props) => {
 
     return (
         <ReactFlow
-            style={{ width: "100%", height: "100%" }}
+            style={{ width: "100%", height: "100%", background: 'transparent' }}
             connectionLineStyle={{ stroke: "#ddd", strokeWidth: 2 }}
             snapToGrid={true}
             snapGrid={[16, 16]}
@@ -42,8 +42,11 @@ const AppBuilderCanvas: FC<AppBuilderCanvasProps> = (props) => {
                 y: 50,
                 zoom: 1
             }}
+            proOptions={{
+                'hideAttribution': true
+            }}
         >
-            <Background variant={BackgroundVariant.Dots} gap={20} size={0.75} color='#ffffff' />
+            {/* <Background variant={BackgroundVariant.Dots} gap={20} size={0.75} color='#ffffff' /> */}
             {/* <MiniMap zoomable pannable /> */}
             <Controls />
         </ReactFlow>

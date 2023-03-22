@@ -3,7 +3,7 @@ import InsertComponent from '../leftSidebar/InsertComponent'
 import { IUIComponents } from '../types'
 
 interface RenderUiComponentProps {
-    component: IUIComponents
+    component: IUIComponents;
 }
 const RenderUiComponent: FC<RenderUiComponentProps> = (props) => {
     const { component } = props
@@ -12,6 +12,10 @@ const RenderUiComponent: FC<RenderUiComponentProps> = (props) => {
         return (
             <InsertComponent />
         )
+    }
+
+    if(component === IUIComponents.ADO_LIST){
+
     }
 
     return null

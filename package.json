@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint --quiet",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf .next",
-    "tsc": "tsc"
+    "tsc": "tsc",
+    "theme": "chakra-cli tokens ./src/theme/index.ts"
   },
   "dependencies": {
     "@andromedaprotocol/andromeda.js": "^0.2.12",
@@ -56,6 +57,7 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "@chakra-ui/cli": "^2.3.0",
     "@keplr-wallet/types": "^0.11.44",
     "@types/cors": "^2.8.12",
     "@types/node": "^18.6.1",

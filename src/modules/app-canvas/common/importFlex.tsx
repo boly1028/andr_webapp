@@ -1,10 +1,11 @@
 import { parseJsonFromFile } from '@/lib/json'
-import { Button, ButtonProps, Icon, Input } from '@chakra-ui/react'
-import { Plus } from 'lucide-react'
+import { TmpButton } from '@/theme/new-system-tmp/ui-elements'
+import { Icon, Input, Tooltip } from '@chakra-ui/react'
+import { Upload } from 'lucide-react'
 import React, { FC } from 'react'
 import { useImportFlex } from '../hooks/useImportFlex'
 
-interface ImportFlexButtonProps extends ButtonProps {
+interface ImportFlexButtonProps {
 
 }
 const ImportFlexButton: FC<ImportFlexButtonProps> = (props) => {
@@ -21,7 +22,7 @@ const ImportFlexButton: FC<ImportFlexButtonProps> = (props) => {
     };
 
     return (
-        <Button as='label' htmlFor='app-import-flex' leftIcon={<Icon as={Plus} boxSize='6' />} {...props}>
+        <TmpButton aria-label='import-flex' as='label' cursor='pointer' htmlFor='app-import-flex'>
             <Input
                 onChange={(e) => {
                     const file = e.target.files?.item(0);
@@ -36,8 +37,10 @@ const ImportFlexButton: FC<ImportFlexButtonProps> = (props) => {
                 accept=".flex"
                 srOnly
             />
-            Import Flex
-        </Button>
+            <Tooltip label='Open' bg='newSystem.base.light' mt='2'>
+                <Icon as={Upload} boxSize='5' />
+            </Tooltip>
+        </TmpButton>
     )
 }
 export default ImportFlexButton

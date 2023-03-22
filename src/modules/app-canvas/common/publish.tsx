@@ -9,7 +9,7 @@ const PublishButton: FC<PublishButtonProps> = (props) => {
     const { } = props
     const publish = usePublish()
     return (
-        <Button colorScheme='primary' {...props} onClick={publish}>
+        <Button fontSize='md' colorScheme='primary' {...props} onClick={publish}>
             Publish
         </Button>
     )
