@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { Button, IconButton, Text } from "@chakra-ui/react";
+import { Button, IconButton, Text, useToast } from "@chakra-ui/react";
 
 import { CopyButton, CliIcon } from "@/modules/common";
 import {
@@ -17,8 +17,23 @@ interface CopyCliProps {
 }
 
 function CopyCliButton({ formData, onCopy }: CopyCliProps) {
+  const toast = useToast({
+    position: "top-right",
+    duration: 3000,
+    isClosable: true,
+  });
+
   const handleCopy = async () => {
-    return onCopy(formData)
+    try {
+      return onCopy(formData)
+    } catch (err: any) {
+      toast({
+        title: `Error while creating cli command`,
+        description: err.message,
+        status: "error",
+      });
+      return ''
+    }
   };
 
   return (
