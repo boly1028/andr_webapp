@@ -67,6 +67,12 @@ export const LEARN_PAGE_ITEMS: ILearnPageItem[] = [
                 title: 'How to use the CLI?',
                 description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus venenati.',
                 icon: CliIcon
+            },
+            {
+                title: 'Use Case Guides',
+                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus venenati.',
+                icon: PlusIcon,
+                link:SITE_LINKS.learnItem('/andromeda/ado-guide')
             }
         ]
     }
