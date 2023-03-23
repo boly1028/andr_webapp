@@ -13,9 +13,10 @@ import {
   changeSchemaID,
   deleteSchemaModule,
   duplicatePanelSchema,
+  getSchemaRef,
 } from "../../utils/schemaTransform";
 
-import { nextSuid, suid } from "@/lib/schema/utils";
+import { humanReadableUuid } from "@/lib/schema/utils";
 import {
   IAndromedaSchemaJSON,
   ITemplate,
@@ -23,8 +24,9 @@ import {
 import { ITemplateUiSchema } from "@/lib/schema/templates/types";
 import Form from "./Form";
 import CopyFlexButton from "./CopyFlexButton";
+import CopyCliButton from "./CopyCliButton";
 
-type FlexBuilderFormProps = {
+export type FlexBuilderFormProps = {
   template: ITemplate;
   isLoading?: boolean;
   notReady?: boolean;
@@ -32,6 +34,7 @@ type FlexBuilderFormProps = {
   onSubmit?: (data: any) => void;
   onError?: () => void;
   addButtonTitle?: string;
+  onCliCopy: (formData: any) => string;
 };
 
 const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
@@ -40,7 +43,9 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
   onError,
   isLoading,
   notReady = false,
-  addButtonTitle
+  addButtonTitle,
+  onCliCopy
+
 }) => {
   const toast = useToast({
     position: "top-right",
@@ -95,10 +100,8 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
 
   const addModule = useCallback(
     (module: IAndromedaSchemaJSON) => {
-      let newId = suid();
-      while (!!schema?.definitions?.[newId]) {
-        newId = nextSuid(newId);
-      }
+      const ref = getSchemaRef(module);
+      const newId = humanReadableUuid(module.schema.$id, ref, schema?.properties ?? {})
       // dataProcessing should be performed in the AddSchemaModule not in this module
       const form = addSchemaModule(newId, module, {
         schema: schema,
@@ -113,10 +116,9 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
   // Replicate an existing panel identification key with new name
   const duplicatePanel = useCallback(
     (panelName: any) => {
-      let newId = suid();
-      while (!!schema?.definitions?.[newId]) {
-        newId = nextSuid(newId);
-      }
+      const ref = schema?.properties[panelName]?.$ref ?? '';
+      const $id = formData[panelName]?.$type ?? '';
+      const newId = humanReadableUuid($id, ref, schema?.properties ?? {})
       const form = duplicatePanelSchema(panelName, newId, {
         schema: schema,
         uiSchema: uiSchema,
@@ -137,7 +139,6 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
   // Replicate an existing panel identification key with new name
   const changePanelName = useCallback(
     (newName: string, oldName: string) => {
-      console.log("Here");
       const form = changeSchemaID(oldName, newName, {
         schema: schema,
         uiSchema: uiSchema,
@@ -179,65 +180,71 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
   }, [formData, uiSchema, schema]);
 
   return (
-    <Form
-      schema={schema as JSONSchema7}
-      uiSchema={uiSchema}
-      formData={formData}
-      formContext={{
-        // Pass actions to form for panel processing operations
-        toggleModule: toggleModule,
-        deleteModule: deleteModule,
-        changePanelName: changePanelName,
-        duplicatePanel: duplicatePanel,
-        FORM_CONTEXT_UPDATE,
-      }}
-      onChange={({ formData: _formData }) => {
-        if (!dirty) {
-          setDirty(true);
-        }
-        setFormData(_formData);
-      }}
-      onSubmit={onSubmit}
-      onError={(errors) => {
-        toast({
-          title: `${errors.length} Errors`,
-          description: "Found errors while validating",
-          status: "error",
-        });
-        console.log("TEST::FORM::", errors)
-        console.log("TEST::FORM::", schema)
-        onError?.();
-      }}
-    >
-      {/* Add Modules Action */}
-      {(template.modules && template.modules.length > 0) && (
-        <AddModuleModal title={addButtonTitle} items={template.modules} onAdd={addModule} />
-      )}
+    <>
+      <Form
+        schema={schema as JSONSchema7}
+        uiSchema={uiSchema}
+        formData={formData}
+        formContext={{
+          // Pass actions to form for panel processing operations
+          toggleModule: toggleModule,
+          deleteModule: deleteModule,
+          changePanelName: changePanelName,
+          duplicatePanel: duplicatePanel,
+          FORM_CONTEXT_UPDATE,
+        }}
+        onChange={({ formData: _formData }) => {
+          if (!dirty) {
+            setDirty(true);
+          }
+          setFormData(_formData);
+        }}
+        onSubmit={onSubmit}
+        onError={(errors) => {
+          toast({
+            title: `${errors.length} Errors`,
+            description: "Found errors while validating",
+            status: "error",
+          });
+          console.log("TEST::FORM::", errors)
+          console.log("TEST::FORM::", schema)
+          onError?.();
+        }}
+      >
+        {/* Add Modules Action */}
+        {(template.modules && template.modules.length > 0) && (
+          <AddModuleModal title={addButtonTitle} items={template.modules} onAdd={addModule} />
+        )}
 
-      {/* Action Footer */}
-      <Flex mt={8} justify="right">
-        <HStack spacing={4}>
-          <CopyFlexButton
-            schema={schema}
-            uiSchema={uiSchema}
-            formData={formData}
-          />
-          <DownloadButton
-            schema={schema}
-            uiSchema={uiSchema}
-            formData={formData}
-          />
-          <Button
-            disabled={notReady}
-            type="submit"
-            colorScheme="primary"
-            isLoading={isLoading}
-          >
-            Publish
-          </Button>
-        </HStack>
-      </Flex>
-    </Form>
+        {/* Action Footer */}
+        <Flex mt={8} justify="right">
+          <HStack spacing={4}>
+            <CopyCliButton
+              formData={formData}
+              onCopy={onCliCopy}
+            />
+            <CopyFlexButton
+              schema={schema}
+              uiSchema={uiSchema}
+              formData={formData}
+            />
+            <DownloadButton
+              schema={schema}
+              uiSchema={uiSchema}
+              formData={formData}
+            />
+            <Button
+              disabled={notReady}
+              type="submit"
+              colorScheme="primary"
+              isLoading={isLoading}
+            >
+              Publish
+            </Button>
+          </HStack>
+        </Flex>
+      </Form>
+    </>
   );
 };
 

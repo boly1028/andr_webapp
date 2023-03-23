@@ -9,6 +9,7 @@ interface IDefaults {
     formData?: ITemplateFormData;
 }
 
+export const getSchemaRef = (data: IAndromedaSchemaJSON) => `#/definitions/${data.schema.$id}` as ITemplateSchema['properties'][string]['$ref'];
 
 /**Add Schema using the the previous default data */
 export const addSchemaModule = (
@@ -22,9 +23,11 @@ export const addSchemaModule = (
     const _uiSchema = defaults?.uiSchema || {} as ITemplateUiSchema;
     const _formData = defaults?.formData || {};
 
-    schemaDefinitions[`${uuid}`] = data.schema;
+    if (!(data.schema.$id in schemaDefinitions)) {
+        schemaDefinitions[data.schema.$id] = data.schema;
+    }
 
-    schemaProperties[`${uuid}`] = { $ref: `#/definitions/${uuid}` };
+    schemaProperties[`${uuid}`] = { $ref: getSchemaRef(data) };
 
     // ui-schema
     _uiSchema[`${uuid}`] = data["ui-schema"];
@@ -58,7 +61,6 @@ export const deleteSchemaModule = (uuid: string, oriDefaults?: IDefaults) => {
     // Remove schema id from ui:order
     _uiSchema['ui:order'] = _uiSchema['ui:order']?.filter(id => id !== uuid)
 
-    delete schemaDefinitions[`${uuid}`];
     delete schemaProperties[`${uuid}`];
     delete _uiSchema[`${uuid}`];
     delete _formData[`${uuid}`];
@@ -85,17 +87,15 @@ export const changeSchemaID = (oldPanelName: string, newPanelName: string, _defa
     const _formData = defaults?.formData || {};
 
     // confirm new panel label doesn't already exist
-    if (schemaDefinitions[`${newPanelName}`]) {
+    if (newPanelName in schemaProperties) {
         return undefined
     }
 
     /**Copy full definition and replace the ref with new id */
     schemaProperties[`${newPanelName}`] = {
-        ...schemaProperties[`${oldPanelName}`],
-        '$ref': `#/definitions/${newPanelName}`
+        ...schemaProperties[`${oldPanelName}`]
     }
 
-    schemaDefinitions[`${newPanelName}`] = schemaDefinitions[`${oldPanelName}`];
     _uiSchema[`${newPanelName}`] = _uiSchema[`${oldPanelName}`];
 
     // Remove previous id from ui:order and add new id in place
@@ -106,7 +106,6 @@ export const changeSchemaID = (oldPanelName: string, newPanelName: string, _defa
     _formData[`${newPanelName}`] = _formData[`${oldPanelName}`];
 
     // remove previous panel definitions
-    delete schemaDefinitions[`${oldPanelName}`];
     delete schemaProperties[`${oldPanelName}`];
     delete _uiSchema[`${oldPanelName}`];
     delete _formData[`${oldPanelName}`];
@@ -135,13 +134,10 @@ export const duplicatePanelSchema = (panelName: string, newPanelName: string, _d
     const _formData = defaults?.formData || {};
 
 
-    // duplicate schemas with provided panel name
-    schemaDefinitions[`${newPanelName}`] = schemaDefinitions[`${panelName}`];
 
     /**Copy full definition and replace the ref with new id */
     schemaProperties[`${newPanelName}`] = {
         ...schemaProperties[`${panelName}`],
-        '$ref': `#/definitions/${newPanelName}`
     }
     _formData[`${newPanelName}`] = cloneDeep(_formData[`${panelName}`]);
     _uiSchema[`${newPanelName}`] = _uiSchema[`${panelName}`];

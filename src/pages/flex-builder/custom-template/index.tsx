@@ -3,7 +3,7 @@ import { FileCheckIcon, Layout, PageHeader } from "@/modules/common";
 import { useEffect, useState } from "react";
 import { FlexBuilderForm, StagingDocumentsModal } from "@/modules/flex-builder";
 import { Box, Flex, Text } from "@/theme/ui-elements";
-import { useCodeId } from "@/lib/andrjs";
+import { INSTANTIATE_CLI_QUERY, useCodeId } from "@/lib/andrjs";
 import { useConstructAppMsg } from "@/modules/sdk/hooks";
 import { useInstantiateModal } from "@/modules/modals/hooks";
 import { useWallet } from "@/lib/wallet";
@@ -11,6 +11,7 @@ import { useRouter } from "next/router";
 import { ITemplate } from "@/lib/schema/types";
 import { parseFlexFile, parseFlexUrl } from "@/lib/schema/utils/flexFile";
 import { ILinkItemKey } from "@/modules/common/components/Sidebar";
+import { FlexBuilderFormProps } from "@/modules/flex-builder/components/FlexBuilderForm";
 
 /**
  * Flex Builder Custom template page which takes flex from session storage and renders
@@ -50,20 +51,35 @@ const FlexBuilderCustomTemplate: NextPage<Props> = ({ }) => {
     }
   }, [templateUri]);
 
-  const handleSubmit = async (
-    {
-      formData,
-    }: {
-      formData: any;
-    }
-  ) => {
+  const getMsg = (formData: any) => {
+    console.log(formData);
+    const msg = construct(formData);
+    return msg;
+  }
+
+
+  const handleSubmit = async ({ formData }) => {
     if (codeId === -1) {
       console.warn("Code ID not fetched");
       return;
     }
-    const msg = construct(formData);
+    const msg = getMsg(formData);
     openModal(msg);
   };
+
+  const handleCliCopy: FlexBuilderFormProps['onCliCopy'] = (formData) => {
+    if (codeId === -1) {
+      console.warn("Code ID not fetched");
+      return '';
+    }
+    const msg = getMsg(formData);
+    const query = INSTANTIATE_CLI_QUERY({
+      msg,
+      codeId
+    })
+    console.log(query, "QUERY")
+    return query
+  }
 
   //TODO: Setup staging availability flags for loading staging sections if passed
   const staging_available = false;
@@ -119,6 +135,7 @@ const FlexBuilderCustomTemplate: NextPage<Props> = ({ }) => {
           onSubmit={handleSubmit}
           notReady={!codeId || codeId === -1 || !account}
           addButtonTitle="Add App Component"
+          onCliCopy={handleCliCopy}
         />
       </Box>
     </Layout>

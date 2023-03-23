@@ -10,13 +10,15 @@ import { getADOExecuteTemplate, getProxyTemplate } from "@/lib/schema/utils";
 import useConstructADOExecuteMsg from "@/modules/sdk/hooks/useConstructaADOExecuteMsg";
 import { useGetFunds } from "@/modules/sdk/hooks";
 import { useWallet } from "@/lib/wallet";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import useConstructProxyMsg from "@/modules/sdk/hooks/useConstructProxyMsg";
 import { FormControl, FormLabel, HStack, IconButton, Input, Switch, Tooltip, useToast } from "@chakra-ui/react";
 import { cloneDeep } from "@apollo/client/utilities";
 import { parseJsonFromFile } from "@/lib/json";
 import { parseFlexFile } from "@/lib/schema/utils/flexFile";
 import { DownloadIcon } from "@chakra-ui/icons";
+import { FlexBuilderFormProps } from "@/modules/flex-builder/components/FlexBuilderForm";
+import { EXECUTE_CLI_QUERY } from "@/lib/andrjs";
 
 type Props = {
   executeTemplate: ITemplate
@@ -98,25 +100,34 @@ const TemplatePage: NextPage<Props> = ({ executeTemplate, proxyTemplate }) => {
     }
   };
 
-
-  const handleSubmit = async (
-    {
-      formData,
-    }: {
-      formData: any;
-    }
-  ) => {
-    const funds = getFunds(formData);
+  const getMsg = (formData: any) => {
     if (toggleProxy) {
-      const msg = constructProxyMsg(formData);
-      // console.log(msg, "MSG")
+      return constructProxyMsg(formData);
+    }
+    return constructExecuteMsg(formData);
+  }
+
+  const handleSubmit: FlexBuilderFormProps['onSubmit'] = async ({ formData }) => {
+    const funds = getFunds(formData);
+    const msg = getMsg(formData);
+    if (toggleProxy) {
       openProxyModal(msg, funds);
     } else {
-      const msg = constructExecuteMsg(formData);
-      // console.log(msg, "MSG")
       openExecuteModal(msg, funds);
     }
   };
+
+  const handleCliCopy: FlexBuilderFormProps['onCliCopy'] = (formData) => {
+    const funds = getFunds(formData);
+    const msg = getMsg(formData);
+    const query = EXECUTE_CLI_QUERY({
+      funds,
+      msg,
+      address: toggleProxy ? ADO_DATA.appAddress : ADO_DATA.address
+    })
+    console.log(query, "QUERY")
+    return query
+  }
 
   const InputElement = useMemo(
     () => (
@@ -180,6 +191,7 @@ const TemplatePage: NextPage<Props> = ({ executeTemplate, proxyTemplate }) => {
           onSubmit={handleSubmit}
           notReady={!account}
           addButtonTitle="Add Attachment"
+          onCliCopy={handleCliCopy}
         />
       </Box>
     </Layout>

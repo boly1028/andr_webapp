@@ -10,3 +10,4 @@ export { default as useSimulateExecute } from "./useSimulateExecute";
 export { default as useSimulateInstantiate } from "./useSimulateInstantiate";
 export { default as useGetBalance } from "./useGetBalance";
 export { useGetLatestNPMVersion } from "./useGetlatestNPMVersion";
+export * from "./useCopyToCli"

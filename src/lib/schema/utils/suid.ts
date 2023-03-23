@@ -1,3 +1,5 @@
+import { ITemplateSchema } from "../templates/types";
+
 const BASE = 16;
 const MAX_BASE_VALUE = 'FFFFFF'
 /** 
@@ -15,4 +17,15 @@ export const suid = () => numToBase(Math.random() * MAX_DEC_FROM_HEX)
 
 /**Instead of hitting random again, just getting the next number is easier because of scattered nature */
 export const nextSuid = (prev: string) => numToBase((parseInt(prev, BASE) + 1) % (MAX_DEC_FROM_HEX + 1))
+
+export const humanReadableUuid = (prefix: string, ref: string, properties: ITemplateSchema['properties']) => {
+    let minLength = Object.entries(properties).filter(([key, val]) => val.$ref === ref).length + 1;
+    const getName = (num: number) => `${prefix}-${num}`
+    let id = getName(minLength)
+    while (id in properties) {
+        minLength = minLength + 1;
+        id = getName(minLength);
+    }
+    return id;
+}
 
