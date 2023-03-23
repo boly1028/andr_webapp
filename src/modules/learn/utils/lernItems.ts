@@ -69,10 +69,28 @@ export const LEARN_PAGE_ITEMS: ILearnPageItem[] = [
                 icon: CliIcon
             },
             {
-                title: 'Use Case Guides',
+                title: 'Use Case Guide-1',
                 description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus venenati.',
                 icon: PlusIcon,
-                link:SITE_LINKS.learnItem('/andromeda/ado-guide')
+                link:SITE_LINKS.learnItem('/andromeda/auction-marketplace-guide-1')
+            },
+            {
+                title: 'Use Case Guide-2',
+                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus venenati.',
+                icon: PlusIcon,
+                link:SITE_LINKS.learnItem('/andromeda/auction-marketplace-guide-2')
+            },
+            {
+                title: 'Use Case Guide-3',
+                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus venenati.',
+                icon: PlusIcon,
+                link:SITE_LINKS.learnItem('/andromeda/auction-marketplace-guide-3')
+            },
+            {
+                title: 'Use Case Guide-4',
+                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus venenati.',
+                icon: PlusIcon,
+                link:SITE_LINKS.learnItem('/andromeda/auction-marketplace-guide-4')
             }
         ]
     }

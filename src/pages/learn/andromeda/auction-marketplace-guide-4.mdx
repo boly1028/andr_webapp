@@ -1,0 +1,22 @@
+import BlogLayout from "@/modules/learn/components/BlogLayout"
+export const meta = {
+    title: 'Guide 4: Utilizing Andromeda Modules to Further Extend your App',
+    description:'',
+    author: 'Vivek Kumar Jaiswal',
+    tags:[]
+}
+
+# Setup
+
+* In this example, you will extend the App one step further by utilizing the Andromeda Modules to add rates to the auctions.
+* Before you start building, you will need to define your App. For this App, assume the following (stipulations written on the page)
+* Next, let us briefly discuss the concept of modules. Modules are components that can be added as an extension to other ADOs. Our most popular modules are aRates Module and Address-List Module
+* For this example, you will be adding the rates module to the auction component to add taxes on our auction sales.
+* Open a new blank canvas and get started. Add a CW721 component and fill its panel. Then add an auction component.
+* Then, select **Add Item** under the “Selected Modules” field in the auction component and fill in the following fields: Identifier, Module Type, Is Module Able to be Modified.
+* Next add the rates component/module to your build. Note: there are two types of rates, Taxes or Royalties. A tax is a value added tax and a royalty is a reduction in what was paid in tokens.
+* Then specify the recipients of this rate.
+* Next, specify the recipients for the funds. To add a recipient, select "Add item" under the recipients section in the panel and set the percentage.
+* Congratulations! All the components are set up, you can now publish the App to the chain and view it in your assets page.
+
+export default ({children})=><BlogLayout meta={meta}>{children}</BlogLayout>
