@@ -29,7 +29,7 @@ export const EXECUTE_CLI_QUERY: ICliQueryGenerator = ({ msg, address, funds }) =
         query.push(fundsQuery)
     }
     query.push('--print')
-    query.push('--simulate')
+    // query.push('--simulate') //pulled as simulation has been integrated as a pre-prompt for broadcasted messages in CLI
     return query.join(' ');
 }
 
@@ -43,6 +43,6 @@ export const INSTANTIATE_CLI_QUERY: ICliQueryGenerator = ({ msg, codeId, funds }
         query.push(fundsQuery)
     }
     query.push('--print')
-    query.push('--simulate')
+    // query.push('--simulate') //pulled as simulation has been integrated as a pre-prompt for broadcasted messages in CLI
     return query.join(' ');
 }
