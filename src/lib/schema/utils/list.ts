@@ -25,3 +25,5 @@ export const RECEIVES = receive;
 export const QUERIES = query;
 export const QUERY_RESPONSES = response
 export const SYSTEM_ADOS = system
+
+export type IAdoList = typeof BASE_ADOS

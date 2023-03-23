@@ -32,7 +32,7 @@ const AppBuilderEditor: FC<AppBuilderEditorProps> = (props) => {
                     <Box w='full' borderBottom='1px' borderColor="newSystem.border.main" >
                         <TopBar />
                     </Box>
-                    <Flex direction='row' w='full' flex='1'>
+                    <Flex direction='row' w='full' flex='1' alignItems='stretch' overflow='hidden'>
                         <Box h='full' borderRight='1px' bg='newSystem.background.800' borderColor="newSystem.border.main" >
                             <LeftSidebar />
                         </Box>

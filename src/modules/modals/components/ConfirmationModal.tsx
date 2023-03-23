@@ -1,4 +1,5 @@
-import { Box, Button, Center, Text } from "@chakra-ui/react";
+import { COLORS } from "@/theme/new-system-tmp/colors";
+import { Box, Button, Center, HStack, Icon, Text } from "@chakra-ui/react";
 import { AlertCircle } from "lucide-react";
 import { FC, memo, useCallback, useMemo } from "react";
 import { useGlobalModalContext } from "../hooks";
@@ -22,71 +23,46 @@ const ConfirmationModal: FC<ConfirmationModalProps> = memo(
     const color = useMemo(() => {
       switch (type) {
         case "danger":
-          return "#db3315";
+          return COLORS.dangerLow;
         case "warning":
         default:
-          return "#f79100";
+          return COLORS.warningLow;
       }
     }, [type]);
 
     return (
-      <Box
-        sx={{
-          width: "100%",
-          height: "100%",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          flexDirection: "column",
-          padding: "20px",
-          fontSize: "14px",
-        }}
-      >
-        <Center
-          sx={{
-            width: "80px",
-            height: "80px",
-            padding: "23px",
-            background: type === "warning" ? "#fdf0c4" : "#fee3e1",
-            borderRadius: "50%",
-            color,
-          }}
-        >
-          <AlertCircle style={{ width: "32px", height: "32px" }} />
+      <Box>
+        <Center p='4' bg={color.idle} rounded='lg' maxW='min-content' mx='auto'>
+          <Icon as={AlertCircle} boxSize='8' type='fill' />
         </Center>
 
         {title && (
-          <Text mt="40px" sx={{ textAlign: "center", fontWeight: "bold" }}>
+          <Text mt="8" textAlign='center' fontWeight='bold'>
             {title}
           </Text>
         )}
         {body && (
-          <Text mt="10px" sx={{ fontWeight: 400 }}>
+          <Text mt="8" textAlign='center'>
             {body}
           </Text>
         )}
-        <Center mt="40px">
+        <HStack mt="8" fontSize='md' justifyContent='center'>
           <Button
             variant="outline"
-            sx={{ fontSize: "16px", padding: "10px 32px" }}
             onClick={close}
+            size='lg'
           >
             Close
           </Button>
           <Button
             variant="solid"
-            sx={{
-              fontSize: "16px",
-              padding: "10px 16px",
-              "&:hover": { bg: color },
-              bg: color,
-            }}
             onClick={onCallback}
-            ml="10px"
+            size='lg'
+            colorScheme='primary'
           >
             {acceptButtonText ?? "Submit"}
           </Button>
-        </Center>
+        </HStack>
       </Box>
     );
   },

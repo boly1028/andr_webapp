@@ -37,6 +37,10 @@ const AppBuilderProvider: FC<AppBuilderProviderProps> = (props) => {
         setNodeUpdater(prev => prev + (Math.random() - 0.5))
     }, [addNodes, setNodeUpdater])
 
+    const reset: AppBuilderContext['reset'] = useCallback(() => {
+        setNodes([])
+    }, [setNodes])
+
 
     const deleteNode: AppBuilderContext['deleteNode'] = useCallback((name) => {
         deleteElements({ nodes: [{ id: name }] })
@@ -88,9 +92,10 @@ const AppBuilderProvider: FC<AppBuilderProviderProps> = (props) => {
             formRefs,
             editorRef,
             renameNode,
-            nodeUpdater
+            nodeUpdater,
+            reset
         }
-    }, [nodes, edges, onNodesChange, addNode, deleteNode, formRefs, editorRef, onEdgesChange, renameNode, nodeUpdater])
+    }, [nodes, edges, onNodesChange, addNode, deleteNode, formRefs, editorRef, onEdgesChange, renameNode, nodeUpdater, reset])
 
     return (
         <context.Provider value={value}>
@@ -110,6 +115,7 @@ export interface AppBuilderContext {
     editorRef: React.MutableRefObject<IEditorRef>;
     renameNode: (nodeId: string, newNodeId: string) => void;
     nodeUpdater: number;
+    reset: () => void;
 }
 
 export interface INodeData {
@@ -132,6 +138,7 @@ const defaultValue: AppBuilderContext = {
     formRefs: createRef<IFormRefs>() as any,
     editorRef: createRef<IEditorRef>() as any,
     renameNode: () => { throw new Error("OUTSIDE COONTEXT") },
+    reset: () => { throw new Error("OUTSIDE COONTEXT") },
     nodeUpdater: 0,
 }
 const context = createContext(defaultValue);

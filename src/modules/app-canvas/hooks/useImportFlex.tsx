@@ -6,10 +6,11 @@ import { useCallback } from "react"
 import { XYPosition } from "reactflow"
 import { useAppBuilder } from "../canvas/Provider"
 
-export const useImportFlex = () => {
-    const { addNode } = useAppBuilder()
+export const useImportFlex = (overide = true) => {
+    const { addNode, reset } = useAppBuilder()
 
     const importFlexFile = useCallback(async (template: ITemplate) => {
+        if (overide) reset();
         template.ados = template.ados.filter(ado => ado.id !== IImportantAdoKeys.PUBLISH_SETTINGS);
         const GAP = 50;
         let x: number = -template.ados.length * GAP / 2;
@@ -23,7 +24,7 @@ export const useImportFlex = () => {
             x = x + GAP;
             addNode(adoSchema, ado.id, { position: pos })
         }
-    }, [addNode])
+    }, [addNode, overide])
 
     const importFlexUrl = useCallback(async (url: string) => {
         const template = await parseFlexUrl(url)

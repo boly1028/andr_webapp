@@ -1,23 +1,20 @@
 import React, { FC } from 'react'
+import AdoList from '../leftSidebar/AdoList'
 import InsertComponent from '../leftSidebar/InsertComponent'
-import { IUIComponents } from '../types'
+import TemplateList from '../leftSidebar/TemplateList'
+import { IUIComponentProps, IUIComponents } from '../types'
 
-interface RenderUiComponentProps {
-    component: IUIComponents;
-}
-const RenderUiComponent: FC<RenderUiComponentProps> = (props) => {
-    const { component } = props
 
-    if (component === IUIComponents.INSERT) {
-        return (
-            <InsertComponent />
-        )
+const RenderUiComponent: FC<IUIComponentProps> = (props) => {
+    if (props.type === IUIComponents.INSERT) {
+        return <InsertComponent {...props} />
     }
-
-    if(component === IUIComponents.ADO_LIST){
-
+    if (props.type === IUIComponents.ADO_LIST) {
+        return <AdoList {...props} />
     }
-
+    if (props.type === IUIComponents.TEMPLATE_LIST) {
+        return <TemplateList {...props} />
+    }
     return null
 }
 export default RenderUiComponent
