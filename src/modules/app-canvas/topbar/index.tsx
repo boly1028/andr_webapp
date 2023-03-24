@@ -13,7 +13,7 @@ const TopBar: FC<TopBarProps> = (props) => {
     const { } = props
 
     return (
-        <Flex direction='row' px='2' py='1'>
+        <Flex direction='row' px='2' py='1.5'>
             <HStack flex={1}>
                 <AppNameButton />
                 <ImportFlexButton />
@@ -21,7 +21,7 @@ const TopBar: FC<TopBarProps> = (props) => {
             <HStack>
                 <DownloadFlexButton />
                 <PublishButton />
-                <Wallet />
+                <Wallet size='sm' />
             </HStack>
         </Flex>
     )

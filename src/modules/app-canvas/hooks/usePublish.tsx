@@ -8,7 +8,7 @@ import { useAppBuilder } from "../canvas/Provider";
 import { useAppFormData } from "./useAppFormData";
 
 export const usePublish = () => {
-    const { formRefs } = useAppBuilder()
+    const { formRefs, editorRef } = useAppBuilder()
     const getFormData = useAppFormData()
 
     const toast = useToast()
@@ -28,7 +28,8 @@ export const usePublish = () => {
                 ados[adoKey].validate();
             })
             const formData = getFormData()
-            const msg = construct(formData, "Test Name for app from builder");
+            const name = editorRef.current.getAppName?.() ?? 'Untitled App'
+            const msg = construct(formData, name);
             openModal(msg);
         } catch (err) {
             toast({
@@ -36,7 +37,7 @@ export const usePublish = () => {
                 status: 'error'
             })
         }
-    }, [codeId, toast, construct, openModal, formRefs, getFormData])
+    }, [codeId, toast, construct, openModal, formRefs, getFormData, editorRef])
 
     return handlePublish
 }

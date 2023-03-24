@@ -5,6 +5,7 @@ import { IFieldRef } from "../templates/FieldTemplate"
 import { debounce } from 'lodash'
 import { useId } from "@chakra-ui/react"
 import { DIRECTION, getPanelTargetHandlePrefix, getSourceHandlePrefix } from "./utils"
+import { useGetClassColor } from "@/theme/icons/classifiers"
 
 export const useIsIdentifier = (nodeId: string, fieldId: string, formData: any, ref: MutableRefObject<IFieldRef>) => {
     const edgeId = useId()
@@ -18,6 +19,12 @@ export const useIsIdentifier = (nodeId: string, fieldId: string, formData: any, 
     const identifierValue: string = useMemo(() => {
         return formData || ''
     }, [formData])
+
+    const sourceNode = useMemo(() => {
+        return getNode(nodeId);
+    }, [nodeId, getNode])
+
+    const connectorColor = useGetClassColor({ _class: 'module' })
 
     const handleConnect: OnConnect = useCallback((connection) => {
         const targetNode = getNode(connection.target ?? '');
@@ -40,10 +47,13 @@ export const useIsIdentifier = (nodeId: string, fieldId: string, formData: any, 
                 data: {
                     fieldRef: ref,
                     isIdentifier: true
+                },
+                style: {
+                    stroke: connectorColor
                 }
             })
         }
-    }, [edgeId, ref, addEdges, getNode, nodeId, getEdge])
+    }, [edgeId, ref, addEdges, getNode, nodeId, getEdge, connectorColor])
 
 
     const debouncedUpdate = useCallback(debounce((identifier: string) => {

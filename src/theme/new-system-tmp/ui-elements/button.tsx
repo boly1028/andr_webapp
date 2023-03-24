@@ -10,7 +10,7 @@ const Component: typeof Button = (props) => {
             bg='newSystem.backgroundState.idle'
             _hover={{ bg: 'newSystem.backgroundState.hover' }}
             _active={{ bg: 'newSystem.backgroundState.active' }}
-            fontSize='md'
+            size='sm'
             {...props}
         />
     );

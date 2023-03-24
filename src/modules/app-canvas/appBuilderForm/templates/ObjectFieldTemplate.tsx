@@ -1,16 +1,14 @@
 // Panel container for Flex-Builder: Handles panel name change assosciations
 
 import { parseJsonFromFile } from "@/lib/json";
-import { IAndromedaFormData, IAndromedaSchema } from "@/lib/schema/types";
+import { IAdoType, IAndromedaFormData, IAndromedaSchema } from "@/lib/schema/types";
 import { CopyButton, FileCheckIcon } from "@/modules/common";
 import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
-import ClassifierIcon from "@/theme/icons/classifiers";
+import ClassifierIcon, { useGetClassColor } from "@/theme/icons/classifiers";
 import { Box, Flex, HStack, IconButton, Text } from "@/theme/ui-elements";
 import { downloadBlob } from "@/utils/file";
 import { DownloadIcon, EditIcon, ExternalLinkIcon, InfoIcon } from "@chakra-ui/icons";
 import {
-  Button,
-  Divider,
   Grid,
   GridItem,
   Icon,
@@ -19,7 +17,6 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
-  Switch,
   Tooltip,
 } from "@chakra-ui/react";
 
@@ -30,17 +27,16 @@ import {
   getTemplate,
 } from "@andromedarjsf/utils";
 import {
-  Copy as Duplicate,
-  Edit3 as Rename,
   MoreVertical,
   Trash2 as DeleteIcon,
 } from "lucide-react";
 import { useMemo } from "react";
 import { useAppBuilder } from "../../canvas/Provider";
 import { useFieldTemplate } from "./FieldTemplate";
-import { Handle, Position, useReactFlow } from "reactflow";
+import { Position } from "reactflow";
 import { DIRECTION, getPanelTargetHandlePrefix } from "../connections/utils";
 import usePanelRenameModal from "@/modules/modals/hooks/usePanelRenameModal";
+import Handle from "../ReactFlow/Handle";
 
 const NON_EDITABLE_CLASS = new Set<string>(["system", "modifier"]);
 
@@ -103,12 +99,14 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
       ?.split("-")
       .map((t) => t.toLocaleLowerCase())
       .join("");
-    const baseAdo = schema.$path?.split("/")[0];
+    const baseAdo = schema.$path?.split("/")[0] as IAdoType;
     return {
       type,
       baseAdo,
     };
   }, [schema]);
+
+  const adoBorderColor = useGetClassColor({ adoType: adoType.baseAdo }, 'default')
 
   const downloadJson = () => {
     const blob = new Blob([JSON.stringify(formData)], {
@@ -139,20 +137,22 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
        */
       // < allowToggle defaultIndex={defaultIndex}>
       <Box
-        bg="dark.50"
+        bg="newSystem.background.900"
+        borderRadius="lg"
       >
         <Box
           _hover={{
-            bg: '#ffffff05',
+            bg: '#ffffff04',
           }}
           py={4}
           border="1px solid"
-          borderColor="dark.300"
+          borderColor={adoBorderColor}
           borderRadius="lg"
           w='30rem'
+          bg="newSystem.background.800"
         >
-          <Handle id={upHandle} type='target' position={Position.Top} style={{ backgroundColor: 'yellow', border: '0px' }} />
-          <Handle id={downHandle} type='target' position={Position.Bottom} style={{ backgroundColor: 'yellow', border: '0px' }} />
+          <Handle id={upHandle} type='target' position={Position.Top} adoType={adoType.baseAdo} />
+          <Handle id={downHandle} type='target' position={Position.Bottom} adoType={adoType.baseAdo} />
           <Flex px='4'>
             <HStack spacing={5} w="full">
               <ClassifierIcon

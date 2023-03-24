@@ -1,8 +1,7 @@
 import { getSchemaFromPath, nextSuid, suid } from "@/lib/schema/utils";
 import { IAdoList } from "@/lib/schema/utils/list";
-import ClassifierIcon from "@/theme/icons/classifiers";
-import { TmpButton } from "@/theme/new-system-tmp/ui-elements";
-import { Box, Divider, HStack, Icon, IconButton, Text, VStack } from "@chakra-ui/react";
+import ClassifierIcon, { useGetClassColor } from "@/theme/icons/classifiers";
+import { AspectRatio, Box, Divider, GridItem, HStack, Icon, IconButton, SimpleGrid, Text, VStack } from "@chakra-ui/react";
 import { ChevronLeft } from "lucide-react";
 import React, { FC, useCallback } from "react";
 import { useAppBuilder } from "../canvas/Provider";
@@ -22,21 +21,24 @@ const AdoList: FC<AdoListProps> = (props) => {
             <HStack>
                 <IconButton
                     aria-label="back-button"
-                    icon={<Icon as={ChevronLeft} boxSize='6' />}
+                    icon={<Icon as={ChevronLeft} boxSize='5' />}
                     onClick={() => {
                         editorRef.current.setLeftSidebarComponent?.({ type: IUIComponents.INSERT })
                     }}
                     variant='ghost'
+                    size='sm'
                 />
-                <Text fontSize='xl' fontWeight='medium'>{name}</Text>
+                <Text fontSize='md' fontWeight='medium'>{name}</Text>
             </HStack>
-            <VStack w='full' position='relative' spacing='2' divider={<Divider />} mt='4'>
+            <SimpleGrid w='full' position='relative' spacing='2' columns={2} mt='4'>
                 {list.map((ado) => {
                     return (
-                        <AdoListItem key={ado.source} ado={ado} />
+                        <GridItem key={ado.source}>
+                            <AdoListItem ado={ado} />
+                        </GridItem>
                     );
                 })}
-            </VStack>
+            </SimpleGrid>
         </Box>
     );
 };
@@ -60,26 +62,23 @@ export const AdoListItem: FC<AdoListItemProps> = (props) => {
         addNode(ado, name)
     }, [nodes, addNode])
 
+    const color = useGetClassColor({ adoType: ado.$id as any }, 'low')
+
     return (
-        <Box
-            _hover={{
-                bg: 'newSystem.backgroundState.hover'
-            }}
-            cursor='pointer' p='3' rounded='lg'
-            onClick={() => handleAdd(ado.source)}
-        >
-            <VStack alignItems='stretch' fontSize='md' w='full'>
-                <HStack gap='2'>
-                    <ClassifierIcon w='7' h='7' width='5' height='5' adoType={ado.$id} />
-                    <Text fontWeight='medium' textTransform='uppercase'>
+        <AspectRatio ratio={1}>
+            <Box
+                cursor='pointer' rounded='lg'
+                bg={color}
+                onClick={() => handleAdd(ado.source)}
+            >
+                <VStack fontSize='md' w='full' spacing={2.5}>
+                    <ClassifierIcon w='7' h='7' width='4' height='4' adoType={ado.$id} />
+                    <Text fontSize='sm' fontWeight='medium'>
                         {ado.title}
                     </Text>
-                </HStack>
-                <Text fontSize='sm' textOverflow='ellipsis' w='full' overflow='hidden'>
-                    Enable and integrate a marketplace in your your app or site.
-                </Text>
-            </VStack>
-        </Box>
+                </VStack>
+            </Box>
+        </AspectRatio>
     );
 };
 

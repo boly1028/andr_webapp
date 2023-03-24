@@ -1,6 +1,7 @@
 import { IAndromedaSchemaJSON, IAndromedaUISchema } from '@/lib/schema/types'
 import Form from '@/modules/flex-builder/components/FlexBuilderForm/Form';
 import { cloneDeep } from '@apollo/client/utilities';
+import { Box } from '@chakra-ui/react';
 import React, { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { NodeProps } from 'reactflow';
 import { useAppBuilder } from '../canvas/Provider';
@@ -41,23 +42,25 @@ const AppBuilderForm: FC<AppBuilderFormProps> = (props) => {
     }, [validate, formRefs, formData])
 
     return (
-        <Form
-            templates={templates}
-            widgets={widgets}
-            schema={schema}
-            uiSchema={uiSchema}
-            formData={formData}
-            onChange={({ formData: _formData }) => {
-                setFormData(_formData);
-            }}
-            formContext={{
-                name: name
-            }}
-            ref={ref}
-        >
-            <>
-            </>
-        </Form>
+        <Box>
+            <Form
+                templates={templates}
+                widgets={widgets}
+                schema={schema}
+                uiSchema={uiSchema}
+                formData={formData}
+                onChange={({ formData: _formData }) => {
+                    setFormData(_formData);
+                }}
+                formContext={{
+                    name: name
+                }}
+                ref={ref}
+            >
+                <>
+                </>
+            </Form>
+        </Box>
     )
 }
 export default React.memo(AppBuilderForm)

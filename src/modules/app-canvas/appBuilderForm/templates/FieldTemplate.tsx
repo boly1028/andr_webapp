@@ -1,29 +1,24 @@
-import React, { createRef, useCallback, useContext, useEffect, useLayoutEffect, useMemo, useRef } from "react";
+import React, { createRef, useContext, useEffect, useMemo, useRef } from "react";
 import {
   FieldTemplateProps,
   getTemplate,
   getUiOptions,
-  getSchemaType
 } from "@andromedarjsf/utils";
 
 import {
-  Text,
   FormControl,
-  FormLabel,
   Box,
   Alert,
   AlertIcon,
-  AlertTitle,
   AlertDescription,
-  useId,
   Divider,
 } from "@chakra-ui/react";
-import { JSONSchema7 } from "json-schema";
-import { Handle, OnConnect, Position, useUpdateNodeInternals } from "reactflow";
-import { AppBuilderContext, useAppBuilder, useReactFlow } from "../../canvas/Provider";
+import { Position, useUpdateNodeInternals } from "reactflow";
+import { useReactFlow } from "../../canvas/Provider";
 import { useIsIdentifier } from "../connections/identifier";
 import { DIRECTION, getSourceHandlePrefix } from "../connections/utils";
 import { useIsModule } from "../connections/module";
+import Handle from "../ReactFlow/Handle";
 
 const FieldTemplate = (props: FieldTemplateProps) => {
   const {
@@ -134,8 +129,8 @@ const FieldTemplate = (props: FieldTemplateProps) => {
           {hasWrapper && <Divider mb='2' mx='auto' w='95%' />}
           {isIdentifier && (
             <>
-              <Handle onConnect={handleConnect} id={leftHandle} type='source' position={Position.Left} style={{ backgroundColor: 'teal', border: '0px', left: '-5px', padding: '4px' }} />
-              <Handle onConnect={handleConnect} id={rightHandle} type='source' position={Position.Right} style={{ backgroundColor: 'teal', border: '0px', right: '-5px', padding: '4px' }} />
+              <Handle adoType="" onConnect={handleConnect} id={leftHandle} type='source' position={Position.Left} style={{ left: '-5px' }} />
+              <Handle adoType="" onConnect={handleConnect} id={rightHandle} type='source' position={Position.Right} style={{ right: '-5px' }} />
             </>
           )}
           <FormControl

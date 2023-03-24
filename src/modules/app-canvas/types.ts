@@ -20,7 +20,9 @@ export interface IEditorRef {
             srcConnDir: DIRECTION;
             trgConnDir: DIRECTION;
         }
-    }
+    },
+    setAppName?: (name: string) => void;
+    getAppName?: () => string;
 }
 
 export enum IUIComponents {

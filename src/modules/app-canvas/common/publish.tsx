@@ -1,3 +1,4 @@
+import { TmpButton } from '@/theme/new-system-tmp/ui-elements'
 import { Button, ButtonProps } from '@chakra-ui/react'
 import React, { FC } from 'react'
 import { usePublish } from '../hooks/usePublish'
@@ -9,7 +10,7 @@ const PublishButton: FC<PublishButtonProps> = (props) => {
     const { } = props
     const publish = usePublish()
     return (
-        <Button fontSize='md' colorScheme='primary' {...props} onClick={publish}>
+        <Button as={TmpButton} size='sm' colorScheme='primary' {...props} onClick={publish}>
             Publish
         </Button>
     )

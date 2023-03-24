@@ -1,14 +1,13 @@
 import APP_TEMPLATES from '@/lib/schema/templates'
 import { ITemplate } from '@/lib/schema/types'
-import { getSchemaFromPath, nextSuid, suid } from '@/lib/schema/utils'
 import { BASE_ADOS, IAdoList, MODIFIERS, MODULES } from '@/lib/schema/utils/list'
+import { ListIcon, SearchBar } from '@/modules/common'
 import { FilePlusIcon } from '@/theme/icons'
 import ClassifierIcon from '@/theme/icons/classifiers'
 import { TmpButton } from '@/theme/new-system-tmp/ui-elements'
 import { ChevronRightIcon, SearchIcon } from '@chakra-ui/icons'
-import { Box, Button, Divider, HStack, Icon, Input, InputGroup, InputLeftElement, Menu, MenuButton, MenuItem, MenuList, Text, VStack } from '@chakra-ui/react'
-import React, { FC, useCallback } from 'react'
-import { ReactNode } from 'react-markdown/lib/react-markdown'
+import { Divider, Icon, Text, VStack } from '@chakra-ui/react'
+import React, { FC } from 'react'
 import { useAppBuilder } from '../canvas/Provider'
 import { IUIComponents } from '../types'
 
@@ -19,25 +18,18 @@ const InsertComponent: FC<InsertComponentProps> = (props) => {
     const { } = props
 
     return (
-        <VStack alignItems='stretch' gap='2' textColor='newSystem.content.medium'>
-            <InputGroup size='lg' rounded='xl' bg='newSystem.backgroundState.idle'>
-                <InputLeftElement
-                    pointerEvents='none'
-                >
-                    <SearchIcon color="newSystem.content.medium" />
-                </InputLeftElement>
-                <Input rounded='xl' placeholder='Search' />
-            </InputGroup>
+        <VStack alignItems='stretch' gap='1' textColor='newSystem.content.medium' fontSize='xs'>
+            <SearchBar />
             <Divider />
             <Text>App Components</Text>
             <VStack alignItems='stretch'>
-                <ADOButton list={BASE_ADOS} name='ADOs' leftIcon={<ClassifierIcon adoType='app' boxSize='5' />} />
-                <ADOButton list={MODULES} name='Modules' leftIcon={<ClassifierIcon adoType='address-list' schemaClass='module' boxSize='5' />} />
+                <ADOButton list={BASE_ADOS} name='ADOs' leftIcon={<ClassifierIcon adoType='app' boxSize='4' w='7' h='7' />} />
+                <ADOButton list={MODULES} name='Modules' leftIcon={<ClassifierIcon adoType='address-list' schemaClass='module' boxSize='4' w='7' h='7' />} />
             </VStack>
             <Divider />
             <Text>Templates</Text>
             <VStack alignItems='stretch'>
-                <TemplateButton list={APP_TEMPLATES} name='Templates' leftIcon={<Icon as={FilePlusIcon} boxSize='5' />} />
+                <TemplateButton list={APP_TEMPLATES} name='Templates' leftIcon={<Icon as={ListIcon} bg='newSystem.backgroundState.idle' p='2' rounded='lg' boxSize='8' />} />
             </VStack>
         </VStack>
     )
@@ -67,7 +59,9 @@ const ADOButton: FC<ADOButtonProps> = (props) => {
             rightIcon={<Icon as={ChevronRightIcon} boxSize='5' ml='auto' />}
             bg='transparent'
             textAlign='left'
-            size='lg'
+            // size='lg'
+            h='10'
+            pl='1.5'
         >
             <Text flex={1}>
                 {name}
@@ -79,7 +73,7 @@ const ADOButton: FC<ADOButtonProps> = (props) => {
 interface TemplateButtonProps {
     name: string;
     list: ITemplate[];
-    leftIcon: React.ReactElement
+    leftIcon: React.ReactElement;
 }
 
 const TemplateButton: FC<TemplateButtonProps> = (props) => {
@@ -99,7 +93,9 @@ const TemplateButton: FC<TemplateButtonProps> = (props) => {
             rightIcon={<Icon as={ChevronRightIcon} boxSize='5' ml='auto' />}
             bg='transparent'
             textAlign='left'
-            size='lg'
+            // size='lg'
+            h='10'
+            pl='1.5'
         >
             <Text flex={1}>
                 {name}

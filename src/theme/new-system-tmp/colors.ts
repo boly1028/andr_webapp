@@ -59,10 +59,10 @@ export const COLORS = {
         "900": "#72481f"
     },
     "category": {
-        "baseAdo": "#007a85",
+        "baseado": "#007a85",
         "app": "#287d4b",
         "module": "#685ba7",
-        "publishedAdo": "#3400A1",
+        "publishedado": "#3400A1",
         "primitive": "#933046",
         "modifier": "#ab582c",
         "oracles": "#717b01",
@@ -123,10 +123,10 @@ export const COLORS = {
         "platform": "#ff304e"
     },
     "categoryLow": {
-        "baseAdo": "#007a851f",
+        "baseado": "#007a851f",
         "app": "#287d4b1f",
         "module": "#685ba71f",
-        "publishedAdo": "#3400a11f",
+        "publishedado": "#3400a11f",
         "primitive": "#9330461f",
         "modifier": "#ab582c1f",
         "oracles": "#717b011f",
