@@ -12,9 +12,6 @@ const AppNameButton: FC<AppNameButtonProps> = (props) => {
     const { } = props
     const { editorRef } = useAppBuilder()
     const [appName, setAppName] = useState('Untitled App')
-    useEffect(() => {
-
-    }, [appName])
 
     const updateName: IEditorRef['setAppName'] = useCallback((name) => {
         setAppName(name)

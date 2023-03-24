@@ -11,7 +11,10 @@ export const usePublish = () => {
     const { formRefs, editorRef } = useAppBuilder()
     const getFormData = useAppFormData()
 
-    const toast = useToast()
+    const toast = useToast({
+        position: 'top-right',
+        variant: 'solid'
+    })
     const codeId = useCodeId("app");
     const construct = useConstructAppMsg();
     const openModal = useInstantiateModal(codeId);
@@ -25,15 +28,18 @@ export const usePublish = () => {
             const ados = formRefs.current ?? {};
             Object.keys(ados).forEach(adoKey => {
                 console.log(adoKey);
+                console.log(ados[adoKey].formData)
                 ados[adoKey].validate();
             })
             const formData = getFormData()
             const name = editorRef.current.getAppName?.() ?? 'Untitled App'
             const msg = construct(formData, name);
             openModal(msg);
-        } catch (err) {
+        } catch (err: any) {
+            console.log(err)
             toast({
                 title: `Error while validating`,
+                description: err.message,
                 status: 'error'
             })
         }
