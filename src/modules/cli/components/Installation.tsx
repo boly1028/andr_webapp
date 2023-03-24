@@ -15,7 +15,7 @@ const Installation: FC<InstallationProps> = (props) => {
             <Text fontSize='2xl' fontWeight='semibold' color='white' >Installation</Text>
             <VStack alignItems='stretch' gap='4'>
                 <Text mt='4'>
-                    The CLI can be downloaded using our <Link href="https://www.npmjs.com/package/@andromedaprotocol/andromeda.js" target='_blank' color='blue.500'>npm package</Link> or by running the following command in your terminal:
+                    The CLI can be downloaded using our <Link href="https://www.npmjs.com/package/@andromedaprotocol/cli" target='_blank' color='blue.500'>npm package</Link> or by running the following command in your terminal:
                 </Text>
                 <Box>
                     <Code rounded='xl' bg='dark.50' px='8' py='6' lang='bash'>
@@ -23,8 +23,8 @@ const Installation: FC<InstallationProps> = (props) => {
                             <Text>npm </Text>
                             <Text color='green.300'>install </Text>
                             <Text>-g </Text>
-                            <Text color='blue.300'>@andromedaprotocol/andromeda.js@latest </Text>
-                            <CopyButton variant='unstyled' cursor='pointer' fontSize='xs' text="npm install -g @andromedaprotocol/andromeda.js@latest">
+                            <Text color='blue.300'>@andromedaprotocol/cli@latest </Text>
+                            <CopyButton variant='unstyled' cursor='pointer' fontSize='xs' text="npm install -g @andromedaprotocol/cli@latest">
                                 <CopyIcon boxSize='4' />
                             </CopyButton>
                         </HStack>
