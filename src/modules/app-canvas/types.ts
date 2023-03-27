@@ -1,4 +1,4 @@
-import { IAndromedaFormData } from "@/lib/schema/types"
+import { IAndromedaFormData, IAndromedaSchemaJSON } from "@/lib/schema/types"
 import { DIRECTION } from "./appBuilderForm/connections/utils";
 import { AdoListProps } from "./leftSidebar/AdoList";
 import { InsertComponentProps } from "./leftSidebar/InsertComponent";
@@ -11,6 +11,8 @@ export interface IFormRefs {
 export interface IFormRef {
     validate: () => void;
     formData: IAndromedaFormData;
+    updateFormData: (data: IAndromedaFormData) => void;
+    andromedaSchema: IAndromedaSchemaJSON;
 }
 
 export interface IEditorRef {
