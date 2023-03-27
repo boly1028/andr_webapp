@@ -91,6 +91,12 @@ export const LEARN_PAGE_ITEMS: ILearnPageItem[] = [
                 description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus venenati.',
                 icon: PlusIcon,
                 link:SITE_LINKS.learnItem('/andromeda/auction-marketplace-guide-4')
+            },
+            {
+                title: 'Connect To Wallet',
+                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus venenati.',
+                icon: PlusIcon,
+                link:SITE_LINKS.learnItem('/andromeda/connecting-wallet-to-web-app')
             }
         ]
     }

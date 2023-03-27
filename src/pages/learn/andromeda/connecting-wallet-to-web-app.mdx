@@ -1,0 +1,73 @@
+import BlogLayout from "@/modules/learn/components/BlogLayout"
+export const meta = {
+    title: 'Connecting Wallet to Web-App',
+    description: '',
+    author: 'Vivek Kumar Jaiswal',
+    yags: []
+}
+
+Andromeda uses Keplr integration with our web-app to easily connect your wallets and start building. This document will serve as a guide to connecting your Keplr wallet to our web-app if unfamiliar with the steps. 
+
+# Step 1: Downloading Keplr Extension
+
+First step we need to do is download the Keplr extension to our browser. You can download the extension from their site:
+
+![Download Keplr Wallet](/learn/blogs/guides_imgs/wallet/1.wallet.png "Download Keplr Wallet")
+
+[*https://www.keplr.app/download*](https://www.keplr.app/download 'Click to download')
+
+Chose the approprate extension to download based on your browser: 
+
+![Download portal SS](/learn/blogs/guides_imgs/wallet/2.keplr.png "Download portal SS")
+
+`Keplr only supprts Chrome and FireFox browsers.`
+
+# Step 2: Create a Wallet 
+
+After downloading the extension, open it and you should get :
+
+![Open Keplr Extension ](/learn/blogs/guides_imgs/wallet/3.Create-Wallet.png "Open Keplr Extension ")
+
+We press “Create new account” to create a new keplr wallet. Chose a username and password for the account. Do not share the mnemonic with anyone and always save it in a safe place since it is the only way to recover your wallet.
+
+You will be quickly prompted in the next page to enter the mnemonic that you have saved. Do so and select “Register”. Once you do you, the account should be setup:
+
+![Keplr setup success](/learn/blogs/guides_imgs/wallet/4.all-done.png "Keplr setup success")
+
+`If you already have an account, you can chose to import it. You will be prompted to add the account info and then your account will be connected.`
+
+# Step 3: Connect to App
+
+Now that we have our Keplr extension up and running and have created an account, we still need to connect to the web-app. Once you go into the web-app, you will be promted the following by Keplr:
+
+![Connect Wallet to APP-1](/learn/blogs/guides_imgs/wallet/5.promt.png "Connect Wallet to APP")
+
+Click on “Approve” to add the  testnet. Now for the last step, you can see in the top right corner of the App a “Connect Wallet” button:
+
+![Connect Wallet to APP-2](/learn/blogs/guides_imgs/wallet/6.coonect_to_wallet_btn.png "Connect Wallet to APP")
+
+We press “Connect Wallet” and pick Keplr. If prompted again choose approve and you should be good to go:
+
+![Connect Wallet to APP-3](/learn/blogs/guides_imgs/wallet/7.after_connecting_to_wallet.png "Connect Wallet to APP")
+
+We have created a new Keplr wallet and connected it to the web-app. Our last step will be getting tokens for our addresses to be able to build. Each chain has a faucet where a user can request test-net tokens for their address. This faucet is usually located in the chain’s official discord server: 
+
+![FaucetPub Discord Channel](/learn/blogs/guides_imgs/wallet/8.faucet_pub_discord.png "FaucetPub Discord Channel")
+
+`The command for requesting tokens may be different depending on the faucet. Inside the channel there will be many requests from other users, so use the same format as the other requests.
+You will need to request tokens for each address you want to use.`
+
+Here is an example of requesting tokens from the Andromeda faucet:
+
+![Reqsting Token](/learn/blogs/guides_imgs/wallet/9.request_token.png "Reqsting Token")
+
+
+For our current chains supported chains:
+
+- **Andromeda:** Discord faucet
+- **Stargaze:** Discord faucet
+- **Juno:** Discord faucet
+- **Injective:** [https://testnet.faucet.injective.network](https://testnet.faucet.injective.network/)
+- **Terra:** [https://faucet.terra.money](https://faucet.terra.money/)
+
+export default ({children})=><BlogLayout meta={meta}>{children}</BlogLayout>
