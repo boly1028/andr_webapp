@@ -30,20 +30,16 @@ const Create: FC = () => {
       </MenuButton>
 
       <MenuList>
-        <MenuItem>
-          <Link href={SITE_LINKS.flexBuilderHome()} passHref>
-            <_Link fontWeight={700} color="base.white" fontSize="sm">
-              ADO
-            </_Link>
-          </Link>
-        </MenuItem>
-        <MenuItem>
-          <Link href={SITE_LINKS.appBuilder()} passHref>
-            <_Link fontWeight={700} color="base.white" fontSize="sm">
-              App
-            </_Link>
-          </Link>
-        </MenuItem>
+        <Link href={SITE_LINKS.flexBuilderHome()} passHref>
+          <MenuItem as={_Link} fontWeight='medium' fontSize='sm'>
+            ADO
+          </MenuItem>
+        </Link>
+        <Link href={SITE_LINKS.appBuilder()} passHref>
+          <MenuItem as={_Link} fontWeight='medium' fontSize='sm'>
+            App
+          </MenuItem>
+        </Link>
       </MenuList>
     </Menu>
   );

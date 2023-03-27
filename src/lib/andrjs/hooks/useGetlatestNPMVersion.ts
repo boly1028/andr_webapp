@@ -7,7 +7,7 @@ export function useGetLatestNPMVersion(
         ["@andromedajs", "version"],
         () => {
             return axios
-                .get(`https://registry.npmjs.org/@andromedaprotocol/andromeda.js`, {
+                .get(`https://registry.npmjs.org/@andromedaprotocol/cli`, {
                     headers: {
                         'Accept': 'application/vnd.npm.install-v1+json'
                     }
