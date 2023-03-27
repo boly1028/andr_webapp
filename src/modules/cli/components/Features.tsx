@@ -46,7 +46,7 @@ const FEATURES_LIST = [
     },
     {
         icon: SparklesIcon,
-        text: "Supports many Cosmos chains"
+        text: "Swapping between chains with one command"
     },
     {
         icon: Package,
@@ -54,7 +54,7 @@ const FEATURES_LIST = [
     },
     {
         icon: PackageSearch,
-        text: "Query your apps and ADOs"
+        text: "Query your ADOs"
     },
     {
         icon: FolderSearch,
