@@ -9,14 +9,38 @@ export const meta = {
 # SETUP
 
 * Open up a new blank canvas and name your App.
+
+![New Blank Canvas](/learn/blogs/guides_imgs/2/1.blank_canvas.png "New Blank Canvas")
+
 * Select “Add App Component” to add an ADO to your App. Since this is for building an NFT collection, choose the CW721 ADO. A quick sidenote, If you aren’t familiar with an ADO, you can click on the documentation link below the description which will open up the ADO's own documentation page.
 * Add the CW721 to the App.
-* Choose a suitable name for the component to start configuring the CW721 panel. An example may be “My NFT Collection”
+
+![New CW721 Component](/learn/blogs/guides_imgs/2/2.add_cw721_app_component.png "New CW721 Component")
+
+![About CW721](/learn/blogs/guides_imgs/2/3.about_cw721.png "About CW721")
+
+* Choose a suitable name for the component to start configuring the CW721 panel. An example may be “My NFT Collection” or "NFT-Component"
+
+![Edit CW721 Component Name](/learn/blogs/guides_imgs/2/5.edit_name_cw721.png "Edit CW721 Component Name")
+
+![New Blank CW721 Component](/learn/blogs/guides_imgs/2/4.cw721_blank.png "New Blank CW721 Component")
+
 * The CW721 panel has 3 required fields. The Minter Address or Identifier Address, the Token or NFT Name, and the Token or NFT Symbol.
+
+![CW721: Filled with Sample Data](/learn/blogs/guides_imgs/2/6.cw721_component_filled.png "CW721: Filled with Sample Data")
+
 * Next, export your App so it can be reimported later on or shared with other people by clicking on the “Download” symbol to the left of the publish button.
+
+![Export App](/learn/blogs/guides_imgs/2/7.download_setup.png "Export App")
+
 * Once you have saved a copy of the App, you can publish it.
 * You will then be redirected to the assets page where the App you built will appear. It may take up to 30 seconds for it to appear, so you may want to refresh the page
+
+![App in Assets Page](/learn/blogs/guides_imgs/2/8.after_publish_assets_pg.png "App in Assets Page")
+
 * Check on your components by clicking on the down arrow on the far right of the App.
+
+![Expand To See Your App](/learn/blogs/guides_imgs/2/9.expand_to_see_cw721.png "Expand To See Your App")
 
 # MINTING
 
@@ -25,11 +49,23 @@ export const meta = {
 * By default, the App component is assigned as the owner of all the other components. This means that all Contract Owner Restricted Messages of the components can only be sent by the App.
 * Next, set up the Claim Ownership message that transfers ownership of all the components to your address (Owner/creator address of the App). 
  `Note :If you do not wish to claim the components, then use the Proxy Message to execute these messages on the components through the App.`
+
+![Claim Ownership Message](/learn/blogs/guides_imgs/2/10.execute_msg_cliam_ownership.png "Claim Ownership Message")
+
 * Proxy Message is a Contract Owner Restricted Message which will take your message and send it through the App component (Giving you access to the Contract Owner Restricted messages of the components.). 
+
+![Claim Ownership Message](/learn/blogs/guides_imgs/2/11.use_proxy_option.png "Claim Ownership Message")
+
 * It is finally time to mint our collection. Select the Mint message from the list of execute messages for the CW721 component. The required fields? for minting an NFT are the following: Minted Token ID, Token Owner Address, Token Name, Original Publisher, and Token Image.
+
+![Mint your collection](/learn/blogs/guides_imgs/2/12.mint_our_collection.png "Mint your collection")
+
 * The optional fields provide extra information for the NFT.
 * Once the fields are populated, proceed to publishing.
 * If you want to mint more than 1, use the Batch Mint execute message. For each NFT you want to mint, select “Add Item”. Fill out the fields and publish to the chain.
+
+![Batch Mint](/learn/blogs/guides_imgs/2/13.batch_mint.png "Batch Mint")
+
 * Congratulations! You have set up and minted an NFT collection.
 
 export default ({children})=><BlogLayout meta={meta}>{children}</BlogLayout>
