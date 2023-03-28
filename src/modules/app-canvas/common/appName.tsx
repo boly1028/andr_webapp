@@ -24,7 +24,7 @@ const AppNameButton: FC<AppNameButtonProps> = (props) => {
 
     return (
         <TmpButton
-            leftIcon={<Icon as={AppBuilder} boxSize='5' />}
+            leftIcon={<Icon as={AppBuilder} boxSize='4' />}
         >
             <Input
                 value={appName}

@@ -23,7 +23,7 @@ const InsertComponent: FC<InsertComponentProps> = (props) => {
             <Divider />
             <Text>App Components</Text>
             <VStack alignItems='stretch'>
-                <ADOButton list={BASE_ADOS} name='ADOs' leftIcon={<ClassifierIcon adoType='app' boxSize='4' w='7' h='7' />} />
+                <ADOButton list={BASE_ADOS} name='ADOs' leftIcon={<ClassifierIcon adoType='app' schemaClass='baseado' boxSize='4' w='7' h='7' />} />
                 <ADOButton list={MODULES} name='Modules' leftIcon={<ClassifierIcon adoType='address-list' schemaClass='module' boxSize='4' w='7' h='7' />} />
             </VStack>
             <Divider />

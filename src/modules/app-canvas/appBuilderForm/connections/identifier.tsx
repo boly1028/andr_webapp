@@ -27,6 +27,7 @@ export const useIsIdentifier = (nodeId: string, fieldId: string, formData: any, 
     const connectorColor = useGetClassColor({ _class: 'module' })
 
     const handleConnect: OnConnect = useCallback((connection) => {
+        console.log("Here", connection)
         const targetNode = getNode(connection.target ?? '');
         const sourceNode = getNode(nodeId);
         if (targetNode) {

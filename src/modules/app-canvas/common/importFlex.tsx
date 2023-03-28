@@ -29,7 +29,7 @@ const ImportFlexButton: FC<ImportFlexButtonProps> = (props) => {
     };
 
     return (
-        <TmpButton rightIcon={<Icon as={Upload} boxSize='5' />} aria-label='import-flex' as='label' cursor='pointer' htmlFor='app-import-flex'>
+        <TmpButton rightIcon={<Icon as={Upload} boxSize='4' />} aria-label='import-flex' as='label' cursor='pointer' htmlFor='app-import-flex'>
             <Input
                 onChange={(e) => {
                     const file = e.target.files?.item(0);

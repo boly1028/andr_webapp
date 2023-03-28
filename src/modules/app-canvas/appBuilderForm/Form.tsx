@@ -4,10 +4,10 @@ import ClassifierIcon, { useGetClassColor } from '@/theme/icons/classifiers';
 import { getUiOptions } from '@andromedarjsf/utils';
 import { cloneDeep } from '@apollo/client/utilities';
 import { InfoIcon } from '@chakra-ui/icons';
-import { Box, Flex, HStack, Icon, IconButton, Text, Tooltip } from '@chakra-ui/react';
+import { Box, HStack, Icon, IconButton, Text, Tooltip } from '@chakra-ui/react';
 import React, { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { NodeProps, Position } from 'reactflow';
-import { useAppBuilder } from '../canvas/Provider';
+import { useAppBuilder, useReactFlow } from '../canvas/Provider';
 import { IFormRef } from '../types';
 import { DIRECTION, getPanelTargetHandlePrefix } from './connections/utils';
 import Handle from './ReactFlow/Handle';
@@ -19,6 +19,7 @@ import styles from './form.module.css'
 import { CopyButton } from '@/modules/common';
 import { Pencil } from 'lucide-react';
 import usePanelRenameModal from '@/modules/modals/hooks/usePanelRenameModal';
+import useRenameNode from '../hooks/useRenameNode';
 const NON_EDITABLE_CLASS = new Set<string>(["system", "modifier"]);
 
 
@@ -31,7 +32,9 @@ interface AppBuilderFormProps extends NodeProps {
 const AppBuilderForm: FC<AppBuilderFormProps> = (props) => {
     const { data } = props
     const { andromedaSchema, name } = data
-    const { formRefs, renameNode, nodes } = useAppBuilder()
+    const { formRefs } = useAppBuilder()
+    const renameNode = useRenameNode()
+    const { getNodes } = useReactFlow()
 
     const schema = useMemo(() => cloneDeep(andromedaSchema.schema), [andromedaSchema.schema])
     const uiSchema = useMemo(() => cloneDeep(andromedaSchema['ui-schema'] ?? ({} as IAndromedaUISchema)), [andromedaSchema['ui-schema']])
@@ -144,6 +147,7 @@ const AppBuilderForm: FC<AppBuilderFormProps> = (props) => {
                                 variant="ghost"
                                 aria-label="open menu"
                                 onClick={() => {
+                                    const nodes = getNodes()
                                     openPanelRenameModal({
                                         callback: (newName) => {
                                             renameNode(name, newName);

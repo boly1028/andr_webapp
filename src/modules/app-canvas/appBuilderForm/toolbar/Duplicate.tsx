@@ -4,6 +4,7 @@ import { Copy, Download, Trash } from "lucide-react";
 import React, { FC } from "react";
 import { useReactFlow } from "reactflow";
 import { useAppBuilder } from "../../canvas/Provider";
+import useAddNode from "../../hooks/useAddNode";
 
 interface DuplicateButtonProps {
     name: string;
@@ -11,8 +12,9 @@ interface DuplicateButtonProps {
 
 const DuplicateButton: FC<DuplicateButtonProps> = (props) => {
     const { name } = props;
-    const { formRefs, addNode, nodes } = useAppBuilder()
-    const { getNode } = useReactFlow()
+    const { formRefs } = useAppBuilder()
+    const { getNode, getNodes } = useReactFlow()
+    const addNode = useAddNode()
 
     const handleDuplicate = () => {
         const formRef = formRefs.current?.[name];
@@ -20,6 +22,7 @@ const DuplicateButton: FC<DuplicateButtonProps> = (props) => {
         const node = getNode(name);
         const schema = formRef?.andromedaSchema ?? {};
         let newName = suid()
+        const nodes = getNodes()
         while (nodes.some(node => node.id === newName)) {
             newName = nextSuid(newName);
         }

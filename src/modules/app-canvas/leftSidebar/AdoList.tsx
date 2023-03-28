@@ -4,7 +4,8 @@ import ClassifierIcon, { useGetClassColor } from "@/theme/icons/classifiers";
 import { AspectRatio, Box, Divider, GridItem, HStack, Icon, IconButton, SimpleGrid, Text, VStack } from "@chakra-ui/react";
 import { ChevronLeft } from "lucide-react";
 import React, { FC, useCallback } from "react";
-import { useAppBuilder } from "../canvas/Provider";
+import { useAppBuilder, useReactFlow } from "../canvas/Provider";
+import useAddNode from "../hooks/useAddNode";
 import { IUIComponents } from "../types";
 
 export interface AdoListProps {
@@ -51,16 +52,18 @@ interface AdoListItemProps {
 
 export const AdoListItem: FC<AdoListItemProps> = (props) => {
     const { ado } = props;
-    const { nodes, addNode } = useAppBuilder()
+    const addNode = useAddNode()
+    const { getNodes } = useReactFlow()
 
     const handleAdd = useCallback(async (source: string) => {
         const ado = await getSchemaFromPath(source);
         let name = suid()
+        const nodes = getNodes()
         while (nodes.some(node => node.id === name)) {
             name = nextSuid(name);
         }
         addNode(ado, name)
-    }, [nodes, addNode])
+    }, [addNode])
 
     const color = useGetClassColor({ adoType: ado.$id as any }, 'low')
 

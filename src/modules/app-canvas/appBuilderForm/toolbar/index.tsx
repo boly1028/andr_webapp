@@ -18,16 +18,16 @@ const Toolbar: FC<ToolbarProps> = (props) => {
     const { name } = props;
 
     return (
-        <Box pb='6' w='full'>
-            <HStack bg='newSystem.background.900' borderRadius='lg' justifyContent='center' w='full'>
+        <HStack pb='6' w='full' justifyContent='center'>
+            <Box bg='newSystem.background.900' borderRadius='lg'>
                 <ButtonGroup bg='newSystem.backgroundState.idle' borderRadius='lg' spacing='0' size='sm'>
                     <DeleteButton name={name} />
                     <DuplicateButton name={name} />
                     <DownloadButton name={name} />
                     <LoadButton name={name} />
                 </ButtonGroup>
-            </HStack>
-        </Box>
+            </Box>
+        </HStack>
     );
 };
 

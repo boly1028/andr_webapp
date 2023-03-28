@@ -1,8 +1,7 @@
-import { TmpButton } from "@/theme/new-system-tmp/ui-elements";
 import { Icon, IconButton, Tooltip } from "@chakra-ui/react";
 import { Trash } from "lucide-react";
 import React, { FC } from "react";
-import { useAppBuilder } from "../../canvas/Provider";
+import useDeleteNode from "../../hooks/useDeleteNode";
 
 interface DeleteButtonProps {
     name: string;
@@ -10,7 +9,7 @@ interface DeleteButtonProps {
 
 const DeleteButton: FC<DeleteButtonProps> = (props) => {
     const { name } = props;
-    const { deleteNode } = useAppBuilder()
+    const deleteNode = useDeleteNode()
 
     const handleDelete = () => {
         deleteNode(name)

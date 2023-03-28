@@ -3,6 +3,7 @@
     position: absolute;
     bottom: calc(100% - 10px);
     top: auto;
+    z-index: 9999;
 }
 
 .container:hover .toolbar {
