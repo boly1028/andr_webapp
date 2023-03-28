@@ -39,7 +39,7 @@ const Header: FC<Props> = ({ onOpen, ...props }) => {
         spacing={{ base: "0", md: "6" }} 
         display={{ base: "none", md: "flex" }}
       >
-        <SearchBar />
+        {/* <SearchBar /> */}
       </HStack>
     
       <HStack spacing={{ base: "0", md: "6" }}>
