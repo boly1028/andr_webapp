@@ -93,6 +93,12 @@ export const LEARN_PAGE_ITEMS: ILearnPageItem[] = [
                 link:SITE_LINKS.learnItem('/andromeda/auction-marketplace-guide-4')
             },
             {
+                title: 'Use Case Guide-5',
+                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus venenati.',
+                icon: PlusIcon,
+                link:SITE_LINKS.learnItem('/andromeda/auction-marketplace-guide-5')
+            },
+            {
                 title: 'Connect To Wallet',
                 description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus venenati.',
                 icon: PlusIcon,

@@ -1,0 +1,23 @@
+import BlogLayout from "@/modules/learn/components/BlogLayout"
+export const meta = {
+    title: 'Guide 5: NFT Auction Template Build',
+    description:'',
+    author: 'Vivek Kumar Jaiswal',
+    tags:[]
+}
+
+In this guide, you will use an Andromeda Template to create an NFT Auction App.
+
+# Setup
+
+* Navigate to the ADO Builder section of the web-app and select the Auction Based Marketplace from the provided templates.
+* After you select the template, you’ll need to configure the necessary fields based on your App’s desired functionality. There are both required and optional fields.
+* First, name your App.
+* Next, fill in the fields for the CW721 Panel: Minter Address, Token/NFT Name, Token/NFT Symbol
+* This rates component is optional. This is to be used if you want taxes or royalties applied on the auction sales. In the Rate Percentage, you can set what you want that percent to be.
+* To specify who will receive this rate, select Add Item under  the “Recipients of Rate Adjustment” field, then specify the address to receive the rate funds.
+* Now you have selected a template and configured all the fields, all that is left to do is publish the App to chain.
+* Press the publish button -> broadcast -> approve. You will be redirected to your assets page where the App you just published will be found.
+* Congratulations, you have successfully published your App!
+
+export default ({children}) => <BlogLayout meta={meta}>{children}</BlogLayout>
