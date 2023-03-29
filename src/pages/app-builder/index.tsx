@@ -10,7 +10,7 @@ export default function AppBuilderCreate() {
     <Layout activeLink={ILinkItemKey.APP_BUILDER}>
       {/* <AppBuilderPage /> */}
       <a
-        href="https://andromeda-webapp-byhbe04y7-andromedaprotocol.vercel.app/test/app-builder"
+        href="https://andromeda-webapp-git-feature-app-builder-flow-andromedaprotocol.vercel.app/test/app-builder"
         target="_blank"
         rel="noreferrer"
       >
