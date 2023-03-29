@@ -5,7 +5,6 @@ import AppBuilderProvider from './canvas/Provider'
 import { ReactFlowProvider } from 'reactflow'
 import TopBar from './topbar'
 import LeftSidebar from './leftSidebar'
-import RightSidebar from './rightSidebar'
 
 interface AppBuilderEditorProps {
 

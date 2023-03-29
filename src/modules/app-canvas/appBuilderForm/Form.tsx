@@ -12,7 +12,7 @@ import { IFormRef } from '../types';
 import { DIRECTION, getPanelTargetHandlePrefix } from './connections/utils';
 import Handle from './ReactFlow/Handle';
 import templates from './templates';
-import Toolbar from './toolbar';
+import Toolbar from './nodeToolbar';
 import widgets from './widgets';
 
 import styles from './form.module.css'
@@ -30,7 +30,7 @@ interface AppBuilderFormProps extends NodeProps {
     }
 }
 const AppBuilderForm: FC<AppBuilderFormProps> = (props) => {
-    const { data } = props
+    const { data, selected } = props
     const { andromedaSchema, name } = data
     const { formRefs } = useAppBuilder()
     const renameNode = useRenameNode()
@@ -103,7 +103,7 @@ const AppBuilderForm: FC<AppBuilderFormProps> = (props) => {
                 }}
                 py={4}
                 border="1px solid"
-                borderColor={adoBorderColor}
+                borderColor={selected ? adoBorderColor : 'newSystem.backgroundState.idle'}
                 borderRadius="lg"
                 w='30rem'
                 bg="newSystem.background.800"
@@ -163,23 +163,25 @@ const AppBuilderForm: FC<AppBuilderFormProps> = (props) => {
                         )}
                     </HStack>
                 </HStack>
-                <Form
-                    templates={templates}
-                    widgets={widgets}
-                    schema={schema}
-                    uiSchema={uiSchema}
-                    formData={formData}
-                    onChange={({ formData: _formData }) => {
-                        setFormData(_formData);
-                    }}
-                    formContext={{
-                        name: name
-                    }}
-                    ref={ref}
-                >
-                    <>
-                    </>
-                </Form>
+                <Box className={styles.form}>
+                    <Form
+                        templates={templates}
+                        widgets={widgets}
+                        schema={schema}
+                        uiSchema={uiSchema}
+                        formData={formData}
+                        onChange={({ formData: _formData }) => {
+                            setFormData(_formData);
+                        }}
+                        formContext={{
+                            name: name
+                        }}
+                        ref={ref}
+                    >
+                        <>
+                        </>
+                    </Form>
+                </Box>
             </Box>
         </Box>
     )

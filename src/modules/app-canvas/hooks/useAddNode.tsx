@@ -30,7 +30,7 @@ const useAddNode = (props?: IUseAddNodeProps) => {
             'deletable': true,
             type: 'form',
             zIndex: defaultNodeData.zIndex ?? nodes.length ?? 0,
-            selectable: false
+            selectable: true
         })
         updateNodeUpdater()
     }, [addNodes, updateNodeUpdater])

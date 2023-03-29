@@ -5,6 +5,7 @@ import 'reactflow/dist/style.css';
 import AppBuilderForm from '../appBuilderForm/Form';
 import { Box } from '@chakra-ui/react';
 import { WRAPPER_ID } from '../hooks/useGetWrapper';
+import { APP_BUILDER_KEYCODES } from '../common/keyCodes';
 
 interface AppBuilderCanvasProps {
 
@@ -13,6 +14,7 @@ const AppBuilderCanvas: FC<AppBuilderCanvasProps> = (props) => {
     const { } = props
     const [nodes, , onNodesChange] = useNodesState<INodeData>([])
     const [edges, , onEdgesChange] = useEdgesState<IEdgeData>([])
+    const { formRefs } = useAppBuilder()
 
     const NODE_TYPES: NodeTypes = useMemo(() => {
         return {
@@ -20,9 +22,13 @@ const AppBuilderCanvas: FC<AppBuilderCanvasProps> = (props) => {
         }
     }, [AppBuilderForm])
 
+
     return (
         <Box w='full' h='full' id={WRAPPER_ID}>
             <ReactFlow
+                deleteKeyCode={APP_BUILDER_KEYCODES.DELETE}
+                multiSelectionKeyCode={APP_BUILDER_KEYCODES.MULTISELECT}
+                zoomActivationKeyCode={APP_BUILDER_KEYCODES.ZOOM}
                 style={{ width: "100%", height: "100%", background: 'transparent' }}
                 connectionLineStyle={{ stroke: "#ddd", strokeWidth: 2 }}
                 snapToGrid={true}
@@ -34,26 +40,37 @@ const AppBuilderCanvas: FC<AppBuilderCanvasProps> = (props) => {
                 nodeTypes={NODE_TYPES}
                 // fitView
                 zoomOnPinch={true}
-                preventScrolling={false}
+                zoomOnScroll={true}
+                // preventScrolling={false}
                 defaultEdgeOptions={{
                     'deletable': true,
                     'markerEnd': MarkerType.ArrowClosed,
                     'zIndex': 99
                 }}
-                nodeOrigin={[0.5,0.5]}
+                nodeOrigin={[0.5, 0.5]}
                 minZoom={0.1}
                 defaultViewport={{
                     x: 50,
                     y: 50,
-                    zoom: 1
+                    zoom: 1,
                 }}
                 proOptions={{
                     'hideAttribution': true
                 }}
+                onNodesDelete={(node) => {
+                    nodes.forEach((node) => {
+                        if (formRefs.current[node.id]) {
+                            delete formRefs.current[node.id]
+                        }
+                    })
+                }}
+                fitViewOptions={{
+                    duration: 300
+                }}
             >
                 {/* <Background variant={BackgroundVariant.Dots} gap={20} size={0.75} color='#ffffff' /> */}
                 {/* <MiniMap zoomable pannable /> */}
-                <Controls />
+                {/* <Controls /> */}
             </ReactFlow>
         </Box>
     )

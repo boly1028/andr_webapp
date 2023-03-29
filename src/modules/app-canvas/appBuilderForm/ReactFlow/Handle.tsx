@@ -10,7 +10,7 @@ const Handle = (props: IHandleProps, ref: any) => {
     const adoColor = useGetClassColor({ adoType: adoType as any }) as any
 
     return (
-        <ReactFlowHandle ref={ref} {...handleProps} style={{ backgroundColor: adoColor, border: '0px', aspectRatio: '1/1', height: 'auto', width: '0.6rem', ...style }} />
+        <ReactFlowHandle ref={ref} {...handleProps} style={{ zIndex: 991, backgroundColor: adoColor, border: '0px', aspectRatio: '1/1', height: 'auto', width: '0.6rem', ...style }} />
     );
 };
 

@@ -1,11 +1,14 @@
 .toolbar {
-    visibility: hidden;
-    position: absolute;
-    bottom: calc(100% - 10px);
-    top: auto;
-    z-index: 9999;
+  visibility: hidden;
+  position: absolute;
+  bottom: calc(100% - 10px);
+  top: auto;
+  z-index: 990;
+}
+
+.form {
 }
 
 .container:hover .toolbar {
-    visibility: visible;
+  visibility: visible;
 }

@@ -12,7 +12,7 @@ const DeleteButton: FC<DeleteButtonProps> = (props) => {
     const deleteNode = useDeleteNode()
 
     const handleDelete = () => {
-        deleteNode(name)
+        deleteNode([name])
     }
     return (
         <Tooltip label='Delete' bg='base.white' placement='top'>

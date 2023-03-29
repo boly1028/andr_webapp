@@ -40,7 +40,7 @@ const useRenameNode = (props?: IUseRenameNodeProps) => {
 
         // Now we want to update our edges by deleting the edges which originated from current node  and also delete current node
         deleteElements({ edges: edges.filter(edge => edge.source === nodeId) })
-        deleteNode(nodeId)
+        deleteNode([nodeId])
     }, [deleteElements, addNode, getNode])
 
     return renameNode

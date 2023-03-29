@@ -7,11 +7,8 @@ const useDeleteNode = (props?: IuseDeleteNodeProps) => {
     const { updateNodeUpdater, formRefs } = useAppBuilder()
     const { deleteElements } = useReactFlow()
 
-    const deleteNode = useCallback((name: string) => {
-        deleteElements({ nodes: [{ id: name }] })
-        if (formRefs.current[name]) {
-            delete formRefs.current[name]
-        }
+    const deleteNode = useCallback((names: string[]) => {
+        deleteElements({ nodes: names.map(name => ({ 'id': name })) })
         updateNodeUpdater()
     }, [deleteElements, updateNodeUpdater])
 

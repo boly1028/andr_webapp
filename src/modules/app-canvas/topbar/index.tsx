@@ -5,6 +5,7 @@ import PublishButton from '../common/publish';
 import { Wallet } from '@/modules/common';
 import DownloadFlexButton from '../common/downloadFlex';
 import ImportFlexButton from '../common/importFlex';
+import Toolbar from '../toolbar';
 
 interface TopBarProps {
 
@@ -17,6 +18,7 @@ const TopBar: FC<TopBarProps> = (props) => {
             <HStack flex={1}>
                 <AppNameButton />
                 <ImportFlexButton />
+                <Toolbar />
             </HStack>
             <HStack>
                 <DownloadFlexButton />
