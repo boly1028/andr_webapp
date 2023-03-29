@@ -1,3 +1,4 @@
+import { useWallet } from '@/lib/wallet'
 import { TmpButton } from '@/theme/new-system-tmp/ui-elements'
 import { Button, ButtonProps } from '@chakra-ui/react'
 import React, { FC } from 'react'
@@ -9,8 +10,9 @@ interface PublishButtonProps extends ButtonProps {
 const PublishButton: FC<PublishButtonProps> = (props) => {
     const { } = props
     const publish = usePublish()
+    const wallet = useWallet()
     return (
-        <Button as={TmpButton} size='sm' colorScheme='primary' {...props} onClick={publish}>
+        <Button isDisabled={!wallet?.address} as={TmpButton} size='sm' colorScheme='primary' {...props} onClick={publish}>
             Publish
         </Button>
     )

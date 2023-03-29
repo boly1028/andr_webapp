@@ -1,6 +1,7 @@
 import { getSchemaFromPath, nextSuid, suid } from "@/lib/schema/utils";
 import { IAdoList } from "@/lib/schema/utils/list";
 import ClassifierIcon, { useGetClassColor } from "@/theme/icons/classifiers";
+import { cloneDeep } from "@apollo/client/utilities";
 import { AspectRatio, Box, Divider, GridItem, HStack, Icon, IconButton, SimpleGrid, Text, VStack } from "@chakra-ui/react";
 import { ChevronLeft } from "lucide-react";
 import React, { FC, useCallback } from "react";

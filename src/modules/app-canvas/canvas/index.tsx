@@ -40,14 +40,15 @@ const AppBuilderCanvas: FC<AppBuilderCanvasProps> = (props) => {
                 nodeTypes={NODE_TYPES}
                 // fitView
                 zoomOnPinch={true}
-                zoomOnScroll={true}
+                panOnScroll={true}
+                zoomOnScroll={false}
                 // preventScrolling={false}
                 defaultEdgeOptions={{
                     'deletable': true,
                     'markerEnd': MarkerType.ArrowClosed,
                     'zIndex': 99
                 }}
-                nodeOrigin={[0.5, 0.5]}
+                // nodeOrigin={[0.5, 0.5]}
                 minZoom={0.1}
                 defaultViewport={{
                     x: 50,
@@ -57,7 +58,7 @@ const AppBuilderCanvas: FC<AppBuilderCanvasProps> = (props) => {
                 proOptions={{
                     'hideAttribution': true
                 }}
-                onNodesDelete={(node) => {
+                onNodesDelete={(nodes) => {
                     nodes.forEach((node) => {
                         if (formRefs.current[node.id]) {
                             delete formRefs.current[node.id]

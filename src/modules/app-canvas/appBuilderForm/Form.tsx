@@ -35,7 +35,6 @@ const AppBuilderForm: FC<AppBuilderFormProps> = (props) => {
     const { formRefs } = useAppBuilder()
     const renameNode = useRenameNode()
     const { getNodes } = useReactFlow()
-
     const schema = useMemo(() => cloneDeep(andromedaSchema.schema), [andromedaSchema.schema])
     const uiSchema = useMemo(() => cloneDeep(andromedaSchema['ui-schema'] ?? ({} as IAndromedaUISchema)), [andromedaSchema['ui-schema']])
     const [formData, setFormData] = useState(cloneDeep(andromedaSchema['form-data'] ?? {}));
@@ -57,11 +56,10 @@ const AppBuilderForm: FC<AppBuilderFormProps> = (props) => {
             formRefs.current[name] = {
                 validate,
                 formData: formData,
-                andromedaSchema: data.andromedaSchema,
                 updateFormData: updateFormData
             }
         }
-    }, [validate, formRefs, formData, data.andromedaSchema, updateFormData])
+    }, [validate, formRefs, formData, updateFormData])
 
 
     const openPanelRenameModal = usePanelRenameModal();

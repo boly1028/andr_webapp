@@ -30,8 +30,8 @@ const useGetWrapper = (props?: IUseGetWrapperProps) => {
         const left = pos?.left || 0;
         const width = pos?.width || 0;
         return getUpdatedPosition({
-            x: left + width / 2 - offset,
-            y: top + height / 2 - offset + 50,
+            x: left + width / 2 - offset - width / 4,
+            y: top + height / 2 - offset - height / 4,
         });
     }, [getWrapper, getUpdatedPosition])
 

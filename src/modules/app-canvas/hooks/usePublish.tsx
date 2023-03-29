@@ -4,12 +4,13 @@ import { useInstantiateModal } from "@/modules/modals/hooks";
 import { useConstructAppMsg } from "@/modules/sdk/hooks";
 import { useToast } from "@chakra-ui/react";
 import { useCallback } from "react";
-import { useAppBuilder } from "../canvas/Provider";
+import { useAppBuilder, useReactFlow } from "../canvas/Provider";
 import { useAppFormData } from "./useAppFormData";
 
 export const usePublish = () => {
     const { formRefs, editorRef } = useAppBuilder()
     const getFormData = useAppFormData()
+    const { getNodes } = useReactFlow()
 
     const toast = useToast({
         position: 'top-right',
@@ -25,11 +26,14 @@ export const usePublish = () => {
             return;
         }
         try {
+            const nodes = getNodes()
             const ados = formRefs.current ?? {};
-            Object.keys(ados).forEach(adoKey => {
-                console.log(adoKey);
-                console.log(ados[adoKey].formData)
-                ados[adoKey].validate();
+            nodes.forEach(node => {
+                const adoKey = node.id;
+                if (ados[adoKey]) {
+                    console.log(ados[adoKey].formData)
+                    ados[adoKey].validate();
+                }
             })
             const formData = getFormData()
             const name = editorRef.current.getAppName?.() ?? 'Untitled App'

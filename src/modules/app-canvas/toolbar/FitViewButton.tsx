@@ -12,7 +12,8 @@ const FitViewButton: FC<FitViewButtonProps> = (props) => {
 
     const handleFitView = () => {
         fitView({
-            maxZoom: 1
+            maxZoom: 1,
+            duration: 300
         })
     }
     return (

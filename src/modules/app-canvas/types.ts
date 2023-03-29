@@ -12,7 +12,6 @@ export interface IFormRef {
     validate: () => void;
     formData: IAndromedaFormData;
     updateFormData: (data: IAndromedaFormData) => void;
-    andromedaSchema: IAndromedaSchemaJSON;
 }
 
 export interface IEditorRef {
