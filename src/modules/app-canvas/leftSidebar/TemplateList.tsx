@@ -1,9 +1,11 @@
 import { ITemplate } from "@/lib/schema/types";
 import { SparklesIcon } from "@/modules/common";
+import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
 import useConfirmationModal from "@/modules/modals/hooks/useConfirmationModal";
 import ClassifierIcon, { useGetClassColor } from "@/theme/icons/classifiers";
 import { Box, Button, Divider, HStack, Icon, IconButton, Text, VStack } from "@chakra-ui/react";
 import { ArrowRight, ChevronLeft } from "lucide-react";
+import Link from "next/link";
 import React, { FC, useCallback } from "react";
 import { useAppBuilder } from "../canvas/Provider";
 import { useImportFlex } from "../hooks/useImportFlex";
@@ -46,9 +48,11 @@ const TemplateList: FC<TemplateListProps> = (props) => {
                             More on App Store
                         </Text>
                     </HStack>
-                    <Button rightIcon={<Icon as={ArrowRight} boxSize='5' />} size='sm' colorScheme='primary'>
-                        Browse Templates
-                    </Button>
+                    <Link href={SITE_LINKS.appStore()} passHref>
+                        <Button as='a' rightIcon={<Icon as={ArrowRight} boxSize='5' />} size='sm' colorScheme='primary'>
+                            Browse Templates
+                        </Button>
+                    </Link>
                 </VStack>
             </VStack>
         </Box>

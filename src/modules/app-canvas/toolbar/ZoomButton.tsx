@@ -20,6 +20,7 @@ const ZoomButton: FC<ZoomButtonProps> = (props) => {
     return (
         <Tooltip label={`Zoom`} bg='base.white' placement='top'>
             <IconButton
+                color='newSystem.content.high'
                 aria-label="Zoom"
                 icon={<Icon as={offset < 0 ? ZoomOut : ZoomIn} boxSize='4' />}
                 variant='ghost'

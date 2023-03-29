@@ -22,6 +22,7 @@ const AutoLayoutButton: FC<AutoLayoutButtonProps> = (props) => {
     return (
         <Tooltip label={`Auto Layout`} bg='base.white' placement='top'>
             <IconButton
+                color='newSystem.content.high'
                 aria-label="Auto Layout"
                 icon={<Icon as={Network} boxSize='4' />}
                 variant='ghost'
