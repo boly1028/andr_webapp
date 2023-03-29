@@ -1,0 +1,48 @@
+import BlogLayout from "@/modules/learn/components/BlogLayout"
+export const meta = {
+    title: 'Guide 4: Utilizing Andromeda Modules to Further Extend your App',
+    description:'',
+    author: 'Vivek Kumar Jaiswal',
+    tags:[]
+}
+
+# Setup
+
+* In this example, you will extend the App one step further by utilizing the Andromeda Modules to add rates to the auctions.
+* Before you start building, you will need to define your App. For this App, assume the following (stipulations written on the page)
+* Next, let us briefly discuss the concept of modules. Modules are components that can be added as an extension to other ADOs. Our most popular modules are aRates Module and Address-List Module
+* For this example, you will be adding the rates module to the auction component to add taxes on our auction sales.
+* Open a new blank canvas and get started. Add a CW721 component and fill its panel. Then add an auction component.
+
+![CW721 with Auction](/learn/blogs/guides_imgs/4/1.CW721_with_auction.png "CW721 with Auction component")
+
+* Then, select **Add Item** under the “Selected Modules” field in the auction component and fill in the following fields: Identifier, Module Type, Is Module Able to be Modified.
+
+![Add Item](/learn/blogs/guides_imgs/4/2.auction_add_modules.png "Add Item under Auction component")
+
+* Auction component with **Add Item**, filled with sample data
+
+!['Add Item in Auction'](/learn/blogs/guides_imgs/4/3.auction_add_modules_filled.png "Add Item in Auction")
+
+* Next add the rates component/module to your build.
+`Note: there are two types of rates, Taxes or Royalties. A tax is a value added tax and a royalty is a reduction in what was paid in tokens.`
+
+![Rates Component](/learn/blogs/guides_imgs/4/4.add_rates_component.png "Blank Rates component")
+
+* Rates component filled with sample data
+
+![Rates Component Filled](/learn/blogs/guides_imgs/4/5.add_rates_component_filled.png "Rates component Filled")
+
+* Then specify the recipients of this rate.
+
+![Rates component: Add Recipient](/learn/blogs/guides_imgs/4/6.add_rates_component_add_recipient.png "Rates component: Add Recipient")
+
+* Next, specify the recipients for the funds. To add a recipient, select "Add item" under the recipients section in the panel and set the percentage.
+
+![Rates component: Add Recipient](/learn/blogs/guides_imgs/4/8.add_rates_component_recipient_funds.png "Rates component: Add Recipient")
+
+* Congratulations! All the components are set up, you can now publish the App to the chain and view it in your assets page.
+
+![Assets Page](/learn/blogs/guides_imgs/4/9.assets_page.png "View in Assets Page")
+
+export default ({children})=><BlogLayout meta={meta}>{children}</BlogLayout>
