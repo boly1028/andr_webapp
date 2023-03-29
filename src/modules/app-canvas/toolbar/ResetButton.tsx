@@ -16,7 +16,7 @@ const ResetButton: FC<ResetButtonProps> = (props) => {
     return (
         <Tooltip label={`Delete All`} placement='top'>
             <IconButton
-                aria-label="delete"
+                aria-label="delete all"
                 icon={<Icon as={Eraser} boxSize='4' />}
                 variant='ghost'
                 onClick={handleReset}

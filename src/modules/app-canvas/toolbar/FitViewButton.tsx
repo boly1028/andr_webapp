@@ -19,7 +19,7 @@ const FitViewButton: FC<FitViewButtonProps> = (props) => {
     return (
         <Tooltip label={`Fit View`} bg='base.white' placement='top'>
             <IconButton
-                aria-label="delete"
+                aria-label="Fit View"
                 icon={<Icon as={Maximize} boxSize='4' />}
                 variant='ghost'
                 onClick={handleFitView}

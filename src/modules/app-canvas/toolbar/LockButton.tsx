@@ -23,9 +23,9 @@ const LockButton: FC<LockButtonProps> = (props) => {
     }
     
     return (
-        <Tooltip label={`Fit View`} bg='base.white' placement='top'>
+        <Tooltip label={`Lock View`} bg='base.white' placement='top'>
             <IconButton
-                aria-label="delete"
+                aria-label="Lock View"
                 icon={<Icon as={isInteractive ? Unlock : Lock} boxSize='4' />}
                 variant='ghost'
                 onClick={handleLock}

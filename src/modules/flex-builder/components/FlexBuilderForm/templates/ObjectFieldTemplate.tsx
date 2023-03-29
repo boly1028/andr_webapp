@@ -177,7 +177,7 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
                       <IconButton
                         size={"sm"}
                         variant="outline"
-                        aria-label="open menu"
+                        aria-label="open rename modal"
                         onClick={() => {
                           openPanelRenameModal({
                             callback: (newName) => {
@@ -219,7 +219,7 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
                   <IconButton
                     size={"sm"}
                     variant="outline"
-                    aria-label="open menu"
+                    aria-label="duplicate panel"
                     onClick={() => {
                       duplicatePanel(currentSchemaId);
                     }}
@@ -230,7 +230,7 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
                   <IconButton
                     size={"sm"}
                     variant="outline"
-                    aria-label="open menu"
+                    aria-label="delete module"
                     onClick={() => {
                       deleteModule(currentSchemaId);
                     }}
