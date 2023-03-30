@@ -1,8 +1,8 @@
-import { cloneDeep } from "@apollo/client/utilities";
+import { cloneDeep } from "lodash";
 import JSONCrush from "jsoncrush";
 import { IAdo, ITemplateFormData, ITemplateSchema } from "../templates/types";
 import { UPLOAD_TEMPLATE } from "../templates/upload"
-import { ITemplate } from "../types"
+import { IAndromedaSchema, ITemplate } from "../types"
 import { processTemplate } from "./template";
 
 export const parseFlexFile = async (template: ITemplate) => {
@@ -29,10 +29,12 @@ interface ICreateInputFromADO {
  */
 export const createFlexFile = async ({ schema, formData }: ICreateInput) => {
     const ados: IAdo[] = []
-    Object.keys(schema.properties).map((id) => {
+    Object.entries(schema.properties).map(([id, property]) => {
+        const definitionId = property.$ref.split('/').pop() ?? '';
+        const definition = schema.definitions[definitionId];
         ados.push({
             id: id,
-            path: schema.definitions[id].$path,
+            path: definition.$path,
             required: true,
             'enabled': true
         })
