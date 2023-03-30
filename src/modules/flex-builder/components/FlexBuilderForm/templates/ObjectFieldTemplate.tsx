@@ -185,7 +185,7 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
                             },
                             defaultName: currentSchemaId,
                             reservedNames: Object.keys(
-                              rootSchema?.definitions ?? {},
+                              rootSchema?.properties ?? {},
                             ),
                             title: "Rename ADO",
                             body: "Change the assigned name of this component",
