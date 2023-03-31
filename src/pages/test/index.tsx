@@ -4,7 +4,7 @@ import { BASE_ADOS, MODIFIERS, MODULES, PRIMITIVES, QUERIES, QUERY_RESPONSES } f
 import ClassifierIcon from '@/theme/icons/classifiers'
 import { ChevronDownIcon, CloseIcon, SearchIcon } from '@chakra-ui/icons'
 import { Box, Button, ButtonProps, Input, InputGroup, InputLeftElement, List, ListItem, Text, useDisclosure, VStack } from '@chakra-ui/react'
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useState } from 'react'
 import Link from "next/link";
 import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
 import _ from "lodash";
