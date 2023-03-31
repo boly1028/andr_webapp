@@ -65,7 +65,9 @@ interface SchemaComponentItemProps {
 const SchemaComponentItem: FC<SchemaComponentItemProps> = (props) => {
     const { name, leftIcon, searchedText } = props
     let { list } = props
-    list = list.filter((item) => item.title.toLocaleLowerCase().includes(searchedText.toLocaleLowerCase()) && item)
+    if (!!searchedText) {
+        list = list.filter((item) => item.title.toLocaleLowerCase().includes(searchedText.toLocaleLowerCase()) && item)
+    }
     const { getButtonProps, getDisclosureProps, isOpen } = useDisclosure();
     const disclosureProps = getDisclosureProps();
     const buttonProps = getButtonProps();
