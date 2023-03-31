@@ -89,14 +89,16 @@ const SchemaComponentItem: FC<SchemaComponentItemProps> = (props) => {
                 {list?.map((ado) => {
                     return (
                         <Link key={ado.source} href={SITE_LINKS.testSchema(ado.source)} passHref>
-                            <ListItem cursor='pointer' px='4' py='2' rounded='2xl' _hover={{ bg: 'dark.50' }} as='a' display='flex' flexDirection='row' justifyContent='space-between'>
-                                <Text>
-                                    {ado.title}
-                                </Text>
-                                <Text fontSize='sm'>
-                                    {ado.source}
-                                </Text>
-                            </ListItem>
+                            <a target="_blank" rel="noopener noreferrer ">
+                                <ListItem cursor='pointer' px='4' py='2' rounded='2xl' _hover={{ bg: 'dark.50' }} as='a' display='flex' flexDirection='row' justifyContent='space-between'>
+                                    <Text>
+                                        {ado.title}
+                                    </Text>
+                                    <Text fontSize='sm'>
+                                        {ado.source}
+                                    </Text>
+                                </ListItem>
+                            </a>
                         </Link>
                     );
                 })}
