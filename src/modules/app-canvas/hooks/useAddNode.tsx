@@ -1,4 +1,6 @@
 import { IAndromedaSchemaJSON } from "@/lib/schema/types";
+import { humanReadableUuid } from "@/lib/schema/utils";
+import { getSchemaRef } from "@/modules/flex-builder/utils/schemaTransform";
 import { useCallback } from "react";
 import { Node } from "reactflow";
 import { useAppBuilder, useReactFlow, INodeData } from "../canvas/Provider";
@@ -11,26 +13,28 @@ const useAddNode = (props?: IUseAddNodeProps) => {
     const { addNodes, getNodes } = useReactFlow()
     const { getCenterPosition } = useGetWrapper()
 
-    const addNode = useCallback((schema: IAndromedaSchemaJSON, name: string, defaultNodeData: Partial<Node<INodeData>> = {}) => {
+    const addNode = useCallback((schema: IAndromedaSchemaJSON, nodeData: Partial<Node<INodeData>> = {}) => {
         editorRef.current.setDirty?.(true)
         schema['form-data'].$enabled = true;
         const nodes = getNodes()
         const pos = getCenterPosition()
+        const adoType = schema.schema.$id
+        const name = nodeData.id ?? humanReadableUuid(adoType, nodes.filter(node => node.data.andromedaSchema.schema.$id === adoType).length, nodes.map(node => node.id))
         addNodes({
-            ...defaultNodeData,
-            'id': name,
+            ...nodeData,
+            id: name,
             'data': {
                 name: name,
                 andromedaSchema: schema
             },
             'position': {
                 ...pos,
-                ...defaultNodeData.position
+                ...nodeData.position
             },
             draggable: true,
             'deletable': true,
             type: 'form',
-            zIndex: Math.max(defaultNodeData.zIndex ?? 0, nodes.length),
+            zIndex: Math.max(nodeData.zIndex ?? 0, nodes.length),
             selectable: true
         })
         updateNodeUpdater()

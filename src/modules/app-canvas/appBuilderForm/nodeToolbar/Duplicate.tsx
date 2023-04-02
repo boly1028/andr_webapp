@@ -1,4 +1,3 @@
-import { nextSuid, suid } from "@/lib/schema/utils";
 import { cloneDeep } from "@apollo/client/utilities";
 import { Icon, IconButton, Tooltip } from "@chakra-ui/react";
 import { Copy, Download, Trash } from "lucide-react";
@@ -22,16 +21,10 @@ const DuplicateButton: FC<DuplicateButtonProps> = (props) => {
         const formData = cloneDeep(formRef?.formData ?? {});
         const node = cloneDeep(getNode(name));
         const schema = cloneDeep(node?.data.andromedaSchema ?? {});
-        let newName = suid()
-        const nodes = getNodes()
-        while (nodes.some(node => node.id === newName)) {
-            newName = nextSuid(newName);
-        }
-        console.log(formData, name)
         schema["form-data"] = formData;
-        addNode(schema, newName, {
+        addNode(schema, {
             ...node,
-            id: newName,
+            id: undefined,
             position: undefined,
             selected: false
         })

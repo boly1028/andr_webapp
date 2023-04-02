@@ -1,11 +1,10 @@
-import { getSchemaFromPath, nextSuid, suid } from "@/lib/schema/utils";
+import { getSchemaFromPath } from "@/lib/schema/utils";
 import { IAdoList } from "@/lib/schema/utils/list";
 import ClassifierIcon, { useGetClassColor } from "@/theme/icons/classifiers";
-import { cloneDeep } from "@apollo/client/utilities";
 import { AspectRatio, Box, Divider, GridItem, HStack, Icon, IconButton, SimpleGrid, Text, VStack } from "@chakra-ui/react";
 import { ChevronLeft } from "lucide-react";
 import React, { FC, useCallback } from "react";
-import { useAppBuilder, useReactFlow } from "../canvas/Provider";
+import { useAppBuilder } from "../canvas/Provider";
 import useAddNode from "../hooks/useAddNode";
 import { IUIComponents } from "../types";
 
@@ -54,16 +53,10 @@ interface AdoListItemProps {
 export const AdoListItem: FC<AdoListItemProps> = (props) => {
     const { ado } = props;
     const addNode = useAddNode()
-    const { getNodes } = useReactFlow()
 
     const handleAdd = useCallback(async (source: string) => {
         const ado = await getSchemaFromPath(source);
-        let name = suid()
-        const nodes = getNodes()
-        while (nodes.some(node => node.id === name)) {
-            name = nextSuid(name);
-        }
-        addNode(ado, name)
+        addNode(ado)
     }, [addNode])
 
     const color = useGetClassColor({ adoType: ado.$id as any }, 'low')

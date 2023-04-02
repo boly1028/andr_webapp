@@ -19,7 +19,7 @@ const useRenameNode = (props?: IUseRenameNodeProps) => {
         const formData = formRefs.current[nodeId]?.formData
         // Add New Node with latest nodeId
         oldNode.data.andromedaSchema['form-data'] = formData
-        addNode(oldNode.data.andromedaSchema, newNodeId, oldNode)
+        addNode(oldNode.data.andromedaSchema, { ...oldNode, id: newNodeId })
 
         const edges = getEdges()
         // Now we want to update formData of all incoming edges for the old node.

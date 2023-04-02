@@ -13,16 +13,16 @@ const numToBase = (num: number) => Math.floor(num).toString(BASE).toUpperCase().
  * Use the max value to generate a number from 0-MAX_DEC_FROM_HEX and then again convert it to hex
  * @returns new schema id
  */
-export const suid = () => numToBase(Math.random() * MAX_DEC_FROM_HEX)
+// export const suid = () => numToBase(Math.random() * MAX_DEC_FROM_HEX)
 
-/**Instead of hitting random again, just getting the next number is easier because of scattered nature */
-export const nextSuid = (prev: string) => numToBase((parseInt(prev, BASE) + 1) % (MAX_DEC_FROM_HEX + 1))
+// /**Instead of hitting random again, just getting the next number is easier because of scattered nature */
+// export const nextSuid = (prev: string) => numToBase((parseInt(prev, BASE) + 1) % (MAX_DEC_FROM_HEX + 1))
 
-export const humanReadableUuid = (prefix: string, ref: string, properties: ITemplateSchema['properties']) => {
-    let minLength = Object.entries(properties).filter(([key, val]) => val.$ref === ref).length + 1;
+export const humanReadableUuid = (prefix: string, minLength = 0, reservedNames: string[] = []) => {
+    minLength = minLength + 1;
     const getName = (num: number) => `${prefix}-${num}`
     let id = getName(minLength)
-    while (id in properties) {
+    while (reservedNames.includes(id)) {
         minLength = minLength + 1;
         id = getName(minLength);
     }

@@ -101,7 +101,9 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
   const addModule = useCallback(
     (module: IAndromedaSchemaJSON) => {
       const ref = getSchemaRef(module);
-      const newId = humanReadableUuid(module.schema.$id, ref, schema?.properties ?? {})
+      const allPanels = Object.keys(schema?.properties ?? {});
+      const minLength = allPanels.filter(panelId => schema?.properties?.[panelId]?.$ref === ref).length;
+      const newId = humanReadableUuid(module.schema.$id, minLength, allPanels)
       // dataProcessing should be performed in the AddSchemaModule not in this module
       const form = addSchemaModule(newId, module, {
         schema: schema,
@@ -116,9 +118,12 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
   // Replicate an existing panel identification key with new name
   const duplicatePanel = useCallback(
     (panelName: any) => {
-      const ref = schema?.properties[panelName]?.$ref ?? '';
       const $id = formData[panelName]?.$type ?? '';
-      const newId = humanReadableUuid($id, ref, schema?.properties ?? {})
+      const ref = schema?.properties[panelName]?.$ref ?? '';
+      const allPanels = Object.keys(schema?.properties ?? {});
+      const minLength = allPanels.filter(panelId => schema?.properties?.[panelId]?.$ref === ref).length;
+      const newId = humanReadableUuid($id, minLength, allPanels)
+
       const form = duplicatePanelSchema(panelName, newId, {
         schema: schema,
         uiSchema: uiSchema,

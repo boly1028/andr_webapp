@@ -37,7 +37,7 @@ export const useImportFlex = (overide = true) => {
         template.ados = template.ados.filter(ado => ado.id !== IImportantAdoKeys.PUBLISH_SETTINGS);
         for (const ado of template.ados) {
             const adoSchema = await processTemplateAdo(ado, template.formData?.[ado.id])
-            addNode(adoSchema, ado.id, { position: ado.pos })
+            addNode(adoSchema, { id: ado.id, position: ado.pos })
         }
         setTimeout(() => {
             fitView()
