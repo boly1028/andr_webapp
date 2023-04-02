@@ -1,20 +1,16 @@
 import { parseJsonFromFile } from '@/lib/json'
-import useConfirmationModal from '@/modules/modals/hooks/useConfirmationModal'
 import { TmpButton } from '@/theme/new-system-tmp/ui-elements'
-import { Icon, Input, Tooltip } from '@chakra-ui/react'
+import { Box, ButtonProps, Icon, Input, Tooltip } from '@chakra-ui/react'
 import { Upload } from 'lucide-react'
 import React, { FC } from 'react'
 import { useImportFlex } from '../hooks/useImportFlex'
 
-interface ImportFlexButtonProps {
+interface ImportFlexButtonProps extends ButtonProps {
 
 }
 const ImportFlexButton: FC<ImportFlexButtonProps> = (props) => {
-    const { } = props
-    const open = useConfirmationModal(
-        'warning',
-        '',
-        'Opening a saved project or template will remove your current build. Do you want to proceed?', 'Open Project')
+    const { children, ...buttonProps } = props
+
     const { importFlexFile } = useImportFlex()
 
     /**Handle flex file input */
@@ -23,31 +19,31 @@ const ImportFlexButton: FC<ImportFlexButtonProps> = (props) => {
          * However, make it reusable as same validation will be done at template builder routes.
          */
         const json = await parseJsonFromFile(file);
-        open(() => {
-            importFlexFile(json)
-        })
+        await importFlexFile(json)
     };
 
     return (
-        <TmpButton rightIcon={<Icon as={Upload} boxSize='4' />} aria-label='import-flex' as='label' cursor='pointer' htmlFor='app-import-flex'>
-            <Input
-                onChange={(e) => {
-                    const file = e.target.files?.item(0);
-                    if (file) {
-                        handleFileInput(file);
-                    }
-                }}
-                multiple={false}
-                type="file"
-                id="app-import-flex"
-                // Only Allow flex file
-                accept=".flex"
-                srOnly
-            />
-            <Tooltip label='Open' bg='newSystem.base.light' mt='2'>
-                Load
-            </Tooltip>
-        </TmpButton>
+        <Tooltip label='Open' bg='newSystem.base.light'>
+            <Box>
+                <TmpButton rightIcon={<Icon as={Upload} boxSize='4' />} aria-label='import-flex' as='label' cursor='pointer' {...buttonProps}>
+                    <Input
+                        onChange={(e) => {
+                            const file = e.target.files?.item(0);
+                            if (file) {
+                                handleFileInput(file);
+                            }
+                        }}
+                        multiple={false}
+                        type="file"
+                        id="app-import-flex"
+                        // Only Allow flex file
+                        accept=".flex"
+                        srOnly
+                    />
+                    {children || 'Load'}
+                </TmpButton>
+            </Box>
+        </Tooltip>
     )
 }
 export default ImportFlexButton

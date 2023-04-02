@@ -1,21 +1,14 @@
 import { Icon, IconButton, Tooltip } from "@chakra-ui/react";
 import { Maximize } from "lucide-react";
 import React, { FC } from "react";
-import { useReactFlow } from "../canvas/Provider";
+import useFitView from "../hooks/useFitView";
 
 interface FitViewButtonProps {
 }
 
 const FitViewButton: FC<FitViewButtonProps> = (props) => {
     const { } = props;
-    const { fitView } = useReactFlow()
-
-    const handleFitView = () => {
-        fitView({
-            maxZoom: 1,
-            duration: 300
-        })
-    }
+    const fitView = useFitView()
     return (
         <Tooltip label={`Fit View`} bg='base.white' placement='top'>
             <IconButton
@@ -23,7 +16,7 @@ const FitViewButton: FC<FitViewButtonProps> = (props) => {
                 aria-label="Fit View"
                 icon={<Icon as={Maximize} boxSize='4' />}
                 variant='ghost'
-                onClick={handleFitView}
+                onClick={() => fitView()}
             />
         </Tooltip>
     );

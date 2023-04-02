@@ -1,13 +1,10 @@
 import { ITemplate } from "@/lib/schema/types";
-import { SparklesIcon } from "@/modules/common";
-import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
-import useConfirmationModal from "@/modules/modals/hooks/useConfirmationModal";
 import ClassifierIcon, { useGetClassColor } from "@/theme/icons/classifiers";
-import { Box, Button, Divider, HStack, Icon, IconButton, Text, VStack } from "@chakra-ui/react";
-import { ArrowRight, ChevronLeft } from "lucide-react";
-import Link from "next/link";
+import { Box, HStack, Icon, IconButton, Text, VStack } from "@chakra-ui/react";
+import { ChevronLeft } from "lucide-react";
 import React, { FC, useCallback } from "react";
 import { useAppBuilder } from "../canvas/Provider";
+import MoreOnAppStore from "../common/LoadTemplate/MoreOnAppStore";
 import { useImportFlex } from "../hooks/useImportFlex";
 import { IUIComponents } from "../types";
 
@@ -40,20 +37,7 @@ const TemplateList: FC<TemplateListProps> = (props) => {
                         <TemplateListItem key={template.id} template={template} />
                     );
                 })}
-
-                <VStack mt='6 !important' bg='newSystem.background.800' alignItems='stretch' spacing='4' fontSize='sm' w='full' p='4' rounded='lg'>
-                    <HStack gap='1' px='1'>
-                        <Icon as={SparklesIcon} boxSize='6' />
-                        <Text fontWeight='medium' textTransform='uppercase'>
-                            More on App Store
-                        </Text>
-                    </HStack>
-                    <Link href={SITE_LINKS.appStore()} passHref>
-                        <Button as='a' rightIcon={<Icon as={ArrowRight} boxSize='5' />} size='sm' colorScheme='primary'>
-                            Browse Templates
-                        </Button>
-                    </Link>
-                </VStack>
+                <MoreOnAppStore />
             </VStack>
         </Box>
     );
@@ -67,17 +51,14 @@ interface TemplateListItemProps {
 
 export const TemplateListItem: FC<TemplateListItemProps> = (props) => {
     const { template } = props;
-    const open = useConfirmationModal(
-        'warning',
-        '',
-        'Opening a saved project or template will remove your current build. Do you want to proceed?', 'Open Template')
     const { importFlexFile } = useImportFlex()
 
     const handleAdd = useCallback(async () => {
-        const ado = await importFlexFile(template);
+        await importFlexFile(template)
     }, [importFlexFile])
 
     const color = useGetClassColor({ adoType: template.id as any }, 'low')
+
 
     return (
         <Box
@@ -87,8 +68,10 @@ export const TemplateListItem: FC<TemplateListItemProps> = (props) => {
             bg={color}
             cursor='pointer' p='3' rounded='lg'
             w='full'
-            onClick={() => open(handleAdd)}
+            h='full'
+            onClick={handleAdd}
         >
+
             <VStack alignItems='stretch' fontSize='md' w='full' spacing={2.5}>
                 <HStack gap='1'>
                     <ClassifierIcon boxSize='4' w='7' h='7' adoType={template.id} />

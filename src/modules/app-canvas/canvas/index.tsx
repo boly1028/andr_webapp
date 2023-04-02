@@ -3,9 +3,10 @@ import ReactFlow, { Background, BackgroundVariant, Controls, MarkerType, MiniMap
 import { IEdgeData, INodeData, useAppBuilder } from './Provider'
 import 'reactflow/dist/style.css';
 import AppBuilderForm from '../appBuilderForm/Form';
-import { Box } from '@chakra-ui/react';
+import { Box, Center } from '@chakra-ui/react';
 import { WRAPPER_ID } from '../hooks/useGetWrapper';
 import { APP_BUILDER_KEYCODES } from '../common/keyCodes';
+import LoadTemplate from '../common/LoadTemplate';
 
 interface AppBuilderCanvasProps {
 
@@ -14,7 +15,7 @@ const AppBuilderCanvas: FC<AppBuilderCanvasProps> = (props) => {
     const { } = props
     const [nodes, , onNodesChange] = useNodesState<INodeData>([])
     const [edges, , onEdgesChange] = useEdgesState<IEdgeData>([])
-    const { formRefs } = useAppBuilder()
+    const { formRefs, isDirty } = useAppBuilder()
 
     const NODE_TYPES: NodeTypes = useMemo(() => {
         return {
@@ -25,6 +26,11 @@ const AppBuilderCanvas: FC<AppBuilderCanvasProps> = (props) => {
 
     return (
         <Box w='full' h='full' id={WRAPPER_ID}>
+            {!isDirty && (
+                <Center w='full' h='full'>
+                    <LoadTemplate />
+                </Center>
+            )}
             <ReactFlow
                 deleteKeyCode={APP_BUILDER_KEYCODES.DELETE}
                 multiSelectionKeyCode={APP_BUILDER_KEYCODES.MULTISELECT}

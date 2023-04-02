@@ -24,6 +24,7 @@ export interface IEditorRef {
     },
     setAppName?: (name: string) => void;
     getAppName?: () => string;
+    setDirty?: (dirty: boolean) => void;
 }
 
 export enum IUIComponents {

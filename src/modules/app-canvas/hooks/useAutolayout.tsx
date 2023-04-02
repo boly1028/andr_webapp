@@ -30,9 +30,7 @@ const getLayoutedElements = (nodes: Node<INodeData>[], edges: Edge<IEdgeData>[])
     nodes.forEach((node) => {
         const width = node.width ?? 10;
         const height = node.height ?? 10;
-        const x = node.position.x;
-        const y = node.position.y;
-        dagreGraph.setNode(node.id, { x, y, width, height });
+        dagreGraph.setNode(node.id, { width, height });
     });
 
     edges.forEach((edge) => {
@@ -40,10 +38,12 @@ const getLayoutedElements = (nodes: Node<INodeData>[], edges: Edge<IEdgeData>[])
     });
     dagre.layout(dagreGraph);
     nodes.forEach((node) => {
+        const width = node.width ?? 10;
+        const height = node.height ?? 10;
         const nodeWithPosition = dagreGraph.node(node.id);
         node.position = {
-            x: nodeWithPosition.x ?? node.position.x,
-            y: nodeWithPosition.y ?? node.position.y,
+            x: nodeWithPosition.x - width / 2,
+            y: nodeWithPosition.y - height / 2,
         };
 
         return node;

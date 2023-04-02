@@ -7,11 +7,12 @@ import useGetWrapper from "./useGetWrapper";
 interface IUseAddNodeProps { }
 
 const useAddNode = (props?: IUseAddNodeProps) => {
-    const { updateNodeUpdater } = useAppBuilder()
+    const { updateNodeUpdater, editorRef } = useAppBuilder()
     const { addNodes, getNodes } = useReactFlow()
     const { getCenterPosition } = useGetWrapper()
 
     const addNode = useCallback((schema: IAndromedaSchemaJSON, name: string, defaultNodeData: Partial<Node<INodeData>> = {}) => {
+        editorRef.current.setDirty?.(true)
         schema['form-data'].$enabled = true;
         const nodes = getNodes()
         const pos = getCenterPosition()
@@ -29,7 +30,7 @@ const useAddNode = (props?: IUseAddNodeProps) => {
             draggable: true,
             'deletable': true,
             type: 'form',
-            zIndex: defaultNodeData.zIndex ?? nodes.length ?? 0,
+            zIndex: Math.max(defaultNodeData.zIndex ?? 0, nodes.length),
             selectable: true
         })
         updateNodeUpdater()

@@ -132,13 +132,7 @@ const APP_TEMPLATES: PartialTemplateType[] = [
         "rates": [
           {
             "is_additive": true,
-            "rate": {
-              "percent": {
-                "percent": "0.15"
-              }
-            },
             "recipients": [],
-            "description": "A 15% tax on NFTs sold in the  auctions"
           }
         ]
       },

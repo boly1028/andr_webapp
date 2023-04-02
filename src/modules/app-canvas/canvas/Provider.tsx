@@ -1,6 +1,6 @@
 import { IAndromedaSchemaJSON } from '@/lib/schema/types';
-import React, { createContext, createRef, FC, MutableRefObject, ReactNode, useCallback, useContext, useMemo, useRef, useState } from 'react'
-import { Edge, Node, OnEdgesChange, OnNodesChange, useEdgesState, useNodesState, useReactFlow as useReactFlowFromReactFLow } from 'reactflow';
+import React, { createContext, createRef, FC, MutableRefObject, ReactNode, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
+import { useReactFlow as useReactFlowFromReactFLow } from 'reactflow';
 import { IFieldRef } from '../appBuilderForm/templates/FieldTemplate';
 import { IEditorRef, IFormRefs } from '../types';
 
@@ -12,12 +12,18 @@ const AppBuilderProvider: FC<AppBuilderProviderProps> = (props) => {
 
     const formRefs = useRef<IFormRefs>({})
     const editorRef = useRef<IEditorRef>({})
+    const [isDirty, setIsDirty] = useState(false)
     const [nodeUpdater, setNodeUpdater] = useState<number>(0)
 
     const updateNodeUpdater: AppBuilderContext['updateNodeUpdater'] = useCallback(() => {
         setNodeUpdater(prev => prev + (Math.random() - 0.5))
     }, [setNodeUpdater])
 
+    useEffect(() => {
+        editorRef.current.setDirty = (dirty) => {
+            setIsDirty(dirty)
+        }
+    }, [setIsDirty, editorRef])
 
     const value: AppBuilderContext = useMemo(() => {
         return {
@@ -25,8 +31,9 @@ const AppBuilderProvider: FC<AppBuilderProviderProps> = (props) => {
             editorRef,
             nodeUpdater,
             updateNodeUpdater,
+            isDirty
         }
-    }, [formRefs, editorRef, nodeUpdater, updateNodeUpdater])
+    }, [formRefs, editorRef, nodeUpdater, updateNodeUpdater, isDirty])
 
     return (
         <context.Provider value={value}>
@@ -40,6 +47,7 @@ export interface AppBuilderContext {
     editorRef: React.MutableRefObject<IEditorRef>;
     nodeUpdater: number;
     updateNodeUpdater: () => void;
+    isDirty: boolean;
 }
 
 export interface INodeData {
@@ -57,6 +65,7 @@ const defaultValue: AppBuilderContext = {
     editorRef: createRef<IEditorRef>() as any,
     nodeUpdater: 0,
     updateNodeUpdater: () => { throw new Error("OUTSIDE COONTEXT") },
+    isDirty: false
 }
 const context = createContext(defaultValue);
 export const useAppBuilder = () => useContext(context)
