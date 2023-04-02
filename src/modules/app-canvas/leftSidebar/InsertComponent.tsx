@@ -40,6 +40,8 @@ const InsertComponent: FC<InsertComponentProps> = (props) => {
                 <GridItem><Kbd px='2' py='1'>{APP_BUILDER_KEYCODES.MULTISELECT} + Click</Kbd></GridItem>
                 <GridItem>Delete</GridItem>
                 <GridItem><Kbd px='2' py='1'>{APP_BUILDER_KEYCODES.DELETE}</Kbd></GridItem>
+                <GridItem>Zoom</GridItem>
+                <GridItem><Kbd px='2' py='1'>{APP_BUILDER_KEYCODES.ZOOM} + Scroll</Kbd></GridItem>
             </SimpleGrid>
         </VStack>
     )

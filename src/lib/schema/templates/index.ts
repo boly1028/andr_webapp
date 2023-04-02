@@ -129,12 +129,6 @@ const APP_TEMPLATES: PartialTemplateType[] = [
     starter: true,
     formData: {
       "taxes": {
-        "rates": [
-          {
-            "is_additive": true,
-            "recipients": [],
-          }
-        ]
       },
       "auction": {
         "modules": [

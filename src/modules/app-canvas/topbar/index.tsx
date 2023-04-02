@@ -9,6 +9,8 @@ import Toolbar from '../toolbar';
 import { TmpButton } from '@/theme/new-system-tmp/ui-elements';
 import Link from 'next/link';
 import { SITE_LINKS } from '@/modules/common/utils/sitelinks';
+import CopyCliButton from '../common/CopyCli';
+import CopyFlexUrlButton from '../common/CopyFlexUrl';
 
 interface TopBarProps {
 
@@ -29,6 +31,8 @@ const TopBar: FC<TopBarProps> = (props) => {
                 <Toolbar />
             </HStack>
             <HStack>
+                <CopyCliButton />
+                <CopyFlexUrlButton />
                 <DownloadFlexButton />
                 <PublishButton />
                 <Wallet size='sm' />

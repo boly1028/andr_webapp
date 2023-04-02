@@ -20,11 +20,7 @@ export const usePublish = () => {
     const construct = useConstructAppMsg();
     const openModal = useInstantiateModal(codeId);
 
-    const handlePublish = useCallback(() => {
-        if (codeId === -1) {
-            console.warn("Code ID not fetched");
-            return;
-        }
+    const getMsg = useCallback(() => {
         try {
             const nodes = getNodes()
             const ados = formRefs.current ?? {};
@@ -38,7 +34,7 @@ export const usePublish = () => {
             const formData = getFormData()
             const name = editorRef.current.getAppName?.() ?? 'Untitled App'
             const msg = construct(formData, name);
-            openModal(msg);
+            return msg;
         } catch (err: any) {
             console.log(err)
             toast({
@@ -47,7 +43,18 @@ export const usePublish = () => {
                 status: 'error'
             })
         }
-    }, [codeId, toast, construct, openModal, formRefs, getFormData, editorRef])
+    }, [getNodes, formRefs, getFormData, editorRef, construct, toast])
 
-    return handlePublish
+    const handlePublish = useCallback(() => {
+        if (codeId === -1) {
+            console.warn("Code ID not fetched");
+            return;
+        }
+        const msg = getMsg();
+        if (msg) {
+            openModal(msg);
+        }
+    }, [codeId, openModal, getMsg])
+
+    return { handlePublish, getMsg }
 }

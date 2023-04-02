@@ -50,7 +50,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
     })
     console.log(query)
     return query
-  }, [codeId])
+  }, [codeId, getMsg])
 
 
   return (
