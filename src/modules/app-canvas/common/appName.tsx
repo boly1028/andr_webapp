@@ -3,6 +3,7 @@ import { TmpButton } from '@/theme/new-system-tmp/ui-elements'
 import { Icon, Input } from '@chakra-ui/react'
 import React, { FC, useCallback, useEffect, useState } from 'react'
 import { AppBuilderContext, useAppBuilder } from '../canvas/Provider'
+import { AppConfig } from '../config'
 import { IEditorRef } from '../types'
 
 interface AppNameButtonProps {
@@ -11,7 +12,7 @@ interface AppNameButtonProps {
 const AppNameButton: FC<AppNameButtonProps> = (props) => {
     const { } = props
     const { editorRef } = useAppBuilder()
-    const [appName, setAppName] = useState('Untitled App')
+    const [appName, setAppName] = useState(AppConfig.DEFAULT_APP_NAME)
 
     const updateName: IEditorRef['setAppName'] = useCallback((name) => {
         setAppName(name)
@@ -32,6 +33,7 @@ const AppNameButton: FC<AppNameButtonProps> = (props) => {
                 variant='unstyled'
                 w='20'
                 fontSize='sm'
+                placeholder={AppConfig.DEFAULT_APP_NAME}
             />
         </TmpButton>
     )

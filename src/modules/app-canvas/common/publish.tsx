@@ -9,7 +9,7 @@ interface PublishButtonProps extends ButtonProps {
 }
 const PublishButton: FC<PublishButtonProps> = (props) => {
     const { } = props
-    const { handlePublish: publish } = usePublish()
+    const { publishAppWithAppRename: publish } = usePublish()
     const wallet = useWallet()
     return (
         <Button isDisabled={!wallet?.address} as={TmpButton} size='sm' colorScheme='primary' {...props} onClick={publish}>
