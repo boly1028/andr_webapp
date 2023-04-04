@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { Handle, Position } from "react-flow-renderer";
+import { Handle, Position } from "reactflow";
 
 import { Box, Circle, Text, Icon, HStack } from "@chakra-ui/react";
 import { Codesandbox } from "lucide-react";

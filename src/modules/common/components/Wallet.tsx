@@ -17,6 +17,7 @@ import {
   VStack,
   Badge,
   Box,
+  ButtonProps,
 } from "@chakra-ui/react";
 import { FC } from "react";
 
@@ -36,7 +37,11 @@ import { useAllChainConfig, useChainConfig } from "@/lib/andrjs";
 import ChainFallbackIcon from "./icons/ChainFallbackIcon";
 import { SITE_LINKS } from "../utils/sitelinks";
 
-const WalletConnected = () => {
+interface WalletProps extends ButtonProps {
+
+}
+
+const WalletConnected: FC<WalletProps> = (props) => {
   const wallet = useWallet();
   const disconnect = useDisconnect();
   const address = truncate(wallet?.address);
@@ -52,14 +57,15 @@ const WalletConnected = () => {
             <Button
               variant="outline"
               size="lg"
+              {...props}
             >
-              <HStack mr={8}>
+              <HStack mr={4}>
                 {iconUrl ? (
-                  <Image src={iconUrl ?? ""} w="6" />
+                  <Image src={iconUrl ?? ""} w="5" />
                 ) : (
                   <Icon
                     as={ChainFallbackIcon}
-                    boxSize='6'
+                    boxSize='5'
                   />
                 )}
                 <Text fontSize="sm">{address}</Text>
@@ -224,12 +230,12 @@ const WalletConnected = () => {
   );
 };
 
-const Wallet: FC = () => {
+const Wallet: FC<WalletProps> = (props) => {
   const account = useWallet();
   const onOpen = useWalletModal();
 
   if (account) {
-    return <WalletConnected />;
+    return <WalletConnected {...props} />;
   }
 
   return (
@@ -240,6 +246,7 @@ const Wallet: FC = () => {
         variant="solid"
         onClick={onOpen}
         size="lg"
+        {...props}
       >
         Connect Wallet
       </Button>

@@ -1,8 +1,8 @@
-import { cloneDeep } from "@apollo/client/utilities";
+import { cloneDeep } from "lodash";
 import JSONCrush from "jsoncrush";
-import { ITemplateFormData, ITemplateSchema } from "../templates/types";
+import { IAdo, ITemplateFormData, ITemplateSchema } from "../templates/types";
 import { UPLOAD_TEMPLATE } from "../templates/upload"
-import { ITemplate } from "../types"
+import { IAndromedaSchema, ITemplate } from "../types"
 import { processTemplate } from "./template";
 
 export const parseFlexFile = async (template: ITemplate) => {
@@ -16,6 +16,11 @@ interface ICreateInput {
     formData: ITemplateFormData;
 }
 
+interface ICreateInputFromADO {
+    ados: IAdo[];
+    formData: ITemplateFormData;
+}
+
 /**
  * Creates a flex file from the current schema and formData. It stores formData as it is and process
  * schema to extract id and path and insert them in ados field for template
@@ -23,26 +28,35 @@ interface ICreateInput {
  * @returns flex template
  */
 export const createFlexFile = async ({ schema, formData }: ICreateInput) => {
-    const template: ITemplate = cloneDeep(UPLOAD_TEMPLATE);
-    Object.keys(schema.properties).map((id) => {
-        template.ados.push({
+    const ados: IAdo[] = []
+    Object.entries(schema.properties).map(([id, property]) => {
+        const definitionId = property.$ref.split('/').pop() ?? '';
+        const definition = schema.definitions[definitionId];
+        ados.push({
             id: id,
-            path: schema.definitions[id].$path,
+            path: definition.$path,
             required: true,
             'enabled': true
         })
     })
-    template.modules = [];
-    template.formData = formData;
+
+    const template = await createFlexFileFromADOS({ ados, formData })
     return template
 }
 
 
+export const createFlexFileFromADOS = async ({ ados, formData }: ICreateInputFromADO) => {
+    const template: ITemplate = cloneDeep(UPLOAD_TEMPLATE);
+    template.ados = ados;
+    template.modules = [];
+    template.formData = formData;
+    return template;
+}
+
 // Just a cool feature to create json crush encoded url for template data
-export const createFlexUrl = async (data: ICreateInput) => {
-    const temp = await createFlexFile(data);
-    const compressed = JSONCrush.crush(JSON.stringify(temp));
-    console.log("CRUSH:ORIGINAL", temp);
+export const createFlexUrl = async (template: ITemplate) => {
+    const compressed = JSONCrush.crush(JSON.stringify(template));
+    console.log("CRUSH:ORIGINAL", template);
     console.log("CRUSH:COMPRESSED", compressed);
     const uri = encodeURIComponent(compressed)
     return uri;

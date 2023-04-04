@@ -69,3 +69,12 @@ export interface IAndromedaUISchema extends UiSchema {
     $removable: { "ui:widget": "hidden" };
     $enabled: { "ui:widget": "hidden" };
 }
+
+
+/** HELPER TYPES FOR PROCESSING CUSTOM ADOS like PUBLISH_CONTRACT and PROXY MESSAGE. THESE
+ * SHOULD BE IN SYNC WITH ACTUAL FORM DATA
+ */
+
+export interface IPublishSettingsFormData extends IAndromedaFormData {
+    name: string;
+}

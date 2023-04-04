@@ -23,10 +23,10 @@ import {
   Edit,
 } from "lucide-react"; // default
 
-import React, { FC } from "react";
+import React, { FC, useMemo } from "react";
 
 import { Icon } from "@/theme/ui-elements";
-import { Flex, IconProps } from "@chakra-ui/react";
+import { BackgroundProps, Flex, IconProps, useToken } from "@chakra-ui/react";
 import { SplitterIcon } from "@/modules/common";
 import { IAdoType } from "@/lib/schema/types";
 import { getSchemaMeta } from "@/lib/schema/utils";
@@ -89,6 +89,21 @@ interface ClassifierIconProps extends IconProps {
   w?: number | string;
   h?: number | string;
 }
+
+export const useGetClassColor = (props: { adoType?: IAdoType, _class?: string }, variant: 'default' | 'low' = 'default') => {
+  const adoColor = useMemo(() => {
+    if (!props._class && props.adoType) {
+      const meta = getSchemaMeta(props.adoType);
+      props._class = meta.class.toLowerCase();
+    }
+    const _class = props._class || 'module';
+    let tokenCategory = 'category';
+    if (variant === 'low') tokenCategory = tokenCategory + 'Low'
+    return `newSystem.${tokenCategory}.${_class}` as BackgroundProps['bg'];
+  }, [props, variant]
+  )
+  return useToken('colors', adoColor as any)
+}
 const ClassifierIcon: FC<ClassifierIconProps> = (props) => {
   const {
     adoType,
@@ -104,13 +119,13 @@ const ClassifierIcon: FC<ClassifierIconProps> = (props) => {
   const _classifier =
     schemaClassifier?.toLocaleLowerCase() || meta.classifier.toLowerCase();
   const _class = schemaClass?.toLocaleLowerCase() || meta.class.toLowerCase();
+  const color = useGetClassColor({ _class: _class });
 
   const icon =
     CLASSIFIER_ICON[_classifier] ??
     CLASSIFIER_ICON[_class] ??
     CLASSIFIER_ICON.default;
 
-  const color = `category.${_class || "module"}`;
 
   return (
     <Flex

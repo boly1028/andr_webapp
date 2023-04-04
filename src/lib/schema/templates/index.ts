@@ -1,8 +1,11 @@
 import { IImportantAdoKeys } from "../types";
-import { BASE_ADOS, MODULES, PRIMITIVES } from "../utils/list";
 import { ITemplate } from "./types";
 
-const APP_TEMPLATES: ITemplate[] = [
+type PartialTemplateType = Omit<ITemplate, 'formData'> & {
+  formData?: any
+}
+
+const APP_TEMPLATES: PartialTemplateType[] = [
   {
     id: "app",
     adoType: "app",
@@ -85,9 +88,24 @@ const APP_TEMPLATES: ITemplate[] = [
         id: IImportantAdoKeys.PUBLISH_SETTINGS,
         required: true,
       },
-      { path: "cw721/latest/cw721", id: "tokens", required: true },
-      { path: "auction/latest/auction", id: "auction", required: true },
-      { path: "rates/latest/rates", id: "rates", required: false },
+      {
+        path: "cw721/latest/cw721", id: "tokens", required: true, "pos": {
+          "x": 496,
+          "y": 368
+        }
+      },
+      {
+        path: "auction/latest/auction", id: "auction", required: true, "pos": {
+          "x": 496,
+          "y": -144
+        }
+      },
+      {
+        path: "rates/latest/rates", id: "taxes", required: false, "pos": {
+          "x": -112,
+          "y": -144
+        }
+      },
     ],
     modules: [
       {
@@ -109,6 +127,24 @@ const APP_TEMPLATES: ITemplate[] = [
     icon: "/app-templates/icons/auction-market.png",
     installed: true,
     starter: true,
+    formData: {
+      "taxes": {
+      },
+      "auction": {
+        "modules": [
+          {
+            "address": {
+              "identifier": "taxes"
+            },
+            "is_mutable": true,
+            "module_type": "rates"
+          }
+        ]
+      },
+      "tokens": {
+        "minter": {},
+      }
+    }
   },
   // {
   //   id: "market",

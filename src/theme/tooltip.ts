@@ -1,8 +1,10 @@
 const baseStyle = {
-  px: 3,
-  py: 2,
-  bg: "gray.900",
+  px: 1.5,
+  py: 1,
+  bg: "base.white",
+  color: "gray.800",
   borderRadius: "lg",
+  fontSize: 'xs'
 };
 
 const styles = {

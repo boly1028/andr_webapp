@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { Handle, Position } from "react-flow-renderer";
+import { Handle, Position } from "reactflow";
 import { Input, HStack, Flex, Text } from "@chakra-ui/react";
 
 const handleStyle = {

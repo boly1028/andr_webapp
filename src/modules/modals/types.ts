@@ -52,6 +52,8 @@ export interface PanelRenameModalProps {
   modalType: ModalType.PanelRename;
   reservedNames: string[];
   defaultName: string;
+  match?: RegExp;
+  preventSameSubmission?: boolean;
 }
 
 export interface AssetInfoModalProps {

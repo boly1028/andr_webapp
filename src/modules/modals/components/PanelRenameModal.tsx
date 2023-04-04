@@ -12,6 +12,8 @@ const PanelRenameModal: FC<PanelRenameModalProps> = memo(
     acceptButtonText,
     reservedNames,
     defaultName,
+    match = /^[a-z0-9A-Z-_]+$/i,
+    preventSameSubmission = true
   }) {
     const { close } = useGlobalModalContext();
     const [newName, setNewName] = useState(defaultName);
@@ -27,7 +29,6 @@ const PanelRenameModal: FC<PanelRenameModalProps> = memo(
           setError("Name cannot be empty");
           return;
         }
-        const match = /^[a-z0-9A-Z-_]+$/i;
         if (!_name.match(match)) {
           setError("Name should be alphanumeric");
           return;
@@ -42,25 +43,25 @@ const PanelRenameModal: FC<PanelRenameModalProps> = memo(
     );
 
     useEffect(() => {
-      debouncedErrorCheck(newName);
+      debouncedErrorCheck(newName.trim());
     }, [newName]);
 
     const onCallback = useCallback(() => {
       close();
-      callback(newName);
+      callback(newName.trim());
     }, [close, callback, newName]);
 
     return (
       <Box>
-        <Text fontWeight={600} color="gray.700">
+        <Text fontWeight={600} color="newSystem.content.high">
           {title}
         </Text>
-        <Text textStyle="light">{body}</Text>
+        <Text textStyle="light" color='newSystem.content.low'>{body}</Text>
         <Input
           value={newName}
           onChange={(e) => {
             const val = e.target.value;
-            setNewName(val.trim());
+            setNewName(val);
           }}
           mt="6"
           placeholder={defaultName}
@@ -73,7 +74,7 @@ const PanelRenameModal: FC<PanelRenameModalProps> = memo(
             Cancel
           </Button>
           <Button
-            disabled={!!error ||  newName === defaultName}
+            disabled={!!error || (preventSameSubmission && (newName === defaultName))}
             variant="solid"
             colorScheme="blue"
             onClick={onCallback}
