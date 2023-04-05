@@ -62,11 +62,20 @@ interface SchemaComponentItemProps {
     leftIcon: ButtonProps['leftIcon']
     searchedText: string
 }
+interface SearchedTextMatcherType {
+    title: string
+    source: string
+}
 const SchemaComponentItem: FC<SchemaComponentItemProps> = (props) => {
     const { name, leftIcon, searchedText } = props
     let { list } = props
+
+    const searchedTextMatcher = (record: SearchedTextMatcherType): boolean => {
+        return (record.title.toLocaleLowerCase().includes(searchedText.toLocaleLowerCase()) ||
+            record.source.toLocaleLowerCase().includes(searchedText.toLocaleLowerCase()));
+    }
     if (!!searchedText) {
-        list = list.filter((item) => item.title.toLocaleLowerCase().includes(searchedText.toLocaleLowerCase()) && item)
+        list = list.filter((item) => searchedTextMatcher(item) && item)
     }
     const { getButtonProps, getDisclosureProps, isOpen } = useDisclosure();
     const disclosureProps = getDisclosureProps();
