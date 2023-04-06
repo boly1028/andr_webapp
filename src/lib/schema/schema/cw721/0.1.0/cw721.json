@@ -85,8 +85,7 @@
         "name": {
             "ui:options": {
                 "title": "Token/NFT Name",
-                "description": "The name of the token.",
-                "help": "Has to be between 3 and 30 characters."
+                "description": "The name of the token."
             }
         },
         "symbol": {
