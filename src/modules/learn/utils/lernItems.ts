@@ -101,8 +101,13 @@ export const LEARN_PAGE_ITEMS: ILearnPageItem[] = [
                 description: '',
                 icon: ExtendingAppIcon,
                 link: SITE_LINKS.learnItem('/andromeda/auction-marketplace-guide-4')
+            },
+            {
+                title: '5: Auctioning App in CLI',
+                description: '',
+                icon: CliIcon,
+                link: 'https://docs.andromedaprotocol.io/andromeda/andromeda-apps/auctioning-app'
             }
-
         ]
     }
 ]
