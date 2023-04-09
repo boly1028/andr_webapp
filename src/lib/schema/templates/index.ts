@@ -34,16 +34,19 @@ const APP_TEMPLATES: PartialTemplateType[] = [
     // ],
     modules: [
       {
-        path: "cw721/latest/cw721",
-      },
-      {
         path: "auction/latest/auction",
       },
       {
-        path: "splitter/latest/splitter",
+        path: "cw721/latest/cw721",
+      },
+      {
+        path: "marketplace/latest/marketplace",
       },
       {
         path: "rates/latest/rates",
+      },
+      {
+        path: "splitter/latest/splitter",
       },
       {
         path: "address-list/latest/address-list",
@@ -101,7 +104,7 @@ const APP_TEMPLATES: PartialTemplateType[] = [
         }
       },
       {
-        path: "rates/latest/rates", id: "taxes", required: false, "pos": {
+        path: "rates/latest/rates", id: "taxes", required: false, enabled: true, "pos": {
           "x": -112,
           "y": -144
         }
@@ -146,43 +149,70 @@ const APP_TEMPLATES: PartialTemplateType[] = [
       }
     }
   },
-  // {
-  //   id: "market",
-  //   adoType: "app",
-  //   name: "Flat Rate Marketplace",
-  //   description:
-  //     "Setup a customizable NFT Marketplace/store to sell NFT’s for a specific price point. NFT’s can be sorted and filtered upon by many different attributes of the NFT’s themselves. The rates and address (Whitelist/Blacklist) list are also configurable and can be modified per marketplace instance. Proceeds will be collected and sent to the marketplace owner and NFT sent to the specific recipient of the purchase.",
-  //   opts: ["Marketplace", "CW721", "Rates"],
-  //   ados: [
-  //     {
-  //       path: IImportantAdoKeys.PUBLISH_SETTINGS,
-  //       id: IImportantAdoKeys.PUBLISH_SETTINGS,
-  //       required: true,
-  //     },
-  //     { path: "cw721/latest/cw721", id: "tokens", required: true },
-  //     {
-  //       path: "marketplace/latest/marketplace",
-  //       id: "marketplace",
-  //       required: true,
-  //     },
-  //     { path: "rates/latest/rates", id: "rates", required: false },
-  //     {
-  //       path: "address-list/latest/address-list",
-  //       id: "whitelist",
-  //       required: false,
-  //       enabled: false,
-  //     },
-  //   ],
-  //   modules: [
-  //     { path: "cw721/latest/cw721" },
-  //     { path: "marketplace/latest/marketplace" },
-  //     { path: "rates/latest/rates" },
-  //     { path: "address-list/latest/address-list" },
-  //   ],
-  //   icon: "/app-templates/icons/market.png",
-  //   installed: true,
-  //   starter: true,
-  // },
+  {
+    id: "market",
+    adoType: "app",
+    name: "Flat Rate Marketplace",
+    description:
+      "Setup a customizable NFT Marketplace/store to sell NFT’s for a specific price point. NFT’s can be sorted and filtered upon by many different attributes of the NFT’s themselves. The rates and address (Whitelist/Blacklist) list are also configurable and can be modified per marketplace instance. Proceeds will be collected and sent to the marketplace owner and NFT sent to the specific recipient of the purchase.",
+    opts: ["Marketplace", "CW721", "Rates"],
+    ados: [
+      {
+        path: IImportantAdoKeys.PUBLISH_SETTINGS,
+        id: IImportantAdoKeys.PUBLISH_SETTINGS,
+        required: true,
+      },
+      { path: "cw721/latest/cw721", id: "tokens", required: true, "pos": {
+        "x": 496,
+        "y": 448
+      } },
+      {
+        path: "marketplace/latest/marketplace",
+        id: "marketplace",
+        required: true,
+        "pos": {
+          "x": 496,
+          "y": -144
+        }
+      },
+      { path: "rates/latest/rates", id: "taxes", 
+        required: false,
+        enabled: true,
+        "pos": {
+          "x": -112,
+          "y": -144
+        }
+      },
+    ],
+    modules: [
+      { path: "cw721/latest/cw721" },
+      { path: "marketplace/latest/marketplace" },
+      { path: "rates/latest/rates" },
+      { path: "address-list/latest/address-list" },
+      { path: "splitter/latest/splitter" }
+    ],
+    icon: "/app-templates/icons/market.png",
+    installed: true,
+    starter: true,
+
+    formData: {
+      "marketplace": {
+        "modules": [
+          {
+            "address": {
+              "identifier": "taxes"
+            },
+            "is_mutable": true,
+            "module_type": "rates"
+          }
+        ]
+      },
+      "tokens": {
+        "minter": {},
+      }
+    }
+  
+  },
   // {
   //   id: "cw20-staking",
   //   adoType: "app",
