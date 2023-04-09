@@ -120,7 +120,7 @@
                         "title": "Token id"
                     },
                     "token_uri": {
-                        "description": "Universal resource identifier for this NFT Should point to a JSON file that conforms to the ERC721 Metadata JSON Schema",
+                        "description": "Universal resource identifier for this NFT Should point to a JSON file that conforms to the CW721 Metadata JSON Schema",
                         "type": [
                             "string",
                             "null"
@@ -280,7 +280,7 @@
             "token_uri": {
                 "ui:options": {
                     "title": "Token Identifier",
-                    "description": "Universal resource identifier for this token. Should point to a JSON file that conforms to the ERC721 Metadata JSON Schema."
+                    "description": "Universal resource identifier for this token. Should point to a JSON file that conforms to the CW721 Metadata JSON Schema."
                 }
             }
         }
