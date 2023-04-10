@@ -9,7 +9,8 @@
     "lint": "next lint --quiet",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf .next",
     "tsc": "tsc",
-    "theme": "chakra-cli tokens ./src/theme/index.ts"
+    "theme": "chakra-cli tokens ./src/theme/index.ts",
+    "postinstall": "npm run theme"
   },
   "dependencies": {
     "@andromedaprotocol/andromeda.js": "^0.2.13",

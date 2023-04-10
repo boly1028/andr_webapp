@@ -1,9 +1,18 @@
-export const getPanelTargetHandlePrefix = (panelName: string, dir: DIRECTION) => {
-    return `${panelName}-target-${dir}`
+const SEPARATOR = '-.-'
+
+export const createHandlerId  =(nodeId:string,rjsfIdPrefix:string,dir?:DIRECTION) =>{
+    const data = [nodeId, rjsfIdPrefix];
+    if(dir) data.push(dir)
+    return data.join(SEPARATOR);
 }
 
-export const getSourceHandlePrefix = (edgeId: string, dir: DIRECTION) => {
-    return `${edgeId}-source-${dir}`
+export const extractDataFromHandler = (handle:string)=>{
+    const items = handle.split(SEPARATOR);
+    return {
+        nodeId:items[0],
+        rjsfIdPrefix:items[1],
+        dir:items[2] as DIRECTION
+    }
 }
 
 export enum DIRECTION {

@@ -1,23 +1,8 @@
-// Panel container for Flex-Builder: Handles panel name change assosciations
-
-import { parseJsonFromFile } from "@/lib/json";
-import { IAdoType, IAndromedaFormData, IAndromedaSchema } from "@/lib/schema/types";
-import { CopyButton, FileCheckIcon } from "@/modules/common";
-import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
-import ClassifierIcon, { useGetClassColor } from "@/theme/icons/classifiers";
-import { Box, Flex, HStack, IconButton, Text } from "@/theme/ui-elements";
-import { downloadBlob } from "@/utils/file";
-import { DownloadIcon, EditIcon, ExternalLinkIcon, InfoIcon } from "@chakra-ui/icons";
+import { IAndromedaFormData, IAndromedaSchema } from "@/lib/schema/types";
+import { Box } from "@/theme/ui-elements";
 import {
   Grid,
   GridItem,
-  Icon,
-  Input,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
-  Tooltip,
 } from "@chakra-ui/react";
 
 import {
@@ -26,19 +11,6 @@ import {
   getUiOptions,
   getTemplate,
 } from "@andromedarjsf/utils";
-import {
-  MoreVertical,
-  Trash2 as DeleteIcon,
-} from "lucide-react";
-import { useMemo } from "react";
-import { useAppBuilder } from "../../canvas/Provider";
-import { useFieldTemplate } from "./FieldTemplate";
-import { Position } from "reactflow";
-import { DIRECTION, getPanelTargetHandlePrefix } from "../connections/utils";
-import usePanelRenameModal from "@/modules/modals/hooks/usePanelRenameModal";
-import Handle from "../ReactFlow/Handle";
-
-const NON_EDITABLE_CLASS = new Set<string>(["system", "modifier"]);
 
 interface ObjectFieldTemplateExtendedProps extends ObjectFieldTemplateProps {
   schema: IAndromedaSchema;

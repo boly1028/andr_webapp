@@ -56,8 +56,6 @@ export interface INodeData {
 }
 
 export interface IEdgeData {
-    fieldRef: MutableRefObject<IFieldRef>;
-    isIdentifier: boolean;
 }
 
 const defaultValue: AppBuilderContext = {

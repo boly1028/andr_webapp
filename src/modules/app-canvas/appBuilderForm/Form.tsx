@@ -9,7 +9,7 @@ import React, { FC, useCallback, useEffect, useMemo, useRef, useState } from 're
 import { NodeProps, Position } from 'reactflow';
 import { useAppBuilder, useReactFlow } from '../canvas/Provider';
 import { IFormRef } from '../types';
-import { DIRECTION, getPanelTargetHandlePrefix } from './connections/utils';
+import { DIRECTION, createHandlerId } from './connections/utils';
 import Handle from './ReactFlow/Handle';
 import templates from './templates';
 import Toolbar from './nodeToolbar';
@@ -54,9 +54,10 @@ const AppBuilderForm: FC<AppBuilderFormProps> = (props) => {
     useEffect(() => {
         if (formRefs.current) {
             formRefs.current[name] = {
+                ...formRefs.current[name],
                 validate,
                 formData: formData,
-                updateFormData: updateFormData
+                updateFormData: updateFormData,
             }
         }
     }, [validate, formRefs, formData, updateFormData])
@@ -76,7 +77,7 @@ const AppBuilderForm: FC<AppBuilderFormProps> = (props) => {
     }, [schema]);
 
     const [upHandle, downHandle] = useMemo(() => {
-        return [getPanelTargetHandlePrefix(name, DIRECTION.UP), getPanelTargetHandlePrefix(name, DIRECTION.DOWN)]
+        return [createHandlerId(name, '', DIRECTION.UP), createHandlerId(name, '', DIRECTION.DOWN)]
     }, [name])
 
     const adoBorderColor = useGetClassColor({ adoType: adoType.baseAdo }, 'default')
@@ -107,8 +108,8 @@ const AppBuilderForm: FC<AppBuilderFormProps> = (props) => {
                 bg="newSystem.background.800"
                 position='relative'
             >
-                <Handle id={upHandle} type='target' position={Position.Top} adoType={adoType.baseAdo} />
-                <Handle id={downHandle} type='target' position={Position.Bottom} adoType={adoType.baseAdo} />
+                <Handle id={upHandle} type='source' position={Position.Top} adoType={adoType.baseAdo} />
+                <Handle id={downHandle} type='source' position={Position.Bottom} adoType={adoType.baseAdo} />
                 <HStack px='4' mb='4'>
                     <ClassifierIcon
                         adoType={adoType.baseAdo}

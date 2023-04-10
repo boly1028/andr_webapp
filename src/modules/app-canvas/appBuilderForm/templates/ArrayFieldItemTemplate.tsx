@@ -24,6 +24,8 @@ const ArrayFieldItemTemplate: FC<ArrayFieldTemplateItemType> = (props) => {
     [index, onDropIndexClick],
   );
 
+  // TODO: Perform edge cache update for all nested fields in array item using id prefix
+  // This will help in retaining edge direction
   const onArrowUpClick = useMemo(
     () => onReorderClick(index, index - 1),
     [index, onReorderClick],
