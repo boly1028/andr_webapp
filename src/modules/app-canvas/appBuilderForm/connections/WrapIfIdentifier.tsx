@@ -1,7 +1,7 @@
 import { FC, useCallback, useEffect, useMemo } from "react";
 import { useFieldTemplate } from "../templates/FieldTemplate";
 import { useAppBuilder, useReactFlow } from "../../canvas/Provider";
-import {  Position, useNodeId } from "reactflow";
+import { Position, useNodeId, useNodes, useStore, useStoreApi } from "reactflow";
 import { debounce } from 'lodash'
 import Handle from "../ReactFlow/Handle";
 import { DIRECTION, createHandlerId, extractDataFromHandler } from "./utils";
@@ -18,7 +18,14 @@ export const WrapIfIdentifier: FC<WrapIfIdentifierProps> = (props) => {
     const { formRefs, editorRef } = useAppBuilder()
     const panel = useNodeId()
     const { connect } = useConnectEdge()
-    const { deleteElements, getNode, getEdges } = useReactFlow()
+    const { deleteElements, getNode, getEdges } = useReactFlow();
+
+    // When nodes are added after populating identifier field, we need to listen to them in order to
+    // connect new nodes with existing identifiers
+    const nodes = useNodes();
+    const nodesSets = useMemo(() => {
+        return nodes.map(node => node.id)
+    }, [nodes])
 
     const leftHandle = createHandlerId(panel ?? '', id, DIRECTION.LEFT);
     const rightHandle = createHandlerId(panel ?? '', id, DIRECTION.RIGHT);
@@ -70,7 +77,7 @@ export const WrapIfIdentifier: FC<WrapIfIdentifierProps> = (props) => {
         if (isIdentifier) {
             handleUpdate(identifierValue);
         }
-    }, [identifierValue, isIdentifier])
+    }, [identifierValue, isIdentifier, nodesSets])
 
     useEffect(() => {
         return () => {
