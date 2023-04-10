@@ -14,7 +14,6 @@ import { WRAPPER_ID } from "../hooks/useGetWrapper";
 import { APP_BUILDER_KEYCODES } from "../common/keyCodes";
 import LoadTemplate from "../common/LoadTemplate";
 import { useConnectEdge } from "../appBuilderForm/hooks/useConnectEdge";
-import { useDeleteEdge } from "../appBuilderForm/hooks/useDeleteEdge";
 
 interface AppBuilderCanvasProps { }
 const AppBuilderCanvas: FC<AppBuilderCanvasProps> = (props) => {
@@ -23,7 +22,6 @@ const AppBuilderCanvas: FC<AppBuilderCanvasProps> = (props) => {
   const [edges, , onEdgesChange] = useEdgesState<IEdgeData>([]);
   const { formRefs, isDirty } = useAppBuilder();
   const { connect } = useConnectEdge()
-  const { onDelete: onEdgeDelete } = useDeleteEdge()
 
   const NODE_TYPES: NodeTypes = useMemo(() => {
     return {
@@ -78,7 +76,6 @@ const AppBuilderCanvas: FC<AppBuilderCanvasProps> = (props) => {
             }
           });
         }}
-        onEdgesDelete={onEdgeDelete}
         fitViewOptions={{
           duration: 300,
         }}

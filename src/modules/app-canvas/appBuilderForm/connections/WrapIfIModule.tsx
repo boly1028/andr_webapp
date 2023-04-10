@@ -1,21 +1,21 @@
 import { FC, useCallback, useEffect, useMemo } from "react";
 import { useFieldTemplate } from "../templates/FieldTemplate";
 import { useReactFlow } from "../../canvas/Provider";
-
+import { RJSFSchema } from "@andromedarjsf/utils";
 
 interface WrapIfModuleProps {
-    id:string;
+    schema: RJSFSchema;
     formData: { address: { identifier: string }; module_type: string };
 }
 
 export const WrapIfModule: FC<WrapIfModuleProps> = (props) => {
-    const { formData, id } = props;
+    const { formData, schema } = props;
     const { getNode } = useReactFlow()
     const { fieldRef } = useFieldTemplate()
 
     const isModule = useMemo(() => {
-        return id.split('_').pop() === 'module_type'
-    }, [id])
+        return !!schema?.properties?.module_type && !!schema.properties?.address;
+    }, [schema?.properties])
 
     const identifierValue: string = useMemo(() => {
         return formData?.address?.identifier ?? ''

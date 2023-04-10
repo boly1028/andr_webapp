@@ -116,7 +116,7 @@ const FieldTemplate = (props: FieldTemplateProps) => {
         >
           {hasWrapper && <Divider mb='2' mx='auto' w='95%' />}
           <WrapIfIdentifier id={id} formData={formData} />
-          <WrapIfModule id={id} formData={formData} />
+          <WrapIfModule schema={schema} formData={formData} />
           <FormControl
             isRequired={hasWrapper ? false : required}
             isInvalid={rawErrors && rawErrors.length > 0}
