@@ -1,30 +1,36 @@
-import { MutableRefObject, useCallback, useEffect, useMemo } from "react"
-import { useReactFlow } from "../../canvas/Provider"
-import { IFieldRef } from "../templates/FieldTemplate"
+import { FC, useCallback, useEffect, useMemo } from "react";
+import { useFieldTemplate } from "../templates/FieldTemplate";
+import { useReactFlow } from "../../canvas/Provider";
+import { RJSFSchema } from "@andromedarjsf/utils";
 
-export const useIsModule = (schema: any, formData: any, ref: MutableRefObject<IFieldRef>) => {
+interface WrapIfModuleProps {
+    schema: RJSFSchema;
+    formData: { address: { identifier: string }; module_type: string };
+}
+
+export const WrapIfModule: FC<WrapIfModuleProps> = (props) => {
+    const { formData, schema } = props;
     const { getNode } = useReactFlow()
+    const { fieldRef } = useFieldTemplate()
 
     const isModule = useMemo(() => {
-        return !!schema?.properties?.module_type
-    }, [schema])
+        return !!schema?.properties?.module_type && !!schema.properties?.address;
+    }, [schema?.properties])
 
     const identifierValue: string = useMemo(() => {
         return formData?.address?.identifier ?? ''
     }, [formData?.address?.identifier])
 
-
     const update = useCallback((identifier: string) => {
         const targetNode = getNode(identifier)
         if (targetNode) {
             console.log("Module Update", identifier, formData)
-            ref.current.onChange?.({
+            fieldRef.current.onChange?.({
                 ...formData,
                 module_type: targetNode.data.andromedaSchema.schema.$id
             })
         }
-    }, [getNode, formData, ref])
-
+    }, [getNode, formData, fieldRef])
 
     useEffect(() => {
         if (isModule) {
@@ -35,5 +41,5 @@ export const useIsModule = (schema: any, formData: any, ref: MutableRefObject<IF
         }
     }, [identifierValue, isModule])
 
-    return { isModule }
+    return null;
 }

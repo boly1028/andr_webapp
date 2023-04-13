@@ -13,12 +13,9 @@ import {
   AlertDescription,
   Divider,
 } from "@chakra-ui/react";
-import { Position, useUpdateNodeInternals } from "reactflow";
-import { useReactFlow } from "../../canvas/Provider";
-import { useIsIdentifier } from "../connections/identifier";
-import { DIRECTION, getSourceHandlePrefix } from "../connections/utils";
-import { useIsModule } from "../connections/module";
-import Handle from "../ReactFlow/Handle";
+import { useUpdateNodeInternals } from "reactflow";
+import { WrapIfIdentifier } from "../connections/WrapIfIdentifier";
+import { WrapIfModule } from "../connections/WrapIfIModule";
 
 const FieldTemplate = (props: FieldTemplateProps) => {
   const {
@@ -45,18 +42,9 @@ const FieldTemplate = (props: FieldTemplateProps) => {
     formContext
   } = props;
 
-  const { deleteElements } = useReactFlow()
   const updateNodeInternals = useUpdateNodeInternals();
 
   const fieldContextRef = useRef<IFieldRef>({})
-
-  const { isIdentifier, handleConnect, edgeId } = useIsIdentifier(formContext.name, id, formData, fieldContextRef)
-  const { isModule } = useIsModule(schema, formData, fieldContextRef)
-
-  const [leftHandle, rightHandle] = useMemo(() => {
-    return [getSourceHandlePrefix(edgeId, DIRECTION.LEFT), getSourceHandlePrefix(edgeId, DIRECTION.RIGHT)]
-  }, [edgeId])
-
 
   const uiOptions = getUiOptions(uiSchema);
   const WrapIfAdditionalTemplate = getTemplate<"WrapIfAdditionalTemplate">(
@@ -127,12 +115,8 @@ const FieldTemplate = (props: FieldTemplateProps) => {
         // bg={hasWrapper?'#ffffff04':'transparent'}0
         >
           {hasWrapper && <Divider mb='2' mx='auto' w='95%' />}
-          {isIdentifier && (
-            <>
-              <Handle adoType="" onConnect={handleConnect} id={leftHandle} type='source' position={Position.Left} style={{ left: '-5px' }} />
-              <Handle adoType="" onConnect={handleConnect} id={rightHandle} type='source' position={Position.Right} style={{ right: '-5px' }} />
-            </>
-          )}
+          <WrapIfIdentifier id={id} formData={formData} />
+          <WrapIfModule schema={schema} formData={formData} />
           <FormControl
             isRequired={hasWrapper ? false : required}
             isInvalid={rawErrors && rawErrors.length > 0}
