@@ -13,6 +13,7 @@
     "postinstall": "npm run theme"
   },
   "dependencies": {
+    "@andromedaprotocol/design-system":"file:./local_lib/andromedaprotocol-design-system-0.1.4.tgz",
     "@andromedaprotocol/andromeda.js": "^0.2.13",
     "@andromedarjsf/chakra-ui": "file:./local_lib/andromedarjsf-chakra-ui-5.0.2.tgz",
     "@andromedarjsf/core": "file:./local_lib/andromedarjsf-core-5.0.2.tgz",
