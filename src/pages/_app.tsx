@@ -20,9 +20,6 @@ import { ApolloProvider } from "@apollo/client";
 import { GlobalModalProvider } from "@/modules/modals";
 
 import "react-toastify/dist/ReactToastify.css";
-//Import stylization setups for use in App-Builder
-import "@/modules/app-builder/style/controls.css";
-import "@/modules/app-builder/style/nodes.css";
 import { DEFAULT_CHAIN } from "@/constants/constants";
 
 const Main = ({ Component, pageProps }: AppProps<Record<string, any>>) => {

@@ -1,4 +1,4 @@
-import AppBuilderEditor from '@/modules/app-canvas'
+import AppBuilderEditor from '@/modules/app-builder'
 import type { NextPage } from 'next'
 
 

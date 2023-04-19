@@ -68,30 +68,30 @@ import {
 import { CheckIcon, ChevronRightIcon } from "@/modules/common";
 
 //Load Panel Selector Systems
-import AddModuleModal from "@/modules/app-builder/components/AddModuleModal";
+import AddModuleModal from "@/modules/oldFiles/app-builder/components/AddModuleModal";
 
 // Import sample JSON data returns
-import loadPanelJSON from "@/modules/app-builder/functions/load-panel-data";
+import loadPanelJSON from "@/modules/oldFiles/app-builder/functions/load-panel-data";
 
 //Import Custom Node Declarations
 import initialNodes, {
   yieldVaultNodes,
   minervaNodes,
-} from "../components/nodes";
+} from "./nodes";
 import initialEdges, {
   yieldVaultEdges,
   minervaEdges,
-} from "../components/edges";
+} from "./edges";
 // Node Type Declaration
-import StringNode from "@/modules/app-builder/components/nodes/string";
+import StringNode from "@/modules/oldFiles/app-builder/components/nodes/string";
 // Custom Panel Class Type Handlers
-import BaseADONode from "@/modules/app-builder/components/nodes/baseADO";
-import ModuleNode from "@/modules/app-builder/components/nodes/module";
-import ModuleField from "@/modules/app-builder/components/nodes/module-field";
-import ModuleFieldHeader from "@/modules/app-builder/components/nodes/module-field-header";
-import ModuleFieldFooter from "@/modules/app-builder/components/nodes/module-field-footer";
-import ModifierNode from "@/modules/app-builder/components/nodes/modifier";
-import PrimitiveNode from "@/modules/app-builder/components/nodes/primitive";
+import BaseADONode from "@/modules/oldFiles/app-builder/components/nodes/baseADO";
+import ModuleNode from "@/modules/oldFiles/app-builder/components/nodes/module";
+import ModuleField from "@/modules/oldFiles/app-builder/components/nodes/module-field";
+import ModuleFieldHeader from "@/modules/oldFiles/app-builder/components/nodes/module-field-header";
+import ModuleFieldFooter from "@/modules/oldFiles/app-builder/components/nodes/module-field-footer";
+import ModifierNode from "@/modules/oldFiles/app-builder/components/nodes/modifier";
+import PrimitiveNode from "@/modules/oldFiles/app-builder/components/nodes/primitive";
 
 const nodeTypes = {
   baseADO: BaseADONode,
