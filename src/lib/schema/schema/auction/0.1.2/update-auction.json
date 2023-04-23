@@ -75,9 +75,12 @@
         "classifier": ""
     },
     "ui-schema": {
-        "update_auction":{
-            "duration":{
-                "ui:widget":"dateTime"
+        "update_auction": {
+            "duration": {
+                "ui:widget": "duration"
+            },
+            "start_time": {
+                "ui:widget": "dateTime"
             }
         }
     },

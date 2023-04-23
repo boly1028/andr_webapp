@@ -1,10 +1,11 @@
 import React, { useMemo, useState } from "react";
 import { FormControl, Text } from "@chakra-ui/react";
 import { WidgetProps } from "@andromedarjsf/utils";
-import { SingleDatepicker } from "@/lib/datetime";
-import { format } from 'date-fns';
+import { DurationPicker } from "@/lib/datetime/duration";
+import { formatDuration, intervalToDuration } from 'date-fns'
+import { milliDhms } from "@/lib/datetime/utils/duration";
 
-export const DatetimeWidget = (props: WidgetProps) => {
+export const DurationWidget = (props: WidgetProps) => {
     const {
         id,
         type,
@@ -32,16 +33,22 @@ export const DatetimeWidget = (props: WidgetProps) => {
     const _onFocus = ({
         target: { value } }) => onFocus(id, value);
 
-    const title = uiOptions?.title ?? schema.title ?? label;
-
     const formattedTime = useMemo(() => {
         try {
-            return format(value, 'PPPPpppp');
+            if (value < 1000) return 'Less than a second'
+            const dhms = milliDhms(value ?? 0);
+            return formatDuration({
+                days: dhms.d,
+                hours: dhms.h,
+                minutes: dhms.m,
+                seconds: dhms.s
+            }, {
+
+            })
         } catch (err) {
             return 'Invalid date'
         }
     }, [value])
-
 
     return (
         <FormControl
@@ -51,12 +58,9 @@ export const DatetimeWidget = (props: WidgetProps) => {
             isReadOnly={readonly}
             isInvalid={rawErrors && rawErrors.length > 0}
         >
-            <SingleDatepicker
-                name={id + 'date-input'}
-                date={value}
-                onDateChange={(date) => {
-                    onChange(date)
-                }}
+            <DurationPicker
+                duration={value}
+                onDurationChange={(val) => onChange(val)}
             />
             {typeof value === 'number' && (
                 <Text fontSize='xs' color='newSystem.content.medium' mt='1' ml='1'>{formattedTime}</Text>

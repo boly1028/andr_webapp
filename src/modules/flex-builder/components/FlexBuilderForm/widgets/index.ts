@@ -6,6 +6,7 @@ import { ExecuteMsgWidget } from "./msg/ExecuteMsgWidget";
 import { InstantiateMsgWidget } from "./msg/InstantiateMsgWidget";
 import { SwitchWidget } from "./SwitchWidget";
 import { DatetimeWidget } from "./Datetime";
+import { DurationWidget } from "./Duration";
 
 const widgets: RegistryWidgetsType = {
   markdown: MarkdownWidget,
@@ -14,6 +15,7 @@ const widgets: RegistryWidgetsType = {
   executeMsg: ExecuteMsgWidget,
   cw721ReceiveMsg: Cw721ReceiveMsgWidget,
   CheckboxWidget: CheckboxWidget,
-  dateTime: DatetimeWidget
+  dateTime: DatetimeWidget,
+  duration: DurationWidget
 }
 export default widgets
