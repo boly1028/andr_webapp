@@ -49,7 +49,7 @@ export const CalendarPanel: React.FC<CalendarPanelProps> = ({
     // looking for a useRef() approach to replace it
     const getKeyOffset = useCallback((num: number) => {
         const e = document.activeElement;
-        let buttons = document.querySelectorAll('button');
+        const buttons = document.querySelectorAll('button');
         buttons.forEach((el, i) => {
             const newNodeKey = i + num;
             if (el === e) {

@@ -99,7 +99,7 @@ const DurationItem: FC<DurationItemProps> = (props) => {
                 type='number'
                 value={value}
                 onChange={(e) => {
-                    let val = e.target.valueAsNumber;
+                    const val = e.target.valueAsNumber;
                     const res = sanitize(val);
                     onChange(res);
                 }}
