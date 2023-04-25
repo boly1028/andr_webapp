@@ -60,7 +60,7 @@ const TimePanel: FC<Props> = (props) => {
     );
 }
 
-const QUICK_TIMES = [0, 604800000, 2678400000]
+const QUICK_TIMES = [0, 1000*60*60*24*7, 1000*60*60*24*31]
 
 interface TimeInputProps extends NumberInputProps {
     label: string;

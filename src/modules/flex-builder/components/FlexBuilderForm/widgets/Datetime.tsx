@@ -36,7 +36,10 @@ export const DatetimeWidget = (props: WidgetProps) => {
 
     const formattedTime = useMemo(() => {
         try {
-            return format(value, 'PPPPpppp');
+            const autoFormat = 'PPPPpppp';
+            const longFormat = "PPPP 'at' H:mm:ss OOOO";
+            // return format(value, autoFormat);
+            return format(value, longFormat);
         } catch (err) {
             return 'Invalid date'
         }

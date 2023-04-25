@@ -1,8 +1,10 @@
 import { CloseIcon } from "@chakra-ui/icons";
-import { Button, Flex, Icon, Input, InputGroup, InputRightAddon, Popover, PopoverBody, PopoverContent, PopoverTrigger, Portal, useDisclosure } from "@chakra-ui/react";
+import { Button, Divider, Flex, Icon, Input, InputGroup, InputRightAddon, Popover, PopoverBody, PopoverContent, PopoverTrigger, Portal, Text, useDisclosure } from "@chakra-ui/react";
 import React, { FC, ReactNode } from "react"
 import FocusLock from 'react-focus-lock';
 import DurationPanel from "./components/duration";
+import { intlFormatDistance } from 'date-fns'
+import { TmpButton } from "@/theme/new-system-tmp/ui-elements";
 
 interface Props {
     duration?: number;
@@ -65,9 +67,22 @@ export const DurationPicker: FC<Props> = (props) => {
                                 {...props}
                             />
                         </Flex>
+                        <Divider mt='2' />
+                        <Flex flexWrap='wrap' direction='row' gap='2' mt='2'>
+                            <Text fontSize='sm' color='newSystem.content.medium'>Quick Actions</Text>
+                            {QUICK_TIMES.map(t => (
+                                <TmpButton key={t} onClick={() => {
+                                    onDurationChange(t)
+                                }} size='xs' rounded='none'>
+                                    {intlFormatDistance(t, 0, { numeric: 'always' })}
+                                </TmpButton>
+                            ))}
+                        </Flex>
                     </PopoverBody>
                 </PopoverContent>
             </PopoverContentWrapper>
         </Popover>
     );
 };
+
+const QUICK_TIMES = [1000 * 60 * 60 * 24, 1000 * 60 * 60 * 24 * 7, 1000 * 60 * 60 * 24 * 31]
