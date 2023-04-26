@@ -267,6 +267,7 @@
                             }
                         },
                         "denom": {
+                            "ui:widget": "denom",
                             "ui:options": {
                                 "title": "Denomination",
                                 "description": "classification for the stated or face value of token (ex. usd, andr)"

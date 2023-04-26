@@ -4,7 +4,7 @@ import {
   QueryAppResponse,
 } from "@andromedaprotocol/andromeda.js";
 import { gql, QueryResult, useQuery } from "@apollo/client";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 
 export interface AppComponent {
   address: string;
@@ -39,6 +39,8 @@ export default function useQueryAppInfo(
     `,
     { variables: { contractAddress }, skip: skip },
   );
+
+  console.log(data, 'APP INFO')
 
   const appInfo = useMemo(() => {
     if (data) {
