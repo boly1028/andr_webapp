@@ -1,5 +1,6 @@
-import { useQuery } from "@tanstack/react-query"
+import { useGetPrimitiveValue } from "@/lib/graphql/hooks/primitive/useGetValue";
 import useAndromedaClient from "./useAndromedaClient"
+import { useMemo } from "react";
 
 const DENOM_PRIMITIVE = 'andr173c4cynmpm2ukncfsy4qkm9hf7z376cg4q766pmlsrlup9vfl23smh7n06'
 const HARD_CODED_LIST = ['uandr'];
@@ -7,29 +8,24 @@ const HARD_CODED_LIST = ['uandr'];
 export const useDenom = () => {
     const client = useAndromedaClient()
 
-    const { data, error, isLoading } = useQuery(
-        ['andr', 'denom'],
-        async () => {
-            const query = {
-                "andr_query": {
-                    "get": null
-                }
-            }
-            const res = await client.queryContract(DENOM_PRIMITIVE, query) as {
-                key: string;
-                value: {
-                    string: string;
-                }
-            }
-            console.log(res, res.value.string)
-            const denoms = JSON.parse(res.value.string);
-            return denoms;
-        }
-    )
+    const { data, error, loading } = useGetPrimitiveValue(DENOM_PRIMITIVE)
 
+    const result = useMemo(() => {
+        let res = [...HARD_CODED_LIST];
+        console.log(data)
+        try {
+            if (data) {
+                const fromContract = JSON.parse(data.value.string);
+                res = [...fromContract]
+            }
+        } catch (err) {
+
+        }
+        return res;
+    }, [data])
     return {
-        data: data ?? HARD_CODED_LIST,
+        data: result,
         error,
-        isLoading
+        loading
     }
 }
