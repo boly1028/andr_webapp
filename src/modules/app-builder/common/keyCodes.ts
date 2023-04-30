@@ -1,5 +1,5 @@
 export const APP_BUILDER_KEYCODES = {
-    DELETE: 'Shift+D',
+    DELETE: 'Shift+Delete',
     MULTISELECT:'Shift',
     ZOOM:'Shift',
 } as const;

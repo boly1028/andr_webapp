@@ -21,7 +21,7 @@ const AppBuilderCanvas: FC<AppBuilderCanvasProps> = (props) => {
   const [nodes, , onNodesChange] = useNodesState<INodeData>([]);
   const [edges, , onEdgesChange] = useEdgesState<IEdgeData>([]);
   const { formRefs, isDirty } = useAppBuilder();
-  const { connect } = useConnectEdge()
+  const { connect, disconnect } = useConnectEdge()
 
   const NODE_TYPES: NodeTypes = useMemo(() => {
     return {
@@ -75,6 +75,10 @@ const AppBuilderCanvas: FC<AppBuilderCanvasProps> = (props) => {
               delete formRefs.current[node.id];
             }
           });
+        }}
+        onEdgesDelete={(edges) => {
+          console.log("DISCONNECTED")
+          disconnect(edges);
         }}
         fitViewOptions={{
           duration: 300,
