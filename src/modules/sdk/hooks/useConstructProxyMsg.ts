@@ -42,11 +42,11 @@ export default function useConstructProxyMsg() {
 
         // Traverse through actual keys which were present in modifier schema as explained above
         Object.entries(filteredPanel).forEach(([executeId, executePanel]) => {
-          // Remove hidden fields from msg
-          const msg = constructMsg(executePanel);
+          // We do not have any hidden fields here as its nested field from original schema
+          // const msg = constructMsg(executePanel);
 
           // Add the schema key and value to filteredMsg
-          filteredMsg[executeId] = msg;
+          filteredMsg[executeId] = executePanel;
         })
       })
 
