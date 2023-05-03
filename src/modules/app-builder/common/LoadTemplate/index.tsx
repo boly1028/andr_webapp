@@ -4,7 +4,7 @@ import React, { FC } from "react";
 import { useImportFlex } from "../../hooks/useImportFlex";
 import { TemplateListItem } from '../../leftSidebar/TemplateList'
 import MoreOnAppStore from "./MoreOnAppStore";
-import ImportFlexButton from '../../common/importFlex'
+import ImportFlexButton from '../importFlex'
 
 interface LoadTemplateProps { }
 

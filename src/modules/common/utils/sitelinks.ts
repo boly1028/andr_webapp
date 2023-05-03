@@ -22,8 +22,7 @@ export const SITE_LINKS = {
     // App
     appStore: () => `/app-store`,
     appStoreItem: (id: string) => `/app-store/${id}`,
-    appBuilder: () => `/test/app-builder`,
-    appCreate: () => `/app-builder/create`,
+    appBuilder: () => `/app-builder`,
     // Assets
     assets: () => `/assets`,
     // Embedables

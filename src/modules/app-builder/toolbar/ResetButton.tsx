@@ -3,6 +3,7 @@ import { Eraser } from "lucide-react";
 import React, { FC } from "react";
 import { useNodes } from "reactflow";
 import useResetCanvas from "../hooks/useResetCanvas";
+import useConfirmationModal from "@/modules/modals/hooks/useConfirmationModal";
 
 interface ResetButtonProps {
 }
@@ -11,9 +12,15 @@ const ResetButton: FC<ResetButtonProps> = (props) => {
     const { } = props;
     const reset = useResetCanvas()
     const nodes = useNodes()
+    const openConfirmationModal = useConfirmationModal(
+        'danger',
+        'Are you sure you want to reset canvas?',
+        undefined,
+        'Delete All'
+    )
 
     const handleReset = () => {
-        reset()
+        openConfirmationModal(reset)
     }
     return (
         <Tooltip label={`Delete All`} placement='top'>
