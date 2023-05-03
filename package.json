@@ -36,6 +36,7 @@
     "chakra-ui-markdown-renderer": "^4.0.0",
     "cors": "^2.8.5",
     "dagre": "^0.8.5",
+    "dayzed": "^3.2.3",
     "easymde": "^2.16.1",
     "framer-motion": "^6.3.2",
     "fuse.js": "^6.6.2",
