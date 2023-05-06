@@ -14,6 +14,7 @@ const AppBuilderProvider: FC<AppBuilderProviderProps> = (props) => {
     const editorRef = useRef<IEditorRef>({})
     const [isDirty, setIsDirty] = useState(false)
     const [nodeUpdater, setNodeUpdater] = useState<number>(0)
+    const [shortcutEnabled, setShortcutEnable] = useState(true)
 
     const updateNodeUpdater: AppBuilderContext['updateNodeUpdater'] = useCallback(() => {
         setNodeUpdater(prev => prev + (Math.random() - 0.5))
@@ -31,9 +32,11 @@ const AppBuilderProvider: FC<AppBuilderProviderProps> = (props) => {
             editorRef,
             nodeUpdater,
             updateNodeUpdater,
-            isDirty
+            isDirty,
+            shortcutEnabled,
+            setShortcutEnable: (enabled) => setShortcutEnable(enabled)
         }
-    }, [formRefs, editorRef, nodeUpdater, updateNodeUpdater, isDirty])
+    }, [formRefs, editorRef, nodeUpdater, updateNodeUpdater, isDirty, shortcutEnabled, setShortcutEnable])
 
     return (
         <context.Provider value={value}>
@@ -48,6 +51,8 @@ export interface AppBuilderContext {
     nodeUpdater: number;
     updateNodeUpdater: () => void;
     isDirty: boolean;
+    shortcutEnabled?: boolean;
+    setShortcutEnable: (enabled: boolean) => void;
 }
 
 export interface INodeData {
@@ -63,6 +68,8 @@ const defaultValue: AppBuilderContext = {
     editorRef: createRef<IEditorRef>() as any,
     nodeUpdater: 0,
     updateNodeUpdater: () => { throw new Error("OUTSIDE COONTEXT") },
+    setShortcutEnable: () => { throw new Error("OUTSIDE COONTEXT") },
+    shortcutEnabled: true,
     isDirty: false
 }
 const context = createContext(defaultValue);

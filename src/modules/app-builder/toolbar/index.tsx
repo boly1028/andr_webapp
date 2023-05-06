@@ -3,7 +3,6 @@ import React, { FC } from "react";
 import AutoLayoutButton from "./AutoLayoutButton";
 import DeleteButton from "./DeleteButton";
 import FitViewButton from "./FitViewButton";
-import LockButton from "./LockButton";
 import ResetButton from "./ResetButton";
 import ZoomButton from "./ZoomButton";
 

@@ -5,17 +5,22 @@ import { ListIcon, SearchBar } from '@/modules/common'
 import ClassifierIcon from '@/theme/icons/classifiers'
 import { TmpButton } from '@/theme/new-system-tmp/ui-elements'
 import { ChevronRightIcon, SearchIcon } from '@chakra-ui/icons'
-import { Divider, Icon, Text, VStack, SimpleGrid, GridItem, Kbd } from '@chakra-ui/react'
-import React, { FC } from 'react'
+import { Divider, Icon, Text, VStack, SimpleGrid, GridItem, Kbd, HStack } from '@chakra-ui/react'
+import React, { FC, useMemo } from 'react'
 import { useAppBuilder } from '../canvas/Provider'
 import { APP_BUILDER_KEYCODES } from '../common/keyCodes'
 import { IUIComponents } from '../types'
+import { useHotkeysContext } from 'react-hotkeys-hook'
+import { Hotkey } from 'react-hotkeys-hook/dist/types'
+import { Key } from 'ts-key-enum'
+import { PlusIcon } from '@/theme/icons'
 
 export interface InsertComponentProps {
 
 }
 const InsertComponent: FC<InsertComponentProps> = (props) => {
     const { } = props
+    const { hotkeys } = useHotkeysContext()
 
     return (
         <VStack alignItems='stretch' gap='1' textColor='newSystem.content.medium' fontSize='xs'>
@@ -38,13 +43,57 @@ const InsertComponent: FC<InsertComponentProps> = (props) => {
                 <GridItem><Kbd px='2' py='1'>Click</Kbd></GridItem>
                 <GridItem>Multi Select</GridItem>
                 <GridItem><Kbd px='2' py='1'>{APP_BUILDER_KEYCODES.MULTISELECT} + Click</Kbd></GridItem>
-                <GridItem>Delete</GridItem>
-                <GridItem><Kbd px='2' py='1'>{APP_BUILDER_KEYCODES.DELETE}</Kbd></GridItem>
                 <GridItem>Zoom</GridItem>
                 <GridItem><Kbd px='2' py='1'>{APP_BUILDER_KEYCODES.ZOOM} + Scroll</Kbd></GridItem>
+                {hotkeys.map((key) => (
+                    <React.Fragment key={createKeyList(key).join(',')}>
+                        <GridItem>{key.description}</GridItem>
+                        <GridItem>
+                            <RenderKey hotkey={key} />
+                        </GridItem>
+                    </React.Fragment>
+                ))}
             </SimpleGrid>
+
         </VStack>
     )
+}
+
+const RenderKey: FC<{ hotkey: Hotkey }> = (props) => {
+    const { hotkey } = props;
+    const { keyItems, lastItem } = useMemo(() => {
+        const list = createKeyList(hotkey)
+        const lastItem = list.pop();
+        return {
+            keyItems: list,
+            lastItem
+        }
+    }, [hotkey])
+    return (
+        <HStack spacing={0.5} wrap='wrap'>
+            {keyItems.map(keyItem => (
+                <React.Fragment key={keyItem}>
+                    <Kbd px='2' py='1'>{keyItem}</Kbd>
+                    <PlusIcon width='12' />
+                </React.Fragment>
+            ))}
+            {lastItem && (
+                <Kbd px='2' py='1'>{lastItem}</Kbd>
+            )}
+
+        </HStack>
+    )
+}
+
+const createKeyList = (key: Hotkey) => {
+    const keys: string[] = [];
+    if (key.alt) keys.push(Key.Alt);
+    if (key.ctrl) keys.push(Key.Control);
+    if (key.meta) keys.push(Key.Meta);
+    if (key.mod) keys.push(Key.ModeChange);
+    if (key.shift) keys.push(Key.Shift);
+    if (key.keys) keys.push(...key.keys.filter(k=>!keys.some(_k=>_k.toLowerCase() === k.toLowerCase())));
+    return keys;
 }
 
 

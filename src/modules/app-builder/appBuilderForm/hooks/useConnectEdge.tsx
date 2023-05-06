@@ -1,22 +1,17 @@
 import { useCallback } from "react"
-import { Edge, MarkerType, ReactFlowProps } from "reactflow"
+import { Edge, ReactFlowProps } from "reactflow"
 import { IEdgeData, useAppBuilder, useReactFlow } from "../../canvas/Provider"
-import { cloneDeep, makeUniqueId } from "@apollo/client/utilities"
+import { makeUniqueId } from "@apollo/client/utilities"
 import { createHandlerId, extractDataFromHandler } from "../connections/utils"
 import { useGetClassColor } from "@/theme/icons/classifiers"
+import { ITimeoutEdgeData, useTimeoutEdgetUpdate } from "../../hooks/useTimeoutEdgeUpdate"
 
 
 export const useConnectEdge = () => {
-    const { addEdges, getEdges, setEdges } = useReactFlow()
+    const { addEdges, getEdges, deleteElements } = useReactFlow()
     const { editorRef, formRefs } = useAppBuilder()
     const color = useGetClassColor({ _class: 'module' })
-
-    const deleteEdgesWithoutTrigger = useCallback((edges: Edge<IEdgeData>[]) => {
-        const allEdges = getEdges();
-        console.log("DELETED EDGES", edges.map(ed => cloneDeep(ed.id)))
-        setEdges(allEdges.filter(eg => !edges.some(e => e.id === eg.id)));
-    }, [getEdges, setEdges])
-
+    const timeoutEdgeUpdate = useTimeoutEdgetUpdate()
 
     const connect: NonNullable<ReactFlowProps['onConnect']> = useCallback((conn) => {
         const { source, sourceHandle, target, targetHandle } = conn;
@@ -31,7 +26,7 @@ export const useConnectEdge = () => {
             }
         }
         const existingEdges = getEdges().filter(edge => edge.target === target && extractDataFromHandler(edge.targetHandle ?? '').rjsfIdPrefix === targetHandlerData.rjsfIdPrefix);
-        deleteEdgesWithoutTrigger(existingEdges);
+        deleteElements({ edges: existingEdges });
         addEdges({
             id: makeUniqueId(sourceHandle + '-' + targetHandle),
             source,
@@ -45,19 +40,26 @@ export const useConnectEdge = () => {
         })
         formRefs.current[target]?.fieldRefs?.[targetHandlerData.rjsfIdPrefix]?.onConnectionChange?.({ source: source });
 
-    }, [editorRef, formRefs.current, addEdges, deleteEdgesWithoutTrigger])
+    }, [editorRef, formRefs.current, addEdges, deleteElements])
 
     const disconnect = useCallback((edges: Edge<IEdgeData>[]) => {
-        for (const edge of edges) {
-            console.log('DISCONNECTNG EDGE', edge.id)
+        const cbs: ITimeoutEdgeData[] = [];
+        edges.forEach(edge => {
             const { source, sourceHandle, target, targetHandle } = edge;
             if (!source || !sourceHandle || !target || !targetHandle) return;
             const targetHandlerData = extractDataFromHandler(targetHandle);
-            formRefs.current[target]?.fieldRefs?.[targetHandlerData.rjsfIdPrefix]?.onConnectionChange?.({ source: '' });
-        }
+            const cb = () => {
+                formRefs.current[target]?.fieldRefs?.[targetHandlerData.rjsfIdPrefix]?.onConnectionChange?.({ source: '' })
+            };
+            cbs.push({
+                edge,
+                cb
+            })
+        })
+        timeoutEdgeUpdate(cbs)
 
-    }, [editorRef, formRefs.current])
+    }, [editorRef, formRefs.current, timeoutEdgeUpdate])
 
 
-    return { connect, disconnect, deleteEdgesWithoutTrigger };
+    return { connect, disconnect };
 }

@@ -4,28 +4,21 @@ import React, { FC } from "react";
 import { useNodes } from "reactflow";
 import useResetCanvas from "../hooks/useResetCanvas";
 import useConfirmationModal from "@/modules/modals/hooks/useConfirmationModal";
+import { APP_BUILDER_KEYCODES } from "../common/keyCodes";
 
 interface ResetButtonProps {
 }
 
 const ResetButton: FC<ResetButtonProps> = (props) => {
     const { } = props;
-    const reset = useResetCanvas()
-    const nodes = useNodes()
-    const openConfirmationModal = useConfirmationModal(
-        'danger',
-        'Are you sure you want to reset canvas?',
-        undefined,
-        'Delete All'
-    )
-
+    const {reset, disabled} = useResetCanvas()
     const handleReset = () => {
-        openConfirmationModal(reset)
+        reset()
     }
     return (
-        <Tooltip label={`Delete All`} placement='top'>
+        <Tooltip label={`Delete All(${APP_BUILDER_KEYCODES.RESET})`} placement='top'>
             <IconButton
-                isDisabled={nodes.length === 0}
+                isDisabled={disabled}
                 aria-label="delete all"
                 icon={<Icon as={Eraser} boxSize='4' />}
                 variant='ghost'

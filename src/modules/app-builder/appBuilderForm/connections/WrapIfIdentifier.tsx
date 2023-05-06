@@ -17,8 +17,8 @@ export const WrapIfIdentifier: FC<WrapIfIdentifierProps> = (props) => {
     const { fieldRef } = useFieldTemplate();
     const { formRefs, editorRef } = useAppBuilder()
     const panel = useNodeId()
-    const { connect, deleteEdgesWithoutTrigger } = useConnectEdge()
-    const { getNode, getEdges, setEdges } = useReactFlow();
+    const { connect } = useConnectEdge()
+    const { getNode, getEdges, deleteElements } = useReactFlow();
 
     // When nodes are added after populating identifier field, we need to listen to them in order to
     // connect new nodes with existing identifiers
@@ -43,7 +43,7 @@ export const WrapIfIdentifier: FC<WrapIfIdentifierProps> = (props) => {
     const handleUpdate = useCallback(debounce((value: string) => {
         const myEdges = getMyEdges();
         const sourceNode = getNode(value);
-        if (!sourceNode) return deleteEdgesWithoutTrigger(myEdges);
+        if (!sourceNode) return deleteElements({ edges: myEdges });
         if (myEdges.some(edge => edge.source === value)) return;
         const cacheDirection = editorRef.current.edgeCache?.[value]?.[createHandlerId(panel ?? '', id)];
         connect({
@@ -52,7 +52,7 @@ export const WrapIfIdentifier: FC<WrapIfIdentifierProps> = (props) => {
             sourceHandle: createHandlerId(value, '', cacheDirection?.[0] ?? DIRECTION.UP),
             targetHandle: createHandlerId(panel ?? '', id, cacheDirection?.[1] ?? DIRECTION.LEFT)
         })
-    }, 700), [connect, panel, id, editorRef, deleteEdgesWithoutTrigger])
+    }, 700), [connect, panel, id, editorRef, deleteElements])
 
     useEffect(() => {
         if (isIdentifier)
@@ -82,7 +82,7 @@ export const WrapIfIdentifier: FC<WrapIfIdentifierProps> = (props) => {
     useEffect(() => {
         return () => {
             const myEdges = getMyEdges();
-            deleteEdgesWithoutTrigger(myEdges)
+            deleteElements({ edges: myEdges })
         }
     }, [id])
 
