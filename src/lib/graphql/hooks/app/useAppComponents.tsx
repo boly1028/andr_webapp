@@ -6,10 +6,12 @@ interface Query {
 interface QueryResponse {
     ADO: {
         app: {
-            config: {
+            components: {
                 name: string;
-                owner: string;
-            },
+                address: string;
+                ado_type: string;
+                instantiate_msg: string;
+            }[];
             address: string;
         }
     }
@@ -20,22 +22,24 @@ export interface ReturnValue
     data?: QueryResponse['ADO']['app'];
 }
 
-export function useAppConfig(address: string, skip = false): ReturnValue {
+export function useAppComponents(address: string): ReturnValue {
     const { data, loading, error } = useQuery<QueryResponse, Query>(
         gql`
-        query APP_CONFIG($contractAddress: String!) {
+        query APP_COMPONENTS($contractAddress: String!) {
             ADO{
                 app(address: $contractAddress) {
-                    config {
+                    components{
                         name,
-                        owner,
-                    },
-                    address
+                        address,
+                        ado_type,
+                        instantiate_msg,
+                      },
+                      address
                 }
             }
           }
         `,
-        { variables: { 'contractAddress': address }, skip: skip },
+        { variables: { 'contractAddress': address } },
     );
     return {
         loading,
