@@ -16,7 +16,7 @@ export const useDenom = () => {
                 res = [...fromContract]
             }
         } catch (err) {
-
+            console.log(err)
         }
         return res;
     }, [data])
