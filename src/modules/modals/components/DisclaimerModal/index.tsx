@@ -45,6 +45,14 @@ const DisclaimerModal: FC<DisclaimerModalProps> = ({ onAccept }) => {
         pl="2"
         pr="4"
         textAlign="justify"
+        sx={{
+          "&": {
+            scrollbarColor: "#35353A transparent",
+          },
+          '&::-webkit-scrollbar-thumb': {
+            backgroundColor: '#35353A'
+          }
+        }}
       >
         {terms.map((t, idx) => (
           <HStack key={idx} alignItems="start" gap="2">
