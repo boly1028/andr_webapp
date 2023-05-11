@@ -24,7 +24,7 @@ const AssetsPage = () => {
     <Box>
       <PageHeader
         title="Assets"
-        desc="Locate and interact with your ADOs, NFTs, tokens, currencies, and more"
+        desc="Locate and Interact with your ADOs and Apps"
         rightElement={(
           <Button
             display={!wallet ? 'none' : 'flex'}
@@ -56,10 +56,10 @@ const AssetsPage = () => {
       <Divider my='6' />
       {!wallet && (
         <Center w="full" p="6" mt="10">
-          <Box borderColor='error.300' borderWidth='1px' rounded="3xl" px="6" py="10">
+          <Box borderColor='dark.300' borderWidth='1px' rounded="3xl" px="6" py="10">
             <FallbackPlaceholder
               title="You are not logged in."
-              desc="Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit deleniti sapiente fugit."
+              desc=""
             >
               <Wallet />
             </FallbackPlaceholder>
