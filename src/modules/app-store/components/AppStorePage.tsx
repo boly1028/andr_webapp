@@ -35,10 +35,10 @@ const AppStorePage: FC<AppStorePageProps> = (props) => {
           <Box bg="dark.50" rounded="xl" p="6">
             <Image src="/logo_outline.png" w="16" />
             <Text fontWeight="bold" fontSize="4xl" mt="4">
-              Build your app
+              Build Your App
             </Text>
             <Text color="dark.500" mt="6">
-              Start from scratch to build your own app.
+            Quickly build your app with a template or start from scratch.
             </Text>
             <Link href={SITE_LINKS.flexBuilder("app")} passHref>
               <Button
