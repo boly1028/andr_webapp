@@ -1,0 +1,4 @@
+fileignoreconfig:
+- filename: src/modules/cli/components/Introduction.tsx
+  checksum: 604d0a598806776860dc8ce2db29091e6d34d44ccae5e116bcbc21759abff589
+version: "1.0"

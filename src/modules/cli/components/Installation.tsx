@@ -41,7 +41,8 @@ const Installation: FC<InstallationProps> = (props) => {
                     <Image src='/cli/cli2.png' />
                 </Box>
                 <Text mt='4'>
-                    If interested in working with our CLI, make sure to check out our full <Link href="https://docs.andromedaprotocol.io/andromeda/andromeda-cli/introduction" target='_blank' color='blue.500'>CLI documentation</Link> where we go over every command available.
+                    {/* If interested in working with our CLI, make sure to check out our full <Link href="https://docs.andromedaprotocol.io/andromeda/andromeda-cli/introduction" target='_blank' color='blue.500'>CLI documentation</Link> where we go over every command available. */}
+                    If interested in working with our CLI or having issues with installation, please make sure to check out our full <Link href="https://docs.andromedaprotocol.io/andromeda/andromeda-cli/introduction" target='_blank' color='blue.500'>CLI documentation</Link> where we go over every command available.
                 </Text>
             </VStack>
         </Box>
