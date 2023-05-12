@@ -154,7 +154,7 @@ const APP_TEMPLATES: PartialTemplateType[] = [
     adoType: "app",
     name: "Flat Rate Marketplace",
     description:
-      "Setup a customizable NFT Marketplace/store to sell NFT’s for a specific price point. NFT’s can be sorted and filtered upon by many different attributes of the NFT’s themselves. The rates and address (Whitelist/Blacklist) list are also configurable and can be modified per marketplace instance. Proceeds will be collected and sent to the marketplace owner and NFT sent to the specific recipient of the purchase.",
+      "Setup a customizable NFT Marketplace/store to sell NFT’s for a specific price point. The rates and address (Whitelist/Blacklist) list are also configurable and can be modified per marketplace instance. Proceeds will be collected and sent to the marketplace owner and NFT sent to the specific recipient of the purchase.",
     opts: ["Marketplace", "CW721", "Rates"],
     ados: [
       {
