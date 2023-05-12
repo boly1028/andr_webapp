@@ -29,10 +29,10 @@ type FlexBuilderPageProps = {
 const FlexBuilderPage: FC<FlexBuilderPageProps> = ({ templateList }) => {
   return (
     <Box>
-      <PageHeader
+      {/* <PageHeader
         title="Get Started"
         desc="Start from scratch to publish NFT collectibles, DeFi instruments and generic ADOs from starter templates!"
-      />
+      /> */}
       <Box my="6">
         <Header />
       </Box>
