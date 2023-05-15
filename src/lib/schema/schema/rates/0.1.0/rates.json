@@ -32,6 +32,29 @@
                             "description": "The type of rate being taken",
                             "oneOf": [
                                 {
+                                    "title": "Percent",
+                                    "description": "A percentage based rate. Needs to have the percent to take specified.",
+                                    "type": "object",
+                                    "required": [
+                                        "percent"
+                                    ],
+                                    "properties": {
+                                        "percent": {
+                                            "type": "object",
+                                            "required": [
+                                                "percent"
+                                            ],
+                                            "properties": {
+                                                "percent": {
+                                                    "description": "A fixed-point decimal value with 18 fractional digits, i.e. Decimal(1_000_000_000_000_000_000) == 1.0\n\nThe greatest possible value that can be represented is 340282366920938463463.374607431768211455 (which is (2^128 - 1) / 10^18)",
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "additionalProperties": false
+                                },
+                                {
                                     "title": "Flat",
                                     "description": "A fixed amount to be taken (Coin). Needs to have an amount and denomination specified.",
                                     "type": "object",
@@ -51,29 +74,6 @@
                                                     "type": "string"
                                                 },
                                                 "denom": {
-                                                    "type": "string"
-                                                }
-                                            }
-                                        }
-                                    },
-                                    "additionalProperties": false
-                                },
-                                {
-                                    "title": "Percent",
-                                    "description": "A percentage based rate. Needs to have the percent to take specified.",
-                                    "type": "object",
-                                    "required": [
-                                        "percent"
-                                    ],
-                                    "properties": {
-                                        "percent": {
-                                            "type": "object",
-                                            "required": [
-                                                "percent"
-                                            ],
-                                            "properties": {
-                                                "percent": {
-                                                    "description": "A fixed-point decimal value with 18 fractional digits, i.e. Decimal(1_000_000_000_000_000_000) == 1.0\n\nThe greatest possible value that can be represented is 340282366920938463463.374607431768211455 (which is (2^128 - 1) / 10^18)",
                                                     "type": "string"
                                                 }
                                             }
