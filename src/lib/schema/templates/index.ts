@@ -104,7 +104,7 @@ const APP_TEMPLATES: PartialTemplateType[] = [
         }
       },
       {
-        path: "rates/latest/rates", id: "taxes", required: false, enabled: true, "pos": {
+        path: "rates/latest/rates", id: "rates", required: false, enabled: true, "pos": {
           "x": -112,
           "y": -144
         }
@@ -137,7 +137,7 @@ const APP_TEMPLATES: PartialTemplateType[] = [
         "modules": [
           {
             "address": {
-              "identifier": "taxes"
+              "identifier": "rates"
             },
             "is_mutable": true,
             "module_type": "rates"
@@ -175,7 +175,7 @@ const APP_TEMPLATES: PartialTemplateType[] = [
           "y": -144
         }
       },
-      { path: "rates/latest/rates", id: "taxes", 
+      { path: "rates/latest/rates", id: "rates", 
         required: false,
         enabled: true,
         "pos": {
@@ -200,7 +200,7 @@ const APP_TEMPLATES: PartialTemplateType[] = [
         "modules": [
           {
             "address": {
-              "identifier": "taxes"
+              "identifier": "rates"
             },
             "is_mutable": true,
             "module_type": "rates"
