@@ -1,8 +1,8 @@
 import React, { FC } from "react";
-import { Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
+import { Input, InputGroup, InputLeftElement, InputProps } from "@chakra-ui/react";
 import SearchIcon from "./icons/SearchIcon";
 
-const SearchBar: FC = ({ }) => {
+const SearchBar: FC<InputProps> = (props) => {
   return (
       <InputGroup>
         <InputLeftElement 
@@ -17,6 +17,7 @@ const SearchBar: FC = ({ }) => {
           variant="filled"
           height="40px"
           borderRadius="8px"
+          {...props}
         />
       </InputGroup>
   );

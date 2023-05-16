@@ -11,11 +11,16 @@ import query from '../schema/query.json'
 import response from '../schema/response.json'
 import system from '../schema/system.json'
 import { IAdoType } from '../types'
+import APP_TEMPLATES from '../templates'
 
 /** Skipping base ados which are not yet ready for processing. Instead of removing these from schema parser
  * We can disable it here, so they will still be availaible for testing purpose if directly enabled
  */
-const INCLUDE_ADO: IAdoType[] = ['cw721', 'auction', 'marketplace', 'splitter', 'rates', 'address-list'];
+const INCLUDE_ADO: string[] = Array.from(new Set(APP_TEMPLATES.map(template => {
+    return [...template.ados.map(ado => ado.path.split('/').pop() ?? ''), ...template.modules?.map(ado => ado.path.split('/').pop() ?? '') ?? []]
+}).flat()))
+
+console.log(INCLUDE_ADO)
 
 export const BASE_ADOS = baseAdo.filter(ado => INCLUDE_ADO.includes(ado.$id as IAdoType));
 export const MODIFIERS = modifier;
