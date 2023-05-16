@@ -123,9 +123,9 @@ const APP_TEMPLATES: PartialTemplateType[] = [
       {
         path: "rates/latest/rates",
       },
-      {
-        path: "address-list/latest/address-list",
-      },
+      // {
+      //   path: "address-list/latest/address-list",
+      // },
     ],
     icon: "/app-templates/icons/auction-market.png",
     installed: true,
@@ -188,7 +188,7 @@ const APP_TEMPLATES: PartialTemplateType[] = [
       { path: "cw721/latest/cw721" },
       { path: "marketplace/latest/marketplace" },
       { path: "rates/latest/rates" },
-      { path: "address-list/latest/address-list" },
+      // { path: "address-list/latest/address-list" },
       { path: "splitter/latest/splitter" }
     ],
     icon: "/app-templates/icons/market.png",
