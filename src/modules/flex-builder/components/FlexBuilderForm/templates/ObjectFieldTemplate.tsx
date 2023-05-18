@@ -1,7 +1,7 @@
 // Panel container for Flex-Builder: Handles panel name change assosciations
 
 import { parseJsonFromFile } from "@/lib/json";
-import { IAndromedaFormData, IAndromedaSchema } from "@/lib/schema/types";
+import { IAdoType, IAndromedaFormData, IAndromedaSchema } from "@/lib/schema/types";
 import { CopyButton, FileCheckIcon } from "@/modules/common";
 import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
 import usePanelRenameModal from "@/modules/modals/hooks/usePanelRenameModal";
@@ -36,6 +36,7 @@ import {
 } from "lucide-react";
 import { useMemo } from "react";
 import { useFieldTemplate } from "./FieldTemplate";
+import { SYSTEM_DOCUMENTATION_LINKS } from "@/lib/schema/documentation";
 
 const NON_EDITABLE_CLASS = new Set<string>(["system", "modifier"]);
 
@@ -100,7 +101,8 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
       ?.split("-")
       .map((t) => t.toLocaleLowerCase())
       .join("");
-    const baseAdo = schema.$path?.split("/")[0];
+    let baseAdo = schema.$path?.split("/")[0] as IAdoType;
+    if(baseAdo === 'app-contract') baseAdo = 'app';
     return {
       type,
       baseAdo,
@@ -277,20 +279,18 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
                     srOnly
                   />
                 </MenuItem>
-                {schema.class !== "system" && (
-                  <MenuItem
-                    as="a"
-                    target="_blank"
-                    referrerPolicy="no-referrer"
-                    href={SITE_LINKS.documentation(
-                      adoType.baseAdo,
-                      adoType.type,
-                    )}
-                    icon={<ExternalLinkIcon boxSize={4} />}
-                  >
-                    Documentation
-                  </MenuItem>
-                )}
+                <MenuItem
+                  as="a"
+                  target="_blank"
+                  referrerPolicy="no-referrer"
+                  href={SYSTEM_DOCUMENTATION_LINKS[schema.$id] ?? SITE_LINKS.documentation(
+                    adoType.baseAdo,
+                    adoType.type,
+                  )}
+                  icon={<ExternalLinkIcon boxSize={4} />}
+                >
+                  Documentation
+                </MenuItem>
               </MenuList>
             </Menu>
           </HStack>
