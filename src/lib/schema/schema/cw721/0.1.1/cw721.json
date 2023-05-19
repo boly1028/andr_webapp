@@ -96,7 +96,7 @@
         "symbol": {
             "ui:options": {
                 "title": "Token/NFT Symbol",
-                "description": "The address of the token minter.",
+                "description": "The symbol of the token.",
                 "help": ""
             }
         },
