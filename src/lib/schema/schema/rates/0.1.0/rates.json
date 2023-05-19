@@ -238,8 +238,8 @@
                 },
                 "is_additive": {
                     "ui:options": {
-                        "title": "Tax or Royalty?",
-                        "description": "An indicator to whether the rate being taken is tax. If tax is_additive is set to 1.",
+                        "title": "Use as Tax?",
+                        "description": "By default a rate is assumed as a royalty, select this field to use as tax instead.",
                         "alerts": [
                             {
                                 "text": "Taxes are added to the selling price (<b>Paid by buyer</b>) while royalties are deducted from the price (<b>Paid by seller</b>).",
