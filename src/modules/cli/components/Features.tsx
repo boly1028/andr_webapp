@@ -46,11 +46,11 @@ const FEATURES_LIST = [
     },
     {
         icon: SparklesIcon,
-        text: "Swapping between chains with one command"
+        text: "Swapping between chains"
     },
     {
         icon: Package,
-        text: "Deploying ADOs on the chain or chains of your choice"
+        text: "Deploying ADOs on chain"
     },
     {
         icon: PackageSearch,
@@ -58,7 +58,7 @@ const FEATURES_LIST = [
     },
     {
         icon: FolderSearch,
-        text: "Check asset ADOs using our indexer"
+        text: "Check ADOs"
     },
 ]
 export default Features

@@ -29,16 +29,16 @@ type FlexBuilderPageProps = {
 const FlexBuilderPage: FC<FlexBuilderPageProps> = ({ templateList }) => {
   return (
     <Box>
-      <PageHeader
+      {/* <PageHeader
         title="Get Started"
         desc="Start from scratch to publish NFT collectibles, DeFi instruments and generic ADOs from starter templates!"
-      />
+      /> */}
       <Box my="6">
         <Header />
       </Box>
       <PageHeader
         title="Use our templates"
-        desc="Start from scratch to publish NFT collectibles, DeFi instruments and generic ADOs from starter templates!"
+        desc="Get Started with our templates and you are in the fast lane to your next ADO/App."
       />
       <SimpleGrid
         gridAutoRows="1fr"

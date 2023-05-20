@@ -74,9 +74,10 @@
                 "title": "Name"
             },
             "symbol": {
-                "description": "Symbol of the NFT contract",
+                "description": "A shorthand identifier for identifying the token in various user interfaces.",
                 "type": "string",
-                "title": "Symbol"
+                "title": "Symbol",
+                "help": "ART, MKNFT"
             }
         },
         "additionalProperties": false,
@@ -89,14 +90,15 @@
         "name": {
             "ui:options": {
                 "title": "Token/NFT Name",
-                "description": "The name of the token."
+                "description": "The name of the token.",
+                "help": ""
             }
         },
         "symbol": {
             "ui:options": {
                 "title": "Token/NFT Symbol",
-                "description": "The address of the token minter.",
-                "help": "Has to be between 3 and 12 alphabetic characters."
+                "description": "The symbol of the token.",
+                "help": ""
             }
         },
         "minter": {

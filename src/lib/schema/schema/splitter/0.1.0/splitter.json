@@ -164,7 +164,7 @@
         "modules": {
             "ui:options": {
                 "title": "Modules",
-                "description": "An optional vector of Andromeda Modules that can be attached to the contract. \"address-list\" module can be added."
+                "description": "A component that can be attached to ADOs (Ex. Rates)"
             },
             "items": {
                 "ui:options": {
@@ -209,10 +209,10 @@
         "recipients": {
             "ui:options": {
                 "title": "Recipients",
-                "description": "The recipient list of the splitter. Can be updated after instantiation.",
+                "description": "A list of one to many recipients that can be changed as you build.",
                 "alerts": [
                     {
-                        "text": "To be a valid recipient list the array of AddressPercent structs must meet the following requirements:<ul><li>Be non-empty</li><li>Have percentage amounts less than or equaling 1</li><li>A maximum of <b>100</b> recipients can be set.</li></ul>",
+                        "text": "To be a valid recipient and required inputs include the following:<ul><li>Be non-empty</li><li>Have percentage amounts less than or equaling 1</li><li>A maximum of <b>100</b> recipients can be set.</li></ul>",
                         "type": "warning"
                     }
                 ]

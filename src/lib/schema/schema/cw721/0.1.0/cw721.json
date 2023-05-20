@@ -85,14 +85,15 @@
         "name": {
             "ui:options": {
                 "title": "Token/NFT Name",
-                "description": "The name of the token."
+                "description": "The name of the token.",
+                "help": ""
             }
         },
         "symbol": {
             "ui:options": {
                 "title": "Token/NFT Symbol",
-                "description": "The address of the token minter.",
-                "help": "Has to be between 3 and 12 alphabetic characters."
+                "description": "The symbol of the token.",
+                "help": ""
             }
         },
         "minter": {
