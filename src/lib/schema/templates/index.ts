@@ -104,7 +104,7 @@ const APP_TEMPLATES: PartialTemplateType[] = [
         }
       },
       {
-        path: "rates/latest/rates", id: "taxes", required: false, enabled: true, "pos": {
+        path: "rates/latest/rates", id: "rates", required: false, enabled: true, "pos": {
           "x": -112,
           "y": -144
         }
@@ -123,9 +123,9 @@ const APP_TEMPLATES: PartialTemplateType[] = [
       {
         path: "rates/latest/rates",
       },
-      {
-        path: "address-list/latest/address-list",
-      },
+      // {
+      //   path: "address-list/latest/address-list",
+      // },
     ],
     icon: "/app-templates/icons/auction-market.png",
     installed: true,
@@ -137,7 +137,7 @@ const APP_TEMPLATES: PartialTemplateType[] = [
         "modules": [
           {
             "address": {
-              "identifier": "taxes"
+              "identifier": "rates"
             },
             "is_mutable": true,
             "module_type": "rates"
@@ -175,7 +175,7 @@ const APP_TEMPLATES: PartialTemplateType[] = [
           "y": -144
         }
       },
-      { path: "rates/latest/rates", id: "taxes", 
+      { path: "rates/latest/rates", id: "rates", 
         required: false,
         enabled: true,
         "pos": {
@@ -188,7 +188,7 @@ const APP_TEMPLATES: PartialTemplateType[] = [
       { path: "cw721/latest/cw721" },
       { path: "marketplace/latest/marketplace" },
       { path: "rates/latest/rates" },
-      { path: "address-list/latest/address-list" },
+      // { path: "address-list/latest/address-list" },
       { path: "splitter/latest/splitter" }
     ],
     icon: "/app-templates/icons/market.png",
@@ -200,7 +200,7 @@ const APP_TEMPLATES: PartialTemplateType[] = [
         "modules": [
           {
             "address": {
-              "identifier": "taxes"
+              "identifier": "rates"
             },
             "is_mutable": true,
             "module_type": "rates"

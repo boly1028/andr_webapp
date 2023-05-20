@@ -30,7 +30,34 @@
                         "rate": {
                             "title": "Rate Type",
                             "description": "The type of rate being taken",
+                            "default": {
+                                "percent": {}
+                            },
                             "oneOf": [
+                                {
+                                    "title": "Percent",
+                                    "description": "A percentage based rate. Needs to have the percent to take specified.",
+                                    "type": "object",
+                                    "required": [
+                                        "percent"
+                                    ],
+                                    "properties": {
+                                        "percent": {
+                                            "type": "object",
+                                            "required": [
+                                                "percent"
+                                            ],
+                                            "properties": {
+                                                "percent": {
+                                                    "description": "A fixed-point decimal value with 18 fractional digits, i.e. Decimal(1_000_000_000_000_000_000) == 1.0\n\nThe greatest possible value that can be represented is 340282366920938463463.374607431768211455 (which is (2^128 - 1) / 10^18)",
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "additionalProperties": false
+                                        }
+                                    },
+                                    "additionalProperties": false
+                                },
                                 {
                                     "title": "Flat",
                                     "description": "A fixed amount to be taken (Coin). Needs to have an amount and denomination specified.",
@@ -54,30 +81,6 @@
                                                     "type": "string"
                                                 }
                                             }
-                                        }
-                                    },
-                                    "additionalProperties": false
-                                },
-                                {
-                                    "title": "Percent",
-                                    "description": "A percentage based rate. Needs to have the percent to take specified.",
-                                    "type": "object",
-                                    "required": [
-                                        "percent"
-                                    ],
-                                    "properties": {
-                                        "percent": {
-                                            "type": "object",
-                                            "required": [
-                                                "percent"
-                                            ],
-                                            "properties": {
-                                                "percent": {
-                                                    "description": "A fixed-point decimal value with 18 fractional digits, i.e. Decimal(1_000_000_000_000_000_000) == 1.0\n\nThe greatest possible value that can be represented is 340282366920938463463.374607431768211455 (which is (2^128 - 1) / 10^18)",
-                                                    "type": "string"
-                                                }
-                                            },
-                                            "additionalProperties": false
                                         }
                                     },
                                     "additionalProperties": false
@@ -242,8 +245,8 @@
                 },
                 "is_additive": {
                     "ui:options": {
-                        "title": "Tax or Royalty?",
-                        "description": "An indicator to whether the rate being taken is tax. If tax is_additive is set to 1.",
+                        "title": "Use as Tax?",
+                        "description": "By default a rate is assumed as a royalty, select this field to use as tax instead.",
                         "alerts": [
                             {
                                 "text": "Taxes are added to the selling price (<b>Paid by buyer</b>) while royalties are deducted from the price (<b>Paid by seller</b>).",

@@ -30,7 +30,7 @@ export const processTemplate = async (template: ITemplate) => {
 
         // Set Panel States
         formData[ado.id].$removable = !ado.required;
-        formData[ado.id].$enabled = !!ado.required;
+        formData[ado.id].$enabled = !!ado.required || !!ado.enabled;
     }
 
     template.schema = {

@@ -24,7 +24,7 @@ const InsertComponent: FC<InsertComponentProps> = (props) => {
 
     return (
         <VStack alignItems='stretch' gap='1' textColor='newSystem.content.medium' fontSize='xs'>
-            <SearchBar />
+            <SearchBar isDisabled _placeholder={{ color: 'newSystem.content.medium' }} />
             <Divider />
             <Text>App Components</Text>
             <VStack alignItems='stretch'>
