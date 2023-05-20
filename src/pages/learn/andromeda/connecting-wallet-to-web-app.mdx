@@ -6,7 +6,7 @@ export const meta = {
     yags: []
 }
 
-Andromeda uses Keplr integration with our web-app to easily connect your wallets and start building. This document will serve as a guide to connecting your Keplr wallet to our web-app if unfamiliar with the steps. 
+Andromeda uses Keplr integration with our web-app to easily connect your wallets and start building. This document will serve as a guide to connecting your Keplr wallet to our web-app for those unfamiliar with the steps. 
 
 # Downloading Keplr Extension
 
@@ -28,7 +28,9 @@ After downloading the extension, open it and you should get :
 
 ![Open Keplr Extension ](/learn/blogs/guides_imgs/wallet/3.Create-Wallet.png "Open Keplr Extension ")
 
-We press “Create new account” to create a new keplr wallet. Chose a username and password for the account. Do not share the mnemonic with anyone and always save it in a safe place since it is the only way to recover your wallet.
+To create a new Keplr wallet we suggest using the “Create new account” method, and not use the "Sign in with Google" method for technical reasons. Chose a name and password for the account. The password is used to encrypt the private key locally in the case that someone gains access to your browser. The password is not your private key.  During this process you will be given a 12/24 word mnemonic, which is an easy way for humans to record a 256 bit key. Each word is mapped to a number, and when you put all the words together, you get the 256bits - kinda clever! Do not share the mnemonic with anyone and always save it in a safe place, we suggest paper or some physical medium that you can physically secure since it is the only way to recover your wallet.  Just remembering your password won't revive your key, only the 12/24 word mnemonic will.
+
+![Connect Wallet to APP-1](/learn/blogs/guides_imgs/wallet/4.2.mnemonic_12_24.png "Connect Wallet to APP")
 
 You will be quickly prompted in the next page to enter the mnemonic that you have saved. Do so and select “Register”. Once you do you, the account should be setup:
 

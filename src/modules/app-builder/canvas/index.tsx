@@ -14,6 +14,7 @@ import { WRAPPER_ID } from "../hooks/useGetWrapper";
 import { APP_BUILDER_KEYCODES } from "../common/keyCodes";
 import LoadTemplate from "../common/LoadTemplate";
 import { useConnectEdge } from "../appBuilderForm/hooks/useConnectEdge";
+import { useAppShortcuts } from "../shortcuts";
 
 interface AppBuilderCanvasProps { }
 const AppBuilderCanvas: FC<AppBuilderCanvasProps> = (props) => {
@@ -29,6 +30,9 @@ const AppBuilderCanvas: FC<AppBuilderCanvasProps> = (props) => {
     };
   }, [AppBuilderForm]);
 
+  // Enable all shortcuts for app; This can later be disabled using shortcut context
+  useAppShortcuts();
+
   return (
     <Box w="full" h="full" id={WRAPPER_ID}>
       {!isDirty && (
@@ -37,7 +41,7 @@ const AppBuilderCanvas: FC<AppBuilderCanvasProps> = (props) => {
         </Center>
       )}
       <ReactFlow
-        deleteKeyCode={APP_BUILDER_KEYCODES.DELETE}
+        deleteKeyCode={null}
         multiSelectionKeyCode={APP_BUILDER_KEYCODES.MULTISELECT}
         zoomActivationKeyCode={APP_BUILDER_KEYCODES.ZOOM}
         style={{ width: "100%", height: "100%", background: "transparent" }}

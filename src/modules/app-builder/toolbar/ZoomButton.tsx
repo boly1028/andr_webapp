@@ -1,7 +1,8 @@
 import { Icon, IconButton, Tooltip } from "@chakra-ui/react";
 import { ZoomIn, ZoomOut } from "lucide-react";
 import React, { FC } from "react";
-import { useReactFlow } from "../canvas/Provider";
+import useZoom from "../hooks/useZoom";
+import { APP_BUILDER_KEYCODES } from "../common/keyCodes";
 
 interface ZoomButtonProps {
     offset: number
@@ -9,22 +10,15 @@ interface ZoomButtonProps {
 
 const ZoomButton: FC<ZoomButtonProps> = (props) => {
     const { offset } = props;
-    const { zoomTo, getZoom } = useReactFlow()
-
-    const handleZoom = () => {
-        const zoom = getZoom();
-        zoomTo(zoom + offset, {
-            'duration': 300
-        })
-    }
+    const { zoom, offset: zoomOffset } = useZoom(offset)
     return (
-        <Tooltip label={`Zoom`} bg='base.white' placement='top'>
+        <Tooltip label={`Zoom(${zoomOffset < 0?APP_BUILDER_KEYCODES.ZOOM_OUT:APP_BUILDER_KEYCODES.ZOOM_IN})`} bg='base.white' placement='top'>
             <IconButton
                 color='newSystem.content.high'
                 aria-label="Zoom"
-                icon={<Icon as={offset < 0 ? ZoomOut : ZoomIn} boxSize='4' />}
+                icon={<Icon as={zoomOffset < 0 ? ZoomOut : ZoomIn} boxSize='4' />}
                 variant='ghost'
-                onClick={handleZoom}
+                onClick={zoom}
             />
         </Tooltip>
     );

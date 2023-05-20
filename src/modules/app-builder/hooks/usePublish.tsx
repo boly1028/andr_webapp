@@ -8,6 +8,9 @@ import { useCallback } from "react";
 import { useAppBuilder, useReactFlow } from "../canvas/Provider";
 import { AppConfig } from "../config";
 import { useAppFormData } from "./useAppFormData";
+import { useHotkeys } from "react-hotkeys-hook";
+import { APP_BUILDER_KEYCODES } from "../common/keyCodes";
+import { SHORTCUT_SCOPES } from "../shortcuts/scopes";
 
 export const usePublish = () => {
     const { formRefs, editorRef } = useAppBuilder()
@@ -78,4 +81,15 @@ export const usePublish = () => {
     }, [openAppRename, editorRef, AppConfig, handlePublish])
 
     return { handlePublish, getMsg, publishAppWithAppRename }
+}
+
+export const usePublishShortcut = (enabled = true, description = 'Publish App') => {
+    const { publishAppWithAppRename } = usePublish();
+    const { shortcutEnabled, isDirty } = useAppBuilder()
+    useHotkeys(APP_BUILDER_KEYCODES.PUBLISH, () => publishAppWithAppRename(), {
+        scopes: [SHORTCUT_SCOPES.CANVAS],
+        enabled: shortcutEnabled && enabled && isDirty,
+        description: description,
+        preventDefault: true
+    })
 }
