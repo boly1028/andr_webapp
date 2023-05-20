@@ -31,11 +31,11 @@ export const useImportFlex = (overide = true) => {
     })
 
     const addNode = useAddNode()
-    const reset = useResetCanvas()
+    const { reset } = useResetCanvas()
     const fitView = useFitView();
 
     const handleImport = useCallback(async (template: ITemplate) => {
-        if (overide) reset();
+        if (overide) reset(true);
         const tId = toast()
         template.ados = template.ados.filter(ado => ado.id !== IImportantAdoKeys.PUBLISH_SETTINGS);
         for (const ado of template.ados) {

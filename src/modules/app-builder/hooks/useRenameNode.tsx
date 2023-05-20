@@ -3,6 +3,7 @@ import { useAppBuilder, useReactFlow } from "../canvas/Provider";
 import useAddNode from "./useAddNode";
 import useDeleteNode from "./useDeleteNode";
 import { extractDataFromHandler } from "../appBuilderForm/connections/utils";
+import { useTimeoutEdgetUpdate } from "./useTimeoutEdgeUpdate";
 
 interface IUseRenameNodeProps { }
 
@@ -11,6 +12,8 @@ const useRenameNode = (props?: IUseRenameNodeProps) => {
     const { getNode, getEdges, deleteElements } = useReactFlow()
     const addNode = useAddNode();
     const deleteNode = useDeleteNode()
+
+    const edgeTimeoutUpdate = useTimeoutEdgetUpdate();
 
     const renameNode = useCallback((nodeId: string, newNodeId: string) => {
         const oldNode = getNode(nodeId);
@@ -25,17 +28,19 @@ const useRenameNode = (props?: IUseRenameNodeProps) => {
         // Now we want to update formData of all incoming edges for the old node.
         // Why Incoming? Because incoming edges are linked to the nodes while outgoing are linked to fields
         const edges = getEdges().filter(edge => edge.source === nodeId)
-        edges.reverse().forEach((edge, idx) => {
+        const cbs = edges.reverse().map((edge) => {
             const targetHandlerData = extractDataFromHandler(edge.targetHandle ?? '')
             // Change the value of identifier field. All effects will run automatically and link new node based on that
-            const tId = setTimeout(() => {
+            const cb = () => {
                 formRefs?.current[targetHandlerData.nodeId]?.fieldRefs?.[targetHandlerData.rjsfIdPrefix]?.onConnectionChange?.({ source: newNodeId });
-            }, idx * 200);
-            // We need timeout of 200 between each onChange call because rjsf pools all the onChange and only execute the last one
-            // TODO: Smart Pooling: Pool only onChange for a single node because different nodes are different rjsf instance and do not need pooling
-            // TODO: Change execution to asyn await so that rename function will wait until all execution is complete
-
+            }
+            return {
+                cb,
+                edge
+            }
         })
+
+        edgeTimeoutUpdate(cbs);
         if (editorRef.current.edgeCache) {
             editorRef.current.edgeCache = {
                 ...editorRef.current.edgeCache,
@@ -46,7 +51,7 @@ const useRenameNode = (props?: IUseRenameNodeProps) => {
         // Now we want to update our edges by deleting the edges which originated from current node  and also delete current node
         deleteElements({ edges: edges })
         deleteNode([nodeId])
-    }, [deleteElements, addNode, getNode, formRefs, editorRef])
+    }, [deleteElements, addNode, getNode, formRefs, editorRef, edgeTimeoutUpdate])
 
     return renameNode
 };

@@ -18,13 +18,13 @@ export const WrapIfIdentifier: FC<WrapIfIdentifierProps> = (props) => {
     const { formRefs, editorRef } = useAppBuilder()
     const panel = useNodeId()
     const { connect } = useConnectEdge()
-    const { deleteElements, getNode, getEdges } = useReactFlow();
+    const { getNode, getEdges, deleteElements } = useReactFlow();
 
     // When nodes are added after populating identifier field, we need to listen to them in order to
     // connect new nodes with existing identifiers
     const nodes = useNodes();
     const nodesSets = useMemo(() => {
-        return nodes.map(node => node.id)
+        return nodes.map(node => node.id).toString()
     }, [nodes])
 
     const leftHandle = createHandlerId(panel ?? '', id, DIRECTION.LEFT);
@@ -52,7 +52,7 @@ export const WrapIfIdentifier: FC<WrapIfIdentifierProps> = (props) => {
             sourceHandle: createHandlerId(value, '', cacheDirection?.[0] ?? DIRECTION.UP),
             targetHandle: createHandlerId(panel ?? '', id, cacheDirection?.[1] ?? DIRECTION.LEFT)
         })
-    }, 700), [connect, panel, id, editorRef])
+    }, 700), [connect, panel, id, editorRef, deleteElements])
 
     useEffect(() => {
         if (isIdentifier)
