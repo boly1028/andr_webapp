@@ -1,4 +1,4 @@
-import { AndromedaIcon, AppBuilder, CliIcon, CubeIcon, PlusIcon, FileCheckIcon, FilePlusIcon } from "@/modules/common";
+import { AndromedaIcon, AppBuilder, CliIcon, CubeIcon, PlusIcon, FileCheckIcon, BuildAnAppIcon, MintNFTIcon, CreateNFTIcon, ExtendingAppIcon, FilePlusIcon } from "@/modules/common";
 import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
 import { Puzzle, Triangle, Wallet } from "lucide-react";
 import { ILearnPageItem } from "../types";
@@ -29,7 +29,7 @@ import { ILearnPageItem } from "../types";
 
 
 export const LEARN_PAGE_ITEMS: ILearnPageItem[] = [
-   
+
     {
         title: 'The Basics',
         description: 'Kick start your learning with these lessons',
@@ -38,32 +38,32 @@ export const LEARN_PAGE_ITEMS: ILearnPageItem[] = [
                 title: 'Setting Up Your Wallet',
                 description: '',
                 icon: Wallet,
-                link:SITE_LINKS.learnItem('/andromeda/connecting-wallet-to-web-app')
+                link: SITE_LINKS.learnItem('/andromeda/connecting-wallet-to-web-app')
             },
             {
                 title: 'The App Store',
                 description: '',
                 icon: Puzzle,
-                link:SITE_LINKS.learnItem('/andromeda/app-store')
+                link: SITE_LINKS.learnItem('/andromeda/app-store')
             },
             {
                 title: 'The ADO Builder',
                 description: '',
                 icon: CubeIcon,
-                link:SITE_LINKS.learnItem('/andromeda/ado-builder')
+                link: SITE_LINKS.learnItem('/andromeda/ado-builder')
             },
             {
                 title: 'About Your Assets',
                 description: '',
                 icon: AppBuilder,
-                link:SITE_LINKS.learnItem('/andromeda/assets-explore')
+                link: SITE_LINKS.learnItem('/andromeda/assets-explore')
 
             },
             {
                 title: 'Andromeda CLI',
                 description: '',
                 icon: CliIcon,
-                link:SITE_LINKS.cli()
+                link: SITE_LINKS.cli()
 
             }
         ]
@@ -75,34 +75,39 @@ export const LEARN_PAGE_ITEMS: ILearnPageItem[] = [
             {
                 title: '1: Building An App',
                 description: '',
-                icon: FileCheckIcon,
-                link:SITE_LINKS.learnItem('/andromeda/auction-marketplace-guide-1')
+                icon: BuildAnAppIcon,
+                link: SITE_LINKS.learnItem('/andromeda/auction-marketplace-guide-1')
             },
             {
                 title: '1B: Building from a Template',
                 description: '',
-                icon: FileCheckIcon,
-                link:SITE_LINKS.learnItem('/andromeda/auction-marketplace-guide-5')
+                icon: BuildAnAppIcon,
+                link: SITE_LINKS.learnItem('/andromeda/auction-marketplace-guide-5')
             },
             {
                 title: '2: Minting an NFT Collection',
                 description: '',
-                icon: FileCheckIcon,
-                link:SITE_LINKS.learnItem('/andromeda/auction-marketplace-guide-2')
+                icon: MintNFTIcon,
+                link: SITE_LINKS.learnItem('/andromeda/auction-marketplace-guide-2')
             },
             {
                 title: '3: Creating an NFT Auction',
                 description: '',
-                icon: FileCheckIcon,
-                link:SITE_LINKS.learnItem('/andromeda/auction-marketplace-guide-3')
+                icon: CreateNFTIcon,
+                link: SITE_LINKS.learnItem('/andromeda/auction-marketplace-guide-3')
             },
             {
                 title: '4: Extending your App',
                 description: '',
-                icon: FileCheckIcon,
-                link:SITE_LINKS.learnItem('/andromeda/auction-marketplace-guide-4')
+                icon: ExtendingAppIcon,
+                link: SITE_LINKS.learnItem('/andromeda/auction-marketplace-guide-4')
+            },
+            {
+                title: '5: Auctioning App in CLI',
+                description: '',
+                icon: CliIcon,
+                link: 'https://docs.andromedaprotocol.io/andromeda/andromeda-apps/auctioning-app'
             }
-            
         ]
     }
 ]

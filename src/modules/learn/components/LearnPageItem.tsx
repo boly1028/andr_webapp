@@ -48,11 +48,18 @@ const LearnPageSubItem: FC<LearnPageSubItemProps> = (props) => {
 
     return (
         <Box>
-            <Link href={subItem.link || '#'} passHref>
-                <Center as='a' bg='dark.100' rounded='xl' h='40' cursor='pointer'>
-                    <Icon as={subItem.icon} boxSize='16' />
-                </Center>
-            </Link>
+            {subItem.title !== '5: Auctioning App in CLI' ?
+                <Link href={subItem.link || '#'} passHref>
+                    <Center as='a' bg='dark.100' rounded='xl' h='40' cursor='pointer'>
+                        <Icon as={subItem.icon} boxSize='16' />
+                    </Center>
+                </Link> :
+                <a href={subItem.link} target="_blank" rel="noopener noreferrer">
+                    <Center as='a' bg='dark.100' rounded='xl' h='40' cursor='pointer'>
+                        <Icon as={subItem.icon} boxSize='16' />
+                    </Center>
+                </a>
+            }
             <Box mt='4' ml='1'>
                 <Text fontSize='lg' fontWeight='medium'>{subItem.title}</Text>
                 <Text mt='2' fontSize='sm' color='dark.500'>{subItem.description}</Text>
