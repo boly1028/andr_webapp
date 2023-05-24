@@ -15,6 +15,7 @@ import { APP_BUILDER_KEYCODES } from "../common/keyCodes";
 import LoadTemplate from "../common/LoadTemplate";
 import { useConnectEdge } from "../appBuilderForm/hooks/useConnectEdge";
 import { useAppShortcuts } from "../shortcuts";
+import { useLoadFlexUrl } from "../hooks/useLoadFlexUrl";
 
 interface AppBuilderCanvasProps { }
 const AppBuilderCanvas: FC<AppBuilderCanvasProps> = (props) => {
@@ -23,15 +24,16 @@ const AppBuilderCanvas: FC<AppBuilderCanvasProps> = (props) => {
   const [edges, , onEdgesChange] = useEdgesState<IEdgeData>([]);
   const { formRefs, isDirty } = useAppBuilder();
   const { connect } = useConnectEdge()
-
+  
   const NODE_TYPES: NodeTypes = useMemo(() => {
     return {
       form: AppBuilderForm,
     };
   }, [AppBuilderForm]);
-
+  
   // Enable all shortcuts for app; This can later be disabled using shortcut context
   useAppShortcuts();
+  useLoadFlexUrl();
 
   return (
     <Box w="full" h="full" id={WRAPPER_ID}>

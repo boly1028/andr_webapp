@@ -10,7 +10,8 @@ import { getAppTemplateById } from "@/lib/schema/utils";
 import { useWallet } from "@/lib/wallet";
 import { ILinkItemKey } from "@/modules/common/components/Sidebar";
 import { FlexBuilderFormProps } from "@/modules/flex-builder/components/FlexBuilderForm";
-import { useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { useGetFlexFileFromUrl } from "@/modules/flex-builder/hooks/useFlexFile";
 
 type Props = {
   template: ITemplate;

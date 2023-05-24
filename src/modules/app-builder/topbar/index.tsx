@@ -11,6 +11,7 @@ import Link from 'next/link';
 import { SITE_LINKS } from '@/modules/common/utils/sitelinks';
 import CopyCliButton from '../common/CopyCli';
 import CopyFlexUrlButton from '../common/CopyFlexUrl';
+import OpenInAdoBuilderButton from '../common/OpenInAdoBuilder';
 
 interface TopBarProps {
 
@@ -31,6 +32,7 @@ const TopBar: FC<TopBarProps> = (props) => {
                 <Toolbar />
             </HStack>
             <HStack>
+                <OpenInAdoBuilderButton />
                 <CopyCliButton />
                 <CopyFlexUrlButton />
                 <DownloadFlexButton />

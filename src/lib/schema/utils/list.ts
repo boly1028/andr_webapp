@@ -20,8 +20,6 @@ const INCLUDE_ADO: string[] = Array.from(new Set(APP_TEMPLATES.map(template => {
     return [...template.ados.map(ado => ado.path.split('/').pop() ?? ''), ...template.modules?.map(ado => ado.path.split('/').pop() ?? '') ?? []]
 }).flat()))
 
-console.log(INCLUDE_ADO)
-
 export const BASE_ADOS = baseAdo.filter(ado => INCLUDE_ADO.includes(ado.$id as IAdoType));
 export const MODIFIERS = modifier;
 export const MODULES = moduleAdos.filter(ado => INCLUDE_ADO.includes(ado.$id as IAdoType));

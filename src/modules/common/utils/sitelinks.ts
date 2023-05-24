@@ -17,12 +17,12 @@ export const SITE_LINKS = {
     // Flex
     flexBuilderHome: () => `/flex-builder`,
     flexBuilder: (id: string) => `/flex-builder/${id}`,
-    flexBuilderTemplate: (uri?: string) => `/flex-builder/custom-template${uri ? `?data=${uri}` : ''}`,
+    flexBuilderTemplate: (uri?: string) => `/flex-builder/import${uri ? `?data=${uri}` : ''}`,
     adoExecute: (path: string, address: string, name?: string, appAddress?: string) => `/flexecute/${path}?address=${address}&name=${name || ''}&appAddress=${appAddress || ''}`,
     // App
     appStore: () => `/app-store`,
     appStoreItem: (id: string) => `/app-store/${id}`,
-    appBuilder: () => `/app-builder`,
+    appBuilder: (uri?: string) => `/app-builder${uri ? `?data=${uri}` : ''}`,
     // Assets
     assets: () => `/assets`,
     // Embedables

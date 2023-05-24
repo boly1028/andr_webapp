@@ -25,7 +25,7 @@ const CopyFlexUrlButton: FC<CopyFlexUrlButtonProps> = (props) => {
     const handleCopy = useCallback(async () => {
         try {
             const url = await generateFlexUrl()
-            return window.origin + SITE_LINKS.flexBuilderTemplate(url);
+            return window.origin + SITE_LINKS.appBuilder(url);
         } catch (err: any) {
             toast({
                 title: `Error while generating flex url`,

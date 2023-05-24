@@ -11,19 +11,6 @@ interface AppBuilderEditorProps {
 }
 const AppBuilderEditor: FC<AppBuilderEditorProps> = (props) => {
     const { } = props
-    useEffect(() => {
-        /** Speacial hack to make canvas compact by reducing the font size. This will reduce all
-         * rem values, so we don't need to make any extra customization for theme
-         */
-        // if (typeof document !== 'undefined') {
-        //     const originalSize = document.documentElement.style.fontSize
-        //     document.documentElement.style.fontSize = '80%'
-        //     return () => {
-        //         document.documentElement.style.fontSize = originalSize
-        //     }
-        // }
-    }, [])
-
     return (
         <ReactFlowProvider>
             <AppBuilderProvider>
