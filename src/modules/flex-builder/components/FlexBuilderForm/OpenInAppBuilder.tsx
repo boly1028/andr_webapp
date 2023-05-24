@@ -33,8 +33,8 @@ function OpenInAppBuilderButton({ schema, uiSchema, formData }: OpenInAppBuilder
       schema,
       formData
     })
-    const flexURI = await createFlexUrl(flexFile);
-    router.push(SITE_LINKS.appBuilder(flexURI))
+    sessionStorage.setItem("ANDROMEDA_TEMPLATE", JSON.stringify(flexFile));
+    router.push(SITE_LINKS.appBuilder())
   }, [schema, uiSchema, formData]);
 
   return (

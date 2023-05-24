@@ -15,12 +15,13 @@ const OpenInAdoBuilderButton: FC<OpenInAdoBuilderButtonProps> = (props) => {
         duration: 3000,
         isClosable: true,
     });
-    const { generateFlexUrl } = useDownloadFlex()
+    const { createFlex } = useDownloadFlex()
 
     const handleRoute = useCallback(async () => {
         try {
-            const url = await generateFlexUrl();
-            router.push(SITE_LINKS.flexBuilderTemplate(url))
+            const flex = await createFlex();
+            sessionStorage.setItem("ANDROMEDA_TEMPLATE", JSON.stringify(flex));
+            router.push(SITE_LINKS.flexBuilderTemplate())
         } catch (err: any) {
             toast({
                 title: `Error while generating flex url`,
@@ -29,7 +30,7 @@ const OpenInAdoBuilderButton: FC<OpenInAdoBuilderButtonProps> = (props) => {
             });
             return ''
         }
-    }, [generateFlexUrl, toast]);
+    }, [createFlex, toast]);
 
     return (
         <Tooltip label={`Open in Ado Builder`} bg='base.white' placement='top'>
