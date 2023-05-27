@@ -1,6 +1,4 @@
 import { useChainConfig } from "@/lib/andrjs";
-import useQueryAndrQuery from "@/lib/graphql/hooks/useQueryAndrQuery";
-import useQueryAppInfo from "@/lib/graphql/hooks/useQueryAppInfo";
 import { useWalletContext } from "@/lib/wallet";
 import {
   CopyButton,
@@ -20,35 +18,29 @@ import {
 } from "@/theme/ui-elements";
 import {
   Center,
-  HStack,
   Skeleton,
   Stack,
   Table,
-  TableCaption,
   TableContainer,
   Tbody,
   Td,
-  Th,
-  Thead,
   Tr,
 } from "@chakra-ui/react";
 import { FC, memo, useCallback } from "react";
 import { useGlobalModalContext } from "../hooks";
 import { AssetInfoModalProps } from "../types";
+import { useQueryBaseAdo } from "@/lib/graphql/hooks/useQueryBaseAdo";
+import { useQueryTxByAddress } from "@/lib/graphql";
 
 const AssetInfoModal: FC<AssetInfoModalProps> = memo(function AssetInfoModal({
   address,
   adoType
 }) {
   const { close } = useGlobalModalContext();
-  const { data: andrResult, loading, error } = useQueryAndrQuery(address);
-
+  const { data: baseAdo, loading, error } = useQueryBaseAdo(address);
   const { chainId } = useWalletContext();
+  const { data: txs } = useQueryTxByAddress(address, chainId);
   const { data: currentConfig } = useChainConfig(chainId);
-
-  const onCallback = useCallback(() => {
-    close();
-  }, [close]);
 
   return (
     <Box>
@@ -75,7 +67,7 @@ const AssetInfoModal: FC<AssetInfoModalProps> = memo(function AssetInfoModal({
           <Skeleton h="14" rounded="xl" />
         </Stack>
       )}
-      {andrResult && (
+      {baseAdo && (
         <>
           <TableContainer
             p="2"
@@ -88,12 +80,12 @@ const AssetInfoModal: FC<AssetInfoModalProps> = memo(function AssetInfoModal({
               <Tbody>
                 <Tr>
                   <Td fontWeight="light">Type</Td>
-                  <Td>{andrResult?.type}@{andrResult?.version}</Td>
+                  <Td>{baseAdo.andr.type}@{baseAdo.andr.version}</Td>
                 </Tr>
                 <Tr>
                   <Td fontWeight="light">Block Height</Td>
                   <Td>
-                    {andrResult.blockHeightUponCreation}
+                    {baseAdo.andr.blockHeightUponCreation}
                   </Td>
                 </Tr>
                 <Tr>
@@ -103,9 +95,9 @@ const AssetInfoModal: FC<AssetInfoModalProps> = memo(function AssetInfoModal({
                       variant="link"
                       colorScheme="gray"
                       gap="2"
-                      text={andrResult?.address ?? ''}
+                      text={baseAdo.andr.address ?? ''}
                     >
-                      {truncate(andrResult?.address)}
+                      {truncate(baseAdo.andr.address)}
                       <CopyIcon boxSize="4" />
                     </CopyButton>
                   </Td>
@@ -119,9 +111,9 @@ const AssetInfoModal: FC<AssetInfoModalProps> = memo(function AssetInfoModal({
                       variant="link"
                       colorScheme="gray"
                       gap="2"
-                      text={andrResult?.owner ?? ''}
+                      text={baseAdo.andr.owner ?? ''}
                     >
-                      {truncate(andrResult?.owner)}
+                      {truncate(baseAdo.andr.owner)}
                       <CopyIcon boxSize="4" />
                     </CopyButton>
                   </Td>
@@ -135,9 +127,9 @@ const AssetInfoModal: FC<AssetInfoModalProps> = memo(function AssetInfoModal({
                       variant="link"
                       colorScheme="gray"
                       gap="2"
-                      text={andrResult?.originalPublisher ?? ''}
+                      text={baseAdo.andr.originalPublisher ?? ''}
                     >
-                      {truncate(andrResult?.originalPublisher)}
+                      {truncate(baseAdo.andr.originalPublisher)}
                       <CopyIcon boxSize="4" />
                     </CopyButton>
                   </Td>
@@ -156,7 +148,7 @@ const AssetInfoModal: FC<AssetInfoModalProps> = memo(function AssetInfoModal({
             overflow='auto'
           >
             <VStack gap='4' alignItems='start' fontSize='sm' fontWeight='light'>
-              {andrResult?.txs.map(tx => (
+              {txs?.map(tx => (
                 <Flex key={tx.hash} flexDirection='row' gap={2} w='full'>
                   <CopyButton
                     variant="link"

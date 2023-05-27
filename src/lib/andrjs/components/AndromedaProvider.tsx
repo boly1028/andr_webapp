@@ -37,11 +37,10 @@ const AndromedaProvider: React.FC<AndromedaProviderProps> = memo(
         console.warn(`No config for chain ID ${chainId}`);
         return;
       }
-
       if (!signer) {
         console.warn("No signer provided");
+        return;
       }
-
       const connect = async () => {
         try {
           await client.connect(

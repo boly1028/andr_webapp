@@ -1,4 +1,3 @@
-import useQueryAppInfo from "@/lib/graphql/hooks/useQueryAppInfo";
 import React, { FC } from "react";
 import { v4 as keyGen } from "uuid"; // Used as key assignments for function elements
 import NextLink from "next/link";
@@ -33,7 +32,9 @@ import { MoreVertical } from "lucide-react";
 import { useGetSchemaADOP } from "@/lib/schema/hooks/useGetSchemaADOP";
 import { IAdoType } from "@/lib/schema/types";
 import { useGetSchemaVersions } from "@/lib/schema/hooks/useGetSchemaVersion";
-import useQueryAndrQuery from "@/lib/graphql/hooks/useQueryAndrQuery";
+import { useQueryBaseAdo } from "@/lib/graphql/hooks/useQueryBaseAdo";
+import { useAppConfig } from "@/lib/graphql/hooks/app/useAppConfig";
+import { useAppComponents } from "@/lib/graphql/hooks/app/useAppComponents";
 
 interface AdoItemProps {
   address: string;
@@ -43,15 +44,15 @@ interface AdoItemProps {
 }
 
 const AdoItem: FC<AdoItemProps> = ({ address, adoType: _adoType, name, proxyAddress }) => {
-  const { data: andrResult } = useQueryAndrQuery(address)
+  const { data: baseAdo } = useQueryBaseAdo(address)
 
   // Creating a proxy for app type as it is now reference as app-contract
   const adoType = _adoType === "app" ? "app-contract" : (_adoType);
-  const { data: appInfo, loading, error } = useQueryAppInfo(address, adoType !== 'app-contract')
+  const { data: app, loading, error } = useAppConfig(address, adoType === 'app-contract')
 
 
   const { data: _version } = useGetSchemaVersions(adoType);
-  const version = andrResult?.version || _version?.latest;
+  const version = baseAdo?.andr.version || _version?.latest;
   const { data: adopData, isLoading } = useGetSchemaADOP(adoType, version);
 
   const open = useAssetInfoModal();
@@ -80,7 +81,7 @@ const AdoItem: FC<AdoItemProps> = ({ address, adoType: _adoType, name, proxyAddr
         </Box>
 
         <Box flex={1.5}>
-          <InlineStat label="Name" value={appInfo?.name ?? name ?? _adoType} />
+          <InlineStat label="Name" value={app?.config.name ?? name ?? _adoType} />
           {/* <InlineStat label="{type}" value={name} reverse /> */}
         </Box>
         <Box flex={1}>
@@ -89,7 +90,7 @@ const AdoItem: FC<AdoItemProps> = ({ address, adoType: _adoType, name, proxyAddr
         <Box flex={1}>
           <InlineStat
             label="Block Height"
-            value={andrResult?.blockHeightUponCreation?.toString() ?? ''}
+            value={baseAdo?.andr.blockHeightUponCreation.toString() ?? ''}
           />
         </Box>
         <Box flex={1}>
@@ -165,45 +166,59 @@ const AdoItem: FC<AdoItemProps> = ({ address, adoType: _adoType, name, proxyAddr
           direction="column"
         // bg="dark.50"
         >
-          {loading && (
-            <Stack>
-              <Skeleton h="14" rounded="xl" />
-              <Skeleton h="14" rounded="xl" />
-            </Stack>
-          )}
-          {error && (
-            <Center pt="4">
-              <FallbackPlaceholder
-                title="ERROR!"
-                desc={
-                  error.message ||
-                  "Something went wrong, we were not able to fetch data properly"
-                }
-              />
-            </Center>
-          )}
-          {appInfo?.components?.length === 0 && (
-            <Center pt="4">
-              <FallbackPlaceholder
-                title="Empty list"
-                desc="You don't have any components associated with this app."
-              />
-            </Center>
-          )}
-          {appInfo?.components?.map((ado) => (
-            <AdoItem
-              key={ado.address}
-              address={ado.address}
-              adoType={ado.adoType as IAdoType}
-              proxyAddress={appInfo.contractAddress}
-              name={ado.name}
-            />
-          ))}
+          <ExpandedList appAddress={address} />
         </Flex>
       )}
     </Flex>
   );
 };
+
+interface ExpandedListProps {
+  appAddress: string;
+}
+const ExpandedList: FC<ExpandedListProps> = (props) => {
+  const { appAddress } = props;
+  const { data: components, loading, error } = useAppComponents(appAddress)
+  return (
+    <Box>
+      {loading && (
+        <Stack>
+          <Skeleton h="14" rounded="xl" />
+          <Skeleton h="14" rounded="xl" />
+        </Stack>
+      )}
+      {error && (
+        <Center pt="4">
+          <FallbackPlaceholder
+            title="ERROR!"
+            desc={
+              error.message ||
+              "Something went wrong, we were not able to fetch data properly"
+            }
+          />
+        </Center>
+      )}
+      {components?.components.length === 0 && (
+        <Center pt="4">
+          <FallbackPlaceholder
+            title="Empty list"
+            desc="You don't have any components associated with this app."
+          />
+        </Center>
+      )}
+      {components?.components.map((ado) => (
+        <AdoItem
+          key={ado.address}
+          address={ado.address}
+          adoType={ado.ado_type as IAdoType}
+          proxyAddress={appAddress}
+          name={ado.name}
+        />
+      ))}
+    </Box>
+  )
+}
+
 
 // Format declared modifiers for better UX in application
 function formatActionTitles(actionTitleText: string) {
