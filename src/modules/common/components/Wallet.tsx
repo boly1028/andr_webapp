@@ -33,9 +33,9 @@ import {
   CopyButton,
 } from "@/modules/common";
 import useWalletModal from "@/modules/modals/hooks/useWalletModal";
-import { useAllChainConfig, useChainConfig } from "@/lib/andrjs";
 import ChainFallbackIcon from "./icons/ChainFallbackIcon";
 import { SITE_LINKS } from "../utils/sitelinks";
+import { useQueryAllChainConfigs, useQueryChainConfig } from "@/lib/graphql/hooks/chain/useChainConfig";
 
 interface WalletProps extends ButtonProps {
 
@@ -46,8 +46,8 @@ const WalletConnected: FC<WalletProps> = (props) => {
   const disconnect = useDisconnect();
   const address = truncate(wallet?.address);
   const { chainId, setChainId } = useWalletContext();
-  const { data: currentConfig } = useChainConfig(chainId);
-  const { data: configs } = useAllChainConfig();
+  const { data: currentConfig } = useQueryChainConfig(chainId);
+  const { data: configs } = useQueryAllChainConfigs();
   const iconUrl = currentConfig?.iconUrls?.sm || currentConfig?.iconUrls?.lg;
   return (
     <Popover placement="bottom-end">

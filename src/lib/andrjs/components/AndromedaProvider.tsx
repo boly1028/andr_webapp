@@ -4,7 +4,8 @@ import { cloneDeep } from "@apollo/client/utilities";
 import { OfflineSigner } from "@cosmjs/proto-signing";
 import { GasPrice } from "@cosmjs/stargate";
 import React, { memo, useEffect, useMemo, useState } from "react";
-import { AndromedaContext, useChainConfig } from "../hooks";
+import { AndromedaContext } from "../hooks";
+import { useQueryChainConfig } from "@/lib/graphql/hooks/chain/useChainConfig";
 
 /**
  * Base64 encoding function
@@ -26,13 +27,13 @@ export interface AndromedaProviderProps {
  */
 const AndromedaProvider: React.FC<AndromedaProviderProps> = memo(
   function AndromedaProvider({ children, signer, chainId }) {
-    const { data: config, isLoading } = useChainConfig(chainId);
+    const { data: config, loading } = useQueryChainConfig(chainId);
     const client = useMemo(() => new AndromedaClient(), []);
     const [connected, setConnected] = useState(false);
     const [factoryAddress, setFactoryAddress] = useState("");
 
     useEffect(() => {
-      if (isLoading) return;
+      if (loading) return;
       if (!config) {
         console.warn(`No config for chain ID ${chainId}`);
         return;

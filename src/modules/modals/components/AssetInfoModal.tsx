@@ -1,4 +1,3 @@
-import { useChainConfig } from "@/lib/andrjs";
 import { useWalletContext } from "@/lib/wallet";
 import {
   CopyButton,
@@ -31,6 +30,7 @@ import { useGlobalModalContext } from "../hooks";
 import { AssetInfoModalProps } from "../types";
 import { useQueryBaseAdo } from "@/lib/graphql/hooks/useQueryBaseAdo";
 import { useQueryTxByAddress } from "@/lib/graphql";
+import { useQueryChainConfig } from "@/lib/graphql/hooks/chain/useChainConfig";
 
 const AssetInfoModal: FC<AssetInfoModalProps> = memo(function AssetInfoModal({
   address,
@@ -40,7 +40,7 @@ const AssetInfoModal: FC<AssetInfoModalProps> = memo(function AssetInfoModal({
   const { data: baseAdo, loading, error } = useQueryBaseAdo(address);
   const { chainId } = useWalletContext();
   const { data: txs } = useQueryTxByAddress(address, chainId);
-  const { data: currentConfig } = useChainConfig(chainId);
+  const { data: currentConfig } = useQueryChainConfig(chainId);
 
   return (
     <Box>

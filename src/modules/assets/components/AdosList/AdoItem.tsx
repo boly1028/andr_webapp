@@ -48,7 +48,8 @@ const AdoItem: FC<AdoItemProps> = ({ address, adoType: _adoType, name, proxyAddr
 
   // Creating a proxy for app type as it is now reference as app-contract
   const adoType = _adoType === "app" ? "app-contract" : (_adoType);
-  const { data: app, loading, error } = useAppConfig(address, adoType === 'app-contract')
+  const { data: app, loading, error } = useAppConfig(address, adoType !== 'app-contract');
+  console.log(app,"APP", adoType)
 
 
   const { data: _version } = useGetSchemaVersions(adoType);
