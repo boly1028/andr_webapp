@@ -1,5 +1,5 @@
+import { queryKeplrConfig } from "@/lib/graphql/functions/keplr/config";
 import { Keplr } from "@keplr-wallet/types";
-import { queryKeplrConfig } from "@andromedaprotocol/andromeda.js"
 
 /**
  * Adds chain info or enables a chain in Keplr by a given chain ID and Keplr instance

@@ -4,7 +4,6 @@ import {
   QUERY_ASSETS,
 } from "@andromedaprotocol/andromeda.js";
 import { gql, QueryResult, useQuery } from "@apollo/client";
-import { useMemo } from "react";
 
 export interface QueryAssetsProps
   extends Pick<QueryResult<QueryAssetsResponse, QueryAssets>, "loading" | "error" | "fetchMore" | "previousData"> {

@@ -1,4 +1,4 @@
-import { useAndromedaContext, useChainConfig } from "@/lib/andrjs";
+import { useAndromedaContext } from "@/lib/andrjs";
 import { Text, Box, Center, Button } from "@chakra-ui/react";
 import { Check, ExternalLink } from "lucide-react";
 import { FC, memo, useCallback, useEffect, useMemo, useState } from "react";
@@ -9,10 +9,10 @@ import type {
   ExecuteResult,
   InstantiateResult,
 } from "@cosmjs/cosmwasm-stargate";
-import { truncate } from "@/modules/common";
 import { useWalletContext } from "@/lib/wallet";
 import { useRouter } from "next/router";
 import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
+import { useQueryChainConfig } from "@/lib/graphql/hooks/chain/useChainConfig";
 
 interface OptionalProps {
   onNextStage?: () => void;
@@ -29,7 +29,7 @@ const BroadcastingModal: FC<TransactionModalProps & OptionalProps> = memo(
       ExecuteResult | InstantiateResult | undefined
     >();
     const { chainId } = useWalletContext();
-    const { data: config } = useChainConfig(chainId);
+    const { data: config } = useQueryChainConfig(chainId);
 
     const broadcast = useCallback(async () => {
       if (!connected) throw new Error("Not connected!");
