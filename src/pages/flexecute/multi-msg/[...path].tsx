@@ -66,6 +66,8 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
   }, [ADO_DATA, template]);
 
   const handleFlexInput = async (file: File) => {
+    // TODO
+    console.warn("NOT IMPLEMENTED")
   };
 
   const getMsg = (formData: any) => {
