@@ -16,6 +16,7 @@ import ModalError from "./ModalError";
 import PanelRenameModal from "./PanelRenameModal";
 import TransactionModal from "./TransactionModal";
 import WalletModal from "./WalletModal";
+import MultiTransactionModal from "./MultiTransaction";
 
 interface ModalState {
   props?: Omit<ModalProps, "modalType">;
@@ -31,6 +32,7 @@ const components: Record<ModalType, React.FC<any>> = {
   [ModalType.PanelRename]: PanelRenameModal,
   [ModalType.AssetInfo]: AssetInfoModal,
   [ModalType.Disclaimer]: DisclaimerModal,
+  [ModalType.MultiTransaction]:MultiTransactionModal
 };
 
 const GlobalModalProvider: React.FC = memo(function GlobalModalProvider({
