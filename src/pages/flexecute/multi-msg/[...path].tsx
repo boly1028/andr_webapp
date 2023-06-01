@@ -66,8 +66,24 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
   }, [ADO_DATA, template]);
 
   const handleFlexInput = async (file: File) => {
-    // TODO
-    console.warn("NOT IMPLEMENTED")
+    try {
+      const json = await parseJsonFromFile(file) as ITemplate;
+      json.ados.forEach(ado=>{
+        ado.removable = true;
+        ado.required = false;
+      })
+      const _template = await parseFlexFile(json);
+      setModifiedTemplate(_template);
+      toast({
+        title: "Import successfull",
+        status: "success",
+      });
+    } catch (err) {
+      toast({
+        title: "Error while importing",
+        status: "error",
+      });
+    }
   };
 
   const getMsg = (formData: any) => {
