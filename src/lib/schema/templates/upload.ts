@@ -12,7 +12,7 @@ export const UPLOAD_TEMPLATE: ITemplate = {
     adoType: "app",
     name: "Saved File",
     icon: "/app-templates/icons/blank.png",
-    description: "Import .flex file to continue from where you left",
+    description: "Import .flex file to continue from where you left off.",
     opts: [
         "Import saved template",
         "Add on your prefered modules",
