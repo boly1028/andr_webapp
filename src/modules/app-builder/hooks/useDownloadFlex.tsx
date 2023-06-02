@@ -68,6 +68,7 @@ export const useDownloadFlex = () => {
 
     return {
         downloadFlex: download,
-        generateFlexUrl: getUrl
+        generateFlexUrl: getUrl,
+        createFlex:create
     }
 }

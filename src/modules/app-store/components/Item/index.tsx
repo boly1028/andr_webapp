@@ -1,5 +1,6 @@
 import { useGetSchemaJson } from "@/lib/schema/hooks";
 import { ITemplate } from "@/lib/schema/types";
+import { createFlexUrl } from "@/lib/schema/utils/flexFile";
 import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
 import ClassifierIcon from "@/theme/icons/classifiers";
 import { ExternalLink } from "@/theme/ui-elements";
@@ -17,6 +18,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { FC, ReactNode } from "react";
 
 interface AppStoreItemPageProps {
@@ -24,7 +26,6 @@ interface AppStoreItemPageProps {
 }
 const AppStoreItemPage: FC<AppStoreItemPageProps> = (props) => {
   const { template } = props;
-
   return (
     <Box py="6">
       <Flex direction="row" gap="10" alignItems="start">
@@ -41,11 +42,18 @@ const AppStoreItemPage: FC<AppStoreItemPageProps> = (props) => {
 
           <Box maxW="xs">
             {template.installed ? (
-              <Link href={SITE_LINKS.flexBuilder(template.id)} passHref>
-                <Button as="a" w="full" size="lg" colorScheme="primary">
-                  Run
-                </Button>
-              </Link>
+              <HStack>
+                <Link href={SITE_LINKS.flexBuilder(template.id)} passHref>
+                  <Button as="a" w="full" size="lg" colorScheme="primary">
+                    Open in ADO Builder
+                  </Button>
+                </Link>
+                <Link href={SITE_LINKS.appBuilder(template.id)} passHref>
+                  <Button as="a" w="full" size="lg" colorScheme="primary">
+                    Open in App Builder
+                  </Button>
+                </Link>
+              </HStack>
             ) : (
               <Button w="full" size="lg" colorScheme="primary">
                 Get this template

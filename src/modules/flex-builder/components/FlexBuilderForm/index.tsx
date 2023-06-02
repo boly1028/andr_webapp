@@ -25,6 +25,7 @@ import { ITemplateUiSchema } from "@/lib/schema/templates/types";
 import Form from "./Form";
 import CopyFlexButton from "./CopyFlexButton";
 import CopyCliButton from "./CopyCliButton";
+import OpenInAppBuilderButton from "./OpenInAppBuilder";
 
 export type FlexBuilderFormProps = {
   template: ITemplate;
@@ -224,6 +225,11 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
         {/* Action Footer */}
         <Flex mt={8} justify="right">
           <HStack spacing={4}>
+            <OpenInAppBuilderButton
+              schema={schema}
+              uiSchema={uiSchema}
+              formData={formData}
+            />
             <CopyCliButton
               formData={formData}
               onCopy={onCliCopy}
