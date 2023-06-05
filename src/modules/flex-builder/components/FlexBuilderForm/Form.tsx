@@ -4,10 +4,11 @@ import React, { FC } from "react";
 import defaultTemplates from "./templates";
 import validator from "./validator";
 import defaultWidgets from "./widgets";
+import defaultFields from "./fields";
 
 interface IFormProps extends Omit<FormProps<any, any>, "validator"> { }
 const Form = (props: IFormProps, ref: any) => {
-  const { templates = {}, widgets = {}, ...otherProps } = props;
+  const { templates = {}, widgets = {}, fields = {}, ...otherProps } = props;
 
   return (
     <ChakraForm
@@ -19,6 +20,7 @@ const Form = (props: IFormProps, ref: any) => {
         ...templates,
       }}
       widgets={{ ...defaultWidgets, ...widgets }}
+      fields={{ ...defaultFields, ...fields }}
       // Hide Error list at the top as its not intuitive to user
       showErrorList={false}
       {...otherProps}
