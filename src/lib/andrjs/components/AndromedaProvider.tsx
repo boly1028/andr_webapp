@@ -47,6 +47,7 @@ const AndromedaProvider: React.FC<AndromedaProviderProps> = memo(
           await client.connect(
             config.chainUrl,
             config.registryAddress,
+            config.kernelAddress,
             config.addressPrefix,
             signer,
             {
