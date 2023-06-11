@@ -11,6 +11,7 @@ export const IImportantAdoKeys = {
     BLANK_CANVAS: 'app',
     PUBLISH_SETTINGS: 'publish-settings',
     PROXY_MESSAGE: 'proxy-settings',
+    EMBEDDABLE_APP: 'embeddable-app',
     FUND: 'fund',
     APP: 'app',
     FLEX_FILE: 'import'
