@@ -27,7 +27,7 @@ const EmbeddableModal: FC<EmbeddableModalProps> = ({ config }) => {
         EMBEDDABLE
       </Text>
       <Text fontSize="xs" textStyle="light" color="dark.500" mt="2">
-        Here's a preview for your embeddable
+        Here&apos;s a preview for your embeddable
       </Text>
         <Box bg='newSystem.background.800' rounded='lg' p='4' my='4'>
           <Text>
