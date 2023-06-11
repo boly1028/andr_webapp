@@ -1,11 +1,11 @@
 import { UiSchema } from "@andromedarjsf/utils";
 import { JSONSchema7 } from "json-schema";
-import versions from './schema/version.json';
+import versions from '../schema/version.json';
 
 export type ISchemaVersion = (typeof versions)[keyof typeof versions];
 
 
-export type { ITemplate } from './templates/types'
+export type { ITemplate } from '../templates/types'
 
 export const IImportantAdoKeys = {
     BLANK_CANVAS: 'app',

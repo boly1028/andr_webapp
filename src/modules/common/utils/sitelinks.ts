@@ -28,6 +28,8 @@ export const SITE_LINKS = {
     assets: () => `/assets`,
     // Embedables
     embeddables: () => `/embeddables`,
+    // embeddablePreview: (configUri: string) => `https://embeddable-marketplace-demo.vercel.app/${configUri}`,
+    embeddablePreview: (configUri: string) => `http://localhost:3000/${configUri}`,
     // embeddables: () => `https://andromedaprotocol.github.io/embeddable-marketplace-demo`,
     learn: () => `/learn`,
     learnItem: (slug: string) => `/learn${slug}`,

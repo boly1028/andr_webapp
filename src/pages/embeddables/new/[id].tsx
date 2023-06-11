@@ -2,12 +2,12 @@ import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { FlexBuilderForm } from "@/modules/flex-builder";
 
 import { Box } from "@/theme/ui-elements";
-import {  FilePlusIcon, Layout, PageHeader } from "@/modules/common";
+import { FilePlusIcon, Layout, PageHeader } from "@/modules/common";
 import { useRouter } from "next/router";
 import { IImportantAdoKeys, ITemplate } from "@/lib/schema/types";
 import { useGetFunds } from "@/modules/sdk/hooks";
 import { useWallet } from "@/lib/wallet";
-import {  useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { HStack, IconButton, Input, Tooltip, useToast } from "@chakra-ui/react";
 import { cloneDeep } from "@apollo/client/utilities";
 import { parseJsonFromFile } from "@/lib/json";
@@ -16,6 +16,9 @@ import { FlexBuilderFormProps } from "@/modules/flex-builder/components/FlexBuil
 import { EXECUTE_CLI_QUERY } from "@/lib/andrjs";
 import { ITemplateFormData } from "@/lib/schema/templates/types";
 import { getEmbeddableTemplateById } from "@/lib/schema/utils/embeddables";
+import { IEmbeddableConfig } from "@/lib/schema/types/embeddables";
+import { constructMsg } from "@/modules/sdk/utils";
+import useEmbeddableModal from "@/modules/modals/hooks/useEmbeddableModal";
 
 type Props = {
   template: ITemplate
@@ -28,27 +31,28 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
   });
 
   const account = useWallet();
+  const openModal = useEmbeddableModal();
 
   const [modifiedTemplate, setModifiedTemplate] = useState(template);
 
   const handleFlexInput = async (file: File) => {
     try {
       const json = await parseJsonFromFile(file) as ITemplate;
-      json.ados.forEach(ado=>{
-        const templateAdo = template.ados.find(a=>a.id === ado.id)
-        if(templateAdo){
-            ado = templateAdo
-        }else{
-            ado.required = false;
+      json.ados.forEach(ado => {
+        const templateAdo = template.ados.find(a => a.id === ado.id)
+        if (templateAdo) {
+          ado = templateAdo
+        } else {
+          ado.required = false;
         }
       })
       const _template = await parseFlexFile(json);
       setModifiedTemplate({
         ...template,
-        ados:_template.ados,
-        formData:_template.formData,
-        schema:_template.schema,
-        uiSchema:_template.uiSchema
+        ados: _template.ados,
+        formData: _template.formData,
+        schema: _template.schema,
+        uiSchema: _template.uiSchema
       });
       toast({
         title: "Import successfull",
@@ -63,11 +67,28 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
   };
 
   const getMsg = (formData: ITemplateFormData) => {
-    console.log(formData)
+    const appConfig = formData[IImportantAdoKeys.EMBEDDABLE_APP];
+    const msg: IEmbeddableConfig = {
+      // Remove system fields starting with $
+      ...constructMsg(appConfig),
+      collections: []
+    }
+    Object.entries(formData).forEach(([name, config]) => {
+      console.log(config);
+      if(config.$class !== 'embeddable') return;
+      if (!config.$enabled) return;
+      msg.collections.push({
+        ...constructMsg(config),
+        id: name,
+        type: config.$type as any,
+      })
+    })
+    return msg;
   }
 
   const handleSubmit: FlexBuilderFormProps['onSubmit'] = async ({ formData }) => {
-    const msg = getMsg(formData);
+    const config = getMsg(formData);
+    openModal({ config });
   };
 
 
