@@ -20,11 +20,7 @@ const LandingHero: FC<LandingHeroProps> = () => {
         <Text fontSize="3xl" fontWeight="bold">
           Welcome to Andromeda
         </Text>
-        {/* <Text fontSize="sm" fontWeight="light" color="gray.400">
-          Get started with Lorem ipsum dolor sit amet, consectetur adipiscing
-          elit ut aliquam, purus sit amet luctus venenatis, lectus magna
-          fringilla urna.
-        </Text> */}
+
       </VStack>
       <VStack mt="12" spacing="6" w='full'>
         <Text fontWeight="light" color="gray.400" textTransform="uppercase">
