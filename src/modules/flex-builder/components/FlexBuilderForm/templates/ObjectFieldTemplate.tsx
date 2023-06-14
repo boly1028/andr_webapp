@@ -102,7 +102,7 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
       .map((t) => t.toLocaleLowerCase())
       .join("");
     let baseAdo = schema.$path?.split("/")[0] as IAdoType;
-    if(baseAdo === 'app-contract') baseAdo = 'app';
+    if (baseAdo === 'app-contract') baseAdo = 'app';
     return {
       type,
       baseAdo,
@@ -310,6 +310,16 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
                     {element.content}
                   </GridItem>
                 ),
+              )}
+              {canExpand(schema, uiSchema, formData) && (
+                <GridItem justifySelf="flex-end">
+                  <AddButton
+                    className="object-property-expand"
+                    onClick={onAddClick(schema)}
+                    disabled={disabled || readonly}
+                    uiSchema={uiSchema}
+                  />
+                </GridItem>
               )}
             </Grid>
           </Box>

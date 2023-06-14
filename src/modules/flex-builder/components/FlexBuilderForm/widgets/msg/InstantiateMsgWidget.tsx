@@ -17,7 +17,9 @@ export const InstantiateMsgWidget: FC<InstantiateMsgWidgetProps> = (props) => {
 
   const [currentSchema, setCurrentSchema] = useState<string>();
   const { data: schemaFile } = useGetSchemaJson(currentSchema ?? "");
-
+  const reset = () => {
+    setCurrentSchema(undefined)
+  }
 
   return (
     <Base {...props}
@@ -37,7 +39,7 @@ export const InstantiateMsgWidget: FC<InstantiateMsgWidgetProps> = (props) => {
             <MenuList maxH="48" overflow="auto">
               <MenuItem
                 onClick={() => {
-                  setCurrentSchema(undefined)
+                  reset()
                 }}
                 opacity='0.2'
               >

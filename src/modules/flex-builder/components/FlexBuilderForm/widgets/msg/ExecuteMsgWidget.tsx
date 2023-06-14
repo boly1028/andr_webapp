@@ -23,8 +23,14 @@ export const ExecuteMsgWidget: FC<ExecuteMsgWidgetProps> = (props) => {
   const { data: adops } = useGetSchemaADOP(currentBaseAdo ?? 'app-contract')
   const { data: schemaFile } = useGetSchemaJson(currentSchema ?? "");
 
+  const reset = () => {
+    setCurrentSchema(undefined)
+    setCurrentBaseAdo(undefined);
+  }
+
   return (
     <Base {...props}
+      reset={reset}
       selectWidget={(
         <Flex direction="row" gap="4">
           <Menu placement="bottom-start">
@@ -35,18 +41,25 @@ export const ExecuteMsgWidget: FC<ExecuteMsgWidgetProps> = (props) => {
               minW='max-content'
             >
               {/* <CustomMenuButton> */}
-              {currentBaseAdo ?? "Select Base Ado"}
+              {currentBaseAdo ?? "Custom Message"}
               {/* </CustomMenuButton> */}
             </MenuButton>
             <MenuList maxH="48" overflow="auto">
-              <MenuItem
+            <MenuItem
                 onClick={() => {
                   setCurrentSchema(undefined)
                   setCurrentBaseAdo(undefined);
                 }}
-                opacity='0.2'
               >
-                Reset
+                Custom Message
+              </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  setCurrentBaseAdo("Json" as any)
+                  setCurrentSchema('json')
+                }}
+              >
+                JSON
               </MenuItem>
               {[...BASE_ADOS, ...MODULES].map((s) => (
                 <MenuItem

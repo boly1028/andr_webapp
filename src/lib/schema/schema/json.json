@@ -1,0 +1,16 @@
+{
+    "schema": {
+      "$id": "json",
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "class": "system",
+      "classifier": "",
+      "type": "string"
+    },
+    "ui-schema": {
+      "ui:widget":"textarea",
+      "ui:options":{
+        "placeholder":"Write your data here. It will be converted to base64..."
+      }
+    },
+    "form-data": {}
+  }

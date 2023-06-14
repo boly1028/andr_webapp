@@ -21,8 +21,14 @@ export const Cw721ReceiveMsgWidget: FC<Cw721ReceiveMsgWidgetProps> = (props) => 
   const { data: adops } = useGetSchemaADOP(currentBaseAdo?.ado ?? 'app-contract')
   const { data: schemaFile } = useGetSchemaJson(currentSchema ?? "");
 
+  const reset = () => {
+    setCurrentSchema(undefined)
+    setCurrentBaseAdo(undefined);
+  }
+
   return (
     <Base {...props}
+      reset={reset}
       selectWidget={(
         <Flex direction="row" gap="4">
           <Menu placement="bottom-start">
@@ -33,7 +39,7 @@ export const Cw721ReceiveMsgWidget: FC<Cw721ReceiveMsgWidgetProps> = (props) => 
               minW='max-content'
             >
               {/* <CustomMenuButton> */}
-              {currentBaseAdo?.label ?? "ADO Type"}
+              {currentBaseAdo?.label ?? "Custom Message"}
               {/* </CustomMenuButton> */}
             </MenuButton>
             <MenuList maxH="48" overflow="auto">
@@ -42,9 +48,19 @@ export const Cw721ReceiveMsgWidget: FC<Cw721ReceiveMsgWidgetProps> = (props) => 
                   setCurrentSchema(undefined)
                   setCurrentBaseAdo(undefined);
                 }}
-                opacity='0.2'
               >
-                Reset
+                Custom Message
+              </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  setCurrentBaseAdo({
+                    ado:"" as any,
+                    "label":"JSON"
+                  })
+                  setCurrentSchema('json')
+                }}
+              >
+                JSON
               </MenuItem>
               {[...BASE_ADOS, ...MODULES].filter(ado => RECEIVES.some(rAdo => rAdo.source.split('/')[0] === ado.$id)).map((s) => (
                 <MenuItem
@@ -61,34 +77,35 @@ export const Cw721ReceiveMsgWidget: FC<Cw721ReceiveMsgWidgetProps> = (props) => 
               ))}
             </MenuList>
           </Menu>
-          <Menu placement="bottom-start">
-            <MenuButton
-              as={Button}
-              rightIcon={<ChevronDownIcon />}
-              alignSelf="start"
-              minW='max-content'
-              colorScheme='gray'
-              isDisabled={!currentBaseAdo}
-            >
-              {/* <CustomMenuButton> */}
-              {schemaFile?.schema?.title ?? "Select Message"}
-              {/* </CustomMenuButton> */}
-            </MenuButton>
-            <MenuList maxH="48" overflow="auto">
-              {adops?.cw721receives?.map((s) => (
-                <MenuItem
-                  key={s}
-                  onClick={() => {
-                    const path = `${adops.basePath}/${s}`
-                    setCurrentSchema(path);
-                  }}
-                >
-                  {s.replace('.receive', '')}
-                </MenuItem>
-              ))}
-            </MenuList>
-          </Menu>
-
+          {currentBaseAdo && adops && (
+            <Menu placement="bottom-start">
+              <MenuButton
+                as={Button}
+                rightIcon={<ChevronDownIcon />}
+                alignSelf="start"
+                minW='max-content'
+                colorScheme='gray'
+                isDisabled={!currentBaseAdo}
+              >
+                {/* <CustomMenuButton> */}
+                {schemaFile?.schema?.title ?? "Select Message"}
+                {/* </CustomMenuButton> */}
+              </MenuButton>
+              <MenuList maxH="48" overflow="auto">
+                {adops?.cw721receives?.map((s) => (
+                  <MenuItem
+                    key={s}
+                    onClick={() => {
+                      const path = `${adops.basePath}/${s}`
+                      setCurrentSchema(path);
+                    }}
+                  >
+                    {s.replace('.receive', '')}
+                  </MenuItem>
+                ))}
+              </MenuList>
+            </Menu>
+          )}
         </Flex>
       )}
       formSchema={schemaFile}
