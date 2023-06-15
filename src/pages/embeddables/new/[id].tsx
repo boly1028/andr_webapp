@@ -59,6 +59,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
         status: "success",
       });
     } catch (err) {
+      console.log(err)
       toast({
         title: "Error while importing",
         status: "error",
@@ -74,7 +75,6 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
       collections: []
     }
     Object.entries(formData).forEach(([name, config]) => {
-      console.log(config);
       if(config.$class !== 'embeddable') return;
       if (!config.$enabled) return;
       msg.collections.push({
