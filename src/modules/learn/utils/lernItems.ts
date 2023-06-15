@@ -3,31 +3,6 @@ import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
 import { Puzzle, Triangle, Wallet } from "lucide-react";
 import { ILearnPageItem } from "../types";
 
-/* Removed for Re-Insertion Later
- {
-        title: 'Conceptual Breakdown of Andromeda',
-        description: 'Kick start your learning with these lessons',
-        items: [
-            {
-                title: 'A quick into to Andromeda',
-                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus venenati.',
-                icon: AndromedaIcon
-            },
-            {
-                title: 'ADO architecture',
-                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus venenati.',
-                icon: CubeIcon
-            },
-            {
-                title: 'App architecture',
-                description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus venenati.',
-                icon: Triangle
-            }
-        ]
-    },
-    */
-
-
 export const LEARN_PAGE_ITEMS: ILearnPageItem[] = [
 
     {
