@@ -30,9 +30,6 @@
                         "rate": {
                             "title": "Rate Type",
                             "description": "The type of rate being taken",
-                            "default": {
-                                "percent": {}
-                            },
                             "oneOf": [
                                 {
                                     "title": "Percent",
