@@ -8,6 +8,8 @@ import { Skeleton } from "@chakra-ui/skeleton";
 import { Center, Stack } from "@chakra-ui/layout";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { IAdoType } from "@/lib/schema/types";
+import { Flex, Input, InputGroup, InputLeftElement, Select } from '@chakra-ui/react'
+import { SearchIcon } from "@chakra-ui/icons";
 
 const LIMIT = 10;
 const AdosList: FC = () => {
@@ -63,9 +65,37 @@ const AdosList: FC = () => {
       </Center>
     );
   }
+  console.log('data:', data);
+  const searchHandler = (event: React.FormEvent<HTMLInputElement>) => {
+    // const target  = event.target as Element;
+    // if(event){
 
+    // }
+  }
   return (
     <Box>
+      {/* Asset Filter UI from here */}
+      <Flex mb='24px' gap='16px'>
+        <Box w='702px' h='40px'>
+          <InputGroup borderRadius={'8px'}>
+            <InputLeftElement pointerEvents='none'>
+              <SearchIcon color='gray.300' />
+            </InputLeftElement>
+            <Input type='tel' placeholder='Search assets' onKeyDown={(event: React.FormEvent<HTMLInputElement>) => searchHandler} />
+          </InputGroup>
+        </Box>
+        <Select size='sm' width='160px' h='40px' borderRadius='8px'>
+          <option disabled selected>Type</option>
+          <option>CW20</option>
+          <option>CW721</option>
+          <option>Crowdfund</option>
+        </Select>
+        <Select size='sm' width='130px' h='40px' borderRadius='8px'>
+          <option disabled selected>Sort by</option>
+          <option>Asc</option>
+          <option>Desc</option>
+        </Select>
+      </Flex>
       {/* There is an issue with the Infinite Scroll. If all elements for initial render are loaded and there
       is no scroll overflow, next function is not called even though loadmore is there. A hack for this is to
       use limit as some large value */}
