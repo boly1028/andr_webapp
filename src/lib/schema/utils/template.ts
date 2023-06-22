@@ -29,9 +29,9 @@ export const processTemplate = async (template: ITemplate) => {
         formData[ado.id] = template.formData?.[ado.id] ?? schemaADO["form-data"]
 
         // Set Panel States
-        formData[ado.id].$required = !!ado.required;
-        formData[ado.id].$removable = !ado.required && !!ado.removable;
-        formData[ado.id].$enabled = !!ado.required || !!ado.enabled;
+        formData[ado.id].$required = template.formData?.[ado.id]?.$required ?? !!ado.required;
+        formData[ado.id].$removable = template.formData?.[ado.id]?.$removable ?? (!ado.required && !!ado.removable);
+        formData[ado.id].$enabled = template.formData?.[ado.id]?.$enabled ?? (!!ado.required || !!ado.enabled);
     }
 
     template.schema = {
@@ -62,10 +62,6 @@ export const processTemplate = async (template: ITemplate) => {
 
 export const processTemplateAdo = async (ado: IAdo, formData?: IAndromedaFormData) => {
     const schemaADO = await getSchemaFromPath(ado.path);
-    // Set ADO Removable status
-    schemaADO.schema.properties.$required.default = !!ado.required;
-    schemaADO.schema.properties.$removable.default = !ado.required || !!ado.removable;
-    schemaADO.schema.properties.$enabled.default = !!ado.required || !!ado.enabled;
     if (formData) {
         schemaADO['form-data'] = formData
     }

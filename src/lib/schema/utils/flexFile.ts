@@ -35,8 +35,8 @@ export const createFlexFile = async ({ schema, formData }: ICreateInput) => {
         ados.push({
             id: id,
             path: definition.$path,
-            required: true,
-            'enabled': true
+            required: formData[id]?.$required,
+            'enabled': formData[id]?.$enabled
         })
     })
 

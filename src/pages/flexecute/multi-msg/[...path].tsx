@@ -6,8 +6,7 @@ import { FileCheckIcon, FilePlusIcon, Layout, PageHeader, truncate } from "@/mod
 import { useRouter } from "next/router";
 import { IAdoType, IAndromedaFormData, IImportantAdoKeys, ITemplate } from "@/lib/schema/types";
 import { useExecuteModal } from "@/modules/modals/hooks";
-import { getADOExecuteTemplate, getADOMultiExecuteTemplate, getProxyTemplate } from "@/lib/schema/utils";
-import useConstructADOExecuteMsg from "@/modules/sdk/hooks/useConstructaADOExecuteMsg";
+import { getADOMultiExecuteTemplate } from "@/lib/schema/utils";
 import { useGetFunds } from "@/modules/sdk/hooks";
 import { useWallet } from "@/lib/wallet";
 import { useCallback, useEffect, useMemo, useState } from "react";
@@ -103,7 +102,6 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
 
   const handleCliCopy: FlexBuilderFormProps['onCliCopy'] = (formData: ITemplateFormData) => {
     const proxy = isProxy(formData);
-    console.log(proxy)
     const funds = getFunds(formData);
     const msgs = getMsg(formData);
     const queries: string[] = []

@@ -87,9 +87,9 @@ export const getSchemaFromPath = async (path: string) => {
         }
     }
 
-    schema["form-data"]['$removable'] = true;
-    schema["form-data"]["$required"] = false;
-    schema["form-data"]["$enabled"] = true;
+    schema["form-data"]['$removable'] = schema["form-data"]['$removable'] ?? true;
+    schema["form-data"]["$required"] = schema["form-data"]["$required"] ?? false;
+    schema["form-data"]["$enabled"] = schema["form-data"]["$enabled"] ?? true;
 
     // Set default properties from above created object
     schema.schema.properties = {
@@ -127,38 +127,17 @@ export const getAppTemplateById = async (id: string, templates = APP_TEMPLATES) 
     return result;
 }
 
-export const getProxyTemplate = async (path: string) => {
-    // Generate Template
-    const currentTemplate: ITemplate = {
-        id: path,
-        adoType: 'app',
-        name: '',
-        description: '',
-        icon: "",
-        opts: [],
-        ados: [
-            { path: IImportantAdoKeys.PROXY_MESSAGE, id: IImportantAdoKeys.PROXY_MESSAGE, required: true },
-            { path: path, id: path.split('/').pop() ?? "Execute", required: true },
-        ],
-        modules: [
-            // { 'path': IImportantAdoKeys.FUND }
-        ]
-    };
-
-    const template = await processTemplate(currentTemplate);
-    return template;
-}
-
 export const getADOExecuteTemplate = async (path: string) => {
     // Generate Template
     const currentTemplate: ITemplate = {
         id: path,
-        adoType: 'app',
+        adoType: path.split('/')[0] as any || 'app',
         name: '',
         description: '',
         icon: "",
         opts: [],
         ados: [
+            { path: IImportantAdoKeys.PROXY_MESSAGE, id: IImportantAdoKeys.PROXY_MESSAGE, required: false, removable: false, enabled: false },
             { path: path, id: path.split('/').pop() ?? "Execute", required: true },
         ],
         modules: [
@@ -181,7 +160,7 @@ export const getADOMultiExecuteTemplate = async (path: string) => {
         icon: "",
         opts: [],
         ados: [
-            { path: IImportantAdoKeys.PROXY_MESSAGE, id: IImportantAdoKeys.PROXY_MESSAGE, required:false ,removable: false, enabled: false },
+            { path: IImportantAdoKeys.PROXY_MESSAGE, id: IImportantAdoKeys.PROXY_MESSAGE, required: false, removable: false, enabled: false },
         ],
         modules: [
             ...ADOPS.modifiers.map(ado => ({ path: `${path}/${ado}` })),

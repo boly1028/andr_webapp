@@ -40,6 +40,7 @@ export const InstantiateMsgWidget: FC<InstantiateMsgWidgetProps> = (props) => {
               <MenuItem
                 onClick={() => {
                   reset()
+                  props.onChange('')
                 }}
                 opacity='0.2'
               >

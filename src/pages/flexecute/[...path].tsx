@@ -6,7 +6,7 @@ import { FileCheckIcon, FilePlusIcon, Layout, PageHeader, truncate } from "@/mod
 import { useRouter } from "next/router";
 import { IImportantAdoKeys, ITemplate } from "@/lib/schema/types";
 import { useExecuteModal } from "@/modules/modals/hooks";
-import { getADOExecuteTemplate, getProxyTemplate } from "@/lib/schema/utils";
+import { getADOExecuteTemplate } from "@/lib/schema/utils";
 import useConstructADOExecuteMsg from "@/modules/sdk/hooks/useConstructaADOExecuteMsg";
 import { useGetFunds } from "@/modules/sdk/hooks";
 import { useWallet } from "@/lib/wallet";
@@ -19,13 +19,13 @@ import { parseFlexFile } from "@/lib/schema/utils/flexFile";
 import { DownloadIcon } from "@chakra-ui/icons";
 import { FlexBuilderFormProps } from "@/modules/flex-builder/components/FlexBuilderForm";
 import { EXECUTE_CLI_QUERY } from "@/lib/andrjs";
+import { ITemplateFormData } from "@/lib/schema/templates/types";
 
 type Props = {
-  executeTemplate: ITemplate
-  proxyTemplate: ITemplate
+  template: ITemplate
 };
 
-const TemplatePage: NextPage<Props> = ({ executeTemplate, proxyTemplate }) => {
+const TemplatePage: NextPage<Props> = ({ template }) => {
   const router = useRouter();
   const toast = useToast({
     position: "top-right",
@@ -51,16 +51,11 @@ const TemplatePage: NextPage<Props> = ({ executeTemplate, proxyTemplate }) => {
   const getFunds = useGetFunds();
   const account = useWallet();
 
-
-  const [toggleProxy, setToggleProxy] = useState(false)
-  const [modifiedTemplate, setModifiedTemplate] = useState(executeTemplate);
+  const isProxy = (formData: ITemplateFormData) => (IImportantAdoKeys.PROXY_MESSAGE in formData && formData[IImportantAdoKeys.PROXY_MESSAGE].$enabled === true)
+  const [modifiedTemplate, setModifiedTemplate] = useState(template);
 
   useEffect(() => {
-    if (!toggleProxy) {
-      setModifiedTemplate(executeTemplate)
-      return;
-    };
-    const newTemplate = cloneDeep(proxyTemplate);
+    const newTemplate = cloneDeep(template);
     const formData = newTemplate.formData ?? {};
     formData[IImportantAdoKeys.PROXY_MESSAGE] = {
       ...(formData[IImportantAdoKeys.PROXY_MESSAGE] ?? {}),
@@ -69,25 +64,19 @@ const TemplatePage: NextPage<Props> = ({ executeTemplate, proxyTemplate }) => {
     };
     newTemplate.formData = formData;
     setModifiedTemplate(newTemplate);
-  }, [ADO_DATA, toggleProxy, executeTemplate, proxyTemplate]);
+  }, [ADO_DATA, template]);
 
   const handleFlexInput = async (file: File) => {
     try {
-      const json = await parseJsonFromFile(file);
+      const json = await parseJsonFromFile(file) as ITemplate;
+      json.name = template.name;
+      json.description = template.description;
+      json.ados.forEach(ado => {
+        ado.removable = true;
+        ado.required = false;
+      })
       const _template = await parseFlexFile(json);
-
-      const clone = cloneDeep(modifiedTemplate);
-      clone.ados.forEach((ado) => {
-        if (ado.id === IImportantAdoKeys.PROXY_MESSAGE) return;
-        if (!_template.formData?.[ado.id]) throw new Error("Wrong flex file");
-        if (clone.formData) {
-          clone.formData[ado.id] = {
-            ...clone.formData[ado.id],
-            ..._template.formData?.[ado.id],
-          };
-        }
-      });
-      setModifiedTemplate(clone);
+      setModifiedTemplate(_template);
       toast({
         title: "Import successfull",
         status: "success",
@@ -101,7 +90,8 @@ const TemplatePage: NextPage<Props> = ({ executeTemplate, proxyTemplate }) => {
   };
 
   const getMsg = (formData: any) => {
-    if (toggleProxy) {
+    const proxy = isProxy(formData);
+    if (proxy) {
       return constructProxyMsg(formData);
     }
     return constructExecuteMsg(formData);
@@ -110,7 +100,8 @@ const TemplatePage: NextPage<Props> = ({ executeTemplate, proxyTemplate }) => {
   const handleSubmit: FlexBuilderFormProps['onSubmit'] = async ({ formData }) => {
     const funds = getFunds(formData);
     const msg = getMsg(formData);
-    if (toggleProxy) {
+    const proxy = isProxy(formData);
+    if (proxy) {
       openProxyModal(msg, funds);
     } else {
       openExecuteModal(msg, funds);
@@ -118,12 +109,13 @@ const TemplatePage: NextPage<Props> = ({ executeTemplate, proxyTemplate }) => {
   };
 
   const handleCliCopy: FlexBuilderFormProps['onCliCopy'] = (formData) => {
+    const proxy = isProxy(formData);
     const funds = getFunds(formData);
     const msg = getMsg(formData);
     const query = EXECUTE_CLI_QUERY({
       funds,
       msg,
-      address: toggleProxy ? ADO_DATA.appAddress : ADO_DATA.address
+      address: proxy ? ADO_DATA.appAddress : ADO_DATA.address
     })
     console.log(query, "QUERY")
     return query
@@ -132,14 +124,6 @@ const TemplatePage: NextPage<Props> = ({ executeTemplate, proxyTemplate }) => {
   const InputElement = useMemo(
     () => (
       <HStack spacing={4}>
-        <Box>
-          <FormControl display='flex' alignItems='center' color='dark.500'>
-            <FormLabel htmlFor='use-proxy' mb='0' fontSize='sm'>
-              Use Proxy?
-            </FormLabel>
-            <Switch isChecked={toggleProxy} onChange={(e) => setToggleProxy(e.target.checked)} id='use-proxy' />
-          </FormControl>
-        </Box>
         <Box>
           <Tooltip label='Import Staging' color='dark.500'>
             <IconButton
@@ -168,7 +152,7 @@ const TemplatePage: NextPage<Props> = ({ executeTemplate, proxyTemplate }) => {
         </Box>
       </HStack>
     ),
-    [handleFlexInput, toggleProxy],
+    [handleFlexInput],
   );
 
   const UPDATE_KEY = useMemo(() => Math.random(), [modifiedTemplate]);
@@ -178,10 +162,9 @@ const TemplatePage: NextPage<Props> = ({ executeTemplate, proxyTemplate }) => {
     <Layout>
       <PageHeader
         title={modifiedTemplate.name || `Execute message`}
-        desc={modifiedTemplate.description || `${toggleProxy ? 'App' : 'Ado'} address ${toggleProxy ? ADO_DATA.appAddress : ADO_DATA.address}`}
+        desc={modifiedTemplate.description || `Ado address ${ADO_DATA.address}`}
         rightElement={InputElement}
       />
-
       <Box mt={10}>
         <FlexBuilderForm
           // ID is required to refresh the component after we modify the template. If not provided,
@@ -209,16 +192,14 @@ export const getStaticProps: GetStaticProps<Props> = async (ctx) => {
   const { params } = ctx;
   const path = params?.path as string[];
   const executeTemplate = await getADOExecuteTemplate(path.join("/"));
-  const proxyTemplate = await getProxyTemplate(path.join("/"));
-  if (!executeTemplate || !proxyTemplate) {
+  if (!executeTemplate) {
     return {
       notFound: true,
     };
   }
   return {
     props: {
-      executeTemplate: JSON.parse(JSON.stringify(executeTemplate)),
-      proxyTemplate: JSON.parse(JSON.stringify(proxyTemplate))
+      template: JSON.parse(JSON.stringify(executeTemplate)),
     },
     revalidate: 300,
   };

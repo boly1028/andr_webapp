@@ -3,8 +3,8 @@
     "$id": "proxy-message",
     "class": "system",
     "classifier": "",
-    "title": "Component Modification",
-    "description": "Reference information for component being modified.",
+    "title": "Proxy Message",
+    "description": "Sends a message to the ADO with the specified name. This is used in the case the app contract has specific operation privileges over a component.",
     "type": "object",
     "required": [
       "component_name",
