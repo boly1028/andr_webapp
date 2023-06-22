@@ -127,14 +127,14 @@ const AdoItem: FC<AdoItemProps> = ({ address, adoType: _adoType, name, proxyAddr
               className={styles.onHover}
             />
             <MenuList>
-              <NextLink
+              {/* <NextLink
                 href={SITE_LINKS.adoMultiExecute(`${adoType}/${version}`, address ?? "", name, proxyAddress)}
                 passHref
               >
                 <MenuItem>
                   Multi Execute
                 </MenuItem>
-              </NextLink>
+              </NextLink> */}
               {adopData?.modifiers?.map((action) => {
                 const path = `${adoType}/${version}/${formatActionPath(
                   action,
