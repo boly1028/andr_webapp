@@ -240,6 +240,7 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
               formData={formData}
             />
             <DownloadButton
+              template={template}
               schema={schema}
               uiSchema={uiSchema}
               formData={formData}

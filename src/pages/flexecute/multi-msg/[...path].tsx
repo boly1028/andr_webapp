@@ -1,21 +1,18 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
-import { FlexBuilderForm, StagingDocumentsModal } from "@/modules/flex-builder";
+import { FlexBuilderForm } from "@/modules/flex-builder";
 
-import { Box, Flex, Text } from "@/theme/ui-elements";
-import { FileCheckIcon, FilePlusIcon, Layout, PageHeader, truncate } from "@/modules/common";
+import { Box } from "@/theme/ui-elements";
+import { FilePlusIcon, Layout, PageHeader } from "@/modules/common";
 import { useRouter } from "next/router";
-import { IAdoType, IAndromedaFormData, IImportantAdoKeys, ITemplate } from "@/lib/schema/types";
-import { useExecuteModal } from "@/modules/modals/hooks";
+import { IImportantAdoKeys, ITemplate } from "@/lib/schema/types";
 import { getADOMultiExecuteTemplate } from "@/lib/schema/utils";
 import { useGetFunds } from "@/modules/sdk/hooks";
 import { useWallet } from "@/lib/wallet";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import useConstructProxyMsg from "@/modules/sdk/hooks/useConstructProxyMsg";
-import { FormControl, FormLabel, HStack, IconButton, Input, Switch, Tooltip, useToast } from "@chakra-ui/react";
+import { useEffect, useMemo, useState } from "react";
+import { HStack, IconButton, Input, Tooltip, useToast } from "@chakra-ui/react";
 import { cloneDeep } from "@apollo/client/utilities";
 import { parseJsonFromFile } from "@/lib/json";
 import { parseFlexFile } from "@/lib/schema/utils/flexFile";
-import { DownloadIcon } from "@chakra-ui/icons";
 import { FlexBuilderFormProps } from "@/modules/flex-builder/components/FlexBuilderForm";
 import { EXECUTE_CLI_QUERY } from "@/lib/andrjs";
 import { ITemplateFormData } from "@/lib/schema/templates/types";
@@ -67,11 +64,21 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
   const handleFlexInput = async (file: File) => {
     try {
       const json = await parseJsonFromFile(file) as ITemplate;
-      json.ados.forEach(ado=>{
+      json.ados.forEach(ado => {
         ado.removable = true;
         ado.required = false;
       })
       const _template = await parseFlexFile(json);
+
+      const formData = _template.formData ?? {};
+      formData[IImportantAdoKeys.PROXY_MESSAGE] = {
+        ...(formData[IImportantAdoKeys.PROXY_MESSAGE] ?? {}),
+        parent: ADO_DATA.appAddress,
+        component_name: ADO_DATA.name,
+      };
+      _template.formData = formData;
+      _template.modules = template.modules
+
       setModifiedTemplate(_template);
       toast({
         title: "Import successfull",
@@ -81,6 +88,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
       toast({
         title: "Error while importing",
         status: "error",
+        description: (err as any).message
       });
     }
   };
