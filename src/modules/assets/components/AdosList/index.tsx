@@ -12,13 +12,46 @@ import { Flex, Input, InputGroup, InputLeftElement, Select } from '@chakra-ui/re
 import { SearchIcon } from "@chakra-ui/icons";
 
 const LIMIT = 10;
+const ADO_TYPE = 'CW20';
+const ADO_LIST = [
+  { name: 'AddressList' },
+  { name: 'App' },
+  { name: 'Auction' },
+  { name: 'CW20' },
+  { name: 'CW20Exchange' },
+  { name: 'CW20Staking' },
+  { name: 'CW721' },
+  { name: 'CW721Bids' },
+  { name: 'CW721Timelock' },
+  { name: 'Crowdfund' },
+  { name: 'Factory' },
+  { name: 'Gumball' },
+  { name: 'Lockdrop' },
+  { name: 'Marketplace' },
+  { name: 'MerkleAirdrop' },
+  { name: 'NftStaking' },
+  { name: 'Primitive' },
+  { name: 'RateLimitingWithdrawals' },
+  { name: 'Rates' },
+  { name: 'Receipt' },
+  { name: 'Splitter' },
+  { name: 'Timelock' },
+  { name: 'Unknown' },
+  { name: 'Vault' },
+  { name: 'Vesting' },
+  { name: 'WeightedDistributionSplitter' },
+  { name: 'WeightedSplitter' },
+  { name: 'WrappedCW721' }
+]
 const AdosList: FC = () => {
   const wallet = useWallet();
+  const [adoType, setAdoType] = useState('CW20');
 
   const { data, loading, error, fetchMore, previousData } = useQueryAssets(
     wallet?.address ?? "",
     LIMIT,
     0,
+    ADO_TYPE
   );
 
   const [hasMore, setHasMore] = useState(true);
@@ -35,7 +68,9 @@ const AdosList: FC = () => {
       setHasMore(false);
     }
   };
+  // const fetchFilteredAssets = () => {
 
+  // }
   useEffect(() => {
     if (previousData?.assets && data) {
       if (data?.length <= previousData?.assets?.length) {
@@ -43,6 +78,15 @@ const AdosList: FC = () => {
       }
     }
   }, [data, previousData]);
+
+  useEffect(() => {
+    // const { data, loading, error, fetchMore, previousData } = useQueryAssets(
+    //   wallet?.address ?? "",
+    //   LIMIT,
+    //   0,
+    //   adoType
+    // );
+  }, [adoType])
 
   if (error) {
     <Box>
@@ -72,6 +116,9 @@ const AdosList: FC = () => {
 
     // }
   }
+  // const typeFilterHandler = () => {
+
+  // }
   return (
     <Box>
       {/* Asset Filter UI from here */}
@@ -84,14 +131,22 @@ const AdosList: FC = () => {
             <Input type='tel' placeholder='Search assets' onKeyDown={(event: React.FormEvent<HTMLInputElement>) => searchHandler} />
           </InputGroup>
         </Box>
-        <Select size='sm' width='160px' h='40px' borderRadius='8px'>
-          <option disabled selected>Type</option>
-          <option>CW20</option>
-          <option>CW721</option>
-          <option>Crowdfund</option>
+        <Select
+          size='sm'
+          width='160px'
+          h='40px'
+          borderRadius='8px'
+          placeholder="Type"
+          onChange={(event) => setAdoType(event.target.value)}
+          value={adoType}
+        >
+          {
+            ADO_LIST.map((item) => {
+              return (<option value={`${item.name}`} key={item.name}> {item.name}</option>)
+            })
+          }
         </Select>
-        <Select size='sm' width='130px' h='40px' borderRadius='8px'>
-          <option disabled selected>Sort by</option>
+        <Select size='sm' width='130px' h='40px' borderRadius='8px' placeholder="Sort by">
           <option>Asc</option>
           <option>Desc</option>
         </Select>
@@ -111,20 +166,22 @@ const AdosList: FC = () => {
           return <AdoItem key={item.address} address={item.address} adoType={item.adoType as IAdoType} />;
         })}
       </InfiniteScroll>
-      {loading ? (
-        <Stack mt='6' gap='4'>
-          <Skeleton h="14" rounded="xl" />
-          <Skeleton h="14" rounded="xl" />
-          <Skeleton h="14" rounded="xl" />
-        </Stack>
-      ) : hasMore && (
-        <Center mt='6'>
-          <Button variant='ghost' onClick={fetchMoreAsset}>
-            Load more
-          </Button>
-        </Center>
-      )}
-    </Box>
+      {
+        loading ? (
+          <Stack mt='6' gap='4'>
+            <Skeleton h="14" rounded="xl" />
+            <Skeleton h="14" rounded="xl" />
+            <Skeleton h="14" rounded="xl" />
+          </Stack>
+        ) : hasMore && (
+          <Center mt='6'>
+            <Button variant='ghost' onClick={fetchMoreAsset}>
+              Load more
+            </Button>
+          </Center>
+        )
+      }
+    </Box >
   );
 };
 

@@ -6,7 +6,7 @@ fileignoreconfig:
 - filename: src/lib/schema/schema/gumball/0.1.0/mint.json
   checksum: 85a09a94fa872d22ad614f70dddfff0d143671d15da3cecc21a1ae10726c4a5b
 - filename: src/modules/assets/components/AdosList/index.tsx
-  checksum: 85ef480f9eb72e11592e0c916aa88a4817330939beabe86a92b3983e809a5ee8
+  checksum: e50503b1dee895e61ee444e0d1f029e69e1b9d5fa14d47c8ed941be2f479d011
 - filename: src/pages/learn/andromeda/connecting-wallet-to-web-app.mdx
   checksum: f4d0806c1cacab9141137733f6a33bd87d20162293a99f74c6dcd86b8fa2fc33
 version: "1.0"

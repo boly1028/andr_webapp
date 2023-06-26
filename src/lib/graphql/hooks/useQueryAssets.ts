@@ -20,12 +20,16 @@ export default function useQueryAssets(
   walletAddress: string,
   limit: number,
   offset: number,
+  adoType: string,
 ): QueryAssetsProps {
+  console.log('limit:', limit);
+  console.log('adoType:', adoType);
+
   const { loading, data, error, fetchMore, previousData } = useQuery<QueryAssetsResponse, QueryAssets>(
     gql`
-      ${QUERY_ASSETS}
+    ${QUERY_ASSETS}
     `,
-    { variables: { walletAddress, limit, offset }, notifyOnNetworkStatusChange: true },
+    { variables: { walletAddress, limit, offset, adoType }, notifyOnNetworkStatusChange: true },
   );
 
   // Converting assets to any and then to array to get proper typing at the end. It should be removed once type has been fixed in the library
