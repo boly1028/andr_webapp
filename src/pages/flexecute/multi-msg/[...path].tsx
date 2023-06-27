@@ -1,24 +1,23 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { FlexBuilderForm } from "@/modules/flex-builder";
 
-import { Box, Flex, Text } from "@/theme/ui-elements";
-import { FileCheckIcon, FilePlusIcon, Layout, PageHeader, truncate } from "@/modules/common";
+import { Box } from "@/theme/ui-elements";
+import { FilePlusIcon, Layout, PageHeader } from "@/modules/common";
 import { useRouter } from "next/router";
 import { IImportantAdoKeys, ITemplate } from "@/lib/schema/types";
-import { useExecuteModal } from "@/modules/modals/hooks";
-import { getADOExecuteTemplate } from "@/lib/schema/utils";
-import useConstructADOExecuteMsg from "@/modules/sdk/hooks/useConstructaADOExecuteMsg";
+import { getADOMultiExecuteTemplate } from "@/lib/schema/utils";
 import { useGetFunds } from "@/modules/sdk/hooks";
 import { useWallet } from "@/lib/wallet";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import useConstructProxyMsg from "@/modules/sdk/hooks/useConstructProxyMsg";
-import { FormControl, FormLabel, HStack, IconButton, Input, Switch, Tooltip, useToast } from "@chakra-ui/react";
+import { useEffect, useMemo, useState } from "react";
+import { HStack, IconButton, Input, Tooltip, useToast } from "@chakra-ui/react";
 import { cloneDeep } from "@apollo/client/utilities";
 import { parseJsonFromFile } from "@/lib/json";
 import { parseFlexFile } from "@/lib/schema/utils/flexFile";
 import { FlexBuilderFormProps } from "@/modules/flex-builder/components/FlexBuilderForm";
 import { EXECUTE_CLI_QUERY } from "@/lib/andrjs";
 import { ITemplateFormData } from "@/lib/schema/templates/types";
+import useConstructMultiExecuteMsg from "@/modules/sdk/hooks/useConstructMultiExecuteMsg";
+import useMultiExecuteModal from "@/modules/modals/hooks/useMultiExecuteModal";
 
 type Props = {
   template: ITemplate
@@ -40,18 +39,15 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
       appAddress
     }
   }, [router])
-
-  const constructExecuteMsg = useConstructADOExecuteMsg();
-  const constructProxyMsg = useConstructProxyMsg();
-
-  const openExecuteModal = useExecuteModal(ADO_DATA.address);
-  const openProxyModal = useExecuteModal(ADO_DATA.appAddress);
-
+  const constructMultiMsg = useConstructMultiExecuteMsg();
   const getFunds = useGetFunds();
   const account = useWallet();
+  const openMultiExecuteModal = useMultiExecuteModal(ADO_DATA.address)
+  const openProxyMultiExecuteModal = useMultiExecuteModal(ADO_DATA.appAddress)
+
+  const [modifiedTemplate, setModifiedTemplate] = useState(template);
 
   const isProxy = (formData: ITemplateFormData) => (IImportantAdoKeys.PROXY_MESSAGE in formData && formData[IImportantAdoKeys.PROXY_MESSAGE].$enabled === true)
-  const [modifiedTemplate, setModifiedTemplate] = useState(template);
 
   useEffect(() => {
     const newTemplate = cloneDeep(template);
@@ -68,14 +64,12 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
   const handleFlexInput = async (file: File) => {
     try {
       const json = await parseJsonFromFile(file) as ITemplate;
-      if (json.id !== template.id) throw new Error('This staging file is not supported for this template')
-      json.name = template.name;
-      json.description = template.description;
       json.ados.forEach(ado => {
         ado.removable = true;
         ado.required = false;
       })
       const _template = await parseFlexFile(json);
+
       const formData = _template.formData ?? {};
       formData[IImportantAdoKeys.PROXY_MESSAGE] = {
         ...(formData[IImportantAdoKeys.PROXY_MESSAGE] ?? {}),
@@ -84,6 +78,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
       };
       _template.formData = formData;
       _template.modules = template.modules
+
       setModifiedTemplate(_template);
       toast({
         title: "Import successfull",
@@ -100,34 +95,33 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
 
   const getMsg = (formData: any) => {
     const proxy = isProxy(formData);
-    if (proxy) {
-      return constructProxyMsg(formData);
-    }
-    return constructExecuteMsg(formData);
+    return constructMultiMsg(formData, proxy);
   }
 
   const handleSubmit: FlexBuilderFormProps['onSubmit'] = async ({ formData }) => {
     const funds = getFunds(formData);
-    const msg = getMsg(formData);
-    const proxy = isProxy(formData);
-    if (proxy) {
-      openProxyModal(msg, funds);
+    const msgs = getMsg(formData);
+    if (isProxy(formData)) {
+      openProxyMultiExecuteModal(msgs, funds)
     } else {
-      openExecuteModal(msg, funds);
+      openMultiExecuteModal(msgs, funds)
     }
   };
 
-  const handleCliCopy: FlexBuilderFormProps['onCliCopy'] = (formData) => {
+  const handleCliCopy: FlexBuilderFormProps['onCliCopy'] = (formData: ITemplateFormData) => {
     const proxy = isProxy(formData);
     const funds = getFunds(formData);
-    const msg = getMsg(formData);
-    const query = EXECUTE_CLI_QUERY({
-      funds,
-      msg,
-      address: proxy ? ADO_DATA.appAddress : ADO_DATA.address
+    const msgs = getMsg(formData);
+    const queries: string[] = []
+    msgs.forEach(msg => {
+      const query = EXECUTE_CLI_QUERY({
+        funds,
+        msg,
+        address: proxy ? ADO_DATA.appAddress : ADO_DATA.address
+      })
+      queries.push(query);
     })
-    console.log(query, "QUERY")
-    return query
+    return queries.join('\n')
   }
 
   const InputElement = useMemo(
@@ -166,7 +160,6 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
 
   const UPDATE_KEY = useMemo(() => Math.random(), [modifiedTemplate]);
 
-
   return (
     <Layout>
       <PageHeader
@@ -174,6 +167,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
         desc={modifiedTemplate.description || `Ado address ${ADO_DATA.address}`}
         rightElement={InputElement}
       />
+
       <Box mt={10}>
         <FlexBuilderForm
           // ID is required to refresh the component after we modify the template. If not provided,
@@ -200,15 +194,15 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<Props> = async (ctx) => {
   const { params } = ctx;
   const path = params?.path as string[];
-  const executeTemplate = await getADOExecuteTemplate(path.join("/"));
-  if (!executeTemplate) {
+  const template = await getADOMultiExecuteTemplate(path.join("/"));
+  if (!template) {
     return {
       notFound: true,
     };
   }
   return {
     props: {
-      template: JSON.parse(JSON.stringify(executeTemplate)),
+      template: JSON.parse(JSON.stringify(template)),
     },
     revalidate: 300,
   };

@@ -38,7 +38,7 @@ import { useMemo } from "react";
 import { useFieldTemplate } from "./FieldTemplate";
 import { SYSTEM_DOCUMENTATION_LINKS } from "@/lib/schema/documentation";
 
-const NON_EDITABLE_CLASS = new Set<string>(["system", "modifier"]);
+const NON_EDITABLE_CLASS = new Set<string>(["system"]);
 
 interface ObjectFieldTemplateExtendedProps extends ObjectFieldTemplateProps {
   schema: IAndromedaSchema;
@@ -205,41 +205,37 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
             </Box>
           </HStack>
           <HStack spacing={3}>
-            {formData["$removable"] && (
-              <>
-                {toggleModule && (
-                  <Switch
-                    id={idSchema.$id}
-                    isChecked={!!formData["$enabled"]}
-                    colorScheme="primary"
-                    onChange={() => {
-                      toggleModule(currentSchemaId, !formData["$enabled"]);
-                    }}
-                  />
-                )}
-                {duplicatePanel && (
-                  <IconButton
-                    size={"sm"}
-                    variant="outline"
-                    aria-label="duplicate panel"
-                    onClick={() => {
-                      duplicatePanel(currentSchemaId);
-                    }}
-                    icon={<Duplicate width={16} height={16} />}
-                  />
-                )}
-                {deleteModule && (
-                  <IconButton
-                    size={"sm"}
-                    variant="outline"
-                    aria-label="delete module"
-                    onClick={() => {
-                      deleteModule(currentSchemaId);
-                    }}
-                    icon={<DeleteIcon width={16} height={16} />}
-                  />
-                )}
-              </>
+            {!formData["$required"] && toggleModule && (
+              <Switch
+                id={idSchema.$id}
+                isChecked={!!formData["$enabled"]}
+                colorScheme="primary"
+                onChange={() => {
+                  toggleModule(currentSchemaId, !formData["$enabled"]);
+                }}
+              />
+            )}
+            {formData["$removable"] && duplicatePanel && (
+              <IconButton
+                size={"sm"}
+                variant="outline"
+                aria-label="duplicate panel"
+                onClick={() => {
+                  duplicatePanel(currentSchemaId);
+                }}
+                icon={<Duplicate width={16} height={16} />}
+              />
+            )}
+            {formData['$removable'] && deleteModule && (
+              <IconButton
+                size={"sm"}
+                variant="outline"
+                aria-label="delete module"
+                onClick={() => {
+                  deleteModule(currentSchemaId);
+                }}
+                icon={<DeleteIcon width={16} height={16} />}
+              />
             )}
 
             {/* Section for Action List */}

@@ -50,6 +50,10 @@ export interface IAndromedaSchema extends JSONSchema7 {
             type: 'boolean';
             default: boolean;
         };
+        $required: {
+            type: 'boolean';
+            default: boolean;
+        };
     }
 }
 
@@ -60,6 +64,7 @@ export interface IAndromedaFormData {
     $classifier: string;
     $removable: boolean;
     $enabled: boolean;
+    $required:boolean;
 }
 
 export interface IAndromedaUISchema extends UiSchema {
@@ -68,6 +73,7 @@ export interface IAndromedaUISchema extends UiSchema {
     $classifier: { "ui:widget": "hidden" };
     $removable: { "ui:widget": "hidden" };
     $enabled: { "ui:widget": "hidden" };
+    $required: { "ui:widget": "hidden" };
 }
 
 

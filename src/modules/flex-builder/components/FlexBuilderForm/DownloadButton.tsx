@@ -7,7 +7,7 @@ import {
   ITemplateSchema,
   ITemplateUiSchema,
 } from "@/lib/schema/templates/types";
-import { IImportantAdoKeys } from "@/lib/schema/types";
+import { IImportantAdoKeys, ITemplate } from "@/lib/schema/types";
 import { createFlexFile } from "@/lib/schema/utils/flexFile";
 import { downloadBlob } from "@/utils/file";
 
@@ -21,9 +21,10 @@ export interface DownloadFlexProps {
   schema?: ITemplateSchema;
   uiSchema?: ITemplateUiSchema;
   formData?: ITemplateFormData;
+  template: ITemplate;
 }
 
-function DownloadButton({ schema, uiSchema, formData }: DownloadFlexProps) {
+function DownloadButton({ schema, uiSchema, formData, template }: DownloadFlexProps) {
   /**Moved from use effect to useCallback as we only need to calculate url on button click */
   const handleDownload = useCallback(async () => {
     if (!schema || !uiSchema || !formData) {
@@ -33,6 +34,7 @@ function DownloadButton({ schema, uiSchema, formData }: DownloadFlexProps) {
     const flexData = await createFlexFile({
       schema,
       formData,
+      template
     });
 
     //Load data to be exported by the browser
@@ -40,8 +42,9 @@ function DownloadButton({ schema, uiSchema, formData }: DownloadFlexProps) {
       type: "text/plain",
     });
 
-    const appName = formData[IImportantAdoKeys.PUBLISH_SETTINGS]?.name || "app";
-    downloadBlob(flexBlob, `template_${appName}.flex`);
+    const appName = formData[IImportantAdoKeys.PUBLISH_SETTINGS]?.name || new Date().getTime().toString();
+    console.log(template.id)
+    downloadBlob(flexBlob, `${template.id}-${appName}-staging.flex`);
   }, [schema, uiSchema, formData]);
 
   return (

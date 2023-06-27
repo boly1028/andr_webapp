@@ -10,7 +10,7 @@ interface PageHeaderProps {
 const PageHeader: FC<PageHeaderProps> = ({ title, desc, rightElement }) => {
   return (
     <Flex justify="space-between">
-      <Box>
+      <Box pr='12'>
         <Text textStyle="h1">{title}</Text>
         <Text fontSize="sm" color="gray.500">
           {desc}

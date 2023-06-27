@@ -45,8 +45,8 @@ export const Cw721ReceiveMsgWidget: FC<Cw721ReceiveMsgWidgetProps> = (props) => 
             <MenuList maxH="48" overflow="auto">
               <MenuItem
                 onClick={() => {
-                  setCurrentSchema(undefined)
-                  setCurrentBaseAdo(undefined);
+                  reset();
+                  props.onChange('')
                 }}
               >
                 Custom Message
@@ -54,8 +54,8 @@ export const Cw721ReceiveMsgWidget: FC<Cw721ReceiveMsgWidgetProps> = (props) => 
               <MenuItem
                 onClick={() => {
                   setCurrentBaseAdo({
-                    ado:"" as any,
-                    "label":"JSON"
+                    ado: "" as any,
+                    "label": "JSON"
                   })
                   setCurrentSchema('json')
                 }}

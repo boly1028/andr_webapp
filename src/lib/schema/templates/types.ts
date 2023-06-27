@@ -45,7 +45,8 @@ interface ITemplateProperty {
 export interface IAdo {
     path: string;
     id: string;
-    required?: boolean;
+    removable?:boolean;
+    required: boolean;
     enabled?: boolean;
     pos?: XYPosition;
 }
