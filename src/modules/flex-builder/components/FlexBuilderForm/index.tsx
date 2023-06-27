@@ -214,6 +214,7 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
           });
           console.log("TEST::FORM::", errors)
           console.log("TEST::FORM::", schema)
+          console.log("TEST::FORM::", formData)
           onError?.();
         }}
       >
