@@ -17,7 +17,7 @@ const ExplorePage: FC = () => {
     <Box>
       <PageHeader
         title="Marketplace"
-        desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam"
+        desc=""
       />
 
       <Flex mt={8} gap={6}>

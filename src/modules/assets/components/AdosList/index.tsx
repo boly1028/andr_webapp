@@ -55,8 +55,8 @@ const AdosList: FC = () => {
     return (
       <Center p="10">
         <FallbackPlaceholder
-          title="You have no asset yet."
-          desc="Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit deleniti sapiente fugit."
+          title="You have no assets yet."
+          desc=""
         >
           <Create />
         </FallbackPlaceholder>

@@ -39,7 +39,6 @@ const LearnPage: FC<LearnPageProps> = (props) => {
                 </Box>
                 <Box maxW='60%'>
                     <Text lineHeight='1.3em' fontSize='4xl' fontWeight='semibold'>Dive deeper with technical documentation</Text>
-                    {/* <Text mt='2' fontSize='sm' color='dark.500'>Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus venenati.</Text> */}
                 </Box>
                 <Button
                     as='a'
