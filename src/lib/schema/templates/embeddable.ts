@@ -24,7 +24,8 @@ export const EMBEDDABLE_TEMPLATES: ITemplate[] = [
         ],
         modules: [
             { 'path': 'embeddables/0.1.0/auction' },
-            { 'path': 'embeddables/0.1.0/marketplace' }
+            { 'path': 'embeddables/0.1.0/marketplace' },
+            { 'path': 'embeddables/0.1.0/crowdfund' },
         ],
     }
 ];

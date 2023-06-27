@@ -29,7 +29,7 @@ export const SITE_LINKS = {
     // Embedables
     embeddables: () => `/embeddables`,
     // embeddablePreview: (configUri: string) => `https://embeddable-marketplace-demo.vercel.app/${configUri}`,
-    embeddablePreview: (configUri: string) => `https://embeddable-marketplace-demo-git-featur-fd1f81-andromedaprotocol.vercel.app/${configUri}`,
+    embeddablePreview: (configUri: string) => `https://embeddable-marketplace-demo-git-featur-fd1f81-andromedaprotocol.vercel.app?config=${configUri}`,
     // embeddables: () => `https://andromedaprotocol.github.io/embeddable-marketplace-demo`,
     learn: () => `/learn`,
     learnItem: (slug: string) => `/learn${slug}`,
