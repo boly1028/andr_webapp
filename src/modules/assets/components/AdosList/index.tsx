@@ -62,7 +62,7 @@ const AdosList: FC = () => {
   const [hasMore, setHasMore] = useState(true);
 
   const fetchMoreAsset = async () => {
-    setFilteredData({});
+    // setFilteredData({});
     searchInput.current = null;
 
     if (loading || !data) return;
@@ -88,14 +88,15 @@ const AdosList: FC = () => {
   // useEffect(() => {
   //  earchInput.current.focus();
   // }, []);
-
   useEffect(() => {
     refetchData();
   }, [filteredData]);
 
   const refetchData = async () => {
-    await refetch();
-    setHasMore(false);
+    if (loading || !data) return;
+    const res = await refetch();
+    const assets = res.data.assets;
+    if (assets.length === 0) { setHasMore(false); }
   }
   const searchHandler = _.debounce((value) => {
     setFilteredData((prevState) => ({
