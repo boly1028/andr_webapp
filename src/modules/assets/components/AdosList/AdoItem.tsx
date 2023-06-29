@@ -41,6 +41,9 @@ interface AdoItemProps {
   adoType: IAdoType;
   name?: string;
   proxyAddress?: string;
+  searchInput?: string;
+  selectedAdoType?: string;
+  sortBy?: string;
 }
 
 const AdoItem: FC<AdoItemProps> = ({ address, adoType: _adoType, name, proxyAddress }) => {
@@ -49,7 +52,6 @@ const AdoItem: FC<AdoItemProps> = ({ address, adoType: _adoType, name, proxyAddr
   // Creating a proxy for app type as it is now reference as app-contract
   const adoType = _adoType === "app" ? "app-contract" : (_adoType);
   const { data: app, loading, error } = useAppConfig(address, adoType !== 'app-contract');
-  console.log(app,"APP", adoType)
 
 
   const { data: _version } = useGetSchemaVersions(adoType);
@@ -179,7 +181,7 @@ interface ExpandedListProps {
 }
 const ExpandedList: FC<ExpandedListProps> = (props) => {
   const { appAddress } = props;
-  const { data: components, loading, error } = useAppComponents(appAddress)
+  const { data: components, loading, error } = useAppComponents(appAddress)  
   return (
     <Box>
       {loading && (

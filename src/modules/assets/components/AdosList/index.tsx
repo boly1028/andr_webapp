@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import { Box, Button } from "@/theme/ui-elements";
 import { useQueryAssets } from "@/lib/graphql";
 import { useWallet } from "@/lib/wallet";
@@ -10,9 +10,10 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { IAdoType } from "@/lib/schema/types";
 import { Flex, Input, InputGroup, InputLeftElement, Select } from '@chakra-ui/react'
 import { SearchIcon } from "@chakra-ui/icons";
+import { FilterObjectType } from '@/lib/graphql/hooks/useQueryAssets';
+import _ from "lodash";
 
 const LIMIT = 10;
-const ADO_TYPE = 'CW20';
 const ADO_LIST = [
   { name: 'AddressList' },
   { name: 'App' },
@@ -43,20 +44,26 @@ const ADO_LIST = [
   { name: 'WeightedSplitter' },
   { name: 'WrappedCW721' }
 ]
+
 const AdosList: FC = () => {
   const wallet = useWallet();
-  const [adoType, setAdoType] = useState('CW20');
+  const [filteredData, setFilteredData] = useState<FilterObjectType>({});
+  /** New Asset Page Filters Related Refs */
+  const searchInput = useRef(null);
 
-  const { data, loading, error, fetchMore, previousData } = useQueryAssets(
+  const { data, loading, error, fetchMore, previousData, refetch } = useQueryAssets(
     wallet?.address ?? "",
     LIMIT,
     0,
-    ADO_TYPE
+    filteredData
   );
 
   const [hasMore, setHasMore] = useState(true);
 
   const fetchMoreAsset = async () => {
+    setFilteredData({});
+    searchInput.current = null;
+
     if (loading || !data) return;
     const res = await fetchMore({
       variables: {
@@ -68,9 +75,6 @@ const AdosList: FC = () => {
       setHasMore(false);
     }
   };
-  // const fetchFilteredAssets = () => {
-
-  // }
   useEffect(() => {
     if (previousData?.assets && data) {
       if (data?.length <= previousData?.assets?.length) {
@@ -79,15 +83,48 @@ const AdosList: FC = () => {
     }
   }, [data, previousData]);
 
-  useEffect(() => {
-    // const { data, loading, error, fetchMore, previousData } = useQueryAssets(
-    //   wallet?.address ?? "",
-    //   LIMIT,
-    //   0,
-    //   adoType
-    // );
-  }, [adoType])
+  /** code to auto focus on Search input field on component mount: not working for now */
+  // useEffect(() => {
+  //  earchInput.current.focus();
+  // }, []);
 
+  useEffect(() => {
+    refetchData();
+  }, [filteredData]);
+
+  const refetchData = async () => {
+    await refetch();
+    setHasMore(false);
+  }
+  const searchHandler = _.debounce((value) => {
+    setFilteredData((prevState) => ({
+      prevState,
+      search: value
+    }))
+  }, 500)
+
+  const searchAndFilterHandler = (event, type: string) => {
+    switch (type) {
+      case 'Search': {
+        searchHandler(event.target.value);
+        break;
+      }
+      case 'AdoType': {
+        setFilteredData((prevState) => ({
+          prevState,
+          adoType: event.target.value
+        }))
+        break;
+      }
+      case 'SortBy': {
+        setFilteredData((prevState) => ({
+          prevState,
+          orderBy: event.target.value
+        }))
+        break;
+      }
+    }
+  }
   if (error) {
     <Box>
       <FallbackPlaceholder
@@ -97,7 +134,7 @@ const AdosList: FC = () => {
     </Box>;
   }
 
-  if (!loading && data?.length === 0) {
+  if (!loading && data?.length === 0 && !(filteredData.search || filteredData.adoType || filteredData.orderBy)) {
     return (
       <Center p="10">
         <FallbackPlaceholder
@@ -109,16 +146,7 @@ const AdosList: FC = () => {
       </Center>
     );
   }
-  console.log('data:', data);
-  const searchHandler = (event: React.FormEvent<HTMLInputElement>) => {
-    // const target  = event.target as Element;
-    // if(event){
 
-    // }
-  }
-  // const typeFilterHandler = () => {
-
-  // }
   return (
     <Box>
       {/* Asset Filter UI from here */}
@@ -128,7 +156,9 @@ const AdosList: FC = () => {
             <InputLeftElement pointerEvents='none'>
               <SearchIcon color='gray.300' />
             </InputLeftElement>
-            <Input type='tel' placeholder='Search assets' onKeyDown={(event: React.FormEvent<HTMLInputElement>) => searchHandler} />
+            <Input type='tel' placeholder='Search assets'
+              onChange={(event: React.FormEvent<HTMLInputElement>) => searchAndFilterHandler(event, 'Search')}
+              ref={searchInput} />
           </InputGroup>
         </Box>
         <Select
@@ -137,8 +167,7 @@ const AdosList: FC = () => {
           h='40px'
           borderRadius='8px'
           placeholder="Type"
-          onChange={(event) => setAdoType(event.target.value)}
-          value={adoType}
+          onChange={(event) => { searchAndFilterHandler(event, 'AdoType') }}
         >
           {
             ADO_LIST.map((item) => {
@@ -146,9 +175,10 @@ const AdosList: FC = () => {
             })
           }
         </Select>
-        <Select size='sm' width='130px' h='40px' borderRadius='8px' placeholder="Sort by">
-          <option>Asc</option>
-          <option>Desc</option>
+        <Select size='sm' width='130px' h='40px' borderRadius='8px' placeholder="Sort by"
+          onChange={(event) => { searchAndFilterHandler(event, 'SortBy') }}>
+          <option value='Asc'>Asc</option>
+          <option value='Desc'>Desc</option>
         </Select>
       </Flex>
       {/* There is an issue with the Infinite Scroll. If all elements for initial render are loaded and there
@@ -167,19 +197,31 @@ const AdosList: FC = () => {
         })}
       </InfiniteScroll>
       {
-        loading ? (
+        loading && (
           <Stack mt='6' gap='4'>
             <Skeleton h="14" rounded="xl" />
             <Skeleton h="14" rounded="xl" />
             <Skeleton h="14" rounded="xl" />
           </Stack>
-        ) : hasMore && (
-          <Center mt='6'>
-            <Button variant='ghost' onClick={fetchMoreAsset}>
-              Load more
-            </Button>
-          </Center>
-        )
+        )}
+      {hasMore && (
+        <Center mt='6'>
+          <Button variant='ghost' onClick={fetchMoreAsset}>
+            Load more
+          </Button>
+        </Center>
+      )
+      }
+      {
+        !loading && data?.length === 0 && !!(filteredData.search || filteredData.adoType || filteredData.orderBy) &&
+        <Center p="10">
+          <FallbackPlaceholder
+            title="No asset found for the searched item"
+            desc="Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit deleniti sapiente fugit."
+          >
+            <Create />
+          </FallbackPlaceholder>
+        </Center>
       }
     </Box >
   );
