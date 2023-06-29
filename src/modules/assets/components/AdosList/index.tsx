@@ -193,7 +193,7 @@ const AdosList: FC = () => {
         }
       >
         {data?.map((item) => {
-          return <AdoItem key={item.address} address={item.address} adoType={item.adoType as IAdoType} />;
+          return <AdoItem key={item.address} address={item.address} adoType={item.adoType as IAdoType} name={item.name}/>;
         })}
       </InfiniteScroll>
       {
