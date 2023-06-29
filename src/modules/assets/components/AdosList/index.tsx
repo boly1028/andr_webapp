@@ -49,8 +49,6 @@ const LIMIT = 10;
 const AdosList: FC = () => {
   const wallet = useWallet();
   const [filteredData, setFilteredData] = useState<FilterObjectType>({});
-  /** New Asset Page Filters Related Refs */
-  const searchInput = useRef(null);
 
   const { data, loading, error, fetchMore, previousData, refetch } = useQueryAssets(
     wallet?.address ?? "",
@@ -62,9 +60,6 @@ const AdosList: FC = () => {
   const [hasMore, setHasMore] = useState(true);
 
   const fetchMoreAsset = async () => {
-    // setFilteredData({});
-    searchInput.current = null;
-
     if (loading || !data) return;
     const res = await fetchMore({
       variables: {
@@ -84,10 +79,6 @@ const AdosList: FC = () => {
     }
   }, [data, previousData]);
 
-  /** code to auto focus on Search input field on component mount: not working for now */
-  // useEffect(() => {
-  //  earchInput.current.focus();
-  // }, []);
   useEffect(() => {
     refetchData();
   }, [filteredData]);
@@ -160,7 +151,7 @@ const AdosList: FC = () => {
             </InputLeftElement>
             <Input type='tel' placeholder='Search assets'
               onChange={(event: React.FormEvent<HTMLInputElement>) => searchAndFilterHandler(event, 'Search')}
-              ref={searchInput} />
+              autoFocus/>
           </InputGroup>
         </Box>
         <Select
