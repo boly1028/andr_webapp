@@ -76,8 +76,8 @@ const AdosList: FC = () => {
       setHasMore(false);
     }
   };
-  useEffect(() => {
-    if (previousData?.assets && data) {
+  useEffect(() => {    
+    if (previousData?.assets && data?.length) {
       if (data?.length <= previousData?.assets?.length) {
         setHasMore(true);
       }
