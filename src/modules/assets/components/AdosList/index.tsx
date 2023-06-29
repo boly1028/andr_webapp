@@ -13,37 +13,38 @@ import { SearchIcon } from "@chakra-ui/icons";
 import { FilterObjectType } from '@/lib/graphql/hooks/useQueryAssets';
 import _ from "lodash";
 
+enum AdoType {
+  AddressList,
+  Ado,
+  App,
+  Auction,
+  CW20,
+  CW20Exchange,
+  CW20Staking,
+  CW721,
+  CW721Bids,
+  CW721Timelock,
+  Crowdfund,
+  Factory,
+  Gumball,
+  Lockdrop,
+  Marketplace,
+  MerkleAirdrop,
+  NftStaking,
+  Primitive,
+  RateLimitingWithdrawals,
+  Rates,
+  Receipt,
+  Splitter,
+  Timelock,
+  Unknown,
+  Vault,
+  Vesting,
+  WeightedDistributionSplitter,
+  WeightedSplitter,
+  WrappedCW721
+}
 const LIMIT = 10;
-const ADO_LIST = [
-  { name: 'AddressList' },
-  { name: 'App' },
-  { name: 'Auction' },
-  { name: 'CW20' },
-  { name: 'CW20Exchange' },
-  { name: 'CW20Staking' },
-  { name: 'CW721' },
-  { name: 'CW721Bids' },
-  { name: 'CW721Timelock' },
-  { name: 'Crowdfund' },
-  { name: 'Factory' },
-  { name: 'Gumball' },
-  { name: 'Lockdrop' },
-  { name: 'Marketplace' },
-  { name: 'MerkleAirdrop' },
-  { name: 'NftStaking' },
-  { name: 'Primitive' },
-  { name: 'RateLimitingWithdrawals' },
-  { name: 'Rates' },
-  { name: 'Receipt' },
-  { name: 'Splitter' },
-  { name: 'Timelock' },
-  { name: 'Unknown' },
-  { name: 'Vault' },
-  { name: 'Vesting' },
-  { name: 'WeightedDistributionSplitter' },
-  { name: 'WeightedSplitter' },
-  { name: 'WrappedCW721' }
-]
 
 const AdosList: FC = () => {
   const wallet = useWallet();
@@ -170,8 +171,8 @@ const AdosList: FC = () => {
           onChange={(event) => { searchAndFilterHandler(event, 'AdoType') }}
         >
           {
-            ADO_LIST.map((item) => {
-              return (<option value={`${item.name}`} key={item.name}> {item.name}</option>)
+            (Object.keys(AdoType) as Array<keyof typeof AdoType>).map((item) => {
+              return isNaN(Number(item)) && (<option value={`${item}`} key={item}> {item}</option>)
             })
           }
         </Select>
@@ -193,7 +194,7 @@ const AdosList: FC = () => {
         }
       >
         {data?.map((item) => {
-          return <AdoItem key={item.address} address={item.address} adoType={item.adoType as IAdoType} name={item.name}/>;
+          return <AdoItem key={item.address} address={item.address} adoType={item.adoType as IAdoType} name={item.name} />;
         })}
       </InfiniteScroll>
       {
