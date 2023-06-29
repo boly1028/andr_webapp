@@ -98,7 +98,7 @@ const AdosList: FC = () => {
   }
   const searchHandler = _.debounce((value) => {
     setFilteredData((prevState) => ({
-      prevState,
+      ...prevState,
       search: value
     }))
   }, 500)
@@ -111,14 +111,14 @@ const AdosList: FC = () => {
       }
       case 'AdoType': {
         setFilteredData((prevState) => ({
-          prevState,
+          ...prevState,
           adoType: event.target.value
         }))
         break;
       }
       case 'SortBy': {
         setFilteredData((prevState) => ({
-          prevState,
+          ...prevState,
           orderBy: event.target.value
         }))
         break;
