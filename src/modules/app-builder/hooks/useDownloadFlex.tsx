@@ -28,6 +28,7 @@ export const useDownloadFlex = () => {
         const pubSetSchema = await getSchemaFromPath(IImportantAdoKeys.PUBLISH_SETTINGS);
         const pubSetFormData: IPublishSettingsFormData = {
             ...pubSetSchema["form-data"],
+            $required: true,
             $removable: false,
             $enabled: true,
             name: 'app' // App Name will be added here
@@ -40,7 +41,7 @@ export const useDownloadFlex = () => {
             ados.push({
                 id: adoId,
                 path: node.data.andromedaSchema.schema.$path,
-                required: !formRefs.current[adoId].formData.$removable,
+                required: formRefs.current[adoId].formData.$required,
                 'enabled': formRefs.current[adoId].formData.$enabled,
                 pos: node.position
             })
@@ -69,6 +70,6 @@ export const useDownloadFlex = () => {
     return {
         downloadFlex: download,
         generateFlexUrl: getUrl,
-        createFlex:create
+        createFlex: create
     }
 }

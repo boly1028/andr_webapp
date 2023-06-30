@@ -1,7 +1,8 @@
 import { IAdoType } from "@/lib/schema/types";
-import { Fee, Msg } from "@andromedaprotocol/andromeda.js";
+import { Msg } from "@andromedaprotocol/andromeda.js";
 import { StdFee } from "@cosmjs/amino";
 import { Coin } from "@cosmjs/proto-signing";
+import {MsgInstantiateContractEncodeObject, MsgExecuteContractEncodeObject} from "@cosmjs/cosmwasm-stargate"
 
 export enum ModalType {
   Transaction = "transaction",
@@ -9,7 +10,8 @@ export enum ModalType {
   Confirmation = "confirmation",
   PanelRename = "panelrename",
   AssetInfo = "assetinfo",
-  Disclaimer = "disclaimer"
+  Disclaimer = "disclaimer",
+  MultiTransaction = "multitransaction"
 }
 
 export interface ExecuteTransactionModalProps {
@@ -26,6 +28,13 @@ export type TransactionModalProps = (
   | ExecuteTransactionModalProps
   | InstantiateTransactionModalProps
 ) & { msg: Msg; modalType: ModalType.Transaction; fee?: StdFee, memo?: string, funds: Coin[]; };
+
+export interface MultiTransactionModalProps {
+  modalType: ModalType.MultiTransaction;
+  msgs: (MsgInstantiateContractEncodeObject | MsgExecuteContractEncodeObject)[];
+  fee?: StdFee;
+  memo?: string;
+}
 
 export interface AddFundsModalProps {
   funds: Coin[];
@@ -74,3 +83,4 @@ export type ModalProps =
   | PanelRenameModalProps
   | AssetInfoModalProps
   | DisclaimerModalProps
+  | MultiTransactionModalProps

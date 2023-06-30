@@ -82,10 +82,10 @@ const BaseInputTemplate = (props: WidgetProps) => {
           fontSize='xs'
           py='0'
         />
-        {description && (
+        {description && description.length > 0 && (
           <InputRightElement>
             <Tooltip label={description} fontSize='xs' size='xs' textColor='dark.500'>
-              <InfoIcon boxSize='4' cursor='pointer' color='dark.300' _hover={{color:'dark.500'}} />
+              <InfoIcon boxSize='4' cursor='pointer' color='dark.300' _hover={{ color: 'dark.500' }} />
             </Tooltip>
           </InputRightElement>
         )}

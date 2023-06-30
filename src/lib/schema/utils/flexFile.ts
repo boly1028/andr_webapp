@@ -2,7 +2,7 @@ import { cloneDeep } from "lodash";
 import JSONCrush from "jsoncrush";
 import { IAdo, ITemplateFormData, ITemplateSchema } from "../templates/types";
 import { UPLOAD_TEMPLATE } from "../templates/upload"
-import { IAndromedaSchema, ITemplate } from "../types"
+import { ITemplate } from "../types"
 import { processTemplate } from "./template";
 
 export const parseFlexFile = async (template: ITemplate) => {
@@ -14,11 +14,13 @@ export const parseFlexFile = async (template: ITemplate) => {
 interface ICreateInput {
     schema: ITemplateSchema;
     formData: ITemplateFormData;
+    template?: ITemplate;
 }
 
 interface ICreateInputFromADO {
     ados: IAdo[];
     formData: ITemplateFormData;
+    template?: ITemplate;
 }
 
 /**
@@ -27,7 +29,7 @@ interface ICreateInputFromADO {
  * @param {schema, formData}: Data you want to insert in flex template
  * @returns flex template
  */
-export const createFlexFile = async ({ schema, formData }: ICreateInput) => {
+export const createFlexFile = async ({ schema, formData, template }: ICreateInput) => {
     const ados: IAdo[] = []
     Object.entries(schema.properties).map(([id, property]) => {
         const definitionId = property.$ref.split('/').pop() ?? '';
@@ -35,19 +37,21 @@ export const createFlexFile = async ({ schema, formData }: ICreateInput) => {
         ados.push({
             id: id,
             path: definition.$path,
-            required: true,
-            'enabled': true
+            required: formData[id]?.$required,
+            'enabled': formData[id]?.$enabled
         })
     })
 
-    const template = await createFlexFileFromADOS({ ados, formData })
-    return template
+    const result = await createFlexFileFromADOS({ ados, formData, template })
+    return result
 }
 
 
-export const createFlexFileFromADOS = async ({ ados, formData }: ICreateInputFromADO) => {
-    const template: ITemplate = cloneDeep(UPLOAD_TEMPLATE);
+export const createFlexFileFromADOS = async ({ ados, formData, template: defaultTemplate }: ICreateInputFromADO) => {
+    const template: ITemplate = cloneDeep(defaultTemplate ?? UPLOAD_TEMPLATE);
     template.ados = ados;
+    // Modules are not important for processing and make flex file huge. Hence remove all modules from list.
+    // Modules are added back while parsing flex file depending on where they are loaded
     template.modules = [];
     template.formData = formData;
     return template;

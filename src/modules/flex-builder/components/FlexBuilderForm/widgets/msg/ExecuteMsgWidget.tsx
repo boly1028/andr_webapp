@@ -45,10 +45,9 @@ export const ExecuteMsgWidget: FC<ExecuteMsgWidgetProps> = (props) => {
               {/* </CustomMenuButton> */}
             </MenuButton>
             <MenuList maxH="48" overflow="auto">
-            <MenuItem
+              <MenuItem
                 onClick={() => {
-                  setCurrentSchema(undefined)
-                  setCurrentBaseAdo(undefined);
+                  reset()
                 }}
               >
                 Custom Message

@@ -11,7 +11,7 @@ import { Copy } from "lucide-react";
 interface BaseProps extends WidgetProps {
     selectWidget?: React.ReactNode;
     formSchema?: IAndromedaSchemaJSON;
-    reset?:()=>void;
+    reset?: () => void;
 }
 
 const Base: FC<BaseProps> = (props) => {
@@ -19,15 +19,13 @@ const Base: FC<BaseProps> = (props) => {
     const [formData, setFormData] = useState<any>();
 
     useEffect(() => {
-        if (!formSchema) {
-            setFormData(undefined)
-        }else{
-            try{
+        if (formSchema) {
+            try {
                 const decoded = JSON.parse(atob(value));
                 setFormData(decoded)
-            } catch(err) {
+            } catch (err) {
                 console.log(err)
-                setFormData(undefined)
+                setFormData(formSchema.schema.type === 'object' ? {} : '')
             }
         }
     }, [formSchema])
@@ -37,14 +35,14 @@ const Base: FC<BaseProps> = (props) => {
             if (formData) {
                 const data = constructMsg(formData)
                 let stringified = data;
-                if(typeof stringified === 'object'){
+                if (typeof stringified === 'object') {
                     stringified = JSON.stringify(data)
                 }
                 const base64 = btoa(stringified);
                 if (base64 !== value) {
                     onChange(base64);
                 }
-            } else {
+            } else if (!value && props.required) {
                 onChange('')
             }
         }, 100);
@@ -81,7 +79,7 @@ const Base: FC<BaseProps> = (props) => {
                     w="full"
                 />
                 <CopyButton text={value} variant='unstyled'>
-                    <IconButton icon={<Icon as={Copy}/>} aria-label="copy-base64"/>
+                    <IconButton icon={<Icon as={Copy} />} aria-label="copy-base64" />
                 </CopyButton>
             </Flex>
             <Box w="full" mt="4">
