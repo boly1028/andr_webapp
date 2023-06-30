@@ -71,7 +71,7 @@ const AdosList: FC = () => {
       setHasMore(false);
     }
   };
-  useEffect(() => {    
+  useEffect(() => {
     if (previousData?.assets && data?.length) {
       if (data?.length <= previousData?.assets?.length) {
         setHasMore(true);
@@ -151,7 +151,7 @@ const AdosList: FC = () => {
             </InputLeftElement>
             <Input type='tel' placeholder='Search assets'
               onChange={(event: React.FormEvent<HTMLInputElement>) => searchAndFilterHandler(event, 'Search')}
-              autoFocus/>
+              />
           </InputGroup>
         </Box>
         <Select
