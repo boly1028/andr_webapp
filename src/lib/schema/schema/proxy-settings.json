@@ -1,6 +1,6 @@
 {
   "schema": {
-    "$id": "proxy-message",
+    "$id": "proxy-settings",
     "class": "system",
     "classifier": "",
     "title": "Proxy Message",

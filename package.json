@@ -13,7 +13,7 @@
     "postinstall": "npm run theme"
   },
   "dependencies": {
-    "@andromedaprotocol/andromeda.js": "^0.3.0",
+    "@andromedaprotocol/andromeda.js": "^0.3.2",
     "@andromedarjsf/chakra-ui": "file:./local_lib/andromedarjsf-chakra-ui-5.0.2.tgz",
     "@andromedarjsf/core": "file:./local_lib/andromedarjsf-core-5.0.2.tgz",
     "@andromedarjsf/utils": "file:./local_lib/andromedarjsf-utils-5.0.2.tgz",
@@ -22,9 +22,9 @@
     "@chakra-ui/icons": "^2.0.12",
     "@chakra-ui/react": "2.4.1",
     "@cosmjs/amino": "^0.29.5",
+    "@cosmjs/cosmwasm-stargate": "^0.29.5",
     "@cosmjs/proto-signing": "^0.29.5",
     "@cosmjs/stargate": "^0.29.5",
-    "@cosmjs/cosmwasm-stargate": "^0.29.5",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@keplr-wallet/unit": "^0.11.47",
