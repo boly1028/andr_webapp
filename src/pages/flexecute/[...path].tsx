@@ -166,7 +166,6 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
 
   const UPDATE_KEY = useMemo(() => Math.random(), [modifiedTemplate]);
 
-
   return (
     <Layout>
       <PageHeader

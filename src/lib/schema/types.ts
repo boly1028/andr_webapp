@@ -10,7 +10,7 @@ export type { ITemplate } from './templates/types'
 export const IImportantAdoKeys = {
     BLANK_CANVAS: 'app',
     PUBLISH_SETTINGS: 'publish-settings',
-    PROXY_MESSAGE: 'proxy-message',
+    PROXY_MESSAGE: 'proxy-settings',
     FUND: 'fund',
     APP: 'app',
     FLEX_FILE: 'import'
