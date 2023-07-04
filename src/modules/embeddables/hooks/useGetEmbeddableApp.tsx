@@ -11,8 +11,8 @@ export const useGetEmbeddableApp = () => {
     const { data: appsTx, loading } = useQueryTxByTags([
         { key: "wasm.method", value: "instantiate" },
         { key: "wasm.type", value: "app" },
-        { key: "wasm.owner", value: account.address },
-        { key: "wasm.andr_app", value: `${account.address}-${EMBEDDABLE_SUFFIX}` },
+        { key: "wasm.owner", value: account?.address },
+        { key: "wasm.andr_app", value: `${account?.address}-${EMBEDDABLE_SUFFIX}` },
     ], chainId);
 
     const appAddress = useMemo(() => {

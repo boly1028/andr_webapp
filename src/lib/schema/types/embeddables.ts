@@ -3,6 +3,7 @@ export interface IEmbeddableConfig {
     chainId: string;
     coinDenom: string;
     collections: IEmbeddableCollection[];
+    $type: string;
 }
 
 export interface IEmbeddableCollection {

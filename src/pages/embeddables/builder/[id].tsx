@@ -4,12 +4,10 @@ import { FlexBuilderForm } from "@/modules/flex-builder";
 import { Box } from "@/theme/ui-elements";
 import { FilePlusIcon, Layout, PageHeader } from "@/modules/common";
 import { useRouter } from "next/router";
-import { IImportantAdoKeys, ITemplate } from "@/lib/schema/types";
-import { useGetFunds } from "@/modules/sdk/hooks";
+import { IAndromedaFormData, IImportantAdoKeys, ITemplate } from "@/lib/schema/types";
 import { useWallet } from "@/lib/wallet";
 import { useEffect, useMemo, useState } from "react";
 import { HStack, IconButton, Input, Tooltip, useToast } from "@chakra-ui/react";
-import { cloneDeep } from "@apollo/client/utilities";
 import { parseJsonFromFile } from "@/lib/json";
 import { parseFlexFile } from "@/lib/schema/utils/flexFile";
 import { FlexBuilderFormProps } from "@/modules/flex-builder/components/FlexBuilderForm";
@@ -19,13 +17,49 @@ import { getEmbeddableTemplateById } from "@/lib/schema/utils/embeddables";
 import { IEmbeddableConfig } from "@/lib/schema/types/embeddables";
 import { constructMsg } from "@/modules/sdk/utils";
 import useEmbeddableModal from "@/modules/modals/hooks/useEmbeddableModal";
+import { useGetEmbeddableApp } from "@/modules/embeddables/hooks/useGetEmbeddableApp";
+import { useGetEmbeddabeleConfig } from "@/modules/embeddables/hooks/useGetEmbeddableConfig";
+import { cloneDeep } from "@apollo/client/utilities";
 
 type Props = {
   template: ITemplate
 };
 
 const TemplatePage: NextPage<Props> = ({ template }) => {
+  const [modifiedTemplate, setModifiedTemplate] = useState(template);
   const router = useRouter();
+  const eKey = router.query.key as string;
+  const { app, loading, embeddable } = useGetEmbeddableApp()
+  const { config } = useGetEmbeddabeleConfig(embeddable?.address ?? '', eKey);
+
+  useEffect(() => {
+    if (!config) return;
+    if (config.$type !== template.id) return;
+    const newTemplate = cloneDeep(template);
+    const formData: ITemplateFormData = {};
+    const { collections, ...appMeta } = config;
+    formData[IImportantAdoKeys.EMBEDDABLE_APP] = {
+      ...appMeta as any,
+    }
+    collections.forEach(col => {
+      const { id, ...colMeta } = col
+      formData[id] = {
+        ...colMeta as any,
+      }
+      newTemplate.ados.push({ path: template.modules?.find(module => module.schema?.schema.$id === col.type as any)?.path ?? '', 'id': col.id, 'required': false, enabled: true, removable: true })
+    })
+    newTemplate.formData = formData;
+    parseFlexFile(newTemplate).then(_template => {
+      setModifiedTemplate({
+        ...template,
+        ados: _template.ados,
+        formData: _template.formData,
+        schema: _template.schema,
+        uiSchema: _template.uiSchema
+      });
+    })
+  }, [config])
+
   const toast = useToast({
     position: "top-right",
   });
@@ -33,7 +67,6 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
   const account = useWallet();
   const openModal = useEmbeddableModal();
 
-  const [modifiedTemplate, setModifiedTemplate] = useState(template);
 
   const handleFlexInput = async (file: File) => {
     try {
@@ -72,10 +105,11 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
     const msg: IEmbeddableConfig = {
       // Remove system fields starting with $
       ...constructMsg(appConfig),
-      collections: []
+      collections: [],
+      $type: template.id
     }
     Object.entries(formData).forEach(([name, config]) => {
-      if(config.$class !== 'embeddable') return;
+      if (config.$class !== 'embeddable') return;
       if (!config.$enabled) return;
       msg.collections.push({
         ...constructMsg(config),
@@ -88,7 +122,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
 
   const handleSubmit: FlexBuilderFormProps['onSubmit'] = async ({ formData }) => {
     const config = getMsg(formData);
-    openModal({ config });
+    openModal({ config, eKey });
   };
 
 
@@ -143,7 +177,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
           key={UPDATE_KEY}
           template={modifiedTemplate}
           onSubmit={handleSubmit}
-          notReady={!account}
+          notReady={!embeddable}
           addButtonTitle="Add Collection"
           hideOpenInAppBuilder
         />

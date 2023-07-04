@@ -15,8 +15,9 @@ import { EmbeddableModalProps } from "./types";
 import { createEmbeddableUrl } from "@/lib/schema/utils/embeddables";
 import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
 import { downloadBlob } from "@/utils/file";
+import EmbeddabePublish from "./Publish";
 
-const EmbeddableModal: FC<EmbeddableModalProps> = ({ config }) => {
+const EmbeddableModal: FC<EmbeddableModalProps> = ({ config, eKey }) => {
   const { close } = useGlobalModalContext();
 
   const uri = useMemo(() => createEmbeddableUrl(config), [config]);
@@ -32,6 +33,10 @@ const EmbeddableModal: FC<EmbeddableModalProps> = ({ config }) => {
       <Text fontWeight="bold" fontSize="lg">
         EMBEDDABLE
       </Text>
+      <EmbeddabePublish
+        data={config}
+        eKey={eKey}
+      />
       <Text fontSize="xs" textStyle="light" color="dark.500" mt="2">
         Here&apos;s a preview for your embeddable
       </Text>

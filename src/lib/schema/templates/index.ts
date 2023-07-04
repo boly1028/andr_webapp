@@ -51,6 +51,9 @@ const APP_TEMPLATES: PartialTemplateType[] = [
       {
         path: "address-list/latest/address-list",
       },
+      {
+        path: "primitive/latest/primitive",
+      },
     ],
     system: true,
     starter: true,

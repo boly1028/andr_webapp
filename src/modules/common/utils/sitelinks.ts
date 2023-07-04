@@ -28,6 +28,8 @@ export const SITE_LINKS = {
     assets: () => `/assets`,
     // Embedables
     embeddables: () => `/embeddables`,
+    embeddablesBuild: (id: string) => `/embeddables/builder/${id}`,
+    embeddablesUpdate: (id: string, key: string) => `/embeddables/builder/${id}?key=${key}`,
     // embeddablePreview: (configUri: string) => `https://embeddable-marketplace-demo.vercel.app/${configUri}`,
     embeddablePreview: (configUri: string) => `https://embeddable-marketplace-demo-git-featur-fd1f81-andromedaprotocol.vercel.app?config=${configUri}`,
     // embeddables: () => `https://andromedaprotocol.github.io/embeddable-marketplace-demo`,
