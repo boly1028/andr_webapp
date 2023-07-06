@@ -29,6 +29,7 @@ export interface IEditorRef {
     setAppName?: (name: string) => void;
     getAppName?: () => string;
     setDirty?: (dirty: boolean) => void;
+    rfWrapperInstance?: HTMLDivElement;
 }
 
 export enum IUIComponents {
@@ -53,3 +54,13 @@ export type IUIComponentProps =
     | _InsertProps
     | _AdoListProps
     | _TemplateListProps;
+
+
+// DRAG DROP TYPES
+export enum RF_DRAG_KEYS {
+    SCHEMA = 'application/reactflow/schema'
+}
+
+export interface RF_DRAG_KEYS_TYPE {
+    [RF_DRAG_KEYS.SCHEMA]: string;
+}

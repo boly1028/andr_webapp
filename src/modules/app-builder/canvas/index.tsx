@@ -1,6 +1,5 @@
-import React, { FC, useMemo } from "react";
+import React, { FC, useCallback, useMemo, useRef, useState } from "react";
 import ReactFlow, {
-  EdgeTypes,
   MarkerType,
   NodeTypes,
   useEdgesState,
@@ -16,27 +15,30 @@ import LoadTemplate from "../common/LoadTemplate";
 import { useConnectEdge } from "../appBuilderForm/hooks/useConnectEdge";
 import { useAppShortcuts } from "../shortcuts";
 import { useLoadFlexUrl } from "../hooks/useLoadFlexUrl";
+import { useAddNodeByDrop } from "../hooks/useAddNodeByDrop";
 
 interface AppBuilderCanvasProps { }
 const AppBuilderCanvas: FC<AppBuilderCanvasProps> = (props) => {
   const { } = props;
   const [nodes, , onNodesChange] = useNodesState<INodeData>([]);
   const [edges, , onEdgesChange] = useEdgesState<IEdgeData>([]);
-  const { formRefs, isDirty } = useAppBuilder();
+  const { formRefs, isDirty, editorRef } = useAppBuilder();
   const { connect } = useConnectEdge()
-  
+
   const NODE_TYPES: NodeTypes = useMemo(() => {
     return {
       form: AppBuilderForm,
     };
   }, [AppBuilderForm]);
-  
+
   // Enable all shortcuts for app; This can later be disabled using shortcut context
   useAppShortcuts();
   useLoadFlexUrl();
 
+  const { onDragOver, onDrop } = useAddNodeByDrop()
+
   return (
-    <Box w="full" h="full" id={WRAPPER_ID}>
+    <Box w="full" h="full" id={WRAPPER_ID} ref={(ref) => editorRef.current.rfWrapperInstance = ref ?? undefined}>
       {!isDirty && (
         <Center w="full" h="full">
           <LoadTemplate />
@@ -88,6 +90,8 @@ const AppBuilderCanvas: FC<AppBuilderCanvasProps> = (props) => {
         onConnect={(conn) => {
           connect(conn)
         }}
+        onDragOver={onDragOver}
+        onDrop={onDrop}
       >
         {/* <Background variant={BackgroundVariant.Dots} gap={20} size={0.75} color='#ffffff' /> */}
         {/* <MiniMap zoomable pannable /> */}
