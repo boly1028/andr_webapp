@@ -193,7 +193,6 @@ const APP_TEMPLATES: PartialTemplateType[] = [
         "minter": {},
       }
     }
-
   },
   {
     id: "crowdfund",

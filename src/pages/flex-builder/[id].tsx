@@ -13,6 +13,7 @@ import { FlexBuilderFormProps } from "@/modules/flex-builder/components/FlexBuil
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { parseJsonFromFile } from "@/lib/json";
 import { parseFlexFile } from "@/lib/schema/utils/flexFile";
+import useConstructADOMsg from "@/modules/sdk/hooks/useConstructADOMsg";
 
 type Props = {
   template: ITemplate;
@@ -26,12 +27,16 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
     position: "top-right",
   });
   const construct = useConstructAppMsg();
+  const constructAdo = useConstructADOMsg();
   const openModal = useInstantiateModal(codeId);
 
   const getMsg = (formData: any) => {
     console.log(formData);
-    const msg = construct(formData);
-    return msg;
+    if (template.adoType === 'app' || template.adoType === 'app-contract') {
+      return construct(formData);
+    } else {
+      return constructAdo(formData)
+    }
   }
 
   const handleSubmit = async ({ formData }) => {
