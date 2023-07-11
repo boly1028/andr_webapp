@@ -56,7 +56,6 @@ const AdosList: FC = () => {
     0,
     filteredData
   );
-
   const [hasMore, setHasMore] = useState(true);
 
   const fetchMoreAsset = async () => {
