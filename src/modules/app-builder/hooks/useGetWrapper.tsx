@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { XYPosition } from "reactflow";
-import { useReactFlow } from "../canvas/Provider";
+import { useAppBuilder, useReactFlow } from "../canvas/Provider";
 
 interface IUseGetWrapperProps { }
 
@@ -8,10 +8,10 @@ export const WRAPPER_ID = 'react-flow-wrapper';
 
 const useGetWrapper = (props?: IUseGetWrapperProps) => {
     const { project } = useReactFlow()
+    const { editorRef } = useAppBuilder()
     const getWrapper = useCallback(() => {
-        const elem = document.getElementById(WRAPPER_ID)
-        return elem
-    }, [])
+        return editorRef.current.rfWrapperInstance
+    }, [editorRef])
 
     const getUpdatedPosition = useCallback((xy: XYPosition) => {
         const pos = getWrapper()?.getBoundingClientRect();

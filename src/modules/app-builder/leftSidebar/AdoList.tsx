@@ -6,7 +6,7 @@ import { ChevronLeft } from "lucide-react";
 import React, { FC, useCallback } from "react";
 import { useAppBuilder } from "../canvas/Provider";
 import useAddNode from "../hooks/useAddNode";
-import { IUIComponents } from "../types";
+import { IUIComponents, RF_DRAG_KEYS } from "../types";
 
 export interface AdoListProps {
     name: string;
@@ -61,8 +61,13 @@ export const AdoListItem: FC<AdoListItemProps> = (props) => {
 
     const color = useGetClassColor({ adoType: ado.$id as any }, 'low')
 
+    const onDragStart = (event) => {
+        event.dataTransfer.setData(RF_DRAG_KEYS.SCHEMA, ado.source);
+        event.dataTransfer.effectAllowed = 'move';
+    };
+
     return (
-        <AspectRatio ratio={1}>
+        <AspectRatio ratio={1} onDragStart={onDragStart} draggable>
             <Box
                 cursor='pointer' rounded='lg'
                 bg={color}
