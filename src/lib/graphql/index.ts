@@ -1,4 +1,4 @@
-import { ApolloClient, InMemoryCache } from "@apollo/client";
+import { ApolloClient, InMemoryCache, defaultDataIdFromObject } from "@apollo/client";
 
 export * from "./hooks";
 
@@ -7,8 +7,28 @@ export * from "./hooks";
  */
 export const apolloClient = new ApolloClient({
   uri: process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT,
+  'defaultOptions': {
+    'query': {
+      'notifyOnNetworkStatusChange': true,
+    }
+  },
   cache: new InMemoryCache({
     typePolicies: {
+      BaseAdo: {
+        keyFields: ['address'],
+      },
+      AppAdo: {
+        keyFields: ['address'],
+      },
+      AdoQuery: {
+        merge: true
+      },
+      TxSearchResult: {
+        merge: true
+      },
+      TxInfo: {
+        keyFields: ['hash']
+      },
       Query: {
         fields: {
           assets: {
