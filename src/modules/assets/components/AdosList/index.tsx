@@ -12,47 +12,19 @@ import { Flex, Input, InputGroup, InputLeftElement, Select } from '@chakra-ui/re
 import { SearchIcon } from "@chakra-ui/icons";
 import { FilterObjectType } from '@/lib/graphql/hooks/useQueryAssets';
 import _ from "lodash";
+import { AssetSortAdoType } from "@/lib/graphql/hooks/assets/ado.enum";
 
-enum AdoType {
-  AddressList,
-  Ado,
-  App,
-  Auction,
-  CW20,
-  CW20Exchange,
-  CW20Staking,
-  CW721,
-  CW721Bids,
-  CW721Timelock,
-  Crowdfund,
-  Factory,
-  Gumball,
-  Lockdrop,
-  Marketplace,
-  MerkleAirdrop,
-  NftStaking,
-  Primitive,
-  RateLimitingWithdrawals,
-  Rates,
-  Receipt,
-  Splitter,
-  Timelock,
-  Unknown,
-  Vault,
-  Vesting,
-  WeightedDistributionSplitter,
-  WeightedSplitter,
-  WrappedCW721
-}
-const LIMIT = 10;
+export const SORT_LIMIT = 10;
 
 const AdosList: FC = () => {
   const wallet = useWallet();
-  const [filteredData, setFilteredData] = useState<FilterObjectType>({});
+  const [filteredData, setFilteredData] = useState<FilterObjectType>({
+    orderBy: 'Desc'
+  });
 
   const { data, loading, error, fetchMore, previousData, refetch } = useQueryAssets(
     wallet?.address ?? "",
-    LIMIT,
+    SORT_LIMIT,
     0,
     filteredData
   );
@@ -150,7 +122,7 @@ const AdosList: FC = () => {
             </InputLeftElement>
             <Input type='tel' placeholder='Search assets'
               onChange={(event: React.FormEvent<HTMLInputElement>) => searchAndFilterHandler(event, 'Search')}
-              />
+            />
           </InputGroup>
         </Box>
         <Select
@@ -162,7 +134,7 @@ const AdosList: FC = () => {
           onChange={(event) => { searchAndFilterHandler(event, 'AdoType') }}
         >
           {
-            (Object.keys(AdoType) as Array<keyof typeof AdoType>).map((item) => {
+            (Object.keys(AssetSortAdoType) as Array<keyof typeof AssetSortAdoType>).map((item) => {
               return isNaN(Number(item)) && (<option value={`${item}`} key={item}> {item}</option>)
             })
           }
@@ -185,7 +157,7 @@ const AdosList: FC = () => {
         }
       >
         {data?.map((item) => {
-          return <AdoItem key={item.address} address={item.address} adoType={item.adoType as IAdoType} name={item.name} />;
+          return <AdoItem key={item.address} address={item.address} adoType={item.adoType as IAdoType} name={item.name ?? ''} />;
         })}
       </InfiniteScroll>
       {

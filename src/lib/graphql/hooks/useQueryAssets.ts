@@ -3,16 +3,21 @@ import {
   QueryAssets,
 } from "@andromedaprotocol/andromeda.js";
 import { gql, QueryResult, useQuery } from "@apollo/client";
+import { AssetSortAdoType } from "./assets/ado.enum";
+
+export interface FilterObjectType {
+  adoType?: AssetSortAdoType;
+  orderBy?: 'Asc' | 'Desc';
+  search?: string;
+}
+
+export type QueryRequest = (QueryAssets & FilterObjectType)
 export interface QueryAssetsProps
   extends Pick<QueryResult<QueryAssetsResponse, QueryAssets>, "loading" | "error" | "fetchMore" | "previousData" | "refetch"> {
   // Type should be array itself. Make an interface for asset and using Asset[] as response. Changes needed in the library
-  data?: QueryAssetsResponse["assets"];
+  data?: (QueryAssetsResponse["assets"][0] & { name?: string })[];
 }
-export interface FilterObjectType {
-  search?: string | undefined | null;
-  adoType?: string | undefined | null;
-  orderBy?: string | undefined | null;
-}
+
 /**
  * Queries all ADOs, their type and their contract addresses for a given wallet
  * @param walletAddress
@@ -22,29 +27,20 @@ export default function useQueryAssets(
   walletAddress: string,
   limit: number,
   offset: number,
-  filterObj?: FilterObjectType
+  filters: FilterObjectType
 
-): QueryAssetsProps {  
-  let assetsQuery = `assets(walletAddress: $walletAddress, limit: $limit, offset: $offset`;
-  if (filterObj?.search) {
-    assetsQuery += `,search: "${filterObj.search}"`;
-  }
-  if (filterObj?.adoType) {
-    assetsQuery += `,adoType: ${filterObj.adoType}`;
-  }
-  if (filterObj?.orderBy) {
-    assetsQuery += `,orderBy: ${filterObj.orderBy}`;
-  }
-  assetsQuery += '){';
-
-  const { loading, data, error, fetchMore, previousData, refetch } = useQuery<QueryAssetsResponse, QueryAssets>(
+): QueryAssetsProps {
+  const { loading, data, error, fetchMore, previousData, refetch } = useQuery<QueryAssetsResponse, QueryRequest>(
     gql`
     query QUERY_ASSETS(
       $walletAddress: String!,
       $limit: Int!,
-      $offset: Int!
+      $offset: Int!,
+      $search:String,
+      $adoType:AdoType,
+      $orderBy:AndrOrderBy
       ) {
-        ${assetsQuery}
+        assets(walletAddress: $walletAddress, limit: $limit, offset: $offset, search:$search, adoType:$adoType, orderBy:$orderBy){
             address 
             adoType
             appContract 
@@ -58,7 +54,7 @@ export default function useQueryAssets(
         }
       }
     `,
-    { variables: { walletAddress, limit, offset }, notifyOnNetworkStatusChange: true },
+    { variables: { walletAddress, limit, offset, orderBy: filters.orderBy || 'Desc', adoType: filters.adoType || undefined, search: filters.search }, notifyOnNetworkStatusChange: true },
   );
 
   // Converting assets to any and then to array to get proper typing at the end. It should be removed once type has been fixed in the library
