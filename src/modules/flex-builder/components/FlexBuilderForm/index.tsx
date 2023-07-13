@@ -225,7 +225,7 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
         )}
 
         {/* Action Footer */}
-        <Flex mt={8} justify="right">
+        <Flex mt={8} justify="right" mb={10}>
           <HStack spacing={4}>
             <OpenInAppBuilderButton
               schema={schema}
