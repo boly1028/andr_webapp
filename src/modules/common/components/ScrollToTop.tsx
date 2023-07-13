@@ -1,5 +1,6 @@
-import { Box } from '@chakra-ui/react';
+import { Box, VStack, Text } from '@chakra-ui/react';
 import React, { FC, useEffect, useState } from 'react'
+import { ChevronUpIcon } from '@chakra-ui/icons';
 
 const ScrollToTop: FC = () => {
 
@@ -29,15 +30,26 @@ const ScrollToTop: FC = () => {
     return (
         <>
             {isVisible &&
-                <Box
-                    position={'fixed'}
-                    bottom='2%'
-                    right='7%'
-                    cursor={'pointer'}
+                <VStack
                     onClick={handleClick}
+                    position={'fixed'}
+                    bottom='14%'
+                    right='6%'
+                    cursor={'pointer'}
+                    spacing={7}
                 >
-                    Scroll To Top
-                </Box>
+                    <Box
+                        w='28px'
+                        h='28px'
+                        backgroundColor={'rgba(68, 129, 255, 1)'}
+                        borderRadius='24px'
+                        pl='4px'
+                        position={'absolute'}
+                    >
+                        <ChevronUpIcon boxSize={5} position={'relative'} bottom='2px' right='2px' />
+                    </Box>
+                    <Text fontSize={'10px'} fontWeight='500' position={'fixed'}>Back To Top</Text>
+                </VStack>
             }
         </>
     )
