@@ -26,7 +26,7 @@ import Form from "./Form";
 import CopyFlexButton from "./CopyFlexButton";
 import CopyCliButton from "./CopyCliButton";
 import OpenInAppBuilderButton from "./OpenInAppBuilder";
-import ScrollToTop from './../../../common/components/ScrollToTop';
+import ScrollToTop from "@/modules/common/components/ScrollToTop";
 
 export type FlexBuilderFormProps = {
   template: ITemplate;
