@@ -82,7 +82,7 @@ const AdoItem: FC<AdoItemProps> = ({ address, adoType: _adoType, name, proxyAddr
         </Box>
 
         <Box flex={1.5}>
-          <InlineStat label="Name" value={truncate(app?.config.name ?? name ?? _adoType,[16,5])} />
+          <InlineStat label="Name" value={truncate(app?.config.name ?? name ?? _adoType, [16, 5])} />
           {/* <InlineStat label="{type}" value={name} reverse /> */}
         </Box>
         <Box flex={1}>
@@ -127,14 +127,14 @@ const AdoItem: FC<AdoItemProps> = ({ address, adoType: _adoType, name, proxyAddr
               className={styles.onHover}
             />
             <MenuList>
-              {/* <NextLink
+              <NextLink
                 href={SITE_LINKS.adoMultiExecute(`${adoType}/${version}`, address ?? "", name, proxyAddress)}
                 passHref
               >
                 <MenuItem>
                   Multi Execute
                 </MenuItem>
-              </NextLink> */}
+              </NextLink>
               {adopData?.modifiers?.map((action) => {
                 const path = `${adoType}/${version}/${formatActionPath(
                   action,
