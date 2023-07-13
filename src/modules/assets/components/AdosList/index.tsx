@@ -180,8 +180,8 @@ const AdosList: FC = () => {
         !loading && data?.length === 0 && !!(filteredData.search || filteredData.adoType || filteredData.orderBy) &&
         <Center p="10">
           <FallbackPlaceholder
-            title="No asset found for the searched item"
-            desc="Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit deleniti sapiente fugit."
+            title="No assets found for the search conditions."
+            desc=""
           >
             <Create />
           </FallbackPlaceholder>
