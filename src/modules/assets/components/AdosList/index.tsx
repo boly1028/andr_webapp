@@ -16,6 +16,7 @@ import { AssetSortAdoType } from "@/lib/graphql/hooks/assets/ado.enum";
 
 export const SORT_LIMIT = 10;
 import ScrollToTop from "@/modules/common/components/ScrollToTop";
+import ScrollToBottom from "@/modules/common/components/ScrollToBottom";
 
 const AdosList: FC = () => {
   const wallet = useWallet();
@@ -161,6 +162,7 @@ const AdosList: FC = () => {
           return <AdoItem key={item.address} address={item.address} adoType={item.adoType as IAdoType} name={item.name ?? ''} />;
         })}
       </InfiniteScroll>
+      <ScrollToBottom />
       <ScrollToTop />
       {loading ? (
         <Stack mt='6' gap='4'>

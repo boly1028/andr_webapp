@@ -27,6 +27,7 @@ import CopyFlexButton from "./CopyFlexButton";
 import CopyCliButton from "./CopyCliButton";
 import OpenInAppBuilderButton from "./OpenInAppBuilder";
 import ScrollToTop from "@/modules/common/components/ScrollToTop";
+import ScrollToBottom from "@/modules/common/components/ScrollToBottom";
 
 export type FlexBuilderFormProps = {
   template: ITemplate;
@@ -256,6 +257,7 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
               Publish
             </Button>
           </HStack>
+          <ScrollToBottom />
           <ScrollToTop />
         </Flex>
       </Form>
