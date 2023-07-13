@@ -46,9 +46,9 @@ const ScrollToTop: FC = () => {
                         pl='4px'
                         position={'absolute'}
                     >
-                        <ChevronUpIcon boxSize={5} position={'relative'} bottom='2px' right='2px' />
+                        <ChevronUpIcon boxSize={5} position={'relative'} bottom='2.5px' right='2.5px' />
                     </Box>
-                    <Text fontSize={'10px'} fontWeight='500' position={'fixed'}>Back To Top</Text>
+                    <Text fontSize={'12px'} fontWeight='500' position={'fixed'}>Back To Top</Text>
                 </VStack>
             }
         </>
