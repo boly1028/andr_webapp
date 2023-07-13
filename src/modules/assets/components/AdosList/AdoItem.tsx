@@ -39,7 +39,7 @@ import { useAppComponents } from "@/lib/graphql/hooks/app/useAppComponents";
 interface AdoItemProps {
   address: string;
   adoType: IAdoType;
-  name?: string;
+  name: string;
   proxyAddress?: string;
 }
 
@@ -48,8 +48,7 @@ const AdoItem: FC<AdoItemProps> = ({ address, adoType: _adoType, name, proxyAddr
 
   // Creating a proxy for app type as it is now reference as app-contract
   const adoType = _adoType === "app" ? "app-contract" : (_adoType);
-  const { data: app, loading, error } = useAppConfig(address, adoType !== 'app-contract');
-  console.log(app, "APP", adoType)
+  // const { data: app, loading, error } = useAppConfig(address, adoType !== 'app-contract');
 
 
   const { data: _version } = useGetSchemaVersions(adoType);
@@ -82,7 +81,7 @@ const AdoItem: FC<AdoItemProps> = ({ address, adoType: _adoType, name, proxyAddr
         </Box>
 
         <Box flex={1.5}>
-          <InlineStat label="Name" value={app?.config.name ?? name ?? _adoType} />
+          <InlineStat label="Name" value={name ? name : _adoType} />
           {/* <InlineStat label="{type}" value={name} reverse /> */}
         </Box>
         <Box flex={1}>

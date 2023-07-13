@@ -32,33 +32,35 @@ export interface ReturnValue
   data?: QueryResponse['ADO']['ado'];
 }
 
-export function useQueryBaseAdo(address: string): ReturnValue {
-  const { data, loading, error } = useQuery<QueryResponse, Query>(
-    gql`
-      query BASE_ADO($contractAddress: String!) {
-          ADO{
-              ado(address: $contractAddress) {
-                address
-                type
-                andr {
-                  address
-                  admin
-                  blockHeightUponCreation
-                  codeId
-                  creator
-                  ibcPortId
-                  label
-                  operators
-                  originalPublisher
-                  owner
-                  queries_expected
-                  type
-                  version
-                }
-              }
+const BASE_ADO_QUERY = gql`
+query BASE_ADO($contractAddress: String!) {
+    ADO{
+        ado(address: $contractAddress) {
+          address
+          type
+          andr {
+            address
+            admin
+            blockHeightUponCreation
+            codeId
+            creator
+            ibcPortId
+            label
+            operators
+            originalPublisher
+            owner
+            queries_expected
+            type
+            version
           }
         }
-      `,
+    }
+  }
+`
+
+export function useQueryBaseAdo(address: string): ReturnValue {
+  const { data, loading, error } = useQuery<QueryResponse, Query>(
+    BASE_ADO_QUERY,
     { variables: { 'contractAddress': address } },
   );
   return {

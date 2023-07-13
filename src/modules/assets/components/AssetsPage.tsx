@@ -37,10 +37,13 @@ const AssetsPage = () => {
             isLoading={loading}
             onClick={() => {
               setLoading(true);
-              apolloClient
-                .refetchQueries({
-                  include: ["QUERY_APP", "QUERY_ASSETS"],
-                })
+              apolloClient.refetchQueries({
+                updateCache(cache) {
+                  cache.evict({ fieldName: "ADO" });
+                  cache.evict({ fieldName: "tx" });
+                  cache.evict({ fieldName: "assets" });
+                },
+              })
                 .catch((err) => {
                   console.log(err);
                 })
@@ -54,7 +57,7 @@ const AssetsPage = () => {
         )}
       />
       <Divider my='6' />
-      {!wallet && (
+      {!wallet?.address && (
         <Center w="full" p="6" mt="10">
           <Box borderColor='dark.300' borderWidth='1px' rounded="3xl" px="6" py="10">
             <FallbackPlaceholder

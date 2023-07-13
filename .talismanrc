@@ -1,10 +1,28 @@
 fileignoreconfig:
-- filename: src/pages/learn/andromeda/connecting-wallet-to-web-app.mdx
-  checksum: f4d0806c1cacab9141137733f6a33bd87d20162293a99f74c6dcd86b8fa2fc33
-  ignore_detectors: []
 - filename: src/lib/schema/schema/cw721/0.1.1/all-nft-info.response.json
   checksum: caa4294f04d023d6f5be157ddb9ba5ebc29811fcb2fdfd7f1cf755d153aba686
 - filename: src/lib/schema/schema/cw721/0.1.1/nft-info.response.json
   checksum: bd28aedde3f262386a910d6e0b7a46439c97603dd7f303fa2f1f126723814553
 - filename: src/lib/schema/schema/gumball/0.1.0/mint.json
   checksum: 85a09a94fa872d22ad614f70dddfff0d143671d15da3cecc21a1ae10726c4a5b
+- filename: src/lib/schema/utils/getters.ts
+  checksum: a508d4791919f92989c2dc96f18ea0bccae2afcf47dfa2bdff9276b20d997737
+- filename: src/modules/assets/components/AdosList/AdoItem.tsx
+  checksum: 8e7a8cbdfc1d9661ed4a63fee5094f9a9615f1917f2c12f874b9833f064cde25
+- filename: src/modules/assets/components/AdosList/index.tsx
+  checksum: 8d925c16df99352866a3d8be3d41fba7923a6a13c5228b0afe818b42fff166c7
+- filename: src/modules/flex-builder/components/FlexBuilderForm/DownloadButton.tsx
+  checksum: 00584381a339fe321d0b7fa5ea57251218b99d0cfbf23845530563f4e15a052e
+- filename: src/modules/modals/components/MultiTransaction/Simulate.tsx
+  checksum: e8573c0a0ad74bb0e7d8cb7e33a28ccce029523b9e5f87cfd1011ba536edbe50
+- filename: src/modules/sdk/hooks/useConstructMultiExecuteMsg.ts
+  checksum: 5f24852eb9cd7ea38d6e63211582ce20d1975cca089853a3587379859eec25fb
+- filename: src/pages/flex-builder/[id].tsx
+  checksum: 4ac980272e363591fd6036cb76a16d24bdee8434e31d044b0f56d0920eca5525
+- filename: src/pages/flexecute/[...path].tsx
+  checksum: 246231665f39d18870e486f1a6878f3c06f9a953a96524eec778fdba5c1e62c0
+- filename: src/pages/flexecute/multi-msg/[...path].tsx
+  checksum: 086ca669c5e5de049f1e047d9c1596cabaccef79803bf0aa162eeb6679745013
+- filename: src/pages/learn/andromeda/connecting-wallet-to-web-app.mdx
+  checksum: f4d0806c1cacab9141137733f6a33bd87d20162293a99f74c6dcd86b8fa2fc33
+version: "1.0"
