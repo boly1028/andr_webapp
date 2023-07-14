@@ -1,4 +1,4 @@
-import { Box, VStack, Text } from '@chakra-ui/react';
+import { VStack, Flex } from '@chakra-ui/react';
 import React, { FC, useEffect, useState } from 'react'
 import { ChevronUpIcon } from '@chakra-ui/icons';
 
@@ -33,22 +33,22 @@ const ScrollToTop: FC = () => {
                 <VStack
                     onClick={handleClick}
                     position={'fixed'}
-                    bottom='14%'
-                    right='6%'
+                    bottom='15%'
+                    left='22%'
                     cursor={'pointer'}
                     spacing={7}
+                    title='Back to top'
                 >
-                    <Box
+                    <Flex
                         w='28px'
                         h='28px'
                         backgroundColor={'rgba(68, 129, 255, 1)'}
                         borderRadius='24px'
-                        pl='4px'
-                        position={'absolute'}
+                        justifyContent={'center'}
+                        alignItems='center'
                     >
-                        <ChevronUpIcon boxSize={5} position={'relative'} bottom='2.5px' right='2.5px' />
-                    </Box>
-                    <Text fontSize={'12px'} fontWeight='500' position={'fixed'}>Back to top</Text>
+                        <ChevronUpIcon boxSize={5} />
+                    </Flex>
                 </VStack>
             }
         </>
