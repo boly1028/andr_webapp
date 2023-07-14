@@ -29,8 +29,8 @@ const ScrollToBottom: FC = () => {
                 <VStack
                     onClick={handleClick}
                     position={'fixed'}
-                    bottom='15%'
-                    left='22%'
+                    bottom='6%'
+                    left='24%'
                     cursor={'pointer'}
                     spacing={7}
                     title="Go to bottom"
