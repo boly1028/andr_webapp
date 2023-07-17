@@ -22,14 +22,14 @@ const EmbeddableList: FC<Props> = (props) => {
                         eKey={eKey}
                     />
                 ))}
-                <Link href={SITE_LINKS.embeddablesBuild('nft')}>
+                {/* <Link href={SITE_LINKS.embeddablesBuild('nft')}>
                     <Button
                         colorScheme="primary"
                         w='full'
                     >
                         Create New NFT Embeddable
                     </Button>
-                </Link>
+                </Link> */}
             </VStack>
         </Box>
     )

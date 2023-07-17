@@ -4,7 +4,8 @@ import { useGetEmbeddableApp } from "../hooks/useGetEmbeddableApp";
 import { PageHeader } from "@/modules/common";
 import EmbeddableList from "./EmbeddableList";
 import SetupUser from "./SetupUser";
-
+import EmbeddableHeader from "./EmbeddableHeader";
+import EmbedableExamples from "./EmbedableExamples";
 interface Props {
 }
 
@@ -13,12 +14,16 @@ const EmbeddablePage: FC<Props> = (props) => {
     const { embeddable } = useGetEmbeddableApp()
     return (
         <Box>
-            <PageHeader
+            {/* <PageHeader
                 title="Embeddables"
                 desc="All your embeddables on chain"
-            />
+            /> */}
+            <EmbeddableHeader />
+            <EmbedableExamples />
             {embeddable ? (
-                <EmbeddableList address={embeddable.address} />
+                <>
+                    <EmbeddableList address={embeddable.address} />
+                </>
             ) : (
                 <SetupUser />
             )}
