@@ -1,0 +1,1 @@
+{"schema":{"type":"object","required":["latest_stage"],"properties":{"latest_stage":{"type":"object","additionalProperties":false,"title":"Latest stage"}},"additionalProperties":false,"title":"Latest stage","$id":"latest-stage","class":"query","version":"0.2.1","classifier":""},"ui-schema":{},"form-data":{}}

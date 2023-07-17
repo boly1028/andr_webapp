@@ -1,0 +1,1 @@
+{"schema":{"$schema":"http://json-schema.org/draft-07/schema#","title":"Is operator","type":"object","required":["is_operator"],"properties":{"is_operator":{"type":"boolean","title":"Is operator"}},"additionalProperties":false,"$id":"is_operator","version":"0.2.0","classifier":"response","class":"response"},"ui-schema":{},"form-data":{}}

@@ -1,0 +1,33 @@
+{
+    "schema": {
+        "description": "Archives a token, causing it to be immutable but readable",
+        "type": "object",
+        "required": [
+            "archive"
+        ],
+        "properties": {
+            "archive": {
+                "type": "object",
+                "required": [
+                    "token_id"
+                ],
+                "properties": {
+                    "token_id": {
+                        "type": "string",
+                        "title": "Token id"
+                    }
+                },
+                "additionalProperties": false,
+                "title": "Archive"
+            }
+        },
+        "additionalProperties": false,
+        "title": "Archive",
+        "$id": "archive",
+        "class": "modifier",
+        "version": "0.2.1",
+        "classifier": ""
+    },
+    "ui-schema": {},
+    "form-data": {}
+}

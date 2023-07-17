@@ -1,0 +1,1 @@
+{"schema":{"type":"object","required":["module_ids"],"properties":{"module_ids":{"type":"object","additionalProperties":false,"title":"Module ids"}},"additionalProperties":false,"title":"Module ids","$id":"module-ids","class":"query","version":"0.2.3","classifier":""},"ui-schema":{},"form-data":{}}

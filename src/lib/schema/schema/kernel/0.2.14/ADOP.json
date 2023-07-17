@@ -1,0 +1,1 @@
+{"modifiers":["a-m-p-receive","a-m-p-direct","a-m-p-direct-no-ctx","a-m-p-message","upsert-key-address"],"queries":["key-address.query","verify-address.query"],"responses":["key-address.response","verify-address.response"],"cw721receives":[]}

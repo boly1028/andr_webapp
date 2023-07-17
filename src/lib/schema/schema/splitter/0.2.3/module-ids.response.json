@@ -1,0 +1,1 @@
+{"schema":{"$schema":"http://json-schema.org/draft-07/schema#","title":"Module ids","type":"array","items":{"type":"string"},"properties":{},"$id":"module_ids","version":"0.2.3","classifier":"response","class":"response"},"ui-schema":{},"form-data":{}}

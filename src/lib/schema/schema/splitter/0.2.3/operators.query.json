@@ -1,0 +1,1 @@
+{"schema":{"type":"object","required":["operators"],"properties":{"operators":{"type":"object","additionalProperties":false,"title":"Operators"}},"additionalProperties":false,"title":"Operators","$id":"operators","class":"query","version":"0.2.3","classifier":""},"ui-schema":{},"form-data":{}}

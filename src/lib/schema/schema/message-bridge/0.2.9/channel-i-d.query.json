@@ -1,0 +1,1 @@
+{"schema":{"type":"object","required":["channel_i_d"],"properties":{"channel_i_d":{"type":"object","required":["chain"],"properties":{"chain":{"type":"string","title":"Chain"}},"additionalProperties":false,"title":"Channel i d"}},"additionalProperties":false,"title":"Channel i d","$id":"channel-i-d","class":"query","version":"0.2.9","classifier":""},"ui-schema":{},"form-data":{}}

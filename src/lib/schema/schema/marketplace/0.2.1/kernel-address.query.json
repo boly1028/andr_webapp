@@ -1,0 +1,1 @@
+{"schema":{"type":"object","required":["kernel_address"],"properties":{"kernel_address":{"type":"object","additionalProperties":false,"title":"Kernel address"}},"additionalProperties":false,"title":"Kernel address","$id":"kernel-address","class":"query","version":"0.2.1","classifier":""},"ui-schema":{},"form-data":{}}

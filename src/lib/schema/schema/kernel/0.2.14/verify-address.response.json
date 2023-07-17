@@ -1,0 +1,1 @@
+{"schema":{"$schema":"http://json-schema.org/draft-07/schema#","title":"Verify address","type":"boolean","properties":{},"$id":"verify_address","version":"0.2.14","classifier":"response","class":"response"},"ui-schema":{},"form-data":{}}
