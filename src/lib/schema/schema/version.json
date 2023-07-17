@@ -1,1 +1,98 @@
-{"app-contract":{"version":"0.2.1","createdAt":1689599994611},"vault":{"version":"0.2.0","createdAt":1689599994611},"cross-chain-swap":{"version":"0.2.0","createdAt":1689599994611},"rate-limiting-withdrawals":{"version":"0.2.1","createdAt":1689599994611},"splitter":{"version":"0.2.3","createdAt":1689599994611},"timelock":{"version":"0.2.1","createdAt":1689599994611},"vesting":{"version":"0.2.1","createdAt":1689599994611},"weighted-distribution-splitter":{"version":"0.2.1","createdAt":1689599994611},"cw20":{"version":"0.2.1","createdAt":1689599994611},"cw20-exchange":{"version":"0.2.2","createdAt":1689599994611},"cw20-staking":{"version":"0.2.1","createdAt":1689599994611},"lockdrop":{"version":"0.2.1","createdAt":1689599994611},"merkle-airdrop":{"version":"0.2.1","createdAt":1689599994611},"address-list":{"version":"0.2.1","createdAt":1689599994611},"rates":{"version":"0.2.1","createdAt":1689599994611},"auction":{"version":"0.2.1","createdAt":1689599994611},"crowdfund":{"version":"0.2.1","createdAt":1689599994611},"cw721":{"version":"0.2.1","createdAt":1689599994611},"marketplace":{"version":"0.2.1","createdAt":1689599994611},"adodb":{"version":"0.1.2","createdAt":1689599994611},"economics":{"version":"0.2.0","createdAt":1689599994611},"kernel":{"version":"0.2.14","createdAt":1689599994611},"message-bridge":{"version":"0.2.9","createdAt":1689599994611},"vfs":{"version":"0.2.0","createdAt":1689599994611}}
+{
+    "app-contract": {
+        "version": "0.2.1",
+        "createdAt": 1689602529673
+    },
+    "vault": {
+        "version": "0.2.0",
+        "createdAt": 1689602529673
+    },
+    "cross-chain-swap": {
+        "version": "0.2.0",
+        "createdAt": 1689602529673
+    },
+    "rate-limiting-withdrawals": {
+        "version": "0.2.1",
+        "createdAt": 1689602529673
+    },
+    "splitter": {
+        "version": "0.2.3",
+        "createdAt": 1689602529673
+    },
+    "timelock": {
+        "version": "0.2.1",
+        "createdAt": 1689602529673
+    },
+    "vesting": {
+        "version": "0.2.1",
+        "createdAt": 1689602529673
+    },
+    "weighted-distribution-splitter": {
+        "version": "0.2.1",
+        "createdAt": 1689602529673
+    },
+    "cw20": {
+        "version": "0.2.1",
+        "createdAt": 1689602529673
+    },
+    "cw20-exchange": {
+        "version": "0.2.2",
+        "createdAt": 1689602529673
+    },
+    "cw20-staking": {
+        "version": "0.2.1",
+        "createdAt": 1689602529673
+    },
+    "lockdrop": {
+        "version": "0.2.1",
+        "createdAt": 1689602529673
+    },
+    "merkle-airdrop": {
+        "version": "0.2.1",
+        "createdAt": 1689602529673
+    },
+    "address-list": {
+        "version": "0.2.1",
+        "createdAt": 1689602529673
+    },
+    "rates": {
+        "version": "0.2.1",
+        "createdAt": 1689602529673
+    },
+    "auction": {
+        "version": "0.2.1",
+        "createdAt": 1689602529673
+    },
+    "crowdfund": {
+        "version": "0.2.1",
+        "createdAt": 1689602529673
+    },
+    "cw721": {
+        "version": "0.2.1",
+        "createdAt": 1689602529673
+    },
+    "marketplace": {
+        "version": "0.2.1",
+        "createdAt": 1689602529673
+    },
+    "adodb": {
+        "version": "0.1.2",
+        "createdAt": 1689602529673
+    },
+    "economics": {
+        "version": "0.2.0",
+        "createdAt": 1689602529673
+    },
+    "kernel": {
+        "version": "0.2.14",
+        "createdAt": 1689602529673
+    },
+    "message-bridge": {
+        "version": "0.2.9",
+        "createdAt": 1689602529673
+    },
+    "vfs": {
+        "version": "0.2.0",
+        "createdAt": 1689602529673
+    }
+}

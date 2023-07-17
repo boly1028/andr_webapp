@@ -10,6 +10,7 @@ import { IAdoType, IAndromedaSchema, IAndromedaSchemaJSON, IImportantAdoKeys, IS
 import { processTemplate } from "./template";
 
 export const getADOVersion = async (ado: IAdoType) => {
+    if (ado === 'app') ado = 'app-contract';
     const version = await import(`../schema/${ado}/version.json`).then(res => res.default).then(data => cloneDeep(data)) as {
         latest: string;
         versions: string[]
@@ -63,6 +64,7 @@ export const getSchemaFromPath = async (path: string) => {
     const properties: IAndromedaSchema['properties'] = {
         $type: {
             type: 'string',
+            // Type will also contain version number
             default: schema.schema.$id
         },
         $class: {

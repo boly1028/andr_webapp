@@ -26,7 +26,7 @@ const TemplatePage: NextPage<Props> = ({ defaultTemplate }) => {
     const template = useMemo(() => urlFlex ?? sessionFlex ?? defaultTemplate, [urlFlex, sessionFlex, defaultTemplate])
     const loading = useMemo(() => urlLoading || sessionLoading, [urlLoading, sessionLoading])
 
-    const codeId = useCodeId(template.adoType);
+    const codeId = useCodeId(template.adoType, template.adoVersion ?? '');
 
 
     const construct = useConstructAppMsg();

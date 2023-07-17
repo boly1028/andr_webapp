@@ -9,6 +9,7 @@ const APP_TEMPLATES: PartialTemplateType[] = [
   {
     id: "app",
     adoType: "app",
+    adoVersion: '0.2.0',
     name: "A Blank Canvas",
     icon: "/app-templates/icons/blank.png",
     description:

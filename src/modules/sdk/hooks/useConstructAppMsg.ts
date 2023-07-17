@@ -1,9 +1,8 @@
-import { useAndromedaContext } from "@/lib/andrjs";
 import { ITemplateFormData } from "@/lib/schema/templates/types";
 import { IAdoType, IImportantAdoKeys, IPublishSettingsFormData } from "@/lib/schema/types";
 import { useCallback } from "react";
 import { IAppContract } from "../types";
-import { constructMsg } from "../utils";
+import useConstructADOMsg from "./useConstructADOMsg";
 
 /**
  * Provides a function to create app construct messages. Apps are list of app component but
@@ -14,7 +13,7 @@ import { constructMsg } from "../utils";
  * Refer docs https://docs.andromedaprotocol.io/andromeda/andromeda-digital-objects/app#instantiatemsg 
  */
 export default function useConstructAppMsg() {
-  const { registryAddress } = useAndromedaContext();
+  const constructAdoMsg = useConstructADOMsg();
 
   const constructAppMsg = useCallback(
     (data: ITemplateFormData, appName?: string) => {
@@ -31,7 +30,7 @@ export default function useConstructAppMsg() {
       const appContract: IAppContract = {
         name: appName,
         app_components: [],
-        primitive_contract: registryAddress
+        kernel_address: ''
       };
 
       // Traverse each panel
@@ -45,7 +44,9 @@ export default function useConstructAppMsg() {
         const adoType = panel.$type as IAdoType;
 
         // Remove hidden fields from panel data
-        const msg = constructMsg(panel);
+        const msg = constructAdoMsg({
+          '--no-use-of-this': panel
+        });
 
         console.log(`Unencoded data for panel: ${id}`, msg);
 
@@ -61,9 +62,11 @@ export default function useConstructAppMsg() {
       })
 
       console.log("Consrtuct msg:", appContract);
-      return appContract;
+      return constructAdoMsg({
+        '--no-use-of-this-key': appContract as any
+      });
     },
-    [registryAddress],
+    [constructAdoMsg],
   );
 
   return constructAppMsg;

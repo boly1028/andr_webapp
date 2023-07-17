@@ -11,7 +11,6 @@ import { useWallet } from "@/lib/wallet";
 import { ILinkItemKey } from "@/modules/common/components/Sidebar";
 import { FlexBuilderFormProps } from "@/modules/flex-builder/components/FlexBuilderForm";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { useGetFlexFileFromUrl } from "@/modules/flex-builder/hooks/useFlexFile";
 import { parseJsonFromFile } from "@/lib/json";
 import { parseFlexFile } from "@/lib/schema/utils/flexFile";
 
@@ -20,7 +19,7 @@ type Props = {
 };
 
 const TemplatePage: NextPage<Props> = ({ template }) => {
-  const codeId = useCodeId(template.adoType);
+  const codeId = useCodeId(template.adoType, template.adoVersion ?? '');
   const account = useWallet();
   const [modifiedTemplate, setModifiedTemplate] = useState(template);
   const toast = useToast({

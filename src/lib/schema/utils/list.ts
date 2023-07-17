@@ -23,7 +23,7 @@ export const INCLUDE_ADO: string[] = Array.from(new Set(APP_TEMPLATES.map(templa
 export const BASE_ADOS = baseAdo.filter(ado => INCLUDE_ADO.includes(ado.$id as IAdoType));
 export const MODIFIERS = modifier;
 export const MODULES = moduleAdos.filter(ado => INCLUDE_ADO.includes(ado.$id as IAdoType));
-export const PRIMITIVES = primitive.filter(ado => INCLUDE_ADO.includes(ado.$id as IAdoType));
+export const PRIMITIVES = (primitive as IAdoList).filter((ado) => INCLUDE_ADO.includes(ado.$id as IAdoType));
 export const RECEIVES = receive;
 export const QUERIES = query;
 export const QUERY_RESPONSES = response

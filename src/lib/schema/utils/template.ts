@@ -1,9 +1,13 @@
 import { IAdo, ITemplateFormData, ITemplateSchema, ITemplateUiSchema } from "../templates/types";
 import { IAndromedaFormData, ITemplate } from "../types";
-import { getSchemaFromPath } from "./getters";
+import { getADOVersion, getSchemaFromPath } from "./getters";
 
 /** Process the template by resolving schema paths found in ados and moodules list */
 export const processTemplate = async (template: ITemplate) => {
+    if (!template?.adoVersion) {
+        const adoSchema = await getADOVersion(template.adoType);
+        template.adoVersion = adoSchema.latest
+    }
     const definitions: ITemplateSchema['definitions'] = {};
     const properties: ITemplateSchema['properties'] = {};
     // Store ados in ui:order in order of their appearance in schema
