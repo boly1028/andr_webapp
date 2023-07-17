@@ -1,4 +1,5 @@
 import { IImportantAdoKeys } from "../types";
+import { MASTER_ALLADO } from "../utils/masterList";
 import { ITemplate } from "./types";
 
 type PartialTemplateType = Omit<ITemplate, 'formData'> & {
@@ -283,6 +284,34 @@ const APP_TEMPLATES: PartialTemplateType[] = [
   //   installed: true,
   //   starter: true,
   // },
+  {
+    id: "test-developer",
+    adoType: "app",
+    name: "Tester Build",
+    icon: "/app-templates/icons/blank.png",
+    description:
+      "Start from scratch building out your own ADO structure to be just the way you like it.",
+    opts: [
+      "Select your Base ADO functionality",
+      "Add on your prefered modules",
+      "Save as a template",
+      "Publish and use!",
+    ],
+    ados: [
+      {
+        path: IImportantAdoKeys.PUBLISH_SETTINGS,
+        id: IImportantAdoKeys.PUBLISH_SETTINGS,
+        required: true,
+      },
+    ],
+
+    modules: [
+      ...MASTER_ALLADO.map((ado) => ({ path: ado.source })),
+    ],
+    system: true,
+    starter: true,
+    installed: true
+  },
 ];
 
 export default APP_TEMPLATES;

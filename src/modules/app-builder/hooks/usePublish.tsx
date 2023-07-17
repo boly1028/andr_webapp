@@ -1,5 +1,4 @@
 import { useCodeId } from "@/lib/andrjs";
-import { ITemplateFormData } from "@/lib/schema/templates/types";
 import { useInstantiateModal } from "@/modules/modals/hooks";
 import usePanelRenameModal from "@/modules/modals/hooks/usePanelRenameModal";
 import { useConstructAppMsg } from "@/modules/sdk/hooks";
@@ -21,7 +20,7 @@ export const usePublish = () => {
         position: 'top-right',
         variant: 'solid'
     })
-    const codeId = useCodeId("app", '');
+    const codeId = useCodeId("app");
     const construct = useConstructAppMsg();
     const openModal = useInstantiateModal(codeId);
 

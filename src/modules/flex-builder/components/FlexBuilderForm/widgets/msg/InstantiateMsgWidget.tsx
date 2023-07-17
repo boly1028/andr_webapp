@@ -11,10 +11,12 @@ import { WidgetProps } from "@andromedarjsf/utils";
 import { Button, Flex, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
 import { FC, useState } from "react";
 import Base from "./Base";
+import { useAndromedaClient } from "@/lib/andrjs";
+import { MASTER_ALLADO } from "@/lib/schema/utils/masterList";
 
 interface InstantiateMsgWidgetProps extends WidgetProps { }
 export const InstantiateMsgWidget: FC<InstantiateMsgWidgetProps> = (props) => {
-
+  const client = useAndromedaClient()
   const [currentSchema, setCurrentSchema] = useState<string>();
   const { data: schemaFile } = useGetSchemaJson(currentSchema ?? "");
   const reset = () => {
@@ -23,6 +25,9 @@ export const InstantiateMsgWidget: FC<InstantiateMsgWidgetProps> = (props) => {
 
   return (
     <Base {...props}
+      mergeFormData={{
+        kernel_address: client.os.address
+      }}
       selectWidget={(
         <Flex direction="row" gap="4">
           <Menu placement="bottom-start">
@@ -46,7 +51,7 @@ export const InstantiateMsgWidget: FC<InstantiateMsgWidgetProps> = (props) => {
               >
                 Reset
               </MenuItem>
-              {[...BASE_ADOS, ...MODULES].map((s) => (
+              {[...MASTER_ALLADO].map((s) => (
                 <MenuItem
                   key={s.source}
                   onClick={() => {

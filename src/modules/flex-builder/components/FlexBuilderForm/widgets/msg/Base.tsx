@@ -12,6 +12,9 @@ interface BaseProps extends WidgetProps {
     selectWidget?: React.ReactNode;
     formSchema?: IAndromedaSchemaJSON;
     reset?: () => void;
+    mergeFormData?: {
+        kernel_address?: string
+    };
 }
 
 const Base: FC<BaseProps> = (props) => {
@@ -33,7 +36,10 @@ const Base: FC<BaseProps> = (props) => {
     useEffect(() => {
         const tId = setTimeout(() => {
             if (formData) {
-                const data = constructMsg(formData)
+                const data = constructMsg({
+                    ...formData,
+                    ...props.mergeFormData,
+                })
                 let stringified = data;
                 if (typeof stringified === 'object') {
                     stringified = JSON.stringify(data)

@@ -6,7 +6,7 @@ interface IUseCopyCliProps { }
 
 const useCopyCli = (props?: IUseCopyCliProps) => {
     const { getMsg } = usePublish()
-    const codeId = useCodeId("app", '');
+    const codeId = useCodeId("app");
 
 
     const instantiation = useCallback(() => {

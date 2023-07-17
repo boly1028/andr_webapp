@@ -19,7 +19,7 @@ type Props = {
 };
 
 const TemplatePage: NextPage<Props> = ({ template }) => {
-  const codeId = useCodeId(template.adoType, template.adoVersion ?? '');
+  const codeId = useCodeId(template.adoType, template.adoVersion);
   const account = useWallet();
   const [modifiedTemplate, setModifiedTemplate] = useState(template);
   const toast = useToast({
