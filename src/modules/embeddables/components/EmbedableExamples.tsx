@@ -1,10 +1,11 @@
-import { Heading, Box, Text, VStack, HStack, Icon } from '@chakra-ui/react'
-import { CodeBrowser } from '@/modules/common';
+import { Heading, Box, Text, VStack, HStack, Image } from '@chakra-ui/react'
+// import { CodeBrowser } from '@/modules/common';
+
 const exapmplesObj = [
-    { type: 'Auction' },
-    { type: 'Market' },
-    { type: 'Crowdfund' },
-    { type: 'Token exchange' }
+    { type: 'Auction' , img: 'embeddable/embAuctionIcon.png'},
+    { type: 'Market' , img: 'embeddable/embAuctionIcon.png'},
+    { type: 'Crowdfund' , img: 'embeddable/embAuctionIcon.png'},
+    { type: 'Token exchange' , img: 'embeddable/embAuctionIcon.png'}
 ]
 const EmbedableExamples = () => {
     return (
@@ -27,8 +28,9 @@ const EmbedableExamples = () => {
                                 py={'14px'}
                                 gap='0'
                                 >
-                                <Icon as={CodeBrowser} boxSize='6' />
-                                <Text mt='2px !important' fontSize={'14px'}>Auction</Text>
+                                {/* <Icon as={CodeBrowser} boxSize='6' /> */}
+                                <Image alt='' src={item.img} w='48px' h='48px'/>
+                                <Text mt='2px !important' fontSize={'14px'}>{item.type}</Text>
                             </VStack>
                         )
                     })}

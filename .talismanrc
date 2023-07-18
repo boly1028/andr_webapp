@@ -13,6 +13,8 @@ fileignoreconfig:
   checksum: 8e7a8cbdfc1d9661ed4a63fee5094f9a9615f1917f2c12f874b9833f064cde25
 - filename: src/modules/assets/components/AdosList/index.tsx
   checksum: 22329fdf6b4b62b7a06256de96a8761f2ebbcdba966fbf1b179f9edef39ced5b
+- filename: src/modules/embeddables/components/EmbeddableItem.tsx
+  checksum: e0c532086f6fcb79a0ac79d3358103d9c847204a5376eb1f6ad1a5004f69be8f
 - filename: src/modules/flex-builder/components/FlexBuilderForm/DownloadButton.tsx
   checksum: 00584381a339fe321d0b7fa5ea57251218b99d0cfbf23845530563f4e15a052e
 - filename: src/modules/modals/components/MultiTransaction/Simulate.tsx
