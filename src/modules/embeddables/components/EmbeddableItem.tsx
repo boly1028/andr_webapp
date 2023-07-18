@@ -70,7 +70,7 @@ const EmbeddableItem: FC<Props> = (props) => {
                                 borderRadius={'12px'}
                                 key={index}
                             >
-                                <HStack alignItems={'flex-start'} gap='16px' pr='120px'>
+                                <HStack alignItems={'flex-start'} gap='16px' pr='50px' w='360px'>
                                     <Image alt='' src={item.embImg} />
                                     <VStack alignItems={'flex-start'} justifyContent='center'>
                                         <Text fontSize={'16px'} fontWeight='500'>{item.embName}</Text>
