@@ -1,5 +1,6 @@
 import { IImportantAdoKeys } from "../types";
-import { MASTER_ADO_LIST } from "../utils/masterList";
+import { ALL_ADOS } from "../utils/list";
+import { MASTER_ALLADO } from "../utils/masterList";
 import { ITemplate } from "./types";
 
 type PartialTemplateType = Omit<ITemplate, 'formData'> & {
@@ -29,27 +30,7 @@ const APP_TEMPLATES: PartialTemplateType[] = [
     ],
 
     modules: [
-      {
-        path: "auction/latest/auction",
-      },
-      {
-        path: "cw721/latest/cw721",
-      },
-      {
-        path: "marketplace/latest/marketplace",
-      },
-      {
-        path: "rates/latest/rates",
-      },
-      {
-        path: "splitter/latest/splitter",
-      },
-      {
-        path: "address-list/latest/address-list",
-      },
-      {
-        path: "primitive/latest/primitive",
-      },
+      ...ALL_ADOS.map((ado) => ({ path: ado.source }))
     ],
     // modules: [
     //   {
@@ -289,6 +270,33 @@ const APP_TEMPLATES: PartialTemplateType[] = [
       }
     }
   },
+  {
+    id: "cw20-exchange",
+    adoType: "app",
+    name: "CW20 Exchange",
+    icon: "/app-templates/icons/cw20-staking.png",
+    description: "CW20 Exchange creates a unique digital asset to be sold on an independent exchange with support for configuring transactions to be split and distributed to multiple destinations. Buyers can easily purchase fractional shares of the CW20 token, allowing for greater accessibility and liquidity. This simple and efficient exchange platform supports purchase options for both native and non-native token.",
+    opts: ["CW20", "cw20 exchange"],
+    ados: [
+      {
+        path: IImportantAdoKeys.PUBLISH_SETTINGS,
+        id: IImportantAdoKeys.PUBLISH_SETTINGS,
+        required: true,
+      },
+      { path: "cw20/latest/cw20", id: "tokens", required: true, "pos": { "x": 0, "y": 0 } },
+      { path: "cw20-exchange/latest/cw20-exchange", id: "cw20-exchange", required: true, "pos": { "x": 528, "y": -384 } },
+    ],
+    modules: [
+      { path: "cw20/latest/cw20" },
+      { path: "cw20-exchange/latest/cw20-exchange" },
+      { path: "rates/latest/rates" },
+      { path: "splitter/latest/splitter" },
+    ],
+    system: false,
+    installed: true,
+    starter: true,
+    formData: { "cw20-exchange": { "token_address": { "identifier": "tokens" } } },
+  },
   // {
   //   id: "cw20-staking",
   //   adoType: "app",
@@ -319,32 +327,32 @@ const APP_TEMPLATES: PartialTemplateType[] = [
   //   starter: true,
   // },
   {
-    id: "cw20-exchange",
+    id: 'admin-panel',
     adoType: "app",
-    name: "CW20 Exchange",
-    icon: "/app-templates/icons/cw20-staking.png",
-    description: "CW20 Exchange creates a unique digital asset to be sold on an independent exchange with support for configuring transactions to be split and distributed to multiple destinations. Buyers can easily purchase fractional shares of the CW20 token, allowing for greater accessibility and liquidity. This simple and efficient exchange platform supports purchase options for both native and non-native token.",
-    opts: ["CW20", "cw20 exchange"],
+    name: "Admin Panel",
+    icon: "/app-templates/icons/blank.png",
+    description:
+      "Admin template which contains all ados including those which are in beta phase",
+    opts: [
+      "ADO's are in development phase",
+      "Breaking changes",
+      "Loss of ADO",
+      "Only for admin/testing purpose",
+    ],
     ados: [
       {
         path: IImportantAdoKeys.PUBLISH_SETTINGS,
         id: IImportantAdoKeys.PUBLISH_SETTINGS,
         required: true,
       },
-      { path: "cw20/latest/cw20", id: "tokens", required: true, "pos": { "x": 0, "y": 0 } },
-      { path: "cw20-exchange/latest/cw20-exchange", id: "cw20-exchange", required: true, "pos": { "x": 528, "y": -384 } },
     ],
+
     modules: [
-      { path: "cw20/latest/cw20" },
-      { path: "cw20-exchange/latest/cw20-exchange" },
-      { path: "rates/latest/rates" },
-      { path: "splitter/latest/splitter" },
+      ...MASTER_ALLADO.map((ado) => ({ path: ado.source }))
     ],
-    system: false,
-    installed: true,
-    starter: true,
-    formData: { "cw20-exchange": { "token_address": { "identifier": "tokens" } } },
-  }
+    system: true,
+    starter: false,
+  },
 ];
 
 export default APP_TEMPLATES;

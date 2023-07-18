@@ -1,1 +1,12 @@
-[{"$id":"app-contract","class":"system","classifier":"","title":"App contract","description":"Publishing configurations to publish the ADO as an App","source":"app-contract/0.2.1/app-contract","version":"0.2.1","adopPath":"app-contract/0.2.1/app-contract/ADOP.json"}]
+[
+    {
+        "$id": "app-contract",
+        "class": "system",
+        "classifier": "",
+        "title": "App contract",
+        "description": "Publishing configurations to publish the ADO as an App",
+        "source": "app-contract/0.2.1/app-contract",
+        "version": "0.2.1",
+        "adopPath": "app-contract/0.2.1/app-contract/ADOP.json"
+    }
+]

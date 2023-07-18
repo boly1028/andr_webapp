@@ -5,14 +5,13 @@
  */
 
 import { useGetSchemaJson } from "@/lib/schema/hooks";
-import { BASE_ADOS, MODULES } from "@/lib/schema/utils/list";
+import { ALL_ADOS, BASE_ADOS, MODULES } from "@/lib/schema/utils/list";
 import { ChevronDownIcon } from "@/modules/common";
 import { WidgetProps } from "@andromedarjsf/utils";
 import { Button, Flex, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
 import { FC, useState } from "react";
 import Base from "./Base";
 import { useAndromedaClient } from "@/lib/andrjs";
-import { MASTER_ALLADO } from "@/lib/schema/utils/masterList";
 
 interface InstantiateMsgWidgetProps extends WidgetProps { }
 export const InstantiateMsgWidget: FC<InstantiateMsgWidgetProps> = (props) => {
@@ -51,7 +50,7 @@ export const InstantiateMsgWidget: FC<InstantiateMsgWidgetProps> = (props) => {
               >
                 Reset
               </MenuItem>
-              {[...MASTER_ALLADO].map((s) => (
+              {[...ALL_ADOS].map((s) => (
                 <MenuItem
                   key={s.source}
                   onClick={() => {

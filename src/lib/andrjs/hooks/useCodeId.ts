@@ -32,9 +32,8 @@ export default function useCodeId(adoType: string, version?: string) {
       return;
     };
     const fetchCodeId = async () => {
-      let _codeId = await getCodeId(`${adoType}@${version || adoVersion?.latest}`);
+      const _codeId = await getCodeId(`${adoType}@${version || adoVersion?.latest}`);
       setCodeId(_codeId);
-
     }
     fetchCodeId();
   }, [factoryAddress, adoType, client, connected]);

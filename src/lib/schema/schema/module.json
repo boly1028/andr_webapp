@@ -18,5 +18,15 @@
         "source": "rates/0.2.1/rates",
         "version": "0.2.1",
         "adopPath": "rates/0.2.1/rates/ADOP.json"
+    },
+    {
+        "$id": "receipt",
+        "class": "module",
+        "classifier": "sale",
+        "title": "Receipt",
+        "description": "",
+        "source": "receipt/0.1.2/receipt",
+        "version": "0.1.2",
+        "adopPath": "receipt/0.1.2/receipt/ADOP.json"
     }
 ]

@@ -70,6 +70,46 @@
         "adopPath": "cw721/0.2.1/cw721/ADOP.json"
     },
     {
+        "$id": "cw721-bids",
+        "class": "baseADO",
+        "classifier": "sale",
+        "title": "Cw721 bids",
+        "description": "",
+        "source": "cw721-bids/0.1.0/cw721-bids",
+        "version": "0.1.0",
+        "adopPath": "cw721-bids/0.1.0/cw721-bids/ADOP.json"
+    },
+    {
+        "$id": "cw721-staking",
+        "class": "baseADO",
+        "classifier": "escrow",
+        "title": "Cw721 staking",
+        "description": "",
+        "source": "cw721-staking/0.1.0/cw721-staking",
+        "version": "0.1.0",
+        "adopPath": "cw721-staking/0.1.0/cw721-staking/ADOP.json"
+    },
+    {
+        "$id": "cw721-timelock",
+        "class": "baseADO",
+        "classifier": "escrow",
+        "title": "Cw721 timelock",
+        "description": "",
+        "source": "cw721-timelock/0.1.0/cw721-timelock",
+        "version": "0.1.0",
+        "adopPath": "cw721-timelock/0.1.0/cw721-timelock/ADOP.json"
+    },
+    {
+        "$id": "gumball",
+        "class": "baseADO",
+        "classifier": "sale",
+        "title": "Gumball",
+        "description": "",
+        "source": "gumball/0.1.0/gumball",
+        "version": "0.1.0",
+        "adopPath": "gumball/0.1.0/gumball/ADOP.json"
+    },
+    {
         "$id": "lockdrop",
         "class": "baseADO",
         "classifier": "token",
@@ -100,6 +140,26 @@
         "adopPath": "merkle-airdrop/0.2.1/merkle-airdrop/ADOP.json"
     },
     {
+        "$id": "oracle",
+        "class": "baseADO",
+        "classifier": "",
+        "title": "Oracle",
+        "description": "",
+        "source": "oracle/0.1.0/oracle",
+        "version": "0.1.0",
+        "adopPath": "oracle/0.1.0/oracle/ADOP.json"
+    },
+    {
+        "$id": "process",
+        "class": "baseADO",
+        "classifier": "",
+        "title": "Process",
+        "description": "",
+        "source": "process/0.1.0/process",
+        "version": "0.1.0",
+        "adopPath": "process/0.1.0/process/ADOP.json"
+    },
+    {
         "$id": "rate-limiting-withdrawals",
         "class": "baseADO",
         "classifier": "escrow",
@@ -118,6 +178,36 @@
         "source": "splitter/0.2.3/splitter",
         "version": "0.2.3",
         "adopPath": "splitter/0.2.3/splitter/ADOP.json"
+    },
+    {
+        "$id": "storage",
+        "class": "baseADO",
+        "classifier": "",
+        "title": "Storage",
+        "description": "",
+        "source": "storage/0.1.0/storage",
+        "version": "0.1.0",
+        "adopPath": "storage/0.1.0/storage/ADOP.json"
+    },
+    {
+        "$id": "swapper",
+        "class": "baseADO",
+        "classifier": "",
+        "title": "Swapper",
+        "description": "Instantiate Message for Swapper contract.",
+        "source": "swapper/0.1.0/swapper",
+        "version": "0.1.0",
+        "adopPath": "swapper/0.1.0/swapper/ADOP.json"
+    },
+    {
+        "$id": "task-balancer",
+        "class": "baseADO",
+        "classifier": "",
+        "title": "Task balancer",
+        "description": "",
+        "source": "task-balancer/0.1.0/task-balancer",
+        "version": "0.1.0",
+        "adopPath": "task-balancer/0.1.0/task-balancer/ADOP.json"
     },
     {
         "$id": "timelock",
@@ -158,5 +248,15 @@
         "source": "weighted-distribution-splitter/0.2.1/weighted-distribution-splitter",
         "version": "0.2.1",
         "adopPath": "weighted-distribution-splitter/0.2.1/weighted-distribution-splitter/ADOP.json"
+    },
+    {
+        "$id": "wrapped-cw721",
+        "class": "baseADO",
+        "classifier": "collectible",
+        "title": "Wrapped cw721",
+        "description": "",
+        "source": "wrapped-cw721/0.1.0/wrapped-cw721",
+        "version": "0.1.0",
+        "adopPath": "wrapped-cw721/0.1.0/wrapped-cw721/ADOP.json"
     }
 ]
