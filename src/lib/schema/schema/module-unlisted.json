@@ -1,0 +1,12 @@
+[
+    {
+        "$id": "receipt",
+        "class": "module",
+        "classifier": "sale",
+        "title": "Receipt",
+        "description": "",
+        "source": "receipt/0.1.2/receipt",
+        "version": "0.1.2",
+        "adopPath": "receipt/0.1.2/receipt/ADOP.json"
+    }
+]

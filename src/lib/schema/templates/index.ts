@@ -1,5 +1,5 @@
 import { IImportantAdoKeys } from "../types";
-import { MASTER_ALLADO } from "../utils/masterList";
+import { MASTER_ADO_LIST } from "../utils/masterList";
 import { ITemplate } from "./types";
 
 type PartialTemplateType = Omit<ITemplate, 'formData'> & {
@@ -8,10 +8,9 @@ type PartialTemplateType = Omit<ITemplate, 'formData'> & {
 
 const APP_TEMPLATES: PartialTemplateType[] = [
   {
-    id: "app",
+    id: IImportantAdoKeys.BLANK_CANVAS,
     adoType: "app",
-    adoVersion: '0.2.0',
-    name: "A Blank Canvas",
+    name: "Empty Project",
     icon: "/app-templates/icons/blank.png",
     description:
       "Start from scratch building out your own ADO structure to be just the way you like it.",
@@ -29,11 +28,6 @@ const APP_TEMPLATES: PartialTemplateType[] = [
       },
     ],
 
-    // modules: [
-    //   ...BASE_ADOS.map((ado) => ({ path: ado.source })),
-    //   ...MODULES.map((ado) => ({ path: ado.source })),
-    //   ...PRIMITIVES.map((ado) => ({ path: ado.source })),
-    // ],
     modules: [
       {
         path: "auction/latest/auction",
@@ -57,6 +51,27 @@ const APP_TEMPLATES: PartialTemplateType[] = [
         path: "primitive/latest/primitive",
       },
     ],
+    // modules: [
+    //   {
+    //     path: "auction/latest/auction",
+    //   },
+    //   {
+    //     path: "cw721/latest/cw721",
+    //   },
+    //   {
+    //     path: "rates/latest/rates",
+    //   },
+    //   {
+    //     path: "splitter/latest/splitter",
+    //   },
+    //   { path: "marketplace/latest/marketplace" },
+    //   {
+    //     path: "crowdfund/latest/crowdfund"
+    //   },
+    //   // {
+    //   //   path: "address-list/latest/address-list",
+    //   // },
+    // ],
     system: true,
     starter: true,
   },
@@ -105,6 +120,7 @@ const APP_TEMPLATES: PartialTemplateType[] = [
       {
         path: "rates/latest/rates",
       },
+      { path: "marketplace/latest/marketplace" },
       // {
       //   path: "address-list/latest/address-list",
       // },
@@ -212,46 +228,64 @@ const APP_TEMPLATES: PartialTemplateType[] = [
         required: true,
       },
       {
-        "id": "tokens",
-        "path": "cw721/0.1.1/cw721",
-        "required": false,
-        "enabled": true,
-        "pos": { "x": -1056, "y": 272 }
+        path: "cw721/latest/cw721", id: "Tokens",
+        required: true,
+        enabled: true,
+        "pos": { "x": -16, "y": 800 }
       },
       {
-        "id": "crowdfund",
-        "path": "crowdfund/0.1.0/crowdfund",
-        "required": false,
-        "enabled": true,
-        "pos": { "x": -528, "y": -96 }
+        path: "crowdfund/latest/crowdfund", id: "Crowdfund", required: true,
+        "pos": { "x": 672, "y": 1248 }
       },
-      {
-        "id": "vault",
-        "path": "vault/0.1.0/vault",
-        "required": false,
-        "enabled": true,
-        "pos": { "x": -528, "y": 688 }
-      },
-      {
-        "id": "splitter",
-        "path": "splitter/0.1.0/splitter",
-        "required": false,
-        "enabled": true,
-        "pos": { "x": 0, "y": -96 }
-      }
+      { path: "vault/latest/vault", id: "Vault", required: false, enabled: true, "pos": { "x": 688, "y": 1968 } },
+      { path: "rates/latest/rates", id: "Rates", required: false, enabled: true, "pos": { "x": 0, "y": 1872 } },
     ],
     modules: [{ path: "vault/latest/vault" }],
     icon: "/app-templates/icons/crowdfund.png",
     installed: true,
     starter: true,
-    "formData": {
-      "splitter": {
-        "recipients": [
-          { "recipient": { "a_d_o": { "address": { "identifier": "vault" } } } }
-        ],
+    formData: {
+      "Rates": {
+        "rates": [
+          {
+            "is_additive": false,
+            "rate": {
+              "percent": {
+                "percent": "0.10"
+              }
+            },
+            "recipients": [
+              {
+                "a_d_o": {
+                  "address": {
+                    "identifier": "Vault"
+                  }
+                }
+              }
+            ],
+            "description": "10% Reduction to Vault"
+          }
+        ]
       },
-      "crowdfund": {
-        "token_address": { "identifier": "tokens" },
+      "Crowdfund": {
+        "can_mint_after_sale": false,
+        "modules": [
+          {
+            "address": {
+              "identifier": "Rates"
+            },
+            "is_mutable": false,
+            "module_type": "rates"
+          }
+        ],
+        "token_address": {
+          "identifier": "Tokens"
+        }
+      },
+      "Tokens": {
+        "minter": {
+          "identifier": "Crowdfund"
+        }
       }
     }
   },
@@ -285,33 +319,32 @@ const APP_TEMPLATES: PartialTemplateType[] = [
   //   starter: true,
   // },
   {
-    id: "test-developer",
+    id: "cw20-exchange",
     adoType: "app",
-    name: "Tester Build",
-    icon: "/app-templates/icons/blank.png",
-    description:
-      "Start from scratch building out your own ADO structure to be just the way you like it.",
-    opts: [
-      "Select your Base ADO functionality",
-      "Add on your prefered modules",
-      "Save as a template",
-      "Publish and use!",
-    ],
+    name: "CW20 Exchange",
+    icon: "/app-templates/icons/cw20-staking.png",
+    description: "CW20 Exchange creates a unique digital asset to be sold on an independent exchange with support for configuring transactions to be split and distributed to multiple destinations. Buyers can easily purchase fractional shares of the CW20 token, allowing for greater accessibility and liquidity. This simple and efficient exchange platform supports purchase options for both native and non-native token.",
+    opts: ["CW20", "cw20 exchange"],
     ados: [
       {
         path: IImportantAdoKeys.PUBLISH_SETTINGS,
         id: IImportantAdoKeys.PUBLISH_SETTINGS,
         required: true,
       },
+      { path: "cw20/latest/cw20", id: "tokens", required: true, "pos": { "x": 0, "y": 0 } },
+      { path: "cw20-exchange/latest/cw20-exchange", id: "cw20-exchange", required: true, "pos": { "x": 528, "y": -384 } },
     ],
-
     modules: [
-      ...MASTER_ALLADO.map((ado) => ({ path: ado.source })),
+      { path: "cw20/latest/cw20" },
+      { path: "cw20-exchange/latest/cw20-exchange" },
+      { path: "rates/latest/rates" },
+      { path: "splitter/latest/splitter" },
     ],
-    system: true,
+    system: false,
+    installed: true,
     starter: true,
-    installed: true
-  },
+    formData: { "cw20-exchange": { "token_address": { "identifier": "tokens" } } },
+  }
 ];
 
 export default APP_TEMPLATES;
