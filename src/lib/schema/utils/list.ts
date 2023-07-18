@@ -19,6 +19,6 @@ export const QUERIES = MASTER_QUERY;
 export const QUERY_RESPONSES = MASTER_RESPONSE;
 export const SYSTEM_ADOS = MASTER_SYSTEM;
 
-export const ALL_ADOS = [...BASE_ADOS, ...MODULES, ...PRIMITIVES];
+export const ALL_ADOS = [...BASE_ADOS, ...MODULES, ...PRIMITIVES].sort((a, b) => a.$id > b.$id ? 1 : -1);
 
 export type IAdoList = typeof BASE_ADOS
