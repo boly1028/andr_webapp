@@ -30,6 +30,7 @@ export const SITE_LINKS = {
     embeddables: () => `/embeddables`,
     embeddablesBuild: (id: string) => `/embeddables/builder/${id}`,
     embeddablesUpdate: (id: string, key: string) => `/embeddables/builder/${id}?key=${key}`,
+    embeddablesView: (id: string) => `/embeddables/view/${id}`,
     // Production Level Deployment
     embeddablePreview: (configUri: string) => `https://embeddable-marketplace-demo.vercel.app?config=${configUri}`,
     // Test Level Deployment - Update this with the branch deployement you want to test

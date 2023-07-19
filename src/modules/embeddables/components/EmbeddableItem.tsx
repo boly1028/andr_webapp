@@ -111,6 +111,14 @@ const EmbeddableItem: FC<Props> = (props) => {
                                     />
                                     <MenuList>
                                         <NextLink
+                                            href={SITE_LINKS.embeddablesView(config.$type)}
+                                            passHref
+                                        >
+                                            <MenuItem>
+                                                View
+                                            </MenuItem>
+                                        </NextLink>
+                                        <NextLink
                                             href={SITE_LINKS.embeddablesUpdate(config.$type, eKey)}
                                             passHref
                                         >
