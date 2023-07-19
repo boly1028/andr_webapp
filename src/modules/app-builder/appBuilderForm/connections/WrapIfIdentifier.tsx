@@ -40,7 +40,7 @@ export const WrapIfIdentifier: FC<WrapIfIdentifierProps> = (props) => {
 
     const getMyEdges = () => getEdges().filter(edge => edge.target === panel && extractDataFromHandler(edge.targetHandle ?? '').rjsfIdPrefix === id);
 
-    const handleUpdate = useCallback(debounce((value: string) => {
+    const handleUpdate = useCallback((value: string) => {
         const myEdges = getMyEdges();
         const sourceNode = getNode(value);
         if (!sourceNode) return deleteElements({ edges: myEdges });
@@ -52,7 +52,7 @@ export const WrapIfIdentifier: FC<WrapIfIdentifierProps> = (props) => {
             sourceHandle: createHandlerId(value, '', cacheDirection?.[0] ?? DIRECTION.UP),
             targetHandle: createHandlerId(panel ?? '', id, cacheDirection?.[1] ?? DIRECTION.LEFT)
         })
-    }, 700), [connect, panel, id, editorRef, deleteElements])
+    }, [connect, panel, id, editorRef, deleteElements])
 
     useEffect(() => {
         if (isIdentifier)
@@ -75,7 +75,10 @@ export const WrapIfIdentifier: FC<WrapIfIdentifierProps> = (props) => {
 
     useEffect(() => {
         if (isIdentifier) {
-            handleUpdate(identifierValue);
+            const tId = setTimeout(() => {
+                handleUpdate(identifierValue);
+            }, 700);
+            return () => clearTimeout(tId)
         }
     }, [identifierValue, isIdentifier, nodesSets])
 
