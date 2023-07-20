@@ -1,16 +1,9 @@
-
 /* View Header CSS: START */
 .imgContainer img {
-    width: 100%;
+    /* width: 100%; */
     /* height: auto; */
 }
 
-.imgContainer img:hover {
-    opacity: 0.3;
-}
-.imgContainer:hover .imgButton{
-    opacity: 1;
-}
 .imgButton {
     transition: .5s ease;
     opacity: 0;
@@ -21,6 +14,15 @@
     -ms-transform: translate(-50%, -50%);
     text-align: center;
 }
+
+.imgContainer:hover img {
+    opacity: 0.3;
+}
+
+.imgContainer:hover .imgButton {
+    opacity: 1;
+}
+
 /* View Header CSS: END */
 
 /* View Table CSS: START */
@@ -36,4 +38,5 @@
     background-color: rgba(255, 255, 255, 0.09);
     border-radius: 6px;
 }
+
 /* View Table CSS: END */
