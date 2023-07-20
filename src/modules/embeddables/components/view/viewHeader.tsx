@@ -18,6 +18,7 @@ const ViewHeader: FC = () => {
                     fontSize={'16px'}
                     fontWeight='600'
                     size='sm'
+                    rounded={'8px'}
                 >
                     Preview
                 </Button>

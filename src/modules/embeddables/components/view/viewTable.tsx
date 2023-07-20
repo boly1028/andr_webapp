@@ -64,8 +64,8 @@ const ViewTable: FC = () => {
                 <Button
                   onClick={() => ''}
                   colorScheme="primary"
-                  rightIcon={<ChevronRightIcon />}
-                  fontSize='12px'
+                  rightIcon={<ChevronRightIcon boxSize={4}/>}
+                  fontSize='14px'
                   w='90px'
                   size='xs'
                   className={styles.onHover}

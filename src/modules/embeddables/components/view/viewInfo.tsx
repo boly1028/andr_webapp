@@ -3,13 +3,17 @@ import { Box, Flex, HStack, Image, VStack, Text, Icon, Tag, TagLabel, Link, Divi
 import { FC } from 'react';
 import { CopyFilledIcon } from '@/modules/common';
 import { ExternalLinkIcon } from '@chakra-ui/icons';
+import styles from './view.module.css';
 
 const ViewInfo: FC = () => {
     const address = truncate('andr123xxyey4enkfcfgv5212cxl003xmk78tdpmy6k5m5zhr');
     return (
         <Flex gap='24px' w='full'>
-            <Box w='50%'>
+            <Box w='50%' className={styles.imgContainer} position='relative'>
                 <Image alt='' src={'../../embeddable/embPreviewPlaceHolder.png'} h='full' />
+                <Box className={styles.imgButton}>
+                    <Button size={'sm'} colorScheme='primary' rounded={'8px'}>Preview Project</Button>
+                </Box>
             </Box>
             <VStack
                 w='50%'
