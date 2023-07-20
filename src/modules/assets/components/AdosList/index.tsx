@@ -15,6 +15,8 @@ import _ from "lodash";
 import { AssetSortAdoType } from "@/lib/graphql/hooks/assets/ado.enum";
 
 export const SORT_LIMIT = 10;
+import ScrollToTop from "@/modules/common/components/ScrollToTop";
+import ScrollToBottom from "@/modules/common/components/ScrollToBottom";
 
 const AdosList: FC = () => {
   const wallet = useWallet();
@@ -160,15 +162,15 @@ const AdosList: FC = () => {
           return <AdoItem key={item.address} address={item.address} adoType={item.adoType as IAdoType} name={item.name ?? ''} />;
         })}
       </InfiniteScroll>
-      {
-        loading && (
-          <Stack mt='6' gap='4'>
-            <Skeleton h="14" rounded="xl" />
-            <Skeleton h="14" rounded="xl" />
-            <Skeleton h="14" rounded="xl" />
-          </Stack>
-        )}
-      {hasMore && (
+      <ScrollToBottom />
+      <ScrollToTop />
+      {loading ? (
+        <Stack mt='6' gap='4'>
+          <Skeleton h="14" rounded="xl" />
+          <Skeleton h="14" rounded="xl" />
+          <Skeleton h="14" rounded="xl" />
+        </Stack>
+      ) : hasMore && (
         <Center mt='6'>
           <Button variant='ghost' onClick={fetchMoreAsset}>
             Load more

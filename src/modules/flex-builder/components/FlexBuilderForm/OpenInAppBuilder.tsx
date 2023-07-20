@@ -40,7 +40,7 @@ function OpenInAppBuilderButton({ schema, uiSchema, formData }: OpenInAppBuilder
   return (
     <Tooltip label={`Open in App Builder`} bg='base.white' placement='top'>
       <IconButton
-        aria-label="Copy Template"
+        aria-label="Open in App Builder"
         variant="outline"
         icon={<AppBuilder boxSize={5} color="gray.500" />}
         onClick={handleRoute}
