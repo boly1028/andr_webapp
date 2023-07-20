@@ -21,7 +21,7 @@ const ViewInfo: FC = () => {
                 bgColor={'rgba(255, 255, 255, 0.05)'}
                 p='24px'
                 borderRadius={'12px'}
-                gap='20px'
+                gap='12px'
             >
                 <VStack>
                     <HStack gap='48px'>

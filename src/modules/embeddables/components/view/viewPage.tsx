@@ -12,7 +12,7 @@ const ViewPage: FC = (props) => {
             <Box mt='30px'>
                 <ViewHeader />
             </Box>
-            <Box mt='64px'>
+            <Box mt='50px'>
                 <ViewInfo />
             </Box>
             <Box mt='64px' mb='100px'>
