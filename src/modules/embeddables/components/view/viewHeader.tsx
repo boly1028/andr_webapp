@@ -17,6 +17,7 @@ const ViewHeader: FC = () => {
                     px='16px'
                     fontSize={'16px'}
                     fontWeight='600'
+                    size='sm'
                 >
                     Preview
                 </Button>

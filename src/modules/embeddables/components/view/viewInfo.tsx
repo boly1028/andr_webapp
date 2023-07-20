@@ -5,11 +5,11 @@ import { CopyFilledIcon } from '@/modules/common';
 import { ExternalLinkIcon } from '@chakra-ui/icons';
 
 const ViewInfo: FC = () => {
-    const address = truncate('andr12xxey4enkcfgv522cxl03xmk7tdpmy6k5m5zhr');
+    const address = truncate('andr123xxyey4enkfcfgv5212cxl003xmk78tdpmy6k5m5zhr');
     return (
         <Flex gap='24px' w='full'>
             <Box w='50%'>
-                <Image alt='' src={'../../embeddable/embPreviewPlaceHolder.png'} h='full'/>
+                <Image alt='' src={'../../embeddable/embPreviewPlaceHolder.png'} h='full' />
             </Box>
             <VStack
                 w='50%'
@@ -35,9 +35,11 @@ const ViewInfo: FC = () => {
                         </VStack>
                         <VStack alignItems={'flex-start'}>
                             <Text color="rgba(255, 255, 255, 0.6)" fontWeight='500' fontSize='14px'>Created By</Text>
-                            <Text fontWeight='500' fontSize='14px'>{address}
+                            <HStack>
+                                <Text fontWeight='500' fontSize='14px'>{address}
+                                </Text>
                                 <Icon as={CopyFilledIcon} cursor='pointer' />
-                            </Text>
+                            </HStack>
                         </VStack>
                     </HStack>
                 </VStack>
