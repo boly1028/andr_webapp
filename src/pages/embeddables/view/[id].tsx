@@ -1,9 +1,10 @@
 import { Layout } from "@/modules/common";
+import { ILinkItemKey } from "@/modules/common/components/Sidebar";
 import { EmbeddableViewPage } from "@/modules/embeddables/components/view";
 
 const EmbeddableView = () => {
     return (
-        <Layout>
+        <Layout activeLink={ILinkItemKey.EMBEDDABLES}>
             <EmbeddableViewPage />
         </Layout>
     )
