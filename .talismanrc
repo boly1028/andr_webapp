@@ -17,6 +17,7 @@ fileignoreconfig:
   checksum: e0c532086f6fcb79a0ac79d3358103d9c847204a5376eb1f6ad1a5004f69be8f
 - filename: src/modules/embeddables/components/view/viewInfo.tsx
   checksum: 96678e083d96c446a58cd66293455156e046379ce184bae38a2f662c52b12c1b
+  checksum: 8d925c16df99352866a3d8be3d41fba7923a6a13c5228b0afe818b42fff166c7
 - filename: src/modules/flex-builder/components/FlexBuilderForm/DownloadButton.tsx
   checksum: 00584381a339fe321d0b7fa5ea57251218b99d0cfbf23845530563f4e15a052e
 - filename: src/modules/modals/components/MultiTransaction/Simulate.tsx
