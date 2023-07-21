@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { IconButton } from "@chakra-ui/react";
+import { IconButton, Tooltip } from "@chakra-ui/react";
 
 import { DownloadIcon } from "@/modules/common";
 import {
@@ -48,12 +48,14 @@ function DownloadButton({ schema, uiSchema, formData, template }: DownloadFlexPr
   }, [schema, uiSchema, formData]);
 
   return (
-    <IconButton
-      aria-label="Download Template"
-      variant="outline"
-      icon={<DownloadIcon boxSize={5} color="gray.500" />}
-      onClick={handleDownload}
-    />
+    <Tooltip label={`Download Template`} bg='base.white' placement='top'>
+      <IconButton
+        aria-label="Download Template"
+        variant="outline"
+        icon={<DownloadIcon boxSize={5} color="gray.500" />}
+        onClick={handleDownload}
+      />
+    </Tooltip>
   );
 }
 

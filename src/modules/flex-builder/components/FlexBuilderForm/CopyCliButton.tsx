@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { Button, IconButton, Text, useToast } from "@chakra-ui/react";
+import { Button, IconButton, Text, Tooltip, useToast } from "@chakra-ui/react";
 
 import { CopyButton, CliIcon } from "@/modules/common";
 import {
@@ -38,12 +38,14 @@ function CopyCliButton({ formData, onCopy }: CopyCliProps) {
 
   return (
     <CopyButton text={handleCopy} variant="unstyled">
-      <IconButton
-        aria-label="Export to CLI"
-        variant="outline"
-        icon={<CliIcon boxSize={5} color="gray.500" />}
-      >
-      </IconButton>
+      <Tooltip label={`Export to CLI`} bg='base.white' placement='top'>
+        <IconButton
+          aria-label="Export to CLI"
+          variant="outline"
+          icon={<CliIcon boxSize={5} color="gray.500" />}
+        >s
+        </IconButton>
+      </Tooltip>
     </CopyButton>
   );
 }

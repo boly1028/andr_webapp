@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { IconButton } from "@chakra-ui/react";
+import { IconButton, Tooltip } from "@chakra-ui/react";
 
 import { CopyButton, CopyIcon, DownloadIcon } from "@/modules/common";
 import {
@@ -38,11 +38,13 @@ function CopyFlexButton({ schema, uiSchema, formData }: CopyFlexProps) {
 
   return (
     <CopyButton text={handleCopy} variant="unstyled">
-      <IconButton
-        aria-label="Copy Template"
-        variant="outline"
-        icon={<CopyIcon boxSize={5} color="gray.500" />}
-      />
+      <Tooltip label={`Copy Template`} bg='base.white' placement='top'>
+        <IconButton
+          aria-label="Copy Template"
+          variant="outline"
+          icon={<CopyIcon boxSize={5} color="gray.500" />}
+        />
+      </Tooltip>
     </CopyButton>
   );
 }
