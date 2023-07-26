@@ -43,6 +43,11 @@ function CopyFlexButton({ schema, uiSchema, formData }: CopyFlexProps) {
           aria-label="Copy Template"
           variant="outline"
           icon={<CopyIcon boxSize={5} color="gray.500" />}
+          _hover={{
+            background: 'rgba(68, 129, 255, 1)',
+            border: 'none',
+            svg: { color: 'white' }
+          }}
         />
       </Tooltip>
     </CopyButton>

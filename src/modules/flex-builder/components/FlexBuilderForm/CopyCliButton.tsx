@@ -43,7 +43,12 @@ function CopyCliButton({ formData, onCopy }: CopyCliProps) {
           aria-label="Export to CLI"
           variant="outline"
           icon={<CliIcon boxSize={5} color="gray.500" />}
-        >s
+          _hover={{
+            background: 'rgba(68, 129, 255, 1)',
+            border: 'none',
+            svg: { color: 'white' }
+          }}
+        >
         </IconButton>
       </Tooltip>
     </CopyButton>
