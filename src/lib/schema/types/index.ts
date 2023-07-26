@@ -35,6 +35,10 @@ export interface IAndromedaSchema extends JSONSchema7 {
             type: 'string';
             default: IAdoType;
         };
+        $version: {
+            type: 'string';
+            default: string;
+        };
         $class: {
             type: 'string';
             default: string;
@@ -61,15 +65,17 @@ export interface IAndromedaSchema extends JSONSchema7 {
 export interface IAndromedaFormData {
     [name: string]: any;
     $type: IAdoType;
+    $version: IAndromedaSchema['properties']['$version']['default'];
     $class: string;
     $classifier: string;
     $removable: boolean;
     $enabled: boolean;
-    $required:boolean;
+    $required: boolean;
 }
 
 export interface IAndromedaUISchema extends UiSchema {
     $type: { "ui:widget": "hidden" };
+    $version: { "ui:widget": "hidden" };
     $class: { "ui:widget": "hidden" };
     $classifier: { "ui:widget": "hidden" };
     $removable: { "ui:widget": "hidden" };

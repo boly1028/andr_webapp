@@ -17,9 +17,9 @@ export default function useCodeId(adoType: string, version?: string) {
   const getCodeId = async (key: string) => {
     console.log("Fetching Code Id for", key)
     try {
-      const _codeId = await client?.adoDB?.getCodeId(key, factoryAddress);
+      const _codeId = await client?.os.adoDB?.getCodeId(key, factoryAddress);
       console.log(`CodeID for ${key} is ${_codeId}`)
-      return _codeId
+      return _codeId ?? -1
     } catch (err) {
       console.warn(err)
       return -1;
@@ -32,7 +32,11 @@ export default function useCodeId(adoType: string, version?: string) {
       return;
     };
     const fetchCodeId = async () => {
+<<<<<<< HEAD
       const _codeId = await getCodeId(`${adoType}@${version || adoVersion?.latest}`);
+=======
+      const _codeId = await getCodeId(`${adoType}_${version ?? adoVersion?.latest}`);
+>>>>>>> 0ed47c8 (New Kernel and adodb testing)
       setCodeId(_codeId);
     }
     fetchCodeId();

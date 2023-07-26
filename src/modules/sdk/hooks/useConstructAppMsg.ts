@@ -41,7 +41,8 @@ export default function useConstructAppMsg() {
         if (panel.$enabled === false) return;
 
         // Ado Type of current panel
-        const adoType = panel.$type as IAdoType;
+        const adoType = panel.$type === 'app-contract' ? 'app' : panel.$type;
+        const adoVersion = panel.$version;
 
         // Remove hidden fields from panel data
         const msg = constructAdoMsg({
@@ -56,7 +57,7 @@ export default function useConstructAppMsg() {
         // Push current app data to app list of the contract
         appContract.app_components.push({
           'name': id,
-          'ado_type': adoType,
+          'ado_type': `${adoType}_${adoVersion}`,
           'instantiate_msg': instantiateMsg
         })
       })

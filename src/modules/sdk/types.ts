@@ -8,7 +8,7 @@ export interface IAppContract {
     name: string;
     kernel_address: string;
     app_components: Array<{
-        ado_type: IAdoType;
+        ado_type: string;
         instantiate_msg: string;
         name: string;
     }>;

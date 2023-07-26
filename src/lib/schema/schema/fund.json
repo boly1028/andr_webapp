@@ -1,6 +1,7 @@
 {
     "schema": {
         "$id": "fund",
+        "version": "0.2.0",
         "class": "system",
         "classifier": "",
         "title": "Add Fund",

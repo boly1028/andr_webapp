@@ -1,7 +1,7 @@
-import { IImportantAdoKeys } from "../types";
+import { IAdoType, IImportantAdoKeys } from "../types";
 import { ALL_ADOS } from "../utils/list";
 import { MASTER_ALLADO } from "../utils/masterList";
-import { ITemplate } from "./types";
+import { IAdo, ITemplate } from "./types";
 
 type PartialTemplateType = Omit<ITemplate, 'formData'> & {
   formData?: any
@@ -352,6 +352,28 @@ const APP_TEMPLATES: PartialTemplateType[] = [
     system: true,
     starter: false,
   },
+  ...MASTER_ALLADO.map(ado => ({
+    id: ado.$id,
+    adoType: ado.$id as IAdoType,
+    name: ado.title,
+    description: ado.description,
+    opts: [ado.$id],
+    ados: [
+      {
+        path: ado.source,
+        id: ado.$id,
+        required: true,
+      },
+    ],
+    modules: [
+      // { path: "adodb/latest/adodb" },
+    ],
+    icon: "/app-templates/icons/market.png",
+    installed: true,
+    starter: true,
+    formData: {
+    }
+  }))
 ];
 
 export default APP_TEMPLATES;

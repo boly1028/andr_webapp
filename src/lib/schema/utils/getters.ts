@@ -67,6 +67,11 @@ export const getSchemaFromPath = async (path: string) => {
             // Type will also contain version number
             default: schema.schema.$id
         },
+        $version: {
+            type: 'string',
+            // Type will also contain version number
+            default: schema.schema.version
+        },
         $class: {
             type: 'string',
             default: schema.schema.class
@@ -113,6 +118,9 @@ export const getSchemaFromPath = async (path: string) => {
         'ui:widget': 'hidden'
     };
     schema["ui-schema"].$type = {
+        'ui:widget': 'hidden'
+    };
+    schema["ui-schema"].$version = {
         'ui:widget': 'hidden'
     };
     schema["ui-schema"].$required = {

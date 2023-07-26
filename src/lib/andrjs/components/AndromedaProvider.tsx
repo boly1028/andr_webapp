@@ -47,7 +47,7 @@ const AndromedaProvider: React.FC<AndromedaProviderProps> = memo(
           await client.connect(
             config.chainUrl,
             config.registryAddress,
-            config.kernelAddress,
+            "andr1wr5vjl9tyqk0ncz5vxlak846d5c6p9uads90slljxeyzu6xj0a0q0dl6hk",
             config.addressPrefix,
             signer,
             {
@@ -62,7 +62,8 @@ const AndromedaProvider: React.FC<AndromedaProviderProps> = memo(
           if (client.isConnected) {
             setConnected(true);
             console.log(cloneDeep(client.isConnected), new Date().getTime());
-            setFactoryAddress(client.adoDB.address ?? "");
+            setFactoryAddress(client.os.adoDB?.address ?? client.adoDB.address ?? "");
+            // setFactoryAddress('andr1pugcjgka2p42h923d2x0t8t9zhstc5mz5ezfv5hw9jdvp0p73rmq2zwkxr')
             console.log("Andromeda Client connected");
           }
         } catch (error) {
