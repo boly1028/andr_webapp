@@ -13,6 +13,7 @@ import {
   IconButton,
   MenuList,
   MenuItem,
+  Divider,
 } from "@/theme/ui-elements";
 import InlineStat from "./InlineStat";
 import { useDisclosure } from "@chakra-ui/hooks";
@@ -135,6 +136,7 @@ const AdoItem: FC<AdoItemProps> = ({ address, adoType: _adoType, name, proxyAddr
                   Multi Execute
                 </MenuItem>
               </NextLink>
+              <Divider />
               {adopData?.modifiers?.map((action) => {
                 const path = `${adoType}/${version}/${formatActionPath(
                   action,
@@ -148,6 +150,24 @@ const AdoItem: FC<AdoItemProps> = ({ address, adoType: _adoType, name, proxyAddr
                     <MenuItem key={action}>
                       {/* <MenuItem icon={<Icon as={EyeIcon} boxSize={5} />}> */}
                       {formatActionTitles(action)}
+                    </MenuItem>
+                  </NextLink>
+                );
+              })}
+              <Divider />
+              {adopData?.queries?.map((action) => {
+                const path = `${adoType}/${version}/${formatActionPath(
+                  action,
+                )}`;
+                return (
+                  <NextLink
+                    key={action}
+                    href={SITE_LINKS.adoQuery(path, address ?? "")}
+                    passHref
+                  >
+                    <MenuItem key={action}>
+                      {/* <MenuItem icon={<Icon as={EyeIcon} boxSize={5} />}> */}
+                      {formatActionTitles(action.replaceAll('.', ' '))}
                     </MenuItem>
                   </NextLink>
                 );

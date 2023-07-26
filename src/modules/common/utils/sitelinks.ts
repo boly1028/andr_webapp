@@ -20,6 +20,7 @@ export const SITE_LINKS = {
     flexBuilderTemplate: (uri?: string) => `/flex-builder/import${uri ? `?data=${uri}` : ''}`,
     adoExecute: (path: string, address: string, name?: string, appAddress?: string) => `/flexecute/${path}?address=${address}&name=${name || ''}&appAddress=${appAddress || ''}`,
     adoMultiExecute: (path: string, address: string, name?: string, appAddress?: string) => `/flexecute/multi-msg/${path}?address=${address}&name=${name || ''}&appAddress=${appAddress || ''}`,
+    adoQuery: (path: string, address: string) => `/flexquery/${path}?address=${address}`,
     // App
     appStore: () => `/app-store`,
     appStoreItem: (id: string) => `/app-store/${id}`,

@@ -44,7 +44,8 @@ export const getADOPFromPath = async (path: string) => {
     path = await resolveVersionInPath(path)
     const adop = await import(`../schema/${path}.json`).then(res => res.default).then(data => cloneDeep(data)) as {
         modifiers: string[],
-        cw721receives: string[]
+        cw721receives: string[],
+        queries: string[]
     }
     return adop;
 }
@@ -177,6 +178,26 @@ export const getADOMultiExecuteTemplate = async (path: string) => {
             { 'path': IImportantAdoKeys.FUND }
         ]
     };
+    const template = await processTemplate(currentTemplate);
+    return template;
+}
+
+export const getADOQueryTemplate = async (path: string) => {
+    // Generate Template
+    const currentTemplate: ITemplate = {
+        id: path,
+        adoType: path.split('/')[0] as any || 'app',
+        name: '',
+        description: '',
+        icon: "",
+        opts: [],
+        ados: [
+            { path: path, id: path.split('/').pop() ?? "Query", required: true },
+        ],
+        modules: [
+        ]
+    };
+
     const template = await processTemplate(currentTemplate);
     return template;
 }
