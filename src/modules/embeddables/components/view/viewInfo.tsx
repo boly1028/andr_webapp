@@ -1,11 +1,17 @@
 import { EmbPublishIcon, truncate } from '@/modules/common';
-import { Box, Flex, HStack, Image, VStack, Text, Icon, Tag, TagLabel, Link, Divider, Button } from '@chakra-ui/react';
+import { Box, Flex, HStack, Image, VStack, Text, Icon, Tag, TagLabel, Link, Divider, Button, SkeletonText } from '@chakra-ui/react';
 import { FC } from 'react';
 import { CopyFilledIcon } from '@/modules/common';
 import { ExternalLinkIcon } from '@chakra-ui/icons';
 import styles from './view.module.css';
+import { IEmbeddableConfig } from '@/lib/schema/types/embeddables';
 
-const ViewInfo: FC = () => {
+interface ViewHeaderProps {
+    data: IEmbeddableConfig | undefined;
+    loading: boolean;
+}
+
+const ViewInfo: FC<ViewHeaderProps> = ({ data, loading }) => {
     const address = truncate('andr123xxyey4enkfcfgv5212cxl003xmk78tdpmy6k5m5zhr');
     return (
         <Flex gap='24px' w='full'>
@@ -51,7 +57,10 @@ const ViewInfo: FC = () => {
                     <HStack gap='48px'>
                         <VStack alignItems={'flex-start'}>
                             <Text color="rgba(255, 255, 255, 0.6)" fontWeight='500' fontSize='14px'>Type</Text>
-                            <Text fontWeight='500' fontSize='14px'>App</Text>
+                            {loading &&
+                                <SkeletonText skeletonHeight="2" noOfLines={1} color='gray'/>
+                            }
+                            <Text fontWeight='500' fontSize='14px'>{data?.$type}</Text>
                         </VStack>
                         <VStack alignItems={'flex-start'}>
                             <Text color="rgba(255, 255, 255, 0.6)" fontWeight='500' fontSize='14px'>Published</Text>

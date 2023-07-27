@@ -22,6 +22,6 @@ export const useGetEmbeddableKeys = (embeddable: string) => {
         return Array.from(new Set(keys));
     }, [txs])
     return {
-        keys
+        keys, loading
     }
 }

@@ -1,14 +1,23 @@
 import { FC } from 'react';
 import { EmbViewPageIcon } from '@/modules/common';
-import { Flex, Icon, IconButton, HStack, Text, Button } from '@chakra-ui/react';
+import { Flex, Icon, IconButton, HStack, Text, Button, Skeleton, Stack, SkeletonText } from '@chakra-ui/react';
 import { MoreHorizontal } from 'lucide-react';
-
-const ViewHeader: FC = () => {
+interface ViewHeaderProps {
+    name: string | undefined;
+    loading: boolean;
+}
+const ViewHeader: FC<ViewHeaderProps> = (props) => {
+    const { name, loading } = props;
     return (
         <Flex justifyContent={'space-between'}>
             <HStack gap='16px'>
                 <Icon as={EmbViewPageIcon} w='40px' h='40px' />
-                <Text fontSize={'24px'} fontWeight='600'>My NFT Embeddable</Text>
+                {loading &&
+                    <SkeletonText skeletonHeight="20px" noOfLines={1} color='gray'/>
+                }
+                {name &&
+                    <Text fontSize={'24px'} fontWeight='600'>{name}</Text>
+                }
             </HStack>
             <HStack gap='8px'>
                 <Button
