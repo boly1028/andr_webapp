@@ -27,6 +27,10 @@ const EmbeddableList: FC<Props> = (props) => {
         }
     }, [searchInput]);
 
+    useEffect(() => {
+        setkeyList(keys);
+    }, [keys]);
+    
     return (
         <Box py='48px'>
             <VStack spacing={4} w='full' alignItems={'flex-start'}>
