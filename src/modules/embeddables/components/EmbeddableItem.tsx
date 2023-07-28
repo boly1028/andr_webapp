@@ -26,7 +26,8 @@ interface Props {
 const EmbeddableItem: FC<Props> = (props) => {
     const { address, eKey } = props;
     const { config: EmbeddableItem, loading } = useGetEmbeddabeleConfig(address, eKey);
-    if (!EmbeddableItem) return null;
+    
+    // if (!EmbeddableItem) return null;
 
     return (
         <>
