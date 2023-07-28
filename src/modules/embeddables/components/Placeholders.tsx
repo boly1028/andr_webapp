@@ -57,8 +57,8 @@ const Placeholders = () => {
 export default Placeholders
 
 const PlaceholdersData = [
-    { type: 'Auction', icon: Auction, demoLink: 'https://embeddable-marketplace-demo.vercel.app/', img: 'placeholders/AuctionDark.png' },
-    { type: 'Market', icon: Market, demoLink: 'https://embeddable-marketplace-demo.vercel.app/', img: 'placeholders/MarketDrak.png' },
-    { type: 'CrowdFund', icon: CrowdFund, demoLink: 'https://embeddable-marketplace-demo.vercel.app/', img: 'placeholders/CrowdfundDark.png' },
+    { type: 'Auction', icon: Auction, demoLink: 'https://embeddable-marketplace-demo.vercel.app/embeddables-auction-1/cw721/ANDR6?config=andr10xuc5g4xd5ja5q608qh8g9r9ftg46lnc0cxze8ds823nxgkwuu7swy54zl--Demo-Auction', img: 'placeholders/AuctionDark.png' },
+    { type: 'Market', icon: Market, demoLink: 'https://embeddable-marketplace-demo.vercel.app/?config=stars1vgjkrx9zhjem3gfzm99jcz5wpradya5kz0lwhztdgvqgdgcrkswqhkvh25--Marketplace-Demo', img: 'placeholders/MarketDrak.png' },
+    { type: 'CrowdFund', icon: CrowdFund, demoLink: 'https://embeddable-marketplace-demo.vercel.app/embeddables-crowdfund-1/cw721/CNFT-1?config=terra177hm07macqvm4rttkerncrdjp5aga2za9tn6444lllametaadnkswg6k4m--Crowdfund%20Demo', img: 'placeholders/CrowdfundDark.png' },
     { type: 'TokenExchange', icon: TokenExchange, demoLink: 'https://embeddable-marketplace-demo.vercel.app/', img: 'placeholders/TokenExchangeDark.png' }
 ];
