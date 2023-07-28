@@ -33,13 +33,15 @@ const Placeholders = () => {
                                     className={styles.iconButton}
                                 />
                                 <Text fontWeight={'500'} fontSize='16px'>{item.type}</Text>
-                                <Button
-                                    rightIcon={<ExternalLinkIcon />}
-                                    colorScheme='primary'
-                                    size='xs'
-                                    borderRadius={'6px'}
-                                    className={styles.demoButton}
-                                >View Demo</Button>
+                                <a href={item.demoLink} target='_blank' rel="noopener noreferrer">
+                                    <Button
+                                        rightIcon={<ExternalLinkIcon />}
+                                        colorScheme='primary'
+                                        size='xs'
+                                        borderRadius={'6px'}
+                                        className={styles.demoButton}
+                                    >View Demo</Button>
+                                </a>
                             </VStack>
                         )
                     })
@@ -55,8 +57,8 @@ const Placeholders = () => {
 export default Placeholders
 
 const PlaceholdersData = [
-    { type: 'Auction', icon: Auction, link: '', img: 'placeholders/AuctionDark.png' },
-    { type: 'Market', icon: Market, link: '', img: 'placeholders/MarketDrak.png' },
-    { type: 'CrowdFund', icon: CrowdFund, link: '', img: 'placeholders/CrowdfundDark.png' },
-    { type: 'TokenExchange', icon: TokenExchange, link: '', img: 'placeholders/TokenExchangeDark.png' }
+    { type: 'Auction', icon: Auction, demoLink: 'https://embeddable-marketplace-demo.vercel.app/', img: 'placeholders/AuctionDark.png' },
+    { type: 'Market', icon: Market, demoLink: 'https://embeddable-marketplace-demo.vercel.app/', img: 'placeholders/MarketDrak.png' },
+    { type: 'CrowdFund', icon: CrowdFund, demoLink: 'https://embeddable-marketplace-demo.vercel.app/', img: 'placeholders/CrowdfundDark.png' },
+    { type: 'TokenExchange', icon: TokenExchange, demoLink: 'https://embeddable-marketplace-demo.vercel.app/', img: 'placeholders/TokenExchangeDark.png' }
 ];
