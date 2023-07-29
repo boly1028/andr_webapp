@@ -1,0 +1,1 @@
+{"schema":{"type":"object","required":["sub_dir"],"properties":{"sub_dir":{"type":"object","required":["path"],"properties":{"path":{"type":"string","title":"Path"}},"additionalProperties":false,"title":"Sub dir"}},"additionalProperties":false,"title":"Sub dir","$id":"sub-dir","class":"query","version":"0.2.1","classifier":""},"ui-schema":{},"form-data":{}}
