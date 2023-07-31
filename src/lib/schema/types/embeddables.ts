@@ -9,6 +9,7 @@ export interface IEmbeddableConfig {
 export interface IEmbeddableCollection {
     id: string;
     type: IEmbeddableType;
+    name: string;
 }
 
 export enum IEmbeddableType {

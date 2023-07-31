@@ -45,7 +45,7 @@ interface AdoItemProps {
 
 const AdoItem: FC<AdoItemProps> = ({ address, adoType: _adoType, name, proxyAddress }) => {
   const { data: baseAdo } = useQueryBaseAdo(address)
-
+  
   // Creating a proxy for app type as it is now reference as app-contract
   const adoType = _adoType === "app" ? "app-contract" : (_adoType);
   // const { data: app, loading, error } = useAppConfig(address, adoType !== 'app-contract');
@@ -70,6 +70,7 @@ const AdoItem: FC<AdoItemProps> = ({ address, adoType: _adoType, name, proxyAddr
       mb={4}
       _last={{ mb: 0 }}
       direction="column"
+      w='full'
     >
       <Flex
         align="start"
