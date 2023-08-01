@@ -4,6 +4,7 @@ export interface IEmbeddableConfig {
     coinDenom: string;
     collections: IEmbeddableCollection[];
     $type: string;
+    key: string;
 }
 
 export interface IEmbeddableCollection {

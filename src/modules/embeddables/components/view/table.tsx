@@ -5,17 +5,28 @@ import styles from './view.module.css'
 import ClassifierIcon from '@/theme/icons/classifiers'
 import { ChevronRightIcon, CloseIcon } from '@chakra-ui/icons'
 import { ChevronDownIcon } from '@/modules/common';
-import { Flex, Button, MenuList, MenuItem, Box, Menu } from '@chakra-ui/react'
-import React from 'react'
+import { Flex, Button, MenuList, MenuItem, Box, Menu, Link as ChakraLink } from '@chakra-ui/react'
+import React, { FC } from 'react'
 import InlineStat from '../InlineStat'
 import NextLink from "next/link";
 import { useDisclosure } from "@chakra-ui/hooks";
+import { SITE_LINKS } from '@/modules/common/utils/sitelinks'
+import { IEmbeddableCollection } from '@/lib/schema/types/embeddables'
+import { useWallet } from '@/lib/wallet'
 
 
-const Table = ({ index, item }) => {
+interface TableProps {
+    item: IEmbeddableCollection;
+    eKey: string;
+}
+const Table: FC<TableProps> = ({ item, eKey }) => {
     const { getButtonProps, getDisclosureProps, isOpen } = useDisclosure();
     const buttonProps = getButtonProps();
     const disclosureProps = getDisclosureProps();
+    const account = useWallet();
+    const address = account?.address ?? "";
+
+    const previewLink = SITE_LINKS.embeddablePreviewCollection(item.id, `${address}--${eKey}`);
 
     return (
         <Flex
@@ -28,7 +39,6 @@ const Table = ({ index, item }) => {
             direction="column"
         >
             <Flex
-                key={index}
                 align="start"
                 gap="2"
                 className={styles.container}
@@ -45,29 +55,19 @@ const Table = ({ index, item }) => {
                     <InlineStat label="Type" value={item.type} />
                 </Box>
                 <Flex alignItems="center" gap="1" alignSelf="center" w='28' justifyContent='end'>
-                    <Button
-                        onClick={() => ''}
-                        colorScheme="primary"
-                        rightIcon={<ChevronRightIcon boxSize={4} />}
-                        fontSize='14px'
-                        w='90px'
-                        size='xs'
-                        className={styles.onHover}
-                    >
-                        View
-                    </Button>
-                    <Menu placement="bottom-end">
-                        <MenuList>
-                            <NextLink
-                                href={''}
-                                passHref
-                            >
-                                <MenuItem>
-                                    Action-1
-                                </MenuItem>
-                            </NextLink>
-                        </MenuList>
-                    </Menu>
+                    <ChakraLink href={previewLink} isExternal>
+                        <Button
+                            onClick={() => ''}
+                            colorScheme="primary"
+                            rightIcon={<ChevronRightIcon boxSize={4} />}
+                            fontSize='14px'
+                            w='90px'
+                            size='xs'
+                            className={styles.onHover}
+                        >
+                            View
+                        </Button>
+                    </ChakraLink>
                     <Box>
                         <Button {...buttonProps} variant="unstyled" size="sm">
                             {isOpen ? (
@@ -95,7 +95,7 @@ const Table = ({ index, item }) => {
                                     address={item[adoName]}
                                     adoType={adoName as IAdoType}
                                     proxyAddress={''}
-                                    name={`${item.name}`}
+                                    name={adoName}
                                 />
                             </Flex>
                         )

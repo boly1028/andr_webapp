@@ -7,6 +7,7 @@ import styles from './view.module.css';
 import { IEmbeddableConfig } from '@/lib/schema/types/embeddables';
 import { SITE_LINKS } from '@/modules/common/utils/sitelinks';
 import { createEmbeddableUrl } from '@/lib/schema/utils/embeddables';
+import { useWallet } from '@/lib/wallet';
 
 interface ViewHeaderProps {
     data: IEmbeddableConfig | undefined;
@@ -14,17 +15,18 @@ interface ViewHeaderProps {
 }
 
 const ViewInfo: FC<ViewHeaderProps> = ({ data, loading }) => {
-    const address = truncate('andr123xxyey4enkfcfgv5212cxl003xmk78tdpmy6k5m5zhr');
+    const account = useWallet();
+    const address = account?.address ?? "";
 
-    const uri = useMemo(() => data ? createEmbeddableUrl(data) : '', [data]);
+    const previewLink = SITE_LINKS.embeddablePreview(`${address}--${data?.key}`);
 
     return (
         <Flex gap='24px' w='full'>
             <Box w='50%' className={styles.imgContainer} position='relative'>
-                <Image alt='' src={'../../embeddable/embPreviewPlaceHolder.png'} h='full' />
+                <Image alt='' src={'/embeddable/embPreviewPlaceHolder.png'} h='full' />
                 <Box className={styles.imgButton}>
                     <Link
-                        href={SITE_LINKS.embeddablePreview(uri)}
+                        href={previewLink}
                         isExternal>
                         <Button size={'sm'} colorScheme='primary' rounded={'8px'} textDecoration='none'>Preview Project</Button>
                     </Link>
@@ -55,7 +57,7 @@ const ViewInfo: FC<ViewHeaderProps> = ({ data, loading }) => {
                         <VStack alignItems={'flex-start'}>
                             <Text color="rgba(255, 255, 255, 0.6)" fontWeight='500' fontSize='14px'>Created By</Text>
                             <HStack>
-                                <Text fontWeight='500' fontSize='14px'>{address}
+                                <Text fontWeight='500' fontSize='14px'>{truncate(address)}
                                 </Text>
                                 <Icon as={CopyFilledIcon} cursor='pointer' />
                             </HStack>
@@ -69,7 +71,7 @@ const ViewInfo: FC<ViewHeaderProps> = ({ data, loading }) => {
                             {loading &&
                                 <SkeletonText skeletonHeight="2" noOfLines={1} color='gray' />
                             }
-                            <Text fontWeight='500' fontSize='14px'>{data?.$type}</Text>
+                            <Text fontWeight='500' fontSize='14px'>{data?.$type?.toUpperCase()}</Text>
                         </VStack>
                         <VStack alignItems={'flex-start'}>
                             <Text color="rgba(255, 255, 255, 0.6)" fontWeight='500' fontSize='14px'>Published</Text>
@@ -86,10 +88,10 @@ const ViewInfo: FC<ViewHeaderProps> = ({ data, loading }) => {
                         <VStack alignItems={'flex-start'}>
                             <Text color="rgba(255, 255, 255, 0.6)" fontWeight='500' fontSize='14px'>Deployment</Text>
                             <Link
-                                href={SITE_LINKS.embeddablePreview(uri)}
+                                href={previewLink}
                                 isExternal>
                                 <Text fontWeight='500' fontSize='14px' color='rgba(129, 162, 255, 1)'>
-                                    embeddable-nft-marketplace-demo-andromeda.app <ExternalLinkIcon w='20px' h='20px' />
+                                    {SITE_LINKS.embeddablePreview("").split('?')[0]} <ExternalLinkIcon w='20px' h='20px' />
                                 </Text>
                             </Link>
                         </VStack>
@@ -107,9 +109,11 @@ const ViewInfo: FC<ViewHeaderProps> = ({ data, loading }) => {
                         </VStack>
                     </HStack>
                 </VStack>
-                <Divider />
-                <HStack>
-                    <Button bgColor={'rgba(255, 255, 255, 0.05)'} fontSize={'14px'} fontWeight='600' py='6px' px='16px' borderRadius={'6px'}>View template</Button>
+                <Divider flex={1} />
+                <HStack >
+                    <Link href={SITE_LINKS.embeddablesUpdate(data?.$type ?? '', data?.key ?? '')}>
+                        <Button bgColor={'rgba(255, 255, 255, 0.05)'} fontSize={'14px'} fontWeight='600' py='6px' px='16px' borderRadius={'6px'}>Edit</Button>
+                    </Link>
                     <Button bgColor={'rgba(255, 255, 255, 0.05)'} fontSize={'14px'} fontWeight='600' py='6px' px='16px' borderRadius={'6px'} rightIcon={<ExternalLinkIcon w='13.5px' h='13.5px' />}>Documentation</Button>
                 </HStack>
             </VStack>

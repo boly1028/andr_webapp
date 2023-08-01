@@ -5,6 +5,7 @@ import { MoreHorizontal } from 'lucide-react';
 import { IEmbeddableConfig } from '@/lib/schema/types/embeddables';
 import { createEmbeddableUrl } from '@/lib/schema/utils/embeddables';
 import { SITE_LINKS } from '@/modules/common/utils/sitelinks';
+import { useWallet } from '@/lib/wallet';
 interface ViewHeaderProps {
     loading: boolean;
     data: IEmbeddableConfig | undefined;
@@ -12,21 +13,25 @@ interface ViewHeaderProps {
 const ViewHeader: FC<ViewHeaderProps> = (props) => {
     const { data, loading } = props;
 
-    const uri = useMemo(() => data ? createEmbeddableUrl(data) : '', [data]);
+    const account = useWallet();
+    const address = account?.address ?? "";
+
+    const previewLink = SITE_LINKS.embeddablePreview(`${address}--${data?.key}`);
+
 
     return (
-        <Flex justifyContent={'space-between'}>
-            <HStack gap='16px'>
+        <Flex justifyContent={'space-between'} alignItems='center'>
+            <HStack gap='16px' flex={1}>
                 <Icon as={EmbViewPageIcon} w='40px' h='40px' />
                 {loading &&
-                    <SkeletonText skeletonHeight="20px" noOfLines={1} color='gray' />
+                    <SkeletonText skeletonHeight="24px" noOfLines={1} w='50%' color='gray' />
                 }
                 {data?.name &&
                     <Text fontSize={'24px'} fontWeight='600'>{data.name}</Text>
                 }
             </HStack>
             <HStack gap='8px'>
-                <Link href={SITE_LINKS.embeddablePreview(uri)} isExternal>
+                <Link href={previewLink} isExternal>
                     <Button
                         colorScheme={'primary'}
                         py='8px'

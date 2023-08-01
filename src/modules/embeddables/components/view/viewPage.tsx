@@ -8,11 +8,10 @@ import { useRouter } from "next/router";
 import { useGetEmbeddabeleConfig } from "../../hooks/useGetEmbeddableConfig";
 
 const ViewPage: FC = (props) => {
-    console.log('props:', props);
     const { embeddable } = useGetEmbeddableApp();
 
     const router = useRouter();
-    const eKey = router.query.id ?? '';
+    const eKey = router.query.id as string;
 
     const { config: EmbeddableItem, loading } = useGetEmbeddabeleConfig(embeddable ? embeddable.address : '', `${eKey}`);
 

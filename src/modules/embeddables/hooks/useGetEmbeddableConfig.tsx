@@ -7,9 +7,10 @@ export const useGetEmbeddabeleConfig = (address: string, key: string) => {
     const config = useMemo(() => {
         try {
             console.log(value, key)
-            return JSON.parse(value?.value?.string ?? '--') as IEmbeddableConfig;
+            const _config = JSON.parse(value?.value?.string ?? '--') as IEmbeddableConfig;
+            _config.key = key;
+            return _config;
         } catch (err) {
-            console.log(err)
             return undefined;
         }
     }, [value])

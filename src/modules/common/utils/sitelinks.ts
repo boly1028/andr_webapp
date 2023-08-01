@@ -33,6 +33,7 @@ export const SITE_LINKS = {
     embeddablesView: (id: string) => `/embeddables/view/${id}`,
     // Production Level Deployment
     embeddablePreview: (configUri: string) => `https://embeddable-marketplace-demo.vercel.app?config=${configUri}`,
+    embeddablePreviewCollection: (collection: string, configUri: string) => `https://embeddable-marketplace-demo.vercel.app/${collection}?config=${configUri}`,
     // Test Level Deployment - Update this with the branch deployement you want to test
     // embeddablePreview: (configUri: string) => `https://embeddable-marketplace-demo-git-featur-fd1f81-andromedaprotocol.vercel.app?config=${configUri}`,
     // embeddables: () => `https://andromedaprotocol.github.io/embeddable-marketplace-demo`,
