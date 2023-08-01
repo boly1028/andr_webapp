@@ -1,1 +1,1 @@
-{"modifiers":["amp-receive","send","upsert-key-address"],"queries":["key-address.query","verify-address.query"],"responses":["key-address.response","verify-address.response"],"cw721receives":[]}
+{"modifiers":["send","upsert-key-address"],"queries":["key-address.query","verify-address.query"],"responses":["key-address.response","verify-address.response"],"cw721receives":[]}

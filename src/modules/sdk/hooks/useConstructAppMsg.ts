@@ -3,6 +3,7 @@ import { IAdoType, IImportantAdoKeys, IPublishSettingsFormData } from "@/lib/sch
 import { useCallback } from "react";
 import { IAppContract } from "../types";
 import useConstructADOMsg from "./useConstructADOMsg";
+import { getAdoTypeWithVersion } from "@/lib/andrjs/utils/ado";
 
 /**
  * Provides a function to create app construct messages. Apps are list of app component but
@@ -57,7 +58,7 @@ export default function useConstructAppMsg() {
         // Push current app data to app list of the contract
         appContract.app_components.push({
           'name': id,
-          'ado_type': `${adoType}_${adoVersion}`,
+          'ado_type': getAdoTypeWithVersion(adoType, adoVersion),
           'instantiate_msg': instantiateMsg
         })
       })

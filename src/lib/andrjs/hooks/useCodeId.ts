@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import useAndromedaClient from "./useAndromedaClient";
 import useAndromedaContext from "./useAndromedaContext";
 import { useGetSchemaVersions } from "@/lib/schema/hooks/useGetSchemaVersion";
+import { getAdoTypeWithVersion } from "../utils/ado";
 
 /**
  * Asynchronously fetches the code ID for a given ADO type. Relies on having a valid factory address and a connected client. Throws an error if no code ID is found.
@@ -32,11 +33,7 @@ export default function useCodeId(adoType: string, version?: string) {
       return;
     };
     const fetchCodeId = async () => {
-<<<<<<< HEAD
-      const _codeId = await getCodeId(`${adoType}@${version || adoVersion?.latest}`);
-=======
-      const _codeId = await getCodeId(`${adoType}_${version ?? adoVersion?.latest}`);
->>>>>>> 0ed47c8 (New Kernel and adodb testing)
+      const _codeId = await getCodeId(getAdoTypeWithVersion(adoType, version ?? adoVersion?.latest ?? ''));
       setCodeId(_codeId);
     }
     fetchCodeId();
