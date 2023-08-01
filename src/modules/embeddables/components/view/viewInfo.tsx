@@ -8,6 +8,7 @@ import { IEmbeddableConfig } from '@/lib/schema/types/embeddables';
 import { SITE_LINKS } from '@/modules/common/utils/sitelinks';
 import { createEmbeddableUrl } from '@/lib/schema/utils/embeddables';
 import { useWallet } from '@/lib/wallet';
+import { useGetEmbeddableApp } from '../../hooks/useGetEmbeddableApp';
 
 interface ViewHeaderProps {
     data: IEmbeddableConfig | undefined;
@@ -18,7 +19,8 @@ const ViewInfo: FC<ViewHeaderProps> = ({ data, loading }) => {
     const account = useWallet();
     const address = account?.address ?? "";
 
-    const previewLink = SITE_LINKS.embeddablePreview(`${address}--${data?.key}`);
+    const { embeddable } = useGetEmbeddableApp();
+    const previewLink = SITE_LINKS.embeddablePreview(`${embeddable?.address}--${data?.key}`);
 
     return (
         <Flex gap='24px' w='full'>

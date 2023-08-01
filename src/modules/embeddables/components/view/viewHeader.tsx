@@ -6,17 +6,15 @@ import { IEmbeddableConfig } from '@/lib/schema/types/embeddables';
 import { createEmbeddableUrl } from '@/lib/schema/utils/embeddables';
 import { SITE_LINKS } from '@/modules/common/utils/sitelinks';
 import { useWallet } from '@/lib/wallet';
+import { useGetEmbeddableApp } from '../../hooks/useGetEmbeddableApp';
 interface ViewHeaderProps {
     loading: boolean;
     data: IEmbeddableConfig | undefined;
 }
 const ViewHeader: FC<ViewHeaderProps> = (props) => {
     const { data, loading } = props;
-
-    const account = useWallet();
-    const address = account?.address ?? "";
-
-    const previewLink = SITE_LINKS.embeddablePreview(`${address}--${data?.key}`);
+    const { embeddable } = useGetEmbeddableApp();
+    const previewLink = SITE_LINKS.embeddablePreview(`${embeddable?.address}--${data?.key}`);
 
 
     return (

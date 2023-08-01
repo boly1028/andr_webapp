@@ -13,6 +13,7 @@ import { useDisclosure } from "@chakra-ui/hooks";
 import { SITE_LINKS } from '@/modules/common/utils/sitelinks'
 import { IEmbeddableCollection } from '@/lib/schema/types/embeddables'
 import { useWallet } from '@/lib/wallet'
+import { useGetEmbeddableApp } from '../../hooks/useGetEmbeddableApp'
 
 
 interface TableProps {
@@ -23,10 +24,9 @@ const Table: FC<TableProps> = ({ item, eKey }) => {
     const { getButtonProps, getDisclosureProps, isOpen } = useDisclosure();
     const buttonProps = getButtonProps();
     const disclosureProps = getDisclosureProps();
-    const account = useWallet();
-    const address = account?.address ?? "";
+    const { embeddable } = useGetEmbeddableApp();
 
-    const previewLink = SITE_LINKS.embeddablePreviewCollection(item.id, `${address}--${eKey}`);
+    const previewLink = SITE_LINKS.embeddablePreviewCollection(item.id, `${embeddable?.address}--${eKey}`);
 
     return (
         <Flex
