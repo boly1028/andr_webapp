@@ -22,6 +22,11 @@ export interface AndromedaProviderProps {
   chainId: ChainConfig["chainId"];
 }
 
+
+const FIXED_KERNEL_ADDRESSES = [
+  'andr1wr5vjl9tyqk0ncz5vxlak846d5c6p9uads90slljxeyzu6xj0a0q0dl6hk'
+]
+
 /**
  * Wrapper component to provide Andromeda context to child components
  */
@@ -44,10 +49,12 @@ const AndromedaProvider: React.FC<AndromedaProviderProps> = memo(
       }
       const connect = async () => {
         try {
+          const kernelAddr = FIXED_KERNEL_ADDRESSES.find(addr => addr.startsWith(config.addressPrefix)) || config.kernelAddress;
+          console.log(kernelAddr,"KERNEL")
           await client.connect(
             config.chainUrl,
             config.registryAddress,
-            "andr1wr5vjl9tyqk0ncz5vxlak846d5c6p9uads90slljxeyzu6xj0a0q0dl6hk",
+            kernelAddr,
             config.addressPrefix,
             signer,
             {
@@ -63,7 +70,6 @@ const AndromedaProvider: React.FC<AndromedaProviderProps> = memo(
             setConnected(true);
             console.log(cloneDeep(client.isConnected), new Date().getTime());
             setFactoryAddress(client.os.adoDB?.address ?? client.adoDB.address ?? "");
-            // setFactoryAddress('andr1pugcjgka2p42h923d2x0t8t9zhstc5mz5ezfv5hw9jdvp0p73rmq2zwkxr')
             console.log("Andromeda Client connected");
           }
         } catch (error) {

@@ -7,6 +7,7 @@ import {
   Image,
   Divider,
   Text,
+  Avatar,
 } from "@chakra-ui/react";
 
 import NavItem from "./NavItem";
@@ -31,6 +32,7 @@ export enum ILinkItemKey {
   APP_STORE = "appstore",
   CLI = "cli",
   EMBEDDABLES = "embeddables",
+  USER = 'user',
 }
 interface ILinkItem {
   name: string;
@@ -39,6 +41,12 @@ interface ILinkItem {
   key: ILinkItemKey;
 }
 const LinkItems: ILinkItem[] = [
+  {
+    name: "User",
+    icon: <Avatar boxSize={5} />,
+    href: SITE_LINKS.userHome(),
+    key: ILinkItemKey.USER,
+  },
   {
     name: "Learn",
     icon: <BookOpenIcon boxSize={5} />,

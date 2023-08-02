@@ -14,6 +14,7 @@ import Switch from "./switch";
 
 import shadows from "./shadows";
 import { COLORS } from "./new-system-tmp/colors";
+import { TYPOGRAPHY } from "./new-system-tmp/typography";
 
 // Deployment commit for theme alterations pushed to branch by non-membered Vercel account. - LS (This comment can be removed post push)
 
@@ -287,5 +288,6 @@ export default extendTheme({
       color: "gray.500",
       fontSize: "sm",
     },
+    ...TYPOGRAPHY.textStyles
   },
 });

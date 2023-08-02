@@ -36,6 +36,7 @@ import useWalletModal from "@/modules/modals/hooks/useWalletModal";
 import ChainFallbackIcon from "./icons/ChainFallbackIcon";
 import { SITE_LINKS } from "../utils/sitelinks";
 import { useQueryAllChainConfigs, useQueryChainConfig } from "@/lib/graphql/hooks/chain/useChainConfig";
+import { useGetUsername } from "@/lib/andrjs/hooks/useGetUsername";
 
 interface WalletProps extends ButtonProps {
 
@@ -44,11 +45,13 @@ interface WalletProps extends ButtonProps {
 const WalletConnected: FC<WalletProps> = (props) => {
   const wallet = useWallet();
   const disconnect = useDisconnect();
-  const address = truncate(wallet?.address);
+  const address = wallet?.address ?? ''
   const { chainId, setChainId } = useWalletContext();
   const { data: currentConfig } = useQueryChainConfig(chainId);
   const { data: configs } = useQueryAllChainConfigs();
   const iconUrl = currentConfig?.iconUrls?.sm || currentConfig?.iconUrls?.lg;
+
+  const { data: username } = useGetUsername(wallet?.address);
   return (
     <Popover placement="bottom-end">
       {({ isOpen }) => (
@@ -68,7 +71,7 @@ const WalletConnected: FC<WalletProps> = (props) => {
                     boxSize='5'
                   />
                 )}
-                <Text fontSize="sm">{address}</Text>
+                <Text fontSize="sm">{truncate(username || address)}</Text>
                 <Badge
                   colorScheme={
                     currentConfig?.chainType === "mainnet" ? "green" : "purple"
@@ -172,7 +175,7 @@ const WalletConnected: FC<WalletProps> = (props) => {
                 </Menu>
               </HStack>
               <Input
-                value={wallet ? wallet.address : ""}
+                value={address}
                 mb={2}
                 p={2}
                 fontSize="sm"
@@ -184,13 +187,13 @@ const WalletConnected: FC<WalletProps> = (props) => {
                   variant="outline"
                   w='full'
                   fontWeight={500}
-                  text={wallet?.address}
+                  text={address}
                 >
                   Copy address
                 </CopyButton>
                 <Button
                   as="a"
-                  href={(currentConfig && wallet?.address) ? SITE_LINKS.blockExplorerAccount(currentConfig, wallet.address) : ''}
+                  href={currentConfig ? SITE_LINKS.blockExplorerAccount(currentConfig, address) : ''}
                   target="_blank"
                   leftIcon={<ExternalLinkIcon boxSize={4} />}
                   variant="outline"

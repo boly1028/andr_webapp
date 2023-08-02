@@ -48,5 +48,8 @@ export const SITE_LINKS = {
     blockExplorerAccount: (config: ChainConfig, address: string) => config.blockExplorerAddressPages[0]?.replaceAll("${address}", address),
     blockExplorerTx: (config: ChainConfig, txHash: string) => config.blockExplorerTxPages[0]?.replaceAll("${txHash}", txHash),
 
-    testSchema: (path: string) => `/test/schema/${path}`
+    testSchema: (path: string) => `/test/schema/${path}`,
+    // USER Links
+    userHome: () => `/user`,
+    userDashboard: (address: string) => `/user/${address}`,
 } as const;

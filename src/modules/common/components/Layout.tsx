@@ -70,6 +70,7 @@ const Layout: FC<ILayoutProps> = ({
           <Box
             flex={1}
             px={{ base: 4, md: 8 }}
+            py={{ base: 2, md: 4 }}
             maxW={maxW}
             w="full"
             {...props}
