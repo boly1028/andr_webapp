@@ -1,0 +1,1 @@
+{"schema":{"$schema":"http://json-schema.org/draft-07/schema#","title":"Paths","type":"array","items":{"type":"string"},"properties":{},"$id":"paths","version":"0.2.2","classifier":"response","class":"response"},"ui-schema":{},"form-data":{}}
