@@ -14,7 +14,7 @@ const ViewTable: FC<ViewTableProps> = (props) => {
   return (
     <Box>
       <Heading fontSize={'20px'} fontWeight='600' pb='8px'>Linked ADOs</Heading>
-      <Text fontSize={'14px'} fontWeight='100' color='rgba(255, 255, 255, 0.6)'>Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus</Text>
+      {/* <Text fontSize={'14px'} fontWeight='100' color='rgba(255, 255, 255, 0.6)'>Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus</Text> */}
 
       <Flex
         borderColor="dark.300"

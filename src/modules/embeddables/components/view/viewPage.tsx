@@ -23,12 +23,14 @@ const ViewPage: FC = (props) => {
                     data={EmbeddableItem}
                 />
             </Box>
+
             <Box mt='50px'>
                 <ViewInfo
                     data={EmbeddableItem}
                     loading={loading}
                 />
             </Box>
+            
             {embeddable &&
                 <Box mt='64px' mb='100px'>
                     <ViewTable

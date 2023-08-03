@@ -10,24 +10,25 @@ import { ExternalLinkIcon } from '@chakra-ui/icons';
 
 const EmbedableExamples = () => {
     return (
-        <Box>
-            <VStack spacing={'10px'} alignItems='flex-start'>
-                <Heading fontSize={'20px'} fontWeight='500'>Examples</Heading>
-                <Text fontWeight={400} fontSize='14px' color='rgba(255, 255, 255, 0.6)'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde, quod.</Text>
-            </VStack>
-            <SimpleGrid
-                gridAutoRows="1fr"
-                columns={{ sm: 2, md: 3, lg: 4 }}
-                spacing="6"
-                my={8}
-            >
-                {EMBEDDABLE_TEMPLATES.map((template) => (
-                    <GridItem key={template.id}>
-                        <EmbeddableTemplateItem template={template} />
-                    </GridItem>
-                ))}
-            </SimpleGrid>
-        </Box>
+        <></>
+        // <Box>
+        //     <VStack spacing={'10px'} alignItems='flex-start'>
+        //         <Heading fontSize={'20px'} fontWeight='500'>Examples</Heading>
+        //         <Text fontWeight={400} fontSize='14px' color='rgba(255, 255, 255, 0.6)'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde, quod.</Text>
+        //     </VStack>
+        //     <SimpleGrid
+        //         gridAutoRows="1fr"
+        //         columns={{ sm: 2, md: 3, lg: 4 }}
+        //         spacing="6"
+        //         my={8}
+        //     >
+        //         {EMBEDDABLE_TEMPLATES.map((template) => (
+        //             <GridItem key={template.id}>
+        //                 <EmbeddableTemplateItem template={template} />
+        //             </GridItem>
+        //         ))}
+        //     </SimpleGrid>
+        // </Box>
     )
 }
 

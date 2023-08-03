@@ -77,18 +77,18 @@ const ViewInfo: FC<ViewHeaderProps> = ({ data, loading }) => {
                         </VStack>
                         <VStack alignItems={'flex-start'}>
                             <Text color="rgba(255, 255, 255, 0.6)" fontWeight='500' fontSize='14px'>Published</Text>
-                            <Text fontWeight='500' fontSize='14px'>Sep 19, 2022</Text>
+                            <Text fontWeight='500' fontSize='14px'>Mmm DD, YYYY</Text> //pulled sample date: "Sep 19, 2022"
                         </VStack>
                         <VStack alignItems={'flex-start'}>
                             <Text color="rgba(255, 255, 255, 0.6)" fontWeight='500' fontSize='14px'>Latest update</Text>
-                            <Text fontWeight='500' fontSize='14px'>Sep 30, 2022</Text>
+                            <Text fontWeight='500' fontSize='14px'>Mmm DD, YYYY</Text>
                         </VStack>
                     </HStack>
                 </VStack>
                 <VStack>
                     <HStack>
                         <VStack alignItems={'flex-start'}>
-                            <Text color="rgba(255, 255, 255, 0.6)" fontWeight='500' fontSize='14px'>Deployment</Text>
+                            <Text color="rgba(255, 255, 255, 0.6)" fontWeight='500' fontSize='14px'>Deployment</Text>                                                    
                             <Link
                                 href={previewLink}
                                 isExternal>
