@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@andromedaprotocol/andromeda.js": "^0.3.3",
+    "@andromedaprotocol/gql": "file:./local_lib/andromedaprotocol-gql-0.3.3.tgz",
     "@andromedarjsf/chakra-ui": "file:./local_lib/andromedarjsf-chakra-ui-5.0.2.tgz",
     "@andromedarjsf/core": "file:./local_lib/andromedarjsf-core-5.0.2.tgz",
     "@andromedarjsf/utils": "file:./local_lib/andromedarjsf-utils-5.0.2.tgz",

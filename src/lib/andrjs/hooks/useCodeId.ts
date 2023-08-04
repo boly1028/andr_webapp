@@ -19,6 +19,10 @@ export default function useCodeId(adoType: string, version?: string) {
     console.log("Fetching Code Id for", key)
     try {
       const _codeId = await client?.os.adoDB?.getCodeId(key, factoryAddress);
+      const _key = Buffer.from('version');
+      const res = await client.chainClient?.queryClient?.queryContractRaw('andr1fz4gwrjc5p6lwmfp0ql6w8tl0xczn5xdln523ujtcvpua4gtcz3qh3hlt7', _key);
+      if (res)
+        console.log('::RES::', Buffer.from(res).toString());
       console.log(`CodeID for ${key} is ${_codeId}`)
       return _codeId ?? -1
     } catch (err) {

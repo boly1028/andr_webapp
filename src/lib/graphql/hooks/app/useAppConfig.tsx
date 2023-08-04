@@ -1,40 +1,7 @@
-import { QueryResult, useQuery, gql } from "@apollo/client";
+import { useAppConfigQuery } from "@andromedaprotocol/gql/dist/react"
 
-interface Query {
-    contractAddress: string;
-}
-interface QueryResponse {
-    ADO: {
-        app: {
-            config: {
-                name: string;
-                owner: string;
-            },
-            address: string;
-        }
-    }
-}
-
-export interface ReturnValue
-    extends Pick<QueryResult, "loading" | "error"> {
-    data?: QueryResponse['ADO']['app'];
-}
-
-export function useAppConfig(address: string, skip = false): ReturnValue {
-    const { data, loading, error } = useQuery<QueryResponse, Query>(
-        gql`
-        query APP_CONFIG($contractAddress: String!) {
-            ADO{
-                app(address: $contractAddress) {
-                    config {
-                        name,
-                        owner,
-                    },
-                    address
-                }
-            }
-          }
-        `,
+export function useAppConfig(address: string, skip = false) {
+    const { data, loading, error } = useAppConfigQuery(
         { variables: { 'contractAddress': address }, skip: skip },
     );
     return {

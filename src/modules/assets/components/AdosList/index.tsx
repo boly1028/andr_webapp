@@ -12,16 +12,16 @@ import { Flex, Input, InputGroup, InputLeftElement, Select } from '@chakra-ui/re
 import { SearchIcon } from "@chakra-ui/icons";
 import { FilterObjectType } from '@/lib/graphql/hooks/useQueryAssets';
 import _ from "lodash";
-import { AssetSortAdoType } from "@/lib/graphql/hooks/assets/ado.enum";
 
 export const SORT_LIMIT = 10;
 import ScrollToTop from "@/modules/common/components/ScrollToTop";
 import ScrollToBottom from "@/modules/common/components/ScrollToBottom";
+import { IAdoType as ICodegenAdoType, IAndrOrderBy } from "@andromedaprotocol/gql/dist/react";
 
 const AdosList: FC = () => {
   const wallet = useWallet();
   const [filteredData, setFilteredData] = useState<FilterObjectType>({
-    orderBy: 'Desc'
+    orderBy: IAndrOrderBy.DESC
   });
 
   const { data, loading, error, fetchMore, previousData, refetch } = useQueryAssets(
@@ -39,14 +39,14 @@ const AdosList: FC = () => {
         offset: data.length,
       },
     });
-    const assets = res.data.assets;
+    const assets = res.data.accounts.assets;
     if (assets.length === 0) {
       setHasMore(false);
     }
   };
   useEffect(() => {
-    if (previousData?.assets && data?.length) {
-      if (data?.length <= previousData?.assets?.length) {
+    if (previousData?.accounts.assets && data?.length) {
+      if (data?.length <= previousData?.accounts.assets?.length) {
         setHasMore(true);
       }
     }
@@ -59,7 +59,7 @@ const AdosList: FC = () => {
   const refetchData = async () => {
     if (loading || !data) return;
     const res = await refetch();
-    const assets = res.data.assets;
+    const assets = res.data.accounts.assets;
     if (assets.length === 0) { setHasMore(false); }
   }
   const searchHandler = _.debounce((value) => {
@@ -136,15 +136,15 @@ const AdosList: FC = () => {
           onChange={(event) => { searchAndFilterHandler(event, 'AdoType') }}
         >
           {
-            (Object.keys(AssetSortAdoType) as Array<keyof typeof AssetSortAdoType>).map((item) => {
-              return isNaN(Number(item)) && (<option value={`${item}`} key={item}> {item}</option>)
+            Object.keys(ICodegenAdoType).map((item) => {
+              return <option value={ICodegenAdoType[item]} key={item}> {item}</option>
             })
           }
         </Select>
         <Select size='sm' width='130px' h='40px' borderRadius='8px' placeholder="Sort by"
           onChange={(event) => { searchAndFilterHandler(event, 'SortBy') }}>
-          <option value='Asc'>Asc</option>
-          <option value='Desc'>Desc</option>
+          <option value={IAndrOrderBy.ASC}>Asc</option>
+          <option value={IAndrOrderBy.DESC}>Desc</option>
         </Select>
       </Flex>
       {/* There is an issue with the Infinite Scroll. If all elements for initial render are loaded and there

@@ -1,29 +1,12 @@
-import {
-    QUERY_ALL_CHAIN_CONFIGS,
-    QUERY_CHAIN_CONFIG,
-    QueryAllChainConfigs,
-    QueryAllChainConfigsResponse,
-    QueryChainConfig,
-    QueryChainConfigResponse
-} from "@andromedaprotocol/andromeda.js";
-import { QueryResult, gql, useQuery } from "@apollo/client";
-
-export interface QueryChainConfigProps
-    extends Pick<QueryResult<QueryChainConfigResponse, QueryChainConfig>, "loading" | "error"> {
-    // Type should be array itself. Make an interface for asset and using Asset[] as response. Changes needed in the library
-    data?: QueryChainConfigResponse["chainConfigs"]["config"];
-}
+import { useAllChainConfigQuery, useChainConfigQuery } from "@andromedaprotocol/gql/dist/react";
 
 /**
  * Wrapper hook for the andr.js chain configs
  * @param chainId
  * @returns
  */
-export function useQueryChainConfig(chainId: string): QueryChainConfigProps {
-    const { loading, data, error } = useQuery<QueryChainConfigResponse, QueryChainConfig>(
-        gql`
-        ${QUERY_CHAIN_CONFIG}
-      `,
+export function useQueryChainConfig(chainId: string) {
+    const { loading, data, error } = useChainConfigQuery(
         { variables: { identifier: chainId }, notifyOnNetworkStatusChange: true },
     );
 
@@ -36,23 +19,12 @@ export function useQueryChainConfig(chainId: string): QueryChainConfigProps {
     };
 }
 
-
-export interface QueryAllChainConfigsProps
-    extends Pick<QueryResult<QueryAllChainConfigsResponse, QueryAllChainConfigs>, "loading" | "error"> {
-    // Type should be array itself. Make an interface for asset and using Asset[] as response. Changes needed in the library
-    data?: QueryAllChainConfigsResponse["chainConfigs"]["allConfigs"];
-}
-
-
 /**
  * Wrapper hook for the andr.js all chain configs
  * @returns
  */
-export function useQueryAllChainConfigs(): QueryAllChainConfigsProps {
-    const { loading, data, error } = useQuery<QueryAllChainConfigsResponse, QueryAllChainConfigs>(
-        gql`
-        ${QUERY_ALL_CHAIN_CONFIGS}
-      `,
+export function useQueryAllChainConfigs() {
+    const { loading, data, error } = useAllChainConfigQuery(
         { variables: {}, notifyOnNetworkStatusChange: true },
     );
 

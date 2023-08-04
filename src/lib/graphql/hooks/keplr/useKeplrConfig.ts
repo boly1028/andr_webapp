@@ -1,26 +1,12 @@
-import {
-    QUERY_KEPLR_CONFIG,
-    QueryKeplrConfig,
-    QueryKeplrConfigResponse
-} from "@andromedaprotocol/andromeda.js";
-import { QueryResult, gql, useQuery } from "@apollo/client";
-
-export interface QueryKeplrConfigProps
-    extends Pick<QueryResult<QueryKeplrConfigResponse, QueryKeplrConfig>, "loading" | "error"> {
-    // Type should be array itself. Make an interface for asset and using Asset[] as response. Changes needed in the library
-    data?: QueryKeplrConfigResponse["keplrConfigs"]["config"];
-}
+import { useKeplrConfigQuery } from "@andromedaprotocol/gql/dist/react";
 
 /**
  * Wrapper hook for the andr.js chain configs
  * @param chainId
  * @returns
  */
-export function useQueryKeplrConfig(chainId: string): QueryKeplrConfigProps {
-    const { loading, data, error } = useQuery<QueryKeplrConfigResponse, QueryKeplrConfig>(
-        gql`
-        ${QUERY_KEPLR_CONFIG}
-      `,
+export function useQueryKeplrConfig(chainId: string) {
+    const { loading, data, error } = useKeplrConfigQuery(
         { variables: { identifier: chainId }, notifyOnNetworkStatusChange: true },
     );
 
