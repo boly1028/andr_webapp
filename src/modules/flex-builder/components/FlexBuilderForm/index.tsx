@@ -2,7 +2,7 @@
 // updateForm(), addSchemaModule(), removeSchemaModule(), changeSchemaID
 // addModule, removeModule, deleteModule, changePanelName
 import React, { FC, useState, useCallback, useEffect } from "react";
-import { Button, HStack, Flex, useToast } from "@chakra-ui/react";
+import { Button, HStack, Flex, useToast, Switch, Tooltip, VStack, Text } from "@chakra-ui/react";
 import { JSONSchema7 } from "json-schema";
 import { cloneDeep } from "lodash";
 
@@ -63,7 +63,7 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
   const [formData, setFormData] = useState(cloneDeep(template.formData ?? {}));
 
   const [dirty, setDirty] = useState(false); // Flag for monitoring if data has been entered which is used to set page exit warnings prior to data loss from leaving page
-
+  const [skipValidate, setSkipValidate] = useState(false);
   /**
     useWarnIfUnsavedChanges(
       dirty,
@@ -188,6 +188,8 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
     return () => clearTimeout(tId);
   }, [formData, uiSchema, schema]);
 
+  console.log(schema)
+
   return (
     <>
       <Form
@@ -220,6 +222,7 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
           console.log("TEST::FORM::", formData)
           onError?.();
         }}
+        noValidate={skipValidate}
       >
         {/* Add Modules Action */}
         {(template.modules && template.modules.length > 0) && (
@@ -253,6 +256,16 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
               uiSchema={uiSchema}
               formData={formData}
             />
+            <VStack alignItems='start'>
+              <Text textStyle='main-xs-regular'>Skip Validation</Text>
+              <Switch
+                isChecked={skipValidate}
+                colorScheme="primary"
+                onChange={() => {
+                  setSkipValidate(prev => !prev)
+                }}
+              />
+            </VStack>
             <Button
               disabled={notReady}
               type="submit"

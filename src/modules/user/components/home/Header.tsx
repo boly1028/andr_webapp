@@ -1,4 +1,3 @@
-import { useCurrentKeplrWalletChainConfig } from "@/lib/keplr/hooks/useKeplrWallerConfig";
 import { Box, Button, Icon, Image, Text, VStack } from "@chakra-ui/react";
 import React, { FC, ReactNode } from "react";
 
@@ -7,8 +6,6 @@ interface Props {
 
 const Header: FC<Props> = (props) => {
     const { } = props;
-    const chainConfig = useCurrentKeplrWalletChainConfig();
-
     return (
         <VStack w='full' spacing={2}>
             <Image src='/logo.png' width='16' />
