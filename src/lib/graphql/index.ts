@@ -29,12 +29,11 @@ export const apolloClient = new ApolloClient({
             // the existing list items.
             merge(existing, incoming, { args }) {
               const offset = args?.offset ?? 0;
+              console.log(args?.offset, "ARGS", incoming, existing)
               // Slicing is necessary because the existing data is
               // immutable, and frozen in development.
-              const merged = existing ? existing.slice(0) : [];
-              for (let i = 0; i < incoming.length; ++i) {
-                merged[offset + i] = incoming[i];
-              }
+              const merged = existing ? existing.slice(0, offset) : [];
+              merged.push(...incoming)
               return merged;
             },
           }
