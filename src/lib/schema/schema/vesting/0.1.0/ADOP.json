@@ -1,1 +1,1 @@
-{"modifiers":["claim","claim-all","create-batch","delegate","redelegate","undelegate","withdraw-rewards","vote"],"queries":["andr-query.query","config.query","batch.query","batches.query"],"responses":["andr-query.response","batch.response","batches.response","config.response"]}
+{"modifiers":["claim","claim-all","create-batch","delegate","redelegate","undelegate","withdraw-rewards","vote"],"queries":["andr-query.query","config.query","batch.query","batches.query"],"responses":["andr-query.response","batch.response","batches.response","config.response"],"cw721receives":[]}

@@ -1,11 +1,11 @@
 import { FC, useCallback, useEffect, useMemo } from "react";
 import { useFieldTemplate } from "../templates/FieldTemplate";
 import { useAppBuilder, useReactFlow } from "../../canvas/Provider";
-import { Position, useNodeId, useNodes, useStore, useStoreApi } from "reactflow";
-import { debounce } from 'lodash'
+import { Position, useNodeId, useNodes } from "reactflow";
 import Handle from "../ReactFlow/Handle";
 import { DIRECTION, createHandlerId, extractDataFromHandler } from "./utils";
 import { useConnectEdge } from "../hooks/useConnectEdge";
+import VfsResolver from "@/modules/flex-builder/components/FlexBuilderForm/alerts/VfsResolver";
 
 interface WrapIfIdentifierProps {
     id: string;
@@ -30,10 +30,6 @@ export const WrapIfIdentifier: FC<WrapIfIdentifierProps> = (props) => {
     const leftHandle = createHandlerId(panel ?? '', id, DIRECTION.LEFT);
     const rightHandle = createHandlerId(panel ?? '', id, DIRECTION.RIGHT);
 
-    const isIdentifier = useMemo(() => {
-        return id.split('_').pop() === 'identifier'
-    }, [id])
-
     const identifierValue: string = useMemo(() => {
         return formData || ''
     }, [formData])
@@ -55,32 +51,27 @@ export const WrapIfIdentifier: FC<WrapIfIdentifierProps> = (props) => {
     }, [connect, panel, id, editorRef, deleteElements])
 
     useEffect(() => {
-        if (isIdentifier)
-            if (panel) {
-                formRefs.current[panel] = {
-                    ...formRefs.current[panel] ?? {},
-                    fieldRefs: {
-                        ...formRefs.current[panel]?.fieldRefs ?? {},
-                        [id]: {
-                            onConnectionChange: (data) => {
-                                fieldRef.current?.onChange?.(data.source)
-                                console.log(data.source)
-                            }
+        if (panel) {
+            formRefs.current[panel] = {
+                ...formRefs.current[panel] ?? {},
+                fieldRefs: {
+                    ...formRefs.current[panel]?.fieldRefs ?? {},
+                    [id]: {
+                        onConnectionChange: (data) => {
+                            fieldRef.current?.onChange?.(data.source)
                         }
                     }
                 }
-                console.log("FIELD REF START", formRefs.current[panel].fieldRefs)
             }
-    }, [formRefs, fieldRef, panel, isIdentifier, id]);
+        }
+    }, [formRefs, fieldRef, panel, id]);
 
     useEffect(() => {
-        if (isIdentifier) {
-            const tId = setTimeout(() => {
-                handleUpdate(identifierValue);
-            }, 700);
-            return () => clearTimeout(tId)
-        }
-    }, [identifierValue, isIdentifier, nodesSets])
+        const tId = setTimeout(() => {
+            handleUpdate(identifierValue);
+        }, 700);
+        return () => clearTimeout(tId)
+    }, [identifierValue, nodesSets])
 
     useEffect(() => {
         return () => {
@@ -89,7 +80,7 @@ export const WrapIfIdentifier: FC<WrapIfIdentifierProps> = (props) => {
         }
     }, [id])
 
-    if (!isIdentifier || !panel) return null;
+    if (!panel) return null;
 
     return (
         <>

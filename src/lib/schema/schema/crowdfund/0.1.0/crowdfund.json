@@ -2,7 +2,6 @@
     "schema": {
         "$schema": "http://json-schema.org/draft-07/schema#",
         "title": "Crowdfund",
-        "description": "An ADO to allow the creation of a crowdfund for a token and can include minting.",
         "type": "object",
         "required": [
             "can_mint_after_sale",
@@ -38,7 +37,8 @@
                                     "type": "string"
                                 }
                             },
-                            "additionalProperties": false
+                            "additionalProperties": false,
+                            "$original_type": "AndrAddress"
                         },
                         "is_mutable": {
                             "type": "boolean"
@@ -47,7 +47,8 @@
                             "type": "string"
                         }
                     },
-                    "additionalProperties": false
+                    "additionalProperties": false,
+                    "$original_type": "Module"
                 },
                 "title": "Modules"
             },
@@ -63,6 +64,7 @@
                     }
                 },
                 "additionalProperties": false,
+                "$original_type": "AndrAddress",
                 "title": "Token address"
             }
         },
@@ -70,7 +72,8 @@
         "$id": "crowdfund",
         "version": "0.1.0",
         "classifier": "sale",
-        "class": "baseADO"
+        "class": "baseADO",
+        "description": "An ADO to allow the creation of a crowdfund for a token and can include minting."
     },
     "ui-schema": {
         "ui:order": [
@@ -142,6 +145,9 @@
                     "help": "Can be either an address or app component name of a specific ADO within an app"
                 }
             }
+        },
+        "kernel_address": {
+            "ui:widget": "hidden"
         }
     },
     "form-data": {}

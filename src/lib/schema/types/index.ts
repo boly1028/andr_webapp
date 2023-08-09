@@ -27,6 +27,7 @@ export interface IAndromedaSchemaJSON {
 export interface IAndromedaSchema extends JSONSchema7 {
     $id: IAdoType;
     $path: string;
+    $original_type: string;
     classifier: string;
     class: string;
     version: string;

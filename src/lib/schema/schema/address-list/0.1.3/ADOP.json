@@ -1,1 +1,1 @@
-{"modifiers":["add-address","remove-address"],"queries":["includes-address.query","andr-hook.query","andr-query.query"],"responses":["andr-hook.response","andr-query.response","includes-address.response"]}
+{"modifiers":["add-address","remove-address"],"queries":["includes-address.query","andr-hook.query","andr-query.query"],"responses":["andr-hook.response","andr-query.response","includes-address.response"],"cw721receives":[]}

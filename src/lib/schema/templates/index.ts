@@ -353,7 +353,7 @@ const APP_TEMPLATES: PartialTemplateType[] = [
     starter: false,
   },
   ...MASTER_ALLADO.map(ado => ({
-    id: ado.$id,
+    id: `ado_${ado.$id}`,
     adoType: ado.$id as IAdoType,
     name: ado.title,
     description: ado.description,

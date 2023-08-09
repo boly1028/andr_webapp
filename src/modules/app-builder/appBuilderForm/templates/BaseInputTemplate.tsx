@@ -1,7 +1,9 @@
 import * as React from "react";
-import { Box, FormControl, FormLabel, Input, InputGroup, InputRightElement, Tooltip } from "@chakra-ui/react";
+import { Box, FormControl, FormLabel, HStack, Input, InputGroup, InputRightElement, Tooltip } from "@chakra-ui/react";
 import { getInputProps, getUiOptions, WidgetProps } from "@andromedarjsf/utils";
 import { InfoIcon } from "@chakra-ui/icons";
+import { isIdentifier } from "@/modules/flex-builder/components/FlexBuilderForm/utils/identifier";
+import VfsResolver from "./VfsResolver";
 
 const BaseInputTemplate = (props: WidgetProps) => {
   const {
@@ -82,13 +84,18 @@ const BaseInputTemplate = (props: WidgetProps) => {
           fontSize='xs'
           py='0'
         />
-        {description && description.length > 0 && (
-          <InputRightElement>
-            <Tooltip label={description} fontSize='xs' size='xs' textColor='dark.500'>
-              <InfoIcon boxSize='4' cursor='pointer' color='dark.300' _hover={{ color: 'dark.500' }} />
-            </Tooltip>
-          </InputRightElement>
-        )}
+        <InputRightElement minW='fit-content'>
+          <HStack spacing={1} pr='2'>
+            {isIdentifier(schema as any) && (
+              <VfsResolver formData={value} />
+            )}
+            {description && description.length > 0 && (
+              <Tooltip label={description} fontSize='xs' size='xs' textColor='dark.500'>
+                <InfoIcon boxSize='4' cursor='pointer' color='dark.300' _hover={{ color: 'dark.500' }} />
+              </Tooltip>
+            )}
+          </HStack>
+        </InputRightElement>
       </InputGroup>
       {schema.examples ? (
         <datalist id={`examples_${id}`}>

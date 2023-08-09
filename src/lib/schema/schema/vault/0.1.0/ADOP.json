@@ -1,1 +1,1 @@
-{"modifiers":["deposit","withdraw","update-strategy"],"queries":["andr-query.query","balance.query","strategy-address.query"],"responses":["andr-query.response","balance.response","strategy-address.response"]}
+{"modifiers":["deposit","withdraw","update-strategy"],"queries":["andr-query.query","balance.query","strategy-address.query"],"responses":["andr-query.response","balance.response","strategy-address.response"],"cw721receives":[]}

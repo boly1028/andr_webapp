@@ -188,7 +188,6 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
     return () => clearTimeout(tId);
   }, [formData, uiSchema, schema]);
 
-  console.log(schema)
 
   return (
     <>
@@ -217,9 +216,6 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
             description: "Found errors while validating",
             status: "error",
           });
-          console.log("TEST::FORM::", errors)
-          console.log("TEST::FORM::", schema)
-          console.log("TEST::FORM::", formData)
           onError?.();
         }}
         noValidate={skipValidate}

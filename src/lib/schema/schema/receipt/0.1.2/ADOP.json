@@ -1,1 +1,1 @@
-{"modifiers":["store-receipt","edit-receipt"],"queries":["andr-query.query","receipt.query","contract-info.query","andr-hook.query"],"responses":["andr-hook.response","andr-query.response","contract-info.response","receipt.response"]}
+{"modifiers":["store-receipt","edit-receipt"],"queries":["andr-query.query","receipt.query","contract-info.query","andr-hook.query"],"responses":["andr-hook.response","andr-query.response","contract-info.response","receipt.response"],"cw721receives":[]}

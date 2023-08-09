@@ -15,7 +15,7 @@ import {
 } from "@chakra-ui/react";
 import { useUpdateNodeInternals } from "reactflow";
 import { WrapIfIdentifier } from "../connections/WrapIfIdentifier";
-import { WrapIfModule } from "../connections/WrapIfIModule";
+import { isIdentifier } from "@/modules/flex-builder/components/FlexBuilderForm/utils/identifier";
 
 const FieldTemplate = (props: FieldTemplateProps) => {
   const {
@@ -23,7 +23,6 @@ const FieldTemplate = (props: FieldTemplateProps) => {
     children,
     classNames,
     disabled,
-    displayLabel,
     hidden,
     label,
     onDropPropertyClick,
@@ -31,8 +30,6 @@ const FieldTemplate = (props: FieldTemplateProps) => {
     readonly,
     required,
     rawErrors = [],
-    rawHelp,
-    rawDescription,
     schema,
     uiSchema,
     registry,
@@ -115,8 +112,6 @@ const FieldTemplate = (props: FieldTemplateProps) => {
         // bg={hasWrapper?'#ffffff04':'transparent'}0
         >
           {hasWrapper && <Divider mb='2' mx='auto' w='95%' />}
-          <WrapIfIdentifier id={id} formData={formData} />
-          <WrapIfModule schema={schema} formData={formData} />
           <FormControl
             isRequired={hasWrapper ? false : required}
             isInvalid={rawErrors && rawErrors.length > 0}
@@ -125,7 +120,9 @@ const FieldTemplate = (props: FieldTemplateProps) => {
             {/* {displayLabel && <>{description}</>} */}
 
             {children}
-
+            {isIdentifier(schema as any) && (
+              <WrapIfIdentifier id={id} formData={formData} />
+            )}
             {/* {props.help} */}
             {!hideError && (<Box px='4'>{props.errors}</Box>)}
           </FormControl>

@@ -4,21 +4,18 @@ import {
   FieldTemplateProps,
   getTemplate,
   getUiOptions,
-  getSchemaType,
 } from "@andromedarjsf/utils";
 
 import {
-  Text,
   FormControl,
   FormLabel,
   Box,
   Alert,
   AlertIcon,
-  AlertTitle,
   AlertDescription,
 } from "@chakra-ui/react";
-import { JSONSchema7 } from "json-schema";
-import { createContext } from "vm";
+import VfsResolver from "../alerts/VfsResolver";
+import { isIdentifier } from "../utils/identifier";
 
 const FieldTemplate = (props: FieldTemplateProps) => {
   const {
@@ -34,15 +31,13 @@ const FieldTemplate = (props: FieldTemplateProps) => {
     readonly,
     required,
     rawErrors = [],
-    rawHelp,
-    rawDescription,
     schema,
     uiSchema,
     registry,
     onChange,
-    formData,
     description,
     hideError,
+    formData
   } = props;
 
   const uiOptions = getUiOptions(uiSchema);
@@ -138,8 +133,12 @@ const FieldTemplate = (props: FieldTemplateProps) => {
           ) : (
             <>{children}</>
           )}
-
           {props.help}
+          {isIdentifier(schema as any) && (
+            <VfsResolver
+              formData={formData}
+            />
+          )}
           {!hideError && props.errors}
         </FormControl>
       </WrapIfAdditionalTemplate>
