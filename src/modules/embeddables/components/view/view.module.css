@@ -1,0 +1,42 @@
+/* View Header CSS: START */
+.imgContainer img {
+    /* width: 100%; */
+    /* height: auto; */
+}
+
+.imgButton {
+    transition: .5s ease;
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.imgContainer:hover img {
+    opacity: 0.3;
+}
+
+.imgContainer:hover .imgButton {
+    opacity: 1;
+}
+
+/* View Header CSS: END */
+
+/* View Table CSS: START */
+.onHover {
+    visibility: hidden;
+}
+
+.container:hover .onHover {
+    visibility: visible !important;
+}
+
+.container:hover {
+    background-color: rgba(255, 255, 255, 0.09);
+    border-radius: 6px;
+}
+
+/* View Table CSS: END */
