@@ -35,7 +35,7 @@ const Placeholders = () => {
                                 <Text fontWeight={'500'} fontSize='16px'>{item.type}</Text>
                                 <a href={item.demoLink} target='_blank' rel="noopener noreferrer">
                                     <Button
-                                        rightIcon={<ExternalLinkIcon />}
+                                        rightIcon={<ExternalLinkIcon boxSize={3}/>}
                                         colorScheme='primary'
                                         size='xs'
                                         borderRadius={'6px'}

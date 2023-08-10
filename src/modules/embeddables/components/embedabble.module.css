@@ -4,7 +4,7 @@
 }
 
 .demoContainer:hover .demoButton {
-    display: block !important;
+    display: flex !important;
 }
 
 .demoContainer:hover .iconButton {
