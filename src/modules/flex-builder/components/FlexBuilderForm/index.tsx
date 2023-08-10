@@ -37,7 +37,8 @@ export type FlexBuilderFormProps = {
   onSubmit?: (data: any) => void;
   onError?: () => void;
   addButtonTitle?: string;
-  onCliCopy: (formData: any) => string;
+  onCliCopy?: (formData: any) => string;
+  hideOpenInAppBuilder?:boolean;
 };
 
 const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
@@ -47,8 +48,8 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
   isLoading,
   notReady = false,
   addButtonTitle,
-  onCliCopy
-
+  onCliCopy,
+  hideOpenInAppBuilder = false
 }) => {
   const toast = useToast({
     position: "top-right",
@@ -228,15 +229,19 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
         {/* Action Footer */}
         <Flex mt={8} justify="right" mb={10}>
           <HStack spacing={4}>
-            <OpenInAppBuilderButton
-              schema={schema}
-              uiSchema={uiSchema}
-              formData={formData}
-            />
-            <CopyCliButton
-              formData={formData}
-              onCopy={onCliCopy}
-            />
+            {!hideOpenInAppBuilder && (
+              <OpenInAppBuilderButton
+                schema={schema}
+                uiSchema={uiSchema}
+                formData={formData}
+              />
+            )}
+            {onCliCopy && (
+              <CopyCliButton
+                formData={formData}
+                onCopy={onCliCopy}
+              />
+            )}
             <CopyFlexButton
               schema={schema}
               uiSchema={uiSchema}

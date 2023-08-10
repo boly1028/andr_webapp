@@ -1,20 +1,12 @@
 import { Layout } from "@/modules/common";
-import PagePlaceholder from "@/modules/common/components/PagePlaceholder";
+import { ILinkItemKey } from "@/modules/common/components/Sidebar";
+import { EmbeddablePage } from "@/modules/embeddables";
 import type { NextPage } from "next";
 
 const EmbeddablesPage: NextPage = () => {
   return (
-    <Layout>
-      <a
-        href="https://andromedaprotocol.github.io/embeddable-marketplace-demo"
-        target="_blank"
-        rel="noreferrer"
-      >
-        <PagePlaceholder
-          imageUrl="/placeholders/embeddables-preview-0223.png"
-          description=""
-        />
-      </a>
+    <Layout activeLink={ILinkItemKey.EMBEDDABLES}>
+      <EmbeddablePage />
     </Layout>
   );
 };

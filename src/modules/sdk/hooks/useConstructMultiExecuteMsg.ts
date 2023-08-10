@@ -15,7 +15,7 @@ export default function useConstructMultiExecuteMsg() {
       const msgs: Msg[] = [];
       const panels = Object.entries(data).filter(([id, panel]) => panel.$class !== 'system' && panel.$enabled === true);
       if (panels.length === 0) throw new Error("No Ado for processing");
-      panels.forEach(([id, panel]) => {
+      panels.sort(([id1], [id2]) => id1 > id2 ? 1 : -1).forEach(([id, panel]) => {
         if (proxy) {
           const proxyPanel = data[IImportantAdoKeys.PROXY_MESSAGE];
           const msg = constructProxyMsg({
