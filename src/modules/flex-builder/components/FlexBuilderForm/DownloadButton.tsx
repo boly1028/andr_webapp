@@ -55,10 +55,9 @@ function DownloadButton({ schema, uiSchema, formData, template }: DownloadFlexPr
         icon={<DownloadIcon boxSize={5} color="gray.500" />}
         onClick={handleDownload}
         _hover={{
-          background: 'rgba(68, 129, 255, 1)',
-          border: 'none',
-          svg: { color: 'white' }
+          background: 'rgba(255, 255, 255, 0.08)',
         }}
+        sx={{ svg: { color: 'rgba(255, 255, 255, 0.92)' } }}
       />
     </Tooltip>
   );

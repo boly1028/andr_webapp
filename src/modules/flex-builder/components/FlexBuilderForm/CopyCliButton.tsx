@@ -44,11 +44,9 @@ function CopyCliButton({ formData, onCopy }: CopyCliProps) {
           variant="outline"
           icon={<CliIcon boxSize={5} color="gray.500" />}
           _hover={{
-            background: 'rgba(68, 129, 255, 1)',
-            border: 'none',
-            svg: { color: 'white' }
+            background: 'rgba(255, 255, 255, 0.08)',
           }}
-        >
+          sx={{ svg: { color: 'rgba(255, 255, 255, 0.92)' } }}        >
         </IconButton>
       </Tooltip>
     </CopyButton>
