@@ -33,7 +33,7 @@ const OpenInAdoBuilderButton: FC<OpenInAdoBuilderButtonProps> = (props) => {
     }, [createFlex, toast]);
 
     return (
-        <Tooltip label={`Open in Ado Builder`} bg='base.white' placement='top'>
+        <Tooltip label={`Open in ADO Builder`} bg='base.white' placement='top'>
             <Box>
                 <IconButton
                     color='newSystem.content.high'
