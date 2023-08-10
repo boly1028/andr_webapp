@@ -1,7 +1,5 @@
 import { FC } from "react";
 import { Box, Text } from "@/theme/ui-elements";
-import { truncate } from "@/modules/common";
-import { Tooltip } from "@chakra-ui/react";
 
 interface InlineStatProps {
   label: string;
@@ -12,11 +10,9 @@ interface InlineStatProps {
 const InlineStat: FC<InlineStatProps> = ({ label, value, reverse = false }) => {
   const labelComponent = <Text color="dark.500" fontWeight='light' textStyle='light' fontSize='xs'>{label}</Text>;
   const valueComponent = (
-    <Tooltip label={value} placement="bottom-start" openDelay={800}>
-      <Text color="base.white" fontWeight='medium'>
-        {truncate(value, [16, 5])}
-      </Text>
-    </Tooltip>
+    <Text color="base.white" fontWeight='medium'>
+      {value}
+    </Text>
   );
 
   if (reverse) {

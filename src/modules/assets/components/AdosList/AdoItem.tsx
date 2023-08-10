@@ -45,7 +45,7 @@ interface AdoItemProps {
 
 const AdoItem: FC<AdoItemProps> = ({ address, adoType: _adoType, name, proxyAddress }) => {
   const { data: baseAdo } = useQueryBaseAdo(address)
-
+  
   // Creating a proxy for app type as it is now reference as app-contract
   const adoType = _adoType === "app" ? "app-contract" : (_adoType);
   // const { data: app, loading, error } = useAppConfig(address, adoType !== 'app-contract');
@@ -70,6 +70,7 @@ const AdoItem: FC<AdoItemProps> = ({ address, adoType: _adoType, name, proxyAddr
       mb={4}
       _last={{ mb: 0 }}
       direction="column"
+      w='full'
     >
       <Flex
         align="start"
@@ -81,7 +82,7 @@ const AdoItem: FC<AdoItemProps> = ({ address, adoType: _adoType, name, proxyAddr
         </Box>
 
         <Box flex={1.5}>
-          <InlineStat label="Name" value={name ? name : _adoType} />
+          <InlineStat label="Name" value={name || _adoType} />
           {/* <InlineStat label="{type}" value={name} reverse /> */}
         </Box>
         <Box flex={1}>
@@ -126,14 +127,14 @@ const AdoItem: FC<AdoItemProps> = ({ address, adoType: _adoType, name, proxyAddr
               className={styles.onHover}
             />
             <MenuList>
-              {/* <NextLink
+              <NextLink
                 href={SITE_LINKS.adoMultiExecute(`${adoType}/${version}`, address ?? "", name, proxyAddress)}
                 passHref
               >
                 <MenuItem>
                   Multi Execute
                 </MenuItem>
-              </NextLink> */}
+              </NextLink>
               {adopData?.modifiers?.map((action) => {
                 const path = `${adoType}/${version}/${formatActionPath(
                   action,
