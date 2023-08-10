@@ -34,7 +34,7 @@ const CopyCliButton: FC<CopyCliButtonProps> = (props) => {
     }, [instantiation, toast]);
 
     return (
-        <Tooltip label={`Copy Cli Command`} bg='base.white' placement='top'>
+        <Tooltip label={`Export to CLI`} bg='base.white' placement='top'>
             <Box>
                 <CopyButton text={handleCopy} variant="unstyled">
                     <IconButton

@@ -44,6 +44,10 @@ function OpenInAppBuilderButton({ schema, uiSchema, formData }: OpenInAppBuilder
         variant="outline"
         icon={<AppBuilder boxSize={5} color="gray.500" />}
         onClick={handleRoute}
+        _hover={{
+          background: 'rgba(255, 255, 255, 0.08)',
+        }}
+        sx={{ svg: { color: 'rgba(255, 255, 255, 0.92)' } }}
       />
     </Tooltip>
   );
