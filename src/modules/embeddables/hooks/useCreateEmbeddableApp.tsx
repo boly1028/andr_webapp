@@ -8,6 +8,7 @@ import { EMBEDDABLE_ADO_NAME, EMBEDDABLE_SUFFIX } from "../constants";
 import { ITemplateFormData } from "@/lib/schema/templates/types";
 import { IImportantAdoKeys } from "@/lib/schema/types";
 import useConstructADOExecuteMsg from "@/modules/sdk/hooks/useConstructaADOExecuteMsg";
+import { useGetSchemaVersions } from "@/lib/schema/hooks/useGetSchemaVersion";
 
 export const useCreateEmbeddableApp = () => {
     const { loading, app, embeddable } = useGetEmbeddableApp();
@@ -18,8 +19,8 @@ export const useCreateEmbeddableApp = () => {
     const openExecuteModal = useExecuteModal(app?.address ?? "");
     const constructExecuteMsg = useConstructADOExecuteMsg();
 
-
     const proxy = useCallback(async () => {
+        // TODO: FIX THIS FOR V2
         const FORM_DATA: any = {
             [IImportantAdoKeys.PROXY_MESSAGE]: {
                 "$type": "proxy-settings",
@@ -34,8 +35,8 @@ export const useCreateEmbeddableApp = () => {
             "add-app-component": {
                 "add_app_component": {
                     "component": {
-                        "instantiate_msg": "e30=",
-                        "ado_type": "primitive",
+                        "instantiate_msg": "e30=", // ADD KERNEL ADDRESS
+                        "ado_type": "primitive", // ADD VERSION
                         "name": EMBEDDABLE_ADO_NAME
                     }
                 },
@@ -52,6 +53,7 @@ export const useCreateEmbeddableApp = () => {
     }, [constructExecuteMsg, openExecuteModal])
 
     const instantiate = useCallback(async () => {
+        // TODO: FIX THIS FOR V2
         const FORM_DATA: ITemplateFormData = {
             [IImportantAdoKeys.PUBLISH_SETTINGS]: {
                 "$type": "publish-settings",
@@ -60,7 +62,8 @@ export const useCreateEmbeddableApp = () => {
                 "$enabled": true,
                 "$removable": false,
                 "$required": true,
-                "name": `${account.address}-${EMBEDDABLE_SUFFIX}`
+                "name": `${account.address}-${EMBEDDABLE_SUFFIX}`,
+                "$version": "" // ADD VERSION - NOT IMPORTANT HERE
             },
             [EMBEDDABLE_ADO_NAME]: {
                 "$type": "primitive",
@@ -68,7 +71,9 @@ export const useCreateEmbeddableApp = () => {
                 "$classifier": "",
                 "$enabled": true,
                 "$removable": true,
-                "$required": false
+                "$required": false,
+                "$version": "" // ADD VERSION
+                // ADD KERNEL ADDRESS
             }
         }
         console.log(FORM_DATA)

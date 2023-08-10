@@ -8,7 +8,7 @@ import { MASTER_ADOENABLE, MASTER_BASEADO, MASTER_MODIFIER, MASTER_MODULE, MASTE
 /** Skipping base ados which are not yet ready for processing. Instead of removing these from schema parser
  * We can disable it here, so they will still be availaible for testing purpose if directly enabled
  */
-const INCLUDE_ADO: string[] = Object.keys(MASTER_ADOENABLE).filter(ado => MASTER_ADOENABLE[ado] === true);
+export const INCLUDE_ADO: string[] = Object.keys(MASTER_ADOENABLE).filter(ado => MASTER_ADOENABLE[ado] === true);
 
 export const BASE_ADOS = MASTER_BASEADO.filter(ado => INCLUDE_ADO.includes(ado.$id as IAdoType));
 export const MODIFIERS = MASTER_MODIFIER;
