@@ -3,10 +3,11 @@ import {
   ModalBody,
   ModalCloseButton,
   ModalContent,
+  ModalHeader,
   ModalOverlay,
   useDisclosure,
 } from "@chakra-ui/react";
-import React, { memo, useCallback, useEffect, useState } from "react";
+import React, { ReactNode, memo, useCallback, useEffect, useState } from "react";
 import { GlobalModalContext } from "../hooks";
 import { ModalProps, ModalType } from "../types";
 import AssetInfoModal from "./AssetInfoModal";
@@ -23,6 +24,7 @@ interface ModalState {
   props?: Omit<ModalProps, "modalType">;
   type: ModalType;
   onClose?: () => Promise<void>;
+  children?: ReactNode;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -37,7 +39,7 @@ const components: Record<ModalType, React.FC<any>> = {
   [ModalType.Embeddable]: EmbeddableModal
 };
 
-const GlobalModalProvider: React.FC = memo(function GlobalModalProvider({
+const GlobalModalProvider: React.FC<{ children?: ReactNode }> = memo(function GlobalModalProvider({
   children,
 }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -88,7 +90,7 @@ const GlobalModalProvider: React.FC = memo(function GlobalModalProvider({
     <GlobalModalContext.Provider
       value={{ isOpen, open, close, error, setError }}
     >
-      <Modal isCentered size="xl" isOpen={isOpen} onClose={close}>
+      <Modal isCentered isOpen={isOpen} onClose={close}>
         <ModalOverlay />
         <ModalContent>
           <ModalCloseButton />

@@ -1,4 +1,3 @@
-import { TmpButton } from "@/theme/new-system-tmp/ui-elements";
 import { downloadBlob } from "@/utils/file";
 import { Icon, IconButton, Tooltip } from "@chakra-ui/react";
 import { Download, Trash } from "lucide-react";

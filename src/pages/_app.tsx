@@ -1,14 +1,11 @@
 import { useWalletContext, WalletProvider } from "@/lib/wallet";
 import {
   ChakraProvider,
-  createLocalStorageManager,
   CSSReset,
-  localStorageManager,
 } from "@chakra-ui/react";
 import { AppProps } from "next/app";
 import React from "react";
 import {
-  Hydrate,
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
@@ -23,44 +20,44 @@ import "react-toastify/dist/ReactToastify.css";
 import { DEFAULT_CHAIN } from "@/constants/constants";
 
 const Main = ({ Component, pageProps }: AppProps<Record<string, any>>) => {
-  const [queryClient] = React.useState(() => new QueryClient({
-    defaultOptions: {
-      'queries': {
-        cacheTime: 1000 * 60 * 5,
-        staleTime: 1000 * 60 * 5
-      }
-    }
-  }));
   const { chainId, signer } = useWalletContext();
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <Hydrate state={pageProps.dehydratedState}>
-        <ChakraProvider theme={theme} colorModeManager={ThemeStorageManager}>
-          <CSSReset />
-          <AndromedaProvider chainId={chainId} signer={signer}>
+    <AndromedaProvider chainId={chainId} signer={signer}>
+      <GlobalModalProvider>
+        <Component {...pageProps} />
+      </GlobalModalProvider>
+    </AndromedaProvider>
+  );
+};
+
+const MyApp = (props: AppProps) => {
+  const queryClient = React.useMemo(() => new QueryClient({
+    'defaultOptions': {
+      'queries': {
+        staleTime: 1000 * 60 * 5,
+      }
+    }
+  }), []);
+
+  return (
+    <ApolloProvider client={apolloClient}>
+      <QueryClientProvider client={queryClient}>
+        <WalletProvider chainId={DEFAULT_CHAIN}>
+          <ChakraProvider theme={theme} colorModeManager={ThemeStorageManager}>
+            <CSSReset />
+            <Main {...props} />
             <ToastContainer
               position="top-center"
               autoClose={5000}
               pauseOnHover
               pauseOnFocusLoss
             />
-            <GlobalModalProvider>
-              <Component {...pageProps} />
-            </GlobalModalProvider>
-          </AndromedaProvider>
-        </ChakraProvider>
-      </Hydrate>
-    </QueryClientProvider>
-  );
-};
-
-const MyApp = (props: AppProps) => (
-  <WalletProvider chainId={DEFAULT_CHAIN}>
-    <ApolloProvider client={apolloClient}>
-      <Main {...props} />
+          </ChakraProvider>
+        </WalletProvider>
+      </QueryClientProvider>
     </ApolloProvider>
-  </WalletProvider>
-);
+  );
+}
 
 export default MyApp;

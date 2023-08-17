@@ -2,11 +2,11 @@ import { truncate } from "@/modules/common";
 import { InfoIcon } from "@chakra-ui/icons";
 import { Box, Button, Center, Flex, Text, Textarea } from "@chakra-ui/react";
 import { AlertCircle, Copy } from "lucide-react";
-import { FC, memo } from "react";
+import { FC, memo, PropsWithChildren } from "react";
 import { toast } from "react-toastify";
 import { useGlobalModalContext } from "../hooks";
 
-const ModalError: FC = memo(function ModalError({ children }) {
+const ModalError: FC<PropsWithChildren> = memo(function ModalError({ children }) {
   const { error, setError, close } = useGlobalModalContext();
 
   const onReport = () => {

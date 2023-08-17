@@ -13,7 +13,7 @@ type AppsCardProps = {
 
 const AppsCard: FC<AppsCardProps> = ({ icon, link, title, target }) => {
   return (
-    <NextLink href={link} passHref>
+    <NextLink href={link} passHref legacyBehavior>
       <Box
         as="a"
         target={target}

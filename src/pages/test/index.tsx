@@ -104,23 +104,28 @@ const SchemaComponentItem: FC<SchemaComponentItemProps> = (props) => {
             <List {...disclosureProps} p='6' gap={4}>
                 {list?.map((ado) => {
                     return (
-                        <Link key={ado.source} href={SITE_LINKS.testSchema(ado.source)} passHref>
-                            <a target="_blank" rel="noopener noreferrer ">
-                                <ListItem cursor='pointer' px='4' py='2' rounded='2xl' _hover={{ bg: 'dark.50' }} as='a' display='flex' flexDirection='row' justifyContent='space-between'>
-                                    <Text>
-                                        {ado.title}
-                                    </Text>
-                                    <Text fontSize='sm'>
-                                        {ado.source}
-                                    </Text>
-                                </ListItem>
-                            </a>
-                        </Link>
+                        (<Link
+                            key={ado.source}
+                            href={SITE_LINKS.testSchema(ado.source)}
+                            passHref
+                            target="_blank"
+                            rel="noopener noreferrer ">
+
+                            <ListItem cursor='pointer' px='4' py='2' rounded='2xl' _hover={{ bg: 'dark.50' }} as='a' display='flex' flexDirection='row' justifyContent='space-between'>
+                                <Text>
+                                    {ado.title}
+                                </Text>
+                                <Text fontSize='sm'>
+                                    {ado.source}
+                                </Text>
+                            </ListItem>
+
+                        </Link>)
                     );
                 })}
             </List>
         </Box>
-    )
+    );
 }
 
 export default Page;

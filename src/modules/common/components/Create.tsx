@@ -17,29 +17,23 @@ const Create: FC = () => {
     <Menu placement="bottom-end">
       <MenuButton
         as={Button}
-        icon={<PlusIcon boxSize={10} />}
-        size="lg"
+        leftIcon={<PlusIcon boxSize={6} />}
+        size="sm"
         minWidth="100px"
         fontWeight={'500'}
-        variant="soliddark"
       >
         <Flex justifyContent="space-around" alignItems="center">
-          <PlusIcon boxSize={6} />
           Create
         </Flex>
       </MenuButton>
 
       <MenuList>
-        <Link href={SITE_LINKS.flexBuilderHome()} passHref>
-          <MenuItem as={_Link} fontWeight='medium' fontSize='sm'>
-            ADO
-          </MenuItem>
-        </Link>
-        <Link href={SITE_LINKS.appBuilder()} passHref>
-          <MenuItem as={_Link} fontWeight='medium' fontSize='sm'>
-            App
-          </MenuItem>
-        </Link>
+        <MenuItem as={Link} href={SITE_LINKS.flexBuilderHome()} fontWeight='medium' fontSize='sm'>
+          ADO
+        </MenuItem>
+        <MenuItem as={Link} href={SITE_LINKS.flexBuilderHome()} fontWeight='medium' fontSize='sm'>
+          App
+        </MenuItem>
       </MenuList>
     </Menu>
   );

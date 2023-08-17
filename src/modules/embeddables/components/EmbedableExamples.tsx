@@ -43,7 +43,7 @@ type EmbeddableTemplateListItemProps = {
 
 const EmbeddableTemplateItem: FC<EmbeddableTemplateListItemProps> = ({ template }) => {
     return (
-        <Link href={SITE_LINKS.embeddablesBuild(template.id)}>
+        <Link href={SITE_LINKS.embeddablesBuild(template.id)} legacyBehavior>
             <Box
                 h="full"
                 rounded="lg"

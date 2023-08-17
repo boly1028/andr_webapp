@@ -15,9 +15,9 @@ import React, { FC } from "react";
 import Header from "./Header";
 import TemplateCard from "./TemplateCard";
 
-interface AppStorePageProps {}
+interface AppStorePageProps { }
 const AppStorePage: FC<AppStorePageProps> = (props) => {
-  const {} = props;
+  const { } = props;
 
   return (
     <Box pb="10">
@@ -38,11 +38,10 @@ const AppStorePage: FC<AppStorePageProps> = (props) => {
               Build Your App
             </Text>
             <Text color="dark.500" mt="6">
-            Quickly build your app with a template or start from scratch.
+              Quickly build your app with a template or start from scratch.
             </Text>
-            <Link href={SITE_LINKS.flexBuilder("app")} passHref>
+            <Link href={SITE_LINKS.flexBuilder("app")} legacyBehavior>
               <Button
-                as="a"
                 mt={10}
                 w="full"
                 size="lg"

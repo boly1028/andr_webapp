@@ -1,5 +1,4 @@
-import { COLORS } from "@/theme/new-system-tmp/colors";
-import { Box, Button, Center, HStack, Icon, Text } from "@chakra-ui/react";
+import { Box, BoxProps, Button, Center, HStack, Icon, Text } from "@chakra-ui/react";
 import { AlertCircle } from "lucide-react";
 import { FC, memo, useCallback, useMemo } from "react";
 import { useGlobalModalContext } from "../hooks";
@@ -23,16 +22,16 @@ const ConfirmationModal: FC<ConfirmationModalProps> = memo(
     const color = useMemo(() => {
       switch (type) {
         case "danger":
-          return COLORS.dangerLow;
+          return 'dangerLow.idle' as BoxProps['bg'];
         case "warning":
         default:
-          return COLORS.warningLow;
+          return 'warningLow.idle' as BoxProps['bg'];
       }
     }, [type]);
 
     return (
       <Box>
-        <Center p='4' bg={color.idle} rounded='lg' maxW='min-content' mx='auto'>
+        <Center p='4' bg={color} rounded='lg' maxW='min-content' mx='auto'>
           <Icon as={AlertCircle} boxSize='8' type='fill' />
         </Center>
 

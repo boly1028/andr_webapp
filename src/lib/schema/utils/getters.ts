@@ -101,7 +101,7 @@ export const getSchemaFromPath = async (path: string) => {
 
     // Set default properties from above created object
     schema.schema.properties = {
-        ...schema.schema.properties ?? {},
+        ...(schema.schema.properties ?? {}),
         ...properties
     }
 

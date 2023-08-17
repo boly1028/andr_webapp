@@ -1,5 +1,5 @@
 import type { OfflineSigner } from "@cosmjs/proto-signing";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { PropsWithChildren, useCallback, useEffect, useState } from "react";
 import { connectByChainId } from "../chains";
 import { useGetKeplrOnStart, WalletContext } from "../hooks";
 import { toast } from "react-toastify";
@@ -12,7 +12,7 @@ export interface WalletProviderProps {
 //Local storage key for autoconnect check
 const AUTOCONNECT_KEY = "keplr_autoconnect";
 
-const WalletProvider: React.FC<WalletProviderProps> = React.memo(
+const WalletProvider: React.FC<PropsWithChildren<WalletProviderProps>> = React.memo(
   function WalletProvider({ chainId, children }) {
     //Detect Keplr instance on startup
     const { keplr, status } = useGetKeplrOnStart();

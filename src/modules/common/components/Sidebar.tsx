@@ -112,9 +112,9 @@ const Sidebar = ({ onClose, activeLink, ...props }: SidebarProps) => {
     >
       <Flex h={20} pl="4" alignItems="center" justifyContent="space-between">
         <Link href={SITE_LINKS.landing()} passHref>
-          <a>
-            <Image src="/logo_header.png" w="60%" />
-          </a>
+
+          <Image src="/logo_header.png" w="60%" />
+
         </Link>
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>

@@ -53,9 +53,9 @@ export const WrapIfIdentifier: FC<WrapIfIdentifierProps> = (props) => {
     useEffect(() => {
         if (panel) {
             formRefs.current[panel] = {
-                ...formRefs.current[panel] ?? {},
+                ...(formRefs.current[panel] ?? {}),
                 fieldRefs: {
-                    ...formRefs.current[panel]?.fieldRefs ?? {},
+                    ...(formRefs.current[panel]?.fieldRefs ?? {}),
                     [id]: {
                         onConnectionChange: (data) => {
                             fieldRef.current?.onChange?.(data.source)

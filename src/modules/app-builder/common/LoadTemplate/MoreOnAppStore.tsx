@@ -18,7 +18,7 @@ const MoreOnAppStore: FC<MoreOnAppStoreProps> = (props) => {
                     More on App Store
                 </Text>
             </HStack>
-            <Link href={SITE_LINKS.appStore()} passHref>
+            <Link href={SITE_LINKS.appStore()} passHref legacyBehavior>
                 <Button as='a' rightIcon={<Icon as={ArrowRight} boxSize='5' />} size='sm' colorScheme='primary'>
                     Browse Templates
                 </Button>

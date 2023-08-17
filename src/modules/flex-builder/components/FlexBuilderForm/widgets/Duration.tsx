@@ -1,9 +1,8 @@
 import React, { useMemo, useState } from "react";
 import { FormControl, Text } from "@chakra-ui/react";
 import { WidgetProps } from "@andromedarjsf/utils";
-import { DurationPicker } from "@/lib/datetime/duration";
 import { formatDuration, intervalToDuration } from 'date-fns'
-import { milliDhms } from "@/lib/datetime/utils/duration";
+import { DurationPicker, milliDhms } from "@andromedaprotocol/design-theme";
 
 export const DurationWidget = (props: WidgetProps) => {
     const {

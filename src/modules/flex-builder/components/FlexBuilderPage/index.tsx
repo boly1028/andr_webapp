@@ -78,7 +78,7 @@ const FlexBuilderPage: FC<FlexBuilderPageProps> = ({ templateList }) => {
               Build with ready-made apps and templates by Andromeda and the
               community.
             </Text>
-            <Link href={SITE_LINKS.appStore()} passHref>
+            <Link href={SITE_LINKS.appStore()} passHref legacyBehavior>
               <Button
                 as="a"
                 mt={10}

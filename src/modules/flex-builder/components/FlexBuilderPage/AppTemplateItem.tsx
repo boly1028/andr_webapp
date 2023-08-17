@@ -17,7 +17,7 @@ type AppTemplateListItemProps = {
 
 const AppTemplateItem: FC<AppTemplateListItemProps> = ({ template }) => {
   return (
-    <Link href={SITE_LINKS.flexBuilder(template.id)}>
+    <Link href={SITE_LINKS.flexBuilder(template.id)} legacyBehavior>
       <Box
         h="full"
         rounded="lg"
@@ -66,7 +66,7 @@ const AppTemplateItem: FC<AppTemplateListItemProps> = ({ template }) => {
             </Text>
             <HStack justifyContent="end" mt="auto">
               {template.id !== IImportantAdoKeys.BLANK_CANVAS && (
-                <Link href={SITE_LINKS.appStoreItem(template.id)} passHref>
+                <Link href={SITE_LINKS.appStoreItem(template.id)} passHref legacyBehavior>
                   <Button as="a">Read More</Button>
                 </Link>
               )}

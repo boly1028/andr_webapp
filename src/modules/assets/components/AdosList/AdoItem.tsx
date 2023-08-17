@@ -131,7 +131,7 @@ const AdoItem: FC<AdoItemProps> = ({ address, name, proxyAddress, adoType: _adoT
               <NextLink
                 href={SITE_LINKS.adoMultiExecute(`${adoType}/${version}`, address ?? "", name, proxyAddress)}
                 passHref
-              >
+                legacyBehavior>
                 <MenuItem>
                   Multi Execute
                 </MenuItem>
@@ -146,7 +146,7 @@ const AdoItem: FC<AdoItemProps> = ({ address, name, proxyAddress, adoType: _adoT
                     key={action}
                     href={SITE_LINKS.adoExecute(path, address ?? "", name, proxyAddress)}
                     passHref
-                  >
+                    legacyBehavior>
                     <MenuItem key={action}>
                       {/* <MenuItem icon={<Icon as={EyeIcon} boxSize={5} />}> */}
                       {formatActionTitles(action)}
@@ -164,7 +164,7 @@ const AdoItem: FC<AdoItemProps> = ({ address, name, proxyAddress, adoType: _adoT
                     key={action}
                     href={SITE_LINKS.adoQuery(path, address ?? "")}
                     passHref
-                  >
+                    legacyBehavior>
                     <MenuItem key={action}>
                       {/* <MenuItem icon={<Icon as={EyeIcon} boxSize={5} />}> */}
                       {formatActionTitles(action.replaceAll('.', ' '))}

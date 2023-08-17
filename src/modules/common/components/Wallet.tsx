@@ -59,7 +59,7 @@ const WalletConnected: FC<WalletProps> = (props) => {
           <PopoverTrigger>
             <Button
               variant="outline"
-              size="lg"
+              size="sm"
               {...props}
             >
               <HStack mr={4}>
@@ -76,8 +76,8 @@ const WalletConnected: FC<WalletProps> = (props) => {
                   colorScheme={
                     currentConfig?.chainType === "mainnet" ? "green" : "purple"
                   }
-                  fontSize={8}
-                  pt="1"
+                  fontSize='x-small'
+                  py='0.5'
                   rounded="full"
                 >
                   {currentConfig?.chainType}
@@ -107,8 +107,8 @@ const WalletConnected: FC<WalletProps> = (props) => {
                         ? "green"
                         : "purple"
                     }
-                    fontSize={8}
-                    pt="1"
+                    fontSize='x-small'
+                    py="0.5"
                     rounded="full"
                   >
                     {currentConfig?.chainType}
@@ -161,8 +161,8 @@ const WalletConnected: FC<WalletProps> = (props) => {
                                 ? "green"
                                 : "purple"
                             }
-                            fontSize={8}
-                            pt="1"
+                            fontSize='x-small'
+                            py="1"
                             rounded="full"
                             ml="auto"
                           >

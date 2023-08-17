@@ -1,7 +1,4 @@
-import usePanelRenameModal from "@/modules/modals/hooks/usePanelRenameModal";
-import { TmpButton } from "@/theme/new-system-tmp/ui-elements";
-import { Box, ButtonGroup, HStack, Icon, IconButton } from "@chakra-ui/react";
-import { Copy, Download, Trash, Upload } from "lucide-react";
+import { Box, ButtonGroup, HStack } from "@chakra-ui/react";
 import React, { FC } from "react";
 import DeleteButton from "./DeleteButton";
 import DownloadButton from "./Download";

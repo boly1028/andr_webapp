@@ -1,8 +1,8 @@
 import React, { useMemo, useState } from "react";
 import { FormControl, HStack, Text } from "@chakra-ui/react";
 import { WidgetProps } from "@andromedarjsf/utils";
-import { SingleDatepicker } from "@/lib/datetime";
 import { format } from 'date-fns';
+import { SingleDatepicker } from "@andromedaprotocol/design-theme";
 
 const MILLI_TO_NANO = 1000000;
 

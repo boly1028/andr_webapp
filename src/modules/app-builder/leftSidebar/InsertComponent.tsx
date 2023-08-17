@@ -3,9 +3,8 @@ import { ITemplate } from '@/lib/schema/types'
 import { BASE_ADOS, IAdoList, MODIFIERS, MODULES } from '@/lib/schema/utils/list'
 import { ListIcon, SearchBar } from '@/modules/common'
 import ClassifierIcon from '@/theme/icons/classifiers'
-import { TmpButton } from '@/theme/new-system-tmp/ui-elements'
 import { ChevronRightIcon, SearchIcon } from '@chakra-ui/icons'
-import { Divider, Icon, Text, VStack, SimpleGrid, GridItem, Kbd, HStack } from '@chakra-ui/react'
+import { Divider, Icon, Text, VStack, SimpleGrid, GridItem, Kbd, HStack, Button } from '@chakra-ui/react'
 import React, { FC, useMemo } from 'react'
 import { useAppBuilder } from '../canvas/Provider'
 import { APP_BUILDER_KEYCODES } from '../common/keyCodes'
@@ -114,7 +113,7 @@ const ADOButton: FC<ADOButtonProps> = (props) => {
         })
     }
     return (
-        <TmpButton
+        <Button
             leftIcon={leftIcon}
             onClick={() => openAdoList()}
             rightIcon={<Icon as={ChevronRightIcon} boxSize='5' ml='auto' />}
@@ -127,7 +126,7 @@ const ADOButton: FC<ADOButtonProps> = (props) => {
             <Text flex={1}>
                 {name}
             </Text>
-        </TmpButton>
+        </Button>
     );
 };
 
@@ -148,7 +147,7 @@ const TemplateButton: FC<TemplateButtonProps> = (props) => {
         })
     }
     return (
-        <TmpButton
+        <Button
             leftIcon={leftIcon}
             onClick={() => openAdoList()}
             rightIcon={<Icon as={ChevronRightIcon} boxSize='5' ml='auto' />}
@@ -161,7 +160,7 @@ const TemplateButton: FC<TemplateButtonProps> = (props) => {
             <Text flex={1}>
                 {name}
             </Text>
-        </TmpButton>
+        </Button>
     );
 };
 

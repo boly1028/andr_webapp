@@ -43,13 +43,13 @@ const AppStoreItemPage: FC<AppStoreItemPageProps> = (props) => {
           <Box maxW="xs">
             {template.installed ? (
               <HStack>
-                <Link href={SITE_LINKS.flexBuilder(template.id)} passHref>
-                  <Button as="a" w="full" size="lg" colorScheme="primary">
+                <Link href={SITE_LINKS.flexBuilder(template.id)} legacyBehavior>
+                  <Button w="full" size="lg" colorScheme="primary">
                     Open in ADO Builder
                   </Button>
                 </Link>
-                <Link href={SITE_LINKS.appBuilder(template.id)} passHref>
-                  <Button as="a" w="full" size="lg" colorScheme="primary">
+                <Link href={SITE_LINKS.appBuilder(template.id)} legacyBehavior>
+                  <Button w="full" size="lg" colorScheme="primary">
                     Open in App Builder
                   </Button>
                 </Link>

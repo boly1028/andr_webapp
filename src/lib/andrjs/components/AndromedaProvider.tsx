@@ -3,7 +3,7 @@ import type { ChainConfig } from "@andromedaprotocol/andromeda.js";
 import { cloneDeep } from "@apollo/client/utilities";
 import { OfflineSigner } from "@cosmjs/proto-signing";
 import { GasPrice } from "@cosmjs/stargate";
-import React, { memo, useEffect, useMemo, useState } from "react";
+import React, { ReactNode, memo, useEffect, useMemo, useState } from "react";
 import { AndromedaContext } from "../hooks";
 import { useQueryChainConfig } from "@/lib/graphql/hooks/chain/useChainConfig";
 
@@ -20,6 +20,7 @@ export function encode(data: any): string {
 export interface AndromedaProviderProps {
   signer?: OfflineSigner;
   chainId: ChainConfig["chainId"];
+  children?: ReactNode
 }
 
 
@@ -50,7 +51,7 @@ const AndromedaProvider: React.FC<AndromedaProviderProps> = memo(
       const connect = async () => {
         try {
           const kernelAddr = FIXED_KERNEL_ADDRESSES.find(addr => addr.startsWith(config.addressPrefix)) || config.kernelAddress;
-          console.log(kernelAddr,"KERNEL")
+          console.log(kernelAddr, "KERNEL")
           await client.connect(
             config.chainUrl,
             config.registryAddress,
