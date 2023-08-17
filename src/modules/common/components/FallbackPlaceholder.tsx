@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, PropsWithChildren } from "react";
 import { Flex, Box, Text } from "@/theme/ui-elements";
 
 interface FallbackPlaceholderProps {
@@ -6,7 +6,7 @@ interface FallbackPlaceholderProps {
   desc: string;
 }
 
-const FallbackPlaceholder: FC<FallbackPlaceholderProps> = ({
+const FallbackPlaceholder: FC<PropsWithChildren<FallbackPlaceholderProps>> = ({
   title,
   desc,
   children,

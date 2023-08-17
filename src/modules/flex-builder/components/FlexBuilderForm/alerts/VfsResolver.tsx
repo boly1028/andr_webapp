@@ -32,7 +32,7 @@ const VfsResolver: FC<Props> = (props) => {
             {(path === formData) && data && (
                 <Text>{data}</Text>
             )}
-            {(path === formData) && error && (
+            {!!(error && (path === formData)) && (
                 <Text color='newSystem.danger.400'>Not a valid vfs path</Text>
             )}
         </HStack>
