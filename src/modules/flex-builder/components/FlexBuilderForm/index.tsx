@@ -38,7 +38,7 @@ export type FlexBuilderFormProps = {
   onError?: () => void;
   addButtonTitle?: string;
   onCliCopy?: (formData: any) => string;
-  hideOpenInAppBuilder?:boolean;
+  hideOpenInAppBuilder?: boolean;
 };
 
 const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
@@ -263,9 +263,9 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
               />
             </VStack>
             <Button
-              disabled={notReady}
+              isDisabled={notReady}
               type="submit"
-              colorScheme="primary"
+              variant='theme-primary'
               isLoading={isLoading}
             >
               Publish

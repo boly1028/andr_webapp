@@ -6,9 +6,8 @@ import { ExternalLinkIcon } from '@chakra-ui/icons';
 import styles from './view.module.css';
 import { IEmbeddableConfig } from '@/lib/schema/types/embeddables';
 import { SITE_LINKS } from '@/modules/common/utils/sitelinks';
-import { createEmbeddableUrl } from '@/lib/schema/utils/embeddables';
-import { useWallet } from '@/lib/wallet';
 import { useGetEmbeddableApp } from '../../hooks/useGetEmbeddableApp';
+import { useAccount } from '@/lib/andrjs/hooks/useAccount';
 
 interface ViewHeaderProps {
     data: IEmbeddableConfig | undefined;
@@ -16,7 +15,7 @@ interface ViewHeaderProps {
 }
 
 const ViewInfo: FC<ViewHeaderProps> = ({ data, loading }) => {
-    const account = useWallet();
+    const account = useAccount();
     const address = account?.address ?? "";
 
     const { embeddable } = useGetEmbeddableApp();

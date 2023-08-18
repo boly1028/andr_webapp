@@ -11,7 +11,7 @@ export default function useSimulateInstantiate(
   codeId: number,
   label = "Instantiate",
 ) {
-  const client = useClient();
+  const { client } = useClient();
 
   const simulate = useCallback(
     async (msg: Msg) => {

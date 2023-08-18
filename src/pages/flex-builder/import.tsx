@@ -1,25 +1,25 @@
 import { Box, Skeleton, Stack } from "@chakra-ui/react";
 import { GetStaticProps, NextPage } from "next";
-import { INSTANTIATE_CLI_QUERY, useCodeId } from "@/lib/andrjs";
+import { INSTANTIATE_CLI_QUERY, useAndromedaClient, useCodeId } from "@/lib/andrjs";
 import { Layout, PageHeader } from "@/modules/common";
 import { FlexBuilderForm } from "@/modules/flex-builder";
 import { useInstantiateModal } from "@/modules/modals/hooks";
 import { useConstructAppMsg } from "@/modules/sdk/hooks";
 import { ITemplate } from "@/lib/schema/types";
-import { useWallet } from "@/lib/wallet";
 import { ILinkItemKey } from "@/modules/common/components/Sidebar";
 import { FlexBuilderFormProps } from "@/modules/flex-builder/components/FlexBuilderForm";
 import { useCallback, useMemo, useState } from "react";
 import { useGetFlexFileFromSession, useGetFlexFileFromUrl } from "@/modules/flex-builder/hooks/useFlexFile";
 import { processTemplate } from "@/lib/schema/utils/template";
 import { UPLOAD_TEMPLATE } from "@/lib/schema/templates/upload";
+import { useAccount } from "@/lib/andrjs/hooks/useAccount";
 
 type Props = {
     defaultTemplate: ITemplate;
 };
 
 const TemplatePage: NextPage<Props> = ({ defaultTemplate }) => {
-    const account = useWallet();
+    const { isConnected } = useAndromedaClient();
 
     const { flex: urlFlex, loading: urlLoading } = useGetFlexFileFromUrl();
     const { flex: sessionFlex, loading: sessionLoading } = useGetFlexFileFromSession();
@@ -74,7 +74,7 @@ const TemplatePage: NextPage<Props> = ({ defaultTemplate }) => {
                     <FlexBuilderForm
                         template={template}
                         onSubmit={handleSubmit}
-                        notReady={!codeId || codeId === -1 || !account}
+                        notReady={!codeId || codeId === -1 || !isConnected}
                         addButtonTitle="Add App Component"
                         onCliCopy={handleCliCopy}
                     />

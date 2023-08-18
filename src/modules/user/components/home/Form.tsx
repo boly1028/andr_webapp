@@ -1,6 +1,6 @@
 import { useAndromedaClient } from "@/lib/andrjs";
+import { useAccount } from "@/lib/andrjs/hooks/useAccount";
 import { useGetUsername } from "@/lib/andrjs/hooks/useGetUsername";
-import { useWallet } from "@/lib/wallet";
 import { FallbackPlaceholder } from "@/modules/common";
 import { useExecuteModal } from "@/modules/modals/hooks";
 import { Button, Icon, Input, InputGroup, InputRightElement, Text, VStack, Stack, Skeleton, Alert, AlertIcon, Center } from "@chakra-ui/react";
@@ -14,8 +14,8 @@ const USERNAME_PATTERN = /^[A-Za-z0-9]{1,40}$/;
 
 const Form: FC<Props> = (props) => {
     const { } = props;
-    const account = useWallet()
-    const client = useAndromedaClient()
+    const account = useAccount()
+    const { client } = useAndromedaClient()
     const { data: username, error, isLoading, isRefetching } = useGetUsername(account?.address)
     const [input, setInput] = useState('');
 

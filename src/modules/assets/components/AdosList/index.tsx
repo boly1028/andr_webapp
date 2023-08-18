@@ -1,7 +1,6 @@
 import React, { FC, useEffect, useRef, useState } from "react";
 import { Box, Button } from "@/theme/ui-elements";
 import { useQueryAssets } from "@/lib/graphql";
-import { useWallet } from "@/lib/wallet";
 import AdoItem from "./AdoItem";
 import { Create, FallbackPlaceholder } from "@/modules/common";
 import { Skeleton } from "@chakra-ui/skeleton";
@@ -17,9 +16,10 @@ export const SORT_LIMIT = 10;
 import ScrollToTop from "@/modules/common/components/ScrollToTop";
 import ScrollToBottom from "@/modules/common/components/ScrollToBottom";
 import { IAdoType as ICodegenAdoType, IAndrOrderBy } from "@andromedaprotocol/gql/dist/react";
+import { useAccount } from "@/lib/andrjs/hooks/useAccount";
 
 const AdosList: FC = () => {
-  const wallet = useWallet();
+  const wallet = useAccount();
   const [filteredData, setFilteredData] = useState<FilterObjectType>({
     orderBy: IAndrOrderBy.DESC
   });

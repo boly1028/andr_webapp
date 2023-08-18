@@ -14,7 +14,7 @@ const withMDX = require('@next/mdx')({
 module.exports = withMDX({
   pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
   reactStrictMode: true,
-  swcMinify: true,
+  swcMinify: false,
   env: {
     API_URL: process.env.API_URL,
     MINTSCAN_TESTNET_BASEURL: process.env.MINTSCAN_TESTNET_BASEURL,

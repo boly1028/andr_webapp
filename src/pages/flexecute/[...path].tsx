@@ -9,7 +9,6 @@ import { useExecuteModal } from "@/modules/modals/hooks";
 import { getADOExecuteTemplate } from "@/lib/schema/utils";
 import useConstructADOExecuteMsg from "@/modules/sdk/hooks/useConstructaADOExecuteMsg";
 import { useGetFunds } from "@/modules/sdk/hooks";
-import { useWallet } from "@/lib/wallet";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import useConstructProxyMsg from "@/modules/sdk/hooks/useConstructProxyMsg";
 import { FormControl, FormLabel, HStack, IconButton, Input, Switch, Tooltip, useToast } from "@chakra-ui/react";
@@ -17,8 +16,9 @@ import { cloneDeep } from "@apollo/client/utilities";
 import { parseJsonFromFile } from "@/lib/json";
 import { parseFlexFile } from "@/lib/schema/utils/flexFile";
 import { FlexBuilderFormProps } from "@/modules/flex-builder/components/FlexBuilderForm";
-import { EXECUTE_CLI_QUERY } from "@/lib/andrjs";
+import { EXECUTE_CLI_QUERY, useAndromedaClient } from "@/lib/andrjs";
 import { ITemplateFormData } from "@/lib/schema/templates/types";
+import { useAccount } from "@/lib/andrjs/hooks/useAccount";
 
 type Props = {
   template: ITemplate
@@ -48,7 +48,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
   const openProxyModal = useExecuteModal(ADO_DATA.appAddress);
 
   const getFunds = useGetFunds();
-  const account = useWallet();
+  const { isConnected } = useAndromedaClient();
 
   const isProxy = (formData: ITemplateFormData) => (IImportantAdoKeys.PROXY_MESSAGE in formData && formData[IImportantAdoKeys.PROXY_MESSAGE].$enabled === true)
   const [modifiedTemplate, setModifiedTemplate] = useState(template);
@@ -180,7 +180,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
           key={UPDATE_KEY}
           template={modifiedTemplate}
           onSubmit={handleSubmit}
-          notReady={!account}
+          notReady={!isConnected}
           addButtonTitle="Add Attachment"
           onCliCopy={handleCliCopy}
         />

@@ -11,7 +11,7 @@ import { useAndromedaClient } from "@/lib/andrjs";
  * Refer docs https://docs.andromedaprotocol.io/andromeda/andromeda-digital-objects/auction#instantiatemsg
  */
 export default function useConstructADOMsg() {
-  const client = useAndromedaClient()
+  const { client } = useAndromedaClient()
 
   const construct = useCallback(
     (data: ITemplateFormData) => {

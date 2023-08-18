@@ -4,7 +4,7 @@ import useAndromedaClient from "../useAndromedaClient";
 export function useResolvePath(
     path: string
 ) {
-    const client = useAndromedaClient();
+    const { client, isConnected } = useAndromedaClient();
     return useQuery(
         ["vfs", "resolve_path", path, client.os.vfs?.address, client.isConnected],
         async () => {
@@ -16,6 +16,6 @@ export function useResolvePath(
             }) as string;
             return address;
         },
-        { enabled: client.isConnected, retry: false }
+        { enabled: isConnected && client.isConnected, retry: false }
     );
 }

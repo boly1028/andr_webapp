@@ -15,7 +15,7 @@ import { useAndromedaClient } from "@/lib/andrjs";
 
 interface InstantiateMsgWidgetProps extends WidgetProps { }
 export const InstantiateMsgWidget: FC<InstantiateMsgWidgetProps> = (props) => {
-  const client = useAndromedaClient()
+  const { client } = useAndromedaClient()
   const [currentSchema, setCurrentSchema] = useState<string>();
   const { data: schemaFile } = useGetSchemaJson(currentSchema ?? "");
   const reset = () => {

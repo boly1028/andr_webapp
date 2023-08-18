@@ -3,16 +3,15 @@ import { useGetEmbeddableApp } from "./useGetEmbeddableApp";
 import { useConstructAppMsg } from "@/modules/sdk/hooks";
 import { useCodeId } from "@/lib/andrjs";
 import { useExecuteModal, useInstantiateModal } from "@/modules/modals/hooks";
-import { useWallet } from "@/lib/wallet";
 import { EMBEDDABLE_ADO_NAME, EMBEDDABLE_SUFFIX } from "../constants";
 import { ITemplateFormData } from "@/lib/schema/templates/types";
 import { IImportantAdoKeys } from "@/lib/schema/types";
 import useConstructADOExecuteMsg from "@/modules/sdk/hooks/useConstructaADOExecuteMsg";
-import { useGetSchemaVersions } from "@/lib/schema/hooks/useGetSchemaVersion";
+import { useAccount } from "@/lib/andrjs/hooks/useAccount";
 
 export const useCreateEmbeddableApp = () => {
     const { loading, app, embeddable } = useGetEmbeddableApp();
-    const account = useWallet()
+    const account = useAccount()
     const codeId = useCodeId('app');
     const construct = useConstructAppMsg();
     const openModal = useInstantiateModal(codeId);
@@ -62,7 +61,7 @@ export const useCreateEmbeddableApp = () => {
                 "$enabled": true,
                 "$removable": false,
                 "$required": true,
-                "name": `${account.address}-${EMBEDDABLE_SUFFIX}`,
+                "name": `${account?.address}-${EMBEDDABLE_SUFFIX}`,
                 "$version": "" // ADD VERSION - NOT IMPORTANT HERE
             },
             [EMBEDDABLE_ADO_NAME]: {

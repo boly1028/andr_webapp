@@ -1,17 +1,16 @@
-import { useAndromedaContext } from "@/lib/andrjs";
 import { Text, Box, Center, Button } from "@chakra-ui/react";
 import { Check, ExternalLink } from "lucide-react";
 import { FC, memo, useCallback, useEffect, useMemo, useState } from "react";
 import type {
     DeliverTxResponse
 } from "@cosmjs/cosmwasm-stargate";
-import { useWalletContext } from "@/lib/wallet";
 import { useRouter } from "next/router";
 import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
 import { useQueryChainConfig } from "@/lib/graphql/hooks/chain/useChainConfig";
 import { MultiTransactionModalProps } from "../../types";
 import { useGlobalModalContext } from "../../hooks";
 import ModalLoading from "../ModalLoading";
+import { useAndromedaStore } from "@/zustand/andromeda";
 
 interface OptionalProps {
     onNextStage?: () => void;
@@ -22,16 +21,15 @@ const BroadcastMultiTransaction: FC<MultiTransactionModalProps & OptionalProps> 
         const router = useRouter();
 
         const [loading, setLoading] = useState<boolean>(true);
-        const { client, connected } = useAndromedaContext();
+        const { client, isConnected, chainId } = useAndromedaStore();
         const { close, setError } = useGlobalModalContext();
         const [result, setResult] = useState<DeliverTxResponse>();
-        const { chainId } = useWalletContext();
         const { data: config } = useQueryChainConfig(chainId);
 
         const broadcast = useCallback(async () => {
-            if (!connected) throw new Error("Not connected!");
+            if (!isConnected) throw new Error("Not connected!");
             return client.signAndBroadcast(props.msgs, "auto", props.memo);
-        }, [props, connected, client]);
+        }, [props, isConnected, client]);
 
         useEffect(() => {
             const broadcastTx = async () => {

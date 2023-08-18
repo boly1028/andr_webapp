@@ -4,7 +4,7 @@ import useAndromedaClient from "./useAndromedaClient";
 export function useGetUsername(
     address?: string
 ) {
-    const client = useAndromedaClient();
+    const { client, isConnected } = useAndromedaClient();
     return useQuery(
         ["account", "username", address, client.os.vfs?.address, client.isConnected],
         async () => {
@@ -16,6 +16,6 @@ export function useGetUsername(
             }) as string;
             return username;
         },
-        { enabled: !!address && client.isConnected, refetchInterval: 5 * 1000 }
+        { enabled: isConnected && !!address && client.isConnected, refetchInterval: 5 * 1000 }
     );
 }

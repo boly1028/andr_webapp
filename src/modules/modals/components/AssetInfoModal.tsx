@@ -1,4 +1,3 @@
-import { useWalletContext } from "@/lib/wallet";
 import {
   CopyButton,
   CopyIcon,
@@ -31,6 +30,7 @@ import { AssetInfoModalProps } from "../types";
 import { useQueryBaseAdo } from "@/lib/graphql/hooks/useQueryBaseAdo";
 import { useQueryTxByAddress } from "@/lib/graphql";
 import { useQueryChainConfig } from "@/lib/graphql/hooks/chain/useChainConfig";
+import { useAndromedaStore } from "@/zustand/andromeda";
 
 const AssetInfoModal: FC<AssetInfoModalProps> = memo(function AssetInfoModal({
   address,
@@ -38,7 +38,7 @@ const AssetInfoModal: FC<AssetInfoModalProps> = memo(function AssetInfoModal({
 }) {
   const { close } = useGlobalModalContext();
   const { data: baseAdo, loading, error } = useQueryBaseAdo(address);
-  const { chainId } = useWalletContext();
+  const chainId = useAndromedaStore(state => state.chainId);
   const { data: txs } = useQueryTxByAddress(address, chainId);
   const { data: currentConfig } = useQueryChainConfig(chainId);
 

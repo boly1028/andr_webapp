@@ -25,7 +25,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
     position: "top-right",
   });
   const address = router.query.address as string;
-  const client = useAndromedaClient();
+  const { client } = useAndromedaClient();
   const [modifiedTemplate, setModifiedTemplate] = useState(template);
 
   useEffect(() => {

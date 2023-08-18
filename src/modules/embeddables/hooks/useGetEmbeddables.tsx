@@ -1,10 +1,10 @@
 import { useQueryTxByTags } from "@/lib/graphql/hooks/tx/useQueryTxByTags";
-import { useWalletContext } from "@/lib/wallet";
+import { useAndromedaStore } from "@/zustand/andromeda";
 import { useMemo } from "react";
 
 
 export const useGetEmbeddableKeys = (embeddable: string) => {
-    const { chainId, } = useWalletContext();
+    const chainId = useAndromedaStore(state => state.chainId);
     const { data: txs, loading } = useQueryTxByTags([
         { key: "wasm.method", value: "set_value" },
         { key: "execute._contract_address", value: embeddable },

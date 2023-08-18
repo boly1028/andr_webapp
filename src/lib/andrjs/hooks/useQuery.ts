@@ -8,7 +8,7 @@ import useClient from "./useAndromedaClient";
  * @returns
  */
 export default function useQuery(address: string) {
-  const client = useClient();
+  const { client } = useClient();
 
   const query = useCallback(
     async (msg: Msg) => {

@@ -18,10 +18,10 @@ import {
   Badge,
   Box,
   ButtonProps,
+  Spinner,
 } from "@chakra-ui/react";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 
-import { useDisconnect, useWallet, useWalletContext } from "@/lib/wallet";
 import {
   ChevronDownIcon,
   CopyIcon,
@@ -37,21 +37,21 @@ import ChainFallbackIcon from "./icons/ChainFallbackIcon";
 import { SITE_LINKS } from "../utils/sitelinks";
 import { useQueryAllChainConfigs, useQueryChainConfig } from "@/lib/graphql/hooks/chain/useChainConfig";
 import { useGetUsername } from "@/lib/andrjs/hooks/useGetUsername";
+import { KEPLR_AUTOCONNECT_KEY, connectAndromedaClient, disconnectAndromedaClient, useAndromedaStore } from "@/zustand/andromeda";
 
 interface WalletProps extends ButtonProps {
 
 }
 
 const WalletConnected: FC<WalletProps> = (props) => {
-  const wallet = useWallet();
-  const disconnect = useDisconnect();
-  const address = wallet?.address ?? ''
-  const { chainId, setChainId } = useWalletContext();
+  const { accounts, chainId, isLoading } = useAndromedaStore();
+  const account = accounts[0];
+  const address = account?.address ?? ''
   const { data: currentConfig } = useQueryChainConfig(chainId);
   const { data: configs } = useQueryAllChainConfigs();
   const iconUrl = currentConfig?.iconUrls?.sm || currentConfig?.iconUrls?.lg;
 
-  const { data: username } = useGetUsername(wallet?.address);
+  const { data: username } = useGetUsername(account?.address);
   return (
     <Popover placement="bottom-end">
       {({ isOpen }) => (
@@ -62,7 +62,7 @@ const WalletConnected: FC<WalletProps> = (props) => {
               size="sm"
               {...props}
             >
-              <HStack mr={4}>
+              <HStack mr={2}>
                 {iconUrl ? (
                   <Image src={iconUrl ?? ""} w="5" />
                 ) : (
@@ -82,6 +82,7 @@ const WalletConnected: FC<WalletProps> = (props) => {
                 >
                   {currentConfig?.chainType}
                 </Badge>
+                {isLoading && <Spinner w='4' h='4' />}
               </HStack>
               <ChevronDownIcon boxSize={4} />
             </Button>
@@ -122,7 +123,7 @@ const WalletConnected: FC<WalletProps> = (props) => {
                     {configs?.map((config) => (
                       <MenuItem
                         onClick={() => {
-                          setChainId(config.chainId);
+                          connectAndromedaClient(config.chainId);
                         }}
                         key={config.chainId}
                       >
@@ -219,7 +220,7 @@ const WalletConnected: FC<WalletProps> = (props) => {
               <Button
                 leftIcon={<LogOutIcon boxSize={4} />}
                 variant="outline"
-                onClick={disconnect}
+                onClick={disconnectAndromedaClient}
                 w='full'
                 fontWeight={500}
               >
@@ -233,27 +234,38 @@ const WalletConnected: FC<WalletProps> = (props) => {
   );
 };
 
+//Local storage key for autoconnect check
+
 const Wallet: FC<WalletProps> = (props) => {
-  const account = useWallet();
+  const isConnected = useAndromedaStore(state => state.isConnected)
+  const isLoading = useAndromedaStore(state => state.isLoading)
+  const keplr = useAndromedaStore(state => state.keplr)
   const onOpen = useWalletModal();
 
-  if (account) {
+  useEffect(() => {
+    const autoconnect = localStorage.getItem(KEPLR_AUTOCONNECT_KEY);
+    if (!isConnected && typeof keplr !== "undefined" && autoconnect === keplr?.mode) {
+      // Should we open terms & condition modals before this?
+      connectAndromedaClient();
+    }
+  }, [keplr, isConnected]);
+
+  if (isConnected) {
     return <WalletConnected {...props} />;
   }
 
   return (
-    <>
-      <Button
-        leftIcon={<PlusIcon boxSize={6} />}
-        colorScheme="primary"
-        variant="solid"
-        onClick={onOpen}
-        size="lg"
-        {...props}
-      >
-        Connect Wallet
-      </Button>
-    </>
+    <Button
+      rightIcon={isLoading ? (<Spinner w='4' h='4' />) : undefined}
+      leftIcon={<PlusIcon boxSize={6} />}
+      colorScheme="primary"
+      variant="solid"
+      onClick={onOpen}
+      size="sm"
+      {...props}
+    >
+      Connect Wallet
+    </Button>
   );
 };
 

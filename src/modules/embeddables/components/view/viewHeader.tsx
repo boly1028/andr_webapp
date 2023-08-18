@@ -5,7 +5,6 @@ import { MoreHorizontal } from 'lucide-react';
 import { IEmbeddableConfig } from '@/lib/schema/types/embeddables';
 import { createEmbeddableUrl } from '@/lib/schema/utils/embeddables';
 import { SITE_LINKS } from '@/modules/common/utils/sitelinks';
-import { useWallet } from '@/lib/wallet';
 import { useGetEmbeddableApp } from '../../hooks/useGetEmbeddableApp';
 interface ViewHeaderProps {
     loading: boolean;

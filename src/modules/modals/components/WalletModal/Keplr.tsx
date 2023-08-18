@@ -1,7 +1,7 @@
 import { BROWSER_ICONS, BROWSER_LINKS, KEPLR_LINK, SUPPORTED_BROSWERS } from "@/lib/browser/constants";
 import { useGetBrowser } from "@/lib/browser/hooks/useGetBrowser";
 import { BROWSER_TYPE } from "@/lib/browser/types";
-import { KeplrConnectionStatus, useConnect, useWalletContext } from "@/lib/wallet";
+import { KeplrConnectionStatus, connectAndromedaClient, useAndromedaStore } from "@/zustand/andromeda";
 import { ChevronRightIcon } from "@chakra-ui/icons";
 import { AspectRatio, Button, HStack, Icon, IconButton, Image, Link, Text, VStack } from "@chakra-ui/react";
 import React, { FC, ReactNode } from "react"
@@ -10,8 +10,7 @@ interface Props {
 }
 
 const KeplrWallet: FC<Props> = (props) => {
-    const { status: keplrStatus } = useWalletContext();
-    const connect = useConnect();
+    const { keplrStatus } = useAndromedaStore();
     const browser = useGetBrowser();
     const isSupported = SUPPORTED_BROSWERS.includes(browser as any);
 
@@ -40,7 +39,7 @@ const KeplrWallet: FC<Props> = (props) => {
                 )}
             </VStack>
             {keplrStatus !== KeplrConnectionStatus.NotInstalled ? (
-                <Button onClick={connect} size='sm' colorScheme="primary">Connect Wallet</Button>
+                <Button isLoading={keplrStatus === KeplrConnectionStatus.Connecting} onClick={() => connectAndromedaClient()} size='sm' colorScheme="primary">Connect Wallet</Button>
             ) : isSupported ? (
                 <IconButton as='a' target='_blank' href={KEPLR_LINK} aria-label="install-keplr" icon={<Icon as={ChevronRightIcon} boxSize='5' />} size='sm' colorScheme="primary" />
             ) :

@@ -12,7 +12,6 @@ import NextLink from "next/link";
 import { useDisclosure } from "@chakra-ui/hooks";
 import { SITE_LINKS } from '@/modules/common/utils/sitelinks'
 import { IEmbeddableCollection } from '@/lib/schema/types/embeddables'
-import { useWallet } from '@/lib/wallet'
 import { useGetEmbeddableApp } from '../../hooks/useGetEmbeddableApp'
 
 

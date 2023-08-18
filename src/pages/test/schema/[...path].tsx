@@ -6,7 +6,7 @@ import { Layout, PageHeader } from "@/modules/common";
 import { useRouter } from "next/router";
 import { ITemplate } from "@/lib/schema/types";
 import { getADOExecuteTemplate } from "@/lib/schema/utils";
-import { useWallet } from "@/lib/wallet";
+import { useAndromedaClient } from "@/lib/andrjs";
 
 type Props = {
   template: ITemplate;
@@ -15,7 +15,7 @@ type Props = {
 const TemplatePage: NextPage<Props> = ({ template }) => {
   const router = useRouter();
   const contract = router.query.contract as string;
-  const account = useWallet();
+  const { isConnected } = useAndromedaClient();
 
   const handleSubmit = async (
     {
@@ -43,7 +43,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
           key={template.name}
           template={template}
           onSubmit={handleSubmit}
-          notReady={!account}
+          notReady={!isConnected}
           onCliCopy={() => ``}
         />
       </Box>

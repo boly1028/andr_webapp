@@ -9,7 +9,7 @@ import useClient from "./useAndromedaClient";
  * @returns
  */
 export default function useExecute(address: string) {
-  const client = useClient();
+  const { client } = useClient();
 
   const execute = useCallback(
     async (msg: Msg, fee: Fee, memo?: string, funds?: Coin[]) => {

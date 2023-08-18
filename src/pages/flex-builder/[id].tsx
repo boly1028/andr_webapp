@@ -7,13 +7,13 @@ import { useInstantiateModal } from "@/modules/modals/hooks";
 import { useConstructAppMsg } from "@/modules/sdk/hooks";
 import { ITemplate } from "@/lib/schema/types";
 import { getAppTemplateById } from "@/lib/schema/utils";
-import { useWallet } from "@/lib/wallet";
 import { ILinkItemKey } from "@/modules/common/components/Sidebar";
 import { FlexBuilderFormProps } from "@/modules/flex-builder/components/FlexBuilderForm";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { parseJsonFromFile } from "@/lib/json";
 import { parseFlexFile } from "@/lib/schema/utils/flexFile";
 import useConstructADOMsg from "@/modules/sdk/hooks/useConstructADOMsg";
+import { useAccount } from "@/lib/andrjs/hooks/useAccount";
 
 type Props = {
   template: ITemplate;
@@ -21,7 +21,7 @@ type Props = {
 
 const TemplatePage: NextPage<Props> = ({ template }) => {
   const codeId = useCodeId(template.adoType, template.adoVersion);
-  const account = useWallet();
+  const account = useAccount();
   const [modifiedTemplate, setModifiedTemplate] = useState(template);
   const toast = useToast({
     position: "top-right",

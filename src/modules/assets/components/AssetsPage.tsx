@@ -10,13 +10,13 @@ import {
   Icon,
   Divider,
 } from "@/theme/ui-elements";
-import { useWallet } from "@/lib/wallet";
 import { useApolloClient } from "@apollo/client";
 import { RefreshCw } from "lucide-react";
+import { useAccount } from "@/lib/andrjs/hooks/useAccount";
 
 const AssetsPage = () => {
   /**Check If wallet is connected, If yes then user is logged in */
-  const wallet = useWallet();
+  const wallet = useAccount();
   const [loading, setLoading] = useState(false);
   const apolloClient = useApolloClient();
 

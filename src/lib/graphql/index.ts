@@ -18,6 +18,12 @@ export const apolloClient = new ApolloClient({
   cache: new InMemoryCache({
     typePolicies: {
       ...TypedFieldPolicy,
+      ChainConfig: {
+        keyFields: ['chainId']
+      },
+      ChainConfigQuery: {
+        merge: true
+      },
       AccountsQuery: {
         fields: {
           assets: {

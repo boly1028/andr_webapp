@@ -1,13 +1,14 @@
 import { useAppComponents } from "@/lib/graphql/hooks/app/useAppComponents";
 import { useQueryTxByTags } from "@/lib/graphql/hooks/tx/useQueryTxByTags";
-import { useWallet, useWalletContext } from "@/lib/wallet";
 import { useMemo } from "react";
 import { EMBEDDABLE_ADO_NAME, EMBEDDABLE_SUFFIX } from "../constants";
+import { useAndromedaStore } from "@/zustand/andromeda";
+import { useAccount } from "@/lib/andrjs/hooks/useAccount";
 
 
 export const useGetEmbeddableApp = () => {
-    const { chainId, } = useWalletContext();
-    const account = useWallet()
+    const chainId = useAndromedaStore(state => state.chainId);
+    const account = useAccount()
     const { data: appsTx, loading } = useQueryTxByTags([
         { key: "wasm.method", value: "instantiate" },
         { key: "wasm.type", value: "app" },

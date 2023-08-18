@@ -7,17 +7,17 @@ import { useRouter } from "next/router";
 import { IImportantAdoKeys, ITemplate } from "@/lib/schema/types";
 import { getADOMultiExecuteTemplate } from "@/lib/schema/utils";
 import { useGetFunds } from "@/modules/sdk/hooks";
-import { useWallet } from "@/lib/wallet";
 import { useEffect, useMemo, useState } from "react";
 import { HStack, IconButton, Input, Tooltip, useToast } from "@chakra-ui/react";
 import { cloneDeep } from "@apollo/client/utilities";
 import { parseJsonFromFile } from "@/lib/json";
 import { parseFlexFile } from "@/lib/schema/utils/flexFile";
 import { FlexBuilderFormProps } from "@/modules/flex-builder/components/FlexBuilderForm";
-import { EXECUTE_CLI_QUERY } from "@/lib/andrjs";
+import { EXECUTE_CLI_QUERY, useAndromedaClient } from "@/lib/andrjs";
 import { ITemplateFormData } from "@/lib/schema/templates/types";
 import useConstructMultiExecuteMsg from "@/modules/sdk/hooks/useConstructMultiExecuteMsg";
 import useMultiExecuteModal from "@/modules/modals/hooks/useMultiExecuteModal";
+import { useAccount } from "@/lib/andrjs/hooks/useAccount";
 
 type Props = {
   template: ITemplate
@@ -41,7 +41,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
   }, [router])
   const constructMultiMsg = useConstructMultiExecuteMsg();
   const getFunds = useGetFunds();
-  const account = useWallet();
+  const { isConnected } = useAndromedaClient();
   const openMultiExecuteModal = useMultiExecuteModal(ADO_DATA.address)
   const openProxyMultiExecuteModal = useMultiExecuteModal(ADO_DATA.appAddress)
 
@@ -175,7 +175,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
           key={UPDATE_KEY}
           template={modifiedTemplate}
           onSubmit={handleSubmit}
-          notReady={!account}
+          notReady={!isConnected}
           addButtonTitle="Add Attachment"
           onCliCopy={handleCliCopy}
         />

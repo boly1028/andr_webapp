@@ -2,10 +2,10 @@ import { Msg } from "@andromedaprotocol/andromeda.js";
 import { Coin } from "@cosmjs/proto-signing";
 import { ModalType } from "../types";
 import useGlobalModalContext from "./useGlobalModalContext";
-import { useAndromedaContext } from "@/lib/andrjs";
 import type {
   MsgExecuteContractEncodeObject
 } from "@cosmjs/cosmwasm-stargate";
+import { useAndromedaClient } from "@/lib/andrjs";
 /**
  * Wrapper hook for opening the message modal for an execute message.
  *  ```
@@ -20,7 +20,7 @@ import type {
  */
 export default function useMultiExecuteModal(contractAddress: string) {
   const { open } = useGlobalModalContext();
-  const { client } = useAndromedaContext()
+  const { client } = useAndromedaClient()
 
   return (msgs: Msg[], funds: Coin[] = []) => {
     const encodedMsgs: MsgExecuteContractEncodeObject[] = [];

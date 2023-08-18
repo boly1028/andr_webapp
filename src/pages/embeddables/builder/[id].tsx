@@ -5,7 +5,6 @@ import { Box } from "@/theme/ui-elements";
 import { FilePlusIcon, Layout, PageHeader } from "@/modules/common";
 import { useRouter } from "next/router";
 import { IAndromedaFormData, IImportantAdoKeys, ITemplate } from "@/lib/schema/types";
-import { useWallet } from "@/lib/wallet";
 import { useEffect, useMemo, useState } from "react";
 import { HStack, IconButton, Input, Tooltip, useToast } from "@chakra-ui/react";
 import { parseJsonFromFile } from "@/lib/json";
@@ -64,7 +63,6 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
     position: "top-right",
   });
 
-  const account = useWallet();
   const openModal = useEmbeddableModal();
 
 

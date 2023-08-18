@@ -11,12 +11,8 @@ import {
 } from "@chakra-ui/react";
 
 import { Sidebar, Header } from "@/modules/common";
-import {
-  KeplrConnectionStatus,
-  useWallet,
-  useWalletContext,
-} from "@/lib/wallet";
 import { ILinkItemKey } from "./Sidebar";
+import { KeplrConnectionStatus, useAndromedaStore } from "@/zustand/andromeda";
 
 interface ILayoutProps extends BoxProps {
   activeLink?: ILinkItemKey
@@ -28,7 +24,7 @@ const Layout: FC<ILayoutProps> = ({
   maxW = "container.lg",
   ...props
 }) => {
-  const { status } = useWalletContext();
+  const status = useAndromedaStore(state => state.keplrStatus);
   const isInitializing = status === KeplrConnectionStatus.Connecting;
 
   const { isOpen, onOpen, onClose } = useDisclosure();

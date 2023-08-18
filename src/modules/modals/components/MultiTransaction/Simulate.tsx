@@ -1,5 +1,4 @@
 import { FC, memo, useEffect, useMemo, useState } from "react";
-import { useAndromedaContext, useGetBalance } from "@/lib/andrjs";
 import { Coin, coins, StdFee } from "@cosmjs/stargate";
 
 import { GasIcon } from "@/modules/common";
@@ -8,6 +7,7 @@ import { sumCoins } from "@/modules/sdk/hooks/useGetFunds";
 import { MultiTransactionModalProps } from "../../types";
 import { useGlobalModalContext } from "../../hooks";
 import ModalLoading from "../ModalLoading";
+import { useAndromedaClient } from "@/lib/andrjs";
 // import { useCurrentChainConfig } from "@/lib/andrjs/hooks/useKeplrChainConfig";
 // import { CoinPretty } from "@keplr-wallet/unit";
 
@@ -49,13 +49,13 @@ const FeeAmount: FC<{ coin: Coin; text: string }> = memo(function FeeAmount({
 // Displays EstimateFee Modal (with a condition of (props.simulate && props.onNextStep))
 // Repair note from fix/transaction-modal-processing: A bang operator (!) was appended to the props.simulate declaration causing inverse evaluations of the intended conditions
 const SimulateMultiExecute: FC<MultiTransactionModalProps & OptionalProps> = (props) => {
-    const { client, connected } = useAndromedaContext();
+    const { client, isConnected } = useAndromedaClient();
     const { close, setError } = useGlobalModalContext();
     const [loading, setLoading] = useState<boolean>(true);
     const [fee, setFee] = useState<StdFee>({ amount: [], gas: "0" });
 
     const funds = useMemo(() => {
-        const funds:Coin[] = []
+        const funds: Coin[] = []
         props.msgs.forEach(msg => {
             msg.value.funds?.forEach(fund => funds.push(fund))
         })
@@ -92,11 +92,11 @@ const SimulateMultiExecute: FC<MultiTransactionModalProps & OptionalProps> = (pr
         };
 
         const tId = setTimeout(() => {
-            if (connected) simulateFee();
+            if (isConnected) simulateFee();
         }, 500);
 
         return () => clearTimeout(tId);
-    }, [client, props, connected, setError]);
+    }, [client, props, isConnected, setError]);
 
     return (
         <Box
