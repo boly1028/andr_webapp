@@ -7,7 +7,7 @@ import { useInstantiateModal } from "@/modules/modals/hooks";
 import { useConstructAppMsg } from "@/modules/sdk/hooks";
 import { ITemplate } from "@/lib/schema/types";
 import { getAppTemplateById } from "@/lib/schema/utils";
-import { ILinkItemKey } from "@/modules/common/components/Sidebar";
+import { ILinkItemKey } from "@/modules/common/components/sidebar/utils";
 import { FlexBuilderFormProps } from "@/modules/flex-builder/components/FlexBuilderForm";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { parseJsonFromFile } from "@/lib/json";

@@ -1,8 +1,7 @@
 import { Layout } from "@/modules/common";
-// import PagePlaceholder from "@/modules/common/components/PagePlaceholder";
+import { ILinkItemKey } from "@/modules/common/components/sidebar/utils";
 import type { NextPage } from "next";
 import Embeddables from "@/modules/embeddables/components/Embeddables";
-import { ILinkItemKey } from "@/modules/common/components/Sidebar";
 
 const EmbeddablesPage: NextPage = () => {
   return (

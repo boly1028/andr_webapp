@@ -1,9 +1,9 @@
 import { Layout } from '@/modules/common'
-import { ILinkItemKey } from '@/modules/common/components/Sidebar'
 import { Box, Code, Flex, Image, Text, TextProps, VStack } from '@chakra-ui/react'
 import { MDXProvider } from '@mdx-js/react'
 import React, { FC, PropsWithChildren, useEffect, useMemo, useRef, useState } from 'react'
 import { useHeadsObserver } from './hooks/useHeadObserver'
+import { ILinkItemKey } from '@/modules/common/components/sidebar/utils'
 
 const components = {
     img: Image,

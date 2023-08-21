@@ -1,6 +1,6 @@
 import { AppStorePage } from "@/modules/app-store";
 import { Layout } from "@/modules/common";
-import { ILinkItemKey } from "@/modules/common/components/Sidebar";
+import { ILinkItemKey } from "@/modules/common/components/sidebar/utils";
 import type { NextPage } from "next";
 
 const Page: NextPage = () => {

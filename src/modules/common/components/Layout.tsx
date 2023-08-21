@@ -6,13 +6,12 @@ import {
   Drawer,
   DrawerContent,
   useDisclosure,
-  FlexProps,
-  Center,
 } from "@chakra-ui/react";
 
-import { Sidebar, Header } from "@/modules/common";
-import { ILinkItemKey } from "./Sidebar";
+import { Header } from "@/modules/common";
+import { ILinkItemKey } from "./sidebar/utils";
 import { KeplrConnectionStatus, useAndromedaStore } from "@/zustand/andromeda";
+import Sidebar from "./sidebar";
 
 interface ILayoutProps extends BoxProps {
   activeLink?: ILinkItemKey
