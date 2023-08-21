@@ -9,19 +9,19 @@ import { useAndromedaClient } from ".";
  * @returns
  */
 export default function useGetBalance(denom: string, address?: string) {
-  const { isConnected, client } = useAndromedaClient();
+  const client = useAndromedaClient();
   const [balance, setBalance] = useState<Coin>(coin(0, denom));
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchBalance = async () => {
       setLoading(true);
-      const balance = await client.getBalance(denom, address);
+      const balance = await client?.getBalance(denom, address);
       if (balance) setBalance(balance);
       setLoading(false);
     };
-    if (isConnected) fetchBalance();
-  }, [isConnected, client, denom, address]);
+    if (client?.isConnected) fetchBalance();
+  }, [client, denom, address]);
 
   return { loading, balance };
 }

@@ -11,7 +11,7 @@ import { useAndromedaClient } from "@/lib/andrjs";
  * Refer docs https://docs.andromedaprotocol.io/andromeda/andromeda-digital-objects/auction#instantiatemsg
  */
 export default function useConstructADOMsg() {
-  const { client } = useAndromedaClient()
+  const client = useAndromedaClient()
 
   const construct = useCallback(
     (data: ITemplateFormData) => {
@@ -21,7 +21,7 @@ export default function useConstructADOMsg() {
       if (panels.length !== 1) throw new Error("Only 1 ADO can be processed at a time");
 
       const rawData = data[panels[0]];
-      const kernel_address = client.os.address;
+      const kernel_address = client!.os.address;
       if ('kernel_address' in rawData) {
         rawData['kernel_address'] = rawData['kernel_address'] || kernel_address
       }

@@ -8,11 +8,11 @@ import useClient from "./useAndromedaClient";
  * @returns
  */
 export default function useSimulateExecute() {
-  const { client } = useClient();
+  const client = useClient();
 
   const simulate = useCallback(
     async (msgs: readonly EncodeObject[], fee?: StdFee, memo?: string) => {
-      return client.estimateFee(msgs, fee, memo);
+      return client!.estimateFee(msgs, fee, memo);
     },
     [client],
   );

@@ -25,7 +25,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
     position: "top-right",
   });
   const address = router.query.address as string;
-  const { client } = useAndromedaClient();
+  const client = useAndromedaClient();
   const [modifiedTemplate, setModifiedTemplate] = useState(template);
 
   useEffect(() => {
@@ -73,7 +73,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
     try {
       const msg = getMsg(formData);
       console.log(msg)
-      const result = await client.queryContract(address, msg);
+      const result = await client!.queryContract(address, msg);
       console.log(result)
     } catch (err) {
       console.error(err)
@@ -143,7 +143,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
           key={UPDATE_KEY}
           template={modifiedTemplate}
           onSubmit={handleSubmit}
-          notReady={!client.isConnected}
+          notReady={!client?.isConnected}
           addButtonTitle="Add Attachment"
           onCliCopy={handleCliCopy}
 

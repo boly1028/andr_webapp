@@ -5,7 +5,9 @@ import { useAndromedaStore } from "@/zustand/andromeda";
  * @returns
  */
 export default function useAndromedaClient() {
-  const [client, isConnected] = useAndromedaStore(state => [state.client, state.isConnected]);
-
-  return { client, isConnected }
+  const [client, isConnected, isLoading] = useAndromedaStore(state => [state.client, state.isConnected, state.isLoading]);
+  if (!isConnected || isLoading) {
+    return undefined;
+  }
+  return client
 }

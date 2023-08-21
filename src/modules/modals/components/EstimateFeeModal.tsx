@@ -9,6 +9,7 @@ import { Box, Button, Center, Divider, Text } from "@/theme/ui-elements";
 import ModalLoading from "./ModalLoading";
 import { sumCoins } from "@/modules/sdk/hooks/useGetFunds";
 import { useAndromedaClient } from "@/lib/andrjs";
+import { useAndromedaStore } from "@/zustand/andromeda";
 // import { useCurrentChainConfig } from "@/lib/andrjs/hooks/useKeplrChainConfig";
 // import { CoinPretty } from "@keplr-wallet/unit";
 
@@ -63,7 +64,7 @@ const FeeAmount: FC<{ coin: Coin; text: string }> = memo(function FeeAmount({
 // Displays EstimateFee Modal (with a condition of (props.simulate && props.onNextStep))
 // Repair note from fix/transaction-modal-processing: A bang operator (!) was appended to the props.simulate declaration causing inverse evaluations of the intended conditions
 const EstimateFeeModal: FC<TransactionModalProps & OptionalProps> = (props) => {
-  const { client, isConnected } = useAndromedaClient();
+  const { client, isConnected } = useAndromedaStore();
   const { close, setError } = useGlobalModalContext();
   const [loading, setLoading] = useState<boolean>(true);
   const [fee, setFee] = useState<StdFee>({ amount: [], gas: "0" });

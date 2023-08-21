@@ -18,7 +18,6 @@ import { parseFlexFile } from "@/lib/schema/utils/flexFile";
 import { FlexBuilderFormProps } from "@/modules/flex-builder/components/FlexBuilderForm";
 import { EXECUTE_CLI_QUERY, useAndromedaClient } from "@/lib/andrjs";
 import { ITemplateFormData } from "@/lib/schema/templates/types";
-import { useAccount } from "@/lib/andrjs/hooks/useAccount";
 
 type Props = {
   template: ITemplate
@@ -48,8 +47,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
   const openProxyModal = useExecuteModal(ADO_DATA.appAddress);
 
   const getFunds = useGetFunds();
-  const { isConnected } = useAndromedaClient();
-
+  const client = useAndromedaClient();
   const isProxy = (formData: ITemplateFormData) => (IImportantAdoKeys.PROXY_MESSAGE in formData && formData[IImportantAdoKeys.PROXY_MESSAGE].$enabled === true)
   const [modifiedTemplate, setModifiedTemplate] = useState(template);
 
@@ -180,7 +178,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
           key={UPDATE_KEY}
           template={modifiedTemplate}
           onSubmit={handleSubmit}
-          notReady={!isConnected}
+          notReady={!client?.isConnected}
           addButtonTitle="Add Attachment"
           onCliCopy={handleCliCopy}
         />

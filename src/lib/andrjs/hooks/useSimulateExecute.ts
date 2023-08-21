@@ -10,11 +10,11 @@ import useClient from "./useAndromedaClient";
  * @returns
  */
 export default function useSimulateExecute(address: string) {
-  const { client } = useClient();
+  const client = useClient();
 
   const simulate = useCallback(
     async (msg: Msg, funds: Coin[], fee?: StdFee, memo?: string) => {
-      return client.estimateExecuteFee(address, msg, funds, fee, memo);
+      return client!.estimateExecuteFee(address, msg, funds, fee, memo);
     },
     [address, client],
   );

@@ -15,7 +15,7 @@ const USERNAME_PATTERN = /^[A-Za-z0-9]{1,40}$/;
 const Form: FC<Props> = (props) => {
     const { } = props;
     const account = useAccount()
-    const { client } = useAndromedaClient()
+    const client = useAndromedaClient()
     const { data: username, error, isLoading, isRefetching } = useGetUsername(account?.address)
     const [input, setInput] = useState('');
 
@@ -23,7 +23,7 @@ const Form: FC<Props> = (props) => {
         return USERNAME_PATTERN.test(input);
     }, [input])
 
-    const vfsAddress = client.os.vfs?.address;
+    const vfsAddress = client?.os.vfs?.address;
     const openExecute = useExecuteModal(vfsAddress ?? '')
 
 

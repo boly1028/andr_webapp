@@ -11,25 +11,27 @@ import { useQuery } from "@tanstack/react-query";
  */
 export default function useCodeId(adoType: string, version?: string) {
   const { data: adoVersion } = useGetSchemaVersions(adoType as any);
-  const { client, isConnected } = useAndromedaClient();
+  const client = useAndromedaClient();
+
 
   const { data: codeId } = useQuery({
-    queryKey: ['codeId', adoType, adoVersion, isConnected],
+    queryKey: ['codeId', adoType, adoVersion, client?.adoDB?.address],
     queryFn: async () => {
-      const _codeId = await getCodeId(getAdoTypeWithVersion(adoType, version ?? adoVersion?.latest ?? ''));
+      const codeIdKey = getAdoTypeWithVersion(adoType, version ?? adoVersion?.latest ?? '');
+      const _codeId = await getCodeId(codeIdKey);
       return _codeId
-    },
-    enabled: isConnected && client.isConnected,
+    }
   })
 
   const getCodeId = async (key: string) => {
     console.log("Fetching Code Id for", key)
     try {
+      // ERROR:: On connecting client to different chain, ado db address is still andr only. Fix needed in andrjs
       const _codeId = await client?.os.adoDB?.getCodeId(key, client.os.adoDB.address ?? client.adoDB.address);
       console.log(`CodeID for ${key} is ${_codeId}`)
       return _codeId ?? -1
     } catch (err) {
-      console.warn(err)
+      console.warn(err, "HERE")
       return -1;
     }
   }

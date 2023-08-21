@@ -8,11 +8,11 @@ import useClient from "./useAndromedaClient";
  * @returns
  */
 export default function useInstantiate(codeId: number) {
-  const { client } = useClient();
+  const client = useClient();
 
   const instantiate = useCallback(
     async (msg: Msg, label: string, fee: Fee = "auto") => {
-      return client.instantiate(codeId, msg, label, fee);
+      return client!.instantiate(codeId, msg, label, fee);
     },
     [codeId, client],
   );

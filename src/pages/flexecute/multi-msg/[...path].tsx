@@ -41,7 +41,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
   }, [router])
   const constructMultiMsg = useConstructMultiExecuteMsg();
   const getFunds = useGetFunds();
-  const { isConnected } = useAndromedaClient();
+  const client = useAndromedaClient();
   const openMultiExecuteModal = useMultiExecuteModal(ADO_DATA.address)
   const openProxyMultiExecuteModal = useMultiExecuteModal(ADO_DATA.appAddress)
 
@@ -175,7 +175,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
           key={UPDATE_KEY}
           template={modifiedTemplate}
           onSubmit={handleSubmit}
-          notReady={!isConnected}
+          notReady={!client?.isConnected}
           addButtonTitle="Add Attachment"
           onCliCopy={handleCliCopy}
         />

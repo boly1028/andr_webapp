@@ -4,18 +4,18 @@ import useAndromedaClient from "./useAndromedaClient";
 export function useGetUsername(
     address?: string
 ) {
-    const { client, isConnected } = useAndromedaClient();
+    const client = useAndromedaClient();
     return useQuery(
-        ["account", "username", address, client.os.vfs?.address, client.isConnected],
+        ["account", "username", address, client?.os.vfs?.address, client?.isConnected],
         async () => {
-            const vfs = client.os.vfs?.address ?? '';
-            const username = await client.chainClient?.queryClient?.queryContractSmart(vfs, {
+            const vfs = client!.os.vfs?.address ?? '';
+            const username = await client?.chainClient?.queryClient?.queryContractSmart(vfs, {
                 "get_username": {
                     "address": address
                 }
             }) as string;
             return username;
         },
-        { enabled: isConnected && !!address && client.isConnected, refetchInterval: 5 * 1000 }
+        { enabled: !!address && !!client?.isConnected, refetchInterval: 5 * 1000 }
     );
 }

@@ -15,7 +15,7 @@ type Props = {
 const TemplatePage: NextPage<Props> = ({ template }) => {
   const router = useRouter();
   const contract = router.query.contract as string;
-  const { isConnected } = useAndromedaClient();
+  const client = useAndromedaClient();
 
   const handleSubmit = async (
     {
@@ -43,7 +43,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
           key={template.name}
           template={template}
           onSubmit={handleSubmit}
-          notReady={!isConnected}
+          notReady={!client?.isConnected}
           onCliCopy={() => ``}
         />
       </Box>

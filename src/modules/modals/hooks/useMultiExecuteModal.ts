@@ -20,12 +20,12 @@ import { useAndromedaClient } from "@/lib/andrjs";
  */
 export default function useMultiExecuteModal(contractAddress: string) {
   const { open } = useGlobalModalContext();
-  const { client } = useAndromedaClient()
+  const client = useAndromedaClient()
 
   return (msgs: Msg[], funds: Coin[] = []) => {
     const encodedMsgs: MsgExecuteContractEncodeObject[] = [];
     msgs.forEach(msg => {
-      const encoded = client.chainClient?.encodeExecuteMsg(
+      const encoded = client!.chainClient?.encodeExecuteMsg(
         contractAddress, msg, funds
       )
       if (encoded)

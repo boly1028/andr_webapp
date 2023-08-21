@@ -19,7 +19,7 @@ type Props = {
 };
 
 const TemplatePage: NextPage<Props> = ({ defaultTemplate }) => {
-    const { isConnected } = useAndromedaClient();
+    const client = useAndromedaClient();
 
     const { flex: urlFlex, loading: urlLoading } = useGetFlexFileFromUrl();
     const { flex: sessionFlex, loading: sessionLoading } = useGetFlexFileFromSession();
@@ -74,7 +74,7 @@ const TemplatePage: NextPage<Props> = ({ defaultTemplate }) => {
                     <FlexBuilderForm
                         template={template}
                         onSubmit={handleSubmit}
-                        notReady={!codeId || codeId === -1 || !isConnected}
+                        notReady={!codeId || codeId === -1 || !client?.isConnected}
                         addButtonTitle="Add App Component"
                         onCliCopy={handleCliCopy}
                     />
