@@ -59,29 +59,6 @@ const APP_TEMPLATES: PartialTemplateType[] = [
     starter: true,
   },
   {
-    id: "crowdfund",
-    adoType: "app",
-    name: "Crowdfund App",
-    description:
-      "Setup a crowdfund to distribute NFTs representing fractionalized ownership of the goal being funded. Proceeds are able to be divided and distributed to yield vaults to assure direct delivery to the respective manufacturing / distribution / business partnerships.",
-    opts: ["Crowdfund", "CW721", "Vault", "Rates"],
-    ados: [
-      {
-        path: IImportantAdoKeys.PUBLISH_SETTINGS,
-        id: IImportantAdoKeys.PUBLISH_SETTINGS,
-        required: true,
-      },
-      { path: "cw721/latest/cw721", id: "tokens", required: true },
-      { path: "crowdfund/latest/crowdfund", id: "crowdfund", required: true },
-      { path: "vault/latest/vault", id: "vault", required: true },
-      { path: "rates/latest/rates", id: "rates", required: true },
-    ],
-    modules: [{ path: "vault/latest/vault" }],
-    icon: "/app-templates/icons/crowdfund.png",
-    installed: true,
-    starter: true,
-  },
-  {
     id: "auction-market",
     adoType: "app",
     name: "Auction Based Marketplace",
@@ -218,6 +195,63 @@ const APP_TEMPLATES: PartialTemplateType[] = [
       }
     }
 
+  },
+  {
+    id: "crowdfund",
+    adoType: "app",
+    name: "Crowdfund App",
+    description:
+      "Setup a crowdfund to distribute NFTs representing fractionalized ownership of the goal being funded. Proceeds are able to be divided and distributed to yield vaults to assure direct delivery to the respective manufacturing / distribution / business partnerships.",
+    opts: ["Crowdfund", "CW721", "Vault", "Rates"],
+    ados: [
+      {
+        path: IImportantAdoKeys.PUBLISH_SETTINGS,
+        id: IImportantAdoKeys.PUBLISH_SETTINGS,
+        required: true,
+      },
+      {
+        "id": "tokens",
+        "path": "cw721/0.1.1/cw721",
+        "required": false,
+        "enabled": true,
+        "pos": { "x": -1056, "y": 272 }
+      },
+      {
+        "id": "crowdfund",
+        "path": "crowdfund/0.1.0/crowdfund",
+        "required": false,
+        "enabled": true,
+        "pos": { "x": -528, "y": -96 }
+      },
+      {
+        "id": "vault",
+        "path": "vault/0.1.0/vault",
+        "required": false,
+        "enabled": true,
+        "pos": { "x": -528, "y": 688 }
+      },
+      {
+        "id": "splitter",
+        "path": "splitter/0.1.0/splitter",
+        "required": false,
+        "enabled": true,
+        "pos": { "x": 0, "y": -96 }
+      }
+    ],
+    modules: [{ path: "vault/latest/vault" }],
+    icon: "/app-templates/icons/crowdfund.png",
+    installed: true,
+    starter: true,
+    "formData": {
+      "splitter": {
+        "recipients": [
+          { "recipient": { "a_d_o": { "address": { "identifier": "vault" } } } }
+        ],
+      },
+      "crowdfund": {
+        "token_address": { "identifier": "tokens" },
+      }
+    }
   },
   // {
   //   id: "cw20-staking",
