@@ -53,7 +53,8 @@ const ModalError: FC = memo(function ModalError({ children }) {
         fontSize={'20px'}
         sx={{ textAlign: "center", fontWeight: "bold" }}
       >
-        Unknown Request
+        {/* {Return the error title by extracting it from the end of the error message} */}
+         {error?.message?.split(':')?.pop()?.trim() ?? ''}
       </Text>
       {/* <Text mt="20px" textAlign='center' sx={{ fontWeight: 400, color: "dark.500" }}>
         {error.message.length > 100
@@ -61,7 +62,6 @@ const ModalError: FC = memo(function ModalError({ children }) {
           : error.message}
       </Text> */}
       <Textarea
-        // placeholder='Here is a sample placeholder'
         value={error.message}
         fontSize={'16px'}
         color='dark.500'
@@ -81,7 +81,8 @@ const ModalError: FC = memo(function ModalError({ children }) {
           <InfoIcon boxSize={3.5} color='rgba(255, 183, 130, 1)' />
         </Box>
         <Text fontSize={'16px'}>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facilis perspiciatis quaerat optio ducimus aut! Iusto.
+          We apologize for any unclear errors you may encounter. At present there are problems with the foundational chain-level systems that Andromeda runs on top of to appropriately return errors. 
+          This is expected to be resolved in an upcoming release of CosmWasm 2.0. You can view <u><a href="https://www.youtube.com/watch?v=VNwoLZZSoYs&t=8119s" target="_blank" rel="noopener noreferrer"> here</a></u> for more details.
         </Text>
       </Flex>
       <Flex w="full" justifyContent={'end'}>
