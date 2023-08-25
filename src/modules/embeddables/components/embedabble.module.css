@@ -1,0 +1,16 @@
+.demoContainer:hover {
+    background-color: rgba(255, 255, 255, 0.09);
+    cursor: pointer;
+}
+
+.demoContainer:hover .demoButton {
+    display: flex !important;
+}
+
+.demoContainer:hover .iconButton {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.demoButton {
+    display: none !important;
+}
