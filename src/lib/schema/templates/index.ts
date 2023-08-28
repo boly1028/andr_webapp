@@ -294,7 +294,7 @@ const APP_TEMPLATES: PartialTemplateType[] = [
     system: false,
     installed: true,
     starter: true,
-    // formData: { "cw20-exchange": { "token_address": { "identifier": "tokens" } } },
+    formData: { "cw20-exchange": { "token_address": { "identifier": "tokens" } } },
   },
   // {
   //   id: "cw20-staking",

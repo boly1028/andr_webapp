@@ -28,7 +28,6 @@ import CopyCliButton from "./CopyCliButton";
 import OpenInAppBuilderButton from "./OpenInAppBuilder";
 import ScrollToTop from "@/modules/common/components/ScrollToTop";
 import ScrollToBottom from "@/modules/common/components/ScrollToBottom";
-import { SingleDatepicker } from "@andromedaprotocol/design-theme";
 
 export type FlexBuilderFormProps = {
   template: ITemplate;
