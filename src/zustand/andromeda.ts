@@ -1,8 +1,8 @@
 import { DEFAULT_CHAIN } from "@/constants/constants";
 import { queryChainConfig, queryKeplrConfig } from "@/lib/graphql/functions/chain";
-import AndromedaClient from "@andromedaprotocol/andromeda.js";
-import { GasPrice } from "@cosmjs/stargate";
-import { AccountData, Keplr } from "@keplr-wallet/types";
+import AndromedaClient from "@andromedaprotocol/andromeda.js/dist/AndromedaClient";
+import { GasPrice } from "@cosmjs/stargate/build/fee";
+import type { AccountData, Keplr } from "@keplr-wallet/types";
 import { create } from "zustand";
 
 export enum KeplrConnectionStatus {

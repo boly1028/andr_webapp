@@ -101,7 +101,6 @@ const Sidebar = ({ onClose, activeLink, ...props }: SidebarProps) => {
             flexDirection="column"
             transition="100ms ease"
             bg="background.800"
-            w={sidebarCollapse ? 20 : 60}
             pos="fixed"
             h="full"
             px="4"

@@ -4,6 +4,8 @@ import {
   Button,
   Checkbox,
   Divider,
+  FormControl,
+  FormLabel,
   HStack,
   Link,
   Text,
@@ -28,10 +30,7 @@ const DisclaimerModal: FC<DisclaimerModalProps> = ({ onAccept }) => {
   const allSelected = !terms.some((t) => !t.selected);
   return (
     <Box>
-      <Text fontWeight="bold" fontSize="lg">
-        DISCLAIMER
-      </Text>
-      <Text fontSize="xs" textStyle="light" color="dark.500" mt="2">
+      <Text textStyle="main-xs-regular" color='content.medium'>
         Please check the boxes below to confirm your agreement to the Andromeda
         Protocol&nbsp;
         <Link target='_blank' href="https://github.com/andromedaprotocol/andromeda-core/blob/development/LICENSE/LICENSE.md" textDecoration="underline">Terms and Conditions</Link>
@@ -55,7 +54,7 @@ const DisclaimerModal: FC<DisclaimerModalProps> = ({ onAccept }) => {
         }}
       >
         {terms.map((t, idx) => (
-          <HStack key={idx} alignItems="start" gap="2">
+          <FormControl as={HStack} key={idx} alignItems="start" gap="2">
             <Checkbox
               isChecked={t.selected}
               onChange={(e) => {
@@ -66,16 +65,15 @@ const DisclaimerModal: FC<DisclaimerModalProps> = ({ onAccept }) => {
                   return clone;
                 });
               }}
-              mt="1"
             />
-            <Text fontSize="xs" fontWeight="light">
+            <FormLabel textStyle='main-xs-regular'>
               {t.text}
-            </Text>
-          </HStack>
+            </FormLabel>
+          </FormControl>
         ))}
       </VStack>
       <Divider mb="4" />
-      <HStack alignItems="start" gap="2">
+      <FormControl as={HStack} alignItems="start" gap="3">
         <Checkbox
           isChecked={allSelected}
           onChange={(e) => {
@@ -85,22 +83,20 @@ const DisclaimerModal: FC<DisclaimerModalProps> = ({ onAccept }) => {
               return clone.map((t) => ({ ...t, selected: checked }));
             });
           }}
-          mt="1"
         />
-        <Text fontSize="xs" fontWeight="light">
+        <FormLabel textStyle='main-sm-regular !important'>
           I understand and agree with the risks and disclaimers of using Andromeda Protocol
-        </Text>
-      </HStack>
+        </FormLabel>
+      </FormControl>
 
       <HStack justifyContent="end" mt="2">
-        <Button onClick={close} variant="outline">
+        <Button onClick={close} variant="theme-outline">
           Cancel
         </Button>
         <Button
           onClick={handleAccept}
-          disabled={!allSelected}
-          colorScheme="primary"
-          variant="solid"
+          isDisabled={!allSelected}
+          variant="theme-primary"
         >
           Accept
         </Button>

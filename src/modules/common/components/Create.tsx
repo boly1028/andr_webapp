@@ -7,24 +7,23 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
-  Flex
+  Flex,
+  Icon,
+  Box
 } from "@chakra-ui/react";
-import { PlusIcon } from "@/modules/common";
 import { SITE_LINKS } from "../utils/sitelinks";
+import { Plus } from "lucide-react";
 
 const Create: FC = () => {
   return (
     <Menu placement="bottom-end">
       <MenuButton
         as={Button}
-        leftIcon={<PlusIcon boxSize={6} />}
+        leftIcon={<Icon as={Plus} boxSize='4' />}
         size="sm"
-        minWidth="100px"
-        fontWeight={'500'}
+        variant='theme-filled'
       >
-        <Flex justifyContent="space-around" alignItems="center">
-          Create
-        </Flex>
+        Create
       </MenuButton>
 
       <MenuList>
@@ -35,7 +34,7 @@ const Create: FC = () => {
           App
         </MenuItem>
       </MenuList>
-    </Menu>
+    </Menu >
   );
 };
 

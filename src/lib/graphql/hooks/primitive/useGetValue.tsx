@@ -4,7 +4,7 @@ import {
     QueryPrimitiveValue as Query,
     // QueryPrimitiveValueResponse as QueryResponse,
     // QUERY_PRIMITIVE_VALUE as QueryText,
-} from '@andromedaprotocol/andromeda.js'
+} from '@andromedaprotocol/andromeda.js/dist/graphql/queries/primitive'
 
 interface QueryResponse {
     ADO: {

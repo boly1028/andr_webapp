@@ -1,4 +1,4 @@
-import { Msg } from "@andromedaprotocol/andromeda.js";
+import type { Msg } from "@andromedaprotocol/andromeda.js";
 import { ModalType, TransactionModalProps } from "../types";
 import useGlobalModalContext from "./useGlobalModalContext";
 

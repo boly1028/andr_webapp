@@ -25,6 +25,7 @@ interface ModalState {
   type: ModalType;
   onClose?: () => Promise<void>;
   children?: ReactNode;
+  title?: string;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -39,7 +40,7 @@ const components: Record<ModalType, React.FC<any>> = {
   [ModalType.Embeddable]: EmbeddableModal
 };
 
-const GlobalModalProvider: React.FC<{ children?: ReactNode }> = memo(function GlobalModalProvider({
+const GlobalModalProvider: React.FC<{ children?: ReactNode }> = function GlobalModalProvider({
   children,
 }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -50,11 +51,13 @@ const GlobalModalProvider: React.FC<{ children?: ReactNode }> = memo(function Gl
       type: T["modalType"],
       props?: Omit<T, "modalType">,
       _onClose?: () => Promise<void>,
+      title?: string
     ) => {
-      const state = {
+      const state: ModalState = {
         type,
         props,
         onClose: _onClose,
+        title: title
       };
 
       setModalState(state);
@@ -77,11 +80,11 @@ const GlobalModalProvider: React.FC<{ children?: ReactNode }> = memo(function Gl
   }, [modalState, isOpen, onOpen, onClose]);
 
   const renderComponent = useCallback(() => {
-    if (!modalState) return <></>;
+    if (!modalState) return null;
 
     const { type, props } = modalState;
     const Component = components[type];
-    if (!Component) return <></>;
+    if (!Component) return null;
 
     return <Component {...props} />;
   }, [modalState]);
@@ -90,9 +93,14 @@ const GlobalModalProvider: React.FC<{ children?: ReactNode }> = memo(function Gl
     <GlobalModalContext.Provider
       value={{ isOpen, open, close, error, setError }}
     >
-      <Modal isCentered isOpen={isOpen} onClose={close}>
+      <Modal isCentered isOpen={isOpen} onClose={close} size="xl">
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent pb='4'>
+          {modalState?.title && (
+            <ModalHeader>
+              {modalState.title}
+            </ModalHeader>
+          )}
           <ModalCloseButton />
           <ModalBody>
             <ModalError>{renderComponent()}</ModalError>
@@ -102,6 +110,6 @@ const GlobalModalProvider: React.FC<{ children?: ReactNode }> = memo(function Gl
       {children}
     </GlobalModalContext.Provider>
   );
-});
+};
 
-export default GlobalModalProvider;
+export default React.memo(GlobalModalProvider);

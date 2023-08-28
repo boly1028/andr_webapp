@@ -14,8 +14,9 @@ import theme, { ThemeStorageManager } from "@/theme";
 import { ApolloProvider } from "@apollo/client";
 import { GlobalModalProvider } from "@/modules/modals";
 
-import "react-toastify/dist/ReactToastify.css";
 import { initiateKeplr } from "@/zustand/andromeda";
+import "react-toastify/dist/ReactToastify.css";
+import "@andromedaprotocol/design-theme/css/globals.css"
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   useEffect(() => {

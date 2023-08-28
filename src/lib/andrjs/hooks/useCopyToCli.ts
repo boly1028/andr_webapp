@@ -1,6 +1,6 @@
 import { sumCoins } from "@/modules/sdk/hooks/useGetFunds";
-import { Msg } from "@andromedaprotocol/andromeda.js";
-import { Coin } from "@cosmjs/amino";
+import type { Msg } from "@andromedaprotocol/andromeda.js";
+import type { Coin } from "@cosmjs/amino";
 
 export type ICliQueryGenerator = (data: {
     funds?: Coin[],

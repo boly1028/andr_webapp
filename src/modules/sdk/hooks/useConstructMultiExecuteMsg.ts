@@ -1,5 +1,5 @@
 import { ITemplateFormData } from "@/lib/schema/templates/types";
-import { Msg } from "@andromedaprotocol/andromeda.js";
+import type { Msg } from "@andromedaprotocol/andromeda.js";
 import { useCallback } from "react";
 import { IImportantAdoKeys } from "@/lib/schema/types";
 import useConstructProxyMsg from "./useConstructProxyMsg";

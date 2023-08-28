@@ -9,7 +9,6 @@
  * - Do not end route with '/' (if manually adding routes, a consistence design will be created)
  */
 
-import { ChainConfigsResponse } from "@andromedaprotocol/andromeda.js";
 import { IChainConfigQuery } from "@andromedaprotocol/gql/dist/react";
 
 

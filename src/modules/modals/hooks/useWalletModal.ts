@@ -1,19 +1,17 @@
-import { getIsTermAccepted } from "../components/DisclaimerModal/utils";
+import { useGlobalModalContext } from ".";
 import { ModalType } from "../types";
-import useGlobalModalContext from "./useGlobalModalContext";
+import useDisclaimerModal from "./useDisclaimerModal";
 
 /**
  * Wrapper hook for opening the wallet modal
  * @returns
  */
 export default function useWalletModal() {
-  const { open } = useGlobalModalContext();
-
+  const { open } = useGlobalModalContext()
+  const openDisclaimer = useDisclaimerModal()
   return () => {
-    open(ModalType.Disclaimer, {
-      onAccept: () => {
-        open(ModalType.Wallet)
-      }
+    openDisclaimer({
+      onAccept: () => open(ModalType.Wallet)
     })
   };
 }

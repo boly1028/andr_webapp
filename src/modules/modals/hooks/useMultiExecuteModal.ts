@@ -1,4 +1,4 @@
-import { Msg } from "@andromedaprotocol/andromeda.js";
+import type { Msg } from "@andromedaprotocol/andromeda.js";
 import { Coin } from "@cosmjs/proto-signing";
 import { ModalType } from "../types";
 import useGlobalModalContext from "./useGlobalModalContext";

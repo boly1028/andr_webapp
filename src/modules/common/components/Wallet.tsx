@@ -257,9 +257,8 @@ const Wallet: FC<WalletProps> = (props) => {
   return (
     <Button
       rightIcon={isLoading ? (<Spinner w='4' h='4' />) : undefined}
-      leftIcon={<PlusIcon boxSize={6} />}
-      colorScheme="primary"
-      variant="solid"
+      leftIcon={<PlusIcon boxSize={4} />}
+      variant="theme-primary"
       onClick={onOpen}
       size="sm"
       {...props}

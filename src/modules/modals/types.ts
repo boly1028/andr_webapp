@@ -1,5 +1,5 @@
 import { IAdoType } from "@/lib/schema/types";
-import { Msg } from "@andromedaprotocol/andromeda.js";
+import type { Msg } from "@andromedaprotocol/andromeda.js";
 import { StdFee } from "@cosmjs/amino";
 import { Coin } from "@cosmjs/proto-signing";
 import { MsgInstantiateContractEncodeObject, MsgExecuteContractEncodeObject } from "@cosmjs/cosmwasm-stargate"

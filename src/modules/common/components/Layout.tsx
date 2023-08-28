@@ -12,6 +12,7 @@ import { Header } from "@/modules/common";
 import { ILinkItemKey } from "./sidebar/utils";
 import { KeplrConnectionStatus, useAndromedaStore } from "@/zustand/andromeda";
 import Sidebar from "./sidebar";
+import { useAppStateStore } from "@/zustand/appState";
 
 interface ILayoutProps extends BoxProps {
   activeLink?: ILinkItemKey
@@ -26,6 +27,9 @@ const Layout: FC<ILayoutProps> = ({
   const status = useAndromedaStore(state => state.keplrStatus);
   const isInitializing = status === KeplrConnectionStatus.Connecting;
 
+  const sidebarCollapse = useAppStateStore(state => state.sidebarCollapse);
+  const sidebarWidth = sidebarCollapse ? 20 : 60
+
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   if (isInitializing) {
@@ -38,6 +42,7 @@ const Layout: FC<ILayoutProps> = ({
         activeLink={activeLink}
         onClose={() => onClose}
         display={{ base: "none", md: "flex" }}
+        w={sidebarWidth}
       />
       <Drawer
         autoFocus={false}
@@ -53,10 +58,9 @@ const Layout: FC<ILayoutProps> = ({
         </DrawerContent>
       </Drawer>
       <Flex justify="center" w={"full"} minH="100vh">
-        <Flex ml={{ base: 0, md: 60 }} direction={"column"} w="full">
+        <Flex ml={{ base: 0, md: sidebarWidth }} direction={"column"} w="full">
           <Box
             px={{ base: 4, md: 8 }}
-            maxW="container.lg"
             w="full"
             margin="0 auto"
           >
@@ -66,8 +70,8 @@ const Layout: FC<ILayoutProps> = ({
             flex={1}
             px={{ base: 4, md: 8 }}
             py={{ base: 2, md: 4 }}
-            maxW={maxW}
             w="full"
+            maxW="container.lg"
             {...props}
             margin="0 auto"
           >

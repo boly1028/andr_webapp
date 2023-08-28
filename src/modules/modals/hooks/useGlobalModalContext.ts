@@ -12,6 +12,7 @@ export interface GlobalModalContextProps {
     type: T,
     props?: ExtractModalParameters<ModalProps, T>,
     onClose?: () => Promise<void>,
+    title?: string
   ) => void;
   close: () => void;
   error?: Error;
