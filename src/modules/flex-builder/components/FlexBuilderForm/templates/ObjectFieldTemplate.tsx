@@ -138,11 +138,11 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
       // < allowToggle defaultIndex={defaultIndex}>
       <Box
         _hover={{
-          bg: "dark.50",
+          bg: "background.800",
         }}
         p={4}
         border="1px solid"
-        borderColor="dark.300"
+        borderColor="border.main"
         borderRadius="lg"
       >
         <Flex>

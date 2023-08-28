@@ -54,7 +54,7 @@ const DisclaimerModal: FC<DisclaimerModalProps> = ({ onAccept }) => {
         }}
       >
         {terms.map((t, idx) => (
-          <FormControl as={HStack} key={idx} alignItems="start" gap="2">
+          <FormControl as={HStack} key={idx} alignItems="start" gap="3">
             <Checkbox
               isChecked={t.selected}
               onChange={(e) => {
@@ -65,10 +65,11 @@ const DisclaimerModal: FC<DisclaimerModalProps> = ({ onAccept }) => {
                   return clone;
                 });
               }}
+              mt='1'
             />
-            <FormLabel textStyle='main-xs-regular'>
+            <Text as={FormLabel} textStyle='main-xs-regular'>
               {t.text}
-            </FormLabel>
+            </Text>
           </FormControl>
         ))}
       </VStack>
@@ -83,10 +84,11 @@ const DisclaimerModal: FC<DisclaimerModalProps> = ({ onAccept }) => {
               return clone.map((t) => ({ ...t, selected: checked }));
             });
           }}
+          mt='1'
         />
-        <FormLabel textStyle='main-sm-regular !important'>
+        <Text as={FormLabel} textStyle='main-xs-regular'>
           I understand and agree with the risks and disclaimers of using Andromeda Protocol
-        </FormLabel>
+        </Text>
       </FormControl>
 
       <HStack justifyContent="end" mt="2">
