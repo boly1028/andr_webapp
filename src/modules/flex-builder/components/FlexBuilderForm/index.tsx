@@ -28,6 +28,7 @@ import CopyCliButton from "./CopyCliButton";
 import OpenInAppBuilderButton from "./OpenInAppBuilder";
 import ScrollToTop from "@/modules/common/components/ScrollToTop";
 import ScrollToBottom from "@/modules/common/components/ScrollToBottom";
+import { SingleDatepicker } from "@andromedaprotocol/design-theme";
 
 export type FlexBuilderFormProps = {
   template: ITemplate;
@@ -224,7 +225,6 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
         {(template.modules && template.modules.length > 0) && (
           <AddModuleModal title={addButtonTitle} items={template.modules} onAdd={addModule} />
         )}
-
         {/* Action Footer */}
         <Flex mt={8} justify="right" mb={10}>
           <HStack spacing={4}>

@@ -13,6 +13,7 @@ import {
   Alert,
   AlertIcon,
   AlertDescription,
+  FormHelperText,
 } from "@chakra-ui/react";
 import VfsResolver from "../alerts/VfsResolver";
 import { isIdentifier } from "../utils/identifier";
@@ -133,7 +134,9 @@ const FieldTemplate = (props: FieldTemplateProps) => {
           ) : (
             <>{children}</>
           )}
-          {props.help}
+          <FormHelperText>
+            {props.rawHelp}
+          </FormHelperText>
           {isIdentifier(schema as any) && (
             <VfsResolver
               formData={formData}
