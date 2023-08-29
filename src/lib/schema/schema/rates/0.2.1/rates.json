@@ -141,7 +141,7 @@
         "version": "0.2.1",
         "classifier": "sale",
         "class": "module",
-        "description":"The Rates Module allows users to add taxes or royalties to any sales they perform. It can be added to any of the ADOs that conduct sales, such as the auction, marketplace, crowdfund, and many more. Once a sale is made, the appropriate rates are sent to the location specified by the user."
+        "description": "Rates is an  ADO is a smart contract used to impose fees on transactions. (Ex. Royalties, Taxes, etc)"
     },
     "ui-schema": {
         "rates": {
@@ -179,6 +179,7 @@
                     }
                 },
                 "rate": {
+                    "ui:widget": "multi-tab",
                     "flat": {
                         "ui:options": {
                             "title": "Coin"

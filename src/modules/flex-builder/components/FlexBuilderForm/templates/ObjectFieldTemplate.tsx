@@ -137,48 +137,42 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
        */
       // < allowToggle defaultIndex={defaultIndex}>
       <Box
-        _hover={{
-          bg: "background.800",
-        }}
-        p={4}
-        border="1px solid"
-        borderColor="border.main"
-        borderRadius="lg"
+        bg='background.800'
+        rounded="xl"
+        pb='4'
       >
-        <Flex>
+        <Flex bg='backgroundState.idle' p={4} roundedTop='xl'>
           <HStack spacing={5} w="full" align="flex-start">
-            <ClassifierIcon
-              adoType={schema.$id}
-              schemaClass={schema?.class as any}
-              schemaClassifier={schema?.classifier as any}
-              boxSize={5}
-            />
+            <Box mt='1'>
+              <ClassifierIcon
+                adoType={schema.$id}
+                schemaClass={schema?.class as any}
+                schemaClassifier={schema?.classifier as any}
+                boxSize={4}
+              />
+            </Box>
             <Box>
-              <HStack mb={1}>
-                <Text fontSize="sm" color="base.white" fontWeight={600}>
+              <HStack mb='0.5'>
+                <Text textStyle='main-md-semibold'>
                   {uiOptions.title || title}
                 </Text>
-                <Text fontSize="xs"
-                  color="dark.500"
-                  fontWeight="light">
+                <Text textStyle='main-sm-regular' color='content.low'>
                   @{schema.version ?? 'latest'}
                 </Text>
                 {!NON_EDITABLE_CLASS.has(schema.class ?? "") && (
                   <>
                     <CopyButton
-                      variant="link"
-                      fontSize="xs"
-                      color="dark.500"
-                      fontWeight="light"
+                      variant='unstyled'
+                      fontSize='sm'
+                      fontWeight='light'
                       text={currentSchemaId}
                     >
                       {currentSchemaId}
                     </CopyButton>
-                    <Text></Text>
                     {changePanelName && (
                       <IconButton
-                        size={"sm"}
-                        variant="outline"
+                        size='sm'
+                        variant='theme-outline'
                         aria-label="open rename modal"
                         onClick={() => {
                           openPanelRenameModal({
@@ -199,7 +193,7 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
                   </>
                 )}
               </HStack>
-              <Text textStyle="light" color="dark.500">
+              <Text textStyle="main-sm-regular" color='content.medium'>
                 {uiOptions.description || description}
               </Text>
             </Box>
@@ -218,7 +212,7 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
             {formData["$removable"] && duplicatePanel && (
               <IconButton
                 size={"sm"}
-                variant="outline"
+                variant="theme-low"
                 aria-label="duplicate panel"
                 onClick={() => {
                   duplicatePanel(currentSchemaId);
@@ -229,7 +223,7 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
             {formData['$removable'] && deleteModule && (
               <IconButton
                 size={"sm"}
-                variant="outline"
+                variant="theme-destructive"
                 aria-label="delete module"
                 onClick={() => {
                   deleteModule(currentSchemaId);
@@ -243,10 +237,11 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
               <MenuButton
                 as={IconButton}
                 icon={<Icon as={MoreVertical} boxSize={5} />}
-                variant="outline"
+                variant="theme-ghost"
                 size="sm"
+                color='content.low'
               />
-              <MenuList>
+              <MenuList textStyle='main-sm-regular'>
                 <MenuItem
                   onClick={downloadJson}
                   icon={<DownloadIcon boxSize={4} />}

@@ -99,7 +99,7 @@ export const useGetClassColor = (props: { adoType?: IAdoType, _class?: string },
     const _class = props._class || 'module';
     let tokenCategory = 'category';
     if (variant === 'low') tokenCategory = tokenCategory + 'Low'
-    return `newSystem.${tokenCategory}.${_class}` as BackgroundProps['bg'];
+    return `${tokenCategory}.${_class}` as BackgroundProps['bg'];
   }, [props, variant]
   )
   return useToken('colors', adoColor as any)

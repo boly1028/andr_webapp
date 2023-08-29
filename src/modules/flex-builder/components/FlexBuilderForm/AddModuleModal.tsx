@@ -179,13 +179,10 @@ function AddModuleModal({ onAdd, items, title = 'Add Component' }: AddModuleModa
     <>
       <Button
         onClick={onOpen}
-        py={8}
-        leftIcon={<Icon as={PlusIcon} boxSize={6} />}
-        w="full"
-        bg="dark.50"
-        _hover={{
-          bg: "dark.100",
-        }}
+        leftIcon={<Icon as={PlusIcon} boxSize={5} />}
+        variant="theme-low"      
+        w='full'
+        py='6'
       >
         {title}
       </Button>

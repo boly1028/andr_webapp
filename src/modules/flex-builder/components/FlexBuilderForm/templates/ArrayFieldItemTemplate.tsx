@@ -40,9 +40,9 @@ const ArrayFieldItemTemplate: FC<ArrayFieldTemplateItemType> = (props) => {
     <VStack
       border="1px"
       my="2"
-      borderColor="dark.300"
+      borderColor="border.main"
       rounded="lg"
-      p="4"
+      p="6"
       alignItems={"flex-end"}
     >
       <Box w="full">{children}</Box>

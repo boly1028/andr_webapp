@@ -17,6 +17,7 @@ import {
 } from "@chakra-ui/react";
 import VfsResolver from "../alerts/VfsResolver";
 import { isIdentifier } from "../utils/identifier";
+import { ALERT_TYPE_MAP } from "../alerts/utils";
 
 const FieldTemplate = (props: FieldTemplateProps) => {
   const {
@@ -97,7 +98,7 @@ const FieldTemplate = (props: FieldTemplateProps) => {
           <Alert
             key={idx}
             status={alert.type}
-            variant="left-accent"
+            variant={`theme-${ALERT_TYPE_MAP[alert.type]}`}
             rounded="lg"
             fontSize="sm"
             mb="4"
@@ -108,6 +109,7 @@ const FieldTemplate = (props: FieldTemplateProps) => {
               dangerouslySetInnerHTML={{
                 __html: `${alert.text}`,
               }}
+              textStyle='main-sm-regular'
             />
           </Alert>
         ))}
@@ -128,7 +130,7 @@ const FieldTemplate = (props: FieldTemplateProps) => {
           ) : null}
           {displayLabel && <>{description}</>}
           {hasWrapper ? (
-            <Box key={1} border="1px" borderColor="dark.300" p="6" rounded="lg">
+            <Box key={1} border="1px" borderColor="border.main" p="6" rounded="lg">
               {children}
             </Box>
           ) : (
