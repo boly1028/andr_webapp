@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { v4 as keyGen } from "uuid"; // Used as key assignments for function elements
+// import { v4 as keyGen } from "uuid"; // Used as key assignments for function elements
 import NextLink from "next/link";
 import styles from './ado.module.css'
 
@@ -24,17 +24,18 @@ import {
   truncate,
 } from "@/modules/common";
 import { CloseIcon } from "@chakra-ui/icons";
+import { EyeIcon, ListIcon} from "@/modules/common/components/icons";
 import { Center, Stack } from "@chakra-ui/layout";
 import { Skeleton } from "@chakra-ui/skeleton";
 import ClassifierIcon from "@/theme/icons/classifiers";
 import useAssetInfoModal from "@/modules/modals/hooks/useAssetInfoModal";
 import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
-import { MoreVertical } from "lucide-react";
+import { MoreVertical, ScanIcon} from "lucide-react";
 import { useGetSchemaADOP } from "@/lib/schema/hooks/useGetSchemaADOP";
 import { IAdoType } from "@/lib/schema/types";
 import { useGetSchemaVersions } from "@/lib/schema/hooks/useGetSchemaVersion";
 import { useQueryBaseAdo } from "@/lib/graphql/hooks/useQueryBaseAdo";
-import { useAppConfig } from "@/lib/graphql/hooks/app/useAppConfig";
+// import { useAppConfig } from "@/lib/graphql/hooks/app/useAppConfig";
 import { useAppComponents } from "@/lib/graphql/hooks/app/useAppComponents";
 
 interface AdoItemProps {
@@ -107,6 +108,7 @@ const AdoItem: FC<AdoItemProps> = ({ address, name, proxyAddress, adoType: _adoT
         </Box>
         <Flex alignItems="center" gap="1" alignSelf="center" w='28' justifyContent='end'>
           {/* Section for Action List */}
+          {/* Detail View Link */}
           <Box className={styles.onHover}>
             <Button
               onClick={() => {
@@ -114,10 +116,43 @@ const AdoItem: FC<AdoItemProps> = ({ address, name, proxyAddress, adoType: _adoT
               }}
               variant="link"
               colorScheme="blue"
+              mt="2"
             >
-              View
+              <Icon as={EyeIcon} boxSize={5} />
             </Button>
           </Box>
+         {/* Query Option Lists */}
+          <Menu placement="bottom-end">
+            <MenuButton
+              as={IconButton}
+              icon={<Icon as={ListIcon} boxSize={5} />}
+              variant="link"
+              px="0"
+              pr="2"
+              minW="0"
+              className={styles.onHover}
+            />
+            <MenuList>
+              {adopData?.queries?.map((action) => {
+                const path = `${adoType}/${version}/${formatActionPath(
+                  action,
+                )}`;
+                return (
+                  <NextLink
+                    key={action}
+                    href={SITE_LINKS.adoQuery(path, address ?? "")}
+                    passHref
+                    legacyBehavior>
+                    <MenuItem key={action}>
+                      {/* <MenuItem icon={<Icon as={EyeIcon} boxSize={5} />}> */}
+                      {formatActionTitles(action.replaceAll('.', ' '))}
+                    </MenuItem>
+                  </NextLink>
+                );
+              })}
+            </MenuList>
+          </Menu>
+          {/* Executable Actions Lists */}
           <Menu placement="bottom-end">
             <MenuButton
               as={IconButton}
@@ -154,26 +189,9 @@ const AdoItem: FC<AdoItemProps> = ({ address, name, proxyAddress, adoType: _adoT
                   </NextLink>
                 );
               })}
-              <Divider />
-              {adopData?.queries?.map((action) => {
-                const path = `${adoType}/${version}/${formatActionPath(
-                  action,
-                )}`;
-                return (
-                  <NextLink
-                    key={action}
-                    href={SITE_LINKS.adoQuery(path, address ?? "")}
-                    passHref
-                    legacyBehavior>
-                    <MenuItem key={action}>
-                      {/* <MenuItem icon={<Icon as={EyeIcon} boxSize={5} />}> */}
-                      {formatActionTitles(action.replaceAll('.', ' '))}
-                    </MenuItem>
-                  </NextLink>
-                );
-              })}
             </MenuList>
           </Menu>
+          {/* Close / Expand Icon */}
           {adoType === 'app-contract' && (
             <Box>
               <Button {...buttonProps} variant="unstyled" size="sm">

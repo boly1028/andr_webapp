@@ -133,7 +133,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
     <Layout>
       <PageHeader
         title={modifiedTemplate.name || `Query message`}
-        desc={modifiedTemplate.description || `Ado address ${address}. Check your console for query result`}
+        desc={modifiedTemplate.description || `Ado address ${address}. Check your console for query results.`}
         rightElement={InputElement}
       />
       <Box mt={10}>
