@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Button, ButtonProps, IconButton, Text } from "@chakra-ui/react";
+import { Button, ButtonProps, IconButton, Text, Tooltip } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { useAppStateStore } from "@/zustand/appState";
 
@@ -13,15 +13,17 @@ const NavItem: FC<Props> = ({ active = false, href, children, ...props }) => {
   if (sidebarCollapse) {
     const { leftIcon, ...iconButtonProps } = props
     return (
-      <IconButton
-        as={NextLink} href={href}
-        aria-label={href}
-        variant={active ? 'theme-low' : 'theme-ghost'}
-        color={active ? 'primary.400' : 'content.medium'}
-        rounded='xl'
-        icon={leftIcon}
-        {...iconButtonProps}
-      />
+      <Tooltip hasArrow label={children} placement="right" bgColor="white">
+        <IconButton
+          as={NextLink} href={href}
+          aria-label={href}
+          variant={active ? 'theme-low' : 'theme-ghost'}
+          color={active ? 'primary.400' : 'content.medium'}
+          rounded='xl'
+          icon={leftIcon}
+          {...iconButtonProps}
+        />
+      </Tooltip>
     )
   }
 
