@@ -1,1 +1,1 @@
-export {default as Embedables} from './Embeddables';
+export { default as Embedables } from './Embeddables';
