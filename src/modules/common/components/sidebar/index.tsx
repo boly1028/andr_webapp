@@ -35,6 +35,7 @@ interface ILinkItem {
     href: string;
     key: ILinkItemKey;
 }
+// Define sidebar navigation items
 const LinkItems: ILinkItem[] = [
     {
         name: "User",
