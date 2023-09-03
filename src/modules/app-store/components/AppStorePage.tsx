@@ -32,7 +32,7 @@ const AppStorePage: FC<AppStorePageProps> = (props) => {
       <Divider color="dark.300" my="10" />
       <SimpleGrid columns={3} gap="6" gridAutoRows="1fr">
         <GridItem>
-          <Box bg="dark.50" rounded="xl" p="6">
+          <Box bg="backgroundState.idle" rounded="xl" p="6">
             <Image src="/logo_outline.png" w="16" />
             <Text fontWeight="bold" fontSize="4xl" mt="4">
               Build Your App
@@ -45,7 +45,7 @@ const AppStorePage: FC<AppStorePageProps> = (props) => {
                 mt={10}
                 w="full"
                 size="lg"
-                colorScheme="primary"
+                variant="theme-low"
                 rightIcon={<ChevronRightIcon boxSize={5} />}
               >
                 Get Started

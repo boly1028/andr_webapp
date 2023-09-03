@@ -1,6 +1,5 @@
-import { useDenom } from "@/lib/andrjs/hooks/useDenom";
-import { WidgetProps, getTemplate } from "@andromedarjsf/utils";
-import { Box, Button, HStack, useRadio, useRadioGroup } from "@chakra-ui/react";
+import { WidgetProps } from "@andromedarjsf/utils";
+import { Box, HStack, useRadio, useRadioGroup } from "@chakra-ui/react";
 import React from "react";
 
 interface Props extends WidgetProps { }
@@ -21,7 +20,7 @@ export const MultiTabWidget: React.FC<Props> = (props) => {
     })
     const group = getRootProps()
     return (
-        <HStack gap='0' bg='backgroundState.idle' rounded='lg' minW='50%' {...group}>
+        <HStack gap='0' bg='backgroundState.idle' rounded='lg' mb='2' minW='50%' mx='4' {...group}>
             {options?.enumOptions?.map((option) => {
                 const radio = getRadioProps({ value: option.value })
                 return (
@@ -51,9 +50,9 @@ function RadioCard(props) {
                     bg: 'backgroundState.active',
                     rounded: 'lg'
                 }}
-                px={6}
-                py={2}
-                textStyle='main-sm-medium'
+                px={4}
+                py={1.5}
+                textStyle='main-xs-medium'
                 whiteSpace='nowrap'
                 textAlign='center'
             >

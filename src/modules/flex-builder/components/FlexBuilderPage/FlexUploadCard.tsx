@@ -49,7 +49,7 @@ const FlexUploadCard: FC<FlexUploadCardProps> = (props) => {
       rounded="lg"
       overflow="hidden"
       // _hover={{ scale: "105%", borderWidth: "1px" }}
-      borderColor="dark.300"
+      borderColor="border.main"
       cursor="pointer"
       transform="auto"
       transition="all"

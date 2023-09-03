@@ -58,7 +58,7 @@ const WalletConnected: FC<WalletProps> = (props) => {
         <>
           <PopoverTrigger>
             <Button
-              variant="outline"
+              variant="theme-outline"
               size="sm"
               {...props}
             >
@@ -87,9 +87,9 @@ const WalletConnected: FC<WalletProps> = (props) => {
               <ChevronDownIcon boxSize={4} />
             </Button>
           </PopoverTrigger>
-          <PopoverContent>
-            <PopoverBody>
-              <HStack mb={3} justifyContent="space-between">
+          <PopoverContent bg='background.900' borderColor="border.main">
+            <PopoverBody bg='backgroundState.idle'>
+              <HStack mb={3} spacing={2} justifyContent="space-between">
                 <HStack>
                   {iconUrl ? (
                     <Image src={iconUrl ?? ""} w="5" />
@@ -116,7 +116,7 @@ const WalletConnected: FC<WalletProps> = (props) => {
                   </Badge>
                 </HStack>
                 <Menu>
-                  <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+                  <MenuButton as={Button} size='sm' variant="theme-low" rightIcon={<ChevronDownIcon />}>
                     Switch
                   </MenuButton>
                   <MenuList>
@@ -181,13 +181,15 @@ const WalletConnected: FC<WalletProps> = (props) => {
                 p={2}
                 fontSize="sm"
                 readOnly
+                bg='transparent'
+                variant="outline"
               />
               <HStack mb={2}>
                 <CopyButton
-                  leftIcon={<CopyIcon boxSize={4} />}
-                  variant="outline"
+                  leftIcon={<CopyIcon />}
+                  variant="theme-outline"
+                  size='sm'
                   w='full'
-                  fontWeight={500}
                   text={address}
                 >
                   Copy address
@@ -196,10 +198,10 @@ const WalletConnected: FC<WalletProps> = (props) => {
                   as="a"
                   href={currentConfig ? SITE_LINKS.blockExplorerAccount(currentConfig, address) : ''}
                   target="_blank"
-                  leftIcon={<ExternalLinkIcon boxSize={4} />}
-                  variant="outline"
+                  leftIcon={<ExternalLinkIcon />}
+                  variant="theme-outline"
+                  size='sm'
                   w='full'
-                  fontWeight={500}
                 >
                   Explorer
                 </Button>
@@ -218,11 +220,11 @@ const WalletConnected: FC<WalletProps> = (props) => {
                 </VStack>
               </Box> */}
               <Button
-                leftIcon={<LogOutIcon boxSize={4} />}
-                variant="outline"
+                leftIcon={<LogOutIcon />}
+                variant="theme-destructive"
                 onClick={disconnectAndromedaClient}
                 w='full'
-                fontWeight={500}
+                size='sm'
               >
                 Disconnect
               </Button>

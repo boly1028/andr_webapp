@@ -11,12 +11,10 @@ const DownloadFlexButton: FC<DownloadFlexButtonProps> = (props) => {
     const { downloadFlex } = useDownloadFlex()
 
     return (
-        <Tooltip label='Save' bg='newSystem.base.light'>
-            <Box>
-                <Button onClick={downloadFlex} rightIcon={<Icon as={Download} boxSize='4' />}>
-                    Export
-                </Button>
-            </Box>
+        <Tooltip label='Save' bg='base.light'>
+            <Button onClick={downloadFlex} variant="theme-filled" size='sm' rightIcon={<Icon as={Download} boxSize='4' />}>
+                Export
+            </Button>
         </Tooltip>
     )
 }

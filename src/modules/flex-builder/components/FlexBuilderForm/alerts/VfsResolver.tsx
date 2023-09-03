@@ -25,7 +25,7 @@ const VfsResolver: FC<Props> = (props) => {
                 isLoading={isLoading}
                 size='xs'
                 variant='ghost'
-                color='newSystem.content.medium'
+                color='content.medium'
             >
                 Validate VFS Path
             </Button>
@@ -33,7 +33,7 @@ const VfsResolver: FC<Props> = (props) => {
                 <Text>{data}</Text>
             )}
             {!!(error && (path === formData)) && (
-                <Text color='newSystem.danger.400'>Not a valid vfs path</Text>
+                <Text color='danger.400'>Not a valid vfs path</Text>
             )}
         </HStack>
     )

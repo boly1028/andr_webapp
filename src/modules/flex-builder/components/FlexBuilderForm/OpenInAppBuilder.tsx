@@ -38,7 +38,7 @@ function OpenInAppBuilderButton({ schema, uiSchema, formData }: OpenInAppBuilder
   }, [schema, uiSchema, formData]);
 
   return (
-    <Tooltip label={`Open in App Builder`} bg='base.white' placement='top'>
+    <Tooltip label={`Open in App Builder`} placement='top'>
       <IconButton
         aria-label="Open in App Builder"
         variant="outline"

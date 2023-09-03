@@ -80,7 +80,7 @@ const EmbeddableTemplateItem: FC<EmbeddableTemplateListItemProps> = ({ template 
                             {template.preview && (
                                 <Tooltip label='Preview Link' openDelay={300}>
                                     <ChakraLink onClick={(e) => e.stopPropagation()} target='_blank' href={template.preview} colorScheme='teal' fontSize='xs'>
-                                        <ExternalLinkIcon w='4' h='4' color='newSystem.primary.300' />
+                                        <ExternalLinkIcon w='4' h='4' color='primary.300' />
                                     </ChakraLink>
                                 </Tooltip>
                             )}

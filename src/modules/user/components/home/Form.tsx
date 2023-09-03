@@ -76,15 +76,15 @@ const Form: FC<Props> = (props) => {
                     }}
                 />
                 <InputRightElement pr='2'>
-                    <Button colorScheme="newSystem.primary" size='sm' h='7' w='7'>
+                    <Button colorScheme="primary" size='sm' h='7' w='7'>
                         <Icon as={ArrowRight} boxSize='4' />
                     </Button>
                 </InputRightElement>
             </InputGroup>
-            <Text textStyle="main-sm-regular" color='newSystem.content.medium' alignSelf='start'>
+            <Text textStyle="main-sm-regular" color='content.medium' alignSelf='start'>
                 Your username should be alphanumeric
             </Text>
-            <Button onClick={updateUsername} size='lg' w='full' colorScheme="newSystem.primary" isDisabled={!isValid || isLoading || !vfsAddress || input === username}>
+            <Button onClick={updateUsername} size='lg' w='full' colorScheme="primary" isDisabled={!isValid || isLoading || !vfsAddress || input === username}>
                 Claim
             </Button>
         </VStack>

@@ -37,9 +37,9 @@ const VfsResolver: FC<Props> = (props) => {
                     VFS
                 </Button>
             ) : data ? (
-                <Icon color='newSystem.success.400' as={Check} />
+                <Icon color='success.400' as={Check} />
             ) : (
-                <Icon color='newSystem.danger.400' as={WarningTwoIcon} />
+                <Icon color='danger.400' as={WarningTwoIcon} />
             )}
         </Tooltip>
     )

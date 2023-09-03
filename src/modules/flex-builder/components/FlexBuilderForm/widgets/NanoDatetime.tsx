@@ -70,8 +70,8 @@ export const NanoDatetimeWidget = (props: WidgetProps) => {
             />
             {typeof value === 'string' && (
                 <HStack justifyContent='space-between'>
-                    <Text fontSize='xs' color='newSystem.content.medium' mt='1' ml='1'>{formattedTime}</Text>
-                    <Text fontSize='xs' color='newSystem.content.medium' mt='1' ml='1'>{value} nanosecond</Text>
+                    <Text fontSize='xs' color='content.medium' mt='1' ml='1'>{formattedTime}</Text>
+                    <Text fontSize='xs' color='content.medium' mt='1' ml='1'>{value} nanosecond</Text>
                 </HStack>
             )}
             {schema.examples ? (

@@ -1,5 +1,5 @@
 import { AppBuilder } from '@/modules/common'
-import { Button, Icon, Input } from '@chakra-ui/react'
+import { Button, Icon, Input, InputGroup, InputLeftElement } from '@chakra-ui/react'
 import React, { FC, useCallback, useEffect, useState } from 'react'
 import { AppBuilderContext, useAppBuilder } from '../canvas/Provider'
 import { AppConfig } from '../config'
@@ -23,18 +23,16 @@ const AppNameButton: FC<AppNameButtonProps> = (props) => {
     }, [editorRef, updateName, appName])
 
     return (
-        <Button
-            leftIcon={<Icon as={AppBuilder} boxSize='4' />}
-        >
+        <InputGroup w='36' size='sm' variant="filled" rounded='lg' bg="primaryLow.idle">
+            <InputLeftElement pointerEvents='none'>
+                <Icon as={AppBuilder} boxSize='4' />
+            </InputLeftElement>
             <Input
                 value={appName}
                 onChange={(e) => updateName(e.target.value)}
-                variant='unstyled'
-                w='20'
-                fontSize='sm'
                 placeholder={AppConfig.DEFAULT_APP_NAME}
             />
-        </Button>
+        </InputGroup>
     )
 }
 export default AppNameButton

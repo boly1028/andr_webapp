@@ -142,8 +142,8 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
         pb='4'
       >
         <Flex bg='backgroundState.idle' p={4} roundedTop='xl'>
-          <HStack spacing={5} w="full" align="flex-start">
-            <Box mt='1'>
+          <HStack spacing={3} w="full" align="flex-start">
+            <Box alignSelf='center'>
               <ClassifierIcon
                 adoType={schema.$id}
                 schemaClass={schema?.class as any}
@@ -165,6 +165,7 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
                       variant='unstyled'
                       fontSize='sm'
                       fontWeight='light'
+                      size='xs'
                       text={currentSchemaId}
                     >
                       {currentSchemaId}
@@ -187,7 +188,7 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
                             body: "Change the assigned name of this component",
                           });
                         }}
-                        icon={<Rename width={16} height={16} />}
+                        icon={<Icon as={Rename} />}
                       />
                     )}
                   </>
@@ -203,7 +204,6 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
               <Switch
                 id={idSchema.$id}
                 isChecked={!!formData["$enabled"]}
-                colorScheme="primary"
                 onChange={() => {
                   toggleModule(currentSchemaId, !formData["$enabled"]);
                 }}

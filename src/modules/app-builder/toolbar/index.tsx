@@ -13,7 +13,7 @@ const Toolbar: FC<ToolbarProps> = (props) => {
     const { } = props;
 
     return (
-        <ButtonGroup bg='newSystem.backgroundState.idle' borderRadius='lg' spacing='0' size='sm'>
+        <ButtonGroup bg='backgroundState.idle' borderRadius='lg' size='sm' isAttached>
             <ZoomButton offset={-0.1} />
             <ZoomButton offset={+0.1} />
             <FitViewButton />

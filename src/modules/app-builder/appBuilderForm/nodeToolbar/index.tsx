@@ -16,8 +16,8 @@ const Toolbar: FC<ToolbarProps> = (props) => {
 
     return (
         <HStack pb='6' w='full' justifyContent='center'>
-            <Box bg='newSystem.background.900' borderRadius='lg'>
-                <ButtonGroup bg='newSystem.backgroundState.idle' borderRadius='lg' spacing='0' size='sm' zIndex={9999}>
+            <Box bg='background.900' borderRadius='lg'>
+                <ButtonGroup bg='backgroundState.idle' borderRadius='lg' spacing='0' size='sm' zIndex={9999}>
                     <DeleteButton name={name} />
                     <DuplicateButton name={name} />
                     <DownloadButton name={name} />

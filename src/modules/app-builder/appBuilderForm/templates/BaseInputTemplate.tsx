@@ -90,8 +90,8 @@ const BaseInputTemplate = (props: WidgetProps) => {
               <VfsResolver formData={value} />
             )}
             {description && description.length > 0 && (
-              <Tooltip label={description} fontSize='xs' size='xs' textColor='dark.500'>
-                <InfoIcon boxSize='4' cursor='pointer' color='dark.300' _hover={{ color: 'dark.500' }} />
+              <Tooltip label={description} fontSize='xs' size='xs'>
+                <InfoIcon boxSize='4' cursor='pointer' color='dark.300' _hover={{ color: "content.high" }} />
               </Tooltip>
             )}
           </HStack>

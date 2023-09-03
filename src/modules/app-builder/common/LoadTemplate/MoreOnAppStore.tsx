@@ -11,7 +11,7 @@ const MoreOnAppStore: FC<MoreOnAppStoreProps> = (props) => {
     const { } = props;
 
     return (
-        <VStack bg='newSystem.background.800' alignItems='stretch' spacing='4' fontSize='sm' w='full' p='3' rounded='lg'>
+        <VStack bg='background.800' alignItems='stretch' spacing='4' fontSize='sm' w='full' p='3' rounded='lg'>
             <HStack gap='1' px='1'>
                 <Icon as={SparklesIcon} boxSize='6' />
                 <Text fontWeight='medium'>

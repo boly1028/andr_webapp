@@ -4,7 +4,7 @@ import ClassifierIcon, { useGetClassColor } from '@/theme/icons/classifiers';
 import { getUiOptions } from '@andromedarjsf/utils';
 import { cloneDeep } from '@apollo/client/utilities';
 import { InfoIcon } from '@chakra-ui/icons';
-import { Box, HStack, Icon, IconButton, Text, Tooltip } from '@chakra-ui/react';
+import { Box, ButtonGroup, HStack, Icon, IconButton, Text, Tooltip } from '@chakra-ui/react';
 import React, { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { NodeProps, Position } from 'reactflow';
 import { useAppBuilder, useReactFlow } from '../canvas/Provider';
@@ -87,7 +87,7 @@ const AppBuilderForm: FC<AppBuilderFormProps> = (props) => {
     return (
         <Box
             borderRadius="lg"
-            bg="newSystem.background.900"
+            bg="background.900"
             className={styles.container}
         >
             <Box
@@ -102,10 +102,10 @@ const AppBuilderForm: FC<AppBuilderFormProps> = (props) => {
                 }}
                 py={4}
                 border="1px solid"
-                borderColor={selected ? adoBorderColor : 'newSystem.backgroundState.idle'}
+                borderColor={selected ? adoBorderColor : 'backgroundState.idle'}
                 borderRadius="lg"
                 w='30rem'
-                bg="newSystem.background.800"
+                bg="background.800"
                 position='relative'
             >
                 <Handle id={upHandle} type='source' position={Position.Top} adoType={adoType.baseAdo} />
@@ -126,40 +126,39 @@ const AppBuilderForm: FC<AppBuilderFormProps> = (props) => {
                         @{schema.version ?? 'latest'}
                     </Text>
                     {(uiOptions.description || schema.description) && (
-                        <Tooltip label={uiOptions.description || schema.description} fontSize='xs' size='xs' textColor='dark.500'>
+                        <Tooltip label={uiOptions.description || schema.description}>
                             <InfoIcon boxSize='3' cursor='pointer' color='dark.300' _hover={{ color: 'dark.500' }} />
                         </Tooltip>
                     )}
                     <HStack ml='auto !important'>
-                        <CopyButton
-                            variant="link"
-                            fontSize="xs"
-                            color="dark.500"
-                            fontWeight="light"
-                            text={name}
-                        >
-                            {name}
-                        </CopyButton>
-                        {!NON_EDITABLE_CLASS.has(schema.class ?? "") && (
-                            <IconButton
-                                size='xs'
-                                variant="ghost"
-                                aria-label="open menu"
-                                onClick={() => {
-                                    const nodes = getNodes()
-                                    openPanelRenameModal({
-                                        callback: (newName) => {
-                                            renameNode(name, newName);
-                                        },
-                                        defaultName: name,
-                                        reservedNames: nodes.map(node => node.id),
-                                        title: "Rename ADO",
-                                        body: "Change the assigned name of this component",
-                                    });
-                                }}
-                                icon={<Icon as={Pencil} boxSize='3' />}
-                            />
-                        )}
+                        <ButtonGroup isAttached variant='theme-filled' size='xs'>
+                            <CopyButton
+                                fontSize="xs"
+                                fontWeight="light"
+                                text={name}
+                            >
+                                {name}
+                            </CopyButton>
+                            {!NON_EDITABLE_CLASS.has(schema.class ?? "") && (
+                                <IconButton
+                                    aria-label="open menu"
+                                    variant="theme-outline"
+                                    onClick={() => {
+                                        const nodes = getNodes()
+                                        openPanelRenameModal({
+                                            callback: (newName) => {
+                                                renameNode(name, newName);
+                                            },
+                                            defaultName: name,
+                                            reservedNames: nodes.map(node => node.id),
+                                            title: "Rename ADO",
+                                            body: "Change the assigned name of this component",
+                                        });
+                                    }}
+                                    icon={<Icon as={Pencil} />}
+                                />
+                            )}
+                        </ButtonGroup>
                     </HStack>
                 </HStack>
                 <Box className={styles.form}>

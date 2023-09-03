@@ -15,7 +15,7 @@ const BackdropCard: FC<BackdropCardProps> = (props) => {
       gridAutoRows="1fr"
       w="full"
       h="full"
-      bg="dark.50"
+      bg="backgroundState.idle"
       pos="relative"
       zIndex={0}
     >
@@ -35,7 +35,7 @@ const BackdropCard: FC<BackdropCardProps> = (props) => {
         colSpan={1}
         rowSpan={1}
         flex={flex}
-        bg="rgba(255,255,255,0.1)"
+        bg="backgroundState.idle"
         backdropFilter="auto"
         backdropBlur="46px"
         p="4"

@@ -21,11 +21,6 @@ const TopBar: FC<TopBarProps> = (props) => {
     return (
         <Flex direction='row' px='2' py='1.5'>
             <HStack flex={1}>
-                <Link href={SITE_LINKS.flexBuilderHome()} legacyBehavior>
-                    <Button>
-                        <Icon as={AndromedaIcon} boxSize='4' />
-                    </Button>
-                </Link>
                 <AppNameButton />
                 <ImportFlexButton />
                 <Toolbar />

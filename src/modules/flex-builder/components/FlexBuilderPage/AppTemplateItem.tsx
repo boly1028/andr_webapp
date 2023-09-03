@@ -1,9 +1,7 @@
 import React, { FC } from "react";
-import NextLink from "next/link";
-import { Box, Button, HStack, Image, Text } from "@chakra-ui/react";
-import { BackdropCard, ChevronRightIcon } from "@/modules/common";
+import { Box, Button, HStack, Image, Text, VStack } from "@chakra-ui/react";
+import { BackdropCard } from "@/modules/common";
 import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
-import TemplateCard from "./TemplateCard";
 import { IImportantAdoKeys, ITemplate } from "@/lib/schema/types";
 import Link from "next/link";
 
@@ -17,13 +15,13 @@ type AppTemplateListItemProps = {
 
 const AppTemplateItem: FC<AppTemplateListItemProps> = ({ template }) => {
   return (
-    <Link href={SITE_LINKS.flexBuilder(template.id)} legacyBehavior>
+    <Link href={SITE_LINKS.flexBuilder(template.id)}>
       <Box
         h="full"
         rounded="lg"
         overflow="hidden"
         // _hover={{ scale: "105%", borderWidth: "1px" }}
-        borderColor="dark.300"
+        borderColor="border.main"
         cursor="pointer"
         transform="auto"
         transition="all"
@@ -33,7 +31,7 @@ const AppTemplateItem: FC<AppTemplateListItemProps> = ({ template }) => {
         <BackdropCard
           logoComponent={<Image w="50%" mb="20%" src={template.icon} />}
         >
-          <Box px="2">
+          <VStack px="2" h='full' alignItems="stretch" spacing={0}>
             <HStack>
               <Image src="/verified.png" w="4" />
               <Text fontSize="sm" fontWeight="medium">
@@ -61,17 +59,18 @@ const AppTemplateItem: FC<AppTemplateListItemProps> = ({ template }) => {
               fontSize="sm"
               fontWeight="light"
               color="dark.500"
+              flex={1}
             >
               {template.description}
             </Text>
             <HStack justifyContent="end" mt="auto">
               {template.id !== IImportantAdoKeys.BLANK_CANVAS && (
-                <Link href={SITE_LINKS.appStoreItem(template.id)} passHref legacyBehavior>
-                  <Button as="a">Read More</Button>
-                </Link>
+                <Button as={Link} href={SITE_LINKS.appStoreItem(template.id)} variant="theme-filled" size='sm'>
+                  Read More
+                </Button>
               )}
             </HStack>
-          </Box>
+          </VStack>
         </BackdropCard>
       </Box>
     </Link>

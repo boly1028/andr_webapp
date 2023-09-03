@@ -53,30 +53,26 @@ const PanelRenameModal: FC<PanelRenameModalProps> = memo(
 
     return (
       <Box>
-        <Text fontWeight={600} color="newSystem.content.high">
-          {title}
-        </Text>
-        <Text textStyle="light" color='newSystem.content.low'>{body}</Text>
+        <Text textStyle="main-sm-regular" color='content.medium'>{body}</Text>
         <Input
           value={newName}
           onChange={(e) => {
             const val = e.target.value;
             setNewName(val);
           }}
-          mt="6"
+          mt='3'
           placeholder={defaultName}
         />
-        <Text color="error.400" fontSize="xs" mt="1" ml="1" fontWeight="light">
+        <Text color="danger.500" mt="1" ml="1" textStyle="main-xs-regular">
           {error}
         </Text>
         <Flex direction="row" justify="end" gap="2" mt="6">
-          <Button variant="outline" onClick={close}>
+          <Button variant="theme-filled" onClick={close}>
             Cancel
           </Button>
           <Button
             disabled={!!error || (preventSameSubmission && (newName === defaultName))}
-            variant="solid"
-            colorScheme="blue"
+            variant="theme-low"
             onClick={onCallback}
           >
             {acceptButtonText ?? "Apply"}

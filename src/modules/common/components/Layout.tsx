@@ -13,6 +13,8 @@ import { ILinkItemKey } from "./sidebar/utils";
 import { KeplrConnectionStatus, useAndromedaStore } from "@/zustand/andromeda";
 import Sidebar from "./sidebar";
 import { useAppStateStore } from "@/zustand/appState";
+import ScrollToBottom from "./ScrollToBottom";
+import ScrollToTop from "./ScrollToTop";
 
 interface ILayoutProps extends BoxProps {
   activeLink?: ILinkItemKey
@@ -74,8 +76,11 @@ const Layout: FC<ILayoutProps> = ({
             maxW="container.lg"
             {...props}
             margin="0 auto"
+            position="relative"
           >
             {children}
+            <ScrollToBottom />
+            <ScrollToTop />
           </Box>
         </Flex>
       </Flex>

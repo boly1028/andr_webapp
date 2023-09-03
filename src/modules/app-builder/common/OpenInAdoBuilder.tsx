@@ -33,13 +33,13 @@ const OpenInAdoBuilderButton: FC<OpenInAdoBuilderButtonProps> = (props) => {
     }, [createFlex, toast]);
 
     return (
-        <Tooltip label={`Open in ADO Builder`} bg='base.white' placement='top'>
+        <Tooltip label={`Open in ADO Builder`} placement='top'>
             <Box>
                 <IconButton
-                    color='newSystem.content.high'
                     aria-label="Fit View"
                     icon={<Icon as={FormInput} boxSize='4' />}
-                    variant='ghost'
+                    variant="theme-filled"
+                    size='sm'
                     onClick={handleRoute}
                 />
             </Box>

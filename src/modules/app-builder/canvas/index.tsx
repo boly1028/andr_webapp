@@ -40,7 +40,7 @@ const AppBuilderCanvas: FC<AppBuilderCanvasProps> = (props) => {
   return (
     <Box w="full" h="full" id={WRAPPER_ID} ref={(ref) => editorRef.current.rfWrapperInstance = ref ?? undefined}>
       {!isDirty && (
-        <Center w="full" h="full">
+        <Center w="full" h="full" overflow="auto">
           <LoadTemplate />
         </Center>
       )}

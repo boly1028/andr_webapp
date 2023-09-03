@@ -59,7 +59,7 @@ const CheckboxWidget = (props: WidgetProps) => {
             </Text>
           )}
           {(description) && (
-            <Tooltip label={description} fontSize='xs' size='xs' textColor='dark.500'>
+            <Tooltip label={description}>
               <InfoIcon boxSize='4' cursor='pointer' color='dark.300' _hover={{ color: 'dark.500' }} />
             </Tooltip>
           )}

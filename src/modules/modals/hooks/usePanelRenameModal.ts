@@ -9,5 +9,5 @@ export default function usePanelRenameModal() {
   const { open } = useGlobalModalContext();
 
   return useCallback((props: Omit<PanelRenameModalProps, 'modalType'>) =>
-    open(ModalType.PanelRename, props), [open]);
+    open(ModalType.PanelRename, props, undefined, props.title), [open]);
 }

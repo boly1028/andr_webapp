@@ -16,6 +16,7 @@ import {
 import { useUpdateNodeInternals } from "reactflow";
 import { WrapIfIdentifier } from "../connections/WrapIfIdentifier";
 import { isIdentifier } from "@/modules/flex-builder/components/FlexBuilderForm/utils/identifier";
+import { ALERT_TYPE_MAP } from "@/modules/flex-builder/components/FlexBuilderForm/alerts/utils";
 
 const FieldTemplate = (props: FieldTemplateProps) => {
   const {
@@ -90,11 +91,9 @@ const FieldTemplate = (props: FieldTemplateProps) => {
           <Alert
             key={idx}
             status={alert.type}
-            variant="left-accent"
-            rounded="lg"
+            variant={`theme-${ALERT_TYPE_MAP[alert.type]}`}
             fontSize="xs"
             my='2'
-            w='95%'
             mx='auto'
             py='1.5'
           >
@@ -104,7 +103,8 @@ const FieldTemplate = (props: FieldTemplateProps) => {
               dangerouslySetInnerHTML={{
                 __html: `${alert.text}`,
               }}
-              lineHeight='1.4'
+              textStyle='main-xs-regular'
+              lineHeight={1.4}
             />
           </Alert>
         ))}

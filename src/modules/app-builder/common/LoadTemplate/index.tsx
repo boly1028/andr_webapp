@@ -18,7 +18,7 @@ const LoadTemplate: FC<LoadTemplateProps> = (props) => {
                 Get started with a template
             </Text>
             <SimpleGrid columns={2} spacing='4' gridAutoRows="1fr">
-                {APP_TEMPLATES.map(template => (
+                {APP_TEMPLATES.slice(0, 5).map(template => (
                     <GridItem key={template.id}>
                         <TemplateListItem template={template} />
                     </GridItem>
@@ -31,8 +31,8 @@ const LoadTemplate: FC<LoadTemplateProps> = (props) => {
                 Or Open a Saved Project
             </Text>
             <Box>
-                <ImportFlexButton rightIcon={undefined} bg='newSystem.primary.500' _hover={{
-                    bg: 'newSystem.primary.hover'
+                <ImportFlexButton rightIcon={undefined} bg='primary.500' _hover={{
+                    bg: 'primary.hover'
                 }}
                     size='lg'
                 >

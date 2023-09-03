@@ -14,7 +14,7 @@ const PublishButton: FC<PublishButtonProps> = (props) => {
     const { publishAppWithAppRename: publish } = usePublish()
     const { isLoading, isConnected } = useAndromedaStore()
     return (
-        <Button isDisabled={isLoading || !isConnected || !isDirty} size='sm' colorScheme='primary' {...props} onClick={publish}>
+        <Button isDisabled={isLoading || !isConnected || !isDirty} size='sm' variant="theme-low" {...props} onClick={publish}>
             Publish
         </Button>
     )

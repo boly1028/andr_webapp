@@ -25,7 +25,7 @@ const DownloadButton: FC<DownloadButtonProps> = (props) => {
     };
 
     return (
-        <Tooltip label='Download' bg='base.white' placement='top'>
+        <Tooltip label='Download' placement='top'>
             <IconButton
                 aria-label="download"
                 icon={<Icon as={Download} boxSize='4' />}

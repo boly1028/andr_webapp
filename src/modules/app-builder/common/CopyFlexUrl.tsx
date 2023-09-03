@@ -37,14 +37,14 @@ const CopyFlexUrlButton: FC<CopyFlexUrlButtonProps> = (props) => {
     }, [generateFlexUrl, toast]);
 
     return (
-        <Tooltip label={`Copy Flex Url`} bg='base.white' placement='top'>
+        <Tooltip label={`Copy Flex Url`} placement='top'>
             <Box>
                 <CopyButton text={handleCopy} variant="unstyled">
                     <IconButton
-                        color='newSystem.content.high'
                         aria-label="Fit View"
                         icon={<Icon as={Link} boxSize='4' />}
-                        variant='ghost'
+                        variant="theme-filled"
+                        size='sm'
                     />
                 </CopyButton>
             </Box>

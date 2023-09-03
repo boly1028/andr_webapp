@@ -18,7 +18,7 @@ const KeplrWallet: FC<Props> = (props) => {
 
         <HStack spacing={6}
             border='1px'
-            borderColor='newSystem.border.main'
+            borderColor='border.main'
             rounded='xl'
             px='4'
             py='3'

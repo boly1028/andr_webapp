@@ -40,7 +40,7 @@ const EmbeddableModal: FC<EmbeddableModalProps> = ({ config, eKey }) => {
       <Text fontSize="xs" textStyle="light" color="dark.500" mt="2">
         Here&apos;s a preview for your embeddable
       </Text>
-      <Box bg='newSystem.background.800' rounded='lg' p='4' my='4'>
+      <Box bg='background.800' rounded='lg' p='4' my='4'>
         <Text>
           {SITE_LINKS.embeddablePreview(uri)}
         </Text>

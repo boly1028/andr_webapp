@@ -22,14 +22,13 @@ const DeleteButton: FC<DeleteButtonProps> = (props) => {
         deleteNode(selectedNodesIds)
     }
     return (
-        <Tooltip label={`Delete(${APP_BUILDER_KEYCODES.DELETE})`} bg='base.white' placement='top'>
+        <Tooltip label={`Delete(${APP_BUILDER_KEYCODES.DELETE})`} placement='top'>
             <IconButton
                 isDisabled={selectedNodesIds.length === 0}
                 aria-label="delete"
                 icon={<Icon as={Trash} boxSize='4' />}
-                variant='ghost'
+                variant="theme-destructive"
                 onClick={handleDelete}
-                color='newSystem.danger.500'
             />
         </Tooltip>
     );

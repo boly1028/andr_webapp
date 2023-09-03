@@ -21,9 +21,8 @@ const ResetButton: FC<ResetButtonProps> = (props) => {
                 isDisabled={disabled}
                 aria-label="delete all"
                 icon={<Icon as={Eraser} boxSize='4' />}
-                variant='ghost'
+                variant="theme-destructive"
                 onClick={handleReset}
-                color='newSystem.danger.500'
             />
         </Tooltip>
     );

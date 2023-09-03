@@ -11,14 +11,12 @@ import {
     IconButton,
     Icon,
     ButtonProps,
-    Button,
 } from "@chakra-ui/react";
 
 import NavItem from "./NavItem";
 import {
     BookOpenIcon,
     CubeIcon,
-    GlobeIcon,
     SparklesIcon,
     FolderOpenIcon,
     AppBuilder,
@@ -89,7 +87,7 @@ const LinkItems: ILinkItem[] = [
 ];
 
 interface SidebarProps extends BoxProps {
-    onClose: () => void;
+    onClose?: () => void;
     activeLink?: ILinkItemKey;
 }
 
@@ -99,7 +97,8 @@ const Sidebar = ({ onClose, activeLink, ...props }: SidebarProps) => {
         <Box
             display="flex"
             flexDirection="column"
-            transition="100ms ease"
+            transition='all'
+            transitionDuration="300ms"
             bg="background.800"
             pos="fixed"
             h="full"
@@ -108,9 +107,11 @@ const Sidebar = ({ onClose, activeLink, ...props }: SidebarProps) => {
             {...props}
         >
             <Flex h={20} pl={sidebarCollapse ? 0 : 2} pt={sidebarCollapse ? 2 : 0} flexDirection={sidebarCollapse ? 'column-reverse' : 'row'} alignItems="center" justifyContent="start" gap='2'>
-                <Link href={SITE_LINKS.landing()}>
-                    <Image src="/logo.png" w="8" mb='0.5' />
-                </Link>
+                <Box flexShrink={0} w="7" h="7">
+                    <Link href={SITE_LINKS.landing()}>
+                        <Image src="/logo.png" />
+                    </Link>
+                </Box>
                 {!sidebarCollapse && (
                     <Text textStyle="main-lg-bold" flex={1}>Andromeda</Text>
                 )}
@@ -121,7 +122,7 @@ const Sidebar = ({ onClose, activeLink, ...props }: SidebarProps) => {
                     rounded='full'
                     colorScheme="gray"
                     bg='background.800'
-                    onClick={toggleSidebar}
+                    onClick={() => toggleSidebar()}
                 />
                 <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
             </Flex>
@@ -145,7 +146,7 @@ const Sidebar = ({ onClose, activeLink, ...props }: SidebarProps) => {
                 ))}
             </Box>
             <Divider justifySelf="end" />
-            <Text pl="4" my="2" fontSize="xs" fontWeight="light" fontStyle="light" color="content.medium">
+            <Text textAlign="center" my="2" textStyle="main-xs-regular" color="content.medium">
                 {!sidebarCollapse ? "Andromeda App - " : ""}Beta
             </Text>
         </Box>

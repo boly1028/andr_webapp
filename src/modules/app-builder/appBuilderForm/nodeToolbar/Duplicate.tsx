@@ -31,7 +31,7 @@ const DuplicateButton: FC<DuplicateButtonProps> = (props) => {
     };
 
     return (
-        <Tooltip label='Duplicate' bg='base.white' placement='top'>
+        <Tooltip label='Duplicate' placement='top'>
             <IconButton
                 aria-label="duplicate"
                 icon={<Icon as={Copy} boxSize='4' />}
