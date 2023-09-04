@@ -28,7 +28,7 @@ const AssetsPage = () => {
         rightElement={(
           <Button
             display={!wallet ? 'none' : 'flex'}
-            variant="outline"
+            variant="theme-filled"
             size="sm"
             mt='auto'
             ml="auto"
@@ -59,7 +59,7 @@ const AssetsPage = () => {
       <Divider my='6' />
       {!wallet?.address && (
         <Center w="full" p="6" mt="10">
-          <Box borderColor='dark.300' borderWidth='1px' rounded="3xl" px="6" py="10">
+          <Box borderColor='border.main' borderWidth='1px' rounded="3xl" px="6" py="10">
             <FallbackPlaceholder
               title="You are not logged in."
               desc=""

@@ -1,4 +1,4 @@
-import { createContext, useContext } from "react";
+import { ReactNode, createContext, useContext } from "react";
 import type { ModalProps } from "../types";
 
 /**
@@ -12,7 +12,7 @@ export interface GlobalModalContextProps {
     type: T,
     props?: ExtractModalParameters<ModalProps, T>,
     onClose?: () => Promise<void>,
-    title?: string
+    title?: ReactNode
   ) => void;
   close: () => void;
   error?: Error;

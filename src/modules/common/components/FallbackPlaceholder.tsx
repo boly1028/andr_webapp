@@ -14,8 +14,8 @@ const FallbackPlaceholder: FC<PropsWithChildren<FallbackPlaceholderProps>> = ({
   return (
     <Box maxW="sm">
       <Flex direction="column" alignItems="center" textAlign="center">
-        <Text textStyle="h1">{title}</Text>
-        <Text fontSize="sm" color="dark.500">
+        <Text textStyle="main-lg-semibold">{title}</Text>
+        <Text textStyle="main-sm-regular" color="content.medium">
           {desc}
         </Text>
         <Box mt="8">{children}</Box>

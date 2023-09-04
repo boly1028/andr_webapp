@@ -2,7 +2,7 @@ import React, { FC, useEffect, useRef, useState } from "react";
 import { Box, Button } from "@/theme/ui-elements";
 import { useQueryAssets } from "@/lib/graphql";
 import AdoItem from "./AdoItem";
-import { Create, FallbackPlaceholder } from "@/modules/common";
+import { Create, FallbackPlaceholder, SearchBar } from "@/modules/common";
 import { Skeleton } from "@chakra-ui/skeleton";
 import { Center, Stack } from "@chakra-ui/layout";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -117,15 +117,12 @@ const AdosList: FC = () => {
     <Box>
       {/* Asset Filter UI from here */}
       <Flex mb='24px' gap='16px'>
-        <Box w='702px' h='40px'>
-          <InputGroup borderRadius={'8px'}>
-            <InputLeftElement pointerEvents='none'>
-              <SearchIcon color='gray.300' />
-            </InputLeftElement>
-            <Input type='tel' placeholder='Search assets'
-              onChange={(event: React.FormEvent<HTMLInputElement>) => searchAndFilterHandler(event, 'Search')}
-            />
-          </InputGroup>
+        <Box w='full' h='40px'>
+          <SearchBar
+            placeholder='Search assets'
+            onChange={(event: React.FormEvent<HTMLInputElement>) => searchAndFilterHandler(event, 'Search')}
+            variant="outline"
+          />
         </Box>
         <Select
           size='sm'

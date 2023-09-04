@@ -7,14 +7,15 @@ interface InlineStatProps {
   label: string;
   value: string;
   reverse?: boolean;
+  trucateOffset?: [number, number];
 }
 
-const InlineStat: FC<InlineStatProps> = ({ label, value, reverse = false }) => {
-  const labelComponent = <Text color="dark.500" fontWeight='light' textStyle='light' fontSize='xs'>{label}</Text>;
+const InlineStat: FC<InlineStatProps> = ({ label, value, reverse = false, trucateOffset = [16, 5] }) => {
+  const labelComponent = <Text textStyle="main-xs-regular" color='content.medium'>{label}</Text>;
   const valueComponent = (
     <Tooltip label={value} placement="bottom-start" openDelay={800}>
-      <Text color="base.white" fontWeight='medium'>
-        {truncate(value, [16, 5])}
+      <Text textStyle="main-sm-medium">
+        {truncate(value, trucateOffset)}
       </Text>
     </Tooltip>
   );

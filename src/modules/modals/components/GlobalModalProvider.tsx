@@ -25,7 +25,7 @@ interface ModalState {
   type: ModalType;
   onClose?: () => Promise<void>;
   children?: ReactNode;
-  title?: string;
+  title?: ReactNode;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -51,7 +51,7 @@ const GlobalModalProvider: React.FC<{ children?: ReactNode }> = function GlobalM
       type: T["modalType"],
       props?: Omit<T, "modalType">,
       _onClose?: () => Promise<void>,
-      title?: string
+      title?: ReactNode
     ) => {
       const state: ModalState = {
         type,

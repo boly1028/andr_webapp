@@ -24,19 +24,20 @@ import {
   truncate,
 } from "@/modules/common";
 import { CloseIcon } from "@chakra-ui/icons";
-import { EyeIcon, ListIcon} from "@/modules/common/components/icons";
+import { EyeIcon, ListIcon } from "@/modules/common/components/icons";
 import { Center, Stack } from "@chakra-ui/layout";
 import { Skeleton } from "@chakra-ui/skeleton";
 import ClassifierIcon from "@/theme/icons/classifiers";
 import useAssetInfoModal from "@/modules/modals/hooks/useAssetInfoModal";
 import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
-import { MoreVertical, ScanIcon} from "lucide-react";
+import { MoreVertical, ScanIcon, XIcon } from "lucide-react";
 import { useGetSchemaADOP } from "@/lib/schema/hooks/useGetSchemaADOP";
 import { IAdoType } from "@/lib/schema/types";
 import { useGetSchemaVersions } from "@/lib/schema/hooks/useGetSchemaVersion";
 import { useQueryBaseAdo } from "@/lib/graphql/hooks/useQueryBaseAdo";
 // import { useAppConfig } from "@/lib/graphql/hooks/app/useAppConfig";
 import { useAppComponents } from "@/lib/graphql/hooks/app/useAppComponents";
+import { ButtonGroup, MenuDivider } from "@chakra-ui/react";
 
 interface AdoItemProps {
   address: string;
@@ -66,7 +67,7 @@ const AdoItem: FC<AdoItemProps> = ({ address, name, proxyAddress, adoType: _adoT
   return (
     <Flex
       border="1px solid"
-      borderColor="dark.300"
+      borderColor="border.main"
       p={5}
       borderRadius="lg"
       mb={4}
@@ -103,105 +104,89 @@ const AdoItem: FC<AdoItemProps> = ({ address, name, proxyAddress, adoType: _adoT
             cursor="pointer"
             text={address}
           >
-            <InlineStat label="Address" value={truncate(address ?? "")} />
+            <InlineStat trucateOffset={[5, 5]} label="Address" value={address} />
           </CopyButton>
         </Box>
         <Flex alignItems="center" gap="1" alignSelf="center" w='28' justifyContent='end'>
           {/* Section for Action List */}
           {/* Detail View Link */}
-          <Box className={styles.onHover}>
-            <Button
+          <ButtonGroup className={styles.onHover} isAttached size='sm'>
+            <IconButton
+              aria-label="view-info"
               onClick={() => {
                 open(address, adoType);
               }}
-              variant="link"
-              colorScheme="blue"
-              mt="2"
-            >
-              <Icon as={EyeIcon} boxSize={5} />
-            </Button>
-          </Box>
-         {/* Query Option Lists */}
-          <Menu placement="bottom-end">
-            <MenuButton
-              as={IconButton}
-              icon={<Icon as={ListIcon} boxSize={5} />}
-              variant="link"
-              px="0"
-              pr="2"
-              minW="0"
-              className={styles.onHover}
+              variant="theme-ghost"
+              color='primary.500'
+              icon={<Icon as={EyeIcon} boxSize={5} />}
             />
-            <MenuList>
-              {adopData?.queries?.map((action) => {
-                const path = `${adoType}/${version}/${formatActionPath(
-                  action,
-                )}`;
-                return (
-                  <NextLink
-                    key={action}
-                    href={SITE_LINKS.adoQuery(path, address ?? "")}
-                    passHref
-                    legacyBehavior>
-                    <MenuItem key={action}>
+            {/* Query Option Lists */}
+            <Menu placement="bottom-end">
+              <MenuButton
+                as={IconButton}
+                icon={<Icon as={ListIcon} boxSize={5} />}
+                variant="theme-ghost"
+                color='content.medium'
+              />
+              <MenuList>
+                {adopData?.queries?.map((action) => {
+                  const path = `${adoType}/${version}/${formatActionPath(
+                    action,
+                  )}`;
+                  return (
+                    <MenuItem as={NextLink}
+                      href={SITE_LINKS.adoQuery(path, address ?? "")}
+                      key={action}
+                      textStyle="main-sm-regular"
+                    >
                       {/* <MenuItem icon={<Icon as={EyeIcon} boxSize={5} />}> */}
                       {formatActionTitles(action.replaceAll('.', ' '))}
                     </MenuItem>
-                  </NextLink>
-                );
-              })}
-            </MenuList>
-          </Menu>
-          {/* Executable Actions Lists */}
-          <Menu placement="bottom-end">
-            <MenuButton
-              as={IconButton}
-              icon={<Icon as={MoreVertical} boxSize={5} />}
-              variant="link"
-              px="0"
-              minW="0"
-              className={styles.onHover}
-            />
-            <MenuList>
-              <NextLink
-                href={SITE_LINKS.adoMultiExecute(`${adoType}/${version}`, address ?? "", name, proxyAddress)}
-                passHref
-                legacyBehavior>
-                <MenuItem>
+                  );
+                })}
+              </MenuList>
+            </Menu>
+            {/* Executable Actions Lists */}
+            <Menu placement="bottom-end">
+              <MenuButton
+                as={IconButton}
+                icon={<Icon as={MoreVertical} boxSize={5} />}
+                variant="theme-ghost"
+                color='content.medium'
+              />
+              <MenuList>
+                <MenuItem as={NextLink}
+                  href={SITE_LINKS.adoMultiExecute(`${adoType}/${version}`, address ?? "", name, proxyAddress)}
+                  textStyle="main-sm-regular"
+                >
                   Multi Execute
                 </MenuItem>
-              </NextLink>
-              <Divider />
-              {adopData?.modifiers?.map((action) => {
-                const path = `${adoType}/${version}/${formatActionPath(
-                  action,
-                )}`;
-                return (
-                  <NextLink
-                    key={action}
-                    href={SITE_LINKS.adoExecute(path, address ?? "", name, proxyAddress)}
-                    passHref
-                    legacyBehavior>
-                    <MenuItem key={action}>
+                <MenuDivider />
+                {adopData?.modifiers?.map((action) => {
+                  const path = `${adoType}/${version}/${formatActionPath(
+                    action,
+                  )}`;
+                  return (
+                    <MenuItem
+                      as={NextLink}
+                      href={SITE_LINKS.adoExecute(path, address ?? "", name, proxyAddress)}
+                      key={action}
+                      textStyle="main-sm-regular"
+                    >
                       {/* <MenuItem icon={<Icon as={EyeIcon} boxSize={5} />}> */}
                       {formatActionTitles(action)}
                     </MenuItem>
-                  </NextLink>
-                );
-              })}
-            </MenuList>
-          </Menu>
+                  );
+                })}
+              </MenuList>
+            </Menu>
+          </ButtonGroup>
           {/* Close / Expand Icon */}
           {adoType === 'app-contract' && (
-            <Box>
-              <Button {...buttonProps} variant="unstyled" size="sm">
-                {isOpen ? (
-                  <CloseIcon boxSize="2" />
-                ) : (
-                  <ChevronDownIcon boxSize="4" />
-                )}
-              </Button>
-            </Box>
+            <IconButton aria-label="close-icon" variant="theme-ghost" size="sm"
+              icon={<Icon as={isOpen ? XIcon : ChevronDownIcon} />}
+              {...buttonProps}
+            />
           )}
         </Flex>
       </Flex>
