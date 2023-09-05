@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import {
     Box,
     BoxProps,
@@ -28,6 +28,8 @@ import Link from "next/link";
 import { ILinkItemKey } from "./utils";
 import { ChevronsLeft, ChevronsRight } from "lucide-react";
 import { toggleSidebar, useAppStateStore } from "@/zustand/appState";
+import { useAccount } from "@/lib/andrjs/hooks/useAccount";
+import { useGetUsername } from "@/lib/andrjs/hooks/useGetUsername";
 
 interface ILinkItem {
     name: string;
@@ -87,6 +89,7 @@ const LinkItems: ILinkItem[] = [
     },
 ];
 
+const UserNamePlaceholder = 'User';
 interface SidebarProps extends BoxProps {
     onClose?: () => void;
     activeLink?: ILinkItemKey;
@@ -94,6 +97,16 @@ interface SidebarProps extends BoxProps {
 
 const Sidebar = ({ onClose, activeLink, ...props }: SidebarProps) => {
     const sidebarCollapse = useAppStateStore(state => state.sidebarCollapse);
+    const account = useAccount();
+    const { data: username, error, isLoading, isRefetching } = useGetUsername(account?.address)
+
+    const getUserName = useMemo(() => {
+        if (username && (username !== account?.address)) {
+            return username;
+        }
+        return UserNamePlaceholder;
+    }, [username, account?.address]);
+
     return (
         <Box
             display="flex"
@@ -142,7 +155,7 @@ const Sidebar = ({ onClose, activeLink, ...props }: SidebarProps) => {
                         href={link.href}
                         leftIcon={link.icon}
                     >
-                        {link.name}
+                        {link.name !== UserNamePlaceholder ? link.name : getUserName}
                     </NavItem>
                 ))}
             </Box>
