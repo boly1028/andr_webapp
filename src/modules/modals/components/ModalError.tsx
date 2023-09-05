@@ -88,11 +88,14 @@ const ModalError: FC<PropsWithChildren> = memo(function ModalError({ children })
       <Flex w="full" justifyContent={'end'}>
         <Button
           variant="outline"
-          sx={{ fontSize: "16px", padding: "10px 32px" }}
+          sx={{ 
+            fontSize: "16px", 
+            padding: "10px 32px"
+          }}
           onClick={onReport}
           mt="40px"
           mr="10px"
-          disabled
+          isDisabled={true}
         >
           Report
         </Button>
