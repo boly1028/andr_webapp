@@ -54,7 +54,7 @@ const ModalError: FC<PropsWithChildren> = memo(function ModalError({ children })
         sx={{ textAlign: "center", fontWeight: "bold" }}
       >
         {/* {Return the error title by extracting it from the end of the error message} */}
-         {error?.message?.split(':')?.pop()?.trim() ?? ''}
+         {error?.message?.split(':')?.pop()?.trim()?.toUpperCase() ?? ''}
       </Text>
       {/* <Text mt="20px" textAlign='center' sx={{ fontWeight: 400, color: "dark.500" }}>
         {error.message.length > 100
