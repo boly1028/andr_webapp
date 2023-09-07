@@ -10,7 +10,7 @@ type PartialTemplateType = Omit<ITemplate, 'formData'> & {
 const APP_TEMPLATES: PartialTemplateType[] = [
   {
     id: IImportantAdoKeys.BLANK_CANVAS,
-    adoType: "app",
+    adoType: "app-contract",
     name: "Empty Project",
     icon: "/app-templates/icons/blank.png",
     description:
@@ -58,7 +58,7 @@ const APP_TEMPLATES: PartialTemplateType[] = [
   },
   {
     id: "auction-market",
-    adoType: "app",
+    adoType: "app-contract",
     name: "Auction Based Marketplace",
     description:
       "Setup an auction to sell NFT’s at an initial starting price and allow bidding from many users to get the highest price bid placed and accepted to receive the NFT. The duration of the auction is also configurable as well as the rate/royalty charged per NFT. Other options such as address lists can be added as well.",
@@ -130,7 +130,7 @@ const APP_TEMPLATES: PartialTemplateType[] = [
   },
   {
     id: "market",
-    adoType: "app",
+    adoType: "app-contract",
     name: "Flat Rate Marketplace",
     description:
       "Setup a customizable NFT Marketplace/store to sell NFT’s for a specific price point. The rates and address (Whitelist/Blacklist) list are also configurable and can be modified per marketplace instance. Proceeds will be collected and sent to the marketplace owner and NFT sent to the specific recipient of the purchase.",
@@ -196,7 +196,7 @@ const APP_TEMPLATES: PartialTemplateType[] = [
   },
   {
     id: "crowdfund",
-    adoType: "app",
+    adoType: "app-contract",
     name: "Crowdfund App",
     description:
       "Setup a crowdfund to distribute NFTs representing fractionalized ownership of the goal being funded. Proceeds are able to be divided and distributed to yield vaults to assure direct delivery to the respective manufacturing / distribution / business partnerships.",
@@ -271,7 +271,7 @@ const APP_TEMPLATES: PartialTemplateType[] = [
   },
   {
     id: "cw20-exchange",
-    adoType: "app",
+    adoType: "app-contract",
     name: "CW20 Exchange",
     icon: "/app-templates/icons/cw20-staking.png",
     description: "CW20 Exchange creates a unique digital asset to be sold on an independent exchange with support for configuring transactions to be split and distributed to multiple destinations. Buyers can easily purchase fractional shares of the CW20 token, allowing for greater accessibility and liquidity. This simple and efficient exchange platform supports purchase options for both native and non-native token.",
@@ -298,7 +298,7 @@ const APP_TEMPLATES: PartialTemplateType[] = [
   },
   // {
   //   id: "cw20-staking",
-  //   adoType: "app",
+  //   adoType: "app-contract",
   //   name: "CW20 Token Staking",
   //   description:
   //     " Setup a means of offering the ability to stake a specific coin and have associated rewards that are aligned to duration of the time of staking. Multiple staking timeframes can be set up with varying percentages of staking reward benefits. The ability to unstake or lock users in is also present.",
@@ -327,7 +327,7 @@ const APP_TEMPLATES: PartialTemplateType[] = [
   // },
   {
     id: 'admin-panel',
-    adoType: "app",
+    adoType: "app-contract",
     name: "Admin Panel",
     icon: "/app-templates/icons/blank.png",
     description:

@@ -128,7 +128,7 @@ const AdoItem: FC<AdoItemProps> = ({ address, name, proxyAddress, adoType: _adoT
                 variant="theme-ghost"
                 color='content.medium'
               />
-              <MenuList>
+              <MenuList maxH='60' overflow="auto">
                 {adopData?.queries?.map((action) => {
                   const path = `${adoType}/${version}/${formatActionPath(
                     action,
@@ -154,7 +154,7 @@ const AdoItem: FC<AdoItemProps> = ({ address, name, proxyAddress, adoType: _adoT
                 variant="theme-ghost"
                 color='content.medium'
               />
-              <MenuList>
+              <MenuList maxH='60' overflow="auto">
                 <MenuItem as={NextLink}
                   href={SITE_LINKS.adoMultiExecute(`${adoType}/${version}`, address ?? "", name, proxyAddress)}
                   textStyle="main-sm-regular"

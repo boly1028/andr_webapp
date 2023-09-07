@@ -9,7 +9,7 @@ import { BASE_ADOS, MODULES, PRIMITIVES } from "../utils/list";
 
 export const UPLOAD_TEMPLATE: ITemplate = {
     id: IImportantAdoKeys.FLEX_FILE,
-    adoType: "app",
+    adoType: "app-contract",
     name: "Saved File",
     icon: "/app-templates/icons/blank.png",
     description: "Import .flex file to continue from where you left off.",
