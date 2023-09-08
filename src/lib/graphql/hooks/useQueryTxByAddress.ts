@@ -10,6 +10,7 @@ export function useQueryTxByAddress(address: string, chainId: string, minHeight?
       minHeight
     }
   })
+  console.log(data, error, "TX_QUERY_DEBUG")
   return {
     loading,
     error,

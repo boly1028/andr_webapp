@@ -38,18 +38,12 @@ const AssetsPage = () => {
             onClick={() => {
               setLoading(true);
               apolloClient.refetchQueries({
-                updateCache(cache) {
-                  cache.evict({ fieldName: "ADO" });
-                  cache.evict({ fieldName: "tx" });
-                  cache.evict({ fieldName: "assets" });
-                },
-              })
-                .catch((err) => {
-                  console.log(err);
-                })
-                .finally(() => {
-                  setLoading(false);
-                });
+                include: ['ASSETS','BASE_ADO']
+              }).catch((err) => {
+                console.log(err);
+              }).finally(() => {
+                setLoading(false);
+              });
             }}
           >
             Refresh
