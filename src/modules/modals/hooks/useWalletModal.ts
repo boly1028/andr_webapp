@@ -11,7 +11,7 @@ export default function useWalletModal() {
   const openDisclaimer = useDisclaimerModal()
   return () => {
     openDisclaimer({
-      onAccept: () => open(ModalType.Wallet)
+      onAccept: () => open(ModalType.Wallet, undefined, undefined, "Select Wallet")
     })
   };
 }

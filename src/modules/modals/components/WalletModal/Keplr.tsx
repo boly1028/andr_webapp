@@ -7,9 +7,11 @@ import { AspectRatio, Button, HStack, Icon, IconButton, Image, Link, Text, VStac
 import React, { FC, ReactNode } from "react"
 
 interface Props {
+    chainId?: string
 }
 
 const KeplrWallet: FC<Props> = (props) => {
+    const { chainId } = props
     const { keplrStatus, isLoading } = useAndromedaStore();
     const browser = useGetBrowser();
     const isSupported = SUPPORTED_BROSWERS.includes(browser as any);
@@ -23,6 +25,7 @@ const KeplrWallet: FC<Props> = (props) => {
             px='4'
             py='3'
             alignItems='center'
+            w='full'
         >
             <Image src="/keplr.png" h='8' />
 
@@ -39,7 +42,7 @@ const KeplrWallet: FC<Props> = (props) => {
                 )}
             </VStack>
             {keplrStatus !== KeplrConnectionStatus.NotInstalled ? (
-                <Button isLoading={keplrStatus === KeplrConnectionStatus.Connecting || isLoading} onClick={() => connectAndromedaClient()} size='sm' colorScheme="primary">Connect Wallet</Button>
+                <Button isLoading={keplrStatus === KeplrConnectionStatus.Connecting || isLoading} onClick={() => connectAndromedaClient(chainId)} size='sm' colorScheme="primary">Connect Wallet</Button>
             ) : isSupported ? (
                 <IconButton as='a' target='_blank' href={KEPLR_LINK} aria-label="install-keplr" icon={<Icon as={ChevronRightIcon} boxSize='5' />} size='sm' colorScheme="primary" />
             ) :
