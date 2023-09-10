@@ -127,6 +127,9 @@ export const getSchemaFromPath = async (path: string) => {
     schema["ui-schema"].$required = {
         'ui:widget': 'hidden'
     };
+    schema["ui-schema"]["owner"] = {
+        'ui:widget': 'hidden'
+    };
 
     return schema;
 }
