@@ -50,7 +50,7 @@ const APP_TEMPLATES: PartialTemplateType[] = [
       },
       {
         "id": "tokens",
-        "path": "cw721/0.2.1/cw721",
+        "path": "cw721/latest/cw721",
         "required": true,
         "enabled": true,
         "pos": {
@@ -60,7 +60,7 @@ const APP_TEMPLATES: PartialTemplateType[] = [
       },
       {
         "id": "auction",
-        "path": "auction/0.2.1/auction",
+        "path": "auction/latest/auction",
         "required": true,
         "enabled": true,
         "pos": {
@@ -70,7 +70,7 @@ const APP_TEMPLATES: PartialTemplateType[] = [
       },
       {
         "id": "rates",
-        "path": "rates/0.2.1/rates",
+        "path": "rates/latest/rates",
         "required": false,
         "removable": false,
         "enabled": true,
@@ -134,7 +134,7 @@ const APP_TEMPLATES: PartialTemplateType[] = [
       },
       {
         "id": "tokens",
-        "path": "cw721/0.2.1/cw721",
+        "path": "cw721/latest/cw721",
         "required": true,
         "enabled": true,
         "pos": {
@@ -144,7 +144,7 @@ const APP_TEMPLATES: PartialTemplateType[] = [
       },
       {
         "id": "marketplace",
-        "path": "marketplace/0.2.1/marketplace",
+        "path": "marketplace/latest/marketplace",
         "required": true,
         "enabled": true,
         "pos": {
@@ -154,7 +154,7 @@ const APP_TEMPLATES: PartialTemplateType[] = [
       },
       {
         "id": "rates",
-        "path": "rates/0.2.1/rates",
+        "path": "rates/latest/rates",
         "required": false,
         "removable": false,
         "enabled": true,
@@ -210,7 +210,7 @@ const APP_TEMPLATES: PartialTemplateType[] = [
       },
       {
         "id": "tokens",
-        "path": "cw721/0.2.1/cw721",
+        "path": "cw721/latest/cw721",
         "required": true,
         "enabled": true,
         "pos": {
@@ -220,7 +220,7 @@ const APP_TEMPLATES: PartialTemplateType[] = [
       },
       {
         "id": "crowdfund",
-        "path": "crowdfund/0.2.1/crowdfund",
+        "path": "crowdfund/latest/crowdfund",
         "required": true,
         "enabled": true,
         "pos": {
@@ -230,7 +230,7 @@ const APP_TEMPLATES: PartialTemplateType[] = [
       },
       {
         "id": "vault",
-        "path": "vault/0.2.0/vault",
+        "path": "vault/latest/vault",
         "required": false,
         "removable": false,
         "enabled": true,
@@ -241,7 +241,7 @@ const APP_TEMPLATES: PartialTemplateType[] = [
       },
       {
         "id": "rates",
-        "path": "rates/0.2.1/rates",
+        "path": "rates/latest/rates",
         "required": false,
         "removable": false,
         "enabled": true,
