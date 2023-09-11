@@ -424,6 +424,7 @@ const APP_TEMPLATES: PartialTemplateType[] = [
     ],
     icon: "/app-templates/icons/market.png",
     installed: false,
+    system: true,
     starter: false,
     formData: {
     }
