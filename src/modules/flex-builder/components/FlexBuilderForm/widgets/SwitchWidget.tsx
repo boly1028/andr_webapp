@@ -35,6 +35,7 @@ export const SwitchWidget = ({
       onChange={(e) => {
         onChange(e.target.checked);
       }}
+      variant="theme-primary"
     />
   );
 };

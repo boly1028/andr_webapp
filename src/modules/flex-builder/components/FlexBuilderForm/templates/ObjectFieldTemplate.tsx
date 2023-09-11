@@ -207,6 +207,7 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
                 onChange={() => {
                   toggleModule(currentSchemaId, !formData["$enabled"]);
                 }}
+                variant="theme-primary"
               />
             )}
             {formData["$removable"] && duplicatePanel && (
