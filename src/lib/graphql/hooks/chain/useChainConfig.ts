@@ -37,4 +37,5 @@ export function useQueryAllChainConfigs() {
     };
 }
 
-const DISABLED_CHAIN_IDS: string[] = ['atlantic-1']
+// Disable chains that are not currently supported for use
+const DISABLED_CHAIN_IDS: string[] = ['atlantic-1','injective-888']
