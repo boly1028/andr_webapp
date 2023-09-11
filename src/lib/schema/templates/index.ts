@@ -32,27 +32,6 @@ const APP_TEMPLATES: PartialTemplateType[] = [
     modules: [
       ...ALL_ADOS.map((ado) => ({ path: ado.source }))
     ],
-    // modules: [
-    //   {
-    //     path: "auction/latest/auction",
-    //   },
-    //   {
-    //     path: "cw721/latest/cw721",
-    //   },
-    //   {
-    //     path: "rates/latest/rates",
-    //   },
-    //   {
-    //     path: "splitter/latest/splitter",
-    //   },
-    //   { path: "marketplace/latest/marketplace" },
-    //   {
-    //     path: "crowdfund/latest/crowdfund"
-    //   },
-    //   // {
-    //   //   path: "address-list/latest/address-list",
-    //   // },
-    // ],
     system: true,
     starter: true,
   },
@@ -70,21 +49,34 @@ const APP_TEMPLATES: PartialTemplateType[] = [
         required: true,
       },
       {
-        path: "cw721/latest/cw721", id: "tokens", required: true, "pos": {
-          "x": 496,
-          "y": 368
+        "id": "tokens",
+        "path": "cw721/0.2.1/cw721",
+        "required": true,
+        "enabled": true,
+        "pos": {
+          "x": -416,
+          "y": 96
         }
       },
       {
-        path: "auction/latest/auction", id: "auction", required: true, "pos": {
-          "x": 496,
-          "y": -144
+        "id": "auction",
+        "path": "auction/0.2.1/auction",
+        "required": true,
+        "enabled": true,
+        "pos": {
+          "x": 176,
+          "y": -160
         }
       },
       {
-        path: "rates/latest/rates", id: "rates", required: false, enabled: true, "pos": {
-          "x": -112,
-          "y": -144
+        "id": "rates",
+        "path": "rates/0.2.1/rates",
+        "required": false,
+        "removable": false,
+        "enabled": true,
+        "pos": {
+          "x": -416,
+          "y": -160
         }
       },
     ],
@@ -100,31 +92,30 @@ const APP_TEMPLATES: PartialTemplateType[] = [
       },
       {
         path: "rates/latest/rates",
-      },
-      { path: "marketplace/latest/marketplace" },
-      // {
-      //   path: "address-list/latest/address-list",
-      // },
+      }
     ],
     icon: "/app-templates/icons/auction-market.png",
     installed: true,
     starter: true,
     formData: {
-      "taxes": {
+      "rates": {
+        "kernel_address": "",
+        "rates": [],
       },
       "auction": {
+        "kernel_address": "",
         "modules": [
           {
-            "address": {
-              "identifier": "rates"
-            },
             "is_mutable": true,
-            "module_type": "rates"
+            "address": "./rates",
+            "name": "rates"
           }
-        ]
+        ],
       },
       "tokens": {
-        "minter": {},
+        "kernel_address": "",
+      },
+      "publish-settings": {
       }
     }
   },
@@ -142,27 +133,34 @@ const APP_TEMPLATES: PartialTemplateType[] = [
         required: true,
       },
       {
-        path: "cw721/latest/cw721", id: "tokens", required: true, "pos": {
-          "x": 496,
-          "y": 448
+        "id": "tokens",
+        "path": "cw721/0.2.1/cw721",
+        "required": true,
+        "enabled": true,
+        "pos": {
+          "x": 0,
+          "y": 386.5
         }
       },
       {
-        path: "marketplace/latest/marketplace",
-        id: "marketplace",
-        required: true,
+        "id": "marketplace",
+        "path": "marketplace/0.2.1/marketplace",
+        "required": true,
+        "enabled": true,
         "pos": {
-          "x": 496,
-          "y": -144
+          "x": 530,
+          "y": 0
         }
       },
       {
-        path: "rates/latest/rates", id: "rates",
-        required: false,
-        enabled: true,
+        "id": "rates",
+        "path": "rates/0.2.1/rates",
+        "required": false,
+        "removable": false,
+        "enabled": true,
         "pos": {
-          "x": -112,
-          "y": -144
+          "x": 0,
+          "y": 172.5
         }
       },
     ],
@@ -170,27 +168,30 @@ const APP_TEMPLATES: PartialTemplateType[] = [
       { path: "cw721/latest/cw721" },
       { path: "marketplace/latest/marketplace" },
       { path: "rates/latest/rates" },
-      // { path: "address-list/latest/address-list" },
       { path: "splitter/latest/splitter" }
     ],
     icon: "/app-templates/icons/market.png",
     installed: true,
     starter: true,
-
     formData: {
       "marketplace": {
+        "kernel_address": "",
         "modules": [
           {
-            "address": {
-              "identifier": "rates"
-            },
             "is_mutable": true,
-            "module_type": "rates"
+            "address": "./rates",
+            "name": "rates"
           }
         ]
       },
+      "rates": {
+        "kernel_address": "",
+        "rates": [],
+      },
       "tokens": {
-        "minter": {},
+        "kernel_address": "",
+      },
+      "publish-settings": {
       }
     }
   },
@@ -208,64 +209,77 @@ const APP_TEMPLATES: PartialTemplateType[] = [
         required: true,
       },
       {
-        path: "cw721/latest/cw721", id: "Tokens",
-        required: true,
-        enabled: true,
-        "pos": { "x": -16, "y": 800 }
+        "id": "tokens",
+        "path": "cw721/0.2.1/cw721",
+        "required": true,
+        "enabled": true,
+        "pos": {
+          "x": 1280,
+          "y": 160
+        }
       },
       {
-        path: "crowdfund/latest/crowdfund", id: "Crowdfund", required: true,
-        "pos": { "x": 672, "y": 1248 }
+        "id": "crowdfund",
+        "path": "crowdfund/0.2.1/crowdfund",
+        "required": true,
+        "enabled": true,
+        "pos": {
+          "x": 720,
+          "y": 0
+        }
       },
-      { path: "vault/latest/vault", id: "Vault", required: false, enabled: true, "pos": { "x": 688, "y": 1968 } },
-      { path: "rates/latest/rates", id: "Rates", required: false, enabled: true, "pos": { "x": 0, "y": 1872 } },
+      {
+        "id": "vault",
+        "path": "vault/0.2.0/vault",
+        "required": false,
+        "removable": false,
+        "enabled": true,
+        "pos": {
+          "x": 160,
+          "y": 432
+        }
+      },
+      {
+        "id": "rates",
+        "path": "rates/0.2.1/rates",
+        "required": false,
+        "removable": false,
+        "enabled": true,
+        "pos": {
+          "x": 160,
+          "y": 192
+        }
+      }
     ],
     modules: [{ path: "vault/latest/vault" }],
     icon: "/app-templates/icons/crowdfund.png",
     installed: true,
     starter: true,
     formData: {
-      "Rates": {
-        "rates": [
-          {
-            "is_additive": false,
-            "rate": {
-              "percent": {
-                "percent": "0.10"
-              }
-            },
-            "recipients": [
-              {
-                "a_d_o": {
-                  "address": {
-                    "identifier": "Vault"
-                  }
-                }
-              }
-            ],
-            "description": "10% Reduction to Vault"
-          }
-        ]
+      "tokens": {
+        "kernel_address": "",
+        "minter": "./crowdfund"
       },
-      "Crowdfund": {
+      "rates": {
+        "kernel_address": "",
+        "rates": []
+      },
+      "crowdfund": {
         "can_mint_after_sale": false,
+        "kernel_address": "",
         "modules": [
           {
-            "address": {
-              "identifier": "Rates"
-            },
-            "is_mutable": false,
-            "module_type": "rates"
+            "is_mutable": true,
+            "address": "./rates",
+            "name": "rates"
           }
         ],
-        "token_address": {
-          "identifier": "Tokens"
-        }
+        "token_address": "./tokens"
       },
-      "Tokens": {
-        "minter": {
-          "identifier": "Crowdfund"
-        }
+      "vault": {
+        "kernel_address": ""
+      },
+      "publish-settings": {
       }
     }
   },

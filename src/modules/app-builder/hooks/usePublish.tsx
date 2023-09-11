@@ -20,7 +20,7 @@ export const usePublish = () => {
         position: 'top-right',
         variant: 'solid'
     })
-    const codeId = useCodeId("app");
+    const codeId = useCodeId("app-contract");
     const construct = useConstructAppMsg();
     const openModal = useInstantiateModal(codeId);
 

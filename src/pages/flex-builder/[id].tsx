@@ -5,11 +5,11 @@ import { FilePlusIcon, Layout, PageHeader } from "@/modules/common";
 import { FlexBuilderForm } from "@/modules/flex-builder";
 import { useInstantiateModal } from "@/modules/modals/hooks";
 import { useConstructAppMsg } from "@/modules/sdk/hooks";
-import { ITemplate } from "@/lib/schema/types";
+import { IImportantAdoKeys, ITemplate } from "@/lib/schema/types";
 import { getAppTemplateById } from "@/lib/schema/utils";
 import { ILinkItemKey } from "@/modules/common/components/sidebar/utils";
 import { FlexBuilderFormProps } from "@/modules/flex-builder/components/FlexBuilderForm";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { parseJsonFromFile } from "@/lib/json";
 import { parseFlexFile } from "@/lib/schema/utils/flexFile";
 import useConstructADOMsg from "@/modules/sdk/hooks/useConstructADOMsg";
@@ -65,13 +65,16 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
   const handleFlexInput = async (file: File) => {
     try {
       const json = await parseJsonFromFile(file) as ITemplate;
-      if (json.id !== template.id) throw new Error('This staging file is not supported for this template')
+      if (template.id !== IImportantAdoKeys.BLANK_CANVAS && json.id !== template.id) throw new Error('This staging file is not supported for this template')
       json.name = template.name;
       json.description = template.description;
-      json.ados.forEach(ado => {
-        ado.removable = true;
-        ado.required = false;
-      })
+      if (template.id === IImportantAdoKeys.BLANK_CANVAS) {
+        json.ados.forEach(ado => {
+          if (ado.id === IImportantAdoKeys.PUBLISH_SETTINGS) return;
+          ado.removable = true;
+          ado.required = false;
+        })
+      }
       const _template = await parseFlexFile(json);
 
       // By default parse Flex file add all available ados in modules. Replace them with template specific modules

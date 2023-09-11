@@ -12,7 +12,6 @@ import { useCallback, useMemo, useState } from "react";
 import { useGetFlexFileFromSession, useGetFlexFileFromUrl } from "@/modules/flex-builder/hooks/useFlexFile";
 import { processTemplate } from "@/lib/schema/utils/template";
 import { UPLOAD_TEMPLATE } from "@/lib/schema/templates/upload";
-import { useAccount } from "@/lib/andrjs/hooks/useAccount";
 
 type Props = {
     defaultTemplate: ITemplate;

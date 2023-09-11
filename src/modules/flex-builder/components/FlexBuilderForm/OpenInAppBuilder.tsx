@@ -31,7 +31,8 @@ function OpenInAppBuilderButton({ schema, uiSchema, formData }: OpenInAppBuilder
     }
     const flexFile = await createFlexFile({
       schema,
-      formData
+      formData,
+      order:uiSchema?.["ui:order"]
     })
     sessionStorage.setItem("ANDROMEDA_TEMPLATE", JSON.stringify(flexFile));
     router.push(SITE_LINKS.appBuilder())

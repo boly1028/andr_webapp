@@ -9,15 +9,17 @@ interface Props {
 }
 
 const VfsResolver: FC<Props> = (props) => {
-    const { formData } = props;
-    const [path, setPath] = useState<string>(formData ?? '');
+    const { formData = '' } = props;
+    const [path, setPath] = useState<string>(formData);
     const { data, error, isLoading, refetch } = useResolvePath(path);
 
     const validate = () => {
         setPath(formData);
         refetch();
     }
-    const tooltip = path !== formData ? 'Click to validate VFS path' : data ? `Valid path: ${data}` : 'Invalid path'
+    const tooltip = path !== formData ? 'Click to validate VFS path' : data ? `Valid path: ${data}` : 'Invalid path';
+
+    if(formData.startsWith('./')) return null;
 
     return (
         <Tooltip label={tooltip} fontSize='xs' size='xs' textColor='dark.500'>

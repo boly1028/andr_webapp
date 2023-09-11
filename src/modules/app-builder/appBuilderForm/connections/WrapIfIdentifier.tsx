@@ -3,9 +3,8 @@ import { useFieldTemplate } from "../templates/FieldTemplate";
 import { useAppBuilder, useReactFlow } from "../../canvas/Provider";
 import { Position, useNodeId, useNodes } from "reactflow";
 import Handle from "../ReactFlow/Handle";
-import { DIRECTION, createHandlerId, extractDataFromHandler } from "./utils";
+import { DIRECTION, createHandlerId, createLocalVfsPath, extractDataFromHandler, getComponentNameFromVfsPath } from "./utils";
 import { useConnectEdge } from "../hooks/useConnectEdge";
-import VfsResolver from "@/modules/flex-builder/components/FlexBuilderForm/alerts/VfsResolver";
 
 interface WrapIfIdentifierProps {
     id: string;
@@ -30,8 +29,8 @@ export const WrapIfIdentifier: FC<WrapIfIdentifierProps> = (props) => {
     const leftHandle = createHandlerId(panel ?? '', id, DIRECTION.LEFT);
     const rightHandle = createHandlerId(panel ?? '', id, DIRECTION.RIGHT);
 
-    const identifierValue: string = useMemo(() => {
-        return formData || ''
+    const identifierValue = useMemo(() => {
+        return getComponentNameFromVfsPath(formData || '')
     }, [formData])
 
     const getMyEdges = () => getEdges().filter(edge => edge.target === panel && extractDataFromHandler(edge.targetHandle ?? '').rjsfIdPrefix === id);
@@ -58,7 +57,7 @@ export const WrapIfIdentifier: FC<WrapIfIdentifierProps> = (props) => {
                     ...(formRefs.current[panel]?.fieldRefs ?? {}),
                     [id]: {
                         onConnectionChange: (data) => {
-                            fieldRef.current?.onChange?.(data.source)
+                            fieldRef.current?.onChange?.(createLocalVfsPath(data.source))
                         }
                     }
                 }
@@ -68,7 +67,7 @@ export const WrapIfIdentifier: FC<WrapIfIdentifierProps> = (props) => {
 
     useEffect(() => {
         const tId = setTimeout(() => {
-            handleUpdate(identifierValue);
+            handleUpdate(identifierValue ?? '');
         }, 700);
         return () => clearTimeout(tId)
     }, [identifierValue, nodesSets])

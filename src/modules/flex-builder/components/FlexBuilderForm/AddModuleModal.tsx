@@ -197,6 +197,7 @@ function AddModuleModal({ onAdd, items, title = 'Add Component' }: AddModuleModa
                 onChange={(e) => setSearchText(e.target.value)}
                 placeholder="By title or description"
                 variant='outline'
+                autoFocus
               />
               {/* Class Selection Filter */}
               <Select

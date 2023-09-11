@@ -16,6 +16,6 @@ export function useResolvePath(
             }) as string;
             return address;
         },
-        { enabled: !!client?.isConnected, retry: false }
+        { enabled: !!client?.isConnected && !path.startsWith('./'), retry: false }
     );
 }

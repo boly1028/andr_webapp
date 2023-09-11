@@ -29,7 +29,8 @@ function CopyFlexButton({ schema, uiSchema, formData }: CopyFlexProps) {
     }
     const flexFile = await createFlexFile({
       schema,
-      formData
+      formData,
+      order:uiSchema?.["ui:order"]
     })
     const flexURI = await createFlexUrl(flexFile);
 

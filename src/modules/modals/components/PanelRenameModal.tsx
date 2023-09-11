@@ -62,6 +62,7 @@ const PanelRenameModal: FC<PanelRenameModalProps> = memo(
           }}
           mt='3'
           placeholder={defaultName}
+          autoFocus
         />
         <Text color="danger.500" mt="1" ml="1" textStyle="main-xs-regular">
           {error}

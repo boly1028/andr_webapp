@@ -34,7 +34,8 @@ function DownloadButton({ schema, uiSchema, formData, template }: DownloadFlexPr
     const flexData = await createFlexFile({
       schema,
       formData,
-      template
+      template,
+      order:uiSchema?.["ui:order"]
     });
 
     //Load data to be exported by the browser

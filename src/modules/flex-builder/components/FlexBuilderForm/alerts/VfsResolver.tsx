@@ -7,8 +7,8 @@ interface Props {
 }
 
 const VfsResolver: FC<Props> = (props) => {
-    const { formData } = props;
-    const [path, setPath] = useState<string>(formData ?? '');
+    const { formData = '' } = props;
+    const [path, setPath] = useState<string>(formData);
     const { data, error, isLoading, refetch } = useResolvePath(path);
 
     const validate = () => {
@@ -16,7 +16,7 @@ const VfsResolver: FC<Props> = (props) => {
         refetch();
     }
 
-    if (!formData) return null;
+    if (!formData || formData.startsWith('./')) return null;
 
     return (
         <HStack fontSize='xs'>

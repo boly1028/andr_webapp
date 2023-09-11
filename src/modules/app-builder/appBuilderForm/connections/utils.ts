@@ -15,6 +15,17 @@ export const extractDataFromHandler = (handle:string)=>{
     }
 }
 
+export const createLocalVfsPath = (raw:string)=>{
+    if(raw.startsWith('./')) return raw;
+    if(raw.includes('/')) return raw;
+    return `./${raw}`;
+}
+
+export const getComponentNameFromVfsPath = (path:string)=>{
+    if(!path.startsWith('./')) return undefined;
+    return path.replace('./','');
+}
+
 export enum DIRECTION {
     UP = 'up',
     DOWN = 'down',

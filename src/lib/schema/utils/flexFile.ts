@@ -1,6 +1,6 @@
 import { cloneDeep } from "lodash";
 import JSONCrush from "jsoncrush";
-import { IAdo, ITemplateFormData, ITemplateSchema } from "../templates/types";
+import { IAdo, ITemplateFormData, ITemplateSchema, ITemplateUiSchema } from "../templates/types";
 import { UPLOAD_TEMPLATE } from "../templates/upload"
 import { ITemplate } from "../types"
 import { processTemplate } from "./template";
@@ -15,6 +15,7 @@ interface ICreateInput {
     schema: ITemplateSchema;
     formData: ITemplateFormData;
     template?: ITemplate;
+    order?:ITemplateUiSchema['ui:order'];
 }
 
 interface ICreateInputFromADO {
@@ -29,7 +30,7 @@ interface ICreateInputFromADO {
  * @param {schema, formData}: Data you want to insert in flex template
  * @returns flex template
  */
-export const createFlexFile = async ({ schema, formData, template }: ICreateInput) => {
+export const createFlexFile = async ({ schema, formData, template, order = [] }: ICreateInput) => {
     const ados: IAdo[] = []
     Object.entries(schema.properties).map(([id, property]) => {
         const definitionId = property.$ref.split('/').pop() ?? '';
@@ -41,7 +42,7 @@ export const createFlexFile = async ({ schema, formData, template }: ICreateInpu
             'enabled': formData[id]?.$enabled
         })
     })
-
+    ados.sort((a,b)=>order.indexOf(a.id) - order.indexOf(b.id));
     const result = await createFlexFileFromADOS({ ados, formData, template })
     return result
 }
@@ -50,9 +51,16 @@ export const createFlexFile = async ({ schema, formData, template }: ICreateInpu
 export const createFlexFileFromADOS = async ({ ados, formData, template: defaultTemplate }: ICreateInputFromADO) => {
     const template: ITemplate = cloneDeep(defaultTemplate ?? UPLOAD_TEMPLATE);
     template.ados = ados;
+    template.schema = undefined;
+    template.uiSchema = undefined;
     // Modules are not important for processing and make flex file huge. Hence remove all modules from list.
     // Modules are added back while parsing flex file depending on where they are loaded
     template.modules = [];
+    Object.keys(formData).forEach(panel=>{
+        Object.keys(formData[panel]).forEach(key=>{
+            if(key.startsWith('$')) delete formData[panel][key];
+        })
+    })
     template.formData = formData;
     return template;
 }
