@@ -23,7 +23,7 @@ export default function useConstructADOMsg() {
       const rawData = data[panels[0]];
       const kernel_address = client!.os.address;
       if ('kernel_address' in rawData) {
-        rawData['kernel_address'] = rawData['kernel_address'] || kernel_address
+        rawData['kernel_address'] = kernel_address
       }
       const finalMsg: Msg = constructMsg(rawData);
 

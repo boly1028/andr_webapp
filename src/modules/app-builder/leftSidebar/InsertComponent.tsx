@@ -33,7 +33,7 @@ const InsertComponent: FC<InsertComponentProps> = (props) => {
             <Divider />
             <Text>Templates</Text>
             <VStack alignItems='stretch'>
-                <TemplateButton list={APP_TEMPLATES} name='Templates' leftIcon={<Icon as={ListIcon} bg='backgroundState.idle' p='2' rounded='lg' boxSize='8' />} />
+                <TemplateButton list={APP_TEMPLATES.filter(t=>t.starter)} name='Templates' leftIcon={<Icon as={ListIcon} bg='backgroundState.idle' p='2' rounded='lg' boxSize='8' />} />
             </VStack>
             <Divider />
             <Text>Shortcuts</Text>

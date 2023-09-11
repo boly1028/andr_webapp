@@ -296,8 +296,26 @@ const APP_TEMPLATES: PartialTemplateType[] = [
         id: IImportantAdoKeys.PUBLISH_SETTINGS,
         required: true,
       },
-      { path: "cw20/latest/cw20", id: "tokens", required: true, "pos": { "x": 0, "y": 0 } },
-      { path: "cw20-exchange/latest/cw20-exchange", id: "cw20-exchange", required: true, "pos": { "x": 528, "y": -384 } },
+      {
+        "id": "tokens",
+        "path": "cw20/latest/cw20",
+        "required": true,
+        "enabled": true,
+        "pos": {
+          "x": 0,
+          "y": 350
+        }
+      },
+      {
+        "id": "exchange",
+        "path": "cw20-exchange/latest/cw20-exchange",
+        "required": true,
+        "enabled": true,
+        "pos": {
+          "x": 528,
+          "y": 352
+        }
+      }
     ],
     modules: [
       { path: "cw20/latest/cw20" },
@@ -308,7 +326,29 @@ const APP_TEMPLATES: PartialTemplateType[] = [
     system: false,
     installed: true,
     starter: true,
-    formData: { "cw20-exchange": { "token_address": { "identifier": "tokens" } } },
+    formData: {
+      "tokens": {
+        "initial_balances": [],
+        "kernel_address": "",
+        "marketing": null,
+        "mint": null,
+      },
+      "exchange": {
+        "kernel_address": "",
+        "token_address": "./tokens"
+      },
+      "rates": {
+        "kernel_address": "",
+        "rates": []
+      },
+      "splitter": {
+        "kernel_address": "",
+        "recipients": []
+      },
+      "publish-settings": {
+        "name": ""
+      }
+    },
   },
   // {
   //   id: "cw20-staking",
@@ -366,28 +406,28 @@ const APP_TEMPLATES: PartialTemplateType[] = [
     system: true,
     starter: false,
   },
-  // ...MASTER_ALLADO.map(ado => ({
-  //   id: `ado_${ado.$id}`,
-  //   adoType: ado.$id as IAdoType,
-  //   name: ado.title,
-  //   description: ado.description,
-  //   opts: [ado.$id],
-  //   ados: [
-  //     {
-  //       path: ado.source,
-  //       id: ado.$id,
-  //       required: true,
-  //     },
-  //   ],
-  //   modules: [
-  //     // { path: "adodb/latest/adodb" },
-  //   ],
-  //   icon: "/app-templates/icons/market.png",
-  //   installed: true,
-  //   starter: true,
-  //   formData: {
-  //   }
-  // }))
+  ...MASTER_ALLADO.map(ado => ({
+    id: `ado-${ado.$id}`,
+    adoType: ado.$id as IAdoType,
+    name: ado.title,
+    description: ado.description,
+    opts: [ado.$id],
+    ados: [
+      {
+        path: ado.source,
+        id: ado.$id,
+        required: true,
+      },
+    ],
+    modules: [
+      // { path: "adodb/latest/adodb" },
+    ],
+    icon: "/app-templates/icons/market.png",
+    installed: false,
+    starter: false,
+    formData: {
+    }
+  }))
 ];
 
 export default APP_TEMPLATES;

@@ -18,7 +18,7 @@ const LoadTemplate: FC<LoadTemplateProps> = (props) => {
                 Get started with a template
             </Text>
             <SimpleGrid columns={2} spacing='4' gridAutoRows="1fr">
-                {APP_TEMPLATES.slice(0, 5).map(template => (
+                {APP_TEMPLATES.filter(t=>t.starter).slice(0, 5).map(template => (
                     <GridItem key={template.id}>
                         <TemplateListItem template={template} />
                     </GridItem>
