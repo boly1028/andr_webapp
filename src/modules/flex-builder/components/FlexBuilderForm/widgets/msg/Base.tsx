@@ -121,7 +121,9 @@ const Base: FC<BaseProps> = (props) => {
                         <Button ml='auto' variant="theme-outline" size='xs' onClick={() => {
                             try {
                                 setFormData(JSON.stringify(JSON.parse(formData), undefined, 4))
-                            } catch (err) { }
+                            } catch (err) { 
+                                // Empty Catch
+                            }
                         }}>
                             Format
                         </Button>
