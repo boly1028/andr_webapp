@@ -6,6 +6,6 @@ import { MultiTabWidget } from "./multiTab";
 const widgets: RegistryWidgetsType = {
   SelectWidget: SelectWidget,
   CheckboxWidget: CheckboxWidget,
-  'multi-tab': MultiTabWidget
+  'tabs': MultiTabWidget
 }
 export default Object.freeze(widgets)

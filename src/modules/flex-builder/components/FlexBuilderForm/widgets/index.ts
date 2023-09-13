@@ -22,6 +22,6 @@ const widgets: RegistryWidgetsType = {
   nanodateTime: NanoDatetimeWidget,
   duration: DurationWidget,
   denom: DenomWidget,
-  'multi-tab': MultiTabWidget
+  'tabs': MultiTabWidget
 }
 export default widgets

@@ -1,5 +1,5 @@
 import { useDenom } from "@/lib/andrjs/hooks/useDenom";
-import { WidgetProps, getTemplate } from "@andromedarjsf/utils";
+import { WidgetProps, getTemplate, getWidget } from "@andromedarjsf/utils";
 import { Box, Button, HStack, useRadio, useRadioGroup } from "@chakra-ui/react";
 import React from "react";
 
@@ -11,7 +11,8 @@ export const MultiTabWidget: React.FC<Props> = (props) => {
         onChange,
         schema,
         id,
-        value
+        value,
+        registry
     } = props;
     const { getRootProps, getRadioProps } = useRadioGroup({
         name: id,
@@ -19,6 +20,12 @@ export const MultiTabWidget: React.FC<Props> = (props) => {
         defaultValue: schema.default?.toString(),
         value: value
     })
+    if (options.enumOptions && options.enumOptions.length > 3) {
+        const SelectWidget = getWidget(schema, "select", registry.widgets);
+        return <SelectWidget
+            {...props}
+        />
+    }
     const group = getRootProps()
     return (
         <HStack gap='0' bg='backgroundState.idle' rounded='lg' minW='50%' {...group}>
