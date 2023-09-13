@@ -39,16 +39,16 @@ interface ILinkItem {
 }
 // Define sidebar navigation items
 const LinkItems: ILinkItem[] = [
-    {
-        name: "User",
-        icon: <Avatar boxSize={5} />,
-        href: SITE_LINKS.userHome(),
-        key: ILinkItemKey.USER,
-    },
+    // {
+    //     name: "Claim Username",
+    //     icon: <Avatar boxSize={5} />,
+    //     href: SITE_LINKS.userHome(),
+    //     key: ILinkItemKey.USER,
+    // },
     {
         name: "Learn",
         icon: <BookOpenIcon boxSize={5} />,
-        href: SITE_LINKS.learn(),
+        href: SITE_LINKS.externalLearn(),
         key: ILinkItemKey.LEARN,
     },
     {
@@ -89,7 +89,6 @@ const LinkItems: ILinkItem[] = [
     },
 ];
 
-const UserNamePlaceholder = 'User';
 interface SidebarProps extends BoxProps {
     onClose?: () => void;
     activeLink?: ILinkItemKey;
@@ -104,7 +103,6 @@ const Sidebar = ({ onClose, activeLink, ...props }: SidebarProps) => {
         if (username && (username !== account?.address)) {
             return username;
         }
-        return UserNamePlaceholder;
     }, [username, account?.address]);
 
     return (
@@ -155,7 +153,7 @@ const Sidebar = ({ onClose, activeLink, ...props }: SidebarProps) => {
                         href={link.href}
                         leftIcon={link.icon}
                     >
-                        {link.name !== UserNamePlaceholder ? link.name : getUserName}
+                        {(link.key === ILinkItemKey.USER && getUserName) ? getUserName : link.name}
                     </NavItem>
                 ))}
             </Box>

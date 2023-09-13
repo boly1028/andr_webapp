@@ -39,6 +39,7 @@ export const SITE_LINKS = {
     // Test Level Deployment - Update this with the branch deployement you want to test
     // embeddablePreview: (configUri: string) => `https://embeddable-marketplace-demo-git-featur-fd1f81-andromedaprotocol.vercel.app?config=${configUri}`,
     // embeddables: () => `https://andromedaprotocol.github.io/embeddable-marketplace-demo`,
+    externalLearn: () => `https://docs.andromedaprotocol.io/guides/`,
     learn: () => `/learn`,
     learnItem: (slug: string) => `/learn${slug}`,
     cli: () => `/cli`,
