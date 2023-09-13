@@ -59,9 +59,11 @@
                             "logo": {
                                 "anyOf": [
                                     {
+                                        "title": "Add Logo",
                                         "description": "This is used for uploading logo data, or setting it in InstantiateData",
                                         "oneOf": [
                                             {
+                                                "title": "URL",
                                                 "description": "A reference to an externally hosted logo. Must be a valid HTTP or HTTPS URL.",
                                                 "type": "object",
                                                 "required": [
@@ -75,6 +77,7 @@
                                                 "additionalProperties": false
                                             },
                                             {
+                                                "title": "Embedded",
                                                 "description": "Logo content stored on the blockchain. Enforce maximum size of 5KB on all variants",
                                                 "type": "object",
                                                 "required": [
@@ -124,6 +127,7 @@
                                         "$original_type": "Logo"
                                     },
                                     {
+                                        "title": "None",
                                         "type": "null"
                                     }
                                 ]
@@ -304,6 +308,12 @@
                 "logo",
                 "*"
             ],
+            "ui:options": {
+                "optionNames": [
+                    "Add Marketing Info",
+                    "None"
+                ]
+            },
             "description": {
                 "ui:options": {
                     "title": "Token Description",
@@ -318,6 +328,12 @@
                     }
                 },
                 "embedded": {
+                    "ui:options": {
+                        "optionNames": [
+                            "SVG",
+                            "PNG"
+                        ]
+                    },
                     "svg": {
                         "ui:options": {
                             "title": "SVG File to Store",
@@ -361,7 +377,20 @@
                 "cap",
                 "*"
             ],
-            "cap": {},
+            "ui:options": {
+                "optionNames": [
+                    "Add Minter",
+                    "None"
+                ]
+            },
+            "cap": {
+                "ui:options": {
+                    "optionNames": [
+                        "Add Cap",
+                        "Unlimited Cap"
+                    ]
+                }
+            },
             "minter": {
                 "ui:options": {
                     "title": "Minting Address",

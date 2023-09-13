@@ -12,6 +12,7 @@ import {
   AlertIcon,
   AlertDescription,
   Divider,
+  FormLabel,
 } from "@chakra-ui/react";
 import { useUpdateNodeInternals } from "reactflow";
 import { WrapIfIdentifier } from "../connections/WrapIfIdentifier";
@@ -70,7 +71,13 @@ const FieldTemplate = (props: FieldTemplateProps) => {
   const hasWrapper = !!schema?.anyOf || !!schema?.oneOf;
 
   const showAlert = !hasWrapper && !!uiOptions.alerts;
-  const alerts: Array<any> = !showAlert ? [] : uiOptions.alerts as Array<any>
+  const alerts: Array<any> = !showAlert ? [] : uiOptions.alerts as Array<any>;
+
+  const TitleFieldTemplate = getTemplate<"TitleFieldTemplate">(
+    "TitleFieldTemplate",
+    registry,
+    uiOptions,
+  );
 
   return (
     <FieldTemplateContext.Provider value={{ fieldRef: fieldContextRef }}>
@@ -108,15 +115,24 @@ const FieldTemplate = (props: FieldTemplateProps) => {
             />
           </Alert>
         ))}
+        {hasWrapper && <Divider mt='2' mx='auto' w='95%' />}
         <Box position='relative' py={hasWrapper ? '4' : '0'}
-        // bg={hasWrapper?'#ffffff04':'transparent'}0
+          bg={hasWrapper ? '#ffffff04' : 'transparent'}
         >
-          {hasWrapper && <Divider mb='2' mx='auto' w='95%' />}
           <FormControl
             isRequired={hasWrapper ? false : required}
             isInvalid={rawErrors && rawErrors.length > 0}
             position='relative'
           >
+            {hasWrapper && props.displayLabel && label ? (
+              <TitleFieldTemplate
+                id={`${id}-title`}
+                schema={schema}
+                uiSchema={uiSchema}
+                registry={registry}
+                title={label}
+              />
+            ) : null}
             {/* {displayLabel && <>{description}</>} */}
 
             {children}
@@ -126,8 +142,8 @@ const FieldTemplate = (props: FieldTemplateProps) => {
             {/* {props.help} */}
             {!hideError && (<Box px='4'>{props.errors}</Box>)}
           </FormControl>
-          {hasWrapper && <Divider mt='2' mx='auto' w='95%' />}
         </Box>
+        {hasWrapper && <Divider mb='2' mx='auto' w='95%' />}
       </WrapIfAdditionalTemplate>
     </FieldTemplateContext.Provider>
   );
