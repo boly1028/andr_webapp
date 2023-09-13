@@ -45,8 +45,16 @@ export const Cw721ReceiveMsgWidget: FC<Cw721ReceiveMsgWidgetProps> = (props) => 
             <MenuList maxH="48" overflow="auto">
               <MenuItem
                 onClick={() => {
-                  reset();
+                  reset()
                   props.onChange('')
+                }}
+                opacity='0.2'
+              >
+                Reset
+              </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  reset();
                 }}
               >
                 Custom Message

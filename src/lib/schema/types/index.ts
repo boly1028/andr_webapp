@@ -13,6 +13,7 @@ export const IImportantAdoKeys = {
     PROXY_MESSAGE: 'proxy-settings',
     EMBEDDABLE_APP: 'embeddable-app',
     FUND: 'fund',
+    JSON_SCHEMA: 'json',
     APP: 'app',
     FLEX_FILE: 'import'
 } as const;

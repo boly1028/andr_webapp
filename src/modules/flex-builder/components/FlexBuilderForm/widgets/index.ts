@@ -10,6 +10,7 @@ import { DurationWidget } from "./Duration";
 import { DenomWidget } from "./Denom";
 import { NanoDatetimeWidget } from "./NanoDatetime";
 import { MultiTabWidget } from "./multiTab";
+import { BinaryMsgWidget } from "./msg/Binary";
 
 const widgets: RegistryWidgetsType = {
   markdown: MarkdownWidget,
@@ -22,6 +23,7 @@ const widgets: RegistryWidgetsType = {
   nanodateTime: NanoDatetimeWidget,
   duration: DurationWidget,
   denom: DenomWidget,
-  'tabs': MultiTabWidget
+  'tabs': MultiTabWidget,
+  Binary: BinaryMsgWidget
 }
 export default widgets

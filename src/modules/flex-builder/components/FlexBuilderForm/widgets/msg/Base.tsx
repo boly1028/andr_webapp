@@ -1,11 +1,12 @@
-import { IAndromedaSchemaJSON } from "@/lib/schema/types";
+import { IAndromedaSchemaJSON, IImportantAdoKeys } from "@/lib/schema/types";
 import { CopyButton } from "@/modules/common";
 import { constructMsg } from "@/modules/sdk/utils";
-import { WidgetProps } from "@andromedarjsf/utils";
-import { Box, Flex, Icon, IconButton, Input, Skeleton } from "@chakra-ui/react";
+import { WidgetProps, mergeDefaultsWithFormData } from "@andromedarjsf/utils";
+import { Box, Button, Flex, HStack, Icon, IconButton, Input } from "@chakra-ui/react";
 import React, { FC, useEffect, useState } from "react";
 import Form from "../../Form";
 import { Copy } from "lucide-react";
+import { getSanitizedJsonStringOrDefault } from "./util";
 
 
 interface BaseProps extends WidgetProps {
@@ -24,8 +25,14 @@ const Base: FC<BaseProps> = (props) => {
     useEffect(() => {
         if (formSchema) {
             try {
-                const decoded = JSON.parse(atob(value));
-                setFormData(decoded)
+                const decoded = atob(value);
+                if (formSchema.schema.type === 'string') {
+                    setFormData(decoded);
+                } else {
+                    let obj = JSON.parse(decoded);
+                    obj = mergeDefaultsWithFormData(formSchema["form-data"], obj);
+                    setFormData(obj)
+                }
             } catch (err) {
                 console.log(err)
                 setFormData(formSchema.schema.type === 'object' ? {} : '')
@@ -36,13 +43,13 @@ const Base: FC<BaseProps> = (props) => {
     useEffect(() => {
         const tId = setTimeout(() => {
             if (formData) {
-                const data = constructMsg({
-                    ...formData,
-                    ...props.mergeFormData,
-                })
-                let stringified = data;
-                if (typeof stringified === 'object') {
-                    stringified = JSON.stringify(data)
+                let stringified = getSanitizedJsonStringOrDefault(formData);
+                if (typeof formData === 'object') {
+                    const msg = constructMsg({
+                        ...formData,
+                        ...props.mergeFormData,
+                    })
+                    stringified = JSON.stringify(msg);
                 }
                 const base64 = btoa(stringified);
                 if (base64 !== value) {
@@ -54,6 +61,10 @@ const Base: FC<BaseProps> = (props) => {
         }, 100);
         return () => clearTimeout(tId);
     }, [formData]);
+
+    useEffect(() => {
+        console.log(formData)
+    }, [formData])
 
 
     return (
@@ -104,6 +115,17 @@ const Base: FC<BaseProps> = (props) => {
                         {/* Pass fragment to hide submit button */}
                         <></>
                     </Form>
+                )}
+                {typeof formData === 'string' && (
+                    <HStack justifyContent="end">
+                        <Button ml='auto' variant="theme-outline" size='xs' onClick={() => {
+                            try {
+                                setFormData(JSON.stringify(JSON.parse(formData), undefined, 4))
+                            } catch (err) { }
+                        }}>
+                            Format
+                        </Button>
+                    </HStack>
                 )}
             </Box>
         </Box>
