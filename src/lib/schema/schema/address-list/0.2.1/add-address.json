@@ -1,1 +1,33 @@
-{"schema":{"description":"Add an address to the address list","type":"object","required":["add_address"],"properties":{"add_address":{"type":"object","required":["address"],"properties":{"address":{"type":"string","title":"Address"}},"additionalProperties":false,"title":"Add address"}},"additionalProperties":false,"title":"Add address","$id":"add-address","class":"modifier","version":"0.2.1","classifier":""},"ui-schema":{},"form-data":{}}
+{
+    "schema": {
+        "description": "Add an address to the address list",
+        "type": "object",
+        "required": [
+            "add_address"
+        ],
+        "properties": {
+            "add_address": {
+                "type": "object",
+                "required": [
+                    "address"
+                ],
+                "properties": {
+                    "address": {
+                        "type": "string",
+                        "title": "Address"
+                    }
+                },
+                "additionalProperties": false,
+                "title": "Add address"
+            }
+        },
+        "additionalProperties": false,
+        "title": "Add address",
+        "$id": "add-address",
+        "class": "modifier",
+        "version": "0.2.1",
+        "classifier": ""
+    },
+    "ui-schema": {},
+    "form-data": {}
+}
