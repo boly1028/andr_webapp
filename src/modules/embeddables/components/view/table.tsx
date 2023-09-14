@@ -1,5 +1,4 @@
 import { IAdoType } from '@/lib/schema/types'
-import { INCLUDE_ADO } from '@/lib/schema/utils/list'
 import AdoItem from '@/modules/assets/components/AdosList/AdoItem'
 import styles from './view.module.css'
 import ClassifierIcon from '@/theme/icons/classifiers'
@@ -13,6 +12,7 @@ import { useDisclosure } from "@chakra-ui/hooks";
 import { SITE_LINKS } from '@/modules/common/utils/sitelinks'
 import { IEmbeddableCollection } from '@/lib/schema/types/embeddables'
 import { useGetEmbeddableApp } from '../../hooks/useGetEmbeddableApp'
+import { MASTER_ADOENABLE } from '@/lib/schema/utils/masterList'
 
 
 interface TableProps {
@@ -80,7 +80,7 @@ const Table: FC<TableProps> = ({ item, eKey }) => {
             </Flex>
             {isOpen && (
                 <>
-                    {Object.keys(item).filter(ado => INCLUDE_ADO.includes(ado)).map((adoName) => {
+                    {Object.keys(item).filter(ado => MASTER_ADOENABLE[ado]).map((adoName) => {
                         return (
                             <Flex
                                 {...disclosureProps}

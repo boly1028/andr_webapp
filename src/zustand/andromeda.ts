@@ -35,11 +35,7 @@ export const useAndromedaStore = create<IAndromedaStore>((set, get) => ({
 
 export const KEPLR_AUTOCONNECT_KEY = "keplr_autoconnect";
 
-const FIXED_KERNEL_ADDRESSES = [
-    'andr12h2acqz3r92e8dg9t3p3r76lueqymuzjga0f3crv7l2f6k9qwjvs65lut0',
-    'stars1hjm0vy35m9jhy8wjpldmaxv3yq3ctmzmpdfm9z0fscpv9zegpgqq5umjt0',
-    'terra1w9t0mhjarx7nrfpq8u78akj5e0k57k3y9qeyes57pdec5238rg3s2nhtpj',
-    'juno1vdjkv6cz80hu439kssnk5ew8hlrsl7cyr3qywa8unf9p6rczr4rsac90za'
+const FIXED_KERNEL_ADDRESSES: string[] = [
 ]
 
 export const connectAndromedaClient = async (chainId?: string) => {

@@ -1,4 +1,4 @@
-import { useBaseAdoQuery } from '@andromedaprotocol/gql/dist/react'
+import { useBaseAdoQuery } from '@andromedaprotocol/gql/dist/__generated/react'
 
 export function useQueryBaseAdo(address: string) {
   const { data, loading, error } = useBaseAdoQuery({

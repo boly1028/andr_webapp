@@ -15,7 +15,7 @@ import _ from "lodash";
 export const SORT_LIMIT = 10;
 import ScrollToTop from "@/modules/common/components/ScrollToTop";
 import ScrollToBottom from "@/modules/common/components/ScrollToBottom";
-import { IAdoType as ICodegenAdoType, IAndrOrderBy } from "@andromedaprotocol/gql/dist/react";
+import { IAdoType as ICodegenAdoType, IAndrOrderBy } from "@andromedaprotocol/gql/dist/__generated/react";
 import { useAccount } from "@/lib/andrjs/hooks/useAccount";
 
 const AdosList: FC = () => {

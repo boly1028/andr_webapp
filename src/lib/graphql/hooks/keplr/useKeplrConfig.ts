@@ -1,4 +1,4 @@
-import { useKeplrConfigQuery } from "@andromedaprotocol/gql/dist/react";
+import { useKeplrConfigQuery } from "@andromedaprotocol/gql/dist/__generated/react";
 
 /**
  * Wrapper hook for the andr.js chain configs

@@ -1,4 +1,4 @@
-import { useTxByContractQuery } from "@andromedaprotocol/gql/dist/react";
+import { useTxByContractQuery } from "@andromedaprotocol/gql/dist/__generated/react";
 
 
 export function useQueryTxByAddress(address: string, chainId: string, minHeight?: number, maxHeight?: number) {

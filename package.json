@@ -13,9 +13,9 @@
     "postinstall": "npm run theme"
   },
   "dependencies": {
-    "@andromedaprotocol/andromeda.js": "^0.3.3",
+    "@andromedaprotocol/andromeda.js": "^0.3.5",
     "@andromedaprotocol/design-theme": "file:./local_lib/andromedaprotocol-design-theme-0.1.3.tgz",
-    "@andromedaprotocol/gql": "file:./local_lib/andromedaprotocol-gql-0.3.3.tgz",
+    "@andromedaprotocol/gql": "^0.3.5",
     "@andromedarjsf/chakra-ui": "file:./local_lib/andromedarjsf-chakra-ui-5.0.4.tgz",
     "@andromedarjsf/core": "file:./local_lib/andromedarjsf-core-5.0.4.tgz",
     "@andromedarjsf/utils": "file:./local_lib/andromedarjsf-utils-5.0.4.tgz",

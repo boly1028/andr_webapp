@@ -1,4 +1,4 @@
-import { useAppComponentsQuery } from "@andromedaprotocol/gql/dist/react"
+import { useAppComponentsQuery } from "@andromedaprotocol/gql/dist/__generated/react"
 
 export function useAppComponents(address: string) {
     const { data, loading, error } = useAppComponentsQuery(

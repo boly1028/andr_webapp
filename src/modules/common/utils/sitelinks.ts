@@ -9,7 +9,7 @@
  * - Do not end route with '/' (if manually adding routes, a consistence design will be created)
  */
 
-import { IChainConfigQuery } from "@andromedaprotocol/gql/dist/react";
+import { IChainConfigQuery } from "@andromedaprotocol/gql/dist/__generated/react";
 
 
 export const SITE_LINKS = {

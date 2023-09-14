@@ -1,4 +1,4 @@
-import { IAdoType, IAndrOrderBy, useAssetsQuery } from "@andromedaprotocol/gql/dist/react";
+import { IAdoType, IAndrOrderBy, useAssetsQuery } from "@andromedaprotocol/gql/dist/__generated/react";
 
 export interface FilterObjectType {
   adoType?: IAdoType;
