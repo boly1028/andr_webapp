@@ -51,6 +51,17 @@ export const connectAndromedaClient = async (chainId?: string) => {
         const keplr = state.keplr;
 
         if (!keplr) throw new Error("Keplr not instantiated yet");
+
+        keplr.defaultOptions = {
+            // Use these fields to change keplr way of showing fee and memo. If you need your set fee to be
+            // Enabled by default, change value to true. Same for memo however user won't have option to override memo but
+            // they can override fee
+            sign: {
+                // If there is gas fee error for a chain, do a conditional check here
+                preferNoSetFee: true,
+                // preferNoSetMemo: false
+            }
+        }
         try {
             await keplr.enable(chainId)
         } catch (err) {
