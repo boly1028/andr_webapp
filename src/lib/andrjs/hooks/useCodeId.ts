@@ -15,7 +15,7 @@ export default function useCodeId(adoType: string, version?: string) {
 
 
   const { data: codeId } = useQuery({
-    queryKey: ['codeId', adoType, adoVersion, client?.adoDB?.address, client?.os?.adoDB?.address, !!client],
+    queryKey: ['codeId', adoType, adoVersion, client?.os?.adoDB?.address, !!client],
     queryFn: async () => {
       const codeIdKey = getAdoTypeWithVersion(adoType, version ?? adoVersion?.latest ?? '');
       const _codeId = await getCodeId(codeIdKey);
@@ -29,7 +29,7 @@ export default function useCodeId(adoType: string, version?: string) {
       console.log(client?.os?.adoDB?.address, "DEBUG::ADODB")
       console.log(client?.os?.address, "DEBUG::ADODB")
       // ERROR:: On connecting client to different chain, ado db address is still andr only. Fix needed in andrjs
-      const _codeId = await client!.os.adoDB!.getCodeId(key, client!.os.adoDB!.address ?? client!.adoDB!.address);
+      const _codeId = await client!.os.adoDB!.getCodeId(key, client!.os.adoDB!.address);
       console.log(`CodeID for ${key} is ${_codeId}`)
       return _codeId ?? -1
     } catch (err) {

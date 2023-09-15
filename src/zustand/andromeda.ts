@@ -64,7 +64,6 @@ export const connectAndromedaClient = async (chainId?: string) => {
 
         const kernelAddr = FIXED_KERNEL_ADDRESSES.find(addr => addr.startsWith(config.addressPrefix)) || config.kernelAddress || '';
         await state.client.connect(config.chainUrl,
-            config.registryAddress,
             kernelAddr,
             config.addressPrefix,
             signer,
