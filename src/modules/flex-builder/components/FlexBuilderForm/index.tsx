@@ -40,6 +40,9 @@ export type FlexBuilderFormProps = {
   addButtonTitle?: string;
   onCliCopy?: (formData: any) => string;
   hideOpenInAppBuilder?: boolean;
+  copyProps?: {
+    baseUrl?: string;
+  }
 };
 
 const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
@@ -50,7 +53,8 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
   notReady = false,
   addButtonTitle,
   onCliCopy,
-  hideOpenInAppBuilder = false
+  hideOpenInAppBuilder = false,
+  copyProps = {}
 }) => {
   const toast = useToast({
     position: "top-right",
@@ -251,6 +255,7 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
               schema={schema}
               uiSchema={uiSchema}
               formData={formData}
+              baseUrl={copyProps.baseUrl}
             />
             <DownloadButton
               template={template}

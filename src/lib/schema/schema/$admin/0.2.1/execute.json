@@ -1,0 +1,62 @@
+{
+    "schema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "Execute",
+        "type": "object",
+        "required": [
+            "msg",
+            "address",
+            "funds"
+        ],
+        "properties": {
+            "address": {
+                "title": "Address",
+                "description": "Address of the contract, It can be a valid VFS path as well",
+                "type": "string",
+                "$original_type": "AndrAddr"
+            },
+            "msg": {
+                "title": "Message",
+                "description": "JSON which will be sent as execute message to the contract",
+                "type": "string",
+                "$original_type": "JSON"
+            },
+            "funds": {
+                "type": "array",
+                "title": "Funds",
+                "description": "Funds you want to attach with this message",
+                "items": {
+                    "type": "object",
+                    "required": [
+                        "denom",
+                        "amount"
+                    ],
+                    "properties": {
+                        "denom": {
+                            "type": "string",
+                            "title": "Coin Denom",
+                            "description": "Denom for coin. Only smallest units are accepted (eg ujunox)"
+                        },
+                        "amount": {
+                            "type": "string",
+                            "title": "Amount",
+                            "description": "Amount to be used as fund"
+                        }
+                    }
+                }
+            }
+        },
+        "additionalProperties": false,
+        "$id": "execute",
+        "version": "0.2.1",
+        "classifier": "system",
+        "class": "system",
+        "description": "Execute Ado"
+    },
+    "ui-schema": {
+        "msg": {
+            "ui:widget": "executeMsg"
+        }
+    },
+    "form-data": {}
+}

@@ -20,9 +20,10 @@ interface CopyFlexProps {
   schema?: ITemplateSchema;
   uiSchema?: ITemplateUiSchema;
   formData?: ITemplateFormData;
+  baseUrl?: string;
 }
 
-function CopyFlexButton({ schema, uiSchema, formData }: CopyFlexProps) {
+function CopyFlexButton({ schema, uiSchema, formData, baseUrl }: CopyFlexProps) {
   const handleCopy = useCallback(async () => {
     if (!schema || !uiSchema || !formData) {
       return "";
@@ -30,11 +31,11 @@ function CopyFlexButton({ schema, uiSchema, formData }: CopyFlexProps) {
     const flexFile = await createFlexFile({
       schema,
       formData,
-      order:uiSchema?.["ui:order"]
+      order: uiSchema?.["ui:order"]
     })
     const flexURI = await createFlexUrl(flexFile);
 
-    return window.origin + SITE_LINKS.flexBuilderTemplate(flexURI);
+    return window.origin + SITE_LINKS.flexBuilderTemplate(flexURI, baseUrl);
   }, [schema, uiSchema, formData]);
 
   return (
@@ -47,7 +48,7 @@ function CopyFlexButton({ schema, uiSchema, formData }: CopyFlexProps) {
           _hover={{
             background: 'rgba(255, 255, 255, 0.08)',
           }}
-          sx={{ svg: { color: 'rgba(255, 255, 255, 0.92)' } }}        />
+          sx={{ svg: { color: 'rgba(255, 255, 255, 0.92)' } }} />
       </Tooltip>
     </CopyButton>
   );

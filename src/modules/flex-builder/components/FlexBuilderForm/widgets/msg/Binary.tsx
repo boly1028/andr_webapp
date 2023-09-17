@@ -36,7 +36,7 @@ export const BinaryMsgWidget: FC<BinaryMsgWidgetProps> = (props) => {
                             minW='max-content'
                         >
                             {/* <CustomMenuButton> */}
-                            {currentBaseAdo?.label ?? "Custom Message"}
+                            {currentBaseAdo?.label ?? "Base64"}
                             {/* </CustomMenuButton> */}
                         </MenuButton>
                         <MenuList maxH="48" overflow="auto">
@@ -54,7 +54,7 @@ export const BinaryMsgWidget: FC<BinaryMsgWidgetProps> = (props) => {
                                     reset();
                                 }}
                             >
-                                Custom Message
+                                Base 64
                             </MenuItem>
                             <MenuItem
                                 onClick={() => {

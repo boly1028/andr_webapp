@@ -24,6 +24,7 @@ export const InstantiateMsgWidget: FC<InstantiateMsgWidgetProps> = (props) => {
 
   return (
     <Base {...props}
+      reset={reset}
       mergeFormData={{
         kernel_address: client?.os.address
       }}
@@ -37,7 +38,7 @@ export const InstantiateMsgWidget: FC<InstantiateMsgWidgetProps> = (props) => {
               minW='max-content'
             >
               {/* <CustomMenuButton> */}
-              {schemaFile?.schema?.title ?? "Select Schema"}
+              {schemaFile?.schema?.title ?? schemaFile?.schema?.$id ?? "Custom Msg"}
               {/* </CustomMenuButton> */}
             </MenuButton>
             <MenuList maxH="48" overflow="auto">
@@ -49,6 +50,20 @@ export const InstantiateMsgWidget: FC<InstantiateMsgWidgetProps> = (props) => {
                 opacity='0.2'
               >
                 Reset
+              </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  reset();
+                }}
+              >
+                Custom Msg
+              </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  setCurrentSchema('json')
+                }}
+              >
+                JSON
               </MenuItem>
               {[...ALL_ADOS].map((s) => (
                 <MenuItem

@@ -24,6 +24,7 @@ const widgets: RegistryWidgetsType = {
   duration: DurationWidget,
   denom: DenomWidget,
   'tabs': MultiTabWidget,
-  Binary: BinaryMsgWidget
+  Binary: BinaryMsgWidget,
+  JSON: BinaryMsgWidget
 }
 export default widgets

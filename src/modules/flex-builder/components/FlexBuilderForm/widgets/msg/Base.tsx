@@ -25,7 +25,7 @@ const Base: FC<BaseProps> = (props) => {
     useEffect(() => {
         if (formSchema) {
             try {
-                const decoded = atob(value);
+                const decoded = schema.$original_type === 'Binary' ? atob(value) : value as string;
                 if (formSchema.schema.type === 'string') {
                     setFormData(decoded);
                 } else {
@@ -51,9 +51,13 @@ const Base: FC<BaseProps> = (props) => {
                     })
                     stringified = JSON.stringify(msg);
                 }
-                const base64 = btoa(stringified);
-                if (base64 !== value) {
-                    onChange(base64);
+                if (schema.$original_type === 'Binary') {
+                    const base64 = btoa(stringified);
+                    if (base64 !== value) {
+                        onChange(base64);
+                    }
+                } else {
+                    onChange(stringified)
                 }
             } else if (!value && props.required) {
                 onChange('')
@@ -121,7 +125,7 @@ const Base: FC<BaseProps> = (props) => {
                         <Button ml='auto' variant="theme-outline" size='xs' onClick={() => {
                             try {
                                 setFormData(JSON.stringify(JSON.parse(formData), undefined, 4))
-                            } catch (err) { 
+                            } catch (err) {
                                 // Empty Catch
                             }
                         }}>

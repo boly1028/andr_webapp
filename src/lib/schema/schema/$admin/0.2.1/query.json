@@ -1,0 +1,31 @@
+{
+    "schema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "title": "Query",
+        "type": "object",
+        "required": [
+            "msg",
+            "address"
+        ],
+        "properties": {
+            "address": {
+                "title": "Address",
+                "type": "string",
+                "$original_type": "AndrAddr"
+            },
+            "msg": {
+                "description": "Msg JSON",
+                "type": "string",
+                "$original_type": "JSON"
+            }
+        },
+        "additionalProperties": false,
+        "$id": "query",
+        "version": "0.2.1",
+        "classifier": "system",
+        "class": "system",
+        "description": "Execute Ado"
+    },
+    "ui-schema": {},
+    "form-data": {}
+}
