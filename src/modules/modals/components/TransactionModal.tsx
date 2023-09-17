@@ -6,8 +6,6 @@ import AddFundsModal from "./AddFundsModal";
 import BroadcastingModal from "./BroadcastingModal";
 import EstimateFeeModal from "./EstimateFeeModal";
 
-const MAX_STAGE = 3;
-
 const TransactionModal: React.FC<TransactionModalProps> = memo(
   function MessageModal(defaultProps) {
     const [stage, setStage] = useState(0);

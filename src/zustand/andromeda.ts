@@ -34,19 +34,20 @@ export const useAndromedaStore = create<IAndromedaStore>((set, get) => ({
 }))
 
 export const KEPLR_AUTOCONNECT_KEY = "keplr_autoconnect";
+export const LAST_CHAIN_KEY = "last_chain_id";
 
 const FIXED_KERNEL_ADDRESSES: string[] = [
 ]
 
-export const connectAndromedaClient = async (chainId?: string) => {
+export const connectAndromedaClient = async (chainId?: string | null) => {
     try {
         window.addEventListener("keplr_keystorechange", keplrKeystoreChange);
 
         const state = useAndromedaStore.getState();
         if (state.isLoading) return;
         useAndromedaStore.setState({ isLoading: true })
-
         chainId = chainId || state.chainId
+
 
         const keplr = state.keplr;
 
@@ -80,6 +81,7 @@ export const connectAndromedaClient = async (chainId?: string) => {
             signer,
             { gasPrice: GasPrice.fromString(config.defaultFee) });
         localStorage.setItem(KEPLR_AUTOCONNECT_KEY, keplr?.mode ?? "extension");
+        localStorage.setItem(LAST_CHAIN_KEY, chainId);
 
         useAndromedaStore.setState({
             accounts,
@@ -99,6 +101,7 @@ export const connectAndromedaClient = async (chainId?: string) => {
 export const disconnectAndromedaClient = () => {
     window.removeEventListener("keplr_keystorechange", keplrKeystoreChange);
     localStorage.removeItem(KEPLR_AUTOCONNECT_KEY);
+    localStorage.removeItem(LAST_CHAIN_KEY);
     useAndromedaStore.setState({
         isConnected: false,
         accounts: [],
@@ -132,7 +135,6 @@ export function initiateKeplr() {
             event.target &&
             (event.target as Document).readyState === "complete"
         ) {
-            console.log("Here")
             if (window.keplr) {
                 useAndromedaStore.setState({ keplrStatus: KeplrConnectionStatus.Ok, keplr: window.keplr })
             } else {

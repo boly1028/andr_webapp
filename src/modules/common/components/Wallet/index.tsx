@@ -36,7 +36,7 @@ import useWalletModal from "@/modules/modals/hooks/useWalletModal";
 import ChainFallbackIcon from "../icons/ChainFallbackIcon";
 import { useQueryAllChainConfigs, useQueryChainConfig } from "@/lib/graphql/hooks/chain/useChainConfig";
 import { useGetUsername } from "@/lib/andrjs/hooks/useGetUsername";
-import { KEPLR_AUTOCONNECT_KEY, connectAndromedaClient, disconnectAndromedaClient, useAndromedaStore } from "@/zustand/andromeda";
+import { KEPLR_AUTOCONNECT_KEY, LAST_CHAIN_KEY, connectAndromedaClient, disconnectAndromedaClient, useAndromedaStore } from "@/zustand/andromeda";
 import { SITE_LINKS } from "../../utils/sitelinks";
 import ChainSelector from "./ChainSelector";
 
@@ -196,7 +196,8 @@ const Wallet: FC<WalletProps> = (props) => {
         const autoconnect = localStorage.getItem(KEPLR_AUTOCONNECT_KEY);
         if (!isConnected && typeof keplr !== "undefined" && autoconnect === keplr?.mode) {
             // Should we open terms & condition modals before this?
-            connectAndromedaClient();
+            const lastConnectedChain = localStorage.getItem(LAST_CHAIN_KEY);
+            connectAndromedaClient(lastConnectedChain);
         }
     }, [keplr, isConnected]);
 

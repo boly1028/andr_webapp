@@ -29,7 +29,7 @@ export interface InstantiateTransactionModalProps {
 export type TransactionModalProps = (
   | ExecuteTransactionModalProps
   | InstantiateTransactionModalProps
-) & { msg: Msg; modalType: ModalType.Transaction; fee?: StdFee, memo?: string, funds: Coin[]; };
+) & { msg: Msg; modalType: ModalType.Transaction; fee?: StdFee | "auto", memo?: string, funds: Coin[]; };
 
 export interface MultiTransactionModalProps {
   modalType: ModalType.MultiTransaction;

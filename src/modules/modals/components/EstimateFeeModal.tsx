@@ -215,14 +215,7 @@ const EstimateFeeModal: FC<TransactionModalProps & OptionalProps> = (props) => {
             </Button>
             {props.onNextStage && (
               <Button
-                variant="solid"
-                bg="#7F56D9"
-                sx={{
-                  marginLeft: "10px",
-                  "&:hover": { bg: "#7F56D9" },
-                  fontSize: "16px",
-                  padding: "10px 32px",
-                }}
+                variant="theme-low"
                 onClick={() => {
                   props.updateFee(fee);
                   props.onNextStage?.();
