@@ -1,4 +1,4 @@
-import { IAdoType, IImportantAdoKeys } from "../types";
+import { IAdoType, IImportantAdoKeys, IImportantTemplateTypes } from "../types";
 import { ALL_ADOS } from "../utils/list";
 import { MASTER_ALLADO } from "../utils/masterList";
 import { IAdo, ITemplate } from "./types";
@@ -9,7 +9,7 @@ type PartialTemplateType = Omit<ITemplate, 'formData'> & {
 
 const APP_TEMPLATES: PartialTemplateType[] = [
   {
-    id: IImportantAdoKeys.BLANK_CANVAS,
+    id: IImportantTemplateTypes.BLANK_CANVAS,
     adoType: "app-contract",
     name: "Empty Project",
     icon: "/app-templates/icons/blank.png",
@@ -23,8 +23,8 @@ const APP_TEMPLATES: PartialTemplateType[] = [
     ],
     ados: [
       {
-        path: IImportantAdoKeys.PUBLISH_SETTINGS,
-        id: IImportantAdoKeys.PUBLISH_SETTINGS,
+        path: IImportantAdoKeys.PUBLISH_SETTING.path,
+        id: IImportantAdoKeys.PUBLISH_SETTING.key,
         required: true,
       },
     ],
@@ -44,8 +44,8 @@ const APP_TEMPLATES: PartialTemplateType[] = [
     opts: ["Auction", "CW721", "Rates"],
     ados: [
       {
-        path: IImportantAdoKeys.PUBLISH_SETTINGS,
-        id: IImportantAdoKeys.PUBLISH_SETTINGS,
+        path: IImportantAdoKeys.PUBLISH_SETTING.path,
+        id: IImportantAdoKeys.PUBLISH_SETTING.key,
         required: true,
       },
       {
@@ -128,8 +128,8 @@ const APP_TEMPLATES: PartialTemplateType[] = [
     opts: ["Marketplace", "CW721", "Rates"],
     ados: [
       {
-        path: IImportantAdoKeys.PUBLISH_SETTINGS,
-        id: IImportantAdoKeys.PUBLISH_SETTINGS,
+        path: IImportantAdoKeys.PUBLISH_SETTING.path,
+        id: IImportantAdoKeys.PUBLISH_SETTING.key,
         required: true,
       },
       {
@@ -204,8 +204,8 @@ const APP_TEMPLATES: PartialTemplateType[] = [
     opts: ["Crowdfund", "CW721", "Vault", "Rates"],
     ados: [
       {
-        path: IImportantAdoKeys.PUBLISH_SETTINGS,
-        id: IImportantAdoKeys.PUBLISH_SETTINGS,
+        path: IImportantAdoKeys.PUBLISH_SETTING.path,
+        id: IImportantAdoKeys.PUBLISH_SETTING.key,
         required: true,
       },
       {
@@ -292,8 +292,8 @@ const APP_TEMPLATES: PartialTemplateType[] = [
     opts: ["CW20", "cw20 exchange"],
     ados: [
       {
-        path: IImportantAdoKeys.PUBLISH_SETTINGS,
-        id: IImportantAdoKeys.PUBLISH_SETTINGS,
+        path: IImportantAdoKeys.PUBLISH_SETTING.path,
+        id: IImportantAdoKeys.PUBLISH_SETTING.key,
         required: true,
       },
       {
@@ -359,8 +359,8 @@ const APP_TEMPLATES: PartialTemplateType[] = [
   //   opts: ["CW20", "CW20 Staking"],
   //   ados: [
   //     {
-  //       path: IImportantAdoKeys.PUBLISH_SETTINGS,
-  //       id: IImportantAdoKeys.PUBLISH_SETTINGS,
+  //       path: IImportantAdoKeys.PUBLISH_SETTING.keyS,
+  //       id: IImportantAdoKeys.PUBLISH_SETTING.keyS,
   //       required: true,
   //     },
   //     { path: "cw20/latest/cw20", id: "tokens", required: true },
@@ -394,8 +394,8 @@ const APP_TEMPLATES: PartialTemplateType[] = [
     ],
     ados: [
       {
-        path: IImportantAdoKeys.PUBLISH_SETTINGS,
-        id: IImportantAdoKeys.PUBLISH_SETTINGS,
+        path: IImportantAdoKeys.PUBLISH_SETTING.path,
+        id: IImportantAdoKeys.PUBLISH_SETTING.key,
         required: true,
       },
     ],

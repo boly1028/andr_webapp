@@ -11,6 +11,7 @@ import { DenomWidget } from "./Denom";
 import { NanoDatetimeWidget } from "./NanoDatetime";
 import { MultiTabWidget } from "./multiTab";
 import { BinaryMsgWidget } from "./msg/Binary";
+import AndrAddrWidget from "./AndrAddr";
 
 const widgets: RegistryWidgetsType = {
   markdown: MarkdownWidget,
@@ -25,6 +26,7 @@ const widgets: RegistryWidgetsType = {
   denom: DenomWidget,
   'tabs': MultiTabWidget,
   Binary: BinaryMsgWidget,
-  JSON: BinaryMsgWidget
+  JSON: BinaryMsgWidget,
+  AndrAddr: AndrAddrWidget
 }
 export default widgets

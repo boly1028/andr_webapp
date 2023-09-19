@@ -37,7 +37,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
     const newTemplate = cloneDeep(template);
     const formData: ITemplateFormData = {};
     const { collections, ...appMeta } = config;
-    formData[IImportantAdoKeys.EMBEDDABLE_APP] = {
+    formData[IImportantAdoKeys.EMBEDDABLE_APP.key] = {
       ...appMeta as any,
     }
     collections.forEach(col => {
@@ -99,7 +99,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
   };
 
   const getMsg = (formData: ITemplateFormData) => {
-    const appConfig = formData[IImportantAdoKeys.EMBEDDABLE_APP];
+    const appConfig = formData[IImportantAdoKeys.EMBEDDABLE_APP.key];
     const msg: IEmbeddableConfig = {
       // Remove system fields starting with $
       ...constructMsg(appConfig),

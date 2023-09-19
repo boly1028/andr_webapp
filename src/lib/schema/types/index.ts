@@ -7,18 +7,22 @@ export type ISchemaVersion = (typeof versions)[keyof typeof versions];
 
 export type { ITemplate } from '../templates/types'
 
-export const IImportantAdoKeys = {
+export const IImportantTemplateTypes = {
     BLANK_CANVAS: 'app',
-    PUBLISH_SETTINGS: 'publish-settings',
-    PROXY_MESSAGE: 'proxy-settings',
-    EMBEDDABLE_APP: 'embeddable-app',
-    FUND: 'fund',
-    JSON_SCHEMA: 'json',
-    APP: 'app',
-    FLEX_FILE: 'import'
+    IMPORT: 'import'
+}
+
+export const IImportantAdoKeys = {
+    PUBLISH_SETTING: { key: 'publish-setting', path: '$system/latest/publish-setting' },
+    PROXY_SETTING: { key: 'proxy-setting', path: '$system/latest/proxy-setting' },
+    EMBEDDABLE_APP: { key: 'embeddable-app', path: 'embeddables/latest/app' },
+    FUND: { key: 'fund', path: '$system/latest/fund' },
+    JSON_SCHEMA: { key: 'json', path: '$system/latest/json' },
+    APP: { key: 'app-contract', path: 'app-contract/latest/app-contract' },
 } as const;
 
-export type IAdoType = keyof typeof versions | typeof IImportantAdoKeys.PUBLISH_SETTINGS | typeof IImportantAdoKeys.PROXY_MESSAGE | typeof IImportantAdoKeys.FUND | typeof IImportantAdoKeys.APP;
+export type IStrictAdoType = keyof typeof versions;
+export type IAdoType = IStrictAdoType | "app";
 export interface IAndromedaSchemaJSON {
     'schema': IAndromedaSchema;
     'ui-schema': IAndromedaUISchema;

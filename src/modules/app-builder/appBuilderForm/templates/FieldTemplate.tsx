@@ -12,11 +12,8 @@ import {
   AlertIcon,
   AlertDescription,
   Divider,
-  FormLabel,
 } from "@chakra-ui/react";
 import { useUpdateNodeInternals } from "reactflow";
-import { WrapIfIdentifier } from "../connections/WrapIfIdentifier";
-import { isIdentifier } from "@/modules/flex-builder/components/FlexBuilderForm/utils/identifier";
 import { ALERT_TYPE_MAP } from "@/modules/flex-builder/components/FlexBuilderForm/alerts/utils";
 
 const FieldTemplate = (props: FieldTemplateProps) => {
@@ -136,9 +133,6 @@ const FieldTemplate = (props: FieldTemplateProps) => {
             {/* {displayLabel && <>{description}</>} */}
 
             {children}
-            {isIdentifier(schema as any) && (
-              <WrapIfIdentifier id={id} formData={formData} />
-            )}
             {/* {props.help} */}
             {!hideError && (<Box px='4'>{props.errors}</Box>)}
           </FormControl>

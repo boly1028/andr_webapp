@@ -1,5 +1,5 @@
 import { ITemplate } from "./types";
-import { IImportantAdoKeys } from "../types";
+import { IImportantAdoKeys, IImportantTemplateTypes } from "../types";
 import { BASE_ADOS, MODULES, PRIMITIVES } from "../utils/list";
 
 /** Upload template is used as base structure for importing a flex file
@@ -8,7 +8,7 @@ import { BASE_ADOS, MODULES, PRIMITIVES } from "../utils/list";
  */
 
 export const UPLOAD_TEMPLATE: ITemplate = {
-    id: IImportantAdoKeys.FLEX_FILE,
+    id: IImportantTemplateTypes.IMPORT,
     adoType: "app-contract",
     name: "Saved File",
     icon: "/app-templates/icons/blank.png",

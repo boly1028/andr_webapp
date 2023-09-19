@@ -47,13 +47,13 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
 
   const [modifiedTemplate, setModifiedTemplate] = useState(template);
 
-  const isProxy = (formData: ITemplateFormData) => (IImportantAdoKeys.PROXY_MESSAGE in formData && formData[IImportantAdoKeys.PROXY_MESSAGE].$enabled === true)
+  const isProxy = (formData: ITemplateFormData) => (IImportantAdoKeys.PROXY_SETTING.key in formData && formData[IImportantAdoKeys.PROXY_SETTING.key].$enabled === true)
 
   useEffect(() => {
     const newTemplate = cloneDeep(template);
     const formData = newTemplate.formData ?? {};
-    formData[IImportantAdoKeys.PROXY_MESSAGE] = {
-      ...(formData[IImportantAdoKeys.PROXY_MESSAGE] ?? {}),
+    formData[IImportantAdoKeys.PROXY_SETTING.key] = {
+      ...(formData[IImportantAdoKeys.PROXY_SETTING.key] ?? {}),
       parent: ADO_DATA.appAddress,
       component_name: ADO_DATA.name,
     };
@@ -71,8 +71,8 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
       const _template = await parseFlexFile(json);
 
       const formData = _template.formData ?? {};
-      formData[IImportantAdoKeys.PROXY_MESSAGE] = {
-        ...(formData[IImportantAdoKeys.PROXY_MESSAGE] ?? {}),
+      formData[IImportantAdoKeys.PROXY_SETTING.key] = {
+        ...(formData[IImportantAdoKeys.PROXY_SETTING.key] ?? {}),
         parent: ADO_DATA.appAddress,
         component_name: ADO_DATA.name,
       };

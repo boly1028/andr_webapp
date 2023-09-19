@@ -1,7 +1,7 @@
 {
   "schema": {
-    "$id": "proxy-settings",
-    "version": "0.2.0",
+    "$id": "proxy-setting",
+    "version": "0.2.1",
     "class": "system",
     "classifier": "",
     "title": "Proxy Message",

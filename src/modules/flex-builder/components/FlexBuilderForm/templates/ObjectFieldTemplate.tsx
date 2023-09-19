@@ -140,6 +140,7 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
         bg='background.800'
         rounded="xl"
         pb='4'
+        id={currentSchemaId}
       >
         <Flex bg='backgroundState.idle' p={4} roundedTop='xl'>
           <HStack spacing={3} w="full" align="flex-start">

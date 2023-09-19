@@ -1,1 +1,1 @@
-{"modifiers":["send","upsert-key-address"],"queries":["key-address.query","verify-address.query"],"responses":["key-address.response","verify-address.response"],"cw721receives":[]}
+{"modifiers":["send","upsert-key-address","create","assign-channels","recover"],"queries":["key-address.query","verify-address.query","channel-info.query","recoveries.query"],"responses":["channel-info.response","key-address.response","recoveries.response","verify-address.response"],"cw721receives":[]}

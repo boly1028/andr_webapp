@@ -12,8 +12,8 @@ export const useProxyEmbeddable = (key: string, value: IEmbeddableConfig) => {
     const proxy = () => {
         if (!app || !embeddable) throw new Error('NOT')
         const FORM_DATA: any = {
-            [IImportantAdoKeys.PROXY_MESSAGE]: {
-                "$type": "proxy-settings",
+            [IImportantAdoKeys.PROXY_SETTING.key]: {
+                "$type": IImportantAdoKeys.PROXY_SETTING.key,
                 "$class": "system",
                 "$classifier": "",
                 "$enabled": true,

@@ -15,7 +15,7 @@ export default function useConstructProxyMsg() {
       console.clear();
 
       // Our system ado to store panel data
-      const proxyPanel = data[IImportantAdoKeys.PROXY_MESSAGE];
+      const proxyPanel = data[IImportantAdoKeys.PROXY_SETTING.key];
       if (!proxyPanel || !proxyPanel['component_name']) throw new Error("Incorrect publish settings fields");
 
       // Our proxy app contract

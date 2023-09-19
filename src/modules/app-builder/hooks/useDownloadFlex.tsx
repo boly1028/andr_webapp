@@ -21,11 +21,11 @@ export const useDownloadFlex = () => {
 
         // We want to push publish settings ado so that this flex file can be included in flex-builder also
         ados.push({
-            id: IImportantAdoKeys.PUBLISH_SETTINGS,
-            path: IImportantAdoKeys.PUBLISH_SETTINGS,
+            id: IImportantAdoKeys.PUBLISH_SETTING.key,
+            path: IImportantAdoKeys.PUBLISH_SETTING.path,
             required: true
         })
-        const pubSetSchema = await getSchemaFromPath(IImportantAdoKeys.PUBLISH_SETTINGS);
+        const pubSetSchema = await getSchemaFromPath(IImportantAdoKeys.PUBLISH_SETTING.path);
         const pubSetFormData: IPublishSettingsFormData = {
             ...pubSetSchema["form-data"],
             $required: true,
@@ -33,7 +33,7 @@ export const useDownloadFlex = () => {
             $enabled: true,
             name: 'app' // App Name will be added here
         }
-        formData[IImportantAdoKeys.PUBLISH_SETTINGS] = pubSetFormData;
+        formData[IImportantAdoKeys.PUBLISH_SETTING.key] = pubSetFormData;
 
         Object.keys(formRefs.current).forEach(adoId => {
             const node = getNode(adoId)

@@ -15,8 +15,6 @@ import {
   AlertDescription,
   FormHelperText,
 } from "@chakra-ui/react";
-import VfsResolver from "../alerts/VfsResolver";
-import { isIdentifier } from "../utils/identifier";
 import { ALERT_TYPE_MAP } from "../alerts/utils";
 
 const FieldTemplate = (props: FieldTemplateProps) => {
@@ -139,11 +137,6 @@ const FieldTemplate = (props: FieldTemplateProps) => {
           <FormHelperText>
             {props.rawHelp}
           </FormHelperText>
-          {isIdentifier(schema as any) && (
-            <VfsResolver
-              formData={formData}
-            />
-          )}
           {!hideError && props.errors}
         </FormControl>
       </WrapIfAdditionalTemplate>

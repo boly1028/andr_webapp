@@ -35,7 +35,7 @@ function DownloadButton({ schema, uiSchema, formData, template }: DownloadFlexPr
       schema,
       formData,
       template,
-      order:uiSchema?.["ui:order"]
+      order: uiSchema?.["ui:order"]
     });
 
     //Load data to be exported by the browser
@@ -43,7 +43,7 @@ function DownloadButton({ schema, uiSchema, formData, template }: DownloadFlexPr
       type: "text/plain",
     });
 
-    const appName = formData[IImportantAdoKeys.PUBLISH_SETTINGS]?.name || new Date().getTime().toString();
+    const appName = formData[IImportantAdoKeys.PUBLISH_SETTING.key]?.name || new Date().getTime().toString();
     console.log(template.id)
     downloadBlob(flexBlob, `${template.id}-${appName}-staging.flex`);
   }, [schema, uiSchema, formData]);

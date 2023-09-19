@@ -21,7 +21,7 @@ export const useCreateEmbeddableApp = () => {
     const proxy = useCallback(async () => {
         // TODO: FIX THIS FOR V2
         const FORM_DATA: any = {
-            [IImportantAdoKeys.PROXY_MESSAGE]: {
+            [IImportantAdoKeys.PROXY_SETTING.key]: {
                 "$type": "proxy-settings",
                 "$class": "system",
                 "$classifier": "",
@@ -54,8 +54,8 @@ export const useCreateEmbeddableApp = () => {
     const instantiate = useCallback(async () => {
         // TODO: FIX THIS FOR V2
         const FORM_DATA: ITemplateFormData = {
-            [IImportantAdoKeys.PUBLISH_SETTINGS]: {
-                "$type": "publish-settings",
+            [IImportantAdoKeys.PUBLISH_SETTING.key]: {
+                "$type": IImportantAdoKeys.PUBLISH_SETTING.key as any,
                 "$class": "system",
                 "$classifier": "",
                 "$enabled": true,

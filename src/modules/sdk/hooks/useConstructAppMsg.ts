@@ -21,7 +21,7 @@ export default function useConstructAppMsg() {
       console.clear();
       if (!appName) {
         // Our system panel name is 'publish-settings'. Refer app template in schema
-        const publishSettingsPanel = data[IImportantAdoKeys.PUBLISH_SETTINGS] as IPublishSettingsFormData;
+        const publishSettingsPanel = data[IImportantAdoKeys.PUBLISH_SETTING.key] as IPublishSettingsFormData;
         if (!publishSettingsPanel || !publishSettingsPanel.name) throw new Error("Incorrect publish settings fields");
         appName = publishSettingsPanel.name
       }

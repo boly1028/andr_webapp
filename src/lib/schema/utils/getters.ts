@@ -10,7 +10,7 @@ import { IAdoType, IAndromedaSchema, IAndromedaSchemaJSON, IImportantAdoKeys, IS
 import { processTemplate } from "./template";
 
 export const getADOVersion = async (ado: IAdoType) => {
-    if (ado === 'app') ado = 'app-contract';
+    if (ado as any === 'app') ado = 'app-contract';
     const version = await import(`../schema/${ado}/version.json`).then(res => res.default).then(data => cloneDeep(data)) as {
         latest: string;
         versions: string[]
@@ -130,6 +130,9 @@ export const getSchemaFromPath = async (path: string) => {
     schema["ui-schema"]["owner"] = {
         'ui:widget': 'hidden'
     };
+    schema["ui-schema"]["kernel_address"] = {
+        'ui:widget': 'hidden'
+    };
 
     return schema;
 }
@@ -151,11 +154,11 @@ export const getADOExecuteTemplate = async (path: string) => {
         icon: "",
         opts: [],
         ados: [
-            { path: IImportantAdoKeys.PROXY_MESSAGE, id: IImportantAdoKeys.PROXY_MESSAGE, required: false, removable: false, enabled: false },
+            { path: IImportantAdoKeys.PROXY_SETTING.path, id: IImportantAdoKeys.PROXY_SETTING.key, required: false, removable: false, enabled: false },
             { path: path, id: path.split('/').pop() ?? "Execute", required: true },
         ],
         modules: [
-            { 'path': IImportantAdoKeys.FUND }
+            { 'path': IImportantAdoKeys.FUND.path }
         ]
     };
 
@@ -174,11 +177,11 @@ export const getADOMultiExecuteTemplate = async (path: string) => {
         icon: "",
         opts: [],
         ados: [
-            { path: IImportantAdoKeys.PROXY_MESSAGE, id: IImportantAdoKeys.PROXY_MESSAGE, required: false, removable: false, enabled: false },
+            { path: IImportantAdoKeys.PROXY_SETTING.path, id: IImportantAdoKeys.PROXY_SETTING.key, required: false, removable: false, enabled: false },
         ],
         modules: [
             ...ADOPS.modifiers.map(ado => ({ path: `${path}/${ado}` })),
-            { 'path': IImportantAdoKeys.FUND }
+            { 'path': IImportantAdoKeys.FUND.path }
         ]
     };
     const template = await processTemplate(currentTemplate);

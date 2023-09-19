@@ -183,14 +183,14 @@ const TEMPLATE: ITemplate = {
     ],
     ados: [
         {
-            path: '$admin/latest/instantiate',
+            path: '$system/latest/instantiate',
             id: 'instantiate',
             required: false,
             removable: true,
             enabled: false
         },
         {
-            path: '$admin/latest/execute',
+            path: '$system/latest/execute',
             id: 'execute',
             required: false,
             removable: true,
@@ -200,13 +200,13 @@ const TEMPLATE: ITemplate = {
 
     modules: [
         {
-            path: '$admin/latest/instantiate',
+            path: '$system/latest/instantiate',
         },
         {
-            path: '$admin/latest/execute',
+            path: '$system/latest/execute',
         },
         // {
-        //     path: '$admin/latest/query',
+        //     path: '$system/latest/query',
         // },
     ],
     system: true,

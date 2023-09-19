@@ -37,7 +37,7 @@ export const useImportFlex = (overide = true) => {
     const handleImport = useCallback(async (template: ITemplate) => {
         if (overide) reset(true);
         const tId = toast()
-        template.ados = template.ados.filter(ado => ado.id !== IImportantAdoKeys.PUBLISH_SETTINGS);
+        template.ados = template.ados.filter(ado => ado.id !== IImportantAdoKeys.PUBLISH_SETTING.key);
         for (const ado of template.ados) {
             const adoSchema = await processTemplateAdo(ado, template.formData?.[ado.id])
             addNode(adoSchema, { id: ado.id, position: ado.pos })

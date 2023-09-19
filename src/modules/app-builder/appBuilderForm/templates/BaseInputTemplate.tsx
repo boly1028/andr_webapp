@@ -86,9 +86,6 @@ const BaseInputTemplate = (props: WidgetProps) => {
         />
         <InputRightElement minW='fit-content'>
           <HStack spacing={1} pr='2'>
-            {isIdentifier(schema as any) && (
-              <VfsResolver formData={value} />
-            )}
             {description && description.length > 0 && (
               <Tooltip label={description} fontSize='xs' size='xs'>
                 <InfoIcon boxSize='4' cursor='pointer' color='dark.300' _hover={{ color: "content.high" }} />

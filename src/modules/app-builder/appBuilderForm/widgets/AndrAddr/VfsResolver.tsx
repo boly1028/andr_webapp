@@ -1,7 +1,7 @@
 import { useResolvePath } from "@/lib/andrjs/hooks/vfs/useResolvePath";
-import { QuestionIcon, WarningIcon, WarningTwoIcon } from "@chakra-ui/icons";
-import { Box, Button, HStack, Icon, IconButton, Text, Tooltip } from "@chakra-ui/react";
-import { Check, Cross, Eye, Info, Settings, View, X, XCircle } from "lucide-react";
+import { WarningTwoIcon } from "@chakra-ui/icons";
+import { Button, Icon, Text, Tooltip } from "@chakra-ui/react";
+import { Check } from "lucide-react";
 import React, { FC, useState } from "react"
 
 interface Props {
@@ -11,7 +11,7 @@ interface Props {
 const VfsResolver: FC<Props> = (props) => {
     const { formData = '' } = props;
     const [path, setPath] = useState<string>(formData);
-    const { data, error, isLoading, refetch } = useResolvePath(path);
+    const { data, isLoading, refetch } = useResolvePath(path);
 
     const validate = () => {
         setPath(formData);
@@ -19,17 +19,17 @@ const VfsResolver: FC<Props> = (props) => {
     }
     const tooltip = path !== formData ? 'Click to validate VFS path' : data ? `Valid path: ${data}` : 'Invalid path';
 
-    if(formData.startsWith('./')) return null;
+    if (formData.trim().length === 0 || formData.startsWith('./')) return null;
 
     return (
-        <Tooltip label={tooltip} fontSize='xs' size='xs' textColor='dark.500'>
+        <Tooltip label={tooltip} fontSize='xs' size='xs'>
 
             {(path !== formData || isLoading) ? (
                 <Button
                     as={Text}
                     variant='unstyled'
                     size='xs'
-                    isLoading={isLoading}
+                    isLoading={!!path && isLoading}
                     onClick={validate}
                     fontSize='xs'
                     px='1' py='0.5'
