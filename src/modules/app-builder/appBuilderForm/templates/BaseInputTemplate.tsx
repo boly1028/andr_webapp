@@ -2,8 +2,6 @@ import * as React from "react";
 import { Box, FormControl, FormLabel, HStack, Input, InputGroup, InputRightElement, Tooltip } from "@chakra-ui/react";
 import { getInputProps, getUiOptions, WidgetProps } from "@andromedarjsf/utils";
 import { InfoIcon } from "@chakra-ui/icons";
-import { isIdentifier } from "@/modules/flex-builder/components/FlexBuilderForm/utils/identifier";
-import VfsResolver from "./VfsResolver";
 
 const BaseInputTemplate = (props: WidgetProps) => {
   const {
