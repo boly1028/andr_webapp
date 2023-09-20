@@ -102,10 +102,10 @@ const Page: FC<Props> = (props) => {
                 await client.chainClient?.queryClient?.queryContractSmart(address, panelMsg).then(console.log).catch(console.error)
             } else if (panel.$type as any === 'upload') {
                 const rawBase64 = panel.file;
-                var regex = /^data:.+\/(.+);base64,(.*)$/;
-                var matches = rawBase64.match(regex);
-                var data = matches[2];
-                var buffer = Buffer.from(data, 'base64');
+                const regex = /^data:.+\/(.+);base64,(.*)$/;
+                const matches = rawBase64.match(regex);
+                const data = matches[2];
+                const buffer = Buffer.from(data, 'base64');
                 const msg = client?.chainClient?.encodeUploadMessage(buffer);
                 if (msg)
                     msgs.push(msg);

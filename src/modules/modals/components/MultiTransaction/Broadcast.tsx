@@ -88,8 +88,8 @@ const BroadcastMultiTransaction: FC<MultiTransactionModalProps & OptionalProps> 
                     <VStack>
                         {result.events.filter(e => e.type === 'wasm').map(e => (
                             <>
-                                {e.attributes.filter(a => a.key === '_contract_address').map(a => (
-                                    <Text whiteSpace="pre-wrap">
+                                {e.attributes.filter(a => a.key === '_contract_address').map((a, idx) => (
+                                    <Text wordBreak="break-all" key={idx}>
                                         {a.value}
                                     </Text >
                                 ))}

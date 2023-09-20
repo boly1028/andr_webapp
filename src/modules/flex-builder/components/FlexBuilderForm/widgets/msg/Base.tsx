@@ -30,7 +30,7 @@ const Base: FC<BaseProps> = (props) => {
                 if (formSchema.schema.type === 'string') {
                     setFormData(decoded);
                 } else {
-                    let obj = getDefaultFormState(validator, formSchema['schema'], formSchema['form-data']);
+                    const obj = getDefaultFormState(validator, formSchema['schema'], formSchema['form-data']);
                     setFormData(obj)
                 }
             } catch (err) {
