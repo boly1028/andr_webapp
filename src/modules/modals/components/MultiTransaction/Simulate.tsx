@@ -58,7 +58,8 @@ const SimulateMultiExecute: FC<MultiTransactionModalProps & OptionalProps> = (pr
     const funds = useMemo(() => {
         const funds: Coin[] = []
         props.msgs.forEach(msg => {
-            msg.value.funds?.forEach(fund => funds.push(fund))
+            if ("funds" in msg.value)
+                msg.value.funds?.forEach(fund => funds.push(fund))
         })
         return funds;
     }, [fee, props]);

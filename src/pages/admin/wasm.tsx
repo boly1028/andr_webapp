@@ -83,8 +83,7 @@ const Page: FC<Props> = (props) => {
         const msgs: MultiTransactionModalProps['msgs'] = [];
         for (const panel of Object.values(formData as ITemplateFormData)) {
             if (!panel.$enabled) continue;
-            const panelMsg = constructMsg(JSON.parse(panel.msg));
-            console.log(panelMsg, panel.$type)
+            const panelMsg = constructMsg(JSON.parse(panel.msg ?? "{}"));
             if (panel.$type as any === 'instantiate') {
                 let codeId = panel.codeId;
                 if (typeof codeId === 'string') {
@@ -98,12 +97,34 @@ const Page: FC<Props> = (props) => {
                 const msg = client?.chainClient?.encodeExecuteMsg(address, panelMsg, getFunds(panel.funds));
                 if (msg)
                     msgs.push(msg);
+            } else if (panel.$type as any === 'query') {
+                const address = await resolveVfs(client, panel.address)
+                await client.chainClient?.queryClient?.queryContractSmart(address, panelMsg).then(console.log).catch(console.error)
+            } else if (panel.$type as any === 'upload') {
+                const rawBase64 = panel.file;
+                var regex = /^data:.+\/(.+);base64,(.*)$/;
+                var matches = rawBase64.match(regex);
+                var data = matches[2];
+                var buffer = Buffer.from(data, 'base64');
+                const msg = client?.chainClient?.encodeUploadMessage(buffer);
+                if (msg)
+                    msgs.push(msg);
+            } else if (panel.$type as any === 'migrate') {
+                const address = await resolveVfs(client, panel.address);
+                let codeId = panel.codeId;
+                if (typeof codeId === 'string') {
+                    codeId = await getCodeId(client!, codeId);
+                };
+                const msg = client?.chainClient?.encodeMigrateMessage(address, codeId, panelMsg);
+                if (msg)
+                    msgs.push(msg);
             }
         }
-
-        open(ModalType.MultiTransaction, {
-            msgs: msgs
-        })
+        if (msgs.length > 0) {
+            open(ModalType.MultiTransaction, {
+                msgs: msgs
+            })
+        }
     }
 
     const InputElement = useMemo(
@@ -162,6 +183,7 @@ const Page: FC<Props> = (props) => {
                             baseUrl: '/admin/wasm'
                         }}
                         hideOpenInAppBuilder
+                        formContext={{ admin: true }}
                     />
                 )}
             </Box>
@@ -205,9 +227,15 @@ const TEMPLATE: ITemplate = {
         {
             path: '$system/latest/execute',
         },
-        // {
-        //     path: '$system/latest/query',
-        // },
+        {
+            path: '$system/latest/query',
+        },
+        {
+            path: '$system/latest/upload',
+        },
+        {
+            path: '$system/latest/migrate',
+        },
     ],
     system: true,
     starter: true,

@@ -12,6 +12,7 @@ import { Button, Flex, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/r
 import { FC, useState } from "react";
 import Base from "./Base";
 import { useAndromedaClient } from "@/lib/andrjs";
+import { MASTER_ADOENABLE, MASTER_ALLADO } from "@/lib/schema/utils/masterList";
 
 interface InstantiateMsgWidgetProps extends WidgetProps { }
 export const InstantiateMsgWidget: FC<InstantiateMsgWidgetProps> = (props) => {
@@ -21,7 +22,6 @@ export const InstantiateMsgWidget: FC<InstantiateMsgWidgetProps> = (props) => {
   const reset = () => {
     setCurrentSchema(undefined)
   }
-
   return (
     <Base {...props}
       reset={reset}
@@ -65,7 +65,7 @@ export const InstantiateMsgWidget: FC<InstantiateMsgWidgetProps> = (props) => {
               >
                 JSON
               </MenuItem>
-              {[...ALL_ADOS].map((s) => (
+              {[...(props.formContext?.admin ? MASTER_ALLADO : ALL_ADOS)].map((s) => (
                 <MenuItem
                   key={s.source}
                   onClick={() => {

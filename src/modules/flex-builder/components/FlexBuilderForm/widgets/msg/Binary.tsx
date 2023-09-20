@@ -10,6 +10,7 @@ import { WidgetProps } from "@andromedarjsf/utils";
 import { Button, Flex, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
 import { FC, useState } from "react";
 import Base from "./Base";
+import { InstantiateMsgWidget } from "./InstantiateMsgWidget";
 
 interface BinaryMsgWidgetProps extends WidgetProps { }
 export const BinaryMsgWidget: FC<BinaryMsgWidgetProps> = (props) => {
@@ -17,6 +18,10 @@ export const BinaryMsgWidget: FC<BinaryMsgWidgetProps> = (props) => {
     const [currentBaseAdo, setCurrentBaseAdo] = useState<{ ado: IAdoType, label: string }>();
     const [currentSchema, setCurrentSchema] = useState<string>();
     const { data: schemaFile } = useGetSchemaJson(currentSchema ?? "");
+
+    if (props.id.endsWith('instantiate_msg')) return (
+        <InstantiateMsgWidget {...props} />
+    )
 
     const reset = () => {
         setCurrentSchema(undefined)

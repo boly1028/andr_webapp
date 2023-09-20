@@ -1,4 +1,4 @@
-import { Text, Box, Center, Button } from "@chakra-ui/react";
+import { Text, Box, Center, Button, HStack, VStack } from "@chakra-ui/react";
 import { Check, ExternalLink } from "lucide-react";
 import { FC, memo, useCallback, useEffect, useMemo, useState } from "react";
 import type {
@@ -56,6 +56,7 @@ const BroadcastMultiTransaction: FC<MultiTransactionModalProps & OptionalProps> 
         const TransactionInfo = useMemo(() => {
             if (!result) return <></>;
             const { transactionHash } = result
+            console.log(result);
 
             return (
                 <Box
@@ -80,11 +81,22 @@ const BroadcastMultiTransaction: FC<MultiTransactionModalProps & OptionalProps> 
                             target="_blank"
                             rel="noreferrer noopener"
                         >
-                            {transactionHash}{" "}
+                            {transactionHash}
                             <ExternalLink style={{ display: "inline-block" }} size="14px" />
                         </a>
                     </Text>
-                </Box>
+                    <VStack>
+                        {result.events.filter(e => e.type === 'wasm').map(e => (
+                            <>
+                                {e.attributes.filter(a => a.key === '_contract_address').map(a => (
+                                    <Text whiteSpace="pre-wrap">
+                                        {a.value}
+                                    </Text >
+                                ))}
+                            </>
+                        ))}
+                    </VStack>
+                </Box >
             );
         }, [props, result]);
         return (

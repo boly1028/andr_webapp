@@ -16,8 +16,8 @@ import Base from "./Base";
 import { MASTER_ALLADO } from "@/lib/schema/utils/masterList";
 
 
-interface ExecuteMsgWidgetProps extends WidgetProps { }
-export const ExecuteMsgWidget: FC<ExecuteMsgWidgetProps> = (props) => {
+interface QueryMsgWidgetProps extends WidgetProps { }
+export const QueryMsgWidget: FC<QueryMsgWidgetProps> = (props) => {
 
   const [currentBaseAdo, setCurrentBaseAdo] = useState<IAdoType>();
   const [currentSchema, setCurrentSchema] = useState<string>();
@@ -98,7 +98,7 @@ export const ExecuteMsgWidget: FC<ExecuteMsgWidgetProps> = (props) => {
                 {/* </CustomMenuButton> */}
               </MenuButton>
               <MenuList maxH="48" overflow="auto">
-                {adops?.modifiers.map((s) => (
+                {adops?.queries.map((s) => (
                   <MenuItem
                     key={s}
                     onClick={() => {

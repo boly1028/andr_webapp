@@ -1,12 +1,13 @@
 import { IAndromedaSchemaJSON, IImportantAdoKeys } from "@/lib/schema/types";
 import { CopyButton } from "@/modules/common";
 import { constructMsg } from "@/modules/sdk/utils";
-import { WidgetProps, mergeDefaultsWithFormData } from "@andromedarjsf/utils";
+import { WidgetProps, getDefaultFormState, mergeDefaultsWithFormData } from "@andromedarjsf/utils";
 import { Box, Button, Flex, HStack, Icon, IconButton, Input } from "@chakra-ui/react";
 import React, { FC, useEffect, useState } from "react";
 import Form from "../../Form";
 import { Copy } from "lucide-react";
 import { getSanitizedJsonStringOrDefault } from "./util";
+import validator from "../../validator";
 
 
 interface BaseProps extends WidgetProps {
@@ -29,8 +30,7 @@ const Base: FC<BaseProps> = (props) => {
                 if (formSchema.schema.type === 'string') {
                     setFormData(decoded);
                 } else {
-                    let obj = JSON.parse(decoded);
-                    obj = mergeDefaultsWithFormData(formSchema["form-data"], obj);
+                    let obj = getDefaultFormState(validator, formSchema['schema'], formSchema['form-data']);
                     setFormData(obj)
                 }
             } catch (err) {
@@ -65,10 +65,6 @@ const Base: FC<BaseProps> = (props) => {
         }, 100);
         return () => clearTimeout(tId);
     }, [formData]);
-
-    useEffect(() => {
-        console.log(formData)
-    }, [formData])
 
 
     return (

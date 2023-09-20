@@ -26,8 +26,6 @@ import Form from "./Form";
 import CopyFlexButton from "./CopyFlexButton";
 import CopyCliButton from "./CopyCliButton";
 import OpenInAppBuilderButton from "./OpenInAppBuilder";
-import ScrollToTop from "@/modules/common/components/ScrollToTop";
-import ScrollToBottom from "@/modules/common/components/ScrollToBottom";
 import AdvanceFormOptions from "./AdvanceFormOptions";
 
 export type FlexBuilderFormProps = {
@@ -43,6 +41,7 @@ export type FlexBuilderFormProps = {
   copyProps?: {
     baseUrl?: string;
   }
+  formContext?: Record<string, any>;
 };
 
 const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
@@ -54,7 +53,8 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
   addButtonTitle,
   onCliCopy,
   hideOpenInAppBuilder = false,
-  copyProps = {}
+  copyProps = {},
+  formContext = {}
 }) => {
   const toast = useToast({
     position: "top-right",
@@ -191,7 +191,8 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
       setFORM_CONTEXT_UPDATE(Math.random());
     }, 500);
     return () => clearTimeout(tId);
-  }, [formData, uiSchema, schema]);
+  }, [formData, uiSchema, schema, formContext]);
+
 
 
   return (
@@ -201,6 +202,7 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
         uiSchema={uiSchema}
         formData={formData}
         formContext={{
+          ...formContext,
           // Pass actions to form for panel processing operations
           toggleModule: toggleModule,
           deleteModule: deleteModule,
