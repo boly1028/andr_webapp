@@ -16,9 +16,11 @@ import { createEmbeddableUrl } from "@/lib/schema/utils/embeddables";
 import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
 import { downloadBlob } from "@/utils/file";
 import EmbeddabePublish from "./Publish";
+import { useAndromedaStore } from "@/zustand/andromeda";
 
 const EmbeddableModal: FC<EmbeddableModalProps> = ({ config, eKey }) => {
   const { close } = useGlobalModalContext();
+  const chainId = useAndromedaStore(state => state.chainId);
 
   const uri = useMemo(() => createEmbeddableUrl(config), [config]);
   const handleDownload = () => {
@@ -42,7 +44,7 @@ const EmbeddableModal: FC<EmbeddableModalProps> = ({ config, eKey }) => {
       </Text>
       <Box bg='background.800' rounded='lg' p='4' my='4'>
         <Text>
-          {SITE_LINKS.embeddablePreview(uri)}
+          {SITE_LINKS.embeddablePreview(chainId, uri)}
         </Text>
       </Box>
 
@@ -55,7 +57,7 @@ const EmbeddableModal: FC<EmbeddableModalProps> = ({ config, eKey }) => {
         </Button>
         <Button
           as='a'
-          href={SITE_LINKS.embeddablePreview(uri)}
+          href={SITE_LINKS.embeddablePreview(chainId, uri)}
           target="_blank"
           colorScheme="primary"
           variant="solid"

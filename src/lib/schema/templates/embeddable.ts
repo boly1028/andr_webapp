@@ -54,7 +54,6 @@ export const EMBEDDABLE_TEMPLATES: (ITemplate & { preview?: string })[] = [
         modules: [
             { 'path': 'embeddables/latest/auction' },
         ],
-        preview: SITE_LINKS.embeddablePreview('auction')
     },
     {
         id: 'marketplace',
