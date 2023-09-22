@@ -8,16 +8,16 @@ interface InlineStatProps {
 }
 
 const InlineStat: FC<InlineStatProps> = ({ label, value, reverse = false }) => {
-  const labelComponent = <Text color="dark.500" fontWeight='light' textStyle='light' fontSize='xs'>{label}</Text>;
+  const labelComponent = <Text color="content.medium" textStyle="main-xs-regular">{label}</Text>;
   const valueComponent = (
-    <Text color="base.white" fontWeight='medium'>
+    <Text color='content.high' textStyle="main-sm-medium" mt='1'>
       {value}
     </Text>
   );
 
   if (reverse) {
     return (
-      <Box fontSize="sm">
+      <Box>
         {valueComponent}
         {labelComponent}
       </Box>

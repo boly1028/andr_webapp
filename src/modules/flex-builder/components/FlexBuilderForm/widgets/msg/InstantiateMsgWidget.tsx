@@ -13,6 +13,7 @@ import { FC, useState } from "react";
 import Base from "./Base";
 import { useAndromedaClient } from "@/lib/andrjs";
 import { MASTER_ADOENABLE, MASTER_ALLADO } from "@/lib/schema/utils/masterList";
+import { IImportantAdoKeys } from "@/lib/schema/types";
 
 interface InstantiateMsgWidgetProps extends WidgetProps { }
 export const InstantiateMsgWidget: FC<InstantiateMsgWidgetProps> = (props) => {
@@ -60,7 +61,7 @@ export const InstantiateMsgWidget: FC<InstantiateMsgWidgetProps> = (props) => {
               </MenuItem>
               <MenuItem
                 onClick={() => {
-                  setCurrentSchema('json')
+                  setCurrentSchema(IImportantAdoKeys.JSON_SCHEMA.path)
                 }}
               >
                 JSON

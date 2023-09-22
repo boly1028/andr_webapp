@@ -3,18 +3,15 @@ import { EmbViewPageIcon } from '@/modules/common';
 import { Flex, Icon, IconButton, HStack, Text, Button, Skeleton, Stack, SkeletonText, Link } from '@chakra-ui/react';
 import { MoreHorizontal } from 'lucide-react';
 import { IEmbeddableConfig } from '@/lib/schema/types/embeddables';
-import { createEmbeddableUrl } from '@/lib/schema/utils/embeddables';
 import { SITE_LINKS } from '@/modules/common/utils/sitelinks';
-import { useGetEmbeddableApp } from '../../hooks/useGetEmbeddableApp';
+import { useAndromedaStore } from '@/zustand/andromeda';
 interface ViewHeaderProps {
     loading: boolean;
     data: IEmbeddableConfig | undefined;
 }
 const ViewHeader: FC<ViewHeaderProps> = (props) => {
     const { data, loading } = props;
-    const { embeddable } = useGetEmbeddableApp();
-    const previewLink = SITE_LINKS.embeddablePreview(`${embeddable?.address}--${data?.key}`);
-
+    const previewLink = SITE_LINKS.embeddablePublished(data?.chainId ?? '', data?.key ?? '');
 
     return (
         <Flex justifyContent={'space-between'} alignItems='center'>

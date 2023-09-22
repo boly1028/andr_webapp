@@ -4,19 +4,17 @@ import { FlexBuilderForm } from "@/modules/flex-builder";
 import { Box } from "@/theme/ui-elements";
 import { FilePlusIcon, Layout, PageHeader } from "@/modules/common";
 import { useRouter } from "next/router";
-import { IAndromedaFormData, IImportantAdoKeys, ITemplate } from "@/lib/schema/types";
+import { IImportantAdoKeys, ITemplate } from "@/lib/schema/types";
 import { useEffect, useMemo, useState } from "react";
 import { HStack, IconButton, Input, Tooltip, useToast } from "@chakra-ui/react";
 import { parseJsonFromFile } from "@/lib/json";
 import { parseFlexFile } from "@/lib/schema/utils/flexFile";
 import { FlexBuilderFormProps } from "@/modules/flex-builder/components/FlexBuilderForm";
-import { EXECUTE_CLI_QUERY } from "@/lib/andrjs";
 import { ITemplateFormData } from "@/lib/schema/templates/types";
 import { getEmbeddableTemplateById } from "@/lib/schema/utils/embeddables";
 import { IEmbeddableConfig } from "@/lib/schema/types/embeddables";
 import { constructMsg } from "@/modules/sdk/utils";
 import useEmbeddableModal from "@/modules/modals/hooks/useEmbeddableModal";
-import { useGetEmbeddableApp } from "@/modules/embeddables/hooks/useGetEmbeddableApp";
 import { useGetEmbeddabeleConfig } from "@/modules/embeddables/hooks/useGetEmbeddableConfig";
 import { cloneDeep } from "@apollo/client/utilities";
 
@@ -28,8 +26,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
   const [modifiedTemplate, setModifiedTemplate] = useState(template);
   const router = useRouter();
   const eKey = router.query.key as string;
-  const { app, loading, embeddable } = useGetEmbeddableApp()
-  const { config } = useGetEmbeddabeleConfig(embeddable?.address ?? '', eKey);
+  const { config, loading } = useGetEmbeddabeleConfig(eKey);
 
   useEffect(() => {
     if (!config) return;
@@ -175,7 +172,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
           key={UPDATE_KEY}
           template={modifiedTemplate}
           onSubmit={handleSubmit}
-          notReady={!embeddable}
+          notReady={loading}
           addButtonTitle="Add Collection"
           hideOpenInAppBuilder
         />

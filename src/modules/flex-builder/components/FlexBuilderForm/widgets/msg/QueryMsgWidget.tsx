@@ -6,7 +6,7 @@
 
 import { useGetSchemaJson } from "@/lib/schema/hooks";
 import { useGetSchemaADOP } from "@/lib/schema/hooks/useGetSchemaADOP";
-import { IAdoType } from "@/lib/schema/types";
+import { IAdoType, IImportantAdoKeys } from "@/lib/schema/types";
 import { ALL_ADOS, BASE_ADOS, MODULES } from "@/lib/schema/utils/list";
 import { ChevronDownIcon } from "@/modules/common";
 import { WidgetProps } from "@andromedarjsf/utils";
@@ -65,7 +65,7 @@ export const QueryMsgWidget: FC<QueryMsgWidgetProps> = (props) => {
               <MenuItem
                 onClick={() => {
                   setCurrentBaseAdo("Json" as any)
-                  setCurrentSchema('json')
+                  setCurrentSchema(IImportantAdoKeys.JSON_SCHEMA.path)
                 }}
               >
                 JSON

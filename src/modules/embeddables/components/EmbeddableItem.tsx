@@ -1,9 +1,8 @@
 import {
-    Box, Button, Flex, Grid, Heading, HStack, Icon, IconButton, Input, InputGroup, InputLeftElement, Link, Menu, MenuButton, MenuItem, MenuList, Select,
+    Box, Flex, HStack, Icon, IconButton, Menu, MenuButton, MenuItem, MenuList,
     Image,
     VStack,
     Text,
-    TagCloseButton,
     TagLabel,
     Tag,
     Skeleton,
@@ -18,16 +17,19 @@ import NextLink from "next/link";
 import { useGetEmbeddabeleConfig } from "../hooks/useGetEmbeddableConfig";
 import { EmbPublishIcon, ChainJunoIcon } from '@/modules/common';
 import { MoreHorizontal } from "lucide-react";
+import { useQueryChainConfig } from "@/lib/graphql/hooks/chain/useChainConfig";
+import { useDeleteEmbeddable } from "../hooks/useDeleteEmbeddable";
 
 interface Props {
-    address: string;
-    eKey: string;
+    ekey: string;
 }
 const EmbeddableItem: FC<Props> = (props) => {
-    const { address, eKey } = props;
-    const { config: EmbeddableItem, loading } = useGetEmbeddabeleConfig(address, eKey);
-    
-    // if (!EmbeddableItem) return null;
+    const { ekey } = props;
+    const { config, loading } = useGetEmbeddabeleConfig(ekey);
+
+    const { data: chainConfig } = useQueryChainConfig(config?.chainId ?? '');
+
+    const deleteKey = useDeleteEmbeddable();
 
     return <>
         {loading && (
@@ -36,79 +38,71 @@ const EmbeddableItem: FC<Props> = (props) => {
                 <Skeleton h="20" rounded="lg" />
             </Stack>
         )}
-        {EmbeddableItem &&
-            <Flex gap='16px' w='full' direction={'column'}>
-                {
-                    <Flex
-                        align="start"
-                        gap="2"
-                        className={styles.container}
-                        bgColor='rgba(255, 255, 255, 0.05)'
-                        justifyContent={'space-between'}
-                        p='16px'
-                        borderRadius={'12px'}
-                        key={eKey}
-                    >
-                        <HStack alignItems={'flex-start'} gap='16px' pr='50px' w='360px'>
-                            <Image alt='' src={'embeddable/embLandingPage.png'} />
-                            <VStack alignItems={'flex-start'} justifyContent='center'>
-                                <Text fontSize={'16px'} fontWeight='500'>{EmbeddableItem.name}</Text>
-                                <Tag
-                                    borderRadius='24px'
-                                    variant='solid'
-                                    colorScheme='green'
-                                    gap='8px'
-                                >
-                                    <Icon as={EmbPublishIcon} w='6px' h='6px' />
-                                    <TagLabel fontSize={'12px'}>{'Published'}</TagLabel>
-                                </Tag>
-                            </VStack>
-                        </HStack>
-                        <Box>
-                            <InlineStat label="Type" value={EmbeddableItem.$type} />
-                        </Box>
-                        <Box>
-                            <InlineStat label="Created Date" value={'--'} />
-                        </Box>
-                        <Box>
-                            <InlineStat label="Modified Date" value={'--'} />
-                        </Box>
-                        <Box>
-                            <Text color="dark.500" fontWeight='light' textStyle='light' fontSize='xs'>{'Chain'}</Text>
-                            <HStack>
-                                <Icon as={ChainJunoIcon} />
-                                <Text color="base.white" fontWeight='medium'>{EmbeddableItem.chainId}</Text>\
-                            </HStack>
-                        </Box>
-                        <Menu placement="bottom-end">
-                            <MenuButton
-                                as={IconButton}
-                                icon={<Icon as={MoreHorizontal} boxSize={5} />}
-                                variant="link"
-                                px="0"
-                                minW="0"
-                            />
-                            <MenuList>
-                                <NextLink href={SITE_LINKS.embeddablesView(eKey)} passHref legacyBehavior>
-                                    <MenuItem>
-                                        View
-                                    </MenuItem>
-                                </NextLink>
-                                <NextLink
-                                    href={SITE_LINKS.embeddablesUpdate(EmbeddableItem.$type, eKey)}
-                                    passHref
-                                    legacyBehavior>
-                                    <MenuItem>
-                                        Update
-                                    </MenuItem>
-                                </NextLink>
-                                <MenuItem>
-                                    Delete
-                                </MenuItem>
-                            </MenuList>
-                        </Menu>
-                    </Flex>
-                }
+        {config &&
+            <Flex
+                align="start"
+                gap="2"
+                className={styles.container}
+                bgColor='rgba(255, 255, 255, 0.05)'
+                justifyContent={'space-between'}
+                p='16px'
+                borderRadius={'12px'}
+            >
+                <HStack alignItems={'flex-start'} gap='16px' pr='50px' flex={1}>
+                    <Image
+                        src={chainConfig?.iconUrls.sm}
+                        alignSelf="center"
+                    />
+                    <VStack alignItems={'flex-start'} justifyContent='center' spacing={0}>
+                        <Text textStyle="main-md-medium">{config.name}</Text>
+                        <Tag
+                            borderRadius='24px'
+                            variant='solid'
+                            colorScheme='green'
+                            gap='8px'
+                            mt='2'
+                        >
+                            <Icon as={EmbPublishIcon} w='6px' h='6px' />
+                            <TagLabel fontSize={'12px'}>{config.key}</TagLabel>
+                        </Tag>
+                    </VStack>
+                </HStack>
+                <Box w='16'>
+                    <InlineStat label="Type" value={config.$type.toUpperCase()} />
+                </Box>
+                <Box flex={1}>
+                    <InlineStat label="Created Date" value={config.createdDate ?? '-'} />
+                </Box>
+                <Box flex={1}>
+                    <InlineStat label="Modified Date" value={config.modifiedDate ?? '-'} />
+                </Box>
+                <Menu placement="bottom-end">
+                    <MenuButton
+                        as={IconButton}
+                        icon={<Icon as={MoreHorizontal} boxSize={5} />}
+                        variant="link"
+                        px="0"
+                        minW="0"
+                    />
+                    <MenuList>
+                        <NextLink href={SITE_LINKS.embeddablesView(ekey)} passHref legacyBehavior>
+                            <MenuItem>
+                                View
+                            </MenuItem>
+                        </NextLink>
+                        <NextLink
+                            href={SITE_LINKS.embeddablesUpdate(config.$type, ekey)}
+                            passHref
+                            legacyBehavior>
+                            <MenuItem>
+                                Update
+                            </MenuItem>
+                        </NextLink>
+                        <MenuItem onClick={() => deleteKey(config.key)}>
+                            Delete
+                        </MenuItem>
+                    </MenuList>
+                </Menu>
             </Flex>
         }
     </>;

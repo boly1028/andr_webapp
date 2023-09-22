@@ -7,30 +7,28 @@ import { ChevronDownIcon } from '@/modules/common';
 import { Flex, Button, MenuList, MenuItem, Box, Menu, Link as ChakraLink } from '@chakra-ui/react'
 import React, { FC } from 'react'
 import InlineStat from '../InlineStat'
-import NextLink from "next/link";
 import { useDisclosure } from "@chakra-ui/hooks";
 import { SITE_LINKS } from '@/modules/common/utils/sitelinks'
-import { IEmbeddableCollection } from '@/lib/schema/types/embeddables'
-import { useGetEmbeddableApp } from '../../hooks/useGetEmbeddableApp'
+import { IEmbeddableCollection, IEmbeddableConfig } from '@/lib/schema/types/embeddables'
 import { MASTER_ADOENABLE } from '@/lib/schema/utils/masterList'
 
 
 interface TableProps {
     item: IEmbeddableCollection;
     eKey: string;
+    config: IEmbeddableConfig;
 }
-const Table: FC<TableProps> = ({ item, eKey }) => {
+const Table: FC<TableProps> = ({ item, eKey, config }) => {
     const { getButtonProps, getDisclosureProps, isOpen } = useDisclosure();
     const buttonProps = getButtonProps();
     const disclosureProps = getDisclosureProps();
-    const { embeddable } = useGetEmbeddableApp();
 
-    const previewLink = SITE_LINKS.embeddablePreviewCollection(item.id, `${embeddable?.address}--${eKey}`);
+    const previewLink = SITE_LINKS.embeddablePublishedCollection(config.chainId, eKey, item.id);
 
     return (
         <Flex
             border="1px solid"
-            borderColor="dark.300"
+            borderColor="border.main"
             p={5}
             borderRadius="lg"
             mb={4}

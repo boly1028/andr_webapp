@@ -3,34 +3,33 @@ import { Box, Flex, Grid, Heading, HStack, Input, InputGroup, InputLeftElement, 
 import React, { FC, useEffect, useState } from "react"
 import { useGetEmbeddableKeys } from "../hooks/useGetEmbeddables";
 import EmbeddableItem from "./EmbeddableItem";
-// import Link from "next/link";
-// import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
+import { useAccount } from "@/lib/andrjs/hooks/useAccount";
 
 interface Props {
-    address: string;
 }
 
 const EmbeddableList: FC<Props> = (props) => {
-    const { address } = props;
-    const { keys, loading } = useGetEmbeddableKeys(address);
-
+    const { } = props;
     const [searchInput, setSearchInput] = useState('');
+    const account = useAccount()
+    const { keys, loading } = useGetEmbeddableKeys(account?.address ?? '');
+
     const [sortType, setSortType] = useState('');
-    const [keyList, setkeyList] = useState(keys);
+    const [keyList, setkeyList] = useState(keys ?? []);
 
     useEffect(() => {
         if (searchInput) {
-            const list = keys.filter((item) => item.includes(searchInput));
+            const list = keys?.filter((item) => item.includes(searchInput)) ?? [];
             setkeyList(list);
         } else {
-            setkeyList(keys);
+            setkeyList(keys ?? []);
         }
     }, [searchInput]);
 
     useEffect(() => {
-        setkeyList(keys);
+        setkeyList(keys ?? []);
     }, [keys]);
-    
+
     return (
         <Box py='48px'>
             <VStack spacing={4} w='full' alignItems={'flex-start'}>
@@ -61,22 +60,13 @@ const EmbeddableList: FC<Props> = (props) => {
                             <Skeleton h="20" rounded="lg" />
                         </Stack>
                     )}
-                    {keyList.map(eKey => (
+                    {keyList.map(key => (
                         <EmbeddableItem
-                            key={eKey + EmbeddableList}
-                            address={address}
-                            eKey={eKey}
+                            key={key}
+                            ekey={key}
                         />
                     ))}
                 </Flex>
-                {/* <Link href={SITE_LINKS.embeddablesBuild('nft')}>
-                    <Button
-                        colorScheme="primary"
-                        w='full'
-                    >
-                        Create New NFT Embeddable
-                    </Button>
-                </Link> */}
             </VStack>
         </Box>
     )

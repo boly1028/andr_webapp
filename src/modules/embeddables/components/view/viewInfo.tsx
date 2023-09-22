@@ -6,7 +6,6 @@ import { ExternalLinkIcon } from '@chakra-ui/icons';
 import styles from './view.module.css';
 import { IEmbeddableConfig } from '@/lib/schema/types/embeddables';
 import { SITE_LINKS } from '@/modules/common/utils/sitelinks';
-import { useGetEmbeddableApp } from '../../hooks/useGetEmbeddableApp';
 import { useAccount } from '@/lib/andrjs/hooks/useAccount';
 
 interface ViewHeaderProps {
@@ -18,8 +17,7 @@ const ViewInfo: FC<ViewHeaderProps> = ({ data, loading }) => {
     const account = useAccount();
     const address = account?.address ?? "";
 
-    const { embeddable } = useGetEmbeddableApp();
-    const previewLink = SITE_LINKS.embeddablePreview(`${embeddable?.address}--${data?.key}`);
+    const previewLink = SITE_LINKS.embeddablePublished(data?.chainId ?? '', data?.key ?? '');
 
     return (
         <Flex gap='24px' w='full'>
@@ -92,7 +90,7 @@ const ViewInfo: FC<ViewHeaderProps> = ({ data, loading }) => {
                                 href={previewLink}
                                 isExternal>
                                 <Text fontWeight='500' fontSize='14px' color='rgba(129, 162, 255, 1)'>
-                                    {SITE_LINKS.embeddablePreview("").split('?')[0]} <ExternalLinkIcon w='20px' h='20px' />
+                                    {previewLink.split('?')[0]} <ExternalLinkIcon w='20px' h='20px' />
                                 </Text>
                             </Link>
                         </VStack>

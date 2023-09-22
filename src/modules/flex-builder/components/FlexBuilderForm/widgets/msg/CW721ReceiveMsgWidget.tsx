@@ -5,7 +5,7 @@
  */
 import { useGetSchemaJson } from "@/lib/schema/hooks";
 import { useGetSchemaADOP } from "@/lib/schema/hooks/useGetSchemaADOP";
-import { IAdoType } from "@/lib/schema/types";
+import { IAdoType, IImportantAdoKeys } from "@/lib/schema/types";
 import { BASE_ADOS, MODULES, RECEIVES } from "@/lib/schema/utils/list";
 import { ChevronDownIcon } from "@/modules/common";
 import { WidgetProps } from "@andromedarjsf/utils";
@@ -65,7 +65,7 @@ export const Cw721ReceiveMsgWidget: FC<Cw721ReceiveMsgWidgetProps> = (props) => 
                     ado: "" as any,
                     "label": "JSON"
                   })
-                  setCurrentSchema('json')
+                  setCurrentSchema(IImportantAdoKeys.JSON_SCHEMA.path)
                 }}
               >
                 JSON

@@ -4,7 +4,7 @@
  * and add it to original schema field (debounce is used to boost performance)
  */
 import { useGetSchemaJson } from "@/lib/schema/hooks";
-import { IAdoType } from "@/lib/schema/types";
+import { IAdoType, IImportantAdoKeys } from "@/lib/schema/types";
 import { ChevronDownIcon } from "@/modules/common";
 import { WidgetProps } from "@andromedarjsf/utils";
 import { Button, Flex, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
@@ -67,7 +67,7 @@ export const BinaryMsgWidget: FC<BinaryMsgWidgetProps> = (props) => {
                                         ado: "" as any,
                                         "label": "JSON"
                                     })
-                                    setCurrentSchema('json')
+                                    setCurrentSchema(IImportantAdoKeys.JSON_SCHEMA.path)
                                 }}
                             >
                                 JSON

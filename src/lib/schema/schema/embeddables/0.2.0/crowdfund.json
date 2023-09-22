@@ -1,21 +1,22 @@
 {
     "schema": {
-        "$id": "embeddables-auction",
+        "$id": "embeddables-crowdfund",
         "$schema": "http://json-schema.org/draft-07/schema#",
         "class": "embeddable",
+        "version": "0.2.0",
         "classifier": "",
-        "title": "Auction Embeddable",
+        "title": "Crowdfund Embeddable",
         "description": "Publishing configurations to publish the ADO as an App",
         "type": "object",
         "required": [
-            "auction",
+            "crowdfund",
             "cw721",
             "name"
         ],
         "properties": {
-            "auction": {
+            "crowdfund": {
                 "type": "string",
-                "title": "Auction Address",
+                "title": "Crowdfund Address",
                 "description": "The desired name of the app."
             },
             "cw721": {

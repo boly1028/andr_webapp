@@ -1,21 +1,22 @@
 {
     "schema": {
-        "$id": "embeddables-marketplace",
+        "$id": "embeddables-auction",
         "$schema": "http://json-schema.org/draft-07/schema#",
         "class": "embeddable",
+        "version": "0.2.0",
         "classifier": "",
-        "title": "Markeplace Embeddable",
+        "title": "Auction Embeddable",
         "description": "Publishing configurations to publish the ADO as an App",
         "type": "object",
         "required": [
-            "marketplace",
+            "auction",
             "cw721",
             "name"
         ],
         "properties": {
-            "marketplace": {
+            "auction": {
                 "type": "string",
-                "title": "Marketplace Address",
+                "title": "Auction Address",
                 "description": "The desired name of the app."
             },
             "cw721": {
