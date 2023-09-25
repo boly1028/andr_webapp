@@ -8,10 +8,12 @@ import {
   Badge,
   Box,
   Button,
+  ButtonGroup,
   Divider,
   Flex,
   GridItem,
   HStack,
+  Icon,
   Image,
   SimpleGrid,
   Text,
@@ -20,6 +22,7 @@ import {
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { FC, ReactNode } from "react";
+import RelatedResources from "./RelatedResources";
 
 interface AppStoreItemPageProps {
   template: ITemplate;
@@ -31,43 +34,40 @@ const AppStoreItemPage: FC<AppStoreItemPageProps> = (props) => {
       <Flex direction="row" gap="10" alignItems="start">
         <Flex direction="column" w="full" gap="6">
           <HStack spacing={4}>
-            <Image src={template.icon} w="12" />
-            <Text fontWeight="bold" fontSize="2xl">
+            <Image src={template.icon} w="10" />
+            <Text textStyle="main-2xl-medium">
               {template.name}
             </Text>
           </HStack>
-          <Text fontWeight="light" fontSize="sm" color="dark.500">
+          <Text textStyle="main-sm-regular" color="content.medium">
             {template.description}
           </Text>
 
           <Box maxW="xs">
             {template.installed ? (
-              <HStack>
-                <Link href={SITE_LINKS.flexBuilder(template.id)} legacyBehavior>
-                  <Button w="full" size="lg" colorScheme="primary">
-                    Open in ADO Builder
-                  </Button>
-                </Link>
-                <Link href={SITE_LINKS.appBuilder(template.id)} legacyBehavior>
-                  <Button w="full" size="lg" colorScheme="primary">
-                    Open in App Builder
-                  </Button>
-                </Link>
-              </HStack>
+              <ButtonGroup size='sm' variant="theme-low">
+                <Button as={Link} href={SITE_LINKS.flexBuilder(template.id)}>
+                  Open in ADO Builder
+                </Button>
+                <Button as={Link} href={SITE_LINKS.appBuilder(template.id)}>
+                  Open in App Builder
+                </Button>
+              </ButtonGroup>
             ) : (
-              <Button w="full" size="lg" colorScheme="primary">
+              <Button size='sm' variant="theme-low">
                 Get this template
               </Button>
             )}
           </Box>
-          <Image mt="6" src="/app-store/placeholder-related.png" w="full" />
-          <Image mt="6" src="/app-store/placeholder-developers.png" w="full" />
+          <RelatedResources template={template} mt='6' />
+          {/* <Image mt="6" src="/app-store/placeholder-related.png" w="full" /> */}
+          {/* <Image mt="6" src="/app-store/placeholder-developers.png" w="full" /> */}
         </Flex>
         <Flex
           w="full"
           maxW="xs"
           border="1px"
-          borderColor="dark.300"
+          borderColor="border.main"
           rounded="xl"
           p="6"
           gap="6"
@@ -102,11 +102,10 @@ const AppStoreItemPage: FC<AppStoreItemPageProps> = (props) => {
                 <Flex gap="2" wrap="wrap">
                   {CATEGORIES.map((cat) => (
                     <Badge
-                      px="4"
+                      px="3"
                       textTransform="capitalize"
-                      fontWeight="medium"
-                      fontSize="sm"
-                      py="2"
+                      textStyle="main-md-regular"
+                      py="1"
                       rounded="full"
                       key={cat}
                     >
@@ -121,11 +120,10 @@ const AppStoreItemPage: FC<AppStoreItemPageProps> = (props) => {
                 <Flex gap="2" wrap="wrap">
                   {USE_CASES.map((cat) => (
                     <Badge
-                      px="4"
+                      px="3"
                       textTransform="capitalize"
-                      fontWeight="medium"
-                      fontSize="sm"
-                      py="2"
+                      textStyle="main-md-regular"
+                      py="1"
                       rounded="full"
                       key={cat}
                     >
@@ -150,8 +148,8 @@ const AppStoreItemPage: FC<AppStoreItemPageProps> = (props) => {
           <Divider color="dark.300" />
           <Text color="base.white">Components used in this app</Text>
           <VStack alignItems="start" spacing={4}>
-            {template.ados.map((ado) => (
-              <AdoItem key={ado.id} path={ado.path} />
+            {Array.from(new Set([...template.ados, ...template.modules ?? []].map(a => a.path))).map((path) => (
+              <AdoItem key={path} path={path} />
             ))}
           </VStack>
         </Flex>
@@ -168,8 +166,8 @@ const InfoItem: FC<InfoItemProps> = (props) => {
   const { title, children } = props;
 
   return (
-    <VStack spacing={1} alignItems="start" fontSize="md">
-      <Text color="dark.500" fontWeight="light">
+    <VStack spacing={1} alignItems="start" textStyle="main-sm-regular">
+      <Text textStyle="main-xs-regular" color="content.medium" >
         {title}
       </Text>
       <Box fontWeight="medium">{children}</Box>
@@ -191,8 +189,9 @@ const AdoItem: FC<AdoItemProps> = (props) => {
   return (
     <Box>
       <HStack spacing={4}>
-        <ClassifierIcon adoType={ado?.schema?.$id ?? ""} />
-        <Text>{ado?.schema?.title}</Text>
+        <ClassifierIcon adoType={ado?.schema?.$id ?? ""} boxSize={4} />
+        <Text textStyle="main-md-medium">{ado?.schema?.title}</Text>
+        <Text textStyle="main-xs-regular" color='content.low'>v{ado?.schema?.version}</Text>
       </HStack>
     </Box>
   );
