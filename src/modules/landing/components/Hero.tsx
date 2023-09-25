@@ -17,13 +17,13 @@ const LandingHero: FC<LandingHeroProps> = () => {
     >
       <AndromedaIcon boxSize="28" opacity={1} />
       <VStack textAlign="center" maxW="lg">
-        <Text fontSize="3xl" fontWeight="bold">
+        <Text textStyle="main-3xl-bold">
           Welcome to Andromeda
         </Text>
 
       </VStack>
       <VStack mt="12" spacing="6" w='full'>
-        <Text fontWeight="light" color="gray.400" textTransform="uppercase">
+        <Text textStyle="main-md-regular" color='content.medium' textTransform="uppercase">
           Recommended links for you
         </Text>
         <SimpleGrid columns={3} w="full" gap="6" alignSelf='center' maxW='container.lg'>

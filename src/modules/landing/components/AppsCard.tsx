@@ -23,9 +23,9 @@ const AppsCard: FC<AppsCardProps> = ({ icon, link, title, target }) => {
         rounded={"xl"}
         overflow={"hidden"}
         textAlign="center"
-        bg="dark.100"
-        color="base.white"
-        _hover={{ color: "gray.700", bg: "base.white" }}
+        bg="background.800"
+        color="content.high"
+        _hover={{ color: "contentOnLight.hight", bg: "base.light" }}
       >
         <VStack spacing="6">
           <Box>{icon}</Box>
