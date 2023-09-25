@@ -1,12 +1,14 @@
 import { IEmbeddableConfig } from "@/lib/schema/types/embeddables";
 import { useCreateEmbeddable } from "@/modules/embeddables/hooks/useCreateEmbeddable";
-import { Box, Button, HStack, Input } from "@chakra-ui/react";
+import { Alert, AlertDescription, AlertIcon, Box, Button, HStack, Input, Text, VStack } from "@chakra-ui/react";
 import React, { FC, useState } from "react"
 
 interface Props {
     eKey?: string;
     data: IEmbeddableConfig;
 }
+
+const KEY_PATTERN = /^[A-Za-z0-9\-]{6,40}$/;
 
 const EmbeddabePublish: FC<Props> = (props) => {
     const { eKey, data } = props;
@@ -19,7 +21,26 @@ const EmbeddabePublish: FC<Props> = (props) => {
     }
 
     return (
-        <Box>
+        <VStack alignItems="stretch">
+            {eKey && (
+                <Alert
+                    status='warning'
+                    variant='theme-warning'
+                    fontSize="xs"
+                    my='2'
+                    mx='auto'
+                    py='1.5'
+                >
+                    <AlertIcon />
+                    <AlertDescription
+                        listStylePos="inside"
+                        textStyle='main-xs-regular'
+                        lineHeight={1.4}
+                    >
+                        Embeddable is already published at <b>{eKey}</b>. Publishing again will update existing deployment
+                    </AlertDescription>
+                </Alert>
+            )}
             <HStack>
                 <Input
                     value={name}
@@ -27,15 +48,18 @@ const EmbeddabePublish: FC<Props> = (props) => {
                         const val = e.target.value;
                         setName(val);
                     }}
+                    placeholder="embeddable-id"
                 />
                 <Button
                     onClick={publish}
-                    isDisabled={name.length < 6}
+                    isDisabled={name.length < 6 || !KEY_PATTERN.test(name)}
+                    variant="theme-primary"
                 >
                     Publish
                 </Button>
             </HStack>
-        </Box>
+            <Text textStyle="main-xs-regular" color='content.low'>Id should be alphanumeric and should be 6-40 letters</Text>
+        </VStack>
     )
 }
 

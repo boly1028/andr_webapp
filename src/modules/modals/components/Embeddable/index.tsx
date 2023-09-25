@@ -2,6 +2,7 @@ import { cloneDeep } from "@apollo/client/utilities";
 import {
   Box,
   Button,
+  ButtonGroup,
   Checkbox,
   Divider,
   HStack,
@@ -32,40 +33,38 @@ const EmbeddableModal: FC<EmbeddableModalProps> = ({ config, eKey }) => {
 
   return (
     <Box>
-      <Text fontWeight="bold" fontSize="lg">
+      <Text fontWeight="bold" fontSize="lg" mb='4'>
         EMBEDDABLE
       </Text>
       <EmbeddabePublish
         data={config}
         eKey={eKey}
       />
-      <Text fontSize="xs" textStyle="light" color="dark.500" mt="2">
+      {/* <Text fontSize="xs" textStyle="light" color="dark.500" mt="2">
         Here&apos;s a preview for your embeddable
-      </Text>
-      <Box bg='background.800' rounded='lg' p='4' my='4'>
+      </Text> */}
+      {/* <Box bg='background.800' rounded='lg' p='4' my='4'>
         <Text>
           {SITE_LINKS.embeddablePreview(chainId, uri)}
         </Text>
-      </Box>
-
-      <HStack justifyContent="end" mt="2">
-        <Button onClick={close} variant="outline">
+      </Box> */}
+      <ButtonGroup size='sm' mt='6' justifyContent="end" w='full'>
+        <Button onClick={close} variant='theme-outline'>
           Cancel
         </Button>
-        <Button onClick={handleDownload} variant="outline">
+        <Button onClick={handleDownload} variant="theme-outline">
           Download
         </Button>
         <Button
           as='a'
           href={SITE_LINKS.embeddablePreview(chainId, uri)}
           target="_blank"
-          colorScheme="primary"
-          variant="solid"
+          variant="theme-low"
         >
-          Open Link
+          Open Preview
         </Button>
-      </HStack>
-    </Box>
+      </ButtonGroup>
+    </Box >
   );
 };
 

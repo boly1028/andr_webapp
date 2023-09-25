@@ -34,12 +34,12 @@ export const SITE_LINKS = {
     embeddablesUpdate: (id: string, key: string) => `/embeddables/builder/${id}?key=${key}`,
     embeddablesView: (id: string) => `/embeddables/view/${id}`,
     // Production Level Deployment
-    embeddablePreview: (chainId: string, configUri: string) => `https://andromeda-embeddable-develop.vercel.app?chain=${chainId}&config=${configUri}`,
+    embeddablePreview: (chainId: string, configUri: string) => `https://andromeda-embeddable-develop.vercel.app/preview?chain=${chainId}&config=${configUri}`,
     embeddablePublished: (chainId: string, eKey: string) => `https://andromeda-embeddable-develop.vercel.app/${chainId}/${eKey}`,
     embeddablePublishedCollection: (chainId: string, eKey: string, collection: string) => `https://andromeda-embeddable-develop.vercel.app/${chainId}/${eKey}/${collection}`,
 
     // Test Level Deployment
-    // embeddablePreview: (chainId: string, configUri: string) => `http://localhost:3001?chain=${chainId}&config=${configUri}`,
+    // embeddablePreview: (chainId: string, configUri: string) => `http://localhost:3001/preview?chain=${chainId}&config=${configUri}`,
     // embeddablePublished: (chainId: string, eKey: string) => `http://localhost:3001/${chainId}/${eKey}`,
     // embeddablePublishedCollection: (chainId: string, eKey: string, collection: string) => `http://localhost:3001/${chainId}/${eKey}/${collection}`,
     externalLearn: () => `https://docs.andromedaprotocol.io/guides/`,
