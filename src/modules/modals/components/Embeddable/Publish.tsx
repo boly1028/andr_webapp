@@ -8,7 +8,7 @@ interface Props {
     data: IEmbeddableConfig;
 }
 
-const KEY_PATTERN = /^[A-Za-z0-9\-]{6,40}$/;
+const KEY_PATTERN = /^[A-Za-z0-9-]{6,40}$/;
 
 const EmbeddabePublish: FC<Props> = (props) => {
     const { eKey, data } = props;
