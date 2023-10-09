@@ -13,6 +13,7 @@ import { MultiTabWidget } from "./multiTab";
 import { BinaryMsgWidget } from "./msg/Binary";
 import AndrAddrWidget from "./AndrAddr";
 import { QueryMsgWidget } from "./msg/QueryMsgWidget";
+import { Cw20ReceiveMsgWidget } from "./msg/CW20ReceiveMsgWidget";
 
 const widgets: RegistryWidgetsType = {
   markdown: MarkdownWidget,
@@ -20,6 +21,7 @@ const widgets: RegistryWidgetsType = {
   instantiateMsg: InstantiateMsgWidget,
   executeMsg: ExecuteMsgWidget,
   cw721ReceiveMsg: Cw721ReceiveMsgWidget,
+  cw20ReceiveMsg: Cw20ReceiveMsgWidget,
   queryMsg: QueryMsgWidget,
   CheckboxWidget: CheckboxWidget,
   dateTime: DatetimeWidget,
