@@ -32,7 +32,7 @@
             "twitter": {
                 "type": "string",
                 "title": "Twitter URL",
-                "description": "Your twitter handle. Must begin with https://."
+                "description": "Twitter url for the Embeddable. Must begin with https://."
             },
             "featured": {
                 "type": "string",
