@@ -1,1 +1,1 @@
-{"modifiers":["add-path","add-parent-path","register-user"],"queries":["resolve-path.query","sub-dir.query","paths.query","get-username.query"],"responses":["get-username.response","paths.response","resolve-path.response","sub-dir.response"],"cw721receives":[]}
+{"modifiers":["add-path","add-parent-path","register-user"],"queries":["resolve-path.query","sub-dir.query","paths.query","get-username.query"],"responses":["get-username.response","paths.response","resolve-path.response","sub-dir.response"],"cw20receives":[],"cw721receives":[]}

@@ -13,6 +13,10 @@ import { Button, Flex, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/r
 import { FC, useState } from "react";
 import Base from "./Base";
 
+
+const CW20_RECEIVES = RECEIVES.filter(r => r.classifier === 'cw20');
+const CW20_RECEIVE_ENABLED_ADO = [...BASE_ADOS, ...MODULES].filter(ado => CW20_RECEIVES.some(rAdo => rAdo.source.split('/')[0] === ado.$id));
+
 interface Cw20ReceiveMsgWidgetProps extends WidgetProps { }
 export const Cw20ReceiveMsgWidget: FC<Cw20ReceiveMsgWidgetProps> = (props) => {
 
@@ -70,7 +74,7 @@ export const Cw20ReceiveMsgWidget: FC<Cw20ReceiveMsgWidgetProps> = (props) => {
               >
                 JSON
               </MenuItem>
-              {[...BASE_ADOS, ...MODULES].filter(ado => RECEIVES.some(rAdo => rAdo.source.split('/')[0] === ado.$id)).map((s) => (
+              {CW20_RECEIVE_ENABLED_ADO.map((s) => (
                 <MenuItem
                   key={s.source}
                   onClick={() => {
@@ -100,7 +104,7 @@ export const Cw20ReceiveMsgWidget: FC<Cw20ReceiveMsgWidgetProps> = (props) => {
                 {/* </CustomMenuButton> */}
               </MenuButton>
               <MenuList maxH="48" overflow="auto">
-                {adops?.cw721receives?.map((s) => (
+                {adops?.cw20receives?.map((s) => (
                   <MenuItem
                     key={s}
                     onClick={() => {

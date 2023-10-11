@@ -44,8 +44,10 @@ export const getADOPFromPath = async (path: string) => {
     path = await resolveVersionInPath(path)
     const adop = await import(`../schema/${path}.json`).then(res => res.default).then(data => cloneDeep(data)) as {
         modifiers: string[],
-        cw721receives: string[],
-        queries: string[]
+        queries: string[],
+        responses: string[],
+        cw721receives?: string[],
+        cw20receives?: string[],
     }
     return adop;
 }

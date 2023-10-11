@@ -13,6 +13,9 @@ import { Button, Flex, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/r
 import { FC, useState } from "react";
 import Base from "./Base";
 
+const CW721_RECEIVES = RECEIVES.filter(r => r.classifier === 'cw721');
+const CW721_RECEIVE_ENABLED_ADO = [...BASE_ADOS, ...MODULES].filter(ado => CW721_RECEIVES.some(rAdo => rAdo.source.split('/')[0] === ado.$id));
+
 interface Cw721ReceiveMsgWidgetProps extends WidgetProps { }
 export const Cw721ReceiveMsgWidget: FC<Cw721ReceiveMsgWidgetProps> = (props) => {
 
@@ -70,7 +73,7 @@ export const Cw721ReceiveMsgWidget: FC<Cw721ReceiveMsgWidgetProps> = (props) => 
               >
                 JSON
               </MenuItem>
-              {[...BASE_ADOS, ...MODULES].filter(ado => RECEIVES.some(rAdo => rAdo.source.split('/')[0] === ado.$id)).map((s) => (
+              {CW721_RECEIVE_ENABLED_ADO.map((s) => (
                 <MenuItem
                   key={s.source}
                   onClick={() => {
