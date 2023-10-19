@@ -1,0 +1,84 @@
+{
+  "schema": {
+    "description": "Starts the sale of the provided asset at the given exchange rate. The sale will run until all tokens are sold or the sale is ended by the owner.",
+    "type": "object",
+    "required": ["StartSale"],
+    "properties": {
+      "StartSale": {
+        "type": "object",
+        "required": ["asset", "exchange_rate"],
+        "properties": {
+          "asset": {
+            "title": "Asset",
+            "description": "The asset type that may be used to purchase tokens.",
+            "allOf": [
+              {
+                "description": "Represents the type of an fungible asset.\n\nEach **asset info** instance can be one of three variants:\n\n- Native SDK coins. To create an **asset info** instance of this type, provide the denomination. - CW20 tokens. To create an **asset info** instance of this type, provide the contract address.",
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "required": ["native"],
+                    "properties": { 
+                      "native": { 
+                        "title": "Native",
+                        "description": "Native fund denomination of the chain.",   
+                        "type": "string" 
+                      }                   
+                    },   
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "object",
+                    "required": ["cw20"],
+                    "properties": {
+                      "cw20": {
+                        "title": "CW20 Address",
+                        "description": "The address of the CW20 token.",
+                        "type": "string",
+                        "$original_type": "Addr"
+                      }
+                    },
+                    "additionalProperties": false
+                  }
+                ],
+                "$original_type": "AssetInfoBase_for_Addr"
+              }
+            ]
+          },
+          "exchange_rate": {
+            "description": "The amount of the above asset required to purchase a single token.",
+            "allOf": [
+              {
+                "description": "",
+                "type": "string",
+                "$original_type": "Uint128"
+              }
+            ],
+            "title": "Exchange Rate"
+          },
+          "recipient": {
+            "description": "The recipient of the sale proceeds. If no recipient is provided the sender is used.",
+            "type": ["string", "null"],
+            "title": "Recipient"
+          }
+        },
+        "additionalProperties": false,
+        "title": "StartSale of CW20"
+      }
+    },
+    "additionalProperties": false,
+    "title": "StartSale",
+    "$id": "StartSale",
+    "class": "receive",
+    "version": "0.2.2",
+    "classifier": "cw20"
+  },
+  "ui-schema": {
+    "StartSale":{
+      "asset": {
+        "ui:options": { "optionNames": ["Native", "CW20"] }        
+      }
+    } 
+  },
+  "form-data": {}
+}
