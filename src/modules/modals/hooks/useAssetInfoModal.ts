@@ -14,6 +14,8 @@ export default function useAssetInfoModal() {
     return open(ModalType.AssetInfo, {
       address,
       adoType
-    }, undefined, AssetInfoModalTitle({adoType}))
+    }, undefined, {
+      title: AssetInfoModalTitle({ adoType })
+    })
   }, [open, AssetInfoModalTitle]);
 }

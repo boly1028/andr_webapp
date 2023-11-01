@@ -6,6 +6,7 @@ import {
   ModalHeader,
   ModalOverlay,
   useDisclosure,
+  ModalProps as ChakraModalProps
 } from "@chakra-ui/react";
 import React, { ReactNode, memo, useCallback, useEffect, useState } from "react";
 import { GlobalModalContext } from "../hooks";
@@ -20,12 +21,14 @@ import WalletModal from "./WalletModal";
 import MultiTransactionModal from "./MultiTransaction";
 import EmbeddableModal from "./Embeddable";
 
-interface ModalState {
+export interface ModalState {
   props?: Omit<ModalProps, "modalType">;
   type: ModalType;
   onClose?: () => Promise<void>;
   children?: ReactNode;
   title?: ReactNode;
+  size?: ChakraModalProps['size'];
+  hideClose?: boolean;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -51,13 +54,13 @@ const GlobalModalProvider: React.FC<{ children?: ReactNode }> = function GlobalM
       type: T["modalType"],
       props?: Omit<T, "modalType">,
       _onClose?: () => Promise<void>,
-      title?: ReactNode
+      options?: Partial<ModalState>
     ) => {
       const state: ModalState = {
         type,
         props,
         onClose: _onClose,
-        title: title
+        ...options
       };
 
       setModalState(state);
@@ -93,7 +96,7 @@ const GlobalModalProvider: React.FC<{ children?: ReactNode }> = function GlobalM
     <GlobalModalContext.Provider
       value={{ isOpen, open, close, error, setError }}
     >
-      <Modal isCentered isOpen={isOpen} onClose={close} size="xl">
+      <Modal isCentered isOpen={isOpen} onClose={close} size={modalState?.size || 'xl'}>
         <ModalOverlay />
         <ModalContent pb='4'>
           {modalState?.title && (
@@ -101,7 +104,9 @@ const GlobalModalProvider: React.FC<{ children?: ReactNode }> = function GlobalM
               {modalState.title}
             </ModalHeader>
           )}
-          <ModalCloseButton />
+          {!modalState?.hideClose && (
+            <ModalCloseButton />
+          )}
           <ModalBody>
             <ModalError>{renderComponent()}</ModalError>
           </ModalBody>

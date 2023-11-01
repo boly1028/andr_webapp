@@ -1,5 +1,6 @@
 import { ReactNode, createContext, useContext } from "react";
 import type { ModalProps } from "../types";
+import { ModalState } from "../components/GlobalModalProvider";
 
 /**
  * Directly Omitting the modal type didn't exported type properly for TransactionModalProps.
@@ -12,7 +13,7 @@ export interface GlobalModalContextProps {
     type: T,
     props?: ExtractModalParameters<ModalProps, T>,
     onClose?: () => Promise<void>,
-    title?: ReactNode
+    options?: Partial<ModalState>
   ) => void;
   close: () => void;
   error?: Error;
