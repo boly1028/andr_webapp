@@ -15,7 +15,8 @@ export const useGetEmbeddableKeys = (searchAddress: string) => {
             return keys;
         },
         enabled: !!client && !!EMBEDDABLE_DB[chainId],
-        refetchOnWindowFocus: false
+        refetchOnWindowFocus: false,
+        refetchOnMount: true
     })
     return {
         keys: keys,

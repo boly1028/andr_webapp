@@ -16,7 +16,7 @@ export const useGetEmbeddabeleConfig = (key: string) => {
             data.chainId = chainId;
             return data;
         },
-        enabled: !!client && !!EMBEDDABLE_DB[chainId] && !!key,
+        enabled: !!client && !!EMBEDDABLE_DB[chainId],
         refetchOnWindowFocus: false
     })
     return {
