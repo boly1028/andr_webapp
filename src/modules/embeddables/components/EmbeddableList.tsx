@@ -1,9 +1,10 @@
 import { SearchIcon } from "@chakra-ui/icons";
-import { Box, Flex, Grid, Heading, HStack, Input, InputGroup, InputLeftElement, Select, Skeleton, Stack, VStack } from "@chakra-ui/react";
+import { Box, Center, Flex, Grid, Heading, HStack, Input, InputGroup, InputLeftElement, Select, Skeleton, Stack, VStack } from "@chakra-ui/react";
 import React, { FC, useEffect, useState } from "react"
 import { useGetEmbeddableKeys } from "../hooks/useGetEmbeddables";
 import EmbeddableItem from "./EmbeddableItem";
 import { useAccount } from "@/lib/andrjs/hooks/useAccount";
+import { FallbackPlaceholder } from "@/modules/common";
 
 interface Props {
 }
