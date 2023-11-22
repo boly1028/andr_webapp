@@ -1,1 +1,27 @@
-{"schema":{"description":"Places a bid on the current auction for the given token_id. The previous largest bid gets automatically sent back to the bidder when they are outbid.","type":"object","required":["place_bid"],"properties":{"place_bid":{"type":"object","required":["token_address","token_id"],"properties":{"token_address":{"type":"string","title":"Token address"},"token_id":{"type":"string","title":"Token id"}},"additionalProperties":false,"title":"Place bid"}},"additionalProperties":false,"title":"Place bid","$id":"place-bid","class":"modifier","version":"0.2.1","classifier":""},"ui-schema":{},"form-data":{}}
+{
+  "schema": {
+    "description": "Places a bid on the current auction for the given token_id. The previous largest bid gets automatically sent back to the bidder when they are outbid.",
+    "type": "object",
+    "required": ["place_bid"],
+    "properties": {
+      "place_bid": {
+        "type": "object",
+        "required": ["token_address", "token_id"],
+        "properties": {
+          "token_address": { "type": "string", "title": "Token address" },
+          "token_id": { "type": "string", "title": "Token id" }
+        },
+        "additionalProperties": false,
+        "title": "Place bid"
+      }
+    },
+    "additionalProperties": false,
+    "title": "Place bid",
+    "$id": "place-bid",
+    "class": "modifier",
+    "version": "0.2.1",
+    "classifier": ""
+  },
+  "ui-schema": {},
+  "form-data": {}
+}

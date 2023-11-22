@@ -1,1 +1,27 @@
-{"schema":{"description":"Gets the auction ids for the given token.","type":"object","required":["auction_ids"],"properties":{"auction_ids":{"type":"object","required":["token_address","token_id"],"properties":{"token_address":{"type":"string","title":"Token address"},"token_id":{"type":"string","title":"Token id"}},"additionalProperties":false,"title":"Auction ids"}},"additionalProperties":false,"title":"Auction ids","$id":"auction-ids","class":"query","version":"0.2.1","classifier":""},"ui-schema":{},"form-data":{}}
+{
+  "schema": {
+    "description": "Gets the auction ids for the given token.",
+    "type": "object",
+    "required": ["auction_ids"],
+    "properties": {
+      "auction_ids": {
+        "type": "object",
+        "required": ["token_address", "token_id"],
+        "properties": {
+          "token_address": { "type": "string", "title": "Token address" },
+          "token_id": { "type": "string", "title": "Token id" }
+        },
+        "additionalProperties": false,
+        "title": "Auction ids"
+      }
+    },
+    "additionalProperties": false,
+    "title": "Auction ids",
+    "$id": "auction-ids",
+    "class": "query",
+    "version": "0.2.1",
+    "classifier": ""
+  },
+  "ui-schema": {},
+  "form-data": {}
+}

@@ -1,1 +1,26 @@
-{"schema":{"type":"object","required":["cancel_auction"],"properties":{"cancel_auction":{"type":"object","required":["token_address","token_id"],"properties":{"token_address":{"type":"string","title":"Token address"},"token_id":{"type":"string","title":"Token id"}},"additionalProperties":false,"title":"Cancel auction"}},"additionalProperties":false,"title":"Cancel auction","$id":"cancel-auction","class":"modifier","version":"0.2.1","classifier":""},"ui-schema":{},"form-data":{}}
+{
+  "schema": {
+    "type": "object",
+    "required": ["cancel_auction"],
+    "properties": {
+      "cancel_auction": {
+        "type": "object",
+        "required": ["token_address", "token_id"],
+        "properties": {
+          "token_address": { "type": "string", "title": "Token address" },
+          "token_id": { "type": "string", "title": "Token id" }
+        },
+        "additionalProperties": false,
+        "title": "Cancel auction"
+      }
+    },
+    "additionalProperties": false,
+    "title": "Cancel auction",
+    "$id": "cancel-auction",
+    "class": "modifier",
+    "version": "0.2.1",
+    "classifier": ""
+  },
+  "ui-schema": {},
+  "form-data": {}
+}
