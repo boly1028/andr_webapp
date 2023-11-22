@@ -1,1 +1,31 @@
-{"schema":{"type":"object","required":["available_tokens"],"properties":{"available_tokens":{"type":"object","properties":{"limit":{"type":["integer","null"],"format":"uint32","minimum":0,"title":"Limit"},"start_after":{"type":["string","null"],"title":"Start after"}},"additionalProperties":false,"title":"Available tokens"}},"additionalProperties":false,"title":"Available tokens","$id":"available-tokens","class":"query","version":"0.2.1","classifier":""},"ui-schema":{},"form-data":{}}
+
+{
+  "schema": {
+    "type": "object",
+    "required": ["available_tokens"],
+    "properties": {
+      "available_tokens": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": ["integer", "null"],
+            "format": "uint32",
+            "minimum": 0,
+            "title": "Limit"
+          },
+          "start_after": { "type": ["string", "null"], "title": "Start after" }
+        },
+        "additionalProperties": false,
+        "title": "Available tokens"
+      }
+    },
+    "additionalProperties": false,
+    "title": "Available tokens",
+    "$id": "available-tokens",
+    "class": "query",
+    "version": "0.2.1",
+    "classifier": ""
+  },
+  "ui-schema": {},
+  "form-data": {}
+}
