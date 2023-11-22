@@ -1,1 +1,21 @@
-{"schema":{"type":"object","required":["minter"],"properties":{"minter":{"type":"object","additionalProperties":false,"title":"Minter"}},"additionalProperties":false,"title":"Minter","$id":"minter","class":"query","version":"0.2.1","classifier":""},"ui-schema":{},"form-data":{}}
+{
+  "schema": {
+    "type": "object",
+    "required": ["minter"],
+    "properties": {
+      "minter": {
+        "type": "object",
+        "additionalProperties": false,
+        "title": "Minter"
+      }
+    },
+    "additionalProperties": false,
+    "title": "Minter",
+    "$id": "minter",
+    "class": "query",
+    "version": "0.2.1",
+    "classifier": ""
+  },
+  "ui-schema": {},
+  "form-data": {}
+}

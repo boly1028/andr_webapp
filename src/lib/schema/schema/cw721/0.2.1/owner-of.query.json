@@ -1,1 +1,30 @@
-{"schema":{"description":"Owner of the given token by ID","type":"object","required":["owner_of"],"properties":{"owner_of":{"type":"object","required":["token_id"],"properties":{"include_expired":{"type":["boolean","null"],"title":"Include expired"},"token_id":{"type":"string","title":"Token id"}},"additionalProperties":false,"title":"Owner of"}},"additionalProperties":false,"title":"Owner of","$id":"owner-of","class":"query","version":"0.2.1","classifier":""},"ui-schema":{},"form-data":{}}
+{
+  "schema": {
+    "description": "Owner of the given token by ID",
+    "type": "object",
+    "required": ["owner_of"],
+    "properties": {
+      "owner_of": {
+        "type": "object",
+        "required": ["token_id"],
+        "properties": {
+          "include_expired": {
+            "type": ["boolean", "null"],
+            "title": "Include expired"
+          },
+          "token_id": { "type": "string", "title": "Token id" }
+        },
+        "additionalProperties": false,
+        "title": "Owner of"
+      }
+    },
+    "additionalProperties": false,
+    "title": "Owner of",
+    "$id": "owner-of",
+    "class": "query",
+    "version": "0.2.1",
+    "classifier": ""
+  },
+  "ui-schema": {},
+  "form-data": {}
+}

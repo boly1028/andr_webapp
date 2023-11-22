@@ -1,1 +1,24 @@
-{"schema":{"description":"Remove previously granted ApproveAll permission","type":"object","required":["revoke_all"],"properties":{"revoke_all":{"type":"object","required":["operator"],"properties":{"operator":{"type":"string","title":"Operator"}},"additionalProperties":false,"title":"Revoke all"}},"additionalProperties":false,"title":"Revoke all","$id":"revoke-all","class":"modifier","version":"0.2.1","classifier":""},"ui-schema":{},"form-data":{}}
+{
+  "schema": {
+    "description": "Remove previously granted ApproveAll permission",
+    "type": "object",
+    "required": ["revoke_all"],
+    "properties": {
+      "revoke_all": {
+        "type": "object",
+        "required": ["operator"],
+        "properties": { "operator": { "type": "string", "title": "Operator" } },
+        "additionalProperties": false,
+        "title": "Revoke all"
+      }
+    },
+    "additionalProperties": false,
+    "title": "Revoke all",
+    "$id": "revoke-all",
+    "class": "modifier",
+    "version": "0.2.1",
+    "classifier": ""
+  },
+  "ui-schema": {},
+  "form-data": {}
+}

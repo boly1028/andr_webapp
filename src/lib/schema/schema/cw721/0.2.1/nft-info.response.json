@@ -1,1 +1,41 @@
-{"schema":{"$schema":"http://json-schema.org/draft-07/schema#","title":"Nft info","type":"object","required":["extension"],"properties":{"extension":{"description":"You can add any custom metadata here when you extend cw721-base","allOf":[{"description":"https://docs.opensea.io/docs/metadata-standards Replicates OpenSea Metadata Standards","type":"object","required":["publisher"],"properties":{"publisher":{"description":"The original publisher of the token","type":"string"}},"additionalProperties":false,"$original_type":"TokenExtension"}],"title":"Extension"},"token_uri":{"description":"Universal resource identifier for this NFT Should point to a JSON file that conforms to the ERC721 Metadata JSON Schema","type":["string","null"],"title":"Token uri"}},"additionalProperties":false,"$id":"nft_info","version":"0.2.1","classifier":"response","class":"response"},"ui-schema":{},"form-data":{}}
+{
+  "schema": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Nft info",
+    "type": "object",
+    "required": ["extension"],
+    "properties": {
+      "extension": {
+        "description": "You can add any custom metadata here when you extend cw721-base",
+        "allOf": [
+          {
+            "description": "https://docs.opensea.io/docs/metadata-standards Replicates OpenSea Metadata Standards",
+            "type": "object",
+            "required": ["publisher"],
+            "properties": {
+              "publisher": {
+                "description": "The original publisher of the token",
+                "type": "string"
+              }
+            },
+            "additionalProperties": false,
+            "$original_type": "TokenExtension"
+          }
+        ],
+        "title": "Extension"
+      },
+      "token_uri": {
+        "description": "Universal resource identifier for this NFT Should point to a JSON file that conforms to the ERC721 Metadata JSON Schema",
+        "type": ["string", "null"],
+        "title": "Token uri"
+      }
+    },
+    "additionalProperties": false,
+    "$id": "nft_info",
+    "version": "0.2.1",
+    "classifier": "response",
+    "class": "response"
+  },
+  "ui-schema": {},
+  "form-data": {}
+}

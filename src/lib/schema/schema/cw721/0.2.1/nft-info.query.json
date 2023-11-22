@@ -1,1 +1,24 @@
-{"schema":{"description":"The data of a token","type":"object","required":["nft_info"],"properties":{"nft_info":{"type":"object","required":["token_id"],"properties":{"token_id":{"type":"string","title":"Token id"}},"additionalProperties":false,"title":"Nft info"}},"additionalProperties":false,"title":"Nft info","$id":"nft-info","class":"query","version":"0.2.1","classifier":""},"ui-schema":{},"form-data":{}}
+{
+  "schema": {
+    "description": "The data of a token",
+    "type": "object",
+    "required": ["nft_info"],
+    "properties": {
+      "nft_info": {
+        "type": "object",
+        "required": ["token_id"],
+        "properties": { "token_id": { "type": "string", "title": "Token id" } },
+        "additionalProperties": false,
+        "title": "Nft info"
+      }
+    },
+    "additionalProperties": false,
+    "title": "Nft info",
+    "$id": "nft-info",
+    "class": "query",
+    "version": "0.2.1",
+    "classifier": ""
+  },
+  "ui-schema": {},
+  "form-data": {}
+}

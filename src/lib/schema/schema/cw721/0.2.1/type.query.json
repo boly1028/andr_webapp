@@ -1,1 +1,21 @@
-{"schema":{"type":"object","required":["type"],"properties":{"type":{"type":"object","additionalProperties":false,"title":"Type"}},"additionalProperties":false,"title":"Type","$id":"type","class":"query","version":"0.2.1","classifier":""},"ui-schema":{},"form-data":{}}
+{
+  "schema": {
+    "type": "object",
+    "required": ["type"],
+    "properties": {
+      "type": {
+        "type": "object",
+        "additionalProperties": false,
+        "title": "Type"
+      }
+    },
+    "additionalProperties": false,
+    "title": "Type",
+    "$id": "type",
+    "class": "query",
+    "version": "0.2.1",
+    "classifier": ""
+  },
+  "ui-schema": {},
+  "form-data": {}
+}
