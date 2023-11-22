@@ -1,1 +1,47 @@
-{"schema":{"$schema":"http://json-schema.org/draft-07/schema#","title":"App contract","type":"object","required":["app_components","kernel_address","name"],"properties":{"app_components":{"type":"array","items":{"type":"object","required":["ado_type","instantiate_msg","name"],"properties":{"ado_type":{"type":"string"},"instantiate_msg":{"description":"Binary is a wrapper around Vec<u8> to add base64 de/serialization with serde. It also adds some helper methods to help encode inline.\n\nThis is only needed as serde-json-{core,wasm} has a horrible encoding for Vec<u8>. See also <https://github.com/CosmWasm/cosmwasm/blob/main/docs/MESSAGE_TYPES.md>.","type":"string","$original_type":"Binary"},"name":{"type":"string"}},"additionalProperties":false,"$original_type":"AppComponent"},"title":"App components"},"kernel_address":{"type":"string","title":"Kernel address","default":""},"name":{"type":"string","title":"Name"},"owner":{"type":["string","null"],"title":"Owner"}},"additionalProperties":false,"$id":"app-contract","version":"0.2.1","classifier":"","class":"baseADO","description":"Publishing configurations to publish the ADO as an App"},"ui-schema":{"ui:order":["*","app_components"],"kernel_address":{"ui:widget":"hidden"}},"form-data":{}}
+{
+  "schema": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "App contract",
+    "type": "object",
+    "required": ["app_components", "kernel_address", "name"],
+    "properties": {
+      "app_components": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": ["ado_type", "instantiate_msg", "name"],
+          "properties": {
+            "ado_type": { "type": "string" },
+            "instantiate_msg": {
+              "description": "Binary is a wrapper around Vec<u8> to add base64 de/serialization with serde. It also adds some helper methods to help encode inline.\n\nThis is only needed as serde-json-{core,wasm} has a horrible encoding for Vec<u8>. See also <https://github.com/CosmWasm/cosmwasm/blob/main/docs/MESSAGE_TYPES.md>.",
+              "type": "string",
+              "$original_type": "Binary"
+            },
+            "name": { "type": "string" }
+          },
+          "additionalProperties": false,
+          "$original_type": "AppComponent"
+        },
+        "title": "App components"
+      },
+      "kernel_address": {
+        "type": "string",
+        "title": "Kernel address",
+        "default": ""
+      },
+      "name": { "type": "string", "title": "Name" },
+      "owner": { "type": ["string", "null"], "title": "Owner" }
+    },
+    "additionalProperties": false,
+    "$id": "app-contract",
+    "version": "0.2.1",
+    "classifier": "",
+    "class": "baseADO",
+    "description": "Publishing configurations to publish the ADO as an App"
+  },
+  "ui-schema": {
+    "ui:order": ["*", "app_components"],
+    "kernel_address": { "ui:widget": "hidden" }
+  },
+  "form-data": {}
+}

@@ -1,1 +1,23 @@
-{"schema":{"type":"object","required":["get_address"],"properties":{"get_address":{"type":"object","required":["name"],"properties":{"name":{"type":"string","title":"Name"}},"additionalProperties":false,"title":"Get address"}},"additionalProperties":false,"title":"Get address","$id":"get-address","class":"query","version":"0.2.1","classifier":""},"ui-schema":{},"form-data":{}}
+{
+  "schema": {
+    "type": "object",
+    "required": ["get_address"],
+    "properties": {
+      "get_address": {
+        "type": "object",
+        "required": ["name"],
+        "properties": { "name": { "type": "string", "title": "Name" } },
+        "additionalProperties": false,
+        "title": "Get address"
+      }
+    },
+    "additionalProperties": false,
+    "title": "Get address",
+    "$id": "get-address",
+    "class": "query",
+    "version": "0.2.1",
+    "classifier": ""
+  },
+  "ui-schema": {},
+  "form-data": {}
+}

@@ -1,1 +1,31 @@
-{"schema":{"type":"object","required":["proxy_message"],"properties":{"proxy_message":{"type":"object","required":["msg","name"],"properties":{"msg":{"description":"Binary is a wrapper around Vec<u8> to add base64 de/serialization with serde. It also adds some helper methods to help encode inline.\n\nThis is only needed as serde-json-{core,wasm} has a horrible encoding for Vec<u8>. See also <https://github.com/CosmWasm/cosmwasm/blob/main/docs/MESSAGE_TYPES.md>.","type":"string","$original_type":"Binary","title":"Msg"},"name":{"type":"string","title":"Name"}},"additionalProperties":false,"title":"Proxy message"}},"additionalProperties":false,"title":"Proxy message","$id":"proxy-message","class":"modifier","version":"0.2.1","classifier":""},"ui-schema":{},"form-data":{}}
+{
+  "schema": {
+    "type": "object",
+    "required": ["proxy_message"],
+    "properties": {
+      "proxy_message": {
+        "type": "object",
+        "required": ["msg", "name"],
+        "properties": {
+          "msg": {
+            "description": "Binary is a wrapper around Vec<u8> to add base64 de/serialization with serde. It also adds some helper methods to help encode inline.\n\nThis is only needed as serde-json-{core,wasm} has a horrible encoding for Vec<u8>. See also <https://github.com/CosmWasm/cosmwasm/blob/main/docs/MESSAGE_TYPES.md>.",
+            "type": "string",
+            "$original_type": "Binary",
+            "title": "Msg"
+          },
+          "name": { "type": "string", "title": "Name" }
+        },
+        "additionalProperties": false,
+        "title": "Proxy message"
+      }
+    },
+    "additionalProperties": false,
+    "title": "Proxy message",
+    "$id": "proxy-message",
+    "class": "modifier",
+    "version": "0.2.1",
+    "classifier": ""
+  },
+  "ui-schema": {},
+  "form-data": {}
+}

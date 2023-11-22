@@ -1,1 +1,24 @@
-{"schema":{"type":"object","required":["claim_ownership"],"properties":{"claim_ownership":{"type":"object","properties":{"name":{"type":["string","null"],"title":"Name"}},"additionalProperties":false,"title":"Claim ownership"}},"additionalProperties":false,"title":"Claim ownership","$id":"claim-ownership","class":"modifier","version":"0.2.1","classifier":""},"ui-schema":{},"form-data":{}}
+{
+  "schema": {
+    "type": "object",
+    "required": ["claim_ownership"],
+    "properties": {
+      "claim_ownership": {
+        "type": "object",
+        "properties": {
+          "name": { "type": ["string", "null"], "title": "Name" }
+        },
+        "additionalProperties": false,
+        "title": "Claim ownership"
+      }
+    },
+    "additionalProperties": false,
+    "title": "Claim ownership",
+    "$id": "claim-ownership",
+    "class": "modifier",
+    "version": "0.2.1",
+    "classifier": ""
+  },
+  "ui-schema": {},
+  "form-data": {}
+}
