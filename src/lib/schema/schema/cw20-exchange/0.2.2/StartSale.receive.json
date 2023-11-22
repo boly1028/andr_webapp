@@ -18,13 +18,13 @@
                   {
                     "type": "object",
                     "required": ["native"],
-                    "properties": { 
-                      "native": { 
+                    "properties": {
+                      "native": {
                         "title": "Native",
-                        "description": "Native fund denomination of the chain.",   
-                        "type": "string" 
-                      }                   
-                    },   
+                        "description": "Native fund denomination of the chain.",
+                        "type": "string"
+                      }
+                    },
                     "additionalProperties": false
                   },
                   {
@@ -74,11 +74,11 @@
     "classifier": "cw20"
   },
   "ui-schema": {
-    "StartSale":{
+    "StartSale": {
       "asset": {
-        "ui:options": { "optionNames": ["Native", "CW20"] }        
+        "ui:options": { "optionNames": ["Native", "CW20"] }
       }
-    } 
+    }
   },
   "form-data": {}
 }

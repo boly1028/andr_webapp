@@ -1,1 +1,22 @@
-{"schema":{"description":"The address of the token being purchased","type":"object","required":["token_address"],"properties":{"token_address":{"type":"object","additionalProperties":false,"title":"Token address"}},"additionalProperties":false,"title":"Token address","$id":"token-address","class":"query","version":"0.2.2","classifier":""},"ui-schema":{},"form-data":{}}
+{
+  "schema": {
+    "description": "The address of the token being purchased",
+    "type": "object",
+    "required": ["token_address"],
+    "properties": {
+      "token_address": {
+        "type": "object",
+        "additionalProperties": false,
+        "title": "Token address"
+      }
+    },
+    "additionalProperties": false,
+    "title": "Token address",
+    "$id": "token-address",
+    "class": "query",
+    "version": "0.2.2",
+    "classifier": ""
+  },
+  "ui-schema": {},
+  "form-data": {}
+}

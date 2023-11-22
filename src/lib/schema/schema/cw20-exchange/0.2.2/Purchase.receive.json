@@ -1,1 +1,29 @@
-{"schema":{"description":"Purchases tokens","type":"object","required":["purchase"],"properties":{"purchase":{"type":"object","properties":{"recipient":{"description":"Optional recipient to purchase on behalf of another address","type":["string","null"],"title":"Recipient"}},"additionalProperties":false,"title":"Cw20 purchase"}},"additionalProperties":false,"title":"Cw20 purchase","$id":"cw20-purchase","class":"receive","version":"0.2.2","classifier":"cw20"},"ui-schema":{},"form-data":{}}
+{
+  "schema": {
+    "description": "Purchases tokens",
+    "type": "object",
+    "required": ["purchase"],
+    "properties": {
+      "purchase": {
+        "type": "object",
+        "properties": {
+          "recipient": {
+            "description": "Optional recipient to purchase on behalf of another address",
+            "type": ["string", "null"],
+            "title": "Recipient"
+          }
+        },
+        "additionalProperties": false,
+        "title": "Cw20 purchase"
+      }
+    },
+    "additionalProperties": false,
+    "title": "Cw20 purchase",
+    "$id": "cw20-purchase",
+    "class": "receive",
+    "version": "0.2.2",
+    "classifier": "cw20"
+  },
+  "ui-schema": {},
+  "form-data": {}
+}
