@@ -1,1 +1,22 @@
-{"schema":{"description":"Only with \"marketing\" extension Downloads the mbeded logo data (if stored on chain). Errors if no logo data ftored for this contract. Return type: DownloadLogoResponse.","type":"object","required":["download_logo"],"properties":{"download_logo":{"type":"object","additionalProperties":false,"title":"Download logo"}},"additionalProperties":false,"title":"Download logo","$id":"download-logo","class":"query","version":"0.2.1","classifier":""},"ui-schema":{},"form-data":{}}
+{
+  "schema": {
+    "description": "Only with \"marketing\" extension Downloads the mbeded logo data (if stored on chain). Errors if no logo data ftored for this contract. Return type: DownloadLogoResponse.",
+    "type": "object",
+    "required": ["download_logo"],
+    "properties": {
+      "download_logo": {
+        "type": "object",
+        "additionalProperties": false,
+        "title": "Download logo"
+      }
+    },
+    "additionalProperties": false,
+    "title": "Download logo",
+    "$id": "download-logo",
+    "class": "query",
+    "version": "0.2.1",
+    "classifier": ""
+  },
+  "ui-schema": {},
+  "form-data": {}
+}
