@@ -1,1 +1,27 @@
-{"schema":{"description":"Transfers NFT to buyer and sends funds to seller","type":"object","required":["buy"],"properties":{"buy":{"type":"object","required":["token_address","token_id"],"properties":{"token_address":{"type":"string","title":"Token address"},"token_id":{"type":"string","title":"Token id"}},"additionalProperties":false,"title":"Buy"}},"additionalProperties":false,"title":"Buy","$id":"buy","class":"modifier","version":"0.2.1","classifier":""},"ui-schema":{},"form-data":{}}
+{
+  "schema": {
+    "description": "Transfers NFT to buyer and sends funds to seller",
+    "type": "object",
+    "required": ["buy"],
+    "properties": {
+      "buy": {
+        "type": "object",
+        "required": ["token_address", "token_id"],
+        "properties": {
+          "token_address": { "type": "string", "title": "Token address" },
+          "token_id": { "type": "string", "title": "Token id" }
+        },
+        "additionalProperties": false,
+        "title": "Buy"
+      }
+    },
+    "additionalProperties": false,
+    "title": "Buy",
+    "$id": "buy",
+    "class": "modifier",
+    "version": "0.2.1",
+    "classifier": ""
+  },
+  "ui-schema": {},
+  "form-data": {}
+}
