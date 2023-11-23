@@ -1,46 +1,42 @@
 {
-    "schema": {
-        "$id": "embeddables-auction",
-        "$schema": "http://json-schema.org/draft-07/schema#",
-        "class": "embeddable",
-        "version": "0.2.0",
-        "classifier": "",
-        "title": "Auction Embeddable",
-        "description": "Publishing configurations to publish the ADO as an App",
-        "type": "object",
-        "required": [
-            "auction",
-            "cw721",
-            "name"
-        ],
-        "properties": {
-            "auction": {
-                "type": "string",
-                "title": "Auction Address",
-                "description": "The address of the Auction ADO you wish to display on your Embeddable."
-            },
-            "cw721": {
-                "type": "string",
-                "title": "CW721 Address",
-                "description": "The address of the CW721 ADO that minted the CW721 Token you wish to display on your Embeddable"
-            },
-            "name": {
-                "type": "string",
-                "title": "Collection Name",
-                "description": "The name of your collection."
-            },
-            "twitter": {
-                "type": "string",
-                "title": "Twitter URL",
-                "description": "Twitter url for the Embeddable. Must begin with https://."
-            },
-            "featured": {
-                "type": "string",
-                "title": "Featured Token Id",
-                "description": "The Token ID of the specific CW721 Token you wish to display on your Embeddable."
-            }
-        }
-    },
-    "ui-schema": {},
-    "form-data": {}
+  "schema": {
+    "$id": "embeddables-auction",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "class": "embeddable",
+    "version": "0.2.0",
+    "classifier": "",
+    "title": "Auction Embeddable",
+    "description": "Publishing configurations to publish the ADO as an App",
+    "type": "object",
+    "required": ["auction", "cw721", "name"],
+    "properties": {
+      "auction": {
+        "type": "string",
+        "title": "Auction Address",
+        "description": "The address of the Auction ADO you wish to display on your Embeddable."
+      },
+      "cw721": {
+        "type": "string",
+        "title": "CW721 Address",
+        "description": "The address of the CW721 ADO that minted the CW721 Token you wish to display on your Embeddable"
+      },
+      "name": {
+        "type": "string",
+        "title": "Collection Name",
+        "description": "The name of your collection."
+      },
+      "twitter": {
+        "type": "string",
+        "title": "Twitter URL",
+        "description": "Twitter url for the Embeddable. Must begin with https://."
+      },
+      "featured": {
+        "type": "string",
+        "title": "Featured Token Id",
+        "description": "The Token ID of the specific CW721 Token you wish to display on your Embeddable."
+      }
+    }
+  },
+  "ui-schema": {},
+  "form-data": {}
 }
