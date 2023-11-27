@@ -13,7 +13,7 @@
           "properties": {
             "ado_type": { "type": "string" },
             "instantiate_msg": {
-              "description": "Binary is a wrapper around Vec<u8> to add base64 de/serialization with serde. It also adds some helper methods to help encode inline.\n\nThis is only needed as serde-json-{core,wasm} has a horrible encoding for Vec<u8>. See also <https://github.com/CosmWasm/cosmwasm/blob/main/docs/MESSAGE_TYPES.md>.",
+              "description": "Select an ADO from the dropdown list. Make sure it matches what you entered into the 'ado_type' field above.",
               "type": "string",
               "$original_type": "Binary"
             },
@@ -37,7 +37,7 @@
     "version": "0.2.1",
     "classifier": "",
     "class": "baseADO",
-    "description": "Publishing configurations to publish the ADO as an App"
+    "description": "The App Contract component is an ADO that bundles a collection of other ADOs together for streamlined coordinated use."
   },
   "ui-schema": {
     "ui:order": ["*", "app_components"],
