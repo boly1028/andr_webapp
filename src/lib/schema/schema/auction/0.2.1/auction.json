@@ -74,8 +74,8 @@
         },
         "is_mutable": {
           "ui:options": {
-            "title": "Is Module Able to be Modified?",
-            "description": "Whether the module can be later modified or not."
+            "title": "Is the Module Able to be Modified?",
+            "description": "If the field is checked then the module is allowed to be modified."
           }
         }
       }
