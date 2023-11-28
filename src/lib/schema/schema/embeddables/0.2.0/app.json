@@ -6,29 +6,29 @@
     "classifier": "",
     "version": "0.2.0",
     "title": "Embeddable",
-    "description": "Publishing configurations to publish the ADO as an App",
+    "description": "Configurations for publishing this bundle of ADO components as an embeddable App.",
     "type": "object",
     "required": ["coinDenom", "name"],
     "properties": {
       "coinDenom": {
         "type": "string",
         "title": "Coin Denom",
-        "description": "Sale Coin Denomination"
+        "description": "Enter the denomination of coin you require buyers to use."
       },
       "name": {
         "type": "string",
         "title": "App Name",
-        "description": "The desired name of the app."
+        "description": "Assign a name to this embaddable App. This will be visible to viewers of your embeddable app."
       },
       "twitter": {
         "type": "string",
         "title": "Twitter URL",
-        "description": "Twitter url for the embeddable"
+        "description": "(Optional) Twitter url for this embeddable. Must begin with https://"
       },
       "banner": {
         "type": "string",
         "title": "Banner Image URL",
-        "description": "The desired name of the app."
+        "description": "Enter a URL pointing at a banner image which will display on your embeddable. Must start with https://"
       }
     }
   },

@@ -6,34 +6,34 @@
     "version": "0.2.0",
     "classifier": "",
     "title": "Auction Embeddable",
-    "description": "Publishing configurations to publish the ADO as an App",
+    "description": "Configurations for publishing this auction ADO App into an embeddable.",
     "type": "object",
     "required": ["auction", "cw721", "name"],
     "properties": {
       "auction": {
         "type": "string",
         "title": "Auction Address",
-        "description": "The address of the Auction ADO you wish to display on your Embeddable."
+        "description": "Enter the address of the Auction component you wish to display in your embeddable."
       },
       "cw721": {
         "type": "string",
         "title": "CW721 Address",
-        "description": "The address of the CW721 ADO that minted the CW721 Token you wish to display on your Embeddable"
+        "description": "Enter the address of the CW721 ADO which minted the specific CW721 NFT Token you wish to display on your embeddable"
       },
       "name": {
         "type": "string",
         "title": "Collection Name",
-        "description": "The name of your collection."
+        "description": "Assign a name to the NFT Collection you intend to sell. This name will be visible on the embeddable itself."
       },
       "twitter": {
         "type": "string",
         "title": "Twitter URL",
-        "description": "Twitter url for the Embeddable. Must begin with https://."
+        "description": "(Optional) Twitter url for this embeddable. Must begin with https://"
       },
       "featured": {
         "type": "string",
         "title": "Featured Token Id",
-        "description": "The Token ID of the specific CW721 Token you wish to display on your Embeddable."
+        "description": "The Token ID of the CW721 NFT token(s) which you wish to display in this embeddable."
       }
     }
   },

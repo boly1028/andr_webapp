@@ -6,34 +6,34 @@
     "version": "0.2.0",
     "classifier": "",
     "title": "Markeplace Embeddable",
-    "description": "Publishing configurations to publish the ADO as an App",
+    "description": "Configurations for publishing this marketplace ADO App into an embeddable.",
     "type": "object",
     "required": ["marketplace", "cw721", "name"],
     "properties": {
       "marketplace": {
         "type": "string",
         "title": "Marketplace Address",
-        "description": "The desired name of the app."
+        "description": "Enter the address of the Marketplace component you wish to display in your embeddable."
       },
       "cw721": {
         "type": "string",
         "title": "CW721 Address",
-        "description": "The desired name of the app."
+        "description": "Enter the address of the CW721 component which minted the specific CW721 NFT Token(s) you wish to display on your Embeddable."
       },
       "name": {
         "type": "string",
         "title": "Collection Name",
-        "description": "The desired name of the app."
+        "description": "Assign a name to the NFT Collection you intend to sell. This name will be visible on the embeddable itself."
       },
       "twitter": {
         "type": "string",
         "title": "Twitter URL",
-        "description": "The desired name of the app."
+        "description": "(Optional) Enter a Twitter url for this embeddable. Must begin with https://"
       },
       "featured": {
         "type": "string",
         "title": "Featured Token Id",
-        "description": "The desired name of the app."
+        "description": "The Token ID of the CW721 NFT token(s) which you wish to display in this embeddable."
       }
     }
   },
