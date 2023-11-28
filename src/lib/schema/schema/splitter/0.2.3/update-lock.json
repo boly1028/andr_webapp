@@ -1,1 +1,55 @@
-{"schema":{"description":"Used to lock the contract for a certain period of time making it unmodifiable in any way.","type":"object","required":["update_lock"],"properties":{"update_lock":{"type":"object","required":["lock_time"],"properties":{"lock_time":{"type":"integer","format":"uint64","minimum":0,"title":"Lock time"}},"additionalProperties":false,"title":"Update lock"}},"additionalProperties":false,"title":"Update Lock","$id":"update-lock","class":"modifier","version":"0.2.3","classifier":""},"ui-schema":{"update_lock":{"ui:options":{"title":"Update Lock","alerts":[{"text":"Only available to the contract owner/operator when the contract is not already locked.","type":"error"}]},"lock_time":{"ui:options":{"title":"Lock Time","description":"How long the splitter is locked. When locked, no recipients can be added/changed.","alerts":[{"text":"The minimum time that can be set is <b>86,400</b> which is 1 day. <br/>The maximum time that can be set is <b>31,536,000</b> which is 1 year.","type":"info"}]}}}},"form-data":{}}
+{
+  "schema": {
+    "description": "Used to lock the contract for a certain period of time making it unmodifiable in any way.",
+    "type": "object",
+    "required": ["update_lock"],
+    "properties": {
+      "update_lock": {
+        "type": "object",
+        "required": ["lock_time"],
+        "properties": {
+          "lock_time": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0,
+            "title": "Lock time"
+          }
+        },
+        "additionalProperties": false,
+        "title": "Update lock"
+      }
+    },
+    "additionalProperties": false,
+    "title": "Update Lock",
+    "$id": "update-lock",
+    "class": "modifier",
+    "version": "0.2.3",
+    "classifier": ""
+  },
+  "ui-schema": {
+    "update_lock": {
+      "ui:options": {
+        "title": "Update Lock",
+        "alerts": [
+          {
+            "text": "Only available to the contract owner/operator when the contract is not already locked.",
+            "type": "error"
+          }
+        ]
+      },
+      "lock_time": {
+        "ui:options": {
+          "title": "Lock Time",
+          "description": "How long the splitter is locked. When locked, no recipients can be added/changed.",
+          "alerts": [
+            {
+              "text": "The minimum time that can be set is <b>86,400</b> which is 1 day. <br/>The maximum time that can be set is <b>31,536,000</b> which is 1 year.",
+              "type": "info"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "form-data": {}
+}
