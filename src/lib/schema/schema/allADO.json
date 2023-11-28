@@ -4,7 +4,7 @@
         "class": "module",
         "classifier": "address",
         "title": "Address list",
-        "description": "ADO that is used to store a list of addresses.",
+        "description": "The Address List ADO manages a list of addresses for whitelist/blacklist purposes​.",
         "source": "address-list/0.2.1/address-list",
         "version": "0.2.1",
         "adopPath": "address-list/0.2.1/ADOP.json"
@@ -24,7 +24,7 @@
         "class": "baseADO",
         "classifier": "",
         "title": "App contract",
-        "description": "Publishing configurations to publish the ADO as an App",
+        "description": "The 'App Contract' component is an ADO that bundles a collection of other ADOs together for streamlined coordinated use.",
         "source": "app-contract/0.2.1/app-contract",
         "version": "0.2.1",
         "adopPath": "app-contract/0.2.1/ADOP.json"
@@ -34,7 +34,7 @@
         "class": "baseADO",
         "classifier": "sale",
         "title": "Auction",
-        "description": "An ADO to facilitate auctioning of an Andromeda token.",
+        "description": "The Auction ADO enables users to auction off items.",
         "source": "auction/0.2.1/auction",
         "version": "0.2.1",
         "adopPath": "auction/0.2.1/ADOP.json"
@@ -54,7 +54,7 @@
         "class": "baseADO",
         "classifier": "sale",
         "title": "Crowdfund",
-        "description": "An ADO to allow the creation of a crowdfund for a token and can include minting.",
+        "description": "An ADO for initiating a token crowdfund, with a minting feature included.",
         "source": "crowdfund/0.2.1/crowdfund",
         "version": "0.2.1",
         "adopPath": "crowdfund/0.2.1/ADOP.json"
@@ -64,7 +64,7 @@
         "class": "baseADO",
         "classifier": "token",
         "title": "CW20",
-        "description": "The CW20 Token ADO is an ADO to create a token, The contract supports modules to extend it's functionality.",
+        "description": "The CW20 Token ADO allows the minting, moving, modifying, and querying of CW20 fungible tokens on the Andromeda blockchain​.",
         "source": "cw20/0.2.1/cw20",
         "version": "0.2.1",
         "adopPath": "cw20/0.2.1/ADOP.json"
@@ -174,7 +174,7 @@
         "class": "baseADO",
         "classifier": "token",
         "title": "Lockdrop",
-        "description": "The Lockdrop ADO allows users to create a sale for CW20 tokens. Instead of a fixed price, buyers send the funds to the lockdrop and will get a proportionate amount of CW20 tokens depending on how much funds were sent in total, and the amount of CW20 tokens available for sale.",
+        "description": "The Lockdrop ADO enables users to initiate a sale for CW20 tokens, where instead of having a set price, buyers contribute funds to the lockdrop. In return, they receive a share of CW20 tokens based on the total funds collected and the available CW20 tokens for sale.",
         "source": "lockdrop/0.2.1/lockdrop",
         "version": "0.2.1",
         "adopPath": "lockdrop/0.2.1/ADOP.json"

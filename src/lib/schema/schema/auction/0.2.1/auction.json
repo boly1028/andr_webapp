@@ -13,12 +13,12 @@
       "modules": {
         "type": ["array", "null"],
         "items": {
-          "description": "A module in the Andromeda Protocol is a component that can be attached to an ADO, enhancing its functionality by adding specific features or capabilities, like managing rates or keeping a list of addresses.",
+          "description": "A Module is a component that can be attached to an ADO, enhancing its functionality by adding specific features or capabilities, like keeping a list of addresses or adding a royalty rate.",
           "type": "object",
           "required": ["address", "is_mutable"],
           "properties": {
             "address": {
-              "description": "An address within the Andromeda ecosystem can be either a straightforward, readable address like cosmos1... or a specialized Andromeda Virtual File System (VFS) path such as /home/user/app/component. VFS paths can be local, like ./component, or include protocols for interacting across different blockchain networks, typically formatted as <protocol>://<chain>/<path> or ibc://cosmoshub-4/user/app/component for cross-chain communication.",
+              "description": "Can be either an address or app component name of a specific ADO within an app",
               "type": "string",
               "$original_type": "AndrAddr"
             },
@@ -51,10 +51,10 @@
         "address": {
           "ui:options": {
             "title": "Add Module",
-            "description": "",
+            "description": "Only allowed modules. Can be either an address or a component name of a specific ADO within an app",
             "alerts": [
               {
-                "text": "Allowed modules: \"rates\", \"address-list\", and \"receipt\"",
+                "text": "Allowed modules: rates, address-list, and receipt.",
                 "type": "error"
               }
             ]
@@ -62,14 +62,14 @@
           "identifier": {
             "ui:options": {
               "title": "Identifier",
-              "description": "Can be either an address or app component name of a specific ADO within an app"
+              "description": "Can be either an address or a component name of a specific ADO within an app."
             }
           }
         },
         "module_type": {
           "ui:options": {
             "title": "Module Type",
-            "description": "The name of the module to add. Can be set one of the following: \"rates\", \"address-list\", and \"receipt\"."
+            "description": "The name of the module to add. Can be set one of the following: rates, address-list, and receipt."
           }
         },
         "is_mutable": {

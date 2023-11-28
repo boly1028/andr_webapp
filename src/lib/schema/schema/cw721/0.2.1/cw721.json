@@ -24,7 +24,7 @@
       "modules": {
         "type": ["array", "null"],
         "items": {
-          "description": "A struct describing a token module, provided with the instantiation message this struct is used to record the info about the module and how/if it should be instantiated",
+          "description": "A Module is a component that can be attached to an ADO, enhancing its functionality by adding specific features or capabilities, like keeping a list of addresses or adding a royalty rate.",
           "type": "object",
           "required": ["address", "is_mutable"],
           "properties": {
@@ -64,21 +64,21 @@
     "name": {
       "ui:options": {
         "title": "Token/NFT Name",
-        "description": "The name of the token.",
+        "description": "Name of the token. Letters Only.",
         "help": ""
       }
     },
     "symbol": {
       "ui:options": {
         "title": "Token/NFT Symbol",
-        "description": "The symbol of the token.",
+        "description": "TThe symbol can only consist of letters and has to be between 3 and 12 characters.",
         "help": ""
       }
     },
     "minter": {
       "ui:options": {
         "title": "Minter Address",
-        "description": "The address of the token minter."
+        "description": "The address of the token minter. (Enter your wallet if you don't intend to assign permissions.)"
       },
       "identifier": {
         "ui:options": {
@@ -91,7 +91,7 @@
     "modules": {
       "ui:options": {
         "title": "Selected Modules",
-        "description": "An optional vector of Andromeda Modules that can be attached to the contract. \"rates\", \"address-list\", and \"receipt\" modules can be added."
+        "description": "(Optional) The following Andromeda Modules can be attached to the contract: rates, address-list, and receipt."
       },
       "items": {
         "ui:options": { "title": "Module" },
@@ -99,7 +99,7 @@
         "address": {
           "ui:options": {
             "title": "Associated Modules",
-            "description": "",
+            "description": "Can be either an address or app component name of a specific ADO within an app",
             "alerts": [
               {
                 "text": "Allowed modules: \"rates\", \"address-list\",\"offers\" and \"receipt\"",

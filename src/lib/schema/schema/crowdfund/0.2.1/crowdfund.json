@@ -17,7 +17,7 @@
       "modules": {
         "type": ["array", "null"],
         "items": {
-          "description": "A struct describing a token module, provided with the instantiation message this struct is used to record the info about the module and how/if it should be instantiated",
+          "description": "A Module is a component that can be attached to an ADO, enhancing its functionality by adding specific features or capabilities, like keeping a list of addresses or adding a royalty rate.",
           "type": "object",
           "required": ["address", "is_mutable"],
           "properties": {
@@ -47,14 +47,14 @@
     "version": "0.2.1",
     "classifier": "sale",
     "class": "baseADO",
-    "description": "An ADO to allow the creation of a crowdfund for a token and can include minting."
+    "description": "An ADO for initiating a token crowdfund, with a minting feature included."
   },
   "ui-schema": {
     "ui:order": ["token_address", "modules", "can_mint_after_sale", "*"],
     "can_mint_after_sale": {
       "ui:options": {
         "title": "Allow minting after sale?",
-        "description": "Set the flag to allow minting after a sale has completed. Note: Minting is not allowed during a sale."
+        "description": "Set the flag to allow minting after a sale has completed. NOTE: Minting is not allowed during a sale."
       }
     },
     "modules": {
@@ -68,10 +68,10 @@
         "address": {
           "ui:options": {
             "title": "Add Module",
-            "description": "",
+            "description": "Can be either an address or an app component name of a specific ADO within an app.",
             "alerts": [
               {
-                "text": "Allowed modules: \"rates\", \"address-list\", and \"receipt\"",
+                "text": "Allowed modules: rates, address-list, and receipt.",
                 "type": "error"
               }
             ]
@@ -79,20 +79,20 @@
           "identifier": {
             "ui:options": {
               "title": "Identifier",
-              "description": "Can be either an address or app component name of a specific ADO within an app"
+              "description": "Can be either an address or app component name of a specific ADO within an app."
             }
           }
         },
         "module_type": {
           "ui:options": {
             "title": "Module Type",
-            "description": "The name of the module to add. Can be set one of the following: \"rates\", \"address-list\", and \"receipt\"."
+            "description": "Name of the module to add. Can be set one of the following: rates, address-list, and receipt."
           }
         },
         "is_mutable": {
           "ui:options": {
             "title": "Is Module Able to be Modified?",
-            "description": "Whether the module can be later modified or not."
+            "description": "Tick the box if you want the module to be modifiable later."
           }
         }
       }
