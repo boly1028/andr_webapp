@@ -1,1 +1,21 @@
-{"schema":{"type":"object","required":["is_inclusive"],"properties":{"is_inclusive":{"type":"object","additionalProperties":false,"title":"Is inclusive"}},"additionalProperties":false,"title":"Is inclusive","$id":"is-inclusive","class":"query","version":"0.2.1","classifier":""},"ui-schema":{},"form-data":{}}
+{
+  "schema": {
+    "type": "object",
+    "required": ["is_inclusive"],
+    "properties": {
+      "is_inclusive": {
+        "type": "object",
+        "additionalProperties": false,
+        "title": "Is inclusive"
+      }
+    },
+    "additionalProperties": false,
+    "title": "Is inclusive",
+    "$id": "is-inclusive",
+    "class": "query",
+    "version": "0.2.1",
+    "classifier": ""
+  },
+  "ui-schema": {},
+  "form-data": {}
+}
