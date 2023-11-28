@@ -1,1 +1,22 @@
-{"schema":{"description":"The current config of the Splitter contract","type":"object","required":["get_splitter_config"],"properties":{"get_splitter_config":{"type":"object","additionalProperties":false,"title":"Get splitter config"}},"additionalProperties":false,"title":"Get splitter config","$id":"get-splitter-config","class":"query","version":"0.2.1","classifier":""},"ui-schema":{},"form-data":{}}
+{
+  "schema": {
+    "description": "The current config of the Splitter contract",
+    "type": "object",
+    "required": ["get_splitter_config"],
+    "properties": {
+      "get_splitter_config": {
+        "type": "object",
+        "additionalProperties": false,
+        "title": "Get splitter config"
+      }
+    },
+    "additionalProperties": false,
+    "title": "Get splitter config",
+    "$id": "get-splitter-config",
+    "class": "query",
+    "version": "0.2.1",
+    "classifier": ""
+  },
+  "ui-schema": {},
+  "form-data": {}
+}
