@@ -1,1 +1,47 @@
-{"modifiers":["update-recipients","update-recipient-weight","add-recipient","remove-recipient","update-lock","send","update-owner","update-operators","update-app-contract","deposit","set-permission","remove-permission","permission-action"],"queries":["get-splitter-config.query","get-user-weight.query","owner.query","operators.query","type.query","kernel-address.query","original-publisher.query","block-height-upon-creation.query","is-operator.query","version.query","balance.query","permissions.query","permissioned-actions.query"],"responses":["balance.response","block-height-upon-creation.response","get-splitter-config.response","get-user-weight.response","is-operator.response","kernel-address.response","operators.response","original-publisher.response","owner.response","permissioned-actions.response","permissions.response","type.response","version.response"]}
+{
+  "modifiers": [
+    "update-recipients",
+    "update-recipient-weight",
+    "add-recipient",
+    "remove-recipient",
+    "update-lock",
+    "send",
+    "update-owner",
+    "update-operators",
+    "update-app-contract",
+    "deposit",
+    "set-permission",
+    "remove-permission",
+    "permission-action"
+  ],
+  "queries": [
+    "get-splitter-config.query",
+    "get-user-weight.query",
+    "owner.query",
+    "operators.query",
+    "type.query",
+    "kernel-address.query",
+    "original-publisher.query",
+    "block-height-upon-creation.query",
+    "is-operator.query",
+    "version.query",
+    "balance.query",
+    "permissions.query",
+    "permissioned-actions.query"
+  ],
+  "responses": [
+    "balance.response",
+    "block-height-upon-creation.response",
+    "get-splitter-config.response",
+    "get-user-weight.response",
+    "is-operator.response",
+    "kernel-address.response",
+    "operators.response",
+    "original-publisher.response",
+    "owner.response",
+    "permissioned-actions.response",
+    "permissions.response",
+    "type.response",
+    "version.response"
+  ]
+}
