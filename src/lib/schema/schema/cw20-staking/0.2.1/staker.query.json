@@ -1,1 +1,24 @@
-{"schema":{"description":"Returns a `StakerResponse` for the given staker. The pending rewards are updated to the present index.","type":"object","required":["staker"],"properties":{"staker":{"type":"object","required":["address"],"properties":{"address":{"type":"string","title":"Address"}},"additionalProperties":false,"title":"Staker"}},"additionalProperties":false,"title":"Staker","$id":"staker","class":"query","version":"0.2.1","classifier":""},"ui-schema":{},"form-data":{}}
+{
+  "schema": {
+    "description": "Returns a `StakerResponse` for the given staker. The pending rewards are updated to the present index.",
+    "type": "object",
+    "required": ["staker"],
+    "properties": {
+      "staker": {
+        "type": "object",
+        "required": ["address"],
+        "properties": { "address": { "type": "string", "title": "Address" } },
+        "additionalProperties": false,
+        "title": "Staker"
+      }
+    },
+    "additionalProperties": false,
+    "title": "Staker",
+    "$id": "staker",
+    "class": "query",
+    "version": "0.2.1",
+    "classifier": ""
+  },
+  "ui-schema": {},
+  "form-data": {}
+}
