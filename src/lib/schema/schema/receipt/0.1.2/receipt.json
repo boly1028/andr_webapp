@@ -1,1 +1,22 @@
-{"schema":{"$schema":"http://json-schema.org/draft-07/schema#","title":"Receipt","type":"object","required":["minter"],"properties":{"minter":{"description":"The address authorized to mint new receipts","type":"string","title":"Minter"}},"additionalProperties":false,"$id":"receipt","version":"0.1.2","classifier":"sale","class":"module"},"ui-schema":{},"form-data":{}}
+{
+  "schema": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Receipt",
+    "type": "object",
+    "required": ["minter"],
+    "properties": {
+      "minter": {
+        "description": "The address authorized to mint new receipts",
+        "type": "string",
+        "title": "Minter"
+      }
+    },
+    "additionalProperties": false,
+    "$id": "receipt",
+    "version": "0.1.2",
+    "classifier": "sale",
+    "class": "module"
+  },
+  "ui-schema": {},
+  "form-data": {}
+}
