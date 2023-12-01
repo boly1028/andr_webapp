@@ -1,1 +1,37 @@
-{"schema":{"description":"Claim the number of batches specified starting from the beginning. If not specified then the max will be claimed.","type":"object","required":["claim"],"properties":{"claim":{"type":"object","required":["batch_id"],"properties":{"batch_id":{"type":"integer","format":"uint64","minimum":0,"title":"Batch id"},"number_of_claims":{"type":["integer","null"],"format":"uint64","minimum":0,"title":"Number of claims"}},"additionalProperties":false,"title":"Claim"}},"additionalProperties":false,"title":"Claim","$id":"claim","class":"modifier","version":"0.2.1","classifier":""},"ui-schema":{},"form-data":{}}
+{
+  "schema": {
+    "description": "Claim the number of batches specified starting from the beginning. If not specified then the max will be claimed.",
+    "type": "object",
+    "required": ["claim"],
+    "properties": {
+      "claim": {
+        "type": "object",
+        "required": ["batch_id"],
+        "properties": {
+          "batch_id": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0,
+            "title": "Batch id"
+          },
+          "number_of_claims": {
+            "type": ["integer", "null"],
+            "format": "uint64",
+            "minimum": 0,
+            "title": "Number of claims"
+          }
+        },
+        "additionalProperties": false,
+        "title": "Claim"
+      }
+    },
+    "additionalProperties": false,
+    "title": "Claim",
+    "$id": "claim",
+    "class": "modifier",
+    "version": "0.2.1",
+    "classifier": ""
+  },
+  "ui-schema": {},
+  "form-data": {}
+}

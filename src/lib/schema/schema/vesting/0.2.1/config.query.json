@@ -1,1 +1,22 @@
-{"schema":{"description":"Queries the config.","type":"object","required":["config"],"properties":{"config":{"type":"object","additionalProperties":false,"title":"Config"}},"additionalProperties":false,"title":"Config","$id":"config","class":"query","version":"0.2.1","classifier":""},"ui-schema":{},"form-data":{}}
+{
+  "schema": {
+    "description": "Queries the config.",
+    "type": "object",
+    "required": ["config"],
+    "properties": {
+      "config": {
+        "type": "object",
+        "additionalProperties": false,
+        "title": "Config"
+      }
+    },
+    "additionalProperties": false,
+    "title": "Config",
+    "$id": "config",
+    "class": "query",
+    "version": "0.2.1",
+    "classifier": ""
+  },
+  "ui-schema": {},
+  "form-data": {}
+}
