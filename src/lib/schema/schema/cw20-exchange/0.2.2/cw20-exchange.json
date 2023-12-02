@@ -18,7 +18,7 @@
           "required": ["address", "is_mutable"],
           "properties": {
             "address": {
-              "description": "Can be either an address or the app component name of a specific ADO module component within an app.",
+              "description": "Can be any VFS referenced module address (located inside of compomemts in your Assets folder, under 'Address'), or app component name of a specific ADO module component within an app. (e.g. './rates').",
               "type": "string",
               "$original_type": "AndrAddr"
             },

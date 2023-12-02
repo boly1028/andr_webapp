@@ -33,7 +33,7 @@
       "featured": {
         "type": "string",
         "title": "Featured Token Id",
-        "description": "The Token ID of the CW721 NFT token(s) which you wish to display in this embeddable."
+        "description": "(Optional) The Token ID of the CW721 NFT token(s) which you wish to display in this embeddable."
       }
     }
   },

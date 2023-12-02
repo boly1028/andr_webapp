@@ -169,7 +169,7 @@
     "version": "0.2.1",
     "classifier": "token",
     "class": "baseADO",
-    "description": "The CW20 Token ADO is an ADO to create a token, The contract supports modules to extend it's functionality."
+    "description": "The CW20 Token ADO is an ADO to create a token, The contract supports modules to extend its' functionality."
   },
   "ui-schema": {
     "ui:order": ["name", "symbol", "decimals", "initial_balances", "*"],
@@ -194,7 +194,7 @@
     "decimals": {
       "ui:options": {
         "title": "Number of Decimals in Token",
-        "description": "The number of decimals for the token. (16 is common)"
+        "description": "The number of decimals for the token. (12 is common)"
       }
     },
     "initial_balances": {
@@ -224,14 +224,14 @@
       "description": {
         "ui:options": {
           "title": "Token Description",
-          "description": "A longer description of the token and it's utility. Designed for tooltips or short alerts."
+          "description": "A longer description of the token and its' utility. Designed for tooltips or short alerts."
         }
       },
       "logo": {
         "url": {
           "ui:options": {
             "title": "Logo URL",
-            "help": "Must be a valid URL beginning with HTTPS"
+            "help": "Must be a valid URL beginning with HTTPS (e.g. 'HTTPS://yourlogo.com')"
           }
         },
         "embedded": {
