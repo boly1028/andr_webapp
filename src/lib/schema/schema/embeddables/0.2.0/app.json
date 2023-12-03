@@ -36,22 +36,22 @@
     "coinDenom": {
       "ui:widget": "text",
       "ui:placeholder": "Enter Coin Denom",
-      "ui:help": "Enter the denomination of coin you require buyers to use."
+      "ui:description": "Enter the denomination of coin you require buyers to use."
     },
     "name": {
       "ui:widget": "text",
       "ui:placeholder": "Enter App Name",
-      "ui:help": "Assign a name to this embaddable App. This will be visible to viewers of your embeddable app."
+      "ui:description": "Assign a name to this embaddable App. This will be visible to viewers of your embeddable app."
     },
     "twitter": {
       "ui:widget": "text",
       "ui:placeholder": "Enter Twitter URL",
-      "ui:help": "(Optional) Twitter url for this embeddable. Must begin with https://"
+      "ui:description": "(Optional) Twitter url for this embeddable. Must begin with https://"
     },
     "banner": {
       "ui:widget": "text",
       "ui:placeholder": "Enter Banner Image URL",
-      "ui:help": "Enter a URL pointing at a banner image which will display on your embeddable. Must start with https://"
+      "ui:description": "Enter a URL pointing at a banner image which will display on your embeddable. Must start with https://"
     }
   },
   "form-data": {}

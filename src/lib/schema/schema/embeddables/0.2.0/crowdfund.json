@@ -41,27 +41,27 @@
     "crowdfund": {
       "ui:widget": "text",
       "ui:placeholder": "Enter Crowdfund Address",
-      "ui:help": "Enter the address of the Crowdfund component you wish to display in your embeddable."
+      "ui:description": "Enter the address of the Crowdfund component you wish to display in your embeddable."
     },
     "cw721": {
       "ui:widget": "text",
       "ui:placeholder": "Enter CW721 Address",
-      "ui:help": "Enter the address of the CW721 ADO which minted the specific CW721 NFT Token you wish to display on your embeddable."
+      "ui:description": "Enter the address of the CW721 ADO which minted the specific CW721 NFT Token you wish to display on your embeddable."
     },
     "name": {
       "ui:widget": "text",
       "ui:placeholder": "Enter Collection Name",
-      "ui:help": "Assign a name to the NFT Collection you intend to sell. This name will be visible on the embeddable itself."
+      "ui:description": "Assign a name to the NFT Collection you intend to sell. This name will be visible on the embeddable itself."
     },
     "twitter": {
       "ui:widget": "text",
       "ui:placeholder": "Enter Twitter URL",
-      "ui:help": "(Optional) Twitter url for this embeddable. Must begin with https://"
+      "ui:description": "(Optional) Twitter url for this embeddable. Must begin with https://"
     },
     "featured": {
       "ui:widget": "text",
       "ui:placeholder": "Enter Featured Token Id",
-      "ui:help": "(Optional) The Token ID of the CW721 NFT token(s) which you wish to display in this embeddable."
+      "ui:description": "(Optional) The Token ID of the CW721 NFT token(s) which you wish to display in this embeddable."
     }
   },
   "form-data": {}
