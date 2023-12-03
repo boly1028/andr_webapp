@@ -43,7 +43,7 @@
     "modules": {
       "ui:options": {
         "title": "Modules",
-        "description": "Name of the module to add. Can be set one of the following: rates, address-list, and receipt.",
+        "description": "Added modules will appear in this section. Compatibility varies depending on your build.",
         "alerts": [
           {
             "text": "Each sale is assigned an Id which starts at the number 1, then increments for each new sale.",

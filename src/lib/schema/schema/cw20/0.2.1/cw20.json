@@ -316,7 +316,7 @@
         "is_mutable": {
           "ui:options": {
             "title": "Is Module Able to be Modified?",
-            "description": "Whether the module can be later modified or not."
+            "description": "Check the box if you want the module the be modifiable later."
           }
         }
       }
