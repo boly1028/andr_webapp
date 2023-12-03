@@ -70,19 +70,19 @@
             "recipients": {
               "type": "array",
               "items": {
-                "description": "A simple struct used for inter-contract communication. The struct can be used in two ways:\n\n1. Simply just providing an `AndrAddr` which will treat the communication as a transfer of any related funds 2. Providing an `AndrAddr` and a `Binary` message which will be sent to the contract at the resolved address\n\nThe `Binary` message can be any message that the contract at the resolved address can handle.",
+                "description": "This is ONE recipient.",
                 "type": "object",
                 "required": ["address"],
                 "properties": {
                   "address": {
-                    "description": "An address that can be used within the Andromeda ecosystem. Inspired by the cosmwasm-std `Addr` type. https://github.com/CosmWasm/cosmwasm/blob/2a1c698520a1aacedfe3f4803b0d7d653892217a/packages/std/src/addresses.rs#L33\n\nThis address can be one of two things: 1. A valid human readable address e.g. `cosmos1...` 2. A valid Andromeda VFS path e.g. `/home/user/app/component`\n\nVFS paths can be local in the case of an app and can be done by referencing `./component` they can also contain protocols for cross chain communication. A VFS path is usually structured as so:\n\n`<protocol>://<chain (required if ibc used)>/<path>` or `ibc://cosmoshub-4/user/app/component`",
+                    "description": "Can be either an address or app component name of a specific ADO within an app",
                     "type": "string",
                     "$original_type": "AndrAddr"
                   },
                   "ibc_recovery_address": {
                     "anyOf": [
                       {
-                        "description": "An address that can be used within the Andromeda ecosystem. Inspired by the cosmwasm-std `Addr` type. https://github.com/CosmWasm/cosmwasm/blob/2a1c698520a1aacedfe3f4803b0d7d653892217a/packages/std/src/addresses.rs#L33\n\nThis address can be one of two things: 1. A valid human readable address e.g. `cosmos1...` 2. A valid Andromeda VFS path e.g. `/home/user/app/component`\n\nVFS paths can be local in the case of an app and can be done by referencing `./component` they can also contain protocols for cross chain communication. A VFS path is usually structured as so:\n\n`<protocol>://<chain (required if ibc used)>/<path>` or `ibc://cosmoshub-4/user/app/component`",
+                        "description": "Enter an address on the IBC network that you designate as a recovery address.",
                         "type": "string",
                         "$original_type": "AndrAddr"
                       },
@@ -92,7 +92,7 @@
                   "msg": {
                     "anyOf": [
                       {
-                        "description": "Binary is a wrapper around Vec<u8> to add base64 de/serialization with serde. It also adds some helper methods to help encode inline.\n\nThis is only needed as serde-json-{core,wasm} has a horrible encoding for Vec<u8>. See also <https://github.com/CosmWasm/cosmwasm/blob/main/docs/MESSAGE_TYPES.md>.",
+                        "description": "Enter a msg if necessary. Often required when sending to exchange wallets. ",
                         "type": "string",
                         "$original_type": "Binary"
                       },
@@ -122,7 +122,7 @@
     "rates": {
       "ui:options": {
         "title": "Rate Information",
-        "description": "Each of the recipients will receive the rate imposed. ( The rate is 3% and we have 5 recipients then 15 % would go to them in total.)"
+        "description": "Every recipient will be allocated the specified rate. For instance, if a 3% rate is set and there are 5 recipients, a cumulative total of 15% will be distributed among them."
       },
       "items": {
         "ui:options": { "title": "Rate Info" },
@@ -159,7 +159,7 @@
               "ui:widget": "denom",
               "ui:options": {
                 "title": "Denomination",
-                "description": "classification for the stated or face value of token (ex. usd, andr)"
+                "description": "Enter the token denomination in micro units, which are denoted with a leading 'u', such as 'uluna', 'ujunox', or 'uarch'. This represents the smallest divisible unit of the token's value."
               }
             }
           },
@@ -168,7 +168,7 @@
             "percent": {
               "ui:options": {
                 "title": "Percent",
-                "description": "The percentage to take as rate."
+                "description": "The percentage to take as rate. This must be as decimal, formatted like this '0.05' (which would be 5%)"
               }
             }
           },
@@ -211,7 +211,7 @@
                 },
                 "identifier": {
                   "ui:options": {
-                    "description": "Can be either an address or app component name of a specific ADO within an app",
+                    "description": "Can be either an address or app component name of a specific ADO within an app.",
                     "title": "Identifier"
                   }
                 }
