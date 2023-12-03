@@ -40,8 +40,39 @@
     "description": "The App Contract component is an ADO that bundles a collection of other ADOs together for streamlined coordinated use."
   },
   "ui-schema": {
-    "ui:order": ["*", "app_components"],
-    "kernel_address": { "ui:widget": "hidden" }
+    "app_components": {
+      "ui:options": {
+        "addable": true,
+        "removable": true,
+        "orderable": true
+      },
+      "items": {
+        "ado_type": {
+          "ui:widget": "text",
+          "ui:placeholder": "Enter ADO Type"
+        },
+        "instantiate_msg": {
+          "ui:widget": "textarea",
+          "ui:placeholder": "Enter Instantiate Message",
+          "ui:help": "Select an ADO from the dropdown list. Make sure it matches what you entered into the 'ado_type' field above."
+        },
+        "name": {
+          "ui:widget": "text",
+          "ui:placeholder": "Enter Component Name"
+        }
+      }
+    },
+    "kernel_address": {
+      "ui:widget": "hidden"
+    },
+    "name": {
+      "ui:widget": "text",
+      "ui:placeholder": "Enter Name of the App"
+    },
+    "owner": {
+      "ui:widget": "text",
+      "ui:placeholder": "Enter Owner Address"
+    }
   },
   "form-data": {}
 }
