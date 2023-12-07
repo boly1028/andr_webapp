@@ -94,12 +94,29 @@ export const getSchemaFromPath = async (path: string) => {
         $required: {
             type: 'boolean',
             default: false
+        },
+        $pos: {
+            type: 'object',
+            properties: {
+                x: {
+                    type: 'number',
+                    default: 0
+                },
+                y: {
+                    type: 'number',
+                    default: 0
+                },
+            }
         }
     }
 
     schema["form-data"]['$removable'] = schema["form-data"]['$removable'] ?? true;
     schema["form-data"]["$required"] = schema["form-data"]["$required"] ?? false;
     schema["form-data"]["$enabled"] = schema["form-data"]["$enabled"] ?? true;
+    schema['form-data'].$class = schema.schema.class;
+    schema['form-data'].$classifier = schema.schema.classifier;
+    schema['form-data'].$version = schema.schema.version;
+    schema['form-data'].$type = schema.schema.$id;
 
     // Set default properties from above created object
     schema.schema.properties = {
@@ -127,6 +144,9 @@ export const getSchemaFromPath = async (path: string) => {
         'ui:widget': 'hidden'
     };
     schema["ui-schema"].$required = {
+        'ui:widget': 'hidden'
+    };
+    schema["ui-schema"].$pos = {
         'ui:widget': 'hidden'
     };
     schema["ui-schema"]["owner"] = {

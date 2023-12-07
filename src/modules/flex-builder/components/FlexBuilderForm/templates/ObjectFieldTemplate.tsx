@@ -63,6 +63,7 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
   } = props;
   const uiOptions = getUiOptions(uiSchema);
   const rootSchema = registry.rootSchema;
+  if (uiOptions.widget === 'hidden') return null;
 
   const TitleFieldTemplate = getTemplate<"TitleFieldTemplate">(
     "TitleFieldTemplate",

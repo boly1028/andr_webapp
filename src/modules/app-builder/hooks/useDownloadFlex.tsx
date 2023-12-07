@@ -11,7 +11,7 @@ import { useAppFormData } from './useAppFormData'
 // TODO: Add edge cache in template to retain edge directions
 
 export const useDownloadFlex = () => {
-    const { formRefs } = useAppBuilder()
+    const { formRefs, editorRef } = useAppBuilder()
     const getFormData = useAppFormData()
     const { getNode } = useReactFlow()
 
@@ -31,7 +31,7 @@ export const useDownloadFlex = () => {
             $required: true,
             $removable: false,
             $enabled: true,
-            name: 'app' // App Name will be added here
+            name: editorRef.current?.getAppName?.() ?? 'APP'
         }
         formData[IImportantAdoKeys.PUBLISH_SETTING.key] = pubSetFormData;
 
@@ -48,7 +48,7 @@ export const useDownloadFlex = () => {
         })
         const flexFile = await createFlexFileFromADOS({ ados, formData })
         return flexFile
-    }, [formRefs, getFormData, getNode])
+    }, [formRefs, editorRef, getFormData, getNode])
 
     const download = useCallback(async () => {
         const flexFile = await create()

@@ -36,6 +36,10 @@ export const processTemplate = async (template: ITemplate) => {
         formData[ado.id].$required = !!ado.required;
         formData[ado.id].$removable = (!ado.required && !!ado.removable);
         formData[ado.id].$enabled = template.formData?.[ado.id]?.$enabled ?? (!!ado.required || !!ado.enabled);
+        formData[ado.id].$pos = template.formData?.[ado.id]?.$pos ?? ado.pos ?? {
+            x: 0,
+            y: 0
+        }
     }
 
     template.schema = {
@@ -67,6 +71,10 @@ export const processTemplate = async (template: ITemplate) => {
 export const processTemplateAdo = async (ado: IAdo, formData?: IAndromedaFormData) => {
     const schemaADO = await getSchemaFromPath(ado.path);
     if (formData) {
+        formData.$class = schemaADO["form-data"].$class;
+        formData.$classifier = schemaADO["form-data"].$classifier;
+        formData.$version = schemaADO["form-data"].$version;
+        formData.$type = schemaADO["form-data"].$type;
         schemaADO['form-data'] = formData
     }
 

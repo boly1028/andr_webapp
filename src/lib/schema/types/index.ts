@@ -1,6 +1,7 @@
 import { UiSchema } from "@andromedarjsf/utils";
 import { JSONSchema7 } from "json-schema";
 import versions from '../schema/version.json';
+import { XYPosition } from "reactflow";
 
 export type ISchemaVersion = (typeof versions)[keyof typeof versions];
 
@@ -65,6 +66,19 @@ export interface IAndromedaSchema extends JSONSchema7 {
             type: 'boolean';
             default: boolean;
         };
+        $pos: {
+            type: 'object';
+            properties: {
+                x: {
+                    type: 'number';
+                    default: number;
+                },
+                y: {
+                    type: 'number';
+                    default: number;
+                }
+            }
+        };
     }
 }
 
@@ -77,6 +91,7 @@ export interface IAndromedaFormData {
     $removable: boolean;
     $enabled: boolean;
     $required: boolean;
+    $pos: XYPosition;
 }
 
 export interface IAndromedaUISchema extends UiSchema {
@@ -87,6 +102,7 @@ export interface IAndromedaUISchema extends UiSchema {
     $removable: { "ui:widget": "hidden" };
     $enabled: { "ui:widget": "hidden" };
     $required: { "ui:widget": "hidden" };
+    $pos: { "ui:widget": "hidden" };
 }
 
 

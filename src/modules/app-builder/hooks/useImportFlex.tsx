@@ -1,5 +1,5 @@
 import { ITemplate } from "@/lib/schema/templates/types"
-import { IImportantAdoKeys } from "@/lib/schema/types"
+import { IImportantAdoKeys, IPublishSettingsFormData } from "@/lib/schema/types"
 import { parseFlexUrl } from "@/lib/schema/utils/flexFile"
 import { processTemplateAdo } from "@/lib/schema/utils/template"
 import useConfirmationModal from "@/modules/modals/hooks/useConfirmationModal"
@@ -42,10 +42,13 @@ export const useImportFlex = (overide = true) => {
             const adoSchema = await processTemplateAdo(ado, template.formData?.[ado.id])
             addNode(adoSchema, { id: ado.id, position: ado.pos })
         }
+        const publishSettingData: IPublishSettingsFormData | undefined = template.formData?.[IImportantAdoKeys.PUBLISH_SETTING.key] as any;
         setTimeout(() => {
             fitView()
             toast.close(tId)
             editorRef.current.setDirty?.(true)
+            if (publishSettingData?.name)
+                editorRef.current.setAppName?.(publishSettingData?.name)
         }, 300)
     }, [addNode, fitView, overide, reset, editorRef])
 

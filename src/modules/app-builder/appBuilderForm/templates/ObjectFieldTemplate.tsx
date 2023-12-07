@@ -34,6 +34,7 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
     formContext, //used as prop drilling form action calls: toogleModule() / deleteModule() / renameModule(),
   } = props;
   const uiOptions = getUiOptions(uiSchema);
+  if (uiOptions.widget === 'hidden') return null;
 
   const TitleFieldTemplate = getTemplate<"TitleFieldTemplate">(
     "TitleFieldTemplate",
