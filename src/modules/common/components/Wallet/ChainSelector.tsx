@@ -16,7 +16,7 @@ const ChainSelector: FC<Props> = (props) => {
     return (
         <Menu>
             <MenuButton as={Button} size='sm' variant="theme-low" rightIcon={<Icon as={ChevronDown} />} {...buttonProps} />
-            <MenuList>
+            <MenuList maxH="max(50vh,20rem)" overflow='auto'>
                 {configs?.map((config) => (
                     <MenuItem
                         onClick={() => {

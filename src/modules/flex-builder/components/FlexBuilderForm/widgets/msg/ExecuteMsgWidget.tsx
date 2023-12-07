@@ -45,7 +45,7 @@ export const ExecuteMsgWidget: FC<ExecuteMsgWidgetProps> = (props) => {
               {currentBaseAdo ?? "Custom Msg"}
               {/* </CustomMenuButton> */}
             </MenuButton>
-            <MenuList maxH="48" overflow="auto">
+            <MenuList maxH="max(50vh,20rem)" overflow="auto">
               <MenuItem
                 onClick={() => {
                   reset()
@@ -97,7 +97,7 @@ export const ExecuteMsgWidget: FC<ExecuteMsgWidgetProps> = (props) => {
                 {schemaFile?.schema?.title ?? "Select Modifier"}
                 {/* </CustomMenuButton> */}
               </MenuButton>
-              <MenuList maxH="48" overflow="auto">
+              <MenuList maxH="max(50vh,20rem)" overflow="auto">
                 {adops?.modifiers.map((s) => (
                   <MenuItem
                     key={s}

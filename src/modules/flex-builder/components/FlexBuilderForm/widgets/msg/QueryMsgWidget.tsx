@@ -45,7 +45,7 @@ export const QueryMsgWidget: FC<QueryMsgWidgetProps> = (props) => {
               {currentBaseAdo ?? "Custom Msg"}
               {/* </CustomMenuButton> */}
             </MenuButton>
-            <MenuList maxH="48" overflow="auto">
+            <MenuList maxH="max(50vh,20rem)" overflow="auto">
               <MenuItem
                 onClick={() => {
                   reset()
@@ -97,7 +97,7 @@ export const QueryMsgWidget: FC<QueryMsgWidgetProps> = (props) => {
                 {schemaFile?.schema?.title ?? "Select Modifier"}
                 {/* </CustomMenuButton> */}
               </MenuButton>
-              <MenuList maxH="48" overflow="auto">
+              <MenuList maxH="max(50vh,20rem)" overflow="auto">
                 {adops?.queries.map((s) => (
                   <MenuItem
                     key={s}

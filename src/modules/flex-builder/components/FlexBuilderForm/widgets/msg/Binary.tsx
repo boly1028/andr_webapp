@@ -44,7 +44,7 @@ export const BinaryMsgWidget: FC<BinaryMsgWidgetProps> = (props) => {
                             {currentBaseAdo?.label ?? "Base64"}
                             {/* </CustomMenuButton> */}
                         </MenuButton>
-                        <MenuList maxH="48" overflow="auto">
+                        <MenuList maxH="max(50vh,20rem)" overflow="auto">
                             <MenuItem
                                 onClick={() => {
                                     reset()

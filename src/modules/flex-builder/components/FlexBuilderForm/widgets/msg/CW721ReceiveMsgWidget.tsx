@@ -45,7 +45,7 @@ export const Cw721ReceiveMsgWidget: FC<Cw721ReceiveMsgWidgetProps> = (props) => 
               {currentBaseAdo?.label ?? "Custom Message"}
               {/* </CustomMenuButton> */}
             </MenuButton>
-            <MenuList maxH="48" overflow="auto">
+            <MenuList maxH="max(50vh,20rem)" overflow="auto">
               <MenuItem
                 onClick={() => {
                   reset()
@@ -102,7 +102,7 @@ export const Cw721ReceiveMsgWidget: FC<Cw721ReceiveMsgWidgetProps> = (props) => 
                 {schemaFile?.schema?.title ?? "Select Message"}
                 {/* </CustomMenuButton> */}
               </MenuButton>
-              <MenuList maxH="48" overflow="auto">
+              <MenuList maxH="max(50vh,20rem)" overflow="auto">
                 {adops?.cw721receives?.map((s) => (
                   <MenuItem
                     key={s}
