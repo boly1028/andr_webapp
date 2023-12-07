@@ -63,7 +63,6 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
   } = props;
   const uiOptions = getUiOptions(uiSchema);
   const rootSchema = registry.rootSchema;
-  if (uiOptions.widget === 'hidden') return null;
 
   const TitleFieldTemplate = getTemplate<"TitleFieldTemplate">(
     "TitleFieldTemplate",
@@ -130,6 +129,7 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
 
   // It should be handled using ui:schema util from rjsf?
   const hasGroup = uiOptions.group;
+  if (uiOptions.widget === 'hidden') return null;
 
   if (hasWrapper) {
     return (
