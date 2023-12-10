@@ -54,7 +54,13 @@
     "can_mint_after_sale": {
       "ui:options": {
         "title": "Allow minting after sale?",
-        "description": "Set the flag to allow minting after a sale has completed. NOTE: Minting is not allowed during a sale."
+        "description": "Tick the box if you want to allow minting after a sale has completed.",
+        "alerts": [
+          {
+            "text": "Minting is not allowed while a sale is in progress.",
+            "type": "warning"
+          }
+        ]
       }
     },
     "modules": {
