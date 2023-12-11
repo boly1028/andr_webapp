@@ -22,6 +22,19 @@
     "version": "0.2.1",
     "classifier": ""
   },
-  "ui-schema": {},
+  "ui-schema": {
+    "place_bid": {
+      "token_address": {
+        "ui:widget": "text",
+        "ui:placeholder": "Enter the token's address",
+        "ui:help": "The address of the token you want to bid on."
+      },
+      "token_id": {
+        "ui:widget": "text",
+        "ui:placeholder": "Enter the token's ID",
+        "ui:help": "The unique identifier of the token you want to bid on."
+      }
+    }
+  },
   "form-data": {}
 }

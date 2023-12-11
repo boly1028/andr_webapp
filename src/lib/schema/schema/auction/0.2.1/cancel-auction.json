@@ -21,6 +21,19 @@
     "version": "0.2.1",
     "classifier": ""
   },
-  "ui-schema": {},
+  "ui-schema": {
+    "cancel_auction": {
+      "token_address": {
+        "ui:widget": "text",
+        "ui:placeholder": "Enter the token's address",
+        "ui:help": "The address of the token for which the auction is being canceled."
+      },
+      "token_id": {
+        "ui:widget": "text",
+        "ui:placeholder": "Enter the token's ID",
+        "ui:help": "The unique identifier of the token for which the auction is being canceled."
+      }
+    }
+  },
   "form-data": {}
 }

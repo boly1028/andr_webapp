@@ -18,6 +18,21 @@
     "version": "0.2.1",
     "classifier": ""
   },
-  "ui-schema": {},
+  "ui-schema": {
+    "update_owner": {
+      "address": {
+        "ui:widget": "text",
+        "ui:placeholder": "example: ANDR1xljhasdkjhfhbjwefhghgsdfgdgb",
+        "ui:options": {
+          "label": true,
+          "inputType": "text"
+        },
+        "ui:autofocus": true,
+        "ui:help": "This address can be your wallet, or can be another contract that you wish to declare as the owner of this auction."
+      },
+      "ui:order": ["address"],
+      "ui:layout": "vertical"
+    }
+  },
   "form-data": {}
 }
