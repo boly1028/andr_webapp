@@ -65,8 +65,8 @@
     },
     "modules": {
       "ui:options": {
-        "title": "Additional ADO's",
-        "description": "An optional component that can be added to a contract. Examples include an address list, specific rates, or a receipt."
+        "title": "Add Modules",
+        "description": "(Optional) Add attachable Andromeda ADO Modules to the contract. Currently compatible: 'rates', 'address-list', and 'receipt'"
       },
       "items": {
         "ui:options": { "title": "Module" },
@@ -74,7 +74,7 @@
         "address": {
           "ui:options": {
             "title": "Add Module",
-            "description": "Can be either an address or an app component name of a specific ADO within an app.",
+            "description": "Only allowed modules. Can be either an address or a component name of a specific ADO within an app",
             "alerts": [
               {
                 "text": "Allowed modules: rates, address-list, and receipt.",

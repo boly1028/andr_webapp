@@ -6,7 +6,12 @@
       "update_owner": {
         "type": "object",
         "required": ["address"],
-        "properties": { "address": { "type": "string", "title": "Address" } },
+        "properties": { 
+          "address": { 
+            "type": "string", 
+            "title": "Address" 
+          } 
+        },
         "additionalProperties": false,
         "title": "Update owner"
       }
@@ -18,6 +23,14 @@
     "version": "0.2.1",
     "classifier": ""
   },
-  "ui-schema": {},
+  "ui-schema": {
+    "update_owner": {
+      "address": {
+        "ui:widget": "text",
+        "ui:placeholder": "Enter new owner address",
+        "ui:help": "Input the address that will become the new owner."
+      }
+    }
+  },
   "form-data": {}
 }

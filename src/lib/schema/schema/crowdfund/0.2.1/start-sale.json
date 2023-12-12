@@ -244,9 +244,10 @@
           "ui:options": {
             "optionNames": ["Declared", "None"],
             "title": "IBC Recovery Address",
+            "description": "(Optional) Choose an address to recover funds in the case of a failed IBC transfer.",
             "alerts": [
               {
-                "text": "This is the address that will be used to recover funds in the case of a failed IBC transfer.",
+                "text": "This address will be used to recover funds in the case of a failed IBC transfer.",
                 "type": "info"
               }
             ]
