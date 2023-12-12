@@ -81,7 +81,7 @@
           "description": "Token minting information",
           "alerts": [
             {
-              "text": "Only available to the Minter defined in the ADO.",
+              "text": "Minting is only available to the Minter defined in the ADO.",
               "type": "error"
             }
           ]
