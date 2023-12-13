@@ -1,40 +1,15 @@
-import { IAdoType, IImportantAdoKeys, IImportantTemplateTypes } from "../types";
-import { ALL_ADOS } from "../utils/list";
+import { cloneDeep } from "@apollo/client/utilities";
+import { IAdoType, IImportantAdoKeys } from "../types";
 import { MASTER_ALLADO } from "../utils/masterList";
-import { IAdo, ITemplate } from "./types";
+import { ITemplate } from "./types";
+import { BLANK_APP_TEMPLATE } from "./blank";
 
 type PartialTemplateType = Omit<ITemplate, 'formData'> & {
   formData?: any
 }
 
 const APP_TEMPLATES: PartialTemplateType[] = [
-  {
-    id: IImportantTemplateTypes.BLANK_CANVAS,
-    adoType: "app-contract",
-    name: "Empty Project",
-    icon: "/app-templates/icons/blank.png",
-    description:
-      "Start from scratch building out your own ADO structure to be just the way you like it.",
-    opts: [
-      "Select your Base ADO functionality",
-      "Add on your prefered modules",
-      "Save as a template",
-      "Publish and use!",
-    ],
-    ados: [
-      {
-        path: IImportantAdoKeys.PUBLISH_SETTING.path,
-        id: IImportantAdoKeys.PUBLISH_SETTING.key,
-        required: true,
-      },
-    ],
-
-    modules: [
-      ...ALL_ADOS.map((ado) => ({ path: ado.source }))
-    ],
-    system: true,
-    starter: true,
-  },
+  cloneDeep(BLANK_APP_TEMPLATE),
   {
     id: "auction-market",
     adoType: "app-contract",

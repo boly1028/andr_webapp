@@ -17,11 +17,10 @@ export const SITE_LINKS = {
     dashboard: () => `/dashboard`,
     // Flex
     flexBuilderHome: () => `/flex-builder`,
-    flexBuilder: (id: string) => `/flex-builder/${id}`,
-    flexBuilderTemplate: (uri?: string, baseUrl?: string) => `${baseUrl ?? '/flex-builder/import'}${uri ? `?data=${uri}` : ''}`,
-    adoExecute: (path: string, address: string, name?: string, appAddress?: string) => `/flexecute/${path}?address=${address}&name=${name || ''}&appAddress=${appAddress || ''}`,
-    adoMultiExecute: (path: string, address: string, name?: string, appAddress?: string) => `/flexecute/multi-msg/${path}?address=${address}&name=${name || ''}&appAddress=${appAddress || ''}`,
-    adoQuery: (path: string, address: string) => `/flexquery/${path}?address=${address}`,
+    flexBuilder: (id: string, uri?: string) => `${`/flex-builder/${id}`}${uri ? `?data=${uri}` : ''}`,
+    adoExecute: (path: string, address: string, name?: string, appAddress?: string, uri?: string) => `/flexecute/${path}?address=${address}&name=${name || ''}&appAddress=${appAddress || ''}${uri ? `&data=${uri}` : ''}`,
+    adoMultiExecute: (path: string, address: string, name?: string, appAddress?: string, uri?: string) => `/flexecute/multi-msg/${path}?address=${address}&name=${name || ''}&appAddress=${appAddress || ''}${uri ? `&data=${uri}` : ''}`,
+    adoQuery: (path: string, address: string, uri?: string) => `/flexquery/${path}?address=${address}${uri ? `&data=${uri}` : ''}`,
     // App
     appStore: () => `/app-store`,
     appStoreItem: (id: string) => `/app-store/${id}`,

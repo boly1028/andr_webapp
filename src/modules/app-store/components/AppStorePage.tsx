@@ -14,6 +14,7 @@ import Link from "next/link";
 import React, { FC } from "react";
 import Header from "./Header";
 import TemplateCard from "./TemplateCard";
+import { IImportantTemplateTypes } from "@/lib/schema/types";
 
 interface AppStorePageProps { }
 const AppStorePage: FC<AppStorePageProps> = (props) => {
@@ -40,7 +41,7 @@ const AppStorePage: FC<AppStorePageProps> = (props) => {
             <Text color="dark.500" mt="6">
               Quickly build your app with a template or start from scratch.
             </Text>
-            <Link href={SITE_LINKS.flexBuilder("app")} legacyBehavior>
+            <Link href={SITE_LINKS.flexBuilder(IImportantTemplateTypes.BLANK_CANVAS)} legacyBehavior>
               <Button
                 mt={10}
                 w="full"

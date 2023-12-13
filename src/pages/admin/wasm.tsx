@@ -15,7 +15,6 @@ import { getCodeId } from "@/lib/andrjs/hooks/useCodeId";
 import { cloneDeep } from "@apollo/client/utilities";
 import { parseJsonFromFile } from "@/lib/json";
 import { parseFlexFile } from "@/lib/schema/utils/flexFile";
-import { useRouter } from "next/router";
 import { useGetFlexFileFromUrl } from "@/modules/flex-builder/hooks/useFlexFile";
 import { resolveVfs } from "@/lib/andrjs/hooks/vfs/useResolvePath";
 
@@ -179,9 +178,6 @@ const Page: FC<Props> = (props) => {
                         onSubmit={submit}
                         notReady={!client?.isConnected}
                         addButtonTitle="Add Multi Message"
-                        copyProps={{
-                            baseUrl: '/admin/wasm'
-                        }}
                         hideOpenInAppBuilder
                         formContext={{ admin: true }}
                     />

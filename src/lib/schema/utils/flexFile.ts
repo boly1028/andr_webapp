@@ -1,12 +1,11 @@
 import { cloneDeep } from "lodash";
 import JSONCrush from "jsoncrush";
 import { IAdo, ITemplateFormData, ITemplateSchema, ITemplateUiSchema } from "../templates/types";
-import { UPLOAD_TEMPLATE } from "../templates/upload"
-import { IAndromedaFormData, ITemplate } from "../types"
+import { ITemplate } from "../types"
 import { processTemplate } from "./template";
+import { BLANK_APP_TEMPLATE } from "../templates/blank";
 
 export const parseFlexFile = async (template: ITemplate) => {
-    template.modules = cloneDeep(UPLOAD_TEMPLATE.modules);
     const processed = await processTemplate(template);
     return processed;
 }
@@ -36,7 +35,6 @@ export const createFlexFile = async ({ schema, formData: _formData, template, or
     Object.entries(schema.properties).map(([id, property]) => {
         const definitionId = property.$ref.split('/').pop() ?? '';
         const definition = schema.definitions[definitionId];
-        const adoFromTemplate = template?.ados?.find(a => a.id === id);
         ados.push({
             id: id,
             path: definition.$path,
@@ -52,7 +50,7 @@ export const createFlexFile = async ({ schema, formData: _formData, template, or
 }
 
 export const createFlexFileFromADOS = async ({ ados, formData, template: defaultTemplate }: ICreateInputFromADO) => {
-    const template: ITemplate = cloneDeep(defaultTemplate ?? UPLOAD_TEMPLATE);
+    const template: ITemplate = cloneDeep(defaultTemplate ?? BLANK_APP_TEMPLATE);
     template.ados = ados;
     template.schema = undefined;
     template.uiSchema = undefined;

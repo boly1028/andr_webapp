@@ -17,7 +17,8 @@ import { EXECUTE_CLI_QUERY, useAndromedaClient } from "@/lib/andrjs";
 import { ITemplateFormData } from "@/lib/schema/templates/types";
 import useConstructMultiExecuteMsg from "@/modules/sdk/hooks/useConstructMultiExecuteMsg";
 import useMultiExecuteModal from "@/modules/modals/hooks/useMultiExecuteModal";
-import { useAccount } from "@/lib/andrjs/hooks/useAccount";
+import { useGetFlexFileFromSession, useGetFlexFileFromUrl } from "@/modules/flex-builder/hooks/useFlexFile";
+import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
 
 type Props = {
   template: ITemplate
@@ -45,39 +46,41 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
   const openMultiExecuteModal = useMultiExecuteModal(ADO_DATA.address)
   const openProxyMultiExecuteModal = useMultiExecuteModal(ADO_DATA.appAddress)
 
-  const [modifiedTemplate, setModifiedTemplate] = useState(template);
+  const { flex: urlFlex, loading: urlLoading } = useGetFlexFileFromUrl();
+  const { flex: sessionFlex, loading: sessionLoading } = useGetFlexFileFromSession();
+  const importedTemplate = useMemo(() => {
+    if (urlFlex && urlFlex.id === template.id) return urlFlex;
+    if (sessionFlex && sessionFlex.id === template.id) return sessionFlex;
+    return template;
+  }, [urlFlex, sessionFlex, template])
+
+  const loading = useMemo(() => urlLoading || sessionLoading, [urlLoading, sessionLoading])
+
+  const [modifiedTemplate, setModifiedTemplate] = useState(importedTemplate);
 
   const isProxy = (formData: ITemplateFormData) => (IImportantAdoKeys.PROXY_SETTING.key in formData && formData[IImportantAdoKeys.PROXY_SETTING.key].$enabled === true)
 
   useEffect(() => {
-    const newTemplate = cloneDeep(template);
-    const formData = newTemplate.formData ?? {};
-    formData[IImportantAdoKeys.PROXY_SETTING.key] = {
-      ...(formData[IImportantAdoKeys.PROXY_SETTING.key] ?? {}),
-      parent: ADO_DATA.appAddress,
-      component_name: ADO_DATA.name,
-    };
-    newTemplate.formData = formData;
-    setModifiedTemplate(newTemplate);
-  }, [ADO_DATA, template]);
-
-  const handleFlexInput = async (file: File) => {
-    try {
-      const json = await parseJsonFromFile(file) as ITemplate;
-      json.ados.forEach(ado => {
-        ado.removable = true;
-        ado.required = false;
-      })
-      const _template = await parseFlexFile(json);
-
-      const formData = _template.formData ?? {};
+    if (loading) return;
+    const tid = setTimeout(async () => {
+      const _template = await handleFlexUpdate(importedTemplate).catch(() => template)
+      const newTemplate = cloneDeep(_template);
+      const formData = newTemplate.formData ?? {};
       formData[IImportantAdoKeys.PROXY_SETTING.key] = {
         ...(formData[IImportantAdoKeys.PROXY_SETTING.key] ?? {}),
         parent: ADO_DATA.appAddress,
         component_name: ADO_DATA.name,
       };
-      _template.formData = formData;
-      _template.modules = template.modules
+      newTemplate.formData = formData;
+      setModifiedTemplate(newTemplate);
+    }, 500)
+    return () => clearTimeout(tid);
+  }, [ADO_DATA, importedTemplate])
+
+  const handleFlexInput = async (file: File) => {
+    try {
+      const json = await parseJsonFromFile(file) as ITemplate;
+      const _template = await handleFlexUpdate(json);
 
       setModifiedTemplate(_template);
       toast({
@@ -92,7 +95,26 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
       });
     }
   };
+  const handleFlexUpdate = async (json: ITemplate) => {
+    if (json.id !== template.id) throw new Error('This staging file is not supported for this template')
+    json.name = template.name;
+    json.description = template.description;
+    json.ados.forEach(ado => {
+      ado.removable = true;
+      ado.required = false;
+    })
+    const _template = await parseFlexFile(json);
 
+    const formData = _template.formData ?? {};
+    formData[IImportantAdoKeys.PROXY_SETTING.key] = {
+      ...(formData[IImportantAdoKeys.PROXY_SETTING.key] ?? {}),
+      parent: ADO_DATA.appAddress,
+      component_name: ADO_DATA.name,
+    };
+    _template.formData = formData;
+    _template.modules = template.modules
+    return _template;
+  }
   const getMsg = (formData: any) => {
     const proxy = isProxy(formData);
     return constructMultiMsg(formData, proxy);
@@ -178,6 +200,9 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
           notReady={!client?.isConnected}
           addButtonTitle="Add Attachment"
           onCliCopy={handleCliCopy}
+          copyProps={{
+            url: (uri) => SITE_LINKS.adoMultiExecute(template.id, ADO_DATA.address, ADO_DATA.name, ADO_DATA.appAddress, uri)
+          }}
         />
       </Box>
     </Layout>

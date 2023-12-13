@@ -3,12 +3,12 @@ import { IconButton, Tooltip } from "@chakra-ui/react";
 
 import { CopyButton, CopyIcon, DownloadIcon } from "@/modules/common";
 import {
+  ITemplate,
   ITemplateFormData,
   ITemplateSchema,
   ITemplateUiSchema,
 } from "@/lib/schema/templates/types";
 import { createFlexFile, createFlexUrl } from "@/lib/schema/utils/flexFile";
-import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
 
 /**
  * Download flex component
@@ -16,14 +16,15 @@ import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
  * @param {uiSchema} Record<string, JSONSchema7
  * @param {formData} Record<string, JSONSchema7>
  */
-interface CopyFlexProps {
+export interface CopyFlexProps {
   schema?: ITemplateSchema;
   uiSchema?: ITemplateUiSchema;
   formData?: ITemplateFormData;
-  baseUrl?: string;
+  url: (uri: string) => string;
+  template: ITemplate;
 }
 
-function CopyFlexButton({ schema, uiSchema, formData, baseUrl }: CopyFlexProps) {
+function CopyFlexButton({ schema, uiSchema, formData, url, template }: CopyFlexProps) {
   const handleCopy = useCallback(async () => {
     if (!schema || !uiSchema || !formData) {
       return "";
@@ -31,11 +32,12 @@ function CopyFlexButton({ schema, uiSchema, formData, baseUrl }: CopyFlexProps) 
     const flexFile = await createFlexFile({
       schema,
       formData,
-      order: uiSchema?.["ui:order"]
+      order: uiSchema?.["ui:order"],
+      template
     })
     const flexURI = await createFlexUrl(flexFile);
 
-    return window.origin + SITE_LINKS.flexBuilderTemplate(flexURI, baseUrl);
+    return window.origin + url(flexURI);
   }, [schema, uiSchema, formData]);
 
   return (

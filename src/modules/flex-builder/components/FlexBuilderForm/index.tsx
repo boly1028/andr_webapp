@@ -23,7 +23,7 @@ import {
 } from "@/lib/schema/types";
 import { ITemplateUiSchema } from "@/lib/schema/templates/types";
 import Form from "./Form";
-import CopyFlexButton from "./CopyFlexButton";
+import CopyFlexButton, { CopyFlexProps } from "./CopyFlexButton";
 import CopyCliButton from "./CopyCliButton";
 import OpenInAppBuilderButton from "./OpenInAppBuilder";
 import AdvanceFormOptions from "./AdvanceFormOptions";
@@ -39,7 +39,7 @@ export type FlexBuilderFormProps = {
   onCliCopy?: (formData: any) => string;
   hideOpenInAppBuilder?: boolean;
   copyProps?: {
-    baseUrl?: string;
+    url: CopyFlexProps['url']
   }
   formContext?: Record<string, any>;
 };
@@ -53,7 +53,7 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
   addButtonTitle,
   onCliCopy,
   hideOpenInAppBuilder = false,
-  copyProps = {},
+  copyProps,
   formContext = {}
 }) => {
   const toast = useToast({
@@ -253,12 +253,15 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
                 onCopy={onCliCopy}
               />
             )}
-            <CopyFlexButton
-              schema={schema}
-              uiSchema={uiSchema}
-              formData={formData}
-              baseUrl={copyProps.baseUrl}
-            />
+            {copyProps && (
+              <CopyFlexButton
+                schema={schema}
+                uiSchema={uiSchema}
+                formData={formData}
+                url={copyProps.url}
+                template={template}
+              />
+            )}
             <DownloadButton
               template={template}
               schema={schema}

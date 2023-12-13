@@ -9,20 +9,43 @@ import { IImportantAdoKeys, IImportantTemplateTypes, ITemplate } from "@/lib/sch
 import { getAppTemplateById } from "@/lib/schema/utils";
 import { ILinkItemKey } from "@/modules/common/components/sidebar/utils";
 import { FlexBuilderFormProps } from "@/modules/flex-builder/components/FlexBuilderForm";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { parseJsonFromFile } from "@/lib/json";
 import { parseFlexFile } from "@/lib/schema/utils/flexFile";
 import useConstructADOMsg from "@/modules/sdk/hooks/useConstructADOMsg";
 import { useAccount } from "@/lib/andrjs/hooks/useAccount";
+import { useGetFlexFileFromSession, useGetFlexFileFromUrl } from "@/modules/flex-builder/hooks/useFlexFile";
+import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
 
 type Props = {
   template: ITemplate;
 };
 
 const TemplatePage: NextPage<Props> = ({ template }) => {
+  const { flex: urlFlex, loading: urlLoading } = useGetFlexFileFromUrl();
+  const { flex: sessionFlex, loading: sessionLoading } = useGetFlexFileFromSession();
+  const importedTemplate = useMemo(() => {
+    if (urlFlex && urlFlex.id === template.id) return urlFlex;
+    if (sessionFlex && sessionFlex.id === template.id) return sessionFlex;
+    return template;
+  }, [urlFlex, sessionFlex, template])
+
+  const loading = useMemo(() => urlLoading || sessionLoading, [urlLoading, sessionLoading])
+
   const codeId = useCodeId(template.adoType, template.adoVersion);
   const account = useAccount();
-  const [modifiedTemplate, setModifiedTemplate] = useState(template);
+
+  const [modifiedTemplate, setModifiedTemplate] = useState(importedTemplate);
+  useEffect(() => {
+    if (loading) return;
+    const tid = setTimeout(async () => {
+      await handleFlexUpdate(importedTemplate).then(res => {
+        setModifiedTemplate(res);
+      }).catch(console.error)
+    }, 500)
+    return () => clearTimeout(tid);
+  }, [importedTemplate])
+
   const toast = useToast({
     position: "top-right",
   });
@@ -65,25 +88,13 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
   const handleFlexInput = async (file: File) => {
     try {
       const json = await parseJsonFromFile(file) as ITemplate;
-      if (template.id !== IImportantTemplateTypes.BLANK_CANVAS && json.id !== template.id) throw new Error('This staging file is not supported for this template')
-      json.name = template.name;
-      json.description = template.description;
-      if (template.id === IImportantTemplateTypes.BLANK_CANVAS) {
-        json.ados.forEach(ado => {
-          if (ado.id === IImportantAdoKeys.PUBLISH_SETTING.key) return;
-          ado.removable = true;
-          ado.required = false;
-        })
-      }
-      const _template = await parseFlexFile(json);
-
-      // By default parse Flex file add all available ados in modules. Replace them with template specific modules
-      _template.modules = template.modules
+      const _template = await handleFlexUpdate(json);
       setModifiedTemplate(_template);
       toast({
         title: "Import successfull",
         status: "success",
       });
+
     } catch (err) {
       toast({
         title: "Error while importing",
@@ -92,6 +103,24 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
       });
     }
   };
+
+  const handleFlexUpdate = async (json: ITemplate) => {
+    if (template.id !== IImportantTemplateTypes.BLANK_CANVAS && json.id !== template.id) throw new Error('This staging file is not supported for this template')
+    json.name = template.name;
+    json.description = template.description;
+    if (template.id === IImportantTemplateTypes.BLANK_CANVAS) {
+      json.ados.forEach(ado => {
+        if (ado.id === IImportantAdoKeys.PUBLISH_SETTING.key) return;
+        ado.removable = true;
+        ado.required = false;
+      })
+    }
+    const _template = await parseFlexFile(json);
+
+    // By default parse Flex file add all available ados in modules. Replace them with template specific modules
+    _template.modules = template.modules
+    return _template;
+  }
 
   const InputElement = useMemo(
     () => (
@@ -128,7 +157,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
   );
 
   const UPDATE_KEY = useMemo(() => Math.random(), [modifiedTemplate]);
-
+  console.log(modifiedTemplate);
 
   return (
     <Layout activeLink={ILinkItemKey.ADO_BUILDER}>
@@ -140,9 +169,12 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
           key={UPDATE_KEY}
           template={modifiedTemplate}
           onSubmit={handleSubmit}
-          notReady={!codeId || codeId === -1 || !account}
+          notReady={loading && !codeId || codeId === -1 || !account}
           addButtonTitle="Add App Component"
           onCliCopy={handleCliCopy}
+          copyProps={{
+            url: (uri) => SITE_LINKS.flexBuilder(template.id, uri)
+          }}
         />
       </Box>
     </Layout>

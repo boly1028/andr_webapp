@@ -10,7 +10,6 @@ export type { ITemplate } from '../templates/types'
 
 export const IImportantTemplateTypes = {
     BLANK_CANVAS: 'app',
-    IMPORT: 'import'
 }
 
 export const IImportantAdoKeys = {

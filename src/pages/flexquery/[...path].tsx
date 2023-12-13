@@ -1,19 +1,21 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { FlexBuilderForm } from "@/modules/flex-builder";
 
-import { Box, Flex, Text } from "@/theme/ui-elements";
-import { FileCheckIcon, FilePlusIcon, Layout, PageHeader, truncate } from "@/modules/common";
+import { Box } from "@/theme/ui-elements";
+import { FilePlusIcon, Layout, PageHeader } from "@/modules/common";
 import { useRouter } from "next/router";
-import { IImportantAdoKeys, ITemplate } from "@/lib/schema/types";
-import { getADOExecuteTemplate, getADOQueryTemplate } from "@/lib/schema/utils";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { FormControl, FormLabel, HStack, IconButton, Input, Switch, Tooltip, useToast } from "@chakra-ui/react";
+import { ITemplate } from "@/lib/schema/types";
+import { getADOQueryTemplate } from "@/lib/schema/utils";
+import { useEffect, useMemo, useState } from "react";
+import { HStack, IconButton, Input, Tooltip, useToast } from "@chakra-ui/react";
 import { cloneDeep } from "@apollo/client/utilities";
 import { parseJsonFromFile } from "@/lib/json";
 import { parseFlexFile } from "@/lib/schema/utils/flexFile";
 import { FlexBuilderFormProps } from "@/modules/flex-builder/components/FlexBuilderForm";
-import { EXECUTE_CLI_QUERY, useAndromedaClient } from "@/lib/andrjs";
+import { useAndromedaClient } from "@/lib/andrjs";
 import useConstructADOQueryMsg from "@/modules/sdk/hooks/useConstructaADOQueryMsg";
+import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
+import { useGetFlexFileFromSession, useGetFlexFileFromUrl } from "@/modules/flex-builder/hooks/useFlexFile";
 
 type Props = {
   template: ITemplate
@@ -26,31 +28,37 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
   });
   const address = router.query.address as string;
   const client = useAndromedaClient();
+
+  const { flex: urlFlex, loading: urlLoading } = useGetFlexFileFromUrl();
+  const { flex: sessionFlex, loading: sessionLoading } = useGetFlexFileFromSession();
+  const importedTemplate = useMemo(() => {
+    if (urlFlex && urlFlex.id === template.id) return urlFlex;
+    if (sessionFlex && sessionFlex.id === template.id) return sessionFlex;
+    return template;
+  }, [urlFlex, sessionFlex, template])
+
+  const loading = useMemo(() => urlLoading || sessionLoading, [urlLoading, sessionLoading])
   const [modifiedTemplate, setModifiedTemplate] = useState(template);
 
   useEffect(() => {
-    const newTemplate = cloneDeep(template);
-    const formData = newTemplate.formData ?? {};
-    newTemplate.formData = formData;
-    setModifiedTemplate(newTemplate);
-  }, [template]);
+    if (loading) return;
+    const tid = setTimeout(async () => {
+      const _template = await handleFlexUpdate(importedTemplate).catch(() => template)
+      const newTemplate = cloneDeep(_template);
+      const formData = newTemplate.formData ?? {};
+      newTemplate.formData = formData;
+      setModifiedTemplate(newTemplate);
+    }, 500)
+    return () => clearTimeout(tid);
+  }, [importedTemplate]);
 
   const constructQueryMsg = useConstructADOQueryMsg()
 
   const handleFlexInput = async (file: File) => {
     try {
       const json = await parseJsonFromFile(file) as ITemplate;
-      if (json.id !== template.id) throw new Error('This staging file is not supported for this template')
-      json.name = template.name;
-      json.description = template.description;
-      json.ados.forEach(ado => {
-        ado.removable = true;
-        ado.required = false;
-      })
-      const _template = await parseFlexFile(json);
-      const formData = _template.formData ?? {};
-      _template.formData = formData;
-      _template.modules = template.modules
+      const _template = await handleFlexUpdate(json);
+
       setModifiedTemplate(_template);
       toast({
         title: "Import successfull",
@@ -64,7 +72,20 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
       });
     }
   };
-
+  const handleFlexUpdate = async (json: ITemplate) => {
+    if (json.id !== template.id) throw new Error('This staging file is not supported for this template')
+    json.name = template.name;
+    json.description = template.description;
+    json.ados.forEach(ado => {
+      ado.removable = true;
+      ado.required = false;
+    })
+    const _template = await parseFlexFile(json);
+    const formData = _template.formData ?? {};
+    _template.formData = formData;
+    _template.modules = template.modules
+    return _template;
+  }
   const getMsg = (formData: any) => {
     return constructQueryMsg(formData);
   }
@@ -146,6 +167,9 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
           notReady={!client?.isConnected}
           addButtonTitle="Add Attachment"
           onCliCopy={handleCliCopy}
+          copyProps={{
+            url: (uri) => SITE_LINKS.adoQuery(template.id, address, uri)
+          }}
 
         />
       </Box>

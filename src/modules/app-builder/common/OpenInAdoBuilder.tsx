@@ -21,7 +21,7 @@ const OpenInAdoBuilderButton: FC<OpenInAdoBuilderButtonProps> = (props) => {
         try {
             const flex = await createFlex();
             sessionStorage.setItem("ANDROMEDA_TEMPLATE", JSON.stringify(flex));
-            router.push(SITE_LINKS.flexBuilderTemplate())
+            router.push(SITE_LINKS.flexBuilder(flex.id))
         } catch (err: any) {
             toast({
                 title: `Error while generating flex url`,
