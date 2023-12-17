@@ -17,6 +17,12 @@ import { GlobalModalProvider } from "@/modules/modals";
 import { initiateKeplr } from "@/zustand/andromeda";
 import "react-toastify/dist/ReactToastify.css";
 import "@andromedaprotocol/design-theme/css/globals.css"
+import 'highlight.js/styles/atom-one-dark.min.css';
+
+import hljs from 'highlight.js/lib/core';
+import json from 'highlight.js/lib/languages/json';
+hljs.registerLanguage('json', json);
+
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   useEffect(() => {

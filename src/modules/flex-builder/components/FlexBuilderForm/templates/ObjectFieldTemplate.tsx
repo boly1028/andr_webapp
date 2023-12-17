@@ -93,8 +93,9 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
     if (rjsfId.slice(0, 5) === "root_") {
       rjsfId = rjsfId.slice(5);
     }
+    if (rjsfId === 'root') return schema.$id;
     return rjsfId;
-  }, [idSchema]);
+  }, [idSchema, schema]);
 
   const adoType = useMemo(() => {
     const type = schema.$id

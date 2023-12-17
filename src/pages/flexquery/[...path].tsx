@@ -2,12 +2,12 @@ import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { FlexBuilderForm } from "@/modules/flex-builder";
 
 import { Box } from "@/theme/ui-elements";
-import { FilePlusIcon, Layout, PageHeader } from "@/modules/common";
+import { CopyButton, FallbackPlaceholder, FilePlusIcon, Layout, PageHeader } from "@/modules/common";
 import { useRouter } from "next/router";
-import { ITemplate } from "@/lib/schema/types";
-import { getADOQueryTemplate } from "@/lib/schema/utils";
+import { IAndromedaSchemaJSON, ITemplate } from "@/lib/schema/types";
+import { getADOQueryTemplate, getSchemaFromPath } from "@/lib/schema/utils";
 import { useEffect, useMemo, useState } from "react";
-import { HStack, IconButton, Input, Tooltip, useToast } from "@chakra-ui/react";
+import { Center, HStack, IconButton, Input, Tab, TabList, TabPanel, TabPanels, Tabs, Text, Tooltip, useToast } from "@chakra-ui/react";
 import { cloneDeep } from "@apollo/client/utilities";
 import { parseJsonFromFile } from "@/lib/json";
 import { parseFlexFile } from "@/lib/schema/utils/flexFile";
@@ -16,9 +16,12 @@ import { useAndromedaClient } from "@/lib/andrjs";
 import useConstructADOQueryMsg from "@/modules/sdk/hooks/useConstructaADOQueryMsg";
 import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
 import { useGetFlexFileFromSession, useGetFlexFileFromUrl } from "@/modules/flex-builder/hooks/useFlexFile";
+// import Form from "@/modules/flex-builder/components/FlexBuilderForm/Form";
+import hljs from "highlight.js";
 
 type Props = {
-  template: ITemplate
+  template: ITemplate;
+  // responseSchema?: IAndromedaSchemaJSON;
 };
 
 const TemplatePage: NextPage<Props> = ({ template }) => {
@@ -28,7 +31,13 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
   });
   const address = router.query.address as string;
   const client = useAndromedaClient();
+  const [response, setResponse] = useState<any>();
 
+  const responseJsonHighlight = useMemo(() => {
+    if (response) {
+      return hljs.highlight(JSON.stringify(response, undefined, 2), { language: 'json' }).value;
+    }
+  }, [response])
   const { flex: urlFlex, loading: urlLoading } = useGetFlexFileFromUrl();
   const { flex: sessionFlex, loading: sessionLoading } = useGetFlexFileFromSession();
   const importedTemplate = useMemo(() => {
@@ -93,11 +102,16 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
   const handleSubmit: FlexBuilderFormProps['onSubmit'] = async ({ formData }) => {
     try {
       const msg = getMsg(formData);
-      console.log(msg)
       const result = await client!.queryContract(address, msg);
-      console.log(result)
-    } catch (err) {
-      console.error(err)
+      console.log(result);
+      setResponse(result);
+    } catch (err: any) {
+      console.error(err);
+      toast({
+        status: 'error',
+        title: "Error",
+        description: err?.message
+      })
     }
   };
 
@@ -170,8 +184,58 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
           copyProps={{
             url: (uri) => SITE_LINKS.adoQuery(template.id, address, uri)
           }}
-
+          submitButtonLabel="Query"
         />
+      </Box>
+      <Box mt='10'>
+        <Tabs variant='soft-rounded' size='sm' colorScheme='primary' isLazy>
+          <HStack>
+            <Text flex={1} textStyle="main-xl-medium">Query Response</Text>
+            {response && (
+              <CopyButton text={JSON.stringify(response)} variant='theme-low' size='xs'>
+                Copy Response
+              </CopyButton>
+            )}
+            <TabList>
+              {/* {responseSchema && (
+                <Tab>Response</Tab>
+              )} */}
+              <Tab>Raw</Tab>
+            </TabList>
+          </HStack>
+          {response ? (
+
+            <TabPanels>
+              {/* {responseSchema && (
+                <TabPanel px='0'>
+                  <Form
+                    readonly
+                    schema={responseSchema.schema}
+                    uiSchema={responseSchema['ui-schema']}
+                    formData={response}
+                  >
+                    <>
+                    </>
+                  </Form>
+                </TabPanel>
+              )} */}
+              <TabPanel px={0}>
+                <Box textStyle='code-xs-regular' bg='background.800' p='6' rounded='lg' overflow='auto'>
+                  <Box as='pre'>
+                    <code dangerouslySetInnerHTML={{ __html: responseJsonHighlight ?? '' }}></code>
+                  </Box>
+                </Box>
+              </TabPanel>
+            </TabPanels>
+          ) : (
+            <Center mt='10' bg='background.800' p='6' pt='8' rounded='lg'>
+              <FallbackPlaceholder
+                title="No Response"
+                desc="There is no response to display here"
+              />
+            </Center>
+          )}
+        </Tabs>
       </Box>
     </Layout>
   );
@@ -187,15 +251,17 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<Props> = async (ctx) => {
   const { params } = ctx;
   const path = params?.path as string[];
-  const executeTemplate = await getADOQueryTemplate(path.join("/"));
-  if (!executeTemplate) {
+  const queryTemplate = await getADOQueryTemplate(path.join("/"));
+  if (!queryTemplate) {
     return {
       notFound: true,
     };
   }
+  // const responseSchema = await getSchemaFromPath(queryTemplate.id.replace('.query', '.response')).catch(err => undefined);
   return {
     props: {
-      template: JSON.parse(JSON.stringify(executeTemplate)),
+      template: JSON.parse(JSON.stringify(queryTemplate)),
+      // responseSchema: JSON.parse(JSON.stringify(responseSchema))
     },
     revalidate: 300,
   };

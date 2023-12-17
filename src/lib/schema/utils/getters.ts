@@ -149,12 +149,15 @@ export const getSchemaFromPath = async (path: string) => {
     schema["ui-schema"].$pos = {
         'ui:widget': 'hidden'
     };
-    schema["ui-schema"]["owner"] = {
-        'ui:widget': 'hidden'
-    };
-    schema["ui-schema"]["kernel_address"] = {
-        'ui:widget': 'hidden'
-    };
+
+    if (schema.schema.class !== 'response') {
+        schema["ui-schema"]["owner"] = {
+            'ui:widget': 'hidden'
+        };
+        schema["ui-schema"]["kernel_address"] = {
+            'ui:widget': 'hidden'
+        };
+    }
 
     return schema;
 }

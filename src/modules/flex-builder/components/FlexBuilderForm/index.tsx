@@ -42,6 +42,7 @@ export type FlexBuilderFormProps = {
     url: CopyFlexProps['url']
   }
   formContext?: Record<string, any>;
+  submitButtonLabel?: string;
 };
 
 const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
@@ -54,7 +55,8 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
   onCliCopy,
   hideOpenInAppBuilder = false,
   copyProps,
-  formContext = {}
+  formContext = {},
+  submitButtonLabel = "Publish"
 }) => {
   const toast = useToast({
     position: "top-right",
@@ -274,7 +276,7 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
               variant='theme-primary'
               isLoading={isLoading}
             >
-              Publish
+              {submitButtonLabel}
             </Button>
           </HStack>
         </HStack>
