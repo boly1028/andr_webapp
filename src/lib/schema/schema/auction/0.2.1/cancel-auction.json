@@ -30,7 +30,7 @@
       },
       "token_id": {
         "ui:widget": "text",
-        "ui:placeholder": "NFTname",
+        "ui:placeholder": "YourTokenName",
         "ui:help": "The unique identifier of the token for which the auction is being canceled."
       }
     }
