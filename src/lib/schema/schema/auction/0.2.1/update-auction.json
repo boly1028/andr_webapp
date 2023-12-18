@@ -63,7 +63,7 @@
       "ui:order": ["coin_denom", "token_address", "token_id", "duration", "start_time", "min_bid", "whitelist"],
       "coin_denom": {
         "ui:widget": "text",
-        "ui:placeholder": "Enter coin denomination this auction will be conducted in. Only use micro-units, e.g., 'uluna'"
+        "ui:placeholder": "uandr"
       },
       "duration": {
         "ui:widget": "duration",
@@ -71,9 +71,10 @@
         "ui:description": "Enter the duration of the auction."
       },
       "min_bid": {
-        "ui:options": { "optionNames": ["Minimum Bid", "None"] },
+        "ui:options": { "optionNames": ["Minimum Bid", "No Minimum Bid"] },
         "ui:title": "Minimum Bid",
-        "ui:placeholder": "Enter the minimum bid amount. Use micro units, e.g., '1000000 uluna' for 1 Luna."
+        "ui:placeholder": "100000",
+        "ui:help": "Enter the minimum bid amount. Should be lower case and micro units. 100000 micro-andr (called uandr) is equal to 1 andr"
       },
       "start_time": {
         "ui:widget": "dateTime",
@@ -83,12 +84,12 @@
       "token_address": {
         "ui:widget": "text",
         "ui:description": "Enter the address of the token whose auction you wish to update.",
-        "ui:placeholder": "example "
+        "ui:placeholder": "andr1v54e0pskn029vtp863mpxccn2g20tx0a6h95rj"
       },
       "token_id": {
         "ui:widget": "text",
         "ui:description": "Enter the token ID of the token you wish to update.",
-        "ui:placeholder": "Enter token ID"
+        "ui:placeholder": "YourTokenName"
       }
     }
   },

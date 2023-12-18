@@ -26,13 +26,13 @@
     "place_bid": {
       "token_address": {
         "ui:widget": "text",
-        "ui:placeholder": "Enter the token's address",
-        "ui:help": "The address of the token you want to bid on."
+        "ui:placeholder": "andr1v54e0pskn029vtp863mpxccn2g20tx0a6h95rj",
+        "ui:description": "The address of the token you want to bid on."
       },
       "token_id": {
         "ui:widget": "text",
-        "ui:placeholder": "Enter the token's ID",
-        "ui:help": "The unique identifier of the token you want to bid on."
+        "ui:placeholder": "YourTokenName",
+        "ui:description": "The unique identifier of the token you want to bid on."
       }
     }
   },

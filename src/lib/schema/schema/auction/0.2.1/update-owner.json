@@ -22,7 +22,7 @@
     "update_owner": {
       "address": {
         "ui:widget": "text",
-        "ui:placeholder": "example: ANDR1xljhasdkjhfhbjwefhghgsdfgdgb",
+        "ui:placeholder": "andr1v54e0pskn029vtp863mpxccn2g20tx0a6h95rj",
         "ui:options": {
           "label": true,
           "inputType": "text"
