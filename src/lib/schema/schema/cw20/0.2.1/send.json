@@ -44,6 +44,8 @@
         "description": " "
       },
       "amount": {
+        "ui:widget": "text",
+        "ui:placeholder": "10000",
         "ui:options": {
           "title": "Amount Being Sent",
           "description": "The amount to send.",
@@ -56,6 +58,8 @@
         }
       },
       "contract": {
+        "ui:widget": "text",
+        "ui:placeholder": "andr1v54e0pskn029vtp863mpxccn2g20tx0a6h95rj",
         "ui:options": {
           "title": "Receiving Address",
           "description": "The address of the receiving contract."
@@ -63,6 +67,7 @@
       },
       "msg": {
         "ui:widget": "cw20ReceiveMsg",
+        "ui:placeholder": "",
         "ui:options": {
           "title": "Supporting Message",
           "description": "Please enter a relevant message to accompany the ID of the token being sent. This can be a description of the auction and/or token."

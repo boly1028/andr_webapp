@@ -26,6 +26,14 @@
     "version": "0.2.1",
     "classifier": ""
   },
-  "ui-schema": {},
+  "ui-schema": {
+    "burn": {
+      "amount": {
+        "ui:widget": "text",
+        "ui:placeholder": "10000",
+        "ui:description": "Specify the amount of tokens to burn."
+      }
+    }
+  },
   "form-data": {}
 }
