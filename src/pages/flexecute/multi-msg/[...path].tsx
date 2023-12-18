@@ -8,7 +8,7 @@ import { IImportantAdoKeys, ITemplate } from "@/lib/schema/types";
 import { getADOMultiExecuteTemplate } from "@/lib/schema/utils";
 import { useGetFunds } from "@/modules/sdk/hooks";
 import { useEffect, useMemo, useState } from "react";
-import { HStack, IconButton, Input, Tooltip, useToast } from "@chakra-ui/react";
+import { Button, HStack, Icon, IconButton, Input, Menu, MenuButton, Tooltip, useToast } from "@chakra-ui/react";
 import { cloneDeep } from "@apollo/client/utilities";
 import { parseJsonFromFile } from "@/lib/json";
 import { parseFlexFile } from "@/lib/schema/utils/flexFile";
@@ -19,6 +19,8 @@ import useConstructMultiExecuteMsg from "@/modules/sdk/hooks/useConstructMultiEx
 import useMultiExecuteModal from "@/modules/modals/hooks/useMultiExecuteModal";
 import { useGetFlexFileFromSession, useGetFlexFileFromUrl } from "@/modules/flex-builder/hooks/useFlexFile";
 import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
+import { ListIcon } from "lucide-react";
+import ModifierDropdown from "@/modules/assets/components/AdosList/ModifierDropdown";
 
 type Props = {
   template: ITemplate
@@ -149,6 +151,23 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
   const InputElement = useMemo(
     () => (
       <HStack spacing={4}>
+        <Menu placement="bottom-end">
+          <MenuButton
+            as={Button}
+            variant="theme-low"
+            size='sm'
+            leftIcon={<Icon as={ListIcon} />}
+          >
+            More Modifiers
+          </MenuButton>
+          <ModifierDropdown
+            address={ADO_DATA.address}
+            ado={template.adoType}
+            version={template.adoVersion}
+            name={ADO_DATA.name}
+            proxyAddress={ADO_DATA.appAddress}
+          />
+        </Menu>
         <Box>
           <Tooltip label='Import Staging' color='dark.500'>
             <IconButton

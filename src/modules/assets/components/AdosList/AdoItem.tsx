@@ -38,6 +38,8 @@ import { useQueryBaseAdo } from "@/lib/graphql/hooks/useQueryBaseAdo";
 // import { useAppConfig } from "@/lib/graphql/hooks/app/useAppConfig";
 import { useAppComponents } from "@/lib/graphql/hooks/app/useAppComponents";
 import { ButtonGroup, MenuDivider } from "@chakra-ui/react";
+import ModifierDropdown from "./ModifierDropdown";
+import QueryDropdown from "./QueryDropdown";
 
 interface AdoItemProps {
   address: string;
@@ -128,23 +130,11 @@ const AdoItem: FC<AdoItemProps> = ({ address, name, proxyAddress, adoType: _adoT
                 variant="theme-ghost"
                 color='content.medium'
               />
-              <MenuList maxH="max(50vh,20rem)" overflow="auto">
-                {adopData?.queries?.map((action) => {
-                  const path = `${adoType}/${version}/${formatActionPath(
-                    action,
-                  )}`;
-                  return (
-                    <MenuItem as={NextLink}
-                      href={SITE_LINKS.adoQuery(path, address ?? "")}
-                      key={action}
-                      textStyle="main-sm-regular"
-                    >
-                      {/* <MenuItem icon={<Icon as={EyeIcon} boxSize={5} />}> */}
-                      {formatActionTitles(action.replaceAll('.', ' '))}
-                    </MenuItem>
-                  );
-                })}
-              </MenuList>
+              <QueryDropdown
+                address={address}
+                ado={adoType}
+                version={version}
+              />
             </Menu>
             {/* Executable Actions Lists */}
             <Menu placement="bottom-end">
@@ -154,31 +144,13 @@ const AdoItem: FC<AdoItemProps> = ({ address, name, proxyAddress, adoType: _adoT
                 variant="theme-ghost"
                 color='content.medium'
               />
-              <MenuList maxH="max(50vh,20rem)" overflow="auto">
-                <MenuItem as={NextLink}
-                  href={SITE_LINKS.adoMultiExecute(`${adoType}/${version}`, address ?? "", name, proxyAddress)}
-                  textStyle="main-sm-regular"
-                >
-                  Multi Execute
-                </MenuItem>
-                <MenuDivider />
-                {adopData?.modifiers?.map((action) => {
-                  const path = `${adoType}/${version}/${formatActionPath(
-                    action,
-                  )}`;
-                  return (
-                    <MenuItem
-                      as={NextLink}
-                      href={SITE_LINKS.adoExecute(path, address ?? "", name, proxyAddress)}
-                      key={action}
-                      textStyle="main-sm-regular"
-                    >
-                      {/* <MenuItem icon={<Icon as={EyeIcon} boxSize={5} />}> */}
-                      {formatActionTitles(action)}
-                    </MenuItem>
-                  );
-                })}
-              </MenuList>
+              <ModifierDropdown
+                address={address}
+                ado={adoType}
+                version={version}
+                name={name}
+                proxyAddress={proxyAddress}
+              />
             </Menu>
           </ButtonGroup>
           {/* Close / Expand Icon */}

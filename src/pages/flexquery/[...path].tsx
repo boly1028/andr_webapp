@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import { IAndromedaSchemaJSON, ITemplate } from "@/lib/schema/types";
 import { getADOQueryTemplate, getSchemaFromPath } from "@/lib/schema/utils";
 import { useEffect, useMemo, useState } from "react";
-import { Center, HStack, IconButton, Input, Tab, TabList, TabPanel, TabPanels, Tabs, Text, Tooltip, useToast } from "@chakra-ui/react";
+import { Button, Center, HStack, Icon, IconButton, Input, Menu, MenuButton, Tab, TabList, TabPanel, TabPanels, Tabs, Text, Tooltip, useToast } from "@chakra-ui/react";
 import { cloneDeep } from "@apollo/client/utilities";
 import { parseJsonFromFile } from "@/lib/json";
 import { parseFlexFile } from "@/lib/schema/utils/flexFile";
@@ -16,21 +16,25 @@ import { useAndromedaClient } from "@/lib/andrjs";
 import useConstructADOQueryMsg from "@/modules/sdk/hooks/useConstructaADOQueryMsg";
 import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
 import { useGetFlexFileFromSession, useGetFlexFileFromUrl } from "@/modules/flex-builder/hooks/useFlexFile";
-// import Form from "@/modules/flex-builder/components/FlexBuilderForm/Form";
+import Form from "@/modules/flex-builder/components/FlexBuilderForm/Form";
 import hljs from "highlight.js";
+import { useGetSchemaADOP } from "@/lib/schema/hooks/useGetSchemaADOP";
+import QueryDropdown from "@/modules/assets/components/AdosList/QueryDropdown";
+import { ListIcon } from "lucide-react";
 
 type Props = {
   template: ITemplate;
-  // responseSchema?: IAndromedaSchemaJSON;
+  responseSchema?: IAndromedaSchemaJSON;
 };
 
-const TemplatePage: NextPage<Props> = ({ template }) => {
+const TemplatePage: NextPage<Props> = ({ template, responseSchema }) => {
   const router = useRouter();
   const toast = useToast({
     position: "top-right",
   });
   const address = router.query.address as string;
   const client = useAndromedaClient();
+
   const [response, setResponse] = useState<any>();
 
   const responseJsonHighlight = useMemo(() => {
@@ -48,6 +52,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
 
   const loading = useMemo(() => urlLoading || sessionLoading, [urlLoading, sessionLoading])
   const [modifiedTemplate, setModifiedTemplate] = useState(template);
+
 
   useEffect(() => {
     if (loading) return;
@@ -131,6 +136,21 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
   const InputElement = useMemo(
     () => (
       <HStack spacing={4}>
+        <Menu placement="bottom-end">
+          <MenuButton
+            as={Button}
+            variant="theme-low"
+            size='sm'
+            leftIcon={<Icon as={ListIcon} />}
+          >
+            More Queries
+          </MenuButton>
+          <QueryDropdown
+            address={address}
+            ado={template.adoType}
+            version={template.adoVersion}
+          />
+        </Menu>
         <Box>
           <Tooltip label='Import Staging' color='dark.500'>
             <IconButton
@@ -197,16 +217,23 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
               </CopyButton>
             )}
             <TabList>
-              {/* {responseSchema && (
-                <Tab>Response</Tab>
-              )} */}
               <Tab>Raw</Tab>
+              {responseSchema && (
+                <Tab>Response</Tab>
+              )}
             </TabList>
           </HStack>
           {response ? (
 
             <TabPanels>
-              {/* {responseSchema && (
+              <TabPanel px={0}>
+                <Box textStyle='code-xs-regular' bg='background.800' p='6' rounded='lg' overflow='auto'>
+                  <Box as='pre'>
+                    <code dangerouslySetInnerHTML={{ __html: responseJsonHighlight ?? '' }}></code>
+                  </Box>
+                </Box>
+              </TabPanel>
+              {responseSchema && (
                 <TabPanel px='0'>
                   <Form
                     readonly
@@ -218,14 +245,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
                     </>
                   </Form>
                 </TabPanel>
-              )} */}
-              <TabPanel px={0}>
-                <Box textStyle='code-xs-regular' bg='background.800' p='6' rounded='lg' overflow='auto'>
-                  <Box as='pre'>
-                    <code dangerouslySetInnerHTML={{ __html: responseJsonHighlight ?? '' }}></code>
-                  </Box>
-                </Box>
-              </TabPanel>
+              )}
             </TabPanels>
           ) : (
             <Center mt='10' bg='background.800' p='6' pt='8' rounded='lg'>
@@ -257,11 +277,11 @@ export const getStaticProps: GetStaticProps<Props> = async (ctx) => {
       notFound: true,
     };
   }
-  // const responseSchema = await getSchemaFromPath(queryTemplate.id.replace('.query', '.response')).catch(err => undefined);
+  const responseSchema = await getSchemaFromPath(queryTemplate.id.replace('.query', '.response')).catch(err => undefined);
   return {
     props: {
       template: JSON.parse(JSON.stringify(queryTemplate)),
-      // responseSchema: JSON.parse(JSON.stringify(responseSchema))
+      responseSchema: JSON.parse(JSON.stringify(responseSchema))
     },
     revalidate: 300,
   };
