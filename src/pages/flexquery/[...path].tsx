@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import { IAndromedaSchemaJSON, ITemplate } from "@/lib/schema/types";
 import { getADOQueryTemplate, getSchemaFromPath } from "@/lib/schema/utils";
 import { useEffect, useMemo, useState } from "react";
-import { Button, Center, HStack, Icon, IconButton, Input, Menu, MenuButton, Tab, TabList, TabPanel, TabPanels, Tabs, Text, Tooltip, useToast } from "@chakra-ui/react";
+import { Button, Center, HStack, Icon, IconButton, Input, Menu, MenuButton, Tab, TabList, TabPanel, TabPanels, Tabs, Text, Tooltip, VStack, useToast } from "@chakra-ui/react";
 import { cloneDeep } from "@apollo/client/utilities";
 import { parseJsonFromFile } from "@/lib/json";
 import { parseFlexFile } from "@/lib/schema/utils/flexFile";
@@ -18,7 +18,6 @@ import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
 import { useGetFlexFileFromSession, useGetFlexFileFromUrl } from "@/modules/flex-builder/hooks/useFlexFile";
 import Form from "@/modules/flex-builder/components/FlexBuilderForm/Form";
 import hljs from "highlight.js";
-import { useGetSchemaADOP } from "@/lib/schema/hooks/useGetSchemaADOP";
 import QueryDropdown from "@/modules/assets/components/AdosList/QueryDropdown";
 import { ListIcon } from "lucide-react";
 
@@ -35,11 +34,18 @@ const TemplatePage: NextPage<Props> = ({ template, responseSchema }) => {
   const address = router.query.address as string;
   const client = useAndromedaClient();
 
-  const [response, setResponse] = useState<any>();
+  const [response, setResponse] = useState<{
+    result: any;
+    generatedAt: Date;
+  }>();
+
+  useEffect(() => {
+    setResponse(undefined);
+  }, [template])
 
   const responseJsonHighlight = useMemo(() => {
     if (response) {
-      return hljs.highlight(JSON.stringify(response, undefined, 2), { language: 'json' }).value;
+      return hljs.highlight(JSON.stringify(response.result, undefined, 2), { language: 'json' }).value;
     }
   }, [response])
   const { flex: urlFlex, loading: urlLoading } = useGetFlexFileFromUrl();
@@ -90,10 +96,6 @@ const TemplatePage: NextPage<Props> = ({ template, responseSchema }) => {
     if (json.id !== template.id) throw new Error('This staging file is not supported for this template')
     json.name = template.name;
     json.description = template.description;
-    json.ados.forEach(ado => {
-      ado.removable = true;
-      ado.required = false;
-    })
     const _template = await parseFlexFile(json);
     const formData = _template.formData ?? {};
     _template.formData = formData;
@@ -109,7 +111,10 @@ const TemplatePage: NextPage<Props> = ({ template, responseSchema }) => {
       const msg = getMsg(formData);
       const result = await client!.queryContract(address, msg);
       console.log(result);
-      setResponse(result);
+      setResponse({
+        result,
+        generatedAt: new Date()
+      });
     } catch (err: any) {
       console.error(err);
       toast({
@@ -188,7 +193,7 @@ const TemplatePage: NextPage<Props> = ({ template, responseSchema }) => {
     <Layout>
       <PageHeader
         title={modifiedTemplate.name || `Query message`}
-        desc={modifiedTemplate.description || `Ado address ${address}. Check your console for query results.`}
+        desc={modifiedTemplate.description || `Ado address ${address}`}
         rightElement={InputElement}
       />
       <Box mt={10}>
@@ -209,8 +214,13 @@ const TemplatePage: NextPage<Props> = ({ template, responseSchema }) => {
       </Box>
       <Box mt='10'>
         <Tabs variant='soft-rounded' size='sm' colorScheme='primary' isLazy>
-          <HStack>
-            <Text flex={1} textStyle="main-xl-medium">Query Response</Text>
+          <HStack gap={3}>
+            <Text textStyle="main-xl-medium">Query Response</Text>
+            <Text textStyle='main-xs-regular' textColor='content.low' flex={1} mt='1'>
+              {response && (<>
+                Last executed on <b>{response.generatedAt.toLocaleString()}</b>
+              </>)}
+            </Text>
             {response && (
               <CopyButton text={JSON.stringify(response)} variant='theme-low' size='xs'>
                 Copy Response
@@ -218,13 +228,10 @@ const TemplatePage: NextPage<Props> = ({ template, responseSchema }) => {
             )}
             <TabList>
               <Tab>Raw</Tab>
-              {responseSchema && (
-                <Tab>Response</Tab>
-              )}
+              <Tab isDisabled>Response</Tab>
             </TabList>
           </HStack>
           {response ? (
-
             <TabPanels>
               <TabPanel px={0}>
                 <Box textStyle='code-xs-regular' bg='background.800' p='6' rounded='lg' overflow='auto'>

@@ -106,10 +106,6 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
     if (json.id !== template.id) throw new Error('This staging file is not supported for this template')
     json.name = template.name;
     json.description = template.description;
-    json.ados.forEach(ado => {
-      ado.removable = true;
-      ado.required = false;
-    })
     const _template = await parseFlexFile(json);
     const formData = _template.formData ?? {};
     formData[IImportantAdoKeys.PROXY_SETTING.key] = {

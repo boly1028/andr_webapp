@@ -223,7 +223,7 @@ export const getADOQueryTemplate = async (path: string) => {
         icon: "",
         opts: [],
         ados: [
-            { path: path, id: path.split('/').pop() ?? "Query", required: true },
+            { path: path, id: path.split('/').pop() ?? "Query", required: true, removable: false },
         ],
         modules: [
         ]

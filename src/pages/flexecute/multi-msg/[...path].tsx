@@ -102,6 +102,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
     json.name = template.name;
     json.description = template.description;
     json.ados.forEach(ado => {
+      if (ado.id === IImportantAdoKeys.PROXY_SETTING.key) return;
       ado.removable = true;
       ado.required = false;
     })
