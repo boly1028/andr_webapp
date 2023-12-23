@@ -60,26 +60,44 @@
   },
   "ui-schema": {
     "update_auction": {
-      "ui:order": ["coin_denom", "token_address", "token_id", "duration", "start_time", "min_bid", "whitelist"],
+      "ui:order": ["token_address", "token_id", "coin_denom", "duration", "start_time", "min_bid", "whitelist"],
+      "ui:options": { 
+        "alerts": [
+          {
+            "text": "Can only be performed before an auction has started.",
+            "type": "error"
+          },
+          {
+            "text": "Only the owner of the auction can execute UpdateAuction.",
+            "type": "error"
+          }
+        ]
+      },      
       "coin_denom": {
         "ui:widget": "text",
-        "ui:placeholder": "uandr"
+        "ui:title": "Coin Denomination",
+        "ui:placeholder": "uandr",
+        "ui:description": "The denomination of the coin which auction bids should be placed in.",
+        "ui:help": "Should be micro units, such as uandr instead of andr. All characters should be lower case."
       },
       "duration": {
         "ui:widget": "duration",
         "ui:title": "Auction Duration",
-        "ui:description": "Enter the duration of the auction."
+        "ui:description": "The amount of time the auction will run for.",
+        "ui:help": "The value should be declared in milliseconds."
       },
       "min_bid": {
         "ui:options": { "optionNames": ["Minimum Bid", "No Minimum Bid"] },
         "ui:title": "Minimum Bid",
+        "ui:description": "The initial starting bid amount which must be met in order for the auction to close successfully.",
         "ui:placeholder": "100000",
-        "ui:help": "Enter the minimum bid amount. Should be lower case and micro units. 100000 micro-andr (called uandr) is equal to 1 andr"
+        "ui:help": "Should be numeric only. The value will be based on the declared denomination (which is in micro-units)"
       },
       "start_time": {
         "ui:widget": "dateTime",
         "ui:title": "Auction Start Time",
-        "ui:description": "Select the start time and date for the auction."
+        "ui:description": "Choose the start time and date for when the auction should begin. ",
+        "ui:help": "The value will appear in milliseconds since the epoch."
       },
       "token_address": {
         "ui:widget": "text",

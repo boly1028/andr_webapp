@@ -49,25 +49,29 @@
     "start_auction": {
       "coin_denom": {
         "ui:widget": "text",
+        "ui:title": "Coin Denomination",
         "ui:placeholder": "uandr",
-        "ui:help": "Denomination of the coin for the auction bid."
+        "ui:description": "The denomination of the coin which auction bids should be placed in.",
+        "ui:help": "Should be micro units, such as uandr instead of andr. All characters should be lower case."
       },
       "duration": {
         "ui:widget": "duration",
         "ui:title": "Auction Duration",
-        "ui:description": "Set the auction duration in milliseconds.",
-        "ui:help": "Enter the duration of the auction. The value should be in milliseconds."
+        "ui:description": "The amount of time the auction will run for.",
+        "ui:help": "The value should be declared in milliseconds."
       },
       "min_bid": {
-        "ui:widget": "text",
+        "ui:options": { "optionNames": ["Minimum Bid", "No Minimum Bid"] },
+        "ui:title": "Minimum Bid",
+        "ui:description": "The initial starting bid amount which must be met in order for the auction to close successfully.",
         "ui:placeholder": "100000",
-        "ui:description": "Enter the minimum bid amount. Should be lower case and micro units. 100000 micro-andr (called uandr) is equal to 1 andr"
+        "ui:help": "Should be numeric only. The value will be based on the declared denomination (which is in micro-units)"
       },
       "start_time": {
         "ui:widget": "dateTime",
         "ui:title": "Auction Start Time",
-        "ui:description": "Set the auction start time in milliseconds since epoch.",
-        "ui:help": "Choose the start time for the auction. The value will appear in milliseconds since the epoch."
+        "ui:description": "Choose the start time and date for when the auction should begin. ",
+        "ui:help": "The value will appear in milliseconds since the epoch."
       }
     }
   },
