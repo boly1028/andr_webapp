@@ -1,6 +1,6 @@
 {
   "schema": {
-    "description": "Send is a base message to transfer tokens to a contract and trigger an action on the receiving contract.",
+    "description": "Transfer tokens to an ADO and trigger an action on the receiving ADO.",
     "type": "object",
     "required": ["send"],
     "properties": {

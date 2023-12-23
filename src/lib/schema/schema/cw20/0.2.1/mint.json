@@ -1,6 +1,6 @@
 {
   "schema": {
-    "description": "Only with the \"mintable\" extension. If authorized, creates amount new tokens and adds to the recipient balance.",
+    "description": "Creates new tokens and adds to the recipient balance.",
     "type": "object",
     "required": ["mint"],
     "properties": {
@@ -32,6 +32,14 @@
   },
   "ui-schema": {
     "mint": {
+      "ui:options":{
+        "alerts": [
+          {
+            "text": "Can only be performed by the authorized minter, if declared.",
+            "type": "error"
+          }
+        ]
+      },
       "amount": {
         "ui:widget": "text",
         "ui:placeholder": "1000000000",

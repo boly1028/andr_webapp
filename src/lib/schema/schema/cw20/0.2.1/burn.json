@@ -1,6 +1,6 @@
 {
   "schema": {
-    "description": "Burn is a base message to destroy tokens forever",
+    "description": "Permanently destroys tokens.",
     "type": "object",
     "required": ["burn"],
     "properties": {
@@ -28,6 +28,14 @@
   },
   "ui-schema": {
     "burn": {
+      "ui:options":{
+        "alerts": [
+          {
+            "text": "This is an irrevocable action and cannot be undone!",
+            "type": "error"
+          }
+        ]
+      },
       "amount": {
         "ui:widget": "text",
         "ui:placeholder": "10000",
