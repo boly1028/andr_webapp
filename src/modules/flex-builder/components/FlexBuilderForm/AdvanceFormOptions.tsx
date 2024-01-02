@@ -12,7 +12,7 @@ const AdvanceFormOptions: FC<Props> = (props) => {
     const { isOpen, onToggle } = useDisclosure()
     return (
         <Box>
-            <Button variant="theme-ghost" size='xs' rightIcon={<Icon as={ChevronDown} transform='auto' rotate={isOpen ? 180 : 0} />} onClick={onToggle}>Advance Options</Button>
+            <Button variant="theme-ghost" size='xs' rightIcon={<Icon as={ChevronDown} transform='auto' rotate={isOpen ? 180 : 0} />} onClick={onToggle}>Advanced Options</Button>
             <Collapse in={isOpen} animateOpacity>
                 <Box
                     mt='2'
