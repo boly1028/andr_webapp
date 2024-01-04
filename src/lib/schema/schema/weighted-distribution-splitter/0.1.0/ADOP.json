@@ -1,1 +1,0 @@
-{"modifiers":["update-recipients","update-recipient-weight","add-recipient","remove-recipient","update-lock","send"],"queries":["andr-query.query","get-splitter-config.query","get-user-weight.query"],"responses":["andr-query.response","get-splitter-config.response","get-user-weight.response"],"cw721receives":[]}

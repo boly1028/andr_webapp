@@ -10,5 +10,7 @@ export const useGetSchemaADOP = (adoType: IAdoType, version = "latest") => {
       ...data,
       basePath: basePath
     };
+  }, {
+    refetchOnWindowFocus: false
   });
 };

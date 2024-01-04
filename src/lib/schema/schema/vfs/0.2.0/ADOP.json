@@ -1,1 +1,0 @@
-{"modifiers":["add-path","add-parent-path","register-user"],"queries":["resolve-path.query","get-username.query"],"responses":["get-username.response","resolve-path.response"],"cw721receives":[]}

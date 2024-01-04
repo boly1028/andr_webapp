@@ -1,1 +1,0 @@
-{"modifiers":["hold-funds","release-funds","release-specific-funds"],"queries":["andr-query.query","get-locked-funds.query","get-locked-funds-for-recipient.query"],"responses":["andr-query.response","get-locked-funds.response","get-locked-funds-for-recipient.response"],"cw721receives":[]}

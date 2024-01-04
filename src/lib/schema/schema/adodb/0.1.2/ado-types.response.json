@@ -1,1 +1,0 @@
-{"schema":{"$schema":"http://json-schema.org/draft-07/schema#","title":"Ado types","type":"array","items":{"type":"string"},"properties":{},"$id":"ado_types","version":"0.1.2","classifier":"response","class":"response"},"ui-schema":{},"form-data":{}}

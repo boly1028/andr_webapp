@@ -1,1 +1,0 @@
-{"modifiers":["receive-nft","buy","update-sale","cancel-sale"],"queries":["andr-query.query","latest-sale-state.query","sale-state.query","sale-ids.query","sale-infos-for-address.query"],"responses":["andr-query.response","latest-sale-state.response","sale-ids.response","sale-infos-for-address.response","sale-state.response"],"cw721receives":["cw721-start-sale.receive"]}

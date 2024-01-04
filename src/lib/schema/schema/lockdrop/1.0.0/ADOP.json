@@ -1,1 +1,0 @@
-{"modifiers":["receive","deposit-native","withdraw-native","claim-rewards","enable-claims","withdraw-proceeds"],"queries":["andr-query.query","config.query","state.query","user-info.query","withdrawal-percent-allowed.query"],"responses":["andr-query.response","config.response","state.response","user-info.response","withdrawal-percent-allowed.response"],"cw721receives":[]}
