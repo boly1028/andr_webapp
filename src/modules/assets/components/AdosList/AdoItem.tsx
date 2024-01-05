@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { v4 as keyGen } from "uuid"; // Used as key assignments for function elements
+// import { v4 as keyGen } from "uuid"; // Used as key assignments for function elements
 import NextLink from "next/link";
 import styles from './ado.module.css'
 
@@ -13,6 +13,7 @@ import {
   IconButton,
   MenuList,
   MenuItem,
+  Divider,
 } from "@/theme/ui-elements";
 import InlineStat from "./InlineStat";
 import { useDisclosure } from "@chakra-ui/hooks";
@@ -23,31 +24,35 @@ import {
   truncate,
 } from "@/modules/common";
 import { CloseIcon } from "@chakra-ui/icons";
+import { EyeIcon, ListIcon } from "@/modules/common/components/icons";
 import { Center, Stack } from "@chakra-ui/layout";
 import { Skeleton } from "@chakra-ui/skeleton";
 import ClassifierIcon from "@/theme/icons/classifiers";
 import useAssetInfoModal from "@/modules/modals/hooks/useAssetInfoModal";
 import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
-import { MoreVertical } from "lucide-react";
+import { MoreVertical, ScanIcon, XIcon } from "lucide-react";
 import { useGetSchemaADOP } from "@/lib/schema/hooks/useGetSchemaADOP";
 import { IAdoType } from "@/lib/schema/types";
 import { useGetSchemaVersions } from "@/lib/schema/hooks/useGetSchemaVersion";
 import { useQueryBaseAdo } from "@/lib/graphql/hooks/useQueryBaseAdo";
-import { useAppConfig } from "@/lib/graphql/hooks/app/useAppConfig";
+// import { useAppConfig } from "@/lib/graphql/hooks/app/useAppConfig";
 import { useAppComponents } from "@/lib/graphql/hooks/app/useAppComponents";
+import { ButtonGroup, MenuDivider } from "@chakra-ui/react";
+import ModifierDropdown from "./ModifierDropdown";
+import QueryDropdown from "./QueryDropdown";
 
 interface AdoItemProps {
   address: string;
-  adoType: IAdoType;
   name: string;
   proxyAddress?: string;
+  adoType: IAdoType;
 }
 
-const AdoItem: FC<AdoItemProps> = ({ address, adoType: _adoType, name, proxyAddress }) => {
+const AdoItem: FC<AdoItemProps> = ({ address, name, proxyAddress, adoType: _adoType }) => {
   const { data: baseAdo } = useQueryBaseAdo(address)
-  
+
   // Creating a proxy for app type as it is now reference as app-contract
-  const adoType = _adoType === "app" ? "app-contract" : (_adoType);
+  const adoType = baseAdo?.andr?.type === "app" ? "app-contract" : (baseAdo?.andr?.type ?? _adoType ?? 'undefined') as IAdoType;
   // const { data: app, loading, error } = useAppConfig(address, adoType !== 'app-contract');
 
 
@@ -64,7 +69,7 @@ const AdoItem: FC<AdoItemProps> = ({ address, adoType: _adoType, name, proxyAddr
   return (
     <Flex
       border="1px solid"
-      borderColor="dark.300"
+      borderColor="border.main"
       p={5}
       borderRadius="lg"
       mb={4}
@@ -82,11 +87,11 @@ const AdoItem: FC<AdoItemProps> = ({ address, adoType: _adoType, name, proxyAddr
         </Box>
 
         <Box flex={1.5}>
-          <InlineStat label="Name" value={name || _adoType} />
+          <InlineStat label="Name" value={name || adoType} />
           {/* <InlineStat label="{type}" value={name} reverse /> */}
         </Box>
         <Box flex={1}>
-          <InlineStat label="Type" value={`${_adoType}@${version}`} />
+          <InlineStat label="Type" value={`${adoType}@${version}`} />
         </Box>
         <Box flex={1}>
           <InlineStat
@@ -101,69 +106,59 @@ const AdoItem: FC<AdoItemProps> = ({ address, adoType: _adoType, name, proxyAddr
             cursor="pointer"
             text={address}
           >
-            <InlineStat label="Address" value={truncate(address ?? "")} />
+            <InlineStat trucateOffset={[5, 5]} label="Address" value={address} />
           </CopyButton>
         </Box>
         <Flex alignItems="center" gap="1" alignSelf="center" w='28' justifyContent='end'>
           {/* Section for Action List */}
-          <Box className={styles.onHover}>
-            <Button
+          {/* Detail View Link */}
+          <ButtonGroup className={styles.onHover} isAttached size='sm'>
+            <IconButton
+              aria-label="view-info"
               onClick={() => {
-                open(address, _adoType);
+                open(address, adoType);
               }}
-              variant="link"
-              colorScheme="blue"
-            >
-              View
-            </Button>
-          </Box>
-          <Menu placement="bottom-end">
-            <MenuButton
-              as={IconButton}
-              icon={<Icon as={MoreVertical} boxSize={5} />}
-              variant="link"
-              px="0"
-              minW="0"
-              className={styles.onHover}
+              variant="theme-ghost"
+              color='primary.500'
+              icon={<Icon as={EyeIcon} boxSize={5} />}
             />
-            <MenuList>
-              <NextLink
-                href={SITE_LINKS.adoMultiExecute(`${adoType}/${version}`, address ?? "", name, proxyAddress)}
-                passHref
-              >
-                <MenuItem>
-                  Multi Execute
-                </MenuItem>
-              </NextLink>
-              {adopData?.modifiers?.map((action) => {
-                const path = `${adoType}/${version}/${formatActionPath(
-                  action,
-                )}`;
-                return (
-                  <NextLink
-                    key={action}
-                    href={SITE_LINKS.adoExecute(path, address ?? "", name, proxyAddress)}
-                    passHref
-                  >
-                    <MenuItem key={action}>
-                      {/* <MenuItem icon={<Icon as={EyeIcon} boxSize={5} />}> */}
-                      {formatActionTitles(action)}
-                    </MenuItem>
-                  </NextLink>
-                );
-              })}
-            </MenuList>
-          </Menu>
+            {/* Query Option Lists */}
+            <Menu placement="bottom-end">
+              <MenuButton
+                as={IconButton}
+                icon={<Icon as={ListIcon} boxSize={5} />}
+                variant="theme-ghost"
+                color='content.medium'
+              />
+              <QueryDropdown
+                address={address}
+                ado={adoType}
+                version={version}
+              />
+            </Menu>
+            {/* Executable Actions Lists */}
+            <Menu placement="bottom-end">
+              <MenuButton
+                as={IconButton}
+                icon={<Icon as={MoreVertical} boxSize={5} />}
+                variant="theme-ghost"
+                color='content.medium'
+              />
+              <ModifierDropdown
+                address={address}
+                ado={adoType}
+                version={version}
+                name={name}
+                proxyAddress={proxyAddress}
+              />
+            </Menu>
+          </ButtonGroup>
+          {/* Close / Expand Icon */}
           {adoType === 'app-contract' && (
-            <Box>
-              <Button {...buttonProps} variant="unstyled" size="sm">
-                {isOpen ? (
-                  <CloseIcon boxSize="2" />
-                ) : (
-                  <ChevronDownIcon boxSize="4" />
-                )}
-              </Button>
-            </Box>
+            <IconButton aria-label="close-icon" variant="theme-ghost" size="sm"
+              icon={<Icon as={isOpen ? XIcon : ChevronDownIcon} />}
+              {...buttonProps}
+            />
           )}
         </Flex>
       </Flex>
@@ -219,9 +214,9 @@ const ExpandedList: FC<ExpandedListProps> = (props) => {
         <AdoItem
           key={ado.address}
           address={ado.address}
-          adoType={ado.ado_type as IAdoType}
           proxyAddress={appAddress}
           name={ado.name}
+          adoType={ado.ado_type.split('@')[0] as IAdoType}
         />
       ))}
     </Box>

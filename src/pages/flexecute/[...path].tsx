@@ -1,24 +1,27 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { FlexBuilderForm } from "@/modules/flex-builder";
 
-import { Box, Flex, Text } from "@/theme/ui-elements";
-import { FileCheckIcon, FilePlusIcon, Layout, PageHeader, truncate } from "@/modules/common";
+import { Box } from "@/theme/ui-elements";
+import { FilePlusIcon, Layout, PageHeader } from "@/modules/common";
 import { useRouter } from "next/router";
 import { IImportantAdoKeys, ITemplate } from "@/lib/schema/types";
 import { useExecuteModal } from "@/modules/modals/hooks";
 import { getADOExecuteTemplate } from "@/lib/schema/utils";
 import useConstructADOExecuteMsg from "@/modules/sdk/hooks/useConstructaADOExecuteMsg";
 import { useGetFunds } from "@/modules/sdk/hooks";
-import { useWallet } from "@/lib/wallet";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import useConstructProxyMsg from "@/modules/sdk/hooks/useConstructProxyMsg";
-import { FormControl, FormLabel, HStack, IconButton, Input, Switch, Tooltip, useToast } from "@chakra-ui/react";
+import { Button, HStack, Icon, IconButton, Input, Menu, MenuButton, Tooltip, useToast } from "@chakra-ui/react";
 import { cloneDeep } from "@apollo/client/utilities";
 import { parseJsonFromFile } from "@/lib/json";
 import { parseFlexFile } from "@/lib/schema/utils/flexFile";
 import { FlexBuilderFormProps } from "@/modules/flex-builder/components/FlexBuilderForm";
-import { EXECUTE_CLI_QUERY } from "@/lib/andrjs";
+import { EXECUTE_CLI_QUERY, useAndromedaClient } from "@/lib/andrjs";
 import { ITemplateFormData } from "@/lib/schema/templates/types";
+import { useGetFlexFileFromSession, useGetFlexFileFromUrl } from "@/modules/flex-builder/hooks/useFlexFile";
+import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
+import { ListIcon } from "lucide-react";
+import ModifierDropdown from "@/modules/assets/components/AdosList/ModifierDropdown";
 
 type Props = {
   template: ITemplate
@@ -48,42 +51,43 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
   const openProxyModal = useExecuteModal(ADO_DATA.appAddress);
 
   const getFunds = useGetFunds();
-  const account = useWallet();
+  const client = useAndromedaClient();
 
-  const isProxy = (formData: ITemplateFormData) => (IImportantAdoKeys.PROXY_MESSAGE in formData && formData[IImportantAdoKeys.PROXY_MESSAGE].$enabled === true)
-  const [modifiedTemplate, setModifiedTemplate] = useState(template);
+  const { flex: urlFlex, loading: urlLoading } = useGetFlexFileFromUrl();
+  const { flex: sessionFlex, loading: sessionLoading } = useGetFlexFileFromSession();
+  const importedTemplate = useMemo(() => {
+    if (urlFlex && urlFlex.id === template.id) return urlFlex;
+    if (sessionFlex && sessionFlex.id === template.id) return sessionFlex;
+    return template;
+  }, [urlFlex, sessionFlex, template])
 
+  const loading = useMemo(() => urlLoading || sessionLoading, [urlLoading, sessionLoading])
+
+  const isProxy = (formData: ITemplateFormData) => (IImportantAdoKeys.PROXY_SETTING.key in formData && formData[IImportantAdoKeys.PROXY_SETTING.key].$enabled === true)
+  const [modifiedTemplate, setModifiedTemplate] = useState(importedTemplate);
   useEffect(() => {
-    const newTemplate = cloneDeep(template);
-    const formData = newTemplate.formData ?? {};
-    formData[IImportantAdoKeys.PROXY_MESSAGE] = {
-      ...(formData[IImportantAdoKeys.PROXY_MESSAGE] ?? {}),
-      parent: ADO_DATA.appAddress,
-      component_name: ADO_DATA.name,
-    };
-    newTemplate.formData = formData;
-    setModifiedTemplate(newTemplate);
-  }, [ADO_DATA, template]);
+    if (loading) return;
+    const tid = setTimeout(async () => {
+      const _template = await handleFlexUpdate(importedTemplate).catch(() => template)
+
+      const newTemplate = cloneDeep(_template);
+      const formData = newTemplate.formData ?? {};
+      formData[IImportantAdoKeys.PROXY_SETTING.key] = {
+        ...(formData[IImportantAdoKeys.PROXY_SETTING.key] ?? {}),
+        parent: ADO_DATA.appAddress,
+        component_name: ADO_DATA.name,
+      };
+      newTemplate.formData = formData;
+      setModifiedTemplate(newTemplate);
+    }, 500)
+    return () => clearTimeout(tid);
+  }, [ADO_DATA, importedTemplate])
+
 
   const handleFlexInput = async (file: File) => {
     try {
       const json = await parseJsonFromFile(file) as ITemplate;
-      if (json.id !== template.id) throw new Error('This staging file is not supported for this template')
-      json.name = template.name;
-      json.description = template.description;
-      json.ados.forEach(ado => {
-        ado.removable = true;
-        ado.required = false;
-      })
-      const _template = await parseFlexFile(json);
-      const formData = _template.formData ?? {};
-      formData[IImportantAdoKeys.PROXY_MESSAGE] = {
-        ...(formData[IImportantAdoKeys.PROXY_MESSAGE] ?? {}),
-        parent: ADO_DATA.appAddress,
-        component_name: ADO_DATA.name,
-      };
-      _template.formData = formData;
-      _template.modules = template.modules
+      const _template = await handleFlexUpdate(json);
       setModifiedTemplate(_template);
       toast({
         title: "Import successfull",
@@ -98,6 +102,21 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
     }
   };
 
+  const handleFlexUpdate = async (json: ITemplate) => {
+    if (json.id !== template.id) throw new Error('This staging file is not supported for this template')
+    json.name = template.name;
+    json.description = template.description;
+    const _template = await parseFlexFile(json);
+    const formData = _template.formData ?? {};
+    formData[IImportantAdoKeys.PROXY_SETTING.key] = {
+      ...(formData[IImportantAdoKeys.PROXY_SETTING.key] ?? {}),
+      parent: ADO_DATA.appAddress,
+      component_name: ADO_DATA.name,
+    };
+    _template.formData = formData;
+    _template.modules = template.modules
+    return _template;
+  }
   const getMsg = (formData: any) => {
     const proxy = isProxy(formData);
     if (proxy) {
@@ -133,6 +152,23 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
   const InputElement = useMemo(
     () => (
       <HStack spacing={4}>
+        <Menu placement="bottom-end">
+          <MenuButton
+            as={Button}
+            variant="theme-low"
+            size='sm'
+            leftIcon={<Icon as={ListIcon} />}
+          >
+            More Modifiers
+          </MenuButton>
+          <ModifierDropdown
+            address={ADO_DATA.address}
+            ado={template.adoType}
+            version={template.adoVersion}
+            name={ADO_DATA.name}
+            proxyAddress={ADO_DATA.appAddress}
+          />
+        </Menu>
         <Box>
           <Tooltip label='Import Staging' color='dark.500'>
             <IconButton
@@ -180,9 +216,12 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
           key={UPDATE_KEY}
           template={modifiedTemplate}
           onSubmit={handleSubmit}
-          notReady={!account}
+          notReady={loading && !client?.isConnected}
           addButtonTitle="Add Attachment"
           onCliCopy={handleCliCopy}
+          copyProps={{
+            url: (uri) => SITE_LINKS.adoExecute(template.id, ADO_DATA.address, ADO_DATA.name, ADO_DATA.appAddress, uri)
+          }}
         />
       </Box>
     </Layout>

@@ -23,31 +23,30 @@ const ScrollToBottom: FC = () => {
         window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
     }
 
+    if (!isVisible) return null;
+
     return (
-        <>
-            {isVisible &&
-                <VStack
-                    onClick={handleClick}
-                    position={'fixed'}
-                    bottom='6%'
-                    left='24%'
-                    cursor={'pointer'}
-                    spacing={7}
-                    title="Go to bottom"
-                >
-                    <Flex
-                        w='28px'
-                        h='28px'
-                        backgroundColor={'rgba(68, 129, 255, 1)'}
-                        borderRadius='24px'
-                        justifyContent={'center'}
-                        alignItems='center'
-                    >
-                        <ChevronDownIcon boxSize={5} />
-                    </Flex>
-                </VStack>
-            }
-        </>
+        <VStack
+            onClick={handleClick}
+            position="fixed"
+            bottom='6%'
+            translateX='-12'
+            transform='auto'
+            cursor={'pointer'}
+            spacing={7}
+            title="Go to bottom"
+        >
+            <Flex
+                w='28px'
+                h='28px'
+                backgroundColor={'rgba(68, 129, 255, 1)'}
+                borderRadius='24px'
+                justifyContent={'center'}
+                alignItems='center'
+            >
+                <ChevronDownIcon boxSize={5} />
+            </Flex>
+        </VStack>
     )
 }
 

@@ -18,7 +18,7 @@ const LoadButton: FC<LoadButtonProps> = (props) => {
     };
 
     return (
-        <Tooltip label='Load' bg='base.white' placement='top'>
+        <Tooltip label='Load' placement='top'>
             <Button
                 as="label"
                 aria-label="load json"

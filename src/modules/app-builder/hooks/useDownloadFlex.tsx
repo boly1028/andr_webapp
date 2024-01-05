@@ -11,7 +11,7 @@ import { useAppFormData } from './useAppFormData'
 // TODO: Add edge cache in template to retain edge directions
 
 export const useDownloadFlex = () => {
-    const { formRefs } = useAppBuilder()
+    const { formRefs, editorRef } = useAppBuilder()
     const getFormData = useAppFormData()
     const { getNode } = useReactFlow()
 
@@ -21,19 +21,19 @@ export const useDownloadFlex = () => {
 
         // We want to push publish settings ado so that this flex file can be included in flex-builder also
         ados.push({
-            id: IImportantAdoKeys.PUBLISH_SETTINGS,
-            path: IImportantAdoKeys.PUBLISH_SETTINGS,
+            id: IImportantAdoKeys.PUBLISH_SETTING.key,
+            path: IImportantAdoKeys.PUBLISH_SETTING.path,
             required: true
         })
-        const pubSetSchema = await getSchemaFromPath(IImportantAdoKeys.PUBLISH_SETTINGS);
+        const pubSetSchema = await getSchemaFromPath(IImportantAdoKeys.PUBLISH_SETTING.path);
         const pubSetFormData: IPublishSettingsFormData = {
             ...pubSetSchema["form-data"],
             $required: true,
             $removable: false,
             $enabled: true,
-            name: 'app' // App Name will be added here
+            name: editorRef.current?.getAppName?.() ?? 'APP'
         }
-        formData[IImportantAdoKeys.PUBLISH_SETTINGS] = pubSetFormData;
+        formData[IImportantAdoKeys.PUBLISH_SETTING.key] = pubSetFormData;
 
         Object.keys(formRefs.current).forEach(adoId => {
             const node = getNode(adoId)
@@ -48,7 +48,7 @@ export const useDownloadFlex = () => {
         })
         const flexFile = await createFlexFileFromADOS({ ados, formData })
         return flexFile
-    }, [formRefs, getFormData, getNode])
+    }, [formRefs, editorRef, getFormData, getNode])
 
     const download = useCallback(async () => {
         const flexFile = await create()

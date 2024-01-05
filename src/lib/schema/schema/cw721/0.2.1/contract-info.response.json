@@ -1,0 +1,19 @@
+{
+  "schema": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Contract info",
+    "type": "object",
+    "required": ["name", "symbol"],
+    "properties": {
+      "name": { "type": "string", "title": "Name" },
+      "symbol": { "type": "string", "title": "Symbol" }
+    },
+    "additionalProperties": false,
+    "$id": "contract_info",
+    "version": "0.2.1",
+    "classifier": "response",
+    "class": "response"
+  },
+  "ui-schema": {},
+  "form-data": {}
+}

@@ -20,9 +20,9 @@ const NftItem: FC<NftItemProps> = ({ data }) => {
   return (
     <Box border="1px solid" borderColor="gray.300" p={5} borderRadius="lg">
       <Link href={`/collections/generic/4037`} passHref>
-        <a>
-          <Image src={image} alt="Image" borderRadius="lg" mb={6} />
-        </a>
+
+        <Image src={image} alt="Image" borderRadius="lg" mb={6} />
+
       </Link>
       <CardFooter
         data={{ title: name, subtitle: desc, value, image: collection }}

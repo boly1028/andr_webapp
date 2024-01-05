@@ -1,4 +1,5 @@
-import { ApolloClient, InMemoryCache, defaultDataIdFromObject } from "@apollo/client";
+import { StrictTypedTypePolicies, TypedFieldPolicy } from "@andromedaprotocol/gql";
+import { ApolloClient, InMemoryCache } from "@apollo/client";
 
 export * from "./hooks";
 
@@ -12,24 +13,18 @@ export const apolloClient = new ApolloClient({
       'notifyOnNetworkStatusChange': true,
     }
   },
+  ssrMode: true,
+  ssrForceFetchDelay: 500,
   cache: new InMemoryCache({
     typePolicies: {
-      BaseAdo: {
-        keyFields: ['address'],
+      ...TypedFieldPolicy,
+      ChainConfig: {
+        keyFields: ['chainId']
       },
-      AppAdo: {
-        keyFields: ['address'],
-      },
-      AdoQuery: {
+      ChainConfigQuery: {
         merge: true
       },
-      TxSearchResult: {
-        merge: true
-      },
-      TxInfo: {
-        keyFields: ['hash']
-      },
-      Query: {
+      AccountsQuery: {
         fields: {
           assets: {
             // Don't cache separate results based on
@@ -40,17 +35,19 @@ export const apolloClient = new ApolloClient({
             // the existing list items.
             merge(existing, incoming, { args }) {
               const offset = args?.offset ?? 0;
+              console.log(args?.offset, "ARGS", incoming, existing)
               // Slicing is necessary because the existing data is
               // immutable, and frozen in development.
-              const merged = existing ? existing.slice(0) : [];
-              for (let i = 0; i < incoming.length; ++i) {
-                merged[offset + i] = incoming[i];
-              }
+              const merged = existing ? existing.slice(0, offset) : [];
+              merged.push(...incoming)
               return merged;
             },
           }
         }
-      }
-    }
+      },
+      AssetResult: {
+        keyFields: ['address', 'name']
+      },
+    } as StrictTypedTypePolicies
   }),
 });

@@ -1,66 +1,60 @@
-import { useWalletContext, WalletProvider } from "@/lib/wallet";
 import {
   ChakraProvider,
-  createLocalStorageManager,
   CSSReset,
-  localStorageManager,
 } from "@chakra-ui/react";
 import { AppProps } from "next/app";
-import React from "react";
+import React, { useEffect } from "react";
 import {
-  Hydrate,
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
 import { ToastContainer } from "react-toastify";
-import { AndromedaProvider } from "@/lib/andrjs";
 import { apolloClient } from "@/lib/graphql";
 import theme, { ThemeStorageManager } from "@/theme";
 import { ApolloProvider } from "@apollo/client";
 import { GlobalModalProvider } from "@/modules/modals";
 
+import { initiateKeplr } from "@/zustand/andromeda";
 import "react-toastify/dist/ReactToastify.css";
-import { DEFAULT_CHAIN } from "@/constants/constants";
+import "@andromedaprotocol/design-theme/css/globals.css"
+import 'highlight.js/styles/atom-one-dark.min.css';
 
-const Main = ({ Component, pageProps }: AppProps<Record<string, any>>) => {
-  const [queryClient] = React.useState(() => new QueryClient({
-    defaultOptions: {
+import hljs from 'highlight.js/lib/core';
+import json from 'highlight.js/lib/languages/json';
+hljs.registerLanguage('json', json);
+
+
+const MyApp = ({ Component, pageProps }: AppProps) => {
+  useEffect(() => {
+    initiateKeplr();
+  }, [])
+
+  const queryClient = React.useMemo(() => new QueryClient({
+    'defaultOptions': {
       'queries': {
-        cacheTime: 1000 * 60 * 5,
-        staleTime: 1000 * 60 * 5
+        staleTime: 1000 * 60 * 5,
       }
     }
-  }));
-  const { chainId, signer } = useWalletContext();
+  }), []);
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <Hydrate state={pageProps.dehydratedState}>
+    <ApolloProvider client={apolloClient}>
+      <QueryClientProvider client={queryClient}>
         <ChakraProvider theme={theme} colorModeManager={ThemeStorageManager}>
-          <CSSReset />
-          <AndromedaProvider chainId={chainId} signer={signer}>
+          <GlobalModalProvider>
+            <CSSReset />
+            <Component {...pageProps} />
             <ToastContainer
               position="top-center"
               autoClose={5000}
               pauseOnHover
               pauseOnFocusLoss
             />
-            <GlobalModalProvider>
-              <Component {...pageProps} />
-            </GlobalModalProvider>
-          </AndromedaProvider>
+          </GlobalModalProvider>
         </ChakraProvider>
-      </Hydrate>
-    </QueryClientProvider>
-  );
-};
-
-const MyApp = (props: AppProps) => (
-  <WalletProvider chainId={DEFAULT_CHAIN}>
-    <ApolloProvider client={apolloClient}>
-      <Main {...props} />
+      </QueryClientProvider>
     </ApolloProvider>
-  </WalletProvider>
-);
+  );
+}
 
 export default MyApp;

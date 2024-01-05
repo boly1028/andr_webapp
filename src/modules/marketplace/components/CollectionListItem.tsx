@@ -23,9 +23,9 @@ const CollectionListItem: FC<Props> = ({ data }) => {
           {id}
         </Text>
         <Link href={`/collections/${slug}`} passHref>
-          <a>
-            <Image src={image} alt="Image" boxSize={16} borderRadius="full" />
-          </a>
+
+          <Image src={image} alt="Image" boxSize={16} borderRadius="full" />
+
         </Link>
         <Box>
           <Text textStyle="bold">{name}</Text>

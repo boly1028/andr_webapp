@@ -10,6 +10,7 @@ import { IAdoType, IAndromedaSchema, IAndromedaSchemaJSON, IImportantAdoKeys, IS
 import { processTemplate } from "./template";
 
 export const getADOVersion = async (ado: IAdoType) => {
+    if (ado as any === 'app') ado = 'app-contract';
     const version = await import(`../schema/${ado}/version.json`).then(res => res.default).then(data => cloneDeep(data)) as {
         latest: string;
         versions: string[]
@@ -43,7 +44,10 @@ export const getADOPFromPath = async (path: string) => {
     path = await resolveVersionInPath(path)
     const adop = await import(`../schema/${path}.json`).then(res => res.default).then(data => cloneDeep(data)) as {
         modifiers: string[],
-        cw721receives: string[]
+        queries: string[],
+        responses: string[],
+        cw721receives?: string[],
+        cw20receives?: string[],
     }
     return adop;
 }
@@ -63,7 +67,13 @@ export const getSchemaFromPath = async (path: string) => {
     const properties: IAndromedaSchema['properties'] = {
         $type: {
             type: 'string',
+            // Type will also contain version number
             default: schema.schema.$id
+        },
+        $version: {
+            type: 'string',
+            // Type will also contain version number
+            default: schema.schema.version
         },
         $class: {
             type: 'string',
@@ -84,16 +94,33 @@ export const getSchemaFromPath = async (path: string) => {
         $required: {
             type: 'boolean',
             default: false
+        },
+        $pos: {
+            type: 'object',
+            properties: {
+                x: {
+                    type: 'number',
+                    default: 0
+                },
+                y: {
+                    type: 'number',
+                    default: 0
+                },
+            }
         }
     }
 
     schema["form-data"]['$removable'] = schema["form-data"]['$removable'] ?? true;
     schema["form-data"]["$required"] = schema["form-data"]["$required"] ?? false;
     schema["form-data"]["$enabled"] = schema["form-data"]["$enabled"] ?? true;
+    schema['form-data'].$class = schema.schema.class;
+    schema['form-data'].$classifier = schema.schema.classifier;
+    schema['form-data'].$version = schema.schema.version;
+    schema['form-data'].$type = schema.schema.$id;
 
     // Set default properties from above created object
     schema.schema.properties = {
-        ...schema.schema.properties ?? {},
+        ...(schema.schema.properties ?? {}),
         ...properties
     }
 
@@ -113,9 +140,24 @@ export const getSchemaFromPath = async (path: string) => {
     schema["ui-schema"].$type = {
         'ui:widget': 'hidden'
     };
+    schema["ui-schema"].$version = {
+        'ui:widget': 'hidden'
+    };
     schema["ui-schema"].$required = {
         'ui:widget': 'hidden'
     };
+    schema["ui-schema"].$pos = {
+        'ui:widget': 'hidden'
+    };
+
+    if (schema.schema.class !== 'response') {
+        schema["ui-schema"]["owner"] = {
+            'ui:widget': 'hidden'
+        };
+        schema["ui-schema"]["kernel_address"] = {
+            'ui:widget': 'hidden'
+        };
+    }
 
     return schema;
 }
@@ -137,11 +179,11 @@ export const getADOExecuteTemplate = async (path: string) => {
         icon: "",
         opts: [],
         ados: [
-            { path: IImportantAdoKeys.PROXY_MESSAGE, id: IImportantAdoKeys.PROXY_MESSAGE, required: false, removable: false, enabled: false },
+            { path: IImportantAdoKeys.PROXY_SETTING.path, id: IImportantAdoKeys.PROXY_SETTING.key, required: false, removable: false, enabled: false },
             { path: path, id: path.split('/').pop() ?? "Execute", required: true },
         ],
         modules: [
-            { 'path': IImportantAdoKeys.FUND }
+            { 'path': IImportantAdoKeys.FUND.path }
         ]
     };
 
@@ -160,13 +202,33 @@ export const getADOMultiExecuteTemplate = async (path: string) => {
         icon: "",
         opts: [],
         ados: [
-            { path: IImportantAdoKeys.PROXY_MESSAGE, id: IImportantAdoKeys.PROXY_MESSAGE, required: false, removable: false, enabled: false },
+            { path: IImportantAdoKeys.PROXY_SETTING.path, id: IImportantAdoKeys.PROXY_SETTING.key, required: false, removable: false, enabled: false },
         ],
         modules: [
             ...ADOPS.modifiers.map(ado => ({ path: `${path}/${ado}` })),
-            { 'path': IImportantAdoKeys.FUND }
+            { 'path': IImportantAdoKeys.FUND.path }
         ]
     };
+    const template = await processTemplate(currentTemplate);
+    return template;
+}
+
+export const getADOQueryTemplate = async (path: string) => {
+    // Generate Template
+    const currentTemplate: ITemplate = {
+        id: path,
+        adoType: path.split('/')[0] as any || 'app',
+        name: '',
+        description: '',
+        icon: "",
+        opts: [],
+        ados: [
+            { path: path, id: path.split('/').pop() ?? "Query", required: true, removable: false },
+        ],
+        modules: [
+        ]
+    };
+
     const template = await processTemplate(currentTemplate);
     return template;
 }

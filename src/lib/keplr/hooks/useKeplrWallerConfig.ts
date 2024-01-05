@@ -1,9 +1,8 @@
-import { useAndromedaContext } from "@/lib/andrjs";
-import { useGetKeplrOnStart } from "@/lib/wallet";
+import { useAndromedaStore } from "@/zustand/andromeda";
 import { useQuery } from "@tanstack/react-query";
 
 export function useKeplrWalletChainConfigs() {
-  const { keplr } = useGetKeplrOnStart()
+  const keplr = useAndromedaStore(state => state.keplr)
   return useQuery(
     ["keplr", "wallet", keplr],
     () => {
@@ -13,7 +12,7 @@ export function useKeplrWalletChainConfigs() {
 }
 
 export function useCurrentKeplrWalletChainConfig() {
-  const { chainId } = useAndromedaContext()
+  const chainId = useAndromedaStore(state => state.chainId)
   const { data: configs } = useKeplrWalletChainConfigs()
   return configs?.find(c => c.chainId === chainId)
 }

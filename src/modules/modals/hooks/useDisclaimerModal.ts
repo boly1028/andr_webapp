@@ -6,5 +6,7 @@ export default function useDisclaimerModal() {
   const { open } = useGlobalModalContext();
 
   return useCallback((data: Omit<DisclaimerModalProps, 'modalType'>) =>
-    open(ModalType.Disclaimer, data), [open]);
+    open(ModalType.Disclaimer, data, undefined, {
+      title: 'DISCLAIMER'
+    }), [open]);
 }

@@ -1,7 +1,6 @@
 import APP_TEMPLATES from "@/lib/schema/templates";
 import { Box, GridItem, SimpleGrid, Text, VStack } from "@chakra-ui/react";
 import React, { FC } from "react";
-import { useImportFlex } from "../../hooks/useImportFlex";
 import { TemplateListItem } from '../../leftSidebar/TemplateList'
 import MoreOnAppStore from "./MoreOnAppStore";
 import ImportFlexButton from '../importFlex'
@@ -10,7 +9,6 @@ interface LoadTemplateProps { }
 
 const LoadTemplate: FC<LoadTemplateProps> = (props) => {
     const { } = props;
-    const load = useImportFlex()
 
     return (
         <VStack p='4' maxW='container.sm' spacing={4}>
@@ -18,7 +16,7 @@ const LoadTemplate: FC<LoadTemplateProps> = (props) => {
                 Get started with a template
             </Text>
             <SimpleGrid columns={2} spacing='4' gridAutoRows="1fr">
-                {APP_TEMPLATES.map(template => (
+                {APP_TEMPLATES.filter(t => t.starter).slice(0, 5).map(template => (
                     <GridItem key={template.id}>
                         <TemplateListItem template={template} />
                     </GridItem>
@@ -31,8 +29,8 @@ const LoadTemplate: FC<LoadTemplateProps> = (props) => {
                 Or Open a Saved Project
             </Text>
             <Box>
-                <ImportFlexButton rightIcon={undefined} bg='newSystem.primary.500' _hover={{
-                    bg: 'newSystem.primary.hover'
+                <ImportFlexButton rightIcon={undefined} bg='primary.500' _hover={{
+                    bg: 'primary.hover'
                 }}
                     size='lg'
                 >

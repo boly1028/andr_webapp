@@ -12,7 +12,7 @@ const TemplateCard: FC<TemplateCardProps> = (props) => {
   const { template } = props;
 
   return (
-    <Link href={SITE_LINKS.appStoreItem(template.id)}>
+    <Link href={SITE_LINKS.appStoreItem(template.id)} legacyBehavior>
       <Box
         h="full"
         rounded="lg"

@@ -4,22 +4,20 @@ import { FlexBuilderForm } from "@/modules/flex-builder";
 import { Box } from "@/theme/ui-elements";
 import { FilePlusIcon, Layout, PageHeader } from "@/modules/common";
 import { useRouter } from "next/router";
-import { IAndromedaFormData, IImportantAdoKeys, ITemplate } from "@/lib/schema/types";
-import { useWallet } from "@/lib/wallet";
+import { IImportantAdoKeys, ITemplate } from "@/lib/schema/types";
 import { useEffect, useMemo, useState } from "react";
-import { HStack, IconButton, Input, Tooltip, useToast } from "@chakra-ui/react";
+import { HStack, Icon, IconButton, Input, Tooltip, useToast } from "@chakra-ui/react";
 import { parseJsonFromFile } from "@/lib/json";
 import { parseFlexFile } from "@/lib/schema/utils/flexFile";
 import { FlexBuilderFormProps } from "@/modules/flex-builder/components/FlexBuilderForm";
-import { EXECUTE_CLI_QUERY } from "@/lib/andrjs";
 import { ITemplateFormData } from "@/lib/schema/templates/types";
 import { getEmbeddableTemplateById } from "@/lib/schema/utils/embeddables";
 import { IEmbeddableConfig } from "@/lib/schema/types/embeddables";
 import { constructMsg } from "@/modules/sdk/utils";
 import useEmbeddableModal from "@/modules/modals/hooks/useEmbeddableModal";
-import { useGetEmbeddableApp } from "@/modules/embeddables/hooks/useGetEmbeddableApp";
 import { useGetEmbeddabeleConfig } from "@/modules/embeddables/hooks/useGetEmbeddableConfig";
 import { cloneDeep } from "@apollo/client/utilities";
+import { CogIcon } from "lucide-react";
 
 type Props = {
   template: ITemplate
@@ -29,16 +27,20 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
   const [modifiedTemplate, setModifiedTemplate] = useState(template);
   const router = useRouter();
   const eKey = router.query.key as string;
-  const { app, loading, embeddable } = useGetEmbeddableApp()
-  const { config } = useGetEmbeddabeleConfig(embeddable?.address ?? '', eKey);
+  const { config, loading } = useGetEmbeddabeleConfig(eKey);
 
   useEffect(() => {
     if (!config) return;
     if (config.$type !== template.id) return;
+    handleConfigInput(config);
+
+  }, [config])
+
+  const handleConfigInput = async (config: IEmbeddableConfig) => {
     const newTemplate = cloneDeep(template);
     const formData: ITemplateFormData = {};
     const { collections, ...appMeta } = config;
-    formData[IImportantAdoKeys.EMBEDDABLE_APP] = {
+    formData[IImportantAdoKeys.EMBEDDABLE_APP.key] = {
       ...appMeta as any,
     }
     collections.forEach(col => {
@@ -58,13 +60,12 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
         uiSchema: _template.uiSchema
       });
     })
-  }, [config])
+  }
 
   const toast = useToast({
     position: "top-right",
   });
 
-  const account = useWallet();
   const openModal = useEmbeddableModal();
 
 
@@ -101,7 +102,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
   };
 
   const getMsg = (formData: ITemplateFormData) => {
-    const appConfig = formData[IImportantAdoKeys.EMBEDDABLE_APP];
+    const appConfig = formData[IImportantAdoKeys.EMBEDDABLE_APP.key];
     const msg: IEmbeddableConfig = {
       // Remove system fields starting with $
       ...constructMsg(appConfig),
@@ -130,7 +131,42 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
     () => (
       <HStack spacing={4}>
         <Box>
-          <Tooltip label='Import Staging' color='dark.500'>
+          <Tooltip label='Import Config'>
+            <IconButton
+              as="label"
+              htmlFor="config-file-input"
+              variant="outline"
+              aria-label="flex-input"
+              cursor="pointer"
+              icon={<Icon as={CogIcon} boxSize={5} color='content.medium' />}
+            />
+          </Tooltip>
+          <Input
+            onChange={(e) => {
+              const file = e.target.files?.item(0);
+              if (file) {
+                try {
+                  parseJsonFromFile(file).then((json: IEmbeddableConfig) => {
+                    handleConfigInput(json);
+                  })
+                } catch (err) {
+                  toast({
+                    status: 'error',
+                    title: "Error while loading config"
+                  })
+                }
+              }
+            }}
+            multiple={false}
+            type="file"
+            id="config-file-input"
+            // Only Allow flex file
+            accept=".json"
+            srOnly
+          />
+        </Box>
+        <Box>
+          <Tooltip label='Import Staging'>
             <IconButton
               as="label"
               htmlFor="flexecute-file-input"
@@ -177,7 +213,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
           key={UPDATE_KEY}
           template={modifiedTemplate}
           onSubmit={handleSubmit}
-          notReady={!embeddable}
+          notReady={loading}
           addButtonTitle="Add Collection"
           hideOpenInAppBuilder
         />

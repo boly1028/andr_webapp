@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, PropsWithChildren } from "react";
 import { Flex, Box, Text } from "@/theme/ui-elements";
 
 interface FallbackPlaceholderProps {
@@ -6,7 +6,7 @@ interface FallbackPlaceholderProps {
   desc: string;
 }
 
-const FallbackPlaceholder: FC<FallbackPlaceholderProps> = ({
+const FallbackPlaceholder: FC<PropsWithChildren<FallbackPlaceholderProps>> = ({
   title,
   desc,
   children,
@@ -14,8 +14,8 @@ const FallbackPlaceholder: FC<FallbackPlaceholderProps> = ({
   return (
     <Box maxW="sm">
       <Flex direction="column" alignItems="center" textAlign="center">
-        <Text textStyle="h1">{title}</Text>
-        <Text fontSize="sm" color="dark.500">
+        <Text textStyle="main-lg-semibold">{title}</Text>
+        <Text textStyle="main-sm-regular" color="content.medium" mt='4'>
           {desc}
         </Text>
         <Box mt="8">{children}</Box>

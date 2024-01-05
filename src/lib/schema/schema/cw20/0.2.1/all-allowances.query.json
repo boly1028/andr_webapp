@@ -1,0 +1,33 @@
+{
+  "schema": {
+    "description": "Only with \"enumerable\" extension (and \"allowances\") Returns all allowances this owner has approved. Supports pagination. Return type: AllAllowancesResponse.",
+    "type": "object",
+    "required": ["all_allowances"],
+    "properties": {
+      "all_allowances": {
+        "type": "object",
+        "required": ["owner"],
+        "properties": {
+          "limit": {
+            "type": ["integer", "null"],
+            "format": "uint32",
+            "minimum": 0,
+            "title": "Limit"
+          },
+          "owner": { "type": "string", "title": "Owner" },
+          "start_after": { "type": ["string", "null"], "title": "Start after" }
+        },
+        "additionalProperties": false,
+        "title": "All allowances"
+      }
+    },
+    "additionalProperties": false,
+    "title": "All allowances",
+    "$id": "all-allowances",
+    "class": "query",
+    "version": "0.2.1",
+    "classifier": ""
+  },
+  "ui-schema": {},
+  "form-data": {}
+}

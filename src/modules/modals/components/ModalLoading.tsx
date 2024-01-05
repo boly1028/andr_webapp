@@ -1,11 +1,11 @@
 import { Box, Spinner, Text } from "@chakra-ui/react";
-import { FC, memo } from "react";
+import { FC, PropsWithChildren, memo } from "react";
 
 interface ModalLoadingProps {
   title: string;
 }
 
-const ModalLoading: FC<ModalLoadingProps> = memo(function ModalLoading({
+const ModalLoading: FC<PropsWithChildren<ModalLoadingProps>> = memo(function ModalLoading({
   title,
   children,
 }) {

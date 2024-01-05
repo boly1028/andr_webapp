@@ -1,9 +1,9 @@
-import { useAndromedaContext } from "@/lib/andrjs";
 import { ITemplateFormData } from "@/lib/schema/templates/types";
 import { IAdoType, IImportantAdoKeys, IPublishSettingsFormData } from "@/lib/schema/types";
 import { useCallback } from "react";
 import { IAppContract } from "../types";
-import { constructMsg } from "../utils";
+import useConstructADOMsg from "./useConstructADOMsg";
+import { getAdoTypeWithVersion } from "@/lib/andrjs/utils/ado";
 
 /**
  * Provides a function to create app construct messages. Apps are list of app component but
@@ -14,14 +14,14 @@ import { constructMsg } from "../utils";
  * Refer docs https://docs.andromedaprotocol.io/andromeda/andromeda-digital-objects/app#instantiatemsg 
  */
 export default function useConstructAppMsg() {
-  const { registryAddress } = useAndromedaContext();
+  const constructAdoMsg = useConstructADOMsg();
 
   const constructAppMsg = useCallback(
     (data: ITemplateFormData, appName?: string) => {
       console.clear();
       if (!appName) {
         // Our system panel name is 'publish-settings'. Refer app template in schema
-        const publishSettingsPanel = data[IImportantAdoKeys.PUBLISH_SETTINGS] as IPublishSettingsFormData;
+        const publishSettingsPanel = data[IImportantAdoKeys.PUBLISH_SETTING.key] as IPublishSettingsFormData;
         if (!publishSettingsPanel || !publishSettingsPanel.name) throw new Error("Incorrect publish settings fields");
         appName = publishSettingsPanel.name
       }
@@ -31,7 +31,7 @@ export default function useConstructAppMsg() {
       const appContract: IAppContract = {
         name: appName,
         app_components: [],
-        primitive_contract: registryAddress
+        kernel_address: ''
       };
 
       // Traverse each panel
@@ -42,10 +42,13 @@ export default function useConstructAppMsg() {
         if (panel.$enabled === false) return;
 
         // Ado Type of current panel
-        const adoType = panel.$type as IAdoType;
+        const adoType = panel.$type === 'app-contract' ? 'app' : panel.$type;
+        const adoVersion = panel.$version;
 
         // Remove hidden fields from panel data
-        const msg = constructMsg(panel);
+        const msg = constructAdoMsg({
+          '--no-use-of-this': panel
+        });
 
         console.log(`Unencoded data for panel: ${id}`, msg);
 
@@ -55,15 +58,17 @@ export default function useConstructAppMsg() {
         // Push current app data to app list of the contract
         appContract.app_components.push({
           'name': id,
-          'ado_type': adoType,
+          'ado_type': getAdoTypeWithVersion(adoType, adoVersion),
           'instantiate_msg': instantiateMsg
         })
       })
 
       console.log("Consrtuct msg:", appContract);
-      return appContract;
+      return constructAdoMsg({
+        '--no-use-of-this-key': appContract as any
+      });
     },
-    [registryAddress],
+    [constructAdoMsg],
   );
 
   return constructAppMsg;

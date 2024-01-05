@@ -5,6 +5,7 @@ import { IAdoType, IAndromedaFormData, IAndromedaSchema, IAndromedaSchemaJSON, I
 export interface ITemplate {
     id: string;
     adoType: IAdoType;
+    adoVersion?: string;
     name: string;
     icon: string;
     description: string;
@@ -45,10 +46,10 @@ interface ITemplateProperty {
 export interface IAdo {
     path: string;
     id: string;
-    removable?:boolean;
-    required: boolean;
-    enabled?: boolean;
-    pos?: XYPosition;
+    removable?: IAndromedaFormData['$removable'];
+    required: IAndromedaFormData['$required'];
+    enabled?: IAndromedaFormData['$enabled'];
+    pos?: IAndromedaFormData['$pos'];
 }
 
 // TODO: Remove fields from modules which are not needed

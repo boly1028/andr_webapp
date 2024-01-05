@@ -1,0 +1,1 @@
+{"modifiers":["a-m-p-receive","send-message","send-amp-message","send-amp-packet","save-channel","update-channel"],"queries":["channel-i-d.query","supported-chains.query"],"responses":["channel-i-d.response","supported-chains.response"],"cw721receives":[]}

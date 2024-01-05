@@ -1,6 +1,5 @@
 import { parseJsonFromFile } from '@/lib/json'
-import { TmpButton } from '@/theme/new-system-tmp/ui-elements'
-import { Box, ButtonProps, Icon, Input, Tooltip } from '@chakra-ui/react'
+import { Box, Button, ButtonProps, Icon, Input, Tooltip } from '@chakra-ui/react'
 import { Upload } from 'lucide-react'
 import React, { FC } from 'react'
 import { useImportFlex } from '../hooks/useImportFlex'
@@ -23,26 +22,24 @@ const ImportFlexButton: FC<ImportFlexButtonProps> = (props) => {
     };
 
     return (
-        <Tooltip label='Open' bg='newSystem.base.light'>
-            <Box>
-                <TmpButton rightIcon={<Icon as={Upload} boxSize='4' />} aria-label='import-flex' as='label' cursor='pointer' {...buttonProps}>
-                    <Input
-                        onChange={(e) => {
-                            const file = e.target.files?.item(0);
-                            if (file) {
-                                handleFileInput(file);
-                            }
-                        }}
-                        multiple={false}
-                        type="file"
-                        id="app-import-flex"
-                        // Only Allow flex file
-                        accept=".flex"
-                        srOnly
-                    />
-                    {children || 'Load'}
-                </TmpButton>
-            </Box>
+        <Tooltip label='Open' bg='base.light'>
+            <Button variant="theme-filled" size='sm' rightIcon={<Icon as={Upload} boxSize='4' />} aria-label='import-flex' as='label' cursor='pointer' {...buttonProps}>
+                <Input
+                    onChange={(e) => {
+                        const file = e.target.files?.item(0);
+                        if (file) {
+                            handleFileInput(file);
+                        }
+                    }}
+                    multiple={false}
+                    type="file"
+                    id="app-import-flex"
+                    // Only Allow flex file
+                    accept=".flex"
+                    srOnly
+                />
+                {children || 'Load'}
+            </Button>
         </Tooltip>
     )
 }

@@ -15,7 +15,7 @@ export default function useSimulateInstantiate(
 
   const simulate = useCallback(
     async (msg: Msg) => {
-      return client.estimateInstantiationFee(codeId, msg, label);
+      return client!.estimateInstantiationFee(codeId, msg, label);
     },
     [codeId, client, label],
   );

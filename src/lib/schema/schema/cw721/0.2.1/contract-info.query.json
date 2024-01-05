@@ -1,0 +1,22 @@
+{
+  "schema": {
+    "description": "The current config of the contract",
+    "type": "object",
+    "required": ["contract_info"],
+    "properties": {
+      "contract_info": {
+        "type": "object",
+        "additionalProperties": false,
+        "title": "Contract info"
+      }
+    },
+    "additionalProperties": false,
+    "title": "Contract info",
+    "$id": "contract-info",
+    "class": "query",
+    "version": "0.2.1",
+    "classifier": ""
+  },
+  "ui-schema": {},
+  "form-data": {}
+}

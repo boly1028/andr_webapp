@@ -1,0 +1,21 @@
+{
+  "schema": {
+    "type": "object",
+    "required": ["block_height_upon_creation"],
+    "properties": {
+      "block_height_upon_creation": {
+        "type": "object",
+        "additionalProperties": false,
+        "title": "Block height upon creation"
+      }
+    },
+    "additionalProperties": false,
+    "title": "Block height upon creation",
+    "$id": "block-height-upon-creation",
+    "class": "query",
+    "version": "0.2.2",
+    "classifier": ""
+  },
+  "ui-schema": {},
+  "form-data": {}
+}

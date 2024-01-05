@@ -1,0 +1,37 @@
+{
+  "schema": {
+    "description": "Approvals for a given address (paginated)",
+    "type": "object",
+    "required": ["all_operators"],
+    "properties": {
+      "all_operators": {
+        "type": "object",
+        "required": ["owner"],
+        "properties": {
+          "include_expired": {
+            "type": ["boolean", "null"],
+            "title": "Include expired"
+          },
+          "limit": {
+            "type": ["integer", "null"],
+            "format": "uint32",
+            "minimum": 0,
+            "title": "Limit"
+          },
+          "owner": { "type": "string", "title": "Owner" },
+          "start_after": { "type": ["string", "null"], "title": "Start after" }
+        },
+        "additionalProperties": false,
+        "title": "All operators"
+      }
+    },
+    "additionalProperties": false,
+    "title": "All operators",
+    "$id": "all-operators",
+    "class": "query",
+    "version": "0.2.1",
+    "classifier": ""
+  },
+  "ui-schema": {},
+  "form-data": {}
+}

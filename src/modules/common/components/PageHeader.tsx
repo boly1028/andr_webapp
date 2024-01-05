@@ -11,8 +11,8 @@ const PageHeader: FC<PageHeaderProps> = ({ title, desc, rightElement }) => {
   return (
     <Flex justify="space-between">
       <Box pr='12'>
-        <Text textStyle="h1">{title}</Text>
-        <Text fontSize="sm" color="gray.500">
+        <Text textStyle="main-xl-bold">{title}</Text>
+        <Text textStyle="main-sm-regular" color='content.medium'>
           {desc}
         </Text>
       </Box>

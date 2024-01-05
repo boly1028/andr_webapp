@@ -31,14 +31,16 @@ function OpenInAppBuilderButton({ schema, uiSchema, formData }: OpenInAppBuilder
     }
     const flexFile = await createFlexFile({
       schema,
-      formData
+      formData,
+      order: uiSchema?.["ui:order"],
     })
+    console.log(flexFile);
     sessionStorage.setItem("ANDROMEDA_TEMPLATE", JSON.stringify(flexFile));
     router.push(SITE_LINKS.appBuilder())
   }, [schema, uiSchema, formData]);
 
   return (
-    <Tooltip label={`Open in App Builder`} bg='base.white' placement='top'>
+    <Tooltip label={`Open in App Builder`} placement='top'>
       <IconButton
         aria-label="Open in App Builder"
         variant="outline"

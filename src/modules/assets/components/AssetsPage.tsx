@@ -10,13 +10,13 @@ import {
   Icon,
   Divider,
 } from "@/theme/ui-elements";
-import { useWallet } from "@/lib/wallet";
 import { useApolloClient } from "@apollo/client";
 import { RefreshCw } from "lucide-react";
+import { useAccount } from "@/lib/andrjs/hooks/useAccount";
 
 const AssetsPage = () => {
   /**Check If wallet is connected, If yes then user is logged in */
-  const wallet = useWallet();
+  const wallet = useAccount();
   const [loading, setLoading] = useState(false);
   const apolloClient = useApolloClient();
 
@@ -28,7 +28,7 @@ const AssetsPage = () => {
         rightElement={(
           <Button
             display={!wallet ? 'none' : 'flex'}
-            variant="outline"
+            variant="theme-filled"
             size="sm"
             mt='auto'
             ml="auto"
@@ -38,18 +38,12 @@ const AssetsPage = () => {
             onClick={() => {
               setLoading(true);
               apolloClient.refetchQueries({
-                updateCache(cache) {
-                  cache.evict({ fieldName: "ADO" });
-                  cache.evict({ fieldName: "tx" });
-                  cache.evict({ fieldName: "assets" });
-                },
-              })
-                .catch((err) => {
-                  console.log(err);
-                })
-                .finally(() => {
-                  setLoading(false);
-                });
+                include: ['ASSETS','BASE_ADO']
+              }).catch((err) => {
+                console.log(err);
+              }).finally(() => {
+                setLoading(false);
+              });
             }}
           >
             Refresh
@@ -59,7 +53,7 @@ const AssetsPage = () => {
       <Divider my='6' />
       {!wallet?.address && (
         <Center w="full" p="6" mt="10">
-          <Box borderColor='dark.300' borderWidth='1px' rounded="3xl" px="6" py="10">
+          <Box borderColor='border.main' borderWidth='1px' rounded="3xl" px="6" py="10">
             <FallbackPlaceholder
               title="You are not logged in."
               desc=""

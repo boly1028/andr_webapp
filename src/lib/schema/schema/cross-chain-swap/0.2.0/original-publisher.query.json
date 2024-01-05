@@ -1,0 +1,21 @@
+{
+  "schema": {
+    "type": "object",
+    "required": ["original_publisher"],
+    "properties": {
+      "original_publisher": {
+        "type": "object",
+        "additionalProperties": false,
+        "title": "Original publisher"
+      }
+    },
+    "additionalProperties": false,
+    "title": "Original publisher",
+    "$id": "original-publisher",
+    "class": "query",
+    "version": "0.2.0",
+    "classifier": ""
+  },
+  "ui-schema": {},
+  "form-data": {}
+}

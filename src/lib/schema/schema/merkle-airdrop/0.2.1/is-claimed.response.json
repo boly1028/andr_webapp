@@ -1,0 +1,18 @@
+{
+  "schema": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Is claimed",
+    "type": "object",
+    "required": ["is_claimed"],
+    "properties": {
+      "is_claimed": { "type": "boolean", "title": "Is claimed" }
+    },
+    "additionalProperties": false,
+    "$id": "is_claimed",
+    "version": "0.2.1",
+    "classifier": "response",
+    "class": "response"
+  },
+  "ui-schema": {},
+  "form-data": {}
+}

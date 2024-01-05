@@ -47,14 +47,14 @@ const CheckboxWidget = (props: WidgetProps) => {
         onBlur={_onBlur}
         onFocus={_onFocus}
       >
-        <VStack alignItems='start' spacing='0' ml='2'>
+        <VStack as={FormLabel} htmlFor={id} alignItems='start' spacing='0' ml='2'>
           {(uiOptions.title || schema.title || label) && (
-            <Text id={`${id}-label`}>
+            <Text>
               {uiOptions.title ?? schema.title ?? label}
             </Text>
           )}
           {(uiOptions.description || schema.description) && (
-            <Text fontSize='xs' textStyle='light' id={`${id}-label-description`}>
+            <Text fontSize='xs' textStyle='light'>
               {uiOptions.description ?? schema.description}
             </Text>
           )}

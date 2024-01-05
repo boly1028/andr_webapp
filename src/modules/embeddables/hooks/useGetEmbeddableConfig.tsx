@@ -1,21 +1,38 @@
-import { useGetPrimitiveValue } from "@/lib/graphql/hooks/primitive/useGetValue";
+import { useAndromedaClient } from "@/lib/andrjs";
 import { IEmbeddableConfig } from "@/lib/schema/types/embeddables";
-import { useMemo } from "react";
+import { useAndromedaStore } from "@/zustand/andromeda";
+import AndromedaClient from "@andromedaprotocol/andromeda.js";
+import { useQuery } from "@tanstack/react-query";
+import { EMBEDDABLE_DB } from "../constants";
 
-export const useGetEmbeddabeleConfig = (address: string, key: string) => {
-    const { data: value, loading } = useGetPrimitiveValue(address, key);
-    const config = useMemo(() => {
-        try {
-            console.log(value, key)
-            const _config = JSON.parse(value?.value?.string ?? '--') as IEmbeddableConfig;
-            _config.key = key;
-            return _config;
-        } catch (err) {
-            return undefined;
-        }
-    }, [value])
-
+export const useGetEmbeddabeleConfig = (key: string) => {
+    const chainId = useAndromedaStore(state => state.chainId);
+    const client = useAndromedaClient();
+    const { data: config, isLoading, isError } = useQuery({
+        queryKey: ['embeddable', 'list', 'item', chainId, key],
+        queryFn: async () => {
+            const data = await getEmbeddableConfig(client!, EMBEDDABLE_DB[chainId], key);
+            data.key = key;
+            data.chainId = chainId;
+            return data;
+        },
+        enabled: !!client && !!EMBEDDABLE_DB[chainId],
+        refetchOnWindowFocus: false
+    })
     return {
-        config, loading
+        config: config,
+        loading: isLoading,
+        error: isError
     }
+}
+
+export const getEmbeddableConfig = async (client: AndromedaClient, dbAddress: string, key: string) => {
+    const query = {
+        "get_value": {
+            key
+        }
+    }
+    const rawConfig = await client.chainClient?.queryClient?.queryContractSmart(dbAddress, query);
+    const config: IEmbeddableConfig = JSON.parse(rawConfig.value.string);
+    return config;
 }

@@ -1,0 +1,24 @@
+{
+  "schema": {
+    "description": "Purchases the token with the given id.",
+    "type": "object",
+    "required": ["purchase_by_token_id"],
+    "properties": {
+      "purchase_by_token_id": {
+        "type": "object",
+        "required": ["token_id"],
+        "properties": { "token_id": { "type": "string", "title": "Token id" } },
+        "additionalProperties": false,
+        "title": "Purchase by token id"
+      }
+    },
+    "additionalProperties": false,
+    "title": "Purchase by token id",
+    "$id": "purchase-by-token-id",
+    "class": "modifier",
+    "version": "0.2.1",
+    "classifier": ""
+  },
+  "ui-schema": {},
+  "form-data": {}
+}

@@ -1,0 +1,29 @@
+{
+  "schema": {
+    "$id": "proxy-setting",
+    "version": "0.2.1",
+    "class": "system",
+    "classifier": "",
+    "title": "Proxy Message",
+    "description": "Sends a message to the ADO with the specified name. This is used in the case the app contract has specific operation privileges over a component.",
+    "type": "object",
+    "required": [
+      "component_name",
+      "parent"
+    ],
+    "properties": {
+      "component_name": {
+        "type": "string",
+        "title": "Component Name",
+        "description": "The reference id for the App component."
+      },
+      "parent": {
+        "type": "string",
+        "title": "App Address",
+        "description": "The address of the parent App of the component"
+      }
+    }
+  },
+  "ui-schema": {},
+  "form-data": {}
+}

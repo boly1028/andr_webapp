@@ -1,31 +1,25 @@
-import {
-    QUERY_ALL_CHAIN_CONFIGS,
-    QUERY_CHAIN_CONFIG,
-    QueryAllChainConfigs,
-    QueryAllChainConfigsResponse,
-    QueryChainConfig,
-    QueryChainConfigResponse
-} from "@andromedaprotocol/andromeda.js";
-import { QueryResult, gql, useQuery } from "@apollo/client";
-
-export interface QueryChainConfigProps
-    extends Pick<QueryResult<QueryChainConfigResponse, QueryChainConfig>, "loading" | "error"> {
-    // Type should be array itself. Make an interface for asset and using Asset[] as response. Changes needed in the library
-    data?: QueryChainConfigResponse["chainConfigs"]["config"];
-}
+import { ENABLE_LOCAL_CHAINS } from "@/constants/constants";
+import { useAllChainConfigQuery, useChainConfigQuery } from "@andromedaprotocol/gql/dist/__generated/react";
+import { LOCAL_CHAINS_CONFIG } from "../../functions/chain";
 
 /**
  * Wrapper hook for the andr.js chain configs
  * @param chainId
  * @returns
  */
-export function useQueryChainConfig(chainId: string): QueryChainConfigProps {
-    const { loading, data, error } = useQuery<QueryChainConfigResponse, QueryChainConfig>(
-        gql`
-        ${QUERY_CHAIN_CONFIG}
-      `,
+export function useQueryChainConfig(chainId: string) {
+    const { loading, data, error } = useChainConfigQuery(
         { variables: { identifier: chainId }, notifyOnNetworkStatusChange: true },
     );
+
+    if (ENABLE_LOCAL_CHAINS) {
+        const c = LOCAL_CHAINS_CONFIG.find(c => c.chainId === chainId);
+        if (c) return {
+            loading: false,
+            error: undefined,
+            data: c
+        };
+    }
 
     // Converting assets to any and then to array to get proper typing at the end. It should be removed once type has been fixed in the library
 
@@ -36,23 +30,12 @@ export function useQueryChainConfig(chainId: string): QueryChainConfigProps {
     };
 }
 
-
-export interface QueryAllChainConfigsProps
-    extends Pick<QueryResult<QueryAllChainConfigsResponse, QueryAllChainConfigs>, "loading" | "error"> {
-    // Type should be array itself. Make an interface for asset and using Asset[] as response. Changes needed in the library
-    data?: QueryAllChainConfigsResponse["chainConfigs"]["allConfigs"];
-}
-
-
 /**
  * Wrapper hook for the andr.js all chain configs
  * @returns
  */
-export function useQueryAllChainConfigs(): QueryAllChainConfigsProps {
-    const { loading, data, error } = useQuery<QueryAllChainConfigsResponse, QueryAllChainConfigs>(
-        gql`
-        ${QUERY_ALL_CHAIN_CONFIGS}
-      `,
+export function useQueryAllChainConfigs() {
+    const { loading, data, error } = useAllChainConfigQuery(
         { variables: {}, notifyOnNetworkStatusChange: true },
     );
 
@@ -61,8 +44,9 @@ export function useQueryAllChainConfigs(): QueryAllChainConfigsProps {
     return {
         loading,
         error,
-        data: data?.chainConfigs.allConfigs?.filter(chain => !DISABLED_CHAIN_IDS.includes(chain.chainId))
+        data: data?.chainConfigs.allConfigs?.filter(chain => !DISABLED_CHAIN_IDS.includes(chain.chainId)).concat(ENABLE_LOCAL_CHAINS ? LOCAL_CHAINS_CONFIG : [])
     };
 }
 
-const DISABLED_CHAIN_IDS: string[] = ['atlantic-1']
+// Disable chains that are not currently supported for use
+const DISABLED_CHAIN_IDS: string[] = ['atlantic-1', 'injective-888']

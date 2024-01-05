@@ -1,0 +1,27 @@
+{
+  "schema": {
+    "description": "Gets the latest auction state for the given token. This will either be the current auction if there is one in progress or the last completed one.",
+    "type": "object",
+    "required": ["latest_auction_state"],
+    "properties": {
+      "latest_auction_state": {
+        "type": "object",
+        "required": ["token_address", "token_id"],
+        "properties": {
+          "token_address": { "type": "string", "title": "Token address" },
+          "token_id": { "type": "string", "title": "Token id" }
+        },
+        "additionalProperties": false,
+        "title": "Latest auction state"
+      }
+    },
+    "additionalProperties": false,
+    "title": "Latest auction state",
+    "$id": "latest-auction-state",
+    "class": "query",
+    "version": "0.2.1",
+    "classifier": ""
+  },
+  "ui-schema": {},
+  "form-data": {}
+}

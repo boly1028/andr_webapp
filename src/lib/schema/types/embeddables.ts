@@ -6,6 +6,8 @@ export interface IEmbeddableConfig {
     banner?: string;
     $type: string;
     key: string;
+    createdDate: string;
+    modifiedDate: string;
 }
 
 export interface IEmbeddableCollection {

@@ -1,0 +1,36 @@
+{
+  "schema": {
+    "type": "object",
+    "required": ["update_owner"],
+    "properties": {
+      "update_owner": {
+        "type": "object",
+        "required": ["address"],
+        "properties": { 
+          "address": { 
+            "type": "string", 
+            "title": "Address" 
+          } 
+        },
+        "additionalProperties": false,
+        "title": "Update owner"
+      }
+    },
+    "additionalProperties": false,
+    "title": "Update owner",
+    "$id": "update-owner",
+    "class": "modifier",
+    "version": "0.2.1",
+    "classifier": ""
+  },
+  "ui-schema": {
+    "update_owner": {
+      "address": {
+        "ui:widget": "text",
+        "ui:placeholder": "andr1v54e0pskn029vtp863mpxccn2g20tx0a6h95rj",
+        "ui:description": "Provide the address to assign as the new owner."
+      }
+    }
+  },
+  "form-data": {}
+}

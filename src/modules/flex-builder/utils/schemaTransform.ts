@@ -32,7 +32,7 @@ export const addSchemaModule = (
     // ui-schema
     _uiSchema[`${uuid}`] = data["ui-schema"];
     // Add new schema to ui order
-    _uiSchema[`ui:order`] = [...(_uiSchema[`ui:order`] as string[]) ?? ['*'], uuid];
+    _uiSchema[`ui:order`] = [...(_uiSchema[`ui:order`] as string[] ?? ['*']), uuid];
 
     // form-data
     _formData[`${uuid}`] = data["form-data"]

@@ -1,0 +1,78 @@
+{
+  "schema": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "App contract",
+    "type": "object",
+    "required": ["app_components", "kernel_address", "name"],
+    "properties": {
+      "app_components": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": ["ado_type", "instantiate_msg", "name"],
+          "properties": {
+            "ado_type": { "type": "string" },
+            "instantiate_msg": {
+              "description": "Select an ADO from the dropdown list. Make sure it matches what you entered into the 'ado_type' field above.",
+              "type": "string",
+              "$original_type": "Binary"
+            },
+            "name": { "type": "string" }
+          },
+          "additionalProperties": false,
+          "$original_type": "AppComponent"
+        },
+        "title": "App components"
+      },
+      "kernel_address": {
+        "type": "string",
+        "title": "Kernel address",
+        "default": ""
+      },
+      "name": { "type": "string", "title": "Name" },
+      "owner": { "type": ["string", "null"], "title": "Owner" }
+    },
+    "additionalProperties": false,
+    "$id": "app-contract",
+    "version": "0.2.1",
+    "classifier": "",
+    "class": "baseADO",
+    "description": "The App Contract component is an ADO that bundles a collection of other ADOs together for streamlined coordinated use."
+  },
+  "ui-schema": {
+    "app_components": {
+      "ui:options": {
+        "addable": true,
+        "removable": true,
+        "orderable": true
+      },
+      "items": {
+        "ado_type": {
+          "ui:widget": "text",
+          "ui:placeholder": "Enter ADO Type"
+        },
+        "instantiate_msg": {
+          "ui:widget": "textarea",
+          "ui:placeholder": "Enter Instantiate Message",
+          "ui:help": "Select an ADO from the dropdown list. Make sure it matches what you entered into the 'ado_type' field above."
+        },
+        "name": {
+          "ui:widget": "text",
+          "ui:placeholder": "Enter Component Name"
+        }
+      }
+    },
+    "kernel_address": {
+      "ui:widget": "hidden"
+    },
+    "name": {
+      "ui:widget": "text",
+      "ui:placeholder": "Enter Name of the App"
+    },
+    "owner": {
+      "ui:widget": "text",
+      "ui:placeholder": "Enter Owner Address"
+    }
+  },
+  "form-data": {}
+}

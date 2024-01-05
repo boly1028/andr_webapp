@@ -1,44 +1,7 @@
-import { QueryResult, useQuery, gql } from "@apollo/client";
+import { useAppComponentsQuery } from "@andromedaprotocol/gql/dist/__generated/react"
 
-interface Query {
-    contractAddress: string;
-}
-interface QueryResponse {
-    ADO: {
-        app: {
-            components: {
-                name: string;
-                address: string;
-                ado_type: string;
-                instantiate_msg: string;
-            }[];
-            address: string;
-        }
-    }
-}
-
-export interface ReturnValue
-    extends Pick<QueryResult, "loading" | "error"> {
-    data?: QueryResponse['ADO']['app'];
-}
-
-export function useAppComponents(address: string): ReturnValue {
-    const { data, loading, error } = useQuery<QueryResponse, Query>(
-        gql`
-        query APP_COMPONENTS($contractAddress: String!) {
-            ADO{
-                app(address: $contractAddress) {
-                    components{
-                        name,
-                        address,
-                        ado_type,
-                        instantiate_msg,
-                      },
-                      address
-                }
-            }
-          }
-        `,
+export function useAppComponents(address: string) {
+    const { data, loading, error } = useAppComponentsQuery(
         { variables: { 'contractAddress': address } },
     );
     return {

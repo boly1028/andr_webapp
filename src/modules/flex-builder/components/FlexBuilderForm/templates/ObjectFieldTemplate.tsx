@@ -93,8 +93,9 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
     if (rjsfId.slice(0, 5) === "root_") {
       rjsfId = rjsfId.slice(5);
     }
+    if (rjsfId === 'root') return schema.$id;
     return rjsfId;
-  }, [idSchema]);
+  }, [idSchema, schema]);
 
   const adoType = useMemo(() => {
     const type = schema.$id
@@ -129,6 +130,7 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
 
   // It should be handled using ui:schema util from rjsf?
   const hasGroup = uiOptions.group;
+  if (uiOptions.widget === 'hidden') return null;
 
   if (hasWrapper) {
     return (
@@ -137,48 +139,44 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
        */
       // < allowToggle defaultIndex={defaultIndex}>
       <Box
-        _hover={{
-          bg: "dark.50",
-        }}
-        p={4}
-        border="1px solid"
-        borderColor="dark.300"
-        borderRadius="lg"
+        bg='background.800'
+        rounded="xl"
+        pb='4'
+        id={currentSchemaId}
       >
-        <Flex>
-          <HStack spacing={5} w="full" align="flex-start">
-            <ClassifierIcon
-              adoType={schema.$id}
-              schemaClass={schema?.class as any}
-              schemaClassifier={schema?.classifier as any}
-              boxSize={5}
-            />
+        <Flex bg='backgroundState.idle' p={4} roundedTop='xl'>
+          <HStack spacing={3} w="full" align="flex-start">
+            <Box alignSelf='center'>
+              <ClassifierIcon
+                adoType={schema.$id}
+                schemaClass={schema?.class as any}
+                schemaClassifier={schema?.classifier as any}
+                boxSize={4}
+              />
+            </Box>
             <Box>
-              <HStack mb={1}>
-                <Text fontSize="sm" color="base.white" fontWeight={600}>
+              <HStack mb='0.5'>
+                <Text textStyle='main-md-semibold'>
                   {uiOptions.title || title}
                 </Text>
-                <Text fontSize="xs"
-                  color="dark.500"
-                  fontWeight="light">
+                <Text textStyle='main-sm-regular' color='content.low'>
                   @{schema.version ?? 'latest'}
                 </Text>
                 {!NON_EDITABLE_CLASS.has(schema.class ?? "") && (
                   <>
                     <CopyButton
-                      variant="link"
-                      fontSize="xs"
-                      color="dark.500"
-                      fontWeight="light"
+                      variant='unstyled'
+                      fontSize='sm'
+                      fontWeight='light'
+                      size='xs'
                       text={currentSchemaId}
                     >
                       {currentSchemaId}
                     </CopyButton>
-                    <Text></Text>
                     {changePanelName && (
                       <IconButton
-                        size={"sm"}
-                        variant="outline"
+                        size='sm'
+                        variant='theme-outline'
                         aria-label="open rename modal"
                         onClick={() => {
                           openPanelRenameModal({
@@ -193,13 +191,13 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
                             body: "Change the assigned name of this component",
                           });
                         }}
-                        icon={<Rename width={16} height={16} />}
+                        icon={<Icon as={Rename} />}
                       />
                     )}
                   </>
                 )}
               </HStack>
-              <Text textStyle="light" color="dark.500">
+              <Text textStyle="main-sm-regular" color='content.medium'>
                 {uiOptions.description || description}
               </Text>
             </Box>
@@ -209,16 +207,16 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
               <Switch
                 id={idSchema.$id}
                 isChecked={!!formData["$enabled"]}
-                colorScheme="primary"
                 onChange={() => {
                   toggleModule(currentSchemaId, !formData["$enabled"]);
                 }}
+                variant="theme-primary"
               />
             )}
             {formData["$removable"] && duplicatePanel && (
               <IconButton
                 size={"sm"}
-                variant="outline"
+                variant="theme-low"
                 aria-label="duplicate panel"
                 onClick={() => {
                   duplicatePanel(currentSchemaId);
@@ -229,7 +227,7 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
             {formData['$removable'] && deleteModule && (
               <IconButton
                 size={"sm"}
-                variant="outline"
+                variant="theme-destructive"
                 aria-label="delete module"
                 onClick={() => {
                   deleteModule(currentSchemaId);
@@ -243,10 +241,11 @@ const ObjectFieldTemplate = (props: ObjectFieldTemplateExtendedProps) => {
               <MenuButton
                 as={IconButton}
                 icon={<Icon as={MoreVertical} boxSize={5} />}
-                variant="outline"
+                variant="theme-ghost"
                 size="sm"
+                color='content.low'
               />
-              <MenuList>
+              <MenuList textStyle='main-sm-regular'>
                 <MenuItem
                   onClick={downloadJson}
                   icon={<DownloadIcon boxSize={4} />}

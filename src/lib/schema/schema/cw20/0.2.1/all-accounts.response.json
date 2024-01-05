@@ -1,0 +1,21 @@
+{
+  "schema": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "All accounts",
+    "type": "object",
+    "required": ["accounts"],
+    "properties": {
+      "accounts": {
+        "type": "array",
+        "items": { "type": "string" },
+        "title": "Accounts"
+      }
+    },
+    "$id": "all_accounts",
+    "version": "0.2.1",
+    "classifier": "response",
+    "class": "response"
+  },
+  "ui-schema": {},
+  "form-data": {}
+}

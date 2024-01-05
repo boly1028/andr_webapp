@@ -1,0 +1,26 @@
+{
+  "schema": {
+    "type": "object",
+    "required": ["is_cancelled"],
+    "properties": {
+      "is_cancelled": {
+        "type": "object",
+        "required": ["token_address", "token_id"],
+        "properties": {
+          "token_address": { "type": "string", "title": "Token address" },
+          "token_id": { "type": "string", "title": "Token id" }
+        },
+        "additionalProperties": false,
+        "title": "Is cancelled"
+      }
+    },
+    "additionalProperties": false,
+    "title": "Is cancelled",
+    "$id": "is-cancelled",
+    "class": "query",
+    "version": "0.2.1",
+    "classifier": ""
+  },
+  "ui-schema": {},
+  "form-data": {}
+}

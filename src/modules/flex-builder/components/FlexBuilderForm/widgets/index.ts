@@ -9,6 +9,11 @@ import { DatetimeWidget } from "./Datetime";
 import { DurationWidget } from "./Duration";
 import { DenomWidget } from "./Denom";
 import { NanoDatetimeWidget } from "./NanoDatetime";
+import { MultiTabWidget } from "./multiTab";
+import { BinaryMsgWidget } from "./msg/Binary";
+import AndrAddrWidget from "./AndrAddr";
+import { QueryMsgWidget } from "./msg/QueryMsgWidget";
+import { Cw20ReceiveMsgWidget } from "./msg/CW20ReceiveMsgWidget";
 
 const widgets: RegistryWidgetsType = {
   markdown: MarkdownWidget,
@@ -16,10 +21,16 @@ const widgets: RegistryWidgetsType = {
   instantiateMsg: InstantiateMsgWidget,
   executeMsg: ExecuteMsgWidget,
   cw721ReceiveMsg: Cw721ReceiveMsgWidget,
+  cw20ReceiveMsg: Cw20ReceiveMsgWidget,
+  queryMsg: QueryMsgWidget,
   CheckboxWidget: CheckboxWidget,
   dateTime: DatetimeWidget,
   nanodateTime: NanoDatetimeWidget,
   duration: DurationWidget,
-  denom: DenomWidget
+  denom: DenomWidget,
+  'tabs': MultiTabWidget,
+  Binary: BinaryMsgWidget,
+  JSON: BinaryMsgWidget,
+  AndrAddr: AndrAddrWidget
 }
 export default widgets

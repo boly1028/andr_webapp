@@ -4,21 +4,18 @@ import {
   FieldTemplateProps,
   getTemplate,
   getUiOptions,
-  getSchemaType,
 } from "@andromedarjsf/utils";
 
 import {
-  Text,
   FormControl,
   FormLabel,
   Box,
   Alert,
   AlertIcon,
-  AlertTitle,
   AlertDescription,
+  FormHelperText,
 } from "@chakra-ui/react";
-import { JSONSchema7 } from "json-schema";
-import { createContext } from "vm";
+import { ALERT_TYPE_MAP } from "../alerts/utils";
 
 const FieldTemplate = (props: FieldTemplateProps) => {
   const {
@@ -34,15 +31,13 @@ const FieldTemplate = (props: FieldTemplateProps) => {
     readonly,
     required,
     rawErrors = [],
-    rawHelp,
-    rawDescription,
     schema,
     uiSchema,
     registry,
     onChange,
-    formData,
     description,
     hideError,
+    formData
   } = props;
 
   const uiOptions = getUiOptions(uiSchema);
@@ -101,7 +96,7 @@ const FieldTemplate = (props: FieldTemplateProps) => {
           <Alert
             key={idx}
             status={alert.type}
-            variant="left-accent"
+            variant={`theme-${ALERT_TYPE_MAP[alert.type]}`}
             rounded="lg"
             fontSize="sm"
             mb="4"
@@ -112,6 +107,7 @@ const FieldTemplate = (props: FieldTemplateProps) => {
               dangerouslySetInnerHTML={{
                 __html: `${alert.text}`,
               }}
+              textStyle='main-sm-regular'
             />
           </Alert>
         ))}
@@ -132,14 +128,15 @@ const FieldTemplate = (props: FieldTemplateProps) => {
           ) : null}
           {displayLabel && <>{description}</>}
           {hasWrapper ? (
-            <Box key={1} border="1px" borderColor="dark.300" p="6" rounded="lg">
+            <Box key={1} border="1px" borderColor="border.main" p="6" rounded="lg">
               {children}
             </Box>
           ) : (
             <>{children}</>
           )}
-
-          {props.help}
+          <FormHelperText>
+            {props.rawHelp}
+          </FormHelperText>
           {!hideError && props.errors}
         </FormControl>
       </WrapIfAdditionalTemplate>

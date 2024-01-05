@@ -1,0 +1,34 @@
+{
+  "schema": {
+    "description": "Divides any attached funds to the message amongst the recipients list.",
+    "type": "object",
+    "required": ["send"],
+    "properties": {
+      "send": {
+        "type": "object",
+        "additionalProperties": false,
+        "title": "Send"
+      }
+    },
+    "additionalProperties": false,
+    "title": "Send",
+    "$id": "send",
+    "class": "modifier",
+    "version": "0.2.3",
+    "classifier": ""
+  },
+  "ui-schema": {
+    "send": {
+      "ui:options": {
+        "title": "Send",
+        "alerts": [
+          {
+            "text": "You cannot send more than 5 coins with one Send.",
+            "type": "error"
+          }
+        ]
+      }
+    }
+  },
+  "form-data": {}
+}

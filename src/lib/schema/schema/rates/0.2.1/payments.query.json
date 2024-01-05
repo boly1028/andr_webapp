@@ -1,0 +1,21 @@
+{
+  "schema": {
+    "type": "object",
+    "required": ["payments"],
+    "properties": {
+      "payments": {
+        "type": "object",
+        "additionalProperties": false,
+        "title": "Payments"
+      }
+    },
+    "additionalProperties": false,
+    "title": "Payments",
+    "$id": "payments",
+    "class": "query",
+    "version": "0.2.1",
+    "classifier": ""
+  },
+  "ui-schema": {},
+  "form-data": {}
+}

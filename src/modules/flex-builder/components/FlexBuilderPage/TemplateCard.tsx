@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, PropsWithChildren } from "react";
 
 import {
   Box,
@@ -31,7 +31,7 @@ type TemplateCardProps = {
   template: ITemplate;
 };
 
-const TemplateCard: FC<TemplateCardProps> = ({ template, children }) => {
+const TemplateCard: FC<PropsWithChildren<TemplateCardProps>> = ({ template, children }) => {
   return (
     <Box
       border="1px"

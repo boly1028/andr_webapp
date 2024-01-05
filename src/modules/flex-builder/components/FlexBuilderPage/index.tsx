@@ -69,22 +69,22 @@ const FlexBuilderPage: FC<FlexBuilderPageProps> = ({ templateList }) => {
 
       <SimpleGrid columns={3} gap="6" gridAutoRows="1fr">
         <GridItem>
-          <Box bg="dark.50" rounded="xl" p="6">
+          <Box bg="backgroundState.idle" rounded="xl" p="6">
             <SparklesIcon boxSize="12" color="primary.500" />
-            <Text fontWeight="bold" fontSize="3xl" mt="4" lineHeight="2rem">
+            <Text textStyle="main-2xl-semibold" mt="4">
               More on App Store
             </Text>
-            <Text color="dark.500" mt="6" fontSize="sm">
+            <Text mt="6" textStyle="main-sm-regular" color='content.medium'>
               Build with ready-made apps and templates by Andromeda and the
               community.
             </Text>
-            <Link href={SITE_LINKS.appStore()} passHref>
+            <Link href={SITE_LINKS.appStore()} passHref legacyBehavior>
               <Button
                 as="a"
                 mt={10}
                 w="full"
                 size="lg"
-                colorScheme="primary"
+                variant="theme-low"
                 rightIcon={<ChevronRightIcon boxSize={5} />}
               >
                 App Store

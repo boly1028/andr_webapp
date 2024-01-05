@@ -17,7 +17,7 @@ const ViewTable: FC<ViewTableProps> = (props) => {
       {/* <Text fontSize={'14px'} fontWeight='100' color='rgba(255, 255, 255, 0.6)'>Lorem ipsum dolor sit amet, consectetur adipiscing elit ut aliquam, purus sit amet luctus</Text> */}
 
       <Flex
-        borderColor="dark.300"
+        borderColor="border.main"
         borderRadius="lg"
         mb={4}
         _last={{ mb: 0 }}
@@ -36,6 +36,7 @@ const ViewTable: FC<ViewTableProps> = (props) => {
               key={index}
               item={item}
               eKey={configData.key}
+              config={configData}
             />
           )
         })}

@@ -1,12 +1,11 @@
 import { cloneDeep } from "lodash";
 import JSONCrush from "jsoncrush";
-import { IAdo, ITemplateFormData, ITemplateSchema } from "../templates/types";
-import { UPLOAD_TEMPLATE } from "../templates/upload"
+import { IAdo, ITemplateFormData, ITemplateSchema, ITemplateUiSchema } from "../templates/types";
 import { ITemplate } from "../types"
 import { processTemplate } from "./template";
+import { BLANK_APP_TEMPLATE } from "../templates/blank";
 
 export const parseFlexFile = async (template: ITemplate) => {
-    template.modules = cloneDeep(UPLOAD_TEMPLATE.modules);
     const processed = await processTemplate(template);
     return processed;
 }
@@ -15,6 +14,7 @@ interface ICreateInput {
     schema: ITemplateSchema;
     formData: ITemplateFormData;
     template?: ITemplate;
+    order?: ITemplateUiSchema['ui:order'];
 }
 
 interface ICreateInputFromADO {
@@ -29,7 +29,8 @@ interface ICreateInputFromADO {
  * @param {schema, formData}: Data you want to insert in flex template
  * @returns flex template
  */
-export const createFlexFile = async ({ schema, formData, template }: ICreateInput) => {
+export const createFlexFile = async ({ schema, formData: _formData, template, order = [] }: ICreateInput) => {
+    const formData = cloneDeep(_formData);
     const ados: IAdo[] = []
     Object.entries(schema.properties).map(([id, property]) => {
         const definitionId = property.$ref.split('/').pop() ?? '';
@@ -38,21 +39,29 @@ export const createFlexFile = async ({ schema, formData, template }: ICreateInpu
             id: id,
             path: definition.$path,
             required: formData[id]?.$required,
-            'enabled': formData[id]?.$enabled
+            'enabled': formData[id]?.$enabled,
+            removable: formData[id]?.$removable,
+            pos: formData[id]?.$pos
         })
     })
-
+    ados.sort((a, b) => order.indexOf(a.id) - order.indexOf(b.id));
     const result = await createFlexFileFromADOS({ ados, formData, template })
     return result
 }
 
-
 export const createFlexFileFromADOS = async ({ ados, formData, template: defaultTemplate }: ICreateInputFromADO) => {
-    const template: ITemplate = cloneDeep(defaultTemplate ?? UPLOAD_TEMPLATE);
+    const template: ITemplate = cloneDeep(defaultTemplate ?? BLANK_APP_TEMPLATE);
     template.ados = ados;
+    template.schema = undefined;
+    template.uiSchema = undefined;
     // Modules are not important for processing and make flex file huge. Hence remove all modules from list.
     // Modules are added back while parsing flex file depending on where they are loaded
     template.modules = [];
+    Object.keys(formData).forEach(panel => {
+        Object.keys(formData[panel]).forEach(key => {
+            if (key.startsWith('$')) delete formData[panel][key];
+        })
+    })
     template.formData = formData;
     return template;
 }

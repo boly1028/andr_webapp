@@ -1,0 +1,24 @@
+{
+  "schema": {
+    "$id": "publish-setting",
+    "version": "0.2.1",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "class": "system",
+    "classifier": "",
+    "title": "Publish as an App",
+    "description": "Publishing configurations to publish the ADO as an App",
+    "type": "object",
+    "required": [
+      "name"
+    ],
+    "properties": {
+      "name": {
+        "type": "string",
+        "title": "App Name",
+        "description": "The desired name of the app."
+      }
+    }
+  },
+  "ui-schema": {},
+  "form-data": {}
+}

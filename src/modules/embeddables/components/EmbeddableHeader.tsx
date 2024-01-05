@@ -1,6 +1,5 @@
 import {
     Heading,
-    Text,
     Flex,
     Button,
     HStack
@@ -18,18 +17,24 @@ const EmbeddableHeader = () => {
             gap='12px'
             mb='30px'
         >
-            <Heading fontWeight={600} fontSize='36px'>Integrate apps into your projects</Heading>
-            {/* <Text fontWeight={400} fontSize='14px' textAlign={'center'} w='40%' color='rgba(255, 255, 255, 0.6)'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Officiis, Natus nisi distinctio facere?</Text> */}
+            <Heading textStyle="main-2xl-bold">Integrate apps into your projects</Heading>
             <HStack>
-                <Link href={SITE_LINKS.embeddablesBuild('nft')} passHref>
-                    <Button as='a' leftIcon={<AddIcon />} colorScheme={'primary'} size='sm' py='8px' px='16px' fontSize={'16px'}>
-                        New Embedabble
-                    </Button>
-                </Link>
-                <Button bgColor={'rgba(255, 255, 255, 0.05)'} size='xs' py='8px' px='16px' fontSize={'16px'}>Learn More</Button>
+                <Button as={Link} href={SITE_LINKS.embeddablesBuild('nft')}
+                    leftIcon={<AddIcon />}
+                    variant="theme-low"
+                    size="sm"
+                >
+                    New Embedabble
+                </Button>
+                <Button
+                    variant="theme-filled"
+                    size="sm"
+                >
+                    Learn More
+                </Button>
             </HStack>
         </Flex>
-    )
+    );
 }
 
 export default EmbeddableHeader

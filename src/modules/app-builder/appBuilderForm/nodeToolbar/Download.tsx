@@ -1,4 +1,3 @@
-import { TmpButton } from "@/theme/new-system-tmp/ui-elements";
 import { downloadBlob } from "@/utils/file";
 import { Icon, IconButton, Tooltip } from "@chakra-ui/react";
 import { Download, Trash } from "lucide-react";
@@ -26,7 +25,7 @@ const DownloadButton: FC<DownloadButtonProps> = (props) => {
     };
 
     return (
-        <Tooltip label='Download' bg='base.white' placement='top'>
+        <Tooltip label='Download' placement='top'>
             <IconButton
                 aria-label="download"
                 icon={<Icon as={Download} boxSize='4' />}

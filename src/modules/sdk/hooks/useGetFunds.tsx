@@ -11,7 +11,7 @@ export default function useGetFunds() {
     let funds: Coin[] = [];
 
     Object.entries(data).forEach(([id, panel]) => {
-      if (panel.$type !== IImportantAdoKeys.FUND) return;
+      if (panel.$type !== IImportantAdoKeys.FUND.key as any) return;
       // If panel is disabled, skip it
       if (panel.$enabled === false) return;
 

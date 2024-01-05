@@ -1,0 +1,32 @@
+{
+  "schema": {
+    "type": "object",
+    "required": ["permissions"],
+    "properties": {
+      "permissions": {
+        "type": "object",
+        "required": ["actor"],
+        "properties": {
+          "actor": { "type": "string", "title": "Actor" },
+          "limit": {
+            "type": ["integer", "null"],
+            "format": "uint32",
+            "minimum": 0,
+            "title": "Limit"
+          },
+          "start_after": { "type": ["string", "null"], "title": "Start after" }
+        },
+        "additionalProperties": false,
+        "title": "Permissions"
+      }
+    },
+    "additionalProperties": false,
+    "title": "Permissions",
+    "$id": "permissions",
+    "class": "query",
+    "version": "0.2.1",
+    "classifier": ""
+  },
+  "ui-schema": {},
+  "form-data": {}
+}

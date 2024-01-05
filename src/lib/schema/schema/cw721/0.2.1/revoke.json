@@ -1,0 +1,27 @@
+{
+  "schema": {
+    "description": "Remove previously granted Approval",
+    "type": "object",
+    "required": ["revoke"],
+    "properties": {
+      "revoke": {
+        "type": "object",
+        "required": ["spender", "token_id"],
+        "properties": {
+          "spender": { "type": "string", "title": "Spender" },
+          "token_id": { "type": "string", "title": "Token id" }
+        },
+        "additionalProperties": false,
+        "title": "Revoke"
+      }
+    },
+    "additionalProperties": false,
+    "title": "Revoke",
+    "$id": "revoke",
+    "class": "modifier",
+    "version": "0.2.1",
+    "classifier": ""
+  },
+  "ui-schema": {},
+  "form-data": {}
+}

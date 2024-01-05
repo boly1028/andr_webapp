@@ -15,7 +15,7 @@ const DeleteButton: FC<DeleteButtonProps> = (props) => {
         deleteNode([name])
     }
     return (
-        <Tooltip label='Delete' bg='base.white' placement='top'>
+        <Tooltip label='Delete' placement='top'>
             <IconButton
                 aria-label="delete"
                 icon={<Icon as={Trash} boxSize='4' />}

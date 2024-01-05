@@ -66,8 +66,14 @@ const ArrayFieldTemplate = (props: ArrayFieldTemplateProps) => {
               <AddButton
                 className="array-item-add"
                 onClick={props.onAddClick}
-                disabled={props.disabled || props.readonly}
+                // @ts-ignore
+                isDisabled={props.disabled || props.readonly}
                 uiSchema={uiSchema}
+                // TODO: Fix types in rsjf so we can remove this ts-ignore
+                //@ts-ignore
+                variant='theme-low'
+                //@ts-ignore
+                size='sm'
               />
             </Box>
           </GridItem>

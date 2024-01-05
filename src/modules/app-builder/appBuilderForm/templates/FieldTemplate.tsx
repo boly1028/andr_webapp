@@ -14,8 +14,7 @@ import {
   Divider,
 } from "@chakra-ui/react";
 import { useUpdateNodeInternals } from "reactflow";
-import { WrapIfIdentifier } from "../connections/WrapIfIdentifier";
-import { WrapIfModule } from "../connections/WrapIfIModule";
+import { ALERT_TYPE_MAP } from "@/modules/flex-builder/components/FlexBuilderForm/alerts/utils";
 
 const FieldTemplate = (props: FieldTemplateProps) => {
   const {
@@ -23,7 +22,6 @@ const FieldTemplate = (props: FieldTemplateProps) => {
     children,
     classNames,
     disabled,
-    displayLabel,
     hidden,
     label,
     onDropPropertyClick,
@@ -31,8 +29,6 @@ const FieldTemplate = (props: FieldTemplateProps) => {
     readonly,
     required,
     rawErrors = [],
-    rawHelp,
-    rawDescription,
     schema,
     uiSchema,
     registry,
@@ -72,7 +68,13 @@ const FieldTemplate = (props: FieldTemplateProps) => {
   const hasWrapper = !!schema?.anyOf || !!schema?.oneOf;
 
   const showAlert = !hasWrapper && !!uiOptions.alerts;
-  const alerts: Array<any> = !showAlert ? [] : uiOptions.alerts as Array<any>
+  const alerts: Array<any> = !showAlert ? [] : uiOptions.alerts as Array<any>;
+
+  const TitleFieldTemplate = getTemplate<"TitleFieldTemplate">(
+    "TitleFieldTemplate",
+    registry,
+    uiOptions,
+  );
 
   return (
     <FieldTemplateContext.Provider value={{ fieldRef: fieldContextRef }}>
@@ -93,11 +95,9 @@ const FieldTemplate = (props: FieldTemplateProps) => {
           <Alert
             key={idx}
             status={alert.type}
-            variant="left-accent"
-            rounded="lg"
+            variant={`theme-${ALERT_TYPE_MAP[alert.type]}`}
             fontSize="xs"
             my='2'
-            w='95%'
             mx='auto'
             py='1.5'
           >
@@ -107,30 +107,37 @@ const FieldTemplate = (props: FieldTemplateProps) => {
               dangerouslySetInnerHTML={{
                 __html: `${alert.text}`,
               }}
-              lineHeight='1.4'
+              textStyle='main-xs-regular'
+              lineHeight={1.4}
             />
           </Alert>
         ))}
+        {hasWrapper && <Divider mt='2' mx='auto' w='95%' />}
         <Box position='relative' py={hasWrapper ? '4' : '0'}
-        // bg={hasWrapper?'#ffffff04':'transparent'}0
+          bg={hasWrapper ? '#ffffff04' : 'transparent'}
         >
-          {hasWrapper && <Divider mb='2' mx='auto' w='95%' />}
-          <WrapIfIdentifier id={id} formData={formData} />
-          <WrapIfModule schema={schema} formData={formData} />
           <FormControl
             isRequired={hasWrapper ? false : required}
             isInvalid={rawErrors && rawErrors.length > 0}
             position='relative'
           >
+            {hasWrapper && props.displayLabel && label ? (
+              <TitleFieldTemplate
+                id={`${id}-title`}
+                schema={schema}
+                uiSchema={uiSchema}
+                registry={registry}
+                title={label}
+              />
+            ) : null}
             {/* {displayLabel && <>{description}</>} */}
 
             {children}
-
             {/* {props.help} */}
             {!hideError && (<Box px='4'>{props.errors}</Box>)}
           </FormControl>
-          {hasWrapper && <Divider mt='2' mx='auto' w='95%' />}
         </Box>
+        {hasWrapper && <Divider mb='2' mx='auto' w='95%' />}
       </WrapIfAdditionalTemplate>
     </FieldTemplateContext.Provider>
   );

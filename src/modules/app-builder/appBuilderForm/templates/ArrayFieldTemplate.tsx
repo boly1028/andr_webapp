@@ -39,7 +39,7 @@ const ArrayFieldTemplate = (props: ArrayFieldTemplateProps) => {
   return (
     <Box my='1'
       py='2'
-      bg='#ffffff05'
+      bg="#ffffff04"
 
     >
       <ArrayFieldTitleTemplate

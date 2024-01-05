@@ -1,8 +1,8 @@
 import { IAdoType } from "@/lib/schema/types";
-import { Msg } from "@andromedaprotocol/andromeda.js";
+import type { Msg } from "@andromedaprotocol/andromeda.js";
 import { StdFee } from "@cosmjs/amino";
 import { Coin } from "@cosmjs/proto-signing";
-import { MsgInstantiateContractEncodeObject, MsgExecuteContractEncodeObject } from "@cosmjs/cosmwasm-stargate"
+import { MsgInstantiateContractEncodeObject, MsgExecuteContractEncodeObject, MsgStoreCodeEncodeObject, MsgMigrateContractEncodeObject } from "@cosmjs/cosmwasm-stargate"
 import { EmbeddableModalProps } from "./components/Embeddable/types";
 
 export enum ModalType {
@@ -29,11 +29,11 @@ export interface InstantiateTransactionModalProps {
 export type TransactionModalProps = (
   | ExecuteTransactionModalProps
   | InstantiateTransactionModalProps
-) & { msg: Msg; modalType: ModalType.Transaction; fee?: StdFee, memo?: string, funds: Coin[]; };
+) & { msg: Msg; modalType: ModalType.Transaction; fee?: StdFee | "auto", memo?: string, funds: Coin[]; };
 
 export interface MultiTransactionModalProps {
   modalType: ModalType.MultiTransaction;
-  msgs: (MsgInstantiateContractEncodeObject | MsgExecuteContractEncodeObject)[];
+  msgs: (MsgInstantiateContractEncodeObject | MsgExecuteContractEncodeObject | MsgStoreCodeEncodeObject | MsgMigrateContractEncodeObject)[];
   fee?: StdFee;
   memo?: string;
 }

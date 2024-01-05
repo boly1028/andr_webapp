@@ -4,9 +4,10 @@ import { BASE_ADOS, MODIFIERS, MODULES, PRIMITIVES, QUERIES, QUERY_RESPONSES } f
 import ClassifierIcon from '@/theme/icons/classifiers'
 import { ChevronDownIcon, CloseIcon, SearchIcon } from '@chakra-ui/icons'
 import { Box, Button, ButtonProps, Input, InputGroup, InputLeftElement, List, ListItem, Text, useDisclosure, VStack } from '@chakra-ui/react'
-import React, { FC } from 'react'
+import React, { FC, useState } from 'react'
 import Link from "next/link";
 import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
+import _ from "lodash";
 
 
 const Page: NextPage = ({ }) => {
@@ -29,7 +30,8 @@ interface SchemaComponentProps {
 }
 const SchemaComponent: FC<SchemaComponentProps> = (props) => {
     const { } = props
-
+    const [searchedText, setSearchedText] = useState<string>('');
+    const searchHandler = _.debounce((value) => { setSearchedText(value) }, 500)
     return (
         <VStack alignItems='stretch' gap='2' textColor='dark.500'>
             <InputGroup size='lg'>
@@ -38,16 +40,16 @@ const SchemaComponent: FC<SchemaComponentProps> = (props) => {
                 >
                     <SearchIcon color='gray.300' />
                 </InputLeftElement>
-                <Input placeholder='Search' />
+                <Input placeholder='Search' onChange={(e) => { searchHandler(e.target.value.trim()) }} />
             </InputGroup>
             <Text>Schemas</Text>
             <VStack alignItems='stretch'>
-                <SchemaComponentItem name="ADOs" list={BASE_ADOS} leftIcon={<ClassifierIcon adoType='app' boxSize='5' />} />
-                <SchemaComponentItem name="Modules" list={MODULES} leftIcon={<ClassifierIcon adoType='address-list' schemaClass='module' boxSize='5' />} />
-                <SchemaComponentItem name="Modifiers" list={MODIFIERS} leftIcon={<ClassifierIcon adoType='address-list' schemaClass='modifier' boxSize='5' />} />
-                <SchemaComponentItem name="Primitives" list={PRIMITIVES} leftIcon={<ClassifierIcon adoType='address-list' schemaClass='primitives' boxSize='5' />} />
-                <SchemaComponentItem name="Queries" list={QUERIES} leftIcon={<ClassifierIcon adoType='address-list' schemaClass='query' boxSize='5' />} />
-                <SchemaComponentItem name="Queries Responses" list={QUERY_RESPONSES} leftIcon={<ClassifierIcon adoType='address-list' schemaClass='query' boxSize='5' />} />
+                <SchemaComponentItem name="ADOs" list={BASE_ADOS} leftIcon={<ClassifierIcon adoType='app' boxSize='5' />} searchedText={searchedText} />
+                <SchemaComponentItem name="Modules" list={MODULES} leftIcon={<ClassifierIcon adoType='address-list' schemaClass='module' boxSize='5' />} searchedText={searchedText} />
+                <SchemaComponentItem name="Modifiers" list={MODIFIERS} leftIcon={<ClassifierIcon adoType='address-list' schemaClass='modifier' boxSize='5' />} searchedText={searchedText} />
+                <SchemaComponentItem name="Primitives" list={PRIMITIVES} leftIcon={<ClassifierIcon adoType='address-list' schemaClass='primitives' boxSize='5' />} searchedText={searchedText} />
+                <SchemaComponentItem name="Queries" list={QUERIES} leftIcon={<ClassifierIcon adoType='address-list' schemaClass='query' boxSize='5' />} searchedText={searchedText} />
+                <SchemaComponentItem name="Queries Responses" list={QUERY_RESPONSES} leftIcon={<ClassifierIcon adoType='address-list' schemaClass='query' boxSize='5' />} searchedText={searchedText} />
             </VStack>
         </VStack>
     )
@@ -58,9 +60,23 @@ interface SchemaComponentItemProps {
     name: string;
     list: typeof BASE_ADOS
     leftIcon: ButtonProps['leftIcon']
+    searchedText: string
+}
+interface SearchedTextMatcherType {
+    title: string
+    source: string
 }
 const SchemaComponentItem: FC<SchemaComponentItemProps> = (props) => {
-    const { name, list, leftIcon } = props
+    const { name, leftIcon, searchedText } = props
+    let { list } = props
+
+    const searchedTextMatcher = (record: SearchedTextMatcherType): boolean => {
+        return (record.title.toLocaleLowerCase().includes(searchedText.toLocaleLowerCase()) ||
+            record.source.toLocaleLowerCase().includes(searchedText.toLocaleLowerCase()));
+    }
+    if (!!searchedText) {
+        list = list.filter((item) => searchedTextMatcher(item) && item)
+    }
     const { getButtonProps, getDisclosureProps, isOpen } = useDisclosure();
     const disclosureProps = getDisclosureProps();
     const buttonProps = getButtonProps();
@@ -88,7 +104,13 @@ const SchemaComponentItem: FC<SchemaComponentItemProps> = (props) => {
             <List {...disclosureProps} p='6' gap={4}>
                 {list?.map((ado) => {
                     return (
-                        <Link key={ado.source} href={SITE_LINKS.testSchema(ado.source)} passHref>
+                        (<Link
+                            key={ado.source}
+                            href={SITE_LINKS.testSchema(ado.source)}
+                            passHref
+                            target="_blank"
+                            rel="noopener noreferrer ">
+
                             <ListItem cursor='pointer' px='4' py='2' rounded='2xl' _hover={{ bg: 'dark.50' }} as='a' display='flex' flexDirection='row' justifyContent='space-between'>
                                 <Text>
                                     {ado.title}
@@ -97,12 +119,13 @@ const SchemaComponentItem: FC<SchemaComponentItemProps> = (props) => {
                                     {ado.source}
                                 </Text>
                             </ListItem>
-                        </Link>
+
+                        </Link>)
                     );
                 })}
             </List>
         </Box>
-    )
+    );
 }
 
 export default Page;

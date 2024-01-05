@@ -2,12 +2,11 @@ import React, { FC } from "react";
 import { HStack, Input } from "@/theme/ui-elements";
 import { BackdropCard } from "@/modules/common";
 import { parseJsonFromFile } from "@/lib/json";
-import { JSONSchema7 } from "json-schema";
 import { useRouter } from "next/router";
 import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
-import { toast } from "react-toastify";
-import { UPLOAD_TEMPLATE } from "@/lib/schema/templates/upload";
-import { Box, Image, Link, Text } from "@chakra-ui/react";
+import { Box, Image, Link, Text, useToast } from "@chakra-ui/react";
+import { IImportantTemplateTypes, ITemplate } from "@/lib/schema/types";
+import APP_TEMPLATES from "@/lib/schema/templates";
 
 /**
  * A Static template card component to display in flex-builder store (with other dynamic templates)
@@ -19,26 +18,44 @@ import { Box, Image, Link, Text } from "@chakra-ui/react";
  * @return It parse the file, store in session storage and route user to flex builder template form
  */
 
-interface FlexUploadCardProps {}
+interface FlexUploadCardProps { }
 const FlexUploadCard: FC<FlexUploadCardProps> = (props) => {
-  const {} = props;
+  const { } = props;
   const router = useRouter();
 
+  const toast = useToast({
+    position: "top-right",
+  });
   /**Handle flex file input */
   const handleFileInput = async (file: File) => {
-    /**Parse content of file to JSON. If any validation is needed, this is probably a good place to add.
-     * However, make it reusable as same validation will be done at template builder routes.
-     */
-    const json: JSONSchema7 = await parseJsonFromFile(file);
+    try {
+      /**Parse content of file to JSON. If any validation is needed, this is probably a good place to add.
+       * However, make it reusable as same validation will be done at template builder routes.
+       */
+      const json = await parseJsonFromFile(file) as ITemplate;
 
-    /**Store parsed file in session Storage. We can use state also to store but this
-     * will give prevent storing/managing file which in most case won't be major operation
-     */
-    sessionStorage.setItem("ANDROMEDA_TEMPLATE", JSON.stringify(json));
-    toast("Imported Template");
+      /**Store parsed file in session Storage. We can use state also to store but this
+       * will give prevent storing/managing file which in most case won't be major operation
+      */
+      sessionStorage.setItem("ANDROMEDA_TEMPLATE", JSON.stringify(json));
+      toast({
+        title: "Imported Template",
+        status: "success"
+      });
+      if (!APP_TEMPLATES.some(t => t.id === json.id)) {
+        router.push(SITE_LINKS.flexBuilder(IImportantTemplateTypes.BLANK_CANVAS))
+      } else {
+        /**Send user to template route where the file will be read from storage and form builder will be created */
+        router.push(SITE_LINKS.flexBuilder(json.id));
+      }
 
-    /**Send user to template route where the file will be read from storage and form builder will be created */
-    router.push(SITE_LINKS.flexBuilderTemplate());
+    } catch (err: any) {
+      toast({
+        title: "Error while importing",
+        status: "error",
+        description: (err as any).message
+      });
+    }
   };
 
   return (
@@ -49,7 +66,7 @@ const FlexUploadCard: FC<FlexUploadCardProps> = (props) => {
       rounded="lg"
       overflow="hidden"
       // _hover={{ scale: "105%", borderWidth: "1px" }}
-      borderColor="dark.300"
+      borderColor="border.main"
       cursor="pointer"
       transform="auto"
       transition="all"
@@ -57,7 +74,7 @@ const FlexUploadCard: FC<FlexUploadCardProps> = (props) => {
       transitionTimingFunction="ease-out"
     >
       <BackdropCard
-        logoComponent={<Image w="50%" mb="20%" src={UPLOAD_TEMPLATE.icon} />}
+        logoComponent={<Image w="50%" mb="20%" src="/app-templates/icons/blank.png" />}
       >
         <Box px="2" h="full">
           <HStack>
@@ -75,7 +92,7 @@ const FlexUploadCard: FC<FlexUploadCardProps> = (props) => {
             fontWeight="bold"
             mt="2"
           >
-            {UPLOAD_TEMPLATE.name}
+            Saved File
           </Text>
           <Text
             textOverflow="ellipsis"
@@ -88,7 +105,7 @@ const FlexUploadCard: FC<FlexUploadCardProps> = (props) => {
             fontWeight="light"
             color="dark.500"
           >
-            {UPLOAD_TEMPLATE.description}
+            Import .flex file to continue from where you left off
           </Text>
           <HStack mt="auto" justifyContent="end">
             {/* <Button

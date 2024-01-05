@@ -10,12 +10,11 @@ const FitViewButton: FC<FitViewButtonProps> = (props) => {
     const { } = props;
     const fitView = useFitView()
     return (
-        <Tooltip label={`Fit View`} bg='base.white' placement='top'>
+        <Tooltip label={`Fit View`} placement='top'>
             <IconButton
-                color='newSystem.content.high'
                 aria-label="Fit View"
                 icon={<Icon as={Maximize} boxSize='4' />}
-                variant='ghost'
+                variant="theme-ghost"
                 onClick={() => fitView()}
             />
         </Tooltip>

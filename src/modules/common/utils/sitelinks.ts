@@ -9,17 +9,18 @@
  * - Do not end route with '/' (if manually adding routes, a consistence design will be created)
  */
 
-import { ChainConfig } from "@andromedaprotocol/andromeda.js";
+import { IChainConfigQuery } from "@andromedaprotocol/gql/dist/__generated/react";
+
 
 export const SITE_LINKS = {
     landing: () => `/`,
     dashboard: () => `/dashboard`,
     // Flex
     flexBuilderHome: () => `/flex-builder`,
-    flexBuilder: (id: string) => `/flex-builder/${id}`,
-    flexBuilderTemplate: (uri?: string) => `/flex-builder/import${uri ? `?data=${uri}` : ''}`,
-    adoExecute: (path: string, address: string, name?: string, appAddress?: string) => `/flexecute/${path}?address=${address}&name=${name || ''}&appAddress=${appAddress || ''}`,
-    adoMultiExecute: (path: string, address: string, name?: string, appAddress?: string) => `/flexecute/multi-msg/${path}?address=${address}&name=${name || ''}&appAddress=${appAddress || ''}`,
+    flexBuilder: (id: string, uri?: string) => `${`/flex-builder/${id}`}${uri ? `?data=${uri}` : ''}`,
+    adoExecute: (path: string, address: string, name?: string, appAddress?: string, uri?: string) => `/flexecute/${path}?address=${address}&name=${name || ''}&appAddress=${appAddress || ''}${uri ? `&data=${uri}` : ''}`,
+    adoMultiExecute: (path: string, address: string, name?: string, appAddress?: string, uri?: string) => `/flexecute/multi-msg/${path}?address=${address}&name=${name || ''}&appAddress=${appAddress || ''}${uri ? `&data=${uri}` : ''}`,
+    adoQuery: (path: string, address: string, uri?: string) => `/flexquery/${path}?address=${address}${uri ? `&data=${uri}` : ''}`,
     // App
     appStore: () => `/app-store`,
     appStoreItem: (id: string) => `/app-store/${id}`,
@@ -32,11 +33,11 @@ export const SITE_LINKS = {
     embeddablesUpdate: (id: string, key: string) => `/embeddables/builder/${id}?key=${key}`,
     embeddablesView: (id: string) => `/embeddables/view/${id}`,
     // Production Level Deployment
-    embeddablePreview: (configUri: string) => `https://embeddable-marketplace-demo.vercel.app?config=${configUri}`,
-    embeddablePreviewCollection: (collection: string, configUri: string) => `https://embeddable-marketplace-demo.vercel.app/${collection}?config=${configUri}`,
-    // Test Level Deployment - Update this with the branch deployement you want to test
-    // embeddablePreview: (configUri: string) => `https://embeddable-marketplace-demo-git-featur-fd1f81-andromedaprotocol.vercel.app?config=${configUri}`,
-    // embeddables: () => `https://andromedaprotocol.github.io/embeddable-marketplace-demo`,
+    embeddablePreview: (chainId: string, configUri: string) => `${process.env.NEXT_PUBLIC_EMBEDDABLE_URL}/preview?chain=${chainId}&config=${configUri}`,
+    embeddablePublished: (chainId: string, eKey: string) => `${process.env.NEXT_PUBLIC_EMBEDDABLE_URL}/${chainId}/${eKey}`,
+    embeddablePublishedCollection: (chainId: string, eKey: string, collection: string) => `${process.env.NEXT_PUBLIC_EMBEDDABLE_URL}/${chainId}/${eKey}/${collection}`,
+
+    externalLearn: () => `https://docs.andromedaprotocol.io/guides/`,
     learn: () => `/learn`,
     learnItem: (slug: string) => `/learn${slug}`,
     cli: () => `/cli`,
@@ -44,8 +45,11 @@ export const SITE_LINKS = {
     // External Documentation
     documentation: (adoType: string, anchor?: string) => `https://docs.andromedaprotocol.io/andromeda/andromeda-digital-objects/${adoType}#${anchor || adoType}`,
     doc: () => `https://docs.andromedaprotocol.io/andromeda`,
-    blockExplorerAccount: (config: ChainConfig, address: string) => config.blockExplorerAddressPages[0]?.replaceAll("${address}", address),
-    blockExplorerTx: (config: ChainConfig, txHash: string) => config.blockExplorerTxPages[0]?.replaceAll("${txHash}", txHash),
+    blockExplorerAccount: (config: IChainConfigQuery['chainConfigs']['config'], address: string) => config.blockExplorerAddressPages[0]?.replaceAll("${address}", address),
+    blockExplorerTx: (config: IChainConfigQuery['chainConfigs']['config'], txHash: string) => config.blockExplorerTxPages[0]?.replaceAll("${txHash}", txHash),
 
-    testSchema: (path: string) => `/test/schema/${path}`
+    testSchema: (path: string) => `/test/schema/${path}`,
+    // USER Links
+    userHome: () => `/user`,
+    userDashboard: (address: string) => `/user/${address}`,
 } as const;

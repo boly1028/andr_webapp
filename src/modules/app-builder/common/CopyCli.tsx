@@ -34,14 +34,14 @@ const CopyCliButton: FC<CopyCliButtonProps> = (props) => {
     }, [instantiation, toast]);
 
     return (
-        <Tooltip label={`Export to CLI`} bg='base.white' placement='top'>
+        <Tooltip label={`Export to CLI`} placement='top'>
             <Box>
                 <CopyButton text={handleCopy} variant="unstyled">
                     <IconButton
-                        color='newSystem.content.high'
                         aria-label="Fit View"
                         icon={<Icon as={CliIcon} boxSize='4' />}
-                        variant='ghost'
+                        variant="theme-filled"
+                        size='sm'
                     />
                 </CopyButton>
             </Box>

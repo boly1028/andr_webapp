@@ -1,8 +1,8 @@
 import React, { useMemo, useState } from "react";
 import { FormControl, Text } from "@chakra-ui/react";
 import { WidgetProps } from "@andromedarjsf/utils";
-import { SingleDatepicker } from "@/lib/datetime";
 import { format } from 'date-fns';
+import { SingleDatepicker } from "@andromedaprotocol/design-theme";
 
 export const DatetimeWidget = (props: WidgetProps) => {
     const {
@@ -62,7 +62,7 @@ export const DatetimeWidget = (props: WidgetProps) => {
                 }}
             />
             {typeof value === 'number' && (
-                <Text fontSize='xs' color='newSystem.content.medium' mt='1' ml='1'>{formattedTime}</Text>
+                <Text fontSize='xs' color='content.medium' mt='1' ml='1'>{formattedTime}</Text>
             )}
             {schema.examples ? (
                 <datalist id={`examples_${id}`}>

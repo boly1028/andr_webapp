@@ -1,0 +1,27 @@
+{
+  "schema": {
+    "description": "Queries funds held by an address",
+    "type": "object",
+    "required": ["get_locked_funds"],
+    "properties": {
+      "get_locked_funds": {
+        "type": "object",
+        "required": ["owner", "recipient"],
+        "properties": {
+          "owner": { "type": "string", "title": "Owner" },
+          "recipient": { "type": "string", "title": "Recipient" }
+        },
+        "additionalProperties": false,
+        "title": "Get locked funds"
+      }
+    },
+    "additionalProperties": false,
+    "title": "Get locked funds",
+    "$id": "get-locked-funds",
+    "class": "query",
+    "version": "0.2.1",
+    "classifier": ""
+  },
+  "ui-schema": {},
+  "form-data": {}
+}

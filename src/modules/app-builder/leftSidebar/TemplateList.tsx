@@ -29,7 +29,7 @@ const TemplateList: FC<TemplateListProps> = (props) => {
                     variant='ghost'
                     size='sm'
                 />
-                <Text fontSize='md' fontWeight='medium'>{name}</Text>
+                <Text textStyle="main-md-semibold">{name}</Text>
             </HStack>
             <VStack w='full' position='relative' spacing='2' mt='4'>
                 {list.map((template) => {
@@ -63,7 +63,7 @@ export const TemplateListItem: FC<TemplateListItemProps> = (props) => {
     return (
         <Box
             _hover={{
-                bg: 'newSystem.backgroundState.hover'
+                bg: 'backgroundState.hover'
             }}
             bg={color}
             cursor='pointer' p='3' rounded='lg'
@@ -72,17 +72,17 @@ export const TemplateListItem: FC<TemplateListItemProps> = (props) => {
             onClick={handleAdd}
         >
 
-            <VStack alignItems='stretch' fontSize='md' w='full' spacing={2.5}>
-                <HStack gap='1'>
-                    <ClassifierIcon boxSize='4' w='7' h='7' adoType={template.id} />
-                    <Text fontWeight='medium' fontSize='sm' textOverflow='ellipsis' w='full' overflow='hidden' whiteSpace='nowrap'>
+            <HStack spacing='2'>
+                <ClassifierIcon boxSize='4' w='28px' h='28px' adoType={template.id} />
+                <VStack alignItems='stretch' fontSize='md' w='full' overflow='hidden' spacing={1}>
+                    <Text textStyle='main-sm-semibold' textOverflow='ellipsis' w='full' overflow='hidden' whiteSpace='nowrap'>
                         {template.name}
                     </Text>
-                </HStack>
-                <Text fontSize='xs' textOverflow='ellipsis' w='full' overflow='hidden' whiteSpace='nowrap'>
-                    {template.description}
-                </Text>
-            </VStack>
+                    <Text textStyle='main-xs-regular' textOverflow='ellipsis' w='full' overflow='hidden' whiteSpace='nowrap'>
+                        {template.description}
+                    </Text>
+                </VStack>
+            </HStack>
         </Box>
     );
 };

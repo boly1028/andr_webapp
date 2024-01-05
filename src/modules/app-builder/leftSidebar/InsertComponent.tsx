@@ -3,9 +3,8 @@ import { ITemplate } from '@/lib/schema/types'
 import { BASE_ADOS, IAdoList, MODIFIERS, MODULES } from '@/lib/schema/utils/list'
 import { ListIcon, SearchBar } from '@/modules/common'
 import ClassifierIcon from '@/theme/icons/classifiers'
-import { TmpButton } from '@/theme/new-system-tmp/ui-elements'
 import { ChevronRightIcon, SearchIcon } from '@chakra-ui/icons'
-import { Divider, Icon, Text, VStack, SimpleGrid, GridItem, Kbd, HStack } from '@chakra-ui/react'
+import { Divider, Icon, Text, VStack, SimpleGrid, GridItem, Kbd, HStack, Button } from '@chakra-ui/react'
 import React, { FC, useMemo } from 'react'
 import { useAppBuilder } from '../canvas/Provider'
 import { APP_BUILDER_KEYCODES } from '../common/keyCodes'
@@ -23,8 +22,8 @@ const InsertComponent: FC<InsertComponentProps> = (props) => {
     const { hotkeys } = useHotkeysContext()
 
     return (
-        <VStack alignItems='stretch' gap='1' textColor='newSystem.content.medium' fontSize='xs'>
-            <SearchBar isDisabled _placeholder={{ color: 'newSystem.content.medium' }} />
+        <VStack alignItems='stretch' spacing='2' textColor='content.' fontSize='xs'>
+            <SearchBar isDisabled _placeholder={{ color: 'content.medium' }} />
             <Divider />
             <Text>App Components</Text>
             <VStack alignItems='stretch'>
@@ -34,11 +33,11 @@ const InsertComponent: FC<InsertComponentProps> = (props) => {
             <Divider />
             <Text>Templates</Text>
             <VStack alignItems='stretch'>
-                <TemplateButton list={APP_TEMPLATES} name='Templates' leftIcon={<Icon as={ListIcon} bg='newSystem.backgroundState.idle' p='2' rounded='lg' boxSize='8' />} />
+                <TemplateButton list={APP_TEMPLATES.filter(t=>t.starter)} name='Templates' leftIcon={<Icon as={ListIcon} bg='backgroundState.idle' p='2' rounded='lg' boxSize='8' />} />
             </VStack>
             <Divider />
             <Text>Shortcuts</Text>
-            <SimpleGrid columns={2} spacingY='2' fontSize='sm' color='newSystem.content.high'>
+            <SimpleGrid columns={2} spacingY='2' fontSize='sm' color='content.high'>
                 <GridItem>Select</GridItem>
                 <GridItem><Kbd px='2' py='1'>Click</Kbd></GridItem>
                 <GridItem>Multi Select</GridItem>
@@ -114,20 +113,21 @@ const ADOButton: FC<ADOButtonProps> = (props) => {
         })
     }
     return (
-        <TmpButton
+        <Button
             leftIcon={leftIcon}
             onClick={() => openAdoList()}
             rightIcon={<Icon as={ChevronRightIcon} boxSize='5' ml='auto' />}
             bg='transparent'
             textAlign='left'
-            // size='lg'
             h='10'
             pl='1.5'
+            variant="theme-ghost"
+            size='sm'
         >
             <Text flex={1}>
                 {name}
             </Text>
-        </TmpButton>
+        </Button>
     );
 };
 
@@ -148,7 +148,7 @@ const TemplateButton: FC<TemplateButtonProps> = (props) => {
         })
     }
     return (
-        <TmpButton
+        <Button
             leftIcon={leftIcon}
             onClick={() => openAdoList()}
             rightIcon={<Icon as={ChevronRightIcon} boxSize='5' ml='auto' />}
@@ -161,7 +161,7 @@ const TemplateButton: FC<TemplateButtonProps> = (props) => {
             <Text flex={1}>
                 {name}
             </Text>
-        </TmpButton>
+        </Button>
     );
 };
 

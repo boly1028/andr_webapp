@@ -1,7 +1,7 @@
 import { getSchemaFromPath } from "@/lib/schema/utils";
 import { IAdoList } from "@/lib/schema/utils/list";
 import ClassifierIcon, { useGetClassColor } from "@/theme/icons/classifiers";
-import { AspectRatio, Box, Divider, GridItem, HStack, Icon, IconButton, SimpleGrid, Text, VStack } from "@chakra-ui/react";
+import { AspectRatio, Box, Divider, GridItem, HStack, Icon, IconButton, SimpleGrid, Text, Tooltip, VStack } from "@chakra-ui/react";
 import { ChevronLeft } from "lucide-react";
 import React, { FC, useCallback } from "react";
 import { useAppBuilder } from "../canvas/Provider";
@@ -75,9 +75,11 @@ export const AdoListItem: FC<AdoListItemProps> = (props) => {
             >
                 <VStack fontSize='md' w='full' spacing={2.5}>
                     <ClassifierIcon w='7' h='7' width='4' height='4' adoType={ado.$id} />
-                    <Text fontSize='sm' fontWeight='medium'>
-                        {ado.title}
-                    </Text>
+                    <Tooltip label={ado.title}>
+                        <Text textStyle="main-xs-semibold" textAlign="center" whiteSpace="nowrap" textOverflow="ellipsis" w='80%' overflow="hidden">
+                            {ado.title}
+                        </Text>
+                    </Tooltip>
                 </VStack>
             </Box>
         </AspectRatio>

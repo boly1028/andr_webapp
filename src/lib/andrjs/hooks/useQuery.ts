@@ -13,7 +13,7 @@ export default function useQuery(address: string) {
   const query = useCallback(
     async (msg: Msg) => {
       try {
-        const resp = await client.queryContract(address, msg);
+        const resp = await client!.queryContract(address, msg);
         return resp;
       } catch (error) {
         console.error(`Error with query: ${JSON.stringify(msg, undefined, 2)}`);

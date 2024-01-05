@@ -1,0 +1,1 @@
+export const getAdoTypeWithVersion = (ado: string, version: string) => `${ado}@${version}`;

@@ -1,0 +1,39 @@
+{
+  "schema": {
+    "description": "Only with the \"marketing\" extension. If authorized, updates marketing metadata. Setting None/null for any of these will leave it unchanged. Setting Some(\"\") will clear this field on the contract storage",
+    "type": "object",
+    "required": ["update_marketing"],
+    "properties": {
+      "update_marketing": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "description": "A longer description of the token and it's utility. Designed for tooltips or such",
+            "type": ["string", "null"],
+            "title": "Description"
+          },
+          "marketing": {
+            "description": "The address (if any) who can update this data structure",
+            "type": ["string", "null"],
+            "title": "Marketing"
+          },
+          "project": {
+            "description": "A URL pointing to the project behind this token.",
+            "type": ["string", "null"],
+            "title": "Project"
+          }
+        },
+        "additionalProperties": false,
+        "title": "Update marketing"
+      }
+    },
+    "additionalProperties": false,
+    "title": "Update marketing",
+    "$id": "update-marketing",
+    "class": "modifier",
+    "version": "0.2.1",
+    "classifier": ""
+  },
+  "ui-schema": {},
+  "form-data": {}
+}

@@ -1,0 +1,24 @@
+{
+  "schema": {
+    "description": "Query if address is included",
+    "type": "object",
+    "required": ["includes_address"],
+    "properties": {
+      "includes_address": {
+        "type": "object",
+        "required": ["address"],
+        "properties": { "address": { "type": "string", "title": "Address" } },
+        "additionalProperties": false,
+        "title": "Includes address"
+      }
+    },
+    "additionalProperties": false,
+    "title": "Includes address",
+    "$id": "includes-address",
+    "class": "query",
+    "version": "0.2.1",
+    "classifier": ""
+  },
+  "ui-schema": {},
+  "form-data": {}
+}

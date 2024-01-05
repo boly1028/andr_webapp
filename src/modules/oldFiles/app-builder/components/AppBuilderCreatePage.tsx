@@ -1490,7 +1490,7 @@ const AppBuilderCreatePage = () => {
                   </List>
                 </Box>
                 <Spacer />
-                <NextLink href="#" passHref>
+                <NextLink href="#" passHref legacyBehavior>
                   <Button
                     as="a"
                     mt={10}
@@ -1555,7 +1555,7 @@ const AppBuilderCreatePage = () => {
                   </List>
                 </Box>
                 <Spacer />
-                <NextLink href="#" passHref>
+                <NextLink href="#" passHref legacyBehavior>
                   <Button
                     as="a"
                     mt={10}
@@ -1600,7 +1600,7 @@ const AppBuilderCreatePage = () => {
                   </List>
                 </Box>
                 <Spacer />
-                <NextLink href="#" passHref>
+                <NextLink href="#" passHref legacyBehavior>
                   <Button
                     as="a"
                     mt={10}

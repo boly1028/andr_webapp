@@ -1,0 +1,31 @@
+{
+  "schema": {
+    "description": "Used to lock/unlock the contract allowing the config to be updated.",
+    "type": "object",
+    "required": ["update_lock"],
+    "properties": {
+      "update_lock": {
+        "type": "object",
+        "required": ["lock_time"],
+        "properties": {
+          "lock_time": {
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0,
+            "title": "Lock time"
+          }
+        },
+        "additionalProperties": false,
+        "title": "Update lock"
+      }
+    },
+    "additionalProperties": false,
+    "title": "Update lock",
+    "$id": "update-lock",
+    "class": "modifier",
+    "version": "0.2.0",
+    "classifier": ""
+  },
+  "ui-schema": {},
+  "form-data": {}
+}

@@ -18,7 +18,7 @@ const LeftSidebar: FC<LeftSidebarProps> = (props) => {
     }, [setActiveComponent])
 
     return (
-        <Box w='20vw' maxW='20rem' p='4' overflow='auto' h='full'>
+        <Box w='20vw' maxW='16rem' p='4' overflow='auto' h='full'>
             <RenderUiComponent {...activeComponent} />
         </Box>
     )

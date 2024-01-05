@@ -12,7 +12,7 @@ export default function useInstantiate(codeId: number) {
 
   const instantiate = useCallback(
     async (msg: Msg, label: string, fee: Fee = "auto") => {
-      return client.instantiate(codeId, msg, label, fee);
+      return client!.instantiate(codeId, msg, label, fee);
     },
     [codeId, client],
   );

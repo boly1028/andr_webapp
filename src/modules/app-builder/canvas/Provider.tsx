@@ -1,7 +1,6 @@
 import { IAndromedaSchemaJSON } from '@/lib/schema/types';
-import React, { createContext, createRef, FC, MutableRefObject, ReactNode, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
-import { useReactFlow as useReactFlowFromReactFLow } from 'reactflow';
-import { IFieldRef } from '../appBuilderForm/templates/FieldTemplate';
+import React, { createContext, createRef, FC, ReactNode, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
+import { useReactFlow as useReactFlowFromReactFLow, useNodes as useReactFlowNodes } from 'reactflow';
 import { IEditorRef, IFormRefs } from '../types';
 
 interface AppBuilderProviderProps {
@@ -75,5 +74,6 @@ const defaultValue: AppBuilderContext = {
 const context = createContext(defaultValue);
 export const useAppBuilder = () => useContext(context)
 export const useReactFlow = () => useReactFlowFromReactFLow<INodeData, IEdgeData>();
+export const useNodes = () => useReactFlowNodes<INodeData>();
 
 export default AppBuilderProvider

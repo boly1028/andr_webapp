@@ -40,9 +40,9 @@ const ArrayFieldItemTemplate: FC<ArrayFieldTemplateItemType> = (props) => {
     <VStack
       border="1px"
       my="2"
-      borderColor="dark.300"
+      borderColor="border.main"
       rounded="lg"
-      p="4"
+      p="6"
       alignItems={"flex-end"}
     >
       <Box w="full">{children}</Box>
@@ -53,21 +53,21 @@ const ArrayFieldItemTemplate: FC<ArrayFieldTemplateItemType> = (props) => {
             {(hasMoveUp || hasMoveDown) && (
               <ChakraIconButton
                 icon="arrow-up"
-                disabled={disabled || readonly || !hasMoveUp}
+                isDisabled={disabled || readonly || !hasMoveUp}
                 onClick={onArrowUpClick}
               />
             )}
             {(hasMoveUp || hasMoveDown) && (
               <ChakraIconButton
                 icon="arrow-down"
-                disabled={disabled || readonly || !hasMoveDown}
+                isDisabled={disabled || readonly || !hasMoveDown}
                 onClick={onArrowDownClick}
               />
             )}
             {hasRemove && (
               <ChakraIconButton
                 icon="remove"
-                disabled={disabled || readonly}
+                isDisabled={disabled || readonly}
                 onClick={onRemoveClick}
               />
             )}

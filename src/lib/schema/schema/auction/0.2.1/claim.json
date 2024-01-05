@@ -1,0 +1,27 @@
+{
+  "schema": {
+    "description": "Transfers the given token to the auction winner's address once the auction is over.",
+    "type": "object",
+    "required": ["claim"],
+    "properties": {
+      "claim": {
+        "type": "object",
+        "required": ["token_address", "token_id"],
+        "properties": {
+          "token_address": { "type": "string", "title": "Token address" },
+          "token_id": { "type": "string", "title": "Token id" }
+        },
+        "additionalProperties": false,
+        "title": "Claim"
+      }
+    },
+    "additionalProperties": false,
+    "title": "Claim",
+    "$id": "claim",
+    "class": "modifier",
+    "version": "0.2.1",
+    "classifier": ""
+  },
+  "ui-schema": {},
+  "form-data": {}
+}

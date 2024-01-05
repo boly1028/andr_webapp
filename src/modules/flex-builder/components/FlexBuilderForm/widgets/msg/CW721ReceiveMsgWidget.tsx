@@ -5,13 +5,16 @@
  */
 import { useGetSchemaJson } from "@/lib/schema/hooks";
 import { useGetSchemaADOP } from "@/lib/schema/hooks/useGetSchemaADOP";
-import { IAdoType } from "@/lib/schema/types";
+import { IAdoType, IImportantAdoKeys } from "@/lib/schema/types";
 import { BASE_ADOS, MODULES, RECEIVES } from "@/lib/schema/utils/list";
 import { ChevronDownIcon } from "@/modules/common";
 import { WidgetProps } from "@andromedarjsf/utils";
 import { Button, Flex, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
 import { FC, useState } from "react";
 import Base from "./Base";
+
+const CW721_RECEIVES = RECEIVES.filter(r => r.classifier === 'cw721');
+const CW721_RECEIVE_ENABLED_ADO = [...BASE_ADOS, ...MODULES].filter(ado => CW721_RECEIVES.some(rAdo => rAdo.source.split('/')[0] === ado.$id));
 
 interface Cw721ReceiveMsgWidgetProps extends WidgetProps { }
 export const Cw721ReceiveMsgWidget: FC<Cw721ReceiveMsgWidgetProps> = (props) => {
@@ -42,11 +45,19 @@ export const Cw721ReceiveMsgWidget: FC<Cw721ReceiveMsgWidgetProps> = (props) => 
               {currentBaseAdo?.label ?? "Custom Message"}
               {/* </CustomMenuButton> */}
             </MenuButton>
-            <MenuList maxH="48" overflow="auto">
+            <MenuList maxH="max(50vh,20rem)" overflow="auto">
+              <MenuItem
+                onClick={() => {
+                  reset()
+                  props.onChange('')
+                }}
+                opacity='0.2'
+              >
+                Reset
+              </MenuItem>
               <MenuItem
                 onClick={() => {
                   reset();
-                  props.onChange('')
                 }}
               >
                 Custom Message
@@ -57,12 +68,12 @@ export const Cw721ReceiveMsgWidget: FC<Cw721ReceiveMsgWidgetProps> = (props) => 
                     ado: "" as any,
                     "label": "JSON"
                   })
-                  setCurrentSchema('json')
+                  setCurrentSchema(IImportantAdoKeys.JSON_SCHEMA.path)
                 }}
               >
                 JSON
               </MenuItem>
-              {[...BASE_ADOS, ...MODULES].filter(ado => RECEIVES.some(rAdo => rAdo.source.split('/')[0] === ado.$id)).map((s) => (
+              {CW721_RECEIVE_ENABLED_ADO.map((s) => (
                 <MenuItem
                   key={s.source}
                   onClick={() => {
@@ -91,7 +102,7 @@ export const Cw721ReceiveMsgWidget: FC<Cw721ReceiveMsgWidgetProps> = (props) => 
                 {schemaFile?.schema?.title ?? "Select Message"}
                 {/* </CustomMenuButton> */}
               </MenuButton>
-              <MenuList maxH="48" overflow="auto">
+              <MenuList maxH="max(50vh,20rem)" overflow="auto">
                 {adops?.cw721receives?.map((s) => (
                   <MenuItem
                     key={s}

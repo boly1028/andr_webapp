@@ -1,0 +1,30 @@
+{
+  "schema": {
+    "type": "object",
+    "required": ["approval"],
+    "properties": {
+      "approval": {
+        "type": "object",
+        "required": ["spender", "token_id"],
+        "properties": {
+          "include_expired": {
+            "type": ["boolean", "null"],
+            "title": "Include expired"
+          },
+          "spender": { "type": "string", "title": "Spender" },
+          "token_id": { "type": "string", "title": "Token id" }
+        },
+        "additionalProperties": false,
+        "title": "Approval"
+      }
+    },
+    "additionalProperties": false,
+    "title": "Approval",
+    "$id": "approval",
+    "class": "query",
+    "version": "0.2.1",
+    "classifier": ""
+  },
+  "ui-schema": {},
+  "form-data": {}
+}

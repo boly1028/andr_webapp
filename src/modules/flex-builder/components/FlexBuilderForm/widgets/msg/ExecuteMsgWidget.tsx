@@ -6,13 +6,14 @@
 
 import { useGetSchemaJson } from "@/lib/schema/hooks";
 import { useGetSchemaADOP } from "@/lib/schema/hooks/useGetSchemaADOP";
-import { IAdoType } from "@/lib/schema/types";
-import { BASE_ADOS, MODULES } from "@/lib/schema/utils/list";
+import { IAdoType, IImportantAdoKeys } from "@/lib/schema/types";
+import { ALL_ADOS, BASE_ADOS, MODULES } from "@/lib/schema/utils/list";
 import { ChevronDownIcon } from "@/modules/common";
 import { WidgetProps } from "@andromedarjsf/utils";
 import { Button, Flex, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
 import { FC, useState } from "react";
 import Base from "./Base";
+import { MASTER_ALLADO } from "@/lib/schema/utils/masterList";
 
 
 interface ExecuteMsgWidgetProps extends WidgetProps { }
@@ -41,26 +42,35 @@ export const ExecuteMsgWidget: FC<ExecuteMsgWidgetProps> = (props) => {
               minW='max-content'
             >
               {/* <CustomMenuButton> */}
-              {currentBaseAdo ?? "Custom Message"}
+              {currentBaseAdo ?? "Custom Msg"}
               {/* </CustomMenuButton> */}
             </MenuButton>
-            <MenuList maxH="48" overflow="auto">
+            <MenuList maxH="max(50vh,20rem)" overflow="auto">
+              <MenuItem
+                onClick={() => {
+                  reset()
+                  props.onChange('')
+                }}
+                opacity='0.2'
+              >
+                Reset
+              </MenuItem>
               <MenuItem
                 onClick={() => {
                   reset()
                 }}
               >
-                Custom Message
+                Custom Msg
               </MenuItem>
               <MenuItem
                 onClick={() => {
                   setCurrentBaseAdo("Json" as any)
-                  setCurrentSchema('json')
+                  setCurrentSchema(IImportantAdoKeys.JSON_SCHEMA.path)
                 }}
               >
                 JSON
               </MenuItem>
-              {[...BASE_ADOS, ...MODULES].map((s) => (
+              {[...(props.formContext?.admin ? MASTER_ALLADO : ALL_ADOS)].map((s) => (
                 <MenuItem
                   key={s.source}
                   onClick={() => {
@@ -75,31 +85,33 @@ export const ExecuteMsgWidget: FC<ExecuteMsgWidgetProps> = (props) => {
               ))}
             </MenuList>
           </Menu>
-          <Menu placement="bottom-start">
-            <MenuButton
-              as={Button}
-              rightIcon={<ChevronDownIcon />}
-              alignSelf="start"
-              minW='max-content'
-            >
-              {/* <CustomMenuButton> */}
-              {schemaFile?.schema?.title ?? "Select Modifier"}
-              {/* </CustomMenuButton> */}
-            </MenuButton>
-            <MenuList maxH="48" overflow="auto">
-              {adops?.modifiers.map((s) => (
-                <MenuItem
-                  key={s}
-                  onClick={() => {
-                    const path = `${adops.basePath}/${s}`
-                    setCurrentSchema(path);
-                  }}
-                >
-                  {s}
-                </MenuItem>
-              ))}
-            </MenuList>
-          </Menu>
+          {(currentBaseAdo && adops) && (
+            <Menu placement="bottom-start">
+              <MenuButton
+                as={Button}
+                rightIcon={<ChevronDownIcon />}
+                alignSelf="start"
+                minW='max-content'
+              >
+                {/* <CustomMenuButton> */}
+                {schemaFile?.schema?.title ?? "Select Modifier"}
+                {/* </CustomMenuButton> */}
+              </MenuButton>
+              <MenuList maxH="max(50vh,20rem)" overflow="auto">
+                {adops?.modifiers.map((s) => (
+                  <MenuItem
+                    key={s}
+                    onClick={() => {
+                      const path = `${adops.basePath}/${s}`
+                      setCurrentSchema(path);
+                    }}
+                  >
+                    {s}
+                  </MenuItem>
+                ))}
+              </MenuList>
+            </Menu>
+          )}
         </Flex>
       )}
       formSchema={schemaFile}

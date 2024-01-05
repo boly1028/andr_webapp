@@ -1,14 +1,13 @@
 import { EmbPublishIcon, truncate } from '@/modules/common';
-import { Box, Flex, HStack, Image, VStack, Text, Icon, Tag, TagLabel, Link, Divider, Button, SkeletonText } from '@chakra-ui/react';
+import { Box, Flex, HStack, Image, VStack, Text, Icon, Tag, TagLabel, Divider, Button, SkeletonText } from '@chakra-ui/react';
 import { FC, useMemo } from 'react';
 import { CopyFilledIcon } from '@/modules/common';
 import { ExternalLinkIcon } from '@chakra-ui/icons';
 import styles from './view.module.css';
 import { IEmbeddableConfig } from '@/lib/schema/types/embeddables';
 import { SITE_LINKS } from '@/modules/common/utils/sitelinks';
-import { createEmbeddableUrl } from '@/lib/schema/utils/embeddables';
-import { useWallet } from '@/lib/wallet';
-import { useGetEmbeddableApp } from '../../hooks/useGetEmbeddableApp';
+import { useAccount } from '@/lib/andrjs/hooks/useAccount';
+import Link from 'next/link';
 
 interface ViewHeaderProps {
     data: IEmbeddableConfig | undefined;
@@ -16,11 +15,10 @@ interface ViewHeaderProps {
 }
 
 const ViewInfo: FC<ViewHeaderProps> = ({ data, loading }) => {
-    const account = useWallet();
+    const account = useAccount();
     const address = account?.address ?? "";
 
-    const { embeddable } = useGetEmbeddableApp();
-    const previewLink = SITE_LINKS.embeddablePreview(`${embeddable?.address}--${data?.key}`);
+    const previewLink = SITE_LINKS.embeddablePublished(data?.chainId ?? '', data?.key ?? '');
 
     return (
         <Flex gap='24px' w='full'>
@@ -29,7 +27,7 @@ const ViewInfo: FC<ViewHeaderProps> = ({ data, loading }) => {
                 <Box className={styles.imgButton}>
                     <Link
                         href={previewLink}
-                        isExternal>
+                        target="_blank">
                         <Button size={'sm'} colorScheme='primary' rounded={'8px'} textDecoration='none'>Preview Project</Button>
                     </Link>
                 </Box>
@@ -91,9 +89,9 @@ const ViewInfo: FC<ViewHeaderProps> = ({ data, loading }) => {
                             <Text color="rgba(255, 255, 255, 0.6)" fontWeight='500' fontSize='14px'>Deployment</Text>
                             <Link
                                 href={previewLink}
-                                isExternal>
+                                target="_blank">
                                 <Text fontWeight='500' fontSize='14px' color='rgba(129, 162, 255, 1)'>
-                                    {SITE_LINKS.embeddablePreview("").split('?')[0]} <ExternalLinkIcon w='20px' h='20px' />
+                                    {previewLink.split('?')[0]} <ExternalLinkIcon w='20px' h='20px' />
                                 </Text>
                             </Link>
                         </VStack>
@@ -113,10 +111,8 @@ const ViewInfo: FC<ViewHeaderProps> = ({ data, loading }) => {
                 </VStack>
                 <Divider flex={1} />
                 <HStack >
-                    <Link href={SITE_LINKS.embeddablesUpdate(data?.$type ?? '', data?.key ?? '')}>
-                        <Button bgColor={'rgba(255, 255, 255, 0.05)'} fontSize={'14px'} fontWeight='600' py='6px' px='16px' borderRadius={'6px'}>Edit</Button>
-                    </Link>
-                    <Button bgColor={'rgba(255, 255, 255, 0.05)'} fontSize={'14px'} fontWeight='600' py='6px' px='16px' borderRadius={'6px'} rightIcon={<ExternalLinkIcon w='13.5px' h='13.5px' />}>Documentation</Button>
+                    <Button variant="theme-low" href={SITE_LINKS.embeddablesUpdate(data?.$type ?? '', data?.key ?? '')} as={Link}>Edit</Button>
+                    <Button variant="theme-filled" rightIcon={<ExternalLinkIcon w='13.5px' h='13.5px' />}>Documentation</Button>
                 </HStack>
             </VStack>
         </Flex>

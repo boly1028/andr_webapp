@@ -18,15 +18,15 @@ export const EMBEDDABLE_TEMPLATES: (ITemplate & { preview?: string })[] = [
         ],
         ados: [
             {
-                path: 'embeddables/0.1.0/app',
-                id: IImportantAdoKeys.EMBEDDABLE_APP,
+                path: IImportantAdoKeys.EMBEDDABLE_APP.path,
+                id: IImportantAdoKeys.EMBEDDABLE_APP.key,
                 required: true,
             },
         ],
         modules: [
-            { 'path': 'embeddables/0.1.0/auction' },
-            { 'path': 'embeddables/0.1.0/marketplace' },
-            { 'path': 'embeddables/0.1.0/crowdfund' },
+            { 'path': 'embeddables/latest/auction' },
+            { 'path': 'embeddables/latest/marketplace' },
+            { 'path': 'embeddables/latest/crowdfund' },
         ],
     },
     {
@@ -41,20 +41,19 @@ export const EMBEDDABLE_TEMPLATES: (ITemplate & { preview?: string })[] = [
         ],
         ados: [
             {
-                path: 'embeddables/0.1.0/app',
-                id: IImportantAdoKeys.EMBEDDABLE_APP,
+                path: IImportantAdoKeys.EMBEDDABLE_APP.path,
+                id: IImportantAdoKeys.EMBEDDABLE_APP.key,
                 required: true,
             },
             {
-                path: 'embeddables/0.1.0/auction',
+                path: 'embeddables/latest/auction',
                 id: "auction",
                 required: true,
             },
         ],
         modules: [
-            { 'path': 'embeddables/0.1.0/auction' },
+            { 'path': 'embeddables/latest/auction' },
         ],
-        preview:SITE_LINKS.embeddablePreview('auction')
     },
     {
         id: 'marketplace',
@@ -68,18 +67,18 @@ export const EMBEDDABLE_TEMPLATES: (ITemplate & { preview?: string })[] = [
         ],
         ados: [
             {
-                path: 'embeddables/0.1.0/app',
-                id: IImportantAdoKeys.EMBEDDABLE_APP,
+                path: IImportantAdoKeys.EMBEDDABLE_APP.path,
+                id: IImportantAdoKeys.EMBEDDABLE_APP.key,
                 required: true,
             },
             {
-                path: 'embeddables/0.1.0/marketplace',
+                path: 'embeddables/latest/marketplace',
                 id: "marketplace",
                 required: true,
             },
         ],
         modules: [
-            { 'path': 'embeddables/0.1.0/marketplace' },
+            { 'path': 'embeddables/latest/marketplace' },
         ],
     },
     {
@@ -94,18 +93,18 @@ export const EMBEDDABLE_TEMPLATES: (ITemplate & { preview?: string })[] = [
         ],
         ados: [
             {
-                path: 'embeddables/0.1.0/app',
-                id: IImportantAdoKeys.EMBEDDABLE_APP,
+                path: IImportantAdoKeys.EMBEDDABLE_APP.path,
+                id: IImportantAdoKeys.EMBEDDABLE_APP.key,
                 required: true,
             },
             {
-                path: 'embeddables/0.1.0/crowdfund',
+                path: 'embeddables/latest/crowdfund',
                 id: "crowdfund",
                 required: true,
             },
         ],
         modules: [
-            { 'path': 'embeddables/0.1.0/crowdfund' },
+            { 'path': 'embeddables/latest/crowdfund' },
         ],
     },
 ];

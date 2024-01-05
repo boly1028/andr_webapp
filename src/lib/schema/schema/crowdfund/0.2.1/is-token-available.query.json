@@ -1,0 +1,23 @@
+{
+  "schema": {
+    "type": "object",
+    "required": ["is_token_available"],
+    "properties": {
+      "is_token_available": {
+        "type": "object",
+        "required": ["id"],
+        "properties": { "id": { "type": "string", "title": "Id" } },
+        "additionalProperties": false,
+        "title": "Is token available"
+      }
+    },
+    "additionalProperties": false,
+    "title": "Is token available",
+    "$id": "is-token-available",
+    "class": "query",
+    "version": "0.2.1",
+    "classifier": ""
+  },
+  "ui-schema": {},
+  "form-data": {}
+}

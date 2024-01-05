@@ -1,0 +1,23 @@
+{
+  "schema": {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Num tokens",
+    "type": "object",
+    "required": ["count"],
+    "properties": {
+      "count": {
+        "type": "integer",
+        "format": "uint64",
+        "minimum": 0,
+        "title": "Count"
+      }
+    },
+    "additionalProperties": false,
+    "$id": "num_tokens",
+    "version": "0.2.1",
+    "classifier": "response",
+    "class": "response"
+  },
+  "ui-schema": {},
+  "form-data": {}
+}

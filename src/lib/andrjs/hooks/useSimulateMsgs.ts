@@ -12,7 +12,7 @@ export default function useSimulateExecute() {
 
   const simulate = useCallback(
     async (msgs: readonly EncodeObject[], fee?: StdFee, memo?: string) => {
-      return client.estimateFee(msgs, fee, memo);
+      return client!.estimateFee(msgs, fee, memo);
     },
     [client],
   );

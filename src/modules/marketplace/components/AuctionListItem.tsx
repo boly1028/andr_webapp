@@ -21,9 +21,9 @@ const AuctionListItem: FC<Props> = ({ data }) => {
   return (
     <Box border="1px solid" borderColor="gray.300" p={5} borderRadius="lg">
       <Link href={`/assets/${name}`} passHref>
-        <a>
-          <Image src={image} alt="Image" borderRadius="lg" mb={6} />
-        </a>
+
+        <Image src={image} alt="Image" borderRadius="lg" mb={6} />
+
       </Link>
 
       <Flex

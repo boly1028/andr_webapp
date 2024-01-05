@@ -2,7 +2,7 @@ import APP_TEMPLATES from "@/lib/schema/templates";
 import { ITemplate } from "@/lib/schema/types";
 import { AppStoreItemPage } from "@/modules/app-store";
 import { Layout } from "@/modules/common";
-import { ILinkItemKey } from "@/modules/common/components/Sidebar";
+import { ILinkItemKey } from "@/modules/common/components/sidebar/utils";
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 
 interface Props {

@@ -2,7 +2,7 @@
 // updateForm(), addSchemaModule(), removeSchemaModule(), changeSchemaID
 // addModule, removeModule, deleteModule, changePanelName
 import React, { FC, useState, useCallback, useEffect } from "react";
-import { Button, HStack, Flex, useToast } from "@chakra-ui/react";
+import { Button, HStack, Flex, useToast, Switch, Tooltip, VStack, Text, Box } from "@chakra-ui/react";
 import { JSONSchema7 } from "json-schema";
 import { cloneDeep } from "lodash";
 
@@ -23,11 +23,10 @@ import {
 } from "@/lib/schema/types";
 import { ITemplateUiSchema } from "@/lib/schema/templates/types";
 import Form from "./Form";
-import CopyFlexButton from "./CopyFlexButton";
+import CopyFlexButton, { CopyFlexProps } from "./CopyFlexButton";
 import CopyCliButton from "./CopyCliButton";
 import OpenInAppBuilderButton from "./OpenInAppBuilder";
-import ScrollToTop from "@/modules/common/components/ScrollToTop";
-import ScrollToBottom from "@/modules/common/components/ScrollToBottom";
+import AdvanceFormOptions from "./AdvanceFormOptions";
 
 export type FlexBuilderFormProps = {
   template: ITemplate;
@@ -38,7 +37,12 @@ export type FlexBuilderFormProps = {
   onError?: () => void;
   addButtonTitle?: string;
   onCliCopy?: (formData: any) => string;
-  hideOpenInAppBuilder?:boolean;
+  hideOpenInAppBuilder?: boolean;
+  copyProps?: {
+    url: CopyFlexProps['url']
+  }
+  formContext?: Record<string, any>;
+  submitButtonLabel?: string;
 };
 
 const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
@@ -49,7 +53,10 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
   notReady = false,
   addButtonTitle,
   onCliCopy,
-  hideOpenInAppBuilder = false
+  hideOpenInAppBuilder = false,
+  copyProps,
+  formContext = {},
+  submitButtonLabel = "Publish"
 }) => {
   const toast = useToast({
     position: "top-right",
@@ -63,7 +70,7 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
   const [formData, setFormData] = useState(cloneDeep(template.formData ?? {}));
 
   const [dirty, setDirty] = useState(false); // Flag for monitoring if data has been entered which is used to set page exit warnings prior to data loss from leaving page
-
+  const [validate, setValidate] = useState(true);
   /**
     useWarnIfUnsavedChanges(
       dirty,
@@ -186,7 +193,9 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
       setFORM_CONTEXT_UPDATE(Math.random());
     }, 500);
     return () => clearTimeout(tId);
-  }, [formData, uiSchema, schema]);
+  }, [formData, uiSchema, schema, formContext]);
+
+
 
   return (
     <>
@@ -195,6 +204,7 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
         uiSchema={uiSchema}
         formData={formData}
         formContext={{
+          ...formContext,
           // Pass actions to form for panel processing operations
           toggleModule: toggleModule,
           deleteModule: deleteModule,
@@ -215,19 +225,22 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
             description: "Found errors while validating",
             status: "error",
           });
-          console.log("TEST::FORM::", errors)
-          console.log("TEST::FORM::", schema)
-          console.log("TEST::FORM::", formData)
           onError?.();
         }}
+        noValidate={!validate}
       >
         {/* Add Modules Action */}
         {(template.modules && template.modules.length > 0) && (
           <AddModuleModal title={addButtonTitle} items={template.modules} onAdd={addModule} />
         )}
-
         {/* Action Footer */}
-        <Flex mt={8} justify="right" mb={10}>
+        <HStack my={8} alignItems='start'>
+          <Box flex='1'>
+            <AdvanceFormOptions
+              validate={validate}
+              setValidate={setValidate}
+            />
+          </Box>
           <HStack spacing={4}>
             {!hideOpenInAppBuilder && (
               <OpenInAppBuilderButton
@@ -242,11 +255,15 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
                 onCopy={onCliCopy}
               />
             )}
-            <CopyFlexButton
-              schema={schema}
-              uiSchema={uiSchema}
-              formData={formData}
-            />
+            {copyProps && (
+              <CopyFlexButton
+                schema={schema}
+                uiSchema={uiSchema}
+                formData={formData}
+                url={copyProps.url}
+                template={template}
+              />
+            )}
             <DownloadButton
               template={template}
               schema={schema}
@@ -254,17 +271,15 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
               formData={formData}
             />
             <Button
-              disabled={notReady}
+              isDisabled={notReady}
               type="submit"
-              colorScheme="primary"
+              variant='theme-primary'
               isLoading={isLoading}
             >
-              Publish
+              {submitButtonLabel}
             </Button>
           </HStack>
-          <ScrollToBottom />
-          <ScrollToTop />
-        </Flex>
+        </HStack>
       </Form>
     </>
   );

@@ -6,9 +6,9 @@ import { IAdoType } from "@/lib/schema/types";
 export interface IAppContract {
     [index: string]: any;
     name: string;
-    primitive_contract: string;
+    kernel_address: string;
     app_components: Array<{
-        ado_type: IAdoType;
+        ado_type: string;
         instantiate_msg: string;
         name: string;
     }>;

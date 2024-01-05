@@ -1,9 +1,8 @@
 import React, { useMemo, useState } from "react";
 import { FormControl, Text } from "@chakra-ui/react";
 import { WidgetProps } from "@andromedarjsf/utils";
-import { DurationPicker } from "@/lib/datetime/duration";
 import { formatDuration, intervalToDuration } from 'date-fns'
-import { milliDhms } from "@/lib/datetime/utils/duration";
+import { DurationPicker, milliDhms } from "@andromedaprotocol/design-theme";
 
 export const DurationWidget = (props: WidgetProps) => {
     const {
@@ -63,7 +62,7 @@ export const DurationWidget = (props: WidgetProps) => {
                 onDurationChange={(val) => onChange(val)}
             />
             {typeof value === 'number' && (
-                <Text fontSize='xs' color='newSystem.content.medium' mt='1' ml='1'>{formattedTime}</Text>
+                <Text fontSize='xs' color='content.medium' mt='1' ml='1'>{formattedTime}</Text>
             )}
             {schema.examples ? (
                 <datalist id={`examples_${id}`}>

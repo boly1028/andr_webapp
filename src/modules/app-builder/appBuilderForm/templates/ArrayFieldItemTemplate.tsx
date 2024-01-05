@@ -41,7 +41,7 @@ const ArrayFieldItemTemplate: FC<ArrayFieldTemplateItemType> = (props) => {
       my='3'
       py='1'
       alignItems={"flex-end"}
-      bg='#ffffff05'
+      bg="#ffffff04"
     >
       <Box w="full" mt='2'>{children}</Box>
 

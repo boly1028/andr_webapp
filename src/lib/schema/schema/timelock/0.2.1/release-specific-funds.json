@@ -1,0 +1,29 @@
+{
+  "schema": {
+    "type": "object",
+    "required": ["release_specific_funds"],
+    "properties": {
+      "release_specific_funds": {
+        "type": "object",
+        "required": ["owner"],
+        "properties": {
+          "owner": { "type": "string", "title": "Owner" },
+          "recipient_addr": {
+            "type": ["string", "null"],
+            "title": "Recipient addr"
+          }
+        },
+        "additionalProperties": false,
+        "title": "Release specific funds"
+      }
+    },
+    "additionalProperties": false,
+    "title": "Release specific funds",
+    "$id": "release-specific-funds",
+    "class": "modifier",
+    "version": "0.2.1",
+    "classifier": ""
+  },
+  "ui-schema": {},
+  "form-data": {}
+}

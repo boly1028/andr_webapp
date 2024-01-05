@@ -1,18 +1,13 @@
 import React, { useState, useCallback, useEffect, useMemo } from "react";
 import _ from "lodash";
-import { Link, useDisclosure } from "@chakra-ui/react";
+import { Link, ModalCloseButton, ModalFooter, ModalHeader, useDisclosure } from "@chakra-ui/react";
 
 import {
   Box,
   Button,
-  chakra,
-  Divider,
   Flex,
   HStack,
   Icon,
-  Input,
-  InputGroup,
-  InputLeftElement,
   Modal,
   ModalOverlay,
   ModalContent,
@@ -27,6 +22,7 @@ import ClassifierIcon from "@/theme/icons/classifiers";
 import Fuse from "fuse.js";
 import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
 import { IAndromedaSchemaJSON, ITemplate } from "@/lib/schema/types";
+import { SearchBar } from "@/modules/common";
 
 interface AddModuleModalItemProps {
   data: IAndromedaSchemaJSON;
@@ -41,37 +37,35 @@ function AddModuleModalItem({
   disabled = false,
   isActive = false,
 }: AddModuleModalItemProps) {
-  // Debugging log
-  // console.log("AddModuleModalItem::disabled", disabled);
-  // if (!classifierIconType) {
-  //   console.log("Icon by Class", classIconType);
-  // } else {
-  //   console.log("Icon by Classifier:", classifierIconType);
-  // }
+  console.log(data.schema.class)
 
   return (
-    <chakra.button
+    <Box
       textAlign="left"
       p={4}
       border={`${isActive ? "2px" : "1px"} solid`}
-      borderColor={isActive ? `${data?.schema?.class}.500` : "dark.300"}
+      borderColor={isActive ? `category.${data?.schema?.class.toLowerCase()}` : "border.main"}
       borderRadius="lg"
-      _hover={{ borderColor: "dark.300", boxShadow: "0 0 0 2px" }}
+      transition="all"
+      transitionDuration="150ms"
+      transform="auto"
+      _hover={{ scale: "102%" }}
       onClick={onClick}
+      cursor='pointer'
     >
       <Flex>
-        <Box mr={4}>
-          <ClassifierIcon adoType={data.schema.$id} boxSize={6} />
+        <Box mr={4} mt='0.5'>
+          <ClassifierIcon adoType={data.schema.$id} boxSize={4} w='7' h='7'/>
         </Box>
         <Box flex={1}>
-          <Text fontWeight="medium" color='base.white'>{data?.schema?.title}</Text>
-          <Text maxW='xs' textStyle="light">{data?.schema?.description}</Text>
+          <Text textStyle="main-md-semibold" color="content.high">{data?.schema?.title}</Text>
+          <Text maxW='xs' color='content.medium' textStyle="main-xs-regular">{data?.schema?.description}</Text>
           <Link
             href={SITE_LINKS.documentation(data?.schema?.$id)}
             target="_blank"
             referrerPolicy="no-referrer"
-            textStyle="light"
-            color="primary.500"
+            color='primary.500'
+            textStyle="main-xs-medium"
             display="flex"
             alignItems="center"
             gap="1"
@@ -79,18 +73,18 @@ function AddModuleModalItem({
             w="min-content"
           >
             Documentation
-            <ExternalLink width={16} />
+            <ExternalLink width={14} />
           </Link>
         </Box>
         <Flex direction="column" gap={0} align="end">
           {/* Use lodash to capitalize first letter of class */}
-          <Text textStyle="light">{_.upperFirst(data?.schema?.class)}</Text>
-          <Text fontSize="xs" textStyle="light">
+          <Text textStyle="main-sm-regular">{_.upperFirst(data?.schema?.class)}</Text>
+          <Text textStyle="main-xs-regular" color='content.low'>
             {data?.schema?.$id ?? ""}@{data?.schema?.version ?? "0.0.0"}
           </Text>
         </Flex>
       </Flex>
-    </chakra.button>
+    </Box>
   );
 }
 
@@ -179,42 +173,35 @@ function AddModuleModal({ onAdd, items, title = 'Add Component' }: AddModuleModa
     <>
       <Button
         onClick={onOpen}
-        py={8}
-        leftIcon={<Icon as={PlusIcon} boxSize={6} />}
-        w="full"
-        bg="dark.50"
-        _hover={{
-          bg: "dark.100",
-        }}
+        leftIcon={<Icon as={PlusIcon} boxSize={5} />}
+        variant="theme-filled"
+        w='full'
+        py='6'
       >
         {title}
       </Button>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent maxW="700px">
+        <ModalContent maxW="container.sm">
+          <ModalHeader>
+            {title}
+          </ModalHeader>
+          <ModalCloseButton />
           <ModalBody px={0} pb={0}>
-            <Box px={6} mb={8}>
-              <Text textStyle="h1">{title}</Text>
-            </Box>
-
             {/* Sorting and Filtering Controls */}
             <HStack mb={4} spacing={4} pl={6} pr={7}>
               {/* Text Filtering */}
-              <InputGroup flex={1} placeholder="By title or description">
-                <InputLeftElement pointerEvents="none">
-                  <SearchIcon />
-                </InputLeftElement>
-                <Input
-                  id="search-text"
-                  value={searchText}
-                  onChange={(e) => setSearchText(e.target.value)}
-                  placeholder="By title or description"
-                />
-              </InputGroup>
+              <SearchBar
+                id="search-text"
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
+                placeholder="By title or description"
+                variant='outline'
+                autoFocus
+              />
               {/* Class Selection Filter */}
               <Select
                 id="class-selector"
-                size="lg"
                 flex={0}
                 minW="max-content"
                 fontSize="sm"
@@ -226,15 +213,6 @@ function AddModuleModal({ onAdd, items, title = 'Add Component' }: AddModuleModa
                 <option value="primitive">Primitive</option>
                 <option value="module">Module</option>
               </Select>
-              {/* <Menu placement="bottom-end">
-                <CustomMenuButton>Component Type</CustomMenuButton>
-                <MenuList>
-                  <MenuItem>All</MenuItem>
-                  <MenuItem>Base ADO</MenuItem>
-                  <MenuItem>Primitive</MenuItem>
-                  <MenuItem>Module</MenuItem>
-                </MenuList>
-              </Menu> */}
             </HStack>
 
             <Box maxH="375px" overflowX="auto" px={6} pb={6}>
@@ -267,16 +245,19 @@ function AddModuleModal({ onAdd, items, title = 'Add Component' }: AddModuleModa
                   0.15 UST
                 </Text> */}
               </Box>
-              <Button
-                isDisabled={!selected}
-                onClick={handleAdd}
-                colorScheme="module"
-                leftIcon={<Icon as={PlusIcon} boxSize={6} />}
-              >
-                {title}
-              </Button>
             </Flex>
           </ModalBody>
+          <ModalFooter>
+            <Button
+              isDisabled={!selected}
+              onClick={handleAdd}
+              leftIcon={<Icon as={PlusIcon} boxSize={5} />}
+              variant='theme-low'
+              size='sm'
+            >
+              {title}
+            </Button>
+          </ModalFooter>
         </ModalContent>
       </Modal>
     </>

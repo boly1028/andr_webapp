@@ -15,3 +15,5 @@ export const ONE_TOKEN = 1000000;
 // Mintscan BaseUrl
 export const MINTSCAN_TESTNET_BASEURL = process.env.MINTSCAN_TESTNET_BASEURL as string;
 export const DEFAULT_CHAIN = 'galileo-3';
+
+export const ENABLE_LOCAL_CHAINS = !!process.env.NEXT_PUBLIC_INCLUDE_LOCAL_CHAINS

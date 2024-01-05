@@ -1,0 +1,79 @@
+{
+  "schema": {
+    "description": "Starts a new auction with the given parameters. The auction info can be modified before it has started but is immutable after that.",
+    "type": "object",
+    "required": ["start_auction"],
+    "properties": {
+      "start_auction": {
+        "type": "object",
+        "required": ["coin_denom", "duration", "start_time"],
+        "properties": {
+          "coin_denom": { "type": "string", "title": "Coin denom" },
+          "duration": {
+            "description": "Duration in milliseconds",
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0,
+            "title": "Duration"
+          },
+          "min_bid": {
+            "anyOf": [
+              {
+                "type": "string",
+                "$original_type": "Uint128"
+              },
+              { "type": "null" }
+            ],
+            "title": "Min bid"
+          },
+          "start_time": {
+            "description": "Start time in milliseconds since epoch",
+            "type": "integer",
+            "format": "uint64",
+            "minimum": 0,
+            "title": "Start time"
+          }
+        },
+        "additionalProperties": false,
+        "title": "Cw721 start auction"
+      }
+    },
+    "additionalProperties": false,
+    "title": "Cw721 start auction",
+    "$id": "cw721-start-auction",
+    "class": "receive",
+    "version": "0.2.1",
+    "classifier": "cw721"
+  },
+  "ui-schema": {
+    "start_auction": {
+      "coin_denom": {
+        "ui:widget": "text",
+        "ui:title": "Coin Denomination",
+        "ui:placeholder": "uandr",
+        "ui:description": "The denomination of the coin which auction bids should be placed in.",
+        "ui:help": "Should be micro units, such as uandr instead of andr. All characters should be lower case."
+      },
+      "duration": {
+        "ui:widget": "duration",
+        "ui:title": "Auction Duration",
+        "ui:description": "The amount of time the auction will run for.",
+        "ui:help": "The value should be declared in milliseconds."
+      },
+      "min_bid": {
+        "ui:options": { "optionNames": ["Minimum Bid", "No Minimum Bid"] },
+        "ui:title": "Minimum Bid",
+        "ui:description": "The initial starting bid amount which must be met in order for the auction to close successfully.",
+        "ui:placeholder": "100000",
+        "ui:help": "Should be numeric only. The value will be based on the declared denomination (which is in micro-units)"
+      },
+      "start_time": {
+        "ui:widget": "dateTime",
+        "ui:title": "Auction Start Time",
+        "ui:description": "Choose the start time and date for when the auction should begin. ",
+        "ui:help": "The value will appear in milliseconds since the epoch."
+      }
+    }
+  },
+  "form-data": {}
+}
