@@ -75,8 +75,8 @@
   "ui-schema": {
     "token_address": {
       "ui:widget": "text",
-      "ui:placeholder": "Enter Token Address",
-      "ui:help": "Enter a valid CW20 token address. This can be a human-readable address (e.g., 'cosmos1...') or a valid Andromeda VFS path (e.g., '/home/user/app/component')."
+      "ui:placeholder": "e.g., andr1x...asd",
+      "ui:help": "Enter a valid CW20 token address. This can be a human-readable address (e.g., 'andr1x...asd') or a valid Andromeda VFS path (e.g., './componentName')."
     },
     "modules": {
       "ui:options": {
@@ -92,28 +92,32 @@
             "description": "Can be any VFS module address found in your Assets folder, in every component, under 'Address'), or specific component name (e.g. './rates').",
             "alerts": [
               {
-                "text": "Available modules: \"rates\", \"address-list\", and \"receipt\"",
+                "text": "Available modules: \"rates\", \"address-list\"",
                 "type": "error"
               }
-            ]
+            ],
+            "placeholder": "e.g., ./rates"
           },
           "identifier": {
             "ui:options": {
               "title": "Identifier",
-              "description": "Can be either an address or app component name of a specific ADO within an app"
+              "description": "Can be either an address or app component name of a specific ADO within an app",
+              "placeholder": "e.g., ./rates"
             }
           }
         },
         "module_type": {
           "ui:options": {
             "title": "Module Type",
-            "description": "The name of the module to add. Can be set one of the following: \"rates\", \"address-list\",and \"receipt\"."
+            "description": "The name of the module to add. Can be set one of the following: \"rates\", \"address-list\".",
+            "placeholder": "e.g., rates"
           }
         },
         "is_mutable": {
           "ui:options": {
             "title": "Is Module Able to be Modified?",
-            "description": "Check the box if you want the module the be modifiable later."
+            "description": "Check the box if you want the module to be modifiable later.",
+            "placeholder": ""
           }
         }
       }
