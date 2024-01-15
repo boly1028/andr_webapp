@@ -64,20 +64,35 @@
   },
   "ui-schema": {
     "batch_mint": {
-      "ui:options": { "title": "Batch Mint", "description": "" },
+      "ui:options": { "title": "Batch Mint", "description": "", 
+    
+    
+      "alerts": [
+        {
+          "text": "Only the contract owner can execute Mint",
+          "type": "error"
+        },
+        {
+          "text": "The limit for the number of MintMsg that can be defined at once is 100",
+          "type": "error"
+        }
+      ]
+    
+    
+    },
       "tokens": {
         "ui:options": {
           "title": "Token/NFT List",
-          "description": "Similar to minting one token, but allows minting of many tokens in one go."
+          "description": "Batch mint multiple tokens by adding and filling out details for each token, one at a time. Click 'Add Item' to add new items to mint."
         },
         "items": {
           "ui:order": ["token_id", "owner", "token_uri", "extension", "*"],
           "ui:options": {
             "title": "Token/NFT",
-            "description": "Token minting information",
+            "description": "Token minting information - This represents (1) token. To add more, click the '+Add Item' button.",
             "alerts": [
               {
-                "text": "Only available to the Minter defined in the ADO.",
+                "text": "Token minting is restricted to the 'Minter' defined in the cw721 ADO. Ensure you have the necessary permissions before minting.",
                 "type": "error"
               }
             ]
@@ -96,13 +111,14 @@
               "*"
             ],
             "ui:options": {
-              "title": "Extension Name",
-              "description": "Any custom extension used by this contract"
+              "title": "Publisher Information",
+              "description": "Details of the original token publisher."
             },
             "animation_url": {
               "ui:options": {
                 "title": "Token Media URL",
-                "description": "A URL to any multi-media attachments."
+                "description": "A URL to any multi-media attachments.",
+                "placeholder": "e.g., https://example.com/animation.mp4"
               }
             },
             "attributes": {
@@ -112,23 +128,25 @@
               },
               "items": {
                 "ui:order": ["trait_type", "value", "display_type", "*"],
-                "ui:options": { "title": "Metadata Attribute" },
                 "display_type": {
                   "ui:options": {
                     "title": "Attribute Display Type",
-                    "description": "The string used to display the attribute, if none is provided the trait_type field can be used."
+                    "description": "The string used to display the attribute, if none is provided the trait_type field can be used.",
+                    "placeholder": "e.g., Number"
                   }
                 },
                 "trait_type": {
                   "ui:options": {
                     "title": "Attribute Type",
-                    "description": "The key for the attribute."
+                    "description": "The key for the attribute.",
+                    "placeholder": "e.g., Color"
                   }
                 },
                 "value": {
                   "ui:options": {
                     "title": "Attribute",
-                    "description": "The value for the attribute"
+                    "description": "The value for the attribute",
+                    "placeholder": "e.g., Red"
                   }
                 }
               }
@@ -136,31 +154,36 @@
             "description": {
               "ui:options": {
                 "title": "Token Description",
-                "description": "An optional description of the token."
-              }
+                "description": "An optional description of the token.",
+                "placeholder": "e.g., A rare digital artwork"
+              }                      
             },
             "external_url": {
               "ui:options": {
                 "title": "Token Source URL",
-                "description": "A URL to the token's source."
+                "description": "A URL to the token's source.",
+                "placeholder": "e.g., https://example.com/token-info"
               }
             },
             "image": {
               "ui:options": {
                 "title": "Token Image",
-                "description": "URL to the token image."
+                "description": "URL to the token image.",
+                "placeholder": "e.g., https://example.com/token-image.png"
               }
             },
             "image_data": {
               "ui:options": {
                 "title": "Token Image Data",
-                "description": "Raw SVG image data"
+                "description": "Raw SVG image data",
+                "placeholder": ""
               }
             },
             "name": {
               "ui:options": {
                 "title": "Token Name",
-                "description": "The name of the token."
+                "description": "The name of the token.",
+                "placeholder": ""
               }
             },
             "publisher": {
@@ -169,32 +192,37 @@
                 "description": "The original publisher of the token (immutable).",
                 "alerts": [
                   { "text": "This field is immutable.", "type": "warning" }
-                ]
+                ],
+                "placeholder": "e.g., andrv1fl48v...0eh"
               }
             },
             "youtube_url": {
               "ui:options": {
                 "title": "Token YouTube URL",
-                "description": "A URL to a related Youtube video"
+                "description": "A URL to a related Youtube video",
+                "placeholder": "e.g., https://www.youtube.com/@andromedaprotocol"
               }
             }
           },
           "owner": {
             "ui:options": {
               "title": "Token Owner Address",
-              "description": "The address of the token owner."
+              "description": "The wallet address of the new token's owner. Ensure accuracy, as this address will be granted ownership rights of the minted token.",          
+              "placeholder": "e.g., andr1fl48v...0eh"
             }
           },
           "token_id": {
             "ui:options": {
-              "title": "Minted Token ID",
-              "description": "The id of the token to be minted."
+              "title": "Token ID",
+              "description": "The unique identifier for your newly minted token. This ID should be alphanumeric and uniquely distinguish your token from others. Avoid using special characters or spaces to ensure compatibility.",
+              "placeholder": "e.g., MyToken1"
             }
           },
           "token_uri": {
             "ui:options": {
               "title": "Token Identifier",
-              "description": "Universal resource identifier for this token. Should point to a JSON file that conforms to the CW721 Metadata JSON Schema."
+              "description": "The Universal Resource Identifier for this individual token should be a URL that points to a JSON file which adheres to OpenSea Metadata Standards.",
+              "placeholder": "e.g., https://gateway.pinata.cloud/ipfs/QmRiiBHiQmPMhork3KnJnLm2j378zYy2a9fht4bfa8BjUN"
             }
           }
         }

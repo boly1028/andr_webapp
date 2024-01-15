@@ -19,6 +19,16 @@
     "version": "0.2.1",
     "classifier": ""
   },
-  "ui-schema": {},
+  "ui-schema": {
+    "nft_info": {
+      "token_id": {
+        "ui:options": {
+          "title": "Token ID",
+          "description": "Enter the unique identifier of the NFT to retrieve its data (e.g., publisher and URI).",
+          "placeholder": "e.g., NFT12345"
+        }
+      }
+    }
+  },
   "form-data": {}
 }

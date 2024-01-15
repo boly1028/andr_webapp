@@ -1,5 +1,6 @@
 {
   "schema": {
+    "description": "Find out who owns the currently selected contract.",
     "type": "object",
     "required": ["owner"],
     "properties": {
@@ -16,6 +17,13 @@
     "version": "0.2.1",
     "classifier": ""
   },
-  "ui-schema": {},
+  "ui-schema": {
+    "owner": {
+      "ui:options": {
+        "title": "Contract Ownership Query",
+        "description": "Click 'Query' to find out who owns the currently selected contract. This action will retrieve the owner's address."
+      }
+    }
+  },
   "form-data": {}
 }

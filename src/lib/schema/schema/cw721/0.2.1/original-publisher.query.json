@@ -16,6 +16,13 @@
     "version": "0.2.1",
     "classifier": ""
   },
-  "ui-schema": {},
+  "ui-schema": {
+    "original_publisher": {
+      "ui:options": {
+        "title": "Original Publisher Query",
+        "description": "Retrieve information about the original publisher of the token."
+      }
+    }
+  },
   "form-data": {}
 }

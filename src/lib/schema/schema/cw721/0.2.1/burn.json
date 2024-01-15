@@ -19,6 +19,20 @@
     "version": "0.2.1",
     "classifier": ""
   },
-  "ui-schema": {},
+  "ui-schema": {
+    "burn": {
+      "ui:options": {
+        "title": "Burn Token",
+        "description": "Permanently remove a token from the contract. This action is irreversible."
+      },
+      "token_id": {
+        "ui:options": {
+          "title": "Token ID",
+          "description": "Enter the ID of the token you wish to burn. Ensure the ID is correct as this action cannot be undone.",
+          "placeholder": "e.g., Token123"
+        }
+      }
+    }
+  },
   "form-data": {}
 }

@@ -1,30 +1,103 @@
 {
   "schema": {
+    "description": "Approves an address for all tokens owned by the sender",
     "type": "object",
-    "required": ["approval"],
+    "required": ["approve_all"],
     "properties": {
-      "approval": {
+      "approve_all": {
         "type": "object",
-        "required": ["spender", "token_id"],
+        "required": ["operator"],
         "properties": {
-          "include_expired": {
-            "type": ["boolean", "null"],
-            "title": "Include expired"
+          "expires": {
+            "anyOf": [
+              {
+                "description": "Expiration represents a point in time when some event happens. It can compare with a BlockInfo and will return is_expired() == true once the condition is hit (and for every block in the future)",
+                "oneOf": [
+                  {
+                    "description": "AtHeight will expire when `env.block.height` >= height",
+                    "type": "object",
+                    "required": ["at_height"],
+                    "properties": {
+                      "at_height": {
+                        "type": "integer",
+                        "format": "uint64",
+                        "minimum": 0
+                      }
+                    },
+                    "additionalProperties": false
+                  },
+                  {
+                    "description": "AtTime will expire when `env.block.time` >= time",
+                    "type": "object",
+                    "required": ["at_time"],
+                    "properties": {
+                      "at_time": {
+                        "description": "A point in time in nanosecond precision.",
+                        "allOf": [
+                          {
+                            "description": "A thin wrapper around u64 that is using strings for JSON encoding/decoding",
+                            "type": "string",
+                            "$original_type": "Uint64"
+                          }
+                        ],
+                        "$original_type": "Timestamp"
+                      }
+                    },
+                    "additionalProperties": false
+                  },
+                  {
+                    "description": "Never will never expire. Used to express the empty variant",
+                    "type": "object",
+                    "required": ["never"],
+                    "properties": {
+                      "never": {
+                        "type": "object",
+                        "additionalProperties": false
+                      }
+                    },
+                    "additionalProperties": false
+                  }
+                ],
+                "$original_type": "Expiration"
+              },
+              { "type": "null" }
+            ],
+            "title": "Expires"
           },
-          "spender": { "type": "string", "title": "Spender" },
-          "token_id": { "type": "string", "title": "Token id" }
+          "operator": { "type": "string", "title": "Operator" }
         },
         "additionalProperties": false,
-        "title": "Approval"
+        "title": "Approve all"
       }
     },
     "additionalProperties": false,
-    "title": "Approval",
-    "$id": "approval",
-    "class": "query",
+    "title": "Approve all",
+    "$id": "approve-all",
+    "class": "modifier",
     "version": "0.2.1",
     "classifier": ""
   },
-  "ui-schema": {},
-  "form-data": {}
-}
+  "ui-schema": {
+    "approve_all": {
+      "ui:options": {
+        "title": "Approve All Tokens",
+        "description": "Grants an operator address approval for all tokens owned by the sender."
+      },
+      "expires": {
+        "ui:options": {
+          "title": "Expiration",
+          "description": "Set an expiration for the approval. Choose between 'AtHeight', 'AtTime', or 'Never'.",
+          "placeholder": "e.g., 1638467200000"
+        }
+      },
+      "operator": {
+        "ui:options": {
+          "title": "Operator Address",
+          "description": "Enter the address of the operator to whom you are granting approval for all your tokens.",
+          "placeholder": "e.g., andr1fl48v...0eh"
+          }
+          }
+          }
+          },
+          "form-data": {}
+          }
