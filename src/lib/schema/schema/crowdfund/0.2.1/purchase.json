@@ -41,6 +41,7 @@
         "ui:options": {
           "title": "Max Tokens Able to Be Purchased",
           "description": "An optional limit to the number of tokens to purchase.",
+          "placeholder": "e.g., 10",
           "alerts": [
             {
               "text": "If number_of_tokens is not specified, the maximum number of tokens are purchased based on the funds allocated (Unless we reach the maximum allowed).",
