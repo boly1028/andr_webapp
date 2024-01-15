@@ -17,6 +17,13 @@
     "version": "0.2.1",
     "classifier": ""
   },
-  "ui-schema": {},
+  "ui-schema": {
+    "minter": {
+      "ui:options": {
+        "title": "Query Minter",
+        "description": "Retrieve information about the authorized minter of the token. This query will return the minter's details and the maximum token cap, if set."
+      }
+    }
+  },
   "form-data": {}
 }

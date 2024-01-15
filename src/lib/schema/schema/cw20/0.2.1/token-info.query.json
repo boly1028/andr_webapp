@@ -17,6 +17,13 @@
     "version": "0.2.1",
     "classifier": ""
   },
-  "ui-schema": {},
+  "ui-schema": {
+    "token_info": {
+      "ui:options": {
+        "title": "Request Token Information",
+        "description": "Retrieve detailed information about the token, including its name, supply, and decimal precision."
+      }
+    }
+  },
   "form-data": {}
 }

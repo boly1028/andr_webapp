@@ -22,6 +22,29 @@
     "version": "0.2.1",
     "classifier": ""
   },
-  "ui-schema": {},
+  "ui-schema": {
+    "allowance": {
+      "ui:options": {
+        "title": "Query Allowance",
+        "description": "Check the amount a spender is authorized to use from the owner's account."
+      },
+      "owner": {
+        "ui:options": {
+          "title": "Owner Address",
+          "description": "The wallet address of the owner of the funds.",
+          "placeholder": "e.g., andr1fl48v...0eh",
+          "help": "Enter the address of the account owner."
+        }
+      },
+      "spender": {
+        "ui:options": {
+          "title": "Spender Address",
+          "description": "The wallet address of the spender who is authorized to use the funds.",
+          "placeholder": "e.g., andr1spender...0eh",
+          "help": "Enter the address of the authorized spender."
+        }
+      }
+    }
+  },
   "form-data": {}
 }
