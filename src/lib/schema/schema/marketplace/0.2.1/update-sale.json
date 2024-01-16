@@ -29,6 +29,33 @@
     "version": "0.2.1",
     "classifier": ""
   },
-  "ui-schema": {},
+  "ui-schema": {
+    "update_sale": {
+      "coin_denom": {
+        "ui:widget": "text",
+        "ui:title": "Coin Denomination",
+        "ui:placeholder": "e.g., uandr",
+        "ui:description": "The denomination of the coin used in the sale."
+      },
+      "price": {
+        "ui:widget": "text",
+        "ui:title": "Sale Price",
+        "ui:placeholder": "e.g., 100000",
+        "ui:description": "The price of the item in the sale, in micro-units of the specified coin denomination."
+      },
+      "token_address": {
+        "ui:widget": "text",
+        "ui:title": "Token Address",
+        "ui:placeholder": "e.g., andr1...5rj",
+        "ui:description": "The address of the token being sold."
+      },
+      "token_id": {
+        "ui:widget": "text",
+        "ui:title": "Token ID",
+        "ui:placeholder": "e.g., UniqueToken123",
+        "ui:description": "The unique identifier of the token being sold."
+      }
+    }
+  },
   "form-data": {}
 }

@@ -27,6 +27,21 @@
     "version": "0.2.1",
     "classifier": "cw721"
   },
-  "ui-schema": {},
-  "form-data": {}
+  "ui-schema": {
+    "start_sale": {
+      "coin_denom": {
+        "ui:widget": "text",
+        "ui:title": "Coin Denomination",
+        "ui:placeholder": "uandr",
+        "ui:description": "The denomination of the coin in which the sale price should be set."
+      },
+      "price": {
+        "ui:widget": "text",
+        "ui:title": "Sale Price",
+        "ui:description": "Set the price for the token in the specified coin denomination.",
+        "ui:placeholder": "100000",
+        "ui:help": "Enter the price as a numeric value in micro-units of the specified coin denomination."
+      }
+    }
+  },  "form-data": {}
 }

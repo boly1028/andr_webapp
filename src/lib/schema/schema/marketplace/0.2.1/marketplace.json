@@ -57,10 +57,11 @@
         "address": {
           "ui:options": {
             "title": "Add Module",
+            "placeholder": "e.g., andr1fl48v...0e  or  ./ModuleName",
             "description": "",
             "alerts": [
               {
-                "text": "Allowed modules: \"rates\", \"address_list\", \"receipt\"",
+                "text": "Allowed modules: \"rates\", \"address_list\"",
                 "type": "error"
               }
             ]
@@ -75,7 +76,7 @@
         "module_type": {
           "ui:options": {
             "title": "Module Type",
-            "description": "The name of the module to add. Can be set one of the following: \"rates\", \"address_list\", \"receipt\"."
+            "description": "The name of the module to add. Can be set one of the following: \"rates\", \"address_list\"."
           }
         },
         "is_mutable": {
