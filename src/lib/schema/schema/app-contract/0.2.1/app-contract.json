@@ -49,12 +49,14 @@
       "items": {
         "ado_type": {
           "ui:widget": "text",
-          "ui:placeholder": "Enter ADO Type"
+          "ui:title": "ADO Type",
+          "ui:placeholder": "./cw721"
         },
         "instantiate_msg": {
           "ui:widget": "textarea",
-          "ui:placeholder": "Enter Instantiate Message",
-          "ui:help": "Select an ADO from the dropdown list. Make sure it matches what you entered into the 'ado_type' field above."
+          "ui:title": "ADO Selection",
+          "ui:placeholder": "This field will autopopulate as you choose and configure your ADO",
+          "ui:description": "Select an ADO from the dropdown list. Make sure it matches what you entered into the 'ado_type' field above."
         },
         "name": {
           "ui:widget": "text",
@@ -67,7 +69,7 @@
     },
     "name": {
       "ui:widget": "text",
-      "ui:placeholder": "Enter Name of the App"
+      "ui:placeholder": "MyNewAppName"
     },
     "owner": {
       "ui:widget": "text",
