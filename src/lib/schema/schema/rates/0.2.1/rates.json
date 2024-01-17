@@ -121,54 +121,51 @@
   "ui-schema": {
     "rates": {
       "ui:options": {
-        "title": "Rate Information",
-        "description": "Every recipient will be allocated the specified rate. For instance, if a 3% rate is set and there are 5 recipients, a cumulative total of 15% will be distributed among them."
+        "title": "Rates Setup",
+        "description": "Configure the rates to be applied on transactions."
       },
       "items": {
-        "ui:options": { "title": "Rate Info" },
+        "ui:options": { "title": "Rate Details" },
         "ui:order": ["rate", "is_additive", "description", "recipients", "*"],
         "description": {
           "ui:options": {
             "title": "Rate Description",
-            "description": "Optional description for the rate."
+            "description": "Provide a brief description for this rate setting.",
+            "placeholder": "e.g., Standard royalty rate"
           }
         },
         "is_additive": {
           "ui:options": {
-            "title": "Use as Tax?",
-            "description": "By default a rate is assumed as a royalty, select this field to use as tax instead.",
-            "alerts": [
-              {
-                "text": "Taxes are added to the selling price (<b>Paid by buyer</b>) while royalties are deducted from the price (<b>Paid by seller</b>).",
-                "type": "error"
-              }
-            ]
+            "title": "Additive Rate",
+            "description": "Specify if the rate is additive (e.g., tax) or subtractive (e.g., royalty)."
           }
         },
         "rate": {
-          "ui:options": { "optionNames": ["Flat", "Percentage"] },
+          "ui:options": { "optionNames": ["Flat Rate", "Percentage Rate"] },
           "flat": {
-            "ui:options": { "title": "Coin" },
+            "ui:options": { "title": "Flat Rate" },
             "amount": {
               "ui:options": {
                 "title": "Amount",
-                "description": "The amount of funds."
+                "description": "Enter the flat rate amount.",
+                "placeholder": "e.g., 1000"
               }
             },
             "denom": {
-              "ui:widget": "denom",
               "ui:options": {
-                "title": "Denomination",
-                "description": "Enter the token denomination in micro units, which are denoted with a leading 'u', such as 'uluna', 'ujunox', or 'uarch'. This represents the smallest divisible unit of the token's value."
+                "title": "Currency Denomination",
+                "description": "Specify the currency denomination for the rate. Use micro-units, so Luna would be uluna. Lower case only.",
+                "placeholder": "e.g., uluna"
               }
             }
           },
           "percent": {
-            "ui:options": { "title": "Rate Percentage" },
+            "ui:options": { "title": "Percentage Rate" },
             "percent": {
               "ui:options": {
-                "title": "Percent",
-                "description": "The percentage to take as rate. This must be as decimal, formatted like this '0.05' (which would be 5%)"
+                "title": "Rate Percentage",
+                "description": "Enter the rate as a percentage.(e.g., 0.05 for 5%)",
+                "placeholder": "e.g., 0.05"
               }
             }
           },
@@ -196,33 +193,40 @@
         },
         "recipients": {
           "ui:options": {
-            "title": "Recipients of Rate Adjustment",
-            "description": "The addresses to receive the rate specified"
+            "title": "Rate Recipients",
+            "description": "List the recipients for this rate."
           },
           "items": {
-            "ui:options": {},
-            "addr": { "ui:options": { "title": "Address" } },
-            "a_d_o": {
-              "ui:options": { "title": "ADO" },
-              "address": {
-                "ui:options": {
-                  "title": "Address",
-                  "description": "Addr can also be a human-readable identifier used in a app contract."
-                },
-                "identifier": {
-                  "ui:options": {
-                    "description": "Can be either an address or app component name of a specific ADO within an app.",
-                    "title": "Identifier"
-                  }
-                }
-              },
-              "msg": { "ui:options": {} }
+            "ui:options": { "title": "Recipient Information" },
+            "address": {
+              "ui:options": {
+                "title": "Recipient Address",
+                "description": "Enter the recipient's Andromeda address.",
+                "placeholder": "e.g., andr1..."
+              }
+            },
+            "ibc_recovery_address": {
+              "ui:options": {
+                "title": "IBC Recovery Address (Optional)",
+                "description": "Enter an IBC address for fund recovery, if applicable.",
+                "placeholder": "e.g., andr1...",
+                "optionNames": ["Provide IBC Address", "None"]
+              }
+            },
+            "msg": {
+              "ui:options": {
+                "title": "Attached Message (Optional)",
+                "description": "Include an optional message for the recipient.",
+                "optionNames": ["Attach Message", "None"]
+              }
             }
           }
         }
       }
     },
-    "kernel_address": { "ui:widget": "hidden" }
+    "kernel_address": {
+      "ui:widget": "hidden"
+    }
   },
   "form-data": {}
 }
