@@ -39,8 +39,9 @@
       },
       "lock_time": {
         "ui:options": {
+          "widget": "duration",
           "title": "Lock Time",
-          "description": "How long the splitter is locked. When locked, no recipients can be added/changed.",
+          "description": "How long the splitter is locked. When locked, no recipients can be added/changed. Will display in nanoseconds.",
           "alerts": [
             {
               "text": "The minimum time that can be set is <b>86,400</b> which is 1 day. <br/>The maximum time that can be set is <b>31,536,000</b> which is 1 year.",
