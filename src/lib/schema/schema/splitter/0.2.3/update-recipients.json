@@ -161,11 +161,11 @@
                     "placeholder": "e.g., andr1... or ./componentName"
                   }
                 },
-                "msg": {
+                "identifier": {
                   "ui:options": {
                     "title": "Message (Optional)",
                     "description": "Include an optional message for the ADO.",
-                    "placeholder": "e.g., Custom message or leave empty"
+                    "placeholder": ""
                   }
                 }
               }
