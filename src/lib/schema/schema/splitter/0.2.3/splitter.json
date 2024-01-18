@@ -91,7 +91,7 @@
     "lock_time": {
       "ui:options": {
         "title": "Lock Time",
-        "description": "Recipients cannot be changed for this duration of time selected. Minimum is 1 day and Maximum is 1 year."
+        "description": "(Optional) Recipients cannot be changed for this duration of time selected. Minimum is 1 day and Maximum is 1 year."
       },
       "ui:widget": "duration"
     },
@@ -179,10 +179,10 @@
           },
           "msg": {
             "ui:options": {
-              "optionNames": ["Attach Message", "None"],
-              "title": "Message",
-              "description": "(Optional) Add a message.",
-              "placeholder": ""
+              "title": "Message (Optional)",
+              "description": "Include an optional message for the recipient.",
+              "placeholder": "This field will autopopulate as you attach a message.",
+              "optionNames": ["Attach Message", "None"]
             }
           }
         }

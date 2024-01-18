@@ -83,69 +83,97 @@
     "version": "0.2.3",
     "classifier": ""
   },
-  "ui-schema": {
-    "update_recipients": {
-      "ui:options": {
-        "title": "Update Recipients",
-        "alerts": [
-          {
-            "text": "Only executable by the contract owner when the contract is not locked.",
-            "type": "error"
-          }
-        ]
-      },
-      "recipients": {
+    "ui-schema": {
+      "update_recipients": {
         "ui:options": {
-          "title": "Recipients Configuration",
-          "description": "Define the recipients and their corresponding percentages for the distribution.",
+          "title": "Update Recipients",
           "alerts": [
             {
-              "text": "Ensure the recipient list is valid by meeting these criteria:<ul><li>The list must not be empty.</li><li>Percentage amounts should be entered as decimal values (e.g., enter 0.05 for 5%) and the total should not exceed 1 (100%).</li><li>A maximum of <b>100</b> recipients can be set.</li></ul>",
-              "type": "warning"
+              "text": "Only executable by the contract owner when the contract is not locked.",
+              "type": "error"
             }
           ]
         },
-        "items": {
+        "recipients": {
           "ui:options": {
-            "title": "Recipient Details"
+            "title": "Recipients Configuration",
+            "description": "Define the recipients and their corresponding percentages for the distribution.",
+            "alerts": [
+              {
+                "text": "Ensure the recipient list is valid by meeting these criteria:<ul><li>The list must not be empty.</li><li>Enter percentages as decimal values (e.g., enter 0.05 for 5%) and the total should not exceed 1 (100%).</li><li>A maximum of <b>100</b> recipients can be set.</li></ul>",
+                "type": "warning"
+              }
+            ]
           },
-          "percent": {
+          "items": {
             "ui:options": {
-              "title": "Distribution Percentage",
-              "description": "Enter the recipient's percentage as a decimal (e.g., enter 0.05 for 5%). The total of all percentages must not exceed 1.",
-              "placeholder": "e.g., 0.05 for 5%"
-            }
-          },
-          "recipient": {
-            "ui:options": {
-              "title": "Recipient Information",
-              "description": "Enter the details of the recipient. This includes the Andromeda address, an optional IBC recovery address, and an optional message."
+              "title": "Recipient Details",
+              "alerts": [
+                {
+                  "text": "This panel is ONE recipient. To add more recipients, click '+Add Item' below",
+                  "type": "warning"
+                }
+              ]
             },
-            "address": {
+            "percent": {
               "ui:options": {
-                "title": "Recipient Address",
-                "description": "Enter the Andromeda address of the recipient.",
-                "placeholder": "e.g., andr1..."
+                "title": "Distribution Percentage",
+                "description": "Enter the recipient's percentage as a decimal (e.g., enter 0.05 for 5%). The total of all percentages must not exceed 1.",
+                "placeholder": "e.g., 0.05"
               }
             },
-            "ibc_recovery_address": {
+            "recipient": {
               "ui:options": {
-                "title": "IBC Recovery Address (Optional)",
-                "description": "Provide an optional IBC recovery address.",
-                "placeholder": "e.g., andr1... or leave empty"
-              }
-            },
-            "msg": {
-              "ui:options": {
-                "title": "Message (Optional)",
-                "description": "Include an optional message for the recipient.",
-                "placeholder": "e.g., Custom message or leave empty"
+                "title": "Recipient Information",
+                "description": "Enter the recipient's details: Andromeda address, an optional IBC recovery address, and an optional message."
+              },
+              "address": {
+                "ui:options": {
+                  "title": "Recipient Address",
+                  "description": "Enter the Andromeda address of the recipient.",
+                  "placeholder": "e.g., andr1..."
+                }
+              },
+              "ibc_recovery_address": {
+                "ui:options": {
+                  "title": "IBC Recovery Address (Optional)",
+                  "description": "Provide an optional IBC recovery address.",
+                  "placeholder": "e.g., andr1...",
+                  "optionNames": ["Provide IBC Address", "None"]
+                }
+              },
+              "msg": {
+                "ui:options": {
+                  "title": "Message (Optional)",
+                  "description": "Include an optional message for the recipient.",
+                  "placeholder": "This field will autopopulate as you attach a message.",
+                  "optionNames": ["Attach Message", "None"]
+                }
+              },
+              "a_d_o": {
+                "ui:options": {
+                  "title": "ADO"
+                },
+                "address": {
+                  "ui:options": {
+                    "title": "ADO Address",
+                    "description": "Enter the address or identifier of a specific ADO within the app. This can be either an Andromeda address or an app component name.",
+                    "placeholder": "e.g., andr1... or ./componentName"
+                  }
+                },
+                "msg": {
+                  "ui:options": {
+                    "title": "Message (Optional)",
+                    "description": "Include an optional message for the ADO.",
+                    "placeholder": "e.g., Custom message or leave empty"
+                  }
+                }
               }
             }
           }
         }
       }
-    }
-  },
-  "form-data": {}
-}
+    },
+    "form-data": {}
+  }
+  
