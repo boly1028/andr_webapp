@@ -25,6 +25,18 @@
     "version": "0.2.0",
     "classifier": ""
   },
-  "ui-schema": {},
+  "ui-schema": {
+    "balance": {
+      "address": {
+        "ui:widget": "text",
+        "ui:description": "Enter the operator's address",
+        "ui:placeholder": "e.g., andr1... or ./componentName",
+        "ui:help": "Enter a valid address to check if it is an operator. The address should be in the format recognized by the Andromeda ecosystem.",
+        "ui:options": {
+          "inputType": "text"
+        }
+      }
+    }
+  },
   "form-data": {}
 }

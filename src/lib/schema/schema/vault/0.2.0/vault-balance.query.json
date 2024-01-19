@@ -37,6 +37,34 @@
     "version": "0.2.0",
     "classifier": ""
   },
-  "ui-schema": {},
+  "ui-schema": {
+    "vault_balance": {
+      "ui:options": {
+        "title": "Vault Balance Query",
+        "description": "Retrieve the balance details of a specific vault."
+      },
+      "address": {
+        "ui:options": {
+          "title": "Address",
+          "description": "Specify the vault's Andromeda ecosystem address or a VFS path which you wish to query.",
+          "placeholder": "e.g., cosmos1... or ./componentName"
+        }
+      },
+      "denom": {
+        "ui:options": {
+          "title": "Denomination",
+          "description": "Specify the denomination of the assets in the vault (optional).",
+          "placeholder": "e.g., ANDR"
+        }
+      },
+      "strategy": {
+        "ui:options": {
+          "title": "Strategy",
+          "description": "Select the strategy associated with the vault (optional).",
+          "optionNames": ["Strategy", "None"]
+        }
+      }
+    }
+  },
   "form-data": {}
 }

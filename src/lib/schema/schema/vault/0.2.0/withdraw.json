@@ -105,6 +105,79 @@
     "version": "0.2.0",
     "classifier": ""
   },
-  "ui-schema": {},
+  "ui-schema": {
+    "withdraw": {
+      "ui:options": {
+        "title": "Withdraw Details",
+        "description": "Configure the details of your withdrawal."
+      },
+      "recipient": {
+        "ui:options": {
+          "title": "Recipient Details",
+          "description": "Specify the recipient's address and optional recovery address or message.",
+          "optionNames": ["Attach Recipient", "None"]
+        },
+        "address": {
+          "ui:options": {
+            "title": "Address",
+            "description": "An Andromeda ecosystem address or a VFS path.",
+            "placeholder": "e.g., andr1... or ./componentName"
+          }
+        },
+        "ibc_recovery_address": {
+          "ui:options": {
+            "title": "IBC Recovery Address",
+            "description": "An optional recovery address in the Andromeda ecosystem.",
+            "placeholder": "e.g., andr1... (optional)",
+            "optionNames": ["IBC Recovery Address", "None"]
+          }
+        },
+        "msg": {
+          "ui:options": {
+            "title": "Message",
+            "description": "An optional binary message to be sent to the recipient.",
+            "placeholder": "Binary message (optional)",
+            "optionNames": ["Attach Message", "None"]
+          }
+        }
+      },
+      "tokens_to_withdraw": {
+        "ui:options": {
+          "title": "Tokens to Withdraw",
+          "description": "Configure the tokens you want to withdraw and specify the withdrawal type."
+        },
+        "items": {
+          "token": {
+            "ui:options": {
+              "title": "Token",
+              "description": "Specify the token to withdraw.",
+              "placeholder": "e.g., ANDR"
+            }
+          },
+          "withdrawal_type": {
+            "ui:options": {
+              "title": "Withdrawal Type",
+              "description": "Specify the type of withdrawal you want, fixed amount or percentage.",
+              "optionNames": ["Opt. 1", "Opt. 2"]
+            },
+            "amount": {
+              "ui:options": {
+                "title": "Fixed Amount Withdrawal",
+                "description": "The fixed amount to withdraw.",
+                "placeholder": "e.g., 1000"
+              }
+            },
+            "percentage": {
+              "ui:options": {
+                "title": "Percentage Withdrawal",
+                "description": "The decimalized percentage of total funds to withdraw.",
+                "placeholder": "e.g., 0.05"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
   "form-data": {}
 }

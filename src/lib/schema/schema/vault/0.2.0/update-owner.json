@@ -18,6 +18,20 @@
     "version": "0.2.0",
     "classifier": ""
   },
-  "ui-schema": {},
+  "ui-schema": {
+    "update_owner": {
+      "ui:options": {
+        "title": "Owner Update",
+        "description": "Update the owner by specifying a new address."
+      },
+      "address": {
+        "ui:options": {
+          "title": "New Owner Address",
+          "description": "Enter the address that will become the new owner.",
+          "placeholder": "e.g., andr1... or /home/user/app/component"
+        }
+      }
+    }
+  },
   "form-data": {}
 }
