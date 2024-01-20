@@ -199,14 +199,14 @@
         },
         "token_id": {
           "ui:options": {
-            "title": "Token ID",
+            "title": "Token/NFT ID",
             "description": "The unique identifier for your newly minted token. This ID should be alphanumeric and uniquely distinguish your token from others. Avoid using special characters or spaces to ensure compatibility.",
             "placeholder": "e.g., MyToken1"
           }
         },
         "token_uri": {
           "ui:options": {
-            "title": "Token Identifier",
+            "title": "Token URI",
             "description": "The Universal Resource Identifier for this individual token should be a URL that points to a JSON file which adheres to OpenSea Metadata Standards.",
             "placeholder": "e.g., https://gateway.pinata.cloud/ipfs/QmRiiBHiQmPMhork3KnJnLm2j378zYy2a9fht4bfa8BjUN"
           }
