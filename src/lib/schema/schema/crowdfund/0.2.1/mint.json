@@ -186,7 +186,7 @@
         },
         "owner": {
           "ui:options": {
-            "title": "Token Owner Address",
+            "title": "Token/NFT Owner Address",
             "description": "The wallet address of the new token's owner. Ensure accuracy, as this address will be granted ownership rights of the minted token.",          
             "placeholder": "e.g., andr1fl48v...0eh",
             "alerts": [
