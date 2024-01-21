@@ -66,7 +66,7 @@
     "modules": {
       "ui:options": {
         "title": "Add Modules",
-        "description": "(Optional) Add attachable Andromeda ADO Modules to the contract. Currently compatible: 'rates', 'address-list', and 'receipt'",
+        "description": "(Optional) Add attachable Andromeda ADO Modules to the contract. Currently compatible: 'rates', 'address-list'",
         "placeholder": "e.g., rates"
       },
       "items": {
@@ -78,7 +78,7 @@
             "description": "Only allowed modules. Can be either an address or a component name of a specific ADO within an app",
             "alerts": [
               {
-                "text": "Allowed modules: rates, address-list, and receipt.",
+                "text": "Allowed modules: rates, address-list.",
                 "type": "error"
               }
             ],
