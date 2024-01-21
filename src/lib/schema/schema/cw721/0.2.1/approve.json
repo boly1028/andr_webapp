@@ -78,6 +78,58 @@
     "version": "0.2.1",
     "classifier": ""
   },
-  "ui-schema": {},
+  
+    "ui-schema": {
+      "approve": {
+        "ui:options": { 
+          "title": "Approve Operation",
+          "description": "Allows an operator to approve a spender to transfer tokens from the owner's account."
+        },
+        "expires": {
+          "ui:options": {
+            "title": "Expiration",
+            "description": "Set an optional expiration for the approval. The approval can expire at a certain height, time, or never expire.",
+            "optionNames": ["Expiration by Block Height", "Expiration by Time", "Never Expire"]
+          },
+          "at_height": {
+            "ui:options": {
+              "title": "Expiration by Block Height",
+              "description": "Approve until a specific block height is reached.",
+              "placeholder": "e.g., 409763"
+            }
+          },
+          "at_time": {
+            "ui:options": {
+              "title": "Expiration by Time",
+              "widget": "dateTime",
+              "description": "Approve until a specific time is reached. Time is in nanosecond precision.",
+              "placeholder": "Enter the time (in nanoseconds)"
+            }
+          },
+          "never": {
+            "ui:options": {
+              "title": "Never Expire",
+              "description": "Select this option if the approval should never expire."
+            }
+          }
+        },
+        "spender": {
+          "ui:options": {
+            "title": "Spender",
+            "description": "The address of the spender who is allowed to transfer the tokens.",
+            "placeholder": "e.g., andr1..."
+          }
+        },
+        "token_id": {
+          "ui:options": {
+            "title": "Token ID",
+            "description": "The unique identifier of the token to be transferred.",
+            "placeholder": "e.g., MyToken"
+          }
+        }
+      }
+    },
+  
+  
   "form-data": {}
 }

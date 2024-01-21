@@ -1,92 +1,62 @@
 {
   "schema": {
-    "description": "Sends NFTs to a new auction with the given parameters. Auction info can be modified before it has started but is immutable after that.",
+    "description": "Sends a token to another contract",
     "type": "object",
-    "required": ["start_auction"],
+    "required": ["send_nft"],
     "properties": {
-      "start_auction": {
+      "send_nft": {
         "type": "object",
-        "required": ["coin_denom", "duration", "start_time"],
+        "required": ["contract", "msg", "token_id"],
         "properties": {
-          "coin_denom": { "type": "string", "title": "Coin denom" },
-          "duration": {
-            "description": "Duration in milliseconds",
-            "type": "integer",
-            "format": "uint64",
-            "minimum": 0,
-            "title": "Duration"
+          "contract": { "type": "string", "title": "Contract" },
+          "msg": {
+            "description": "Binary is a wrapper around Vec<u8> to add base64 de/serialization with serde. It also adds some helper methods to help encode inline.\n\nThis is only needed as serde-json-{core,wasm} has a horrible encoding for Vec<u8>. See also <https://github.com/CosmWasm/cosmwasm/blob/main/docs/MESSAGE_TYPES.md>.",
+            "type": "string",
+            "$original_type": "Binary",
+            "title": "Msg"
           },
-          "min_bid": {
-            "anyOf": [
-              {
-                "type": "string",
-                "$original_type": "Uint128"
-              },
-              { "type": "null" }
-            ],
-            "title": "Min bid"
-          },
-          "start_time": {
-            "description": "Start time in milliseconds since epoch",
-            "type": "integer",
-            "format": "uint64",
-            "minimum": 0,
-            "title": "Start time"
-          },
-          "whitelist": {
-            "type": ["array", "null"],
-            "items": {
-              "description": "Enter the address of (1) recipient. Click the '+ADD ITEM' button to add another. Ensure you're targeting the correct chain.",
-              "type": "string",
-              "$original_type": "Addr"
-            },
-            "title": "Whitelist"
-          }
+          "token_id": { "type": "string", "title": "Token id" }
         },
         "additionalProperties": false,
-        "title": "Cw721 start auction"
+        "title": "Send nft"
       }
     },
     "additionalProperties": false,
-    "title": "Cw721 start auction",
-    "$id": "cw721-start-auction",
-    "class": "receive",
+    "title": "Send nft",
+    "$id": "send-nft",
+    "class": "modifier",
     "version": "0.2.1",
-    "classifier": "cw721"
+    "classifier": ""
   },
   "ui-schema": {
-    "start_auction": {
-      "coin_denom": {
-        "ui:widget": "text",
-        "ui:title": "Coin Denomination",
-        "ui:placeholder": "e.g, uandr",
-        "ui:description": "e.g, The denomination of the coin which auction bids should be placed in.",
-        "ui:help": "Should be micro units (therefore lowercase and preceeded by a 'u', such as 'uandr' instead of 'andr'."
+    "send_nft": {
+      "ui:order": ["contract", "token_id", "msg", "*"],
+      "ui:options": {
+        "title": "Send NFT",
+        "alerts": [
+          {
+            "text": "Only available to the token owner/operator/approved address.",
+            "type": "error"
+          }
+        ]
       },
-      "duration": {
-        "ui:widget": "duration",
-        "ui:title": "Auction Duration",
-        "ui:description": "Click in the field to choose the amount of time the auction will run for.",
-        "ui:help": "The value will be declared in milliseconds."
-      },
-      "min_bid": {
-        "ui:options": { "optionNames": ["Minimum Bid", "No Minimum Bid"] },
-        "ui:title": "Minimum Bid",
-        "ui:description": "The initial starting bid amount which must be met in order for the auction to close successfully.",
-        "ui:placeholder": "e.g, 100000",
-        "ui:help": "Should be numeric only. The value will be based on the declared denomination (which is in micro-units)"
-      },
-      "start_time": {
-        "ui:widget": "dateTime",
-        "ui:title": "Auction Start Time",
-        "ui:description": "Click in the field to choose the start time and date for your auction. ",
-        "ui:help": "The value will appear in milliseconds since the epoch."
-      },
-      "whitelist": {
+      "contract": {
         "ui:options": {
-          "title": "Whitelist",
-          "description": "List of addresses that are allowed to participate in the auction. ",
-          "placeholder": "e.g., andr1fl48v...0eh"
+          "title": "Recipient Address",
+          "description": "The address of the receiving contract."
+        }
+      },
+      "msg": {
+        "ui:widget": "cw721ReceiveMsg",
+        "ui:options": {
+          "title": "Supporting Message",
+          "description": "Please enter a relevant message to accompany the ID of the token being sent. This can be a description of the auction and/or token."
+        }
+      },
+      "token_id": {
+        "ui:options": {
+          "title": "Token/NFT Name",
+          "description": "The id of the token to be sent."
         }
       }
     }
