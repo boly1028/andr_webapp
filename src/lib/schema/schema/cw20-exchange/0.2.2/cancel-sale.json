@@ -45,6 +45,35 @@
     "version": "0.2.2",
     "classifier": ""
   },
-  "ui-schema": {},
+  
+    "ui-schema": {
+      "cancel_sale": {
+        "ui:options": {
+          "title": "Cancel Sale Operation",
+          "description": "Provide details to cancel an ongoing asset sale."
+        },
+        "asset": {
+          "ui:options": {
+            "title": "Asset Details",
+            "description": "Select the type of asset for which the sale is to be canceled and provide the respective details.",
+            "optionNames": ["Native", "cw20 Token"]
+          },
+          "native": {
+            "ui:options": {
+              "title": "Native Asset",
+              "description": "If the asset is a native SDK coin, enter its denomination here."
+            }
+          },
+          "cw20": {
+            "ui:options": {
+              "title": "CW20 Token",
+              "description": "If the asset is a CW20 token, provide the contract address."
+            }
+          }
+        }
+      }
+    },
+  
+  
   "form-data": {}
 }
