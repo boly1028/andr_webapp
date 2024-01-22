@@ -44,17 +44,17 @@
       },
       "amount": {
         "ui:widget": "text",
-        "ui:placeholder": "Enter amount to receive",
+        "ui:placeholder": "e.g., 20",
         "ui:options": {
-          "title": "e.g., 20",
+          "title": "Enter amount to receive",
           "description": "The amount of CW20 tokens to be received. Ensure this is in the smallest unit of the token."
         }
       },
       "sender": {
         "ui:widget": "text",
-        "ui:placeholder": "Enter sender's address",
+        "ui:placeholder": "e.g., andr1...",
         "ui:options": {
-          "title": "e.g., andr1...",
+          "title": "Enter sender's address",
           "description": "The address of the sender from whom you are receiving the CW20 tokens."
         }
       },
@@ -67,6 +67,6 @@
         }
       }
     }
-  },
+  },  
   "form-data": {}
 }
