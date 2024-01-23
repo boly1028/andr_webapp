@@ -29,19 +29,29 @@
   },
   "ui-schema": {
     "start_sale": {
+      "ui:order": ["coin_denom", "price"],
+      "ui:options": {
+        "title": "Cw721 Start Sale",
+        "alerts": [
+          {
+            "text": "The sale info can be modified before it has started but is immutable after that.",
+            "type": "error"
+          }
+        ]
+      },
       "coin_denom": {
         "ui:widget": "text",
-        "ui:title": "Coin Denomination",
-        "ui:placeholder": "uandr",
-        "ui:description": "The denomination of the coin in which the sale price should be set."
+        "ui:title": "Coin Denom",
+        "ui:placeholder": "e.g., uandr",
+        "ui:description": "Enter the coin denomination. These will be in micro units so ANDR will be uandr (lower case letters)."
       },
       "price": {
         "ui:widget": "text",
-        "ui:title": "Sale Price",
-        "ui:description": "Set the price for the token in the specified coin denomination.",
-        "ui:placeholder": "100000",
-        "ui:help": "Enter the price as a numeric value in micro-units of the specified coin denomination."
+        "ui:title": "Price",
+        "ui:placeholder": "e.g., 2000",
+        "ui:description": "Enter the price. Note: The price will be in micro units so make sure to confirm your amount."
       }
     }
-  },  "form-data": {}
+  },
+  "form-data": {}
 }
