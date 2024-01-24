@@ -20,7 +20,7 @@
     "minter": {
       "ui:options": {
         "title": "Minter Information",
-        "description": "The address which is currently designated permission to mint tokens from this ADO."
+        "description": "The address which is designated permission to mint tokens from this ADO."
       },
       "address": {
         "ui:options": {

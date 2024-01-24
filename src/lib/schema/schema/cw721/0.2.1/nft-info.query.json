@@ -24,7 +24,7 @@
       "token_id": {
         "ui:options": {
           "title": "Token ID",
-          "description": "Enter the unique identifier of the NFT to retrieve its data (e.g., publisher and URI).",
+          "description": "Enter the token ID of the NFT to retrieve its data (e.g., publisher and URI).",
           "placeholder": "e.g., NFT12345"
         }
       }

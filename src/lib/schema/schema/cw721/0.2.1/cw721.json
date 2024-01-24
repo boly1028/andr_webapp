@@ -128,6 +128,13 @@
             "description": "Indicate if the module can be modified post-deployment. Check the box for yes.",
             "placeholder": ""
           }
+        },
+        "name": {
+          "ui:options": {
+            "title": "Module Name",
+            "description": "An optional name or tile for the module. Primarily for orginzational usage.",
+            "placeholder": "e.g., rates-1"
+          }
         }
       }
     },
