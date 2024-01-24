@@ -16,6 +16,27 @@
     "version": "0.2.1",
     "classifier": ""
   },
-  "ui-schema": {},
+  "ui-schema": {
+    "minter": {
+      "ui:options": {
+        "title": "Minter Information",
+        "description": "The address which is designated permission to mint tokens from this ADO."
+      },
+      "address": {
+        "ui:options": {
+          "title": "Minter Address",
+          "description": "The blockchain address of the minter.",
+          "placeholder": "e.g., andr1..."
+        }
+      },
+      "name": {
+        "ui:options": {
+          "title": "Minter Name",
+          "description": "The name associated with the minter.",
+          "placeholder": ""
+        }
+      }
+    }
+  },
   "form-data": {}
 }

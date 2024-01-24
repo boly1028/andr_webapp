@@ -17,6 +17,14 @@
     "version": "0.2.1",
     "classifier": ""
   },
-  "ui-schema": {},
+  "ui-schema": {
+    "contract_info": {
+      "ui:options": {
+        "title": "Contract Information Query",
+        "description": "Retrieve and display the current configuration of the contract."
+      }
+    }
+  },
   "form-data": {}
 }
+

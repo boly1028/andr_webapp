@@ -22,6 +22,19 @@
     "version": "0.2.1",
     "classifier": ""
   },
-  "ui-schema": {},
+  "ui-schema": {
+    "transfer_nft": {
+      "ui:title": "Transfer NFT",
+      "recipient": {
+        "ui:placeholder": "e.g., andr1fl48v...0eh",
+        "ui:description": "Address of the new owner to which the token will be transferred."
+      },
+      "token_id": {
+        "ui:title": "Token ID",
+        "ui:placeholder": "NFT-1",
+        "ui:description": "The token identifier for the token being transferred."
+      }
+    }
+  },
   "form-data": {}
 }

@@ -18,8 +18,14 @@
             "minimum": 0,
             "title": "Limit"
           },
-          "owner": { "type": "string", "title": "Owner" },
-          "start_after": { "type": ["string", "null"], "title": "Start after" }
+          "owner": {
+            "type": "string",
+            "title": "Owner"
+          },
+          "start_after": {
+            "type": ["string", "null"],
+            "title": "Start after"
+          }
         },
         "additionalProperties": false,
         "title": "All operators"
@@ -32,6 +38,40 @@
     "version": "0.2.1",
     "classifier": ""
   },
-  "ui-schema": {},
+  "ui-schema": {
+    "all_operators": {
+      "ui:options": {
+        "title": "All Operators",
+        "description": "Retrieve a list of all approvals for a specific owner address. This list can be filtered to include or exclude expired approvals and can be paginated with 'limit' and 'start_after' parameters."
+      },
+      "owner": {
+        "ui:options": {
+          "title": "Owner Address",
+          "description": "The address of the token owner for whom to list operators.",
+          "placeholder": "e.g., andr1fl48v...0eh"
+        }
+      },
+      "include_expired": {
+        "ui:options": {
+          "title": "Include Expired Approvals",
+          "description": "Toggle whether to include approvals that have already expired."
+        }
+      },
+      "limit": {
+        "ui:options": {
+          "title": "Results Limit",
+          "description": "The maximum number of approval entries to return.",
+          "placeholder": "e.g., 10"
+        }
+      },
+      "start_after": {
+        "ui:options": {
+          "title": "Start After Address",
+          "description": "The address after which to start listing approvals, for pagination purposes.",
+          "placeholder": "e.g., andr1fl48v...0eh"
+        }
+      }
+    }
+  },
   "form-data": {}
 }

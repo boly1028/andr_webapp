@@ -13,7 +13,10 @@
             "minimum": 0,
             "title": "Limit"
           },
-          "start_after": { "type": ["string", "null"], "title": "Start after" }
+          "start_after": {
+            "type": ["string", "null"],
+            "title": "Start after"
+          }
         },
         "additionalProperties": false,
         "title": "All tokens"
@@ -26,6 +29,27 @@
     "version": "0.2.1",
     "classifier": ""
   },
-  "ui-schema": {},
+  "ui-schema": {
+    "all_tokens": {
+      "ui:options": {
+        "title": "All Tokens",
+        "description": "Retrieves a list of all tokens minted by the contract, with the option to paginate results."
+      },
+      "limit": {
+        "ui:options": {
+          "title": "Limit",
+          "description": "(Optional) Set the maximum number of tokens to retrieve at once.",
+          "placeholder": "e.g., 10"
+        }
+      },
+      "start_after": {
+        "ui:options": {
+          "title": "Start After",
+          "description": "(Optional) Specify the token ID to start the list after, for pagination purposes.",
+          "placeholder": "e.g., lastTokenIdSeen"
+        }
+      }
+    }
+  },
   "form-data": {}
 }

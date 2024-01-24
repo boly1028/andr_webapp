@@ -17,6 +17,13 @@
     "version": "0.2.1",
     "classifier": ""
   },
-  "ui-schema": {},
+  "ui-schema": {
+    "num_tokens": {
+      "ui:options": {
+        "title": "Number of Tokens",
+        "description": "Displays the total amount of tokens that have been minted by this contract."
+      }
+    }
+  },
   "form-data": {}
 }

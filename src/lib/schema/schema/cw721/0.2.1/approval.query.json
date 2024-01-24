@@ -11,8 +11,14 @@
             "type": ["boolean", "null"],
             "title": "Include expired"
           },
-          "spender": { "type": "string", "title": "Spender" },
-          "token_id": { "type": "string", "title": "Token id" }
+          "spender": {
+            "type": "string",
+            "title": "Spender"
+          },
+          "token_id": {
+            "type": "string",
+            "title": "Token id"
+          }
         },
         "additionalProperties": false,
         "title": "Approval"
@@ -25,6 +31,27 @@
     "version": "0.2.1",
     "classifier": ""
   },
-  "ui-schema": {},
+  "ui-schema": {
+    "approval": {
+      "include_expired": {
+        "ui:widget": "checkbox",
+        "ui:title": "Include Expired",
+        "ui:description": "(Optional) Check this box if you want to include expired items."
+      },
+      "spender": {
+        "ui:widget": "text",
+        "ui:title": "Spender",
+        "ui:description": "Enter the spender's identifier."
+      },
+      "token_id": {
+        "ui:widget": "text",
+        "ui:title": "Token ID",
+        "ui:description": "Enter the token ID."
+      },
+      "ui:order": ["spender", "token_id", "include_expired"]
+    },
+    "ui:displayTitle": "Approval",
+    "ui:version": "0.2.1"
+  },
   "form-data": {}
 }

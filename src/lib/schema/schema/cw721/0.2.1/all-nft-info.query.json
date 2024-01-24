@@ -12,7 +12,10 @@
             "type": ["boolean", "null"],
             "title": "Include expired"
           },
-          "token_id": { "type": "string", "title": "Token id" }
+          "token_id": {
+            "type": "string",
+            "title": "Token id"
+          }
         },
         "additionalProperties": false,
         "title": "All nft info"
@@ -25,6 +28,26 @@
     "version": "0.2.1",
     "classifier": ""
   },
-  "ui-schema": {},
+  "ui-schema": {
+    "all_nft_info": {
+      "ui:options": {
+        "title": "NFT Information",
+        "description": "Retrieve detailed information about a specific token, including any approvals assigned to it."
+      },
+      "token_id": {
+        "ui:options": {
+          "title": "Token ID",
+          "description": "Enter the unique identifier of the token to retrieve its information.",
+          "placeholder": "e.g., unique-token-id-123"
+        }
+      },
+      "include_expired": {
+        "ui:options": {
+          "title": "Include Expired Approvals",
+          "description": "Select whether to include expired approvals in the token information."
+        }
+      }
+    }
+  },
   "form-data": {}
 }

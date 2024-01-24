@@ -64,71 +64,83 @@
     "name": {
       "ui:options": {
         "title": "Token/NFT Name",
-        "description": "Name of the token. Letters Only.",
+        "description": "Enter the official name of the token or NFT. Use only letters for the name.",
+        "placeholder": "e.g., MyNewToken",
         "help": ""
       }
     },
-    "symbol": {
+    "symbol": { 
       "ui:options": {
         "title": "Token/NFT Symbol",
-        "description": "TThe symbol can only consist of letters and has to be between 3 and 12 characters.",
+        "description": "Specify a unique symbol for the token or NFT. It should contain only letters and be 3 to 12 characters long.",
+        "placeholder": "e.g. MNT",
         "help": ""
       }
     },
     "minter": {
       "ui:options": {
         "title": "Minter Address",
-        "description": "The address of the token minter. (Enter your wallet if you don't intend to assign permissions.)"
-      },
-      "identifier": {
-        "ui:options": {
-          "title": "Identifier Address",
-          "description": " ",
-          "help": "Can be either an address or app component name of a specific ADO within an app"
-        }
+        "description": "Input the wallet address responsible for minting tokens. Use your own wallet address if you will retain minting rights.",
+        "placeholder": "e.g., andr1fl48v...0eh"
+      }
+    },
+    "identifier": {
+      "ui:options": {
+        "title": "Identifier Address",
+        "description": "Provide the address or name of a specific Andromeda Digital Object (ADO) within an app.",
+        "help": "Can be either an address or app component name of a specific ADO within an app"
       }
     },
     "modules": {
       "ui:options": {
         "title": "Selected Modules",
-        "description": "(Optional) The following Andromeda Modules can be attached to the contract: rates, address-list, and receipt."
+        "description": "Optionally attach Andromeda Modules such as rates or address-list to the contract."
       },
       "items": {
-        "ui:options": { "title": "Module" },
+        "ui:options": {
+          "title": "Module Details"
+        },
         "ui:order": ["*", "is_mutable"],
         "address": {
           "ui:options": {
-            "title": "Associated Modules",
-            "description": "Can be either an address or app component name of a specific ADO within an app",
+            "title": "Module Address",
+            "description": "Enter the address (e.g, andr1v...) or name of the specific ADO module (e.g, ./rates) you wish to attach.",
+            "placeholder": "e.g., andr1moduleaddress...  or ./rates",
             "alerts": [
               {
-                "text": "Allowed modules: \"rates\", \"address-list\",\"offers\" and \"receipt\"",
+                "text": "Only 'rates' and 'address-list' modules are currently permitted.",
                 "type": "error"
               }
             ]
-          },
-          "identifier": {
-            "ui:options": {
-              "title": "Identifier",
-              "description": "Can be either an address or app component name of a specific ADO within an app"
-            }
           }
         },
         "module_type": {
           "ui:options": {
             "title": "Module Type",
-            "description": "The name of the module to add. Can be set one of the following: \"rates\", \"address-list\",\"offers\" and \"receipt\"."
+            "description": "Select the type of module to add. Currently compatible: 'rates','address-list'",
+            "placeholder": "e.g., ./rates",
+            "help": ""
           }
         },
         "is_mutable": {
           "ui:options": {
-            "title": "Is Module Able to be Modified?",
-            "description": "Check the box if you want the module the be modifiable later."
+            "title": "Module Mutability",
+            "description": "Indicate if the module can be modified post-deployment. Check the box for yes.",
+            "placeholder": ""
+          }
+        },
+        "name": {
+          "ui:options": {
+            "title": "Module Name",
+            "description": "An optional name or tile for the module. Primarily for orginzational usage.",
+            "placeholder": "e.g., rates-1"
           }
         }
       }
     },
-    "kernel_address": { "ui:widget": "hidden" }
+    "kernel_address": {
+      "ui:widget": "hidden"
+    }
   },
   "form-data": {}
 }
