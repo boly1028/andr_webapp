@@ -27,7 +27,7 @@
     "update_owner": {
       "address": {
         "ui:widget": "text",
-        "placeholder": "e.g., andr1fl48v...0eh or ./componentName",
+        "ui:placeholder": "e.g., andr1fl48v...0eh or ./componentName",
         "ui:description": "Provide the address to assign as the new owner."
       }
     }

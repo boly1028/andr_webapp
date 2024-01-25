@@ -18,10 +18,11 @@
     "classifier": ""
   },
   "ui-schema": {
+    "ui:description":"Retrieve information about the authorized minter of the CW20.",
     "minter": {
       "ui:options": {
         "title": "Query Minter",
-        "description": "Retrieve information about the authorized minter of the token. This query will return the minter's details and the maximum token cap, if set."
+        "description": "Retrieve information about the authorized minter of the CW20. This query will return the minter's address and token cap."
       }
     }
   },

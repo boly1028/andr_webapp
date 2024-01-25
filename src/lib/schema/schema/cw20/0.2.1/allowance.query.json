@@ -23,6 +23,7 @@
     "classifier": ""
   },
   "ui-schema": {
+    "ui:description":"Only with \"allowance\" extension. Returns how much spender can use from owner account.",
     "allowance": {
       "ui:options": {
         "title": "Query Allowance",

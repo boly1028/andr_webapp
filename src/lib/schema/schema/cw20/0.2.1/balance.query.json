@@ -27,6 +27,7 @@
     "description": "Returns the current balance of the given address, 0 if unset. Return type: BalanceResponse."
   },
   "ui-schema": {
+    "ui:description":"Check the current balance of a specified address in the Andromeda ecosystem.",
     "balance": {
       "ui:options": {
         "title": "Query Balance",

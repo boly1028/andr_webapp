@@ -239,6 +239,10 @@
         }
       },
       "logo": {
+        "ui:options": {
+          "title": "Logo",
+          "description": "A link to the logo, or a comment that there is an on-chain logo stored."
+        },
         "url": {
           "ui:options": {
             "title": "Logo URL",
@@ -251,9 +255,14 @@
           "svg": {
             "ui:options": {
               "title": "SVG File to Store",
+              "description":"Store the Logo as an SVG file on chain.",
               "alerts": [
                 {
                   "text": "Enforce maximum size of 5KB on all variants",
+                  "type": "warning"
+                },
+                {
+                  "text": "The content must conform to the specifications found at https://en.wikipedia.org/wiki/SVG.",
                   "type": "warning"
                 }
               ],
@@ -263,6 +272,7 @@
           "png": {
             "ui:options": {
               "title": "PNG File to Store",
+              "description": "Store the Logo as a PNG file on chain. This will likely only support up to 64x64 or so within the 5KB limit.",
               "alerts": [
                 {
                   "text": "Enforce maximum size of 5KB on all variants",

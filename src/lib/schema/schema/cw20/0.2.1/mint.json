@@ -43,7 +43,7 @@
       "amount": {
         "ui:widget": "text",
         "ui:placeholder": "e.g., 1000000000",
-        "ui:description": "Specify the amount of tokens to mint. Use a string format for large numbers."
+        "ui:description": "Specify the amount of tokens to mint."
       },
       "recipient": {
         "ui:widget": "text",

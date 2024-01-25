@@ -28,10 +28,11 @@
     "classifier": ""
   },
   "ui-schema": {
+    "ui:title":"Transfer tokens to a specified address without triggering actions.",
     "transfer": {
       "ui:options": {
         "title": "Transfer",
-        "description": "Initiate a transfer of tokens to a specified address."
+        "description": "Initiate a transfer of tokens to a specified address without triggering actions."
       },
       "amount": {
         "ui:options": {

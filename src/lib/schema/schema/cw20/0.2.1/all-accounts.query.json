@@ -30,17 +30,25 @@
     "classifier": ""
   },
   "ui-schema": {
+    "ui:title": "All Accounts",
+    "ui:description": "Retrieve a list of all accounts which have a balance. Use pagination to manage the results.",
     "all_accounts": {
       "ui:options ": {
         "title": "Query All Accounts",
-        "description": "Retrieve a list of all accounts with balances. Use pagination to manage the results."
+        "description": "Retrieve a list of all accounts which have a balance. Supports pagination to manage the results."
       },
       "limit": {
         "ui:options": {
+          "alerts": [
+            {
+              "text": "A maximum of 30 results can be returned in one request.",
+              "type": "warning"
+            }
+          ],
           "title": "Result Limit",
           "description": "Set the maximum number of accounts to be retrieved in one request. Leave blank for default limit.",
           "placeholder": "e.g., 20",
-          "help": "Enter a number to limit the number of accounts returned. If left empty, a default limit will be applied."
+          "help": "If left empty, a default limit of 10 results will be applied. Values greater than 30 will default to the maximum of 30 results."
         }
       },
       "start_after": {

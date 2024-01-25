@@ -18,6 +18,7 @@
     "classifier": ""
   },
   "ui-schema": {
+    "ui:description":"Retrieve detailed information about the token, including its name, supply, and decimal precision.",
     "token_info": {
       "ui:options": {
         "title": "Request Token Information",
