@@ -150,7 +150,8 @@
         "title": "Start Sale",
         "description": "",
         "alerts": [
-          { "text": "Only available to the contract owner.", "type": "error" }
+          { "text": "Only available to the contract owner.", "type": "error" },
+          { "text": "A sale cannot be started if one is already ongoing.", "type": "error" }
         ]
       },
       "expiration": {
@@ -177,8 +178,8 @@
             "description": "A point in time declared in nanosecond.",
             "alerts": [
               {
-                "text": "AtTime will expire when env.block.time >= time.",
-                "type": "info"
+                "text": "Must be declared as a time in the future.",
+                "type": "warning"
               }
             ]
           },
@@ -187,7 +188,13 @@
         "never": {
           "ui:options": {
             "title": "Never",
-            "description": "Never will never expire. Used to express the empty variant."
+            "description": "Never will never expire. Used to express the empty variant.",
+            "alerts": [
+              {
+                "text": "This is an incompatible value which will prevent the sale from ever starting.",
+                "type": "error"
+              }
+            ]
           }
         }
       },

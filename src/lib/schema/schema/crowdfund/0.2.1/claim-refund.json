@@ -21,8 +21,7 @@
     "claim_refund": {
       "ui:options": {
         "title": "Claim Refund",
-        "description": "Claim your refund if the sale did not meet the minimum token requirement.",
-        "placeholder": "Claim your refund"
+        "description": "Claim your refund if the sale did not meet the minimum token requirement."
       }
     }
   },

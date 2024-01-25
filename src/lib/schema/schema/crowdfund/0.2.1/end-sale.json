@@ -38,6 +38,10 @@
           {
             "text": "If the sale <b>does not meet</b> the minimum number of tokens required to be sold, refunds are sent to the <b>buyers</b>, and the tokens are <b>burned</b>",
             "type": "info"
+          },
+          {
+            "text":"The EndSale message needs to be called twice. Once for distribution of NFTs, and another for distribution of funds. ",
+            "type": "warning"
           }
         ]
       },
