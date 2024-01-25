@@ -34,7 +34,7 @@
         "ui:widget": "text",
         "ui:title": "Limit",
         "ui:placeholder": "e.g., 12",
-        "ui:description": "Limit the number of sale infos to retrieve. Enter a positive integer or leave it empty for no limit."
+        "ui:description": "Limit the number of sale infos to retrieve. Enter a positive integer up to 30, or leave it empty for a default value of 10."
       },
       "start_after": {
         "ui:widget": "text",

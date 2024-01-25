@@ -35,13 +35,13 @@
         "ui:widget": "text",
         "ui:title": "Coin Denomination",
         "ui:placeholder": "e.g., uandr",
-        "ui:description": "The denomination of the coin used in the sale."
+        "ui:description": "Enter the coin denomination. These will be in micro units so ANDR will be uandr (lower case letters)."
       },
       "price": {
         "ui:widget": "text",
         "ui:title": "Sale Price",
         "ui:placeholder": "e.g., 100000",
-        "ui:description": "The price of the item in the sale, in micro-units of the specified coin denomination."
+        "ui:description": "Enter the price. Note: The price will be in micro units so make sure to confirm your amount."
       },
       "token_address": {
         "ui:widget": "text",
