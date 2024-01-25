@@ -28,18 +28,24 @@
     "classifier": ""
   },
   "ui-schema": {
+    "ui:title":"Transfer tokens to a specified address without triggering actions.",
     "transfer": {
-      "ui:options": { "title": "Transfer", "description": " " },
+      "ui:options": {
+        "title": "Transfer",
+        "description": "Initiate a transfer of tokens to a specified address without triggering actions."
+      },
       "amount": {
         "ui:options": {
           "title": "Transfer Amount",
-          "description": "The amount of tokens to transfer."
+          "description": "The amount of tokens to transfer.",
+          "placeholder": "e.g., 1000"
         }
       },
       "recipient": {
         "ui:options": {
           "title": "Transfer Recipient",
-          "description": "The address to transfer the tokens to."
+          "description": "The address to transfer the tokens to.",
+          "placeholder": "e.g., andr1fl48v...0eh"
         }
       }
     }

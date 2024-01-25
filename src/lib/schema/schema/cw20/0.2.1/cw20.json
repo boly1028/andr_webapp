@@ -176,13 +176,15 @@
     "name": {
       "ui:options": {
         "title": "Token Name",
-        "description": "Name of the token. Letters only, must be between 3 and 12 characters."
+        "description": "Name of the token. Letters only, must be between 3 and 12 characters.",
+        "placeholder": "e.g., MyToken"
       }
     },
     "symbol": {
       "ui:options": {
         "title": "Token Symbol",
         "description": "Symbol of the token. Letters only, must be between 3 and 12 characters.",
+        "placeholder": "e.g., MTKN",
         "alerts": [
           {
             "text": "The symbol can only consist of letters and has to be between 3 and 12 characters.",
@@ -194,27 +196,35 @@
     "decimals": {
       "ui:options": {
         "title": "Number of Decimals in Token",
-        "description": "The number of decimals for the token. (12 is common)"
+        "description": "The number of decimals for the token. (12 is common)",
+        "placeholder": "e.g., 12"
       }
     },
     "initial_balances": {
       "ui:options": {
         "title": "Starting Balance",
-        "description": "A list of addresses and the amount of coin to initialize for each."
+        "description": "A list of addresses and the amount of coin to initialize for each.",
+        "placeholder": "e.g., [{\"address\": \"andr1...\", \"amount\": \"1000\"}]"
       },
       "items": {
         "ui:options": {
           "title": "Balance",
-          "description": "Contains one address and the amount of tokens for that address. You must do this for each address you wish to initialize a starting balance for."
+          "description": "Contains one address and the amount of tokens for that address. You must do this for each address you wish to initialize a starting balance for.",
+          "placeholder": "e.g., {\"address\": \"andr1...\", \"amount\": \"1000\"}"
         },
         "address": {
           "ui:options": {
             "title": "Address",
-            "description": "The address to recieve tokens."
+            "description": "The address to receive tokens.",
+            "placeholder": "e.g., andr1fl48v...0eh or ./componentName"
           }
         },
         "amount": {
-          "ui:options": { "title": "Amount", "description": "Amount of tokens" }
+          "ui:options": {
+            "title": "Amount",
+            "description": "Amount of tokens",
+            "placeholder": "e.g., 1000"
+          }
         }
       }
     },
@@ -224,14 +234,20 @@
       "description": {
         "ui:options": {
           "title": "Token Description",
-          "description": "A longer description of the token and its' utility. Designed for tooltips or short alerts."
+          "description": "A longer description of the token and its' utility. Designed for tooltips or short alerts.",
+          "placeholder": "e.g., This token is used for..."
         }
       },
       "logo": {
+        "ui:options": {
+          "title": "Logo",
+          "description": "A link to the logo, or a comment that there is an on-chain logo stored."
+        },
         "url": {
           "ui:options": {
             "title": "Logo URL",
-            "help": "Must be a valid URL beginning with HTTPS (e.g. 'HTTPS://yourlogo.com')"
+            "help": "Must be a valid URL beginning with HTTPS (e.g. 'HTTPS://yourlogo.com')",
+            "placeholder": "e.g., https://example.com/logo.png"
           }
         },
         "embedded": {
@@ -239,23 +255,31 @@
           "svg": {
             "ui:options": {
               "title": "SVG File to Store",
+              "description":"Store the Logo as an SVG file on chain.",
               "alerts": [
                 {
                   "text": "Enforce maximum size of 5KB on all variants",
                   "type": "warning"
+                },
+                {
+                  "text": "The content must conform to the specifications found at https://en.wikipedia.org/wiki/SVG.",
+                  "type": "warning"
                 }
-              ]
+              ],
+              "placeholder": "e.g., <svg>...</svg>"
             }
           },
           "png": {
             "ui:options": {
               "title": "PNG File to Store",
+              "description": "Store the Logo as a PNG file on chain. This will likely only support up to 64x64 or so within the 5KB limit.",
               "alerts": [
                 {
                   "text": "Enforce maximum size of 5KB on all variants",
                   "type": "warning"
                 }
-              ]
+              ],
+              "placeholder": "e.g., Base64 encoded PNG"
             }
           }
         }
@@ -263,13 +287,15 @@
       "marketing": {
         "ui:options": {
           "title": "Authorized Marketing Address",
-          "description": "The address (if any) who can update this data structure."
+          "description": "The address (if any) who can update this data structure.",
+          "placeholder": "e.g., andr1fl48v...0eh or ./componentName"
         }
       },
       "project": {
         "ui:options": {
           "title": "Project URL",
-          "description": "A URL pointing to the project behind this token. Must begin with HTTPS."
+          "description": "A URL pointing to the project behind this token. Must begin with HTTPS.",
+          "placeholder": "e.g., https://exampleproject.com"
         }
       }
     },
@@ -280,14 +306,16 @@
       "minter": {
         "ui:options": {
           "title": "Minting Address",
-          "description": "The address to assign as a minter. "
+          "description": "The address to assign as a minter.",
+          "placeholder": "e.g., andr1fl48v...0eh or ./componentName"
         }
       }
     },
     "modules": {
       "ui:options": {
         "title": "Additional Modules",
-        "description": "(Optional) address_list module can be added."
+        "description": "(Optional) address_list module can be added.",
+        "placeholder": "e.g., ./address_list"
       },
       "items": {
         "ui:options": { "title": "Module" },
@@ -298,25 +326,29 @@
             "description": "Can be either an address or the app component name of a specific ADO within an app.",
             "alerts": [
               { "text": "Allowed modules: address_list", "type": "error" }
-            ]
+            ],
+            "placeholder": "e.g., andr1... or ./componentName"
           },
           "identifier": {
             "ui:options": {
               "title": "Identifier",
-              "description": "Can be either an address or the app component name of a specific ADO within an app."
+              "description": "Can be either an address or the app component name of a specific ADO within an app.",
+              "placeholder": "e.g., andr1... or ./componentName"
             }
           }
         },
         "module_type": {
           "ui:options": {
             "title": "Module Type",
-            "description": "Name of the module to add. Can be set one of the following: address_list."
+            "description": "Name of the module to add. Can be set to the following: address_list.",
+            "placeholder": "e.g., ./address_list"
           }
         },
         "is_mutable": {
           "ui:options": {
             "title": "Is Module Able to be Modified?",
-            "description": "Check the box if you want the module the be modifiable later."
+            "description": "Check the box if you want the module the be modifiable later.",
+            "placeholder": "Check for Yes"
           }
         }
       }

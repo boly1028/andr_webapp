@@ -42,13 +42,13 @@
       },
       "amount": {
         "ui:widget": "text",
-        "ui:placeholder": "1000000000",
-        "ui:description": "Specify the amount of tokens to mint. Use a string format for large numbers."
+        "ui:placeholder": "e.g., 1000000000",
+        "ui:description": "Specify the amount of tokens to mint."
       },
       "recipient": {
         "ui:widget": "text",
-        "ui:placeholder": "andr1v54e0pskn029vtp863mpxccn2g20tx0a6h95rj",
-        "ui:description": "The address of the recipient who will receive the minted tokens."
+        "ui:placeholder": "e.g., andr1fl48v...0eh",
+        "ui:description": "The address designated to receive the minted tokens."
       }
     }
   },

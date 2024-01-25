@@ -13,7 +13,10 @@
             "minimum": 0,
             "title": "Limit"
           },
-          "start_after": { "type": ["string", "null"], "title": "Start after" }
+          "start_after": {
+            "type": ["string", "null"],
+            "title": "Start after"
+          }
         },
         "additionalProperties": false,
         "title": "All accounts"
@@ -26,6 +29,37 @@
     "version": "0.2.1",
     "classifier": ""
   },
-  "ui-schema": {},
+  "ui-schema": {
+    "ui:title": "All Accounts",
+    "ui:description": "Retrieve a list of all accounts which have a balance. Use pagination to manage the results.",
+    "all_accounts": {
+      "ui:options ": {
+        "title": "Query All Accounts",
+        "description": "Retrieve a list of all accounts which have a balance. Supports pagination to manage the results."
+      },
+      "limit": {
+        "ui:options": {
+          "alerts": [
+            {
+              "text": "A maximum of 30 results can be returned in one request.",
+              "type": "warning"
+            }
+          ],
+          "title": "Result Limit",
+          "description": "Set the maximum number of accounts to be retrieved in one request. Leave blank for default limit.",
+          "placeholder": "e.g., 20",
+          "help": "If left empty, a default limit of 10 results will be applied. Values greater than 30 will default to the maximum of 30 results."
+        }
+      },
+      "start_after": {
+        "ui:options": {
+          "title": "Start After Account",
+          "description": "Specify an account address to begin listing the next set of accounts in the pagination.",
+          "placeholder": "e.g., andr1fl48v...0eh",
+          "help": "Enter an account address to start listing accounts after it. Useful for pagination."
+        }
+      }
+    }
+  },
   "form-data": {}
 }

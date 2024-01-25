@@ -28,6 +28,45 @@
     "version": "0.2.1",
     "classifier": ""
   },
-  "ui-schema": {},
+  "ui-schema": {
+    "ui:title": "All Allowances",
+    "ui:description": "Retrieve a list of all allowances an owner has approved. Supports pagination for large sets of data.",
+    "all_allowances": {
+      "ui:options": {
+        "title": "Query All Allowances",
+        "description": "Retrieve a list of all allowances an owner has approved. Supports pagination for large sets of data."
+      },
+      "limit": {
+        "ui:options": {
+          "alerts": [
+            {
+              "text": "A maximum of 30 results can be returned in one request.",
+              "type": "warning"
+            }
+          ],
+          "title": "Result Limit",
+          "description": "The maximum number of allowance records to return in a single query. Leave blank to use the default limit.",
+          "placeholder": "e.g., 10",
+          "help": "If left empty, a default limit of 10 results will be applied. Values greater than 30 will default to the maximum of 30 results."
+        }
+      },
+      "owner": {
+        "ui:options": {
+          "title": "Owner Address",
+          "description": "The wallet address of the owner whose allowances are being queried.",
+          "placeholder": "e.g., andr1fl48v...0eh",
+          "help": "Enter the wallet address of the owner to retrieve their approved allowances."
+        }
+      },
+      "start_after": {
+        "ui:options": {
+          "title": "Start After",
+          "description": "Begin the list of allowances after the specified allowance record, for pagination.",
+          "placeholder": "e.g., lastAllowanceIdSeen",
+          "help": "Specify an allowance identifier to start the list after, for pagination purposes."
+        }
+      }
+    }
+  },
   "form-data": {}
 }
