@@ -17,6 +17,14 @@
     "version": "0.2.1",
     "classifier": ""
   },
-  "ui-schema": {},
+  "ui-schema": {
+    "claim_refund": {
+      "ui:options": {
+        "title": "Claim Refund",
+        "description": "Claim your refund if the sale did not meet the minimum token requirement."
+      }
+    }
+  },
   "form-data": {}
 }
+

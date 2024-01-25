@@ -25,6 +25,16 @@
     "version": "0.2.1",
     "classifier": ""
   },
-  "ui-schema": {},
+  "ui-schema": {
+    "balance": {
+      "address": {
+        "ui:options": {
+          "title": "Address",
+          "description": "Enter the address to check the balance for within the Andromeda ecosystem.",
+          "placeholder": "e.g., andr1... or ./componentName"
+        }
+      }
+    }
+  },
   "form-data": {}
 }
