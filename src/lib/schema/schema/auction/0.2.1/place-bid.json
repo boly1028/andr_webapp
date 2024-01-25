@@ -35,8 +35,8 @@
             "type": "error"
           },
           {
-            "text": "The previous largest bid gets automatically sent back to the bidder when they are outbid.",
-            "type": "warning"
+            "text": "Bids cannot be placed if you are currently the highest bidder.",
+            "type": "error"
           }
         ]
       },

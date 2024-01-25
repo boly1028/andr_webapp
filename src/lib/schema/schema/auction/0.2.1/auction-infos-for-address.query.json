@@ -48,7 +48,8 @@
         "ui:placeholder": "e.g., 10",
         "ui:options": {
           "title": "Result Limit",
-          "description": "(Optional) Maximum number of auction info entries to retrieve."
+          "description": "(Optional) Maximum number of auction info entries to retrieve.",
+          "help" : "If no value is specified a default limit of 10 is used. The maximum limit is 30."
         }
       },
       "start_after": {
