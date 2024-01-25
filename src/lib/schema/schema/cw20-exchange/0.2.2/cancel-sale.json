@@ -56,12 +56,14 @@
           "ui:options": {
             "title": "Asset Details",
             "description": "Select the type of asset for which the sale is to be canceled and provide the respective details.",
-            "optionNames": ["Native", "cw20 Token"]
+            "optionNames": ["Native", "CW20 Token"]
           },
           "native": {
             "ui:options": {
               "title": "Native Asset",
-              "description": "If the asset is a native SDK coin, enter its denomination here."
+              "description": "If the asset is a native SDK coin, enter its denomination here.",
+              "placeholder": "e.g., uandr",
+              "help": "Should be all lowercase letters."
             }
           },
           "cw20": {
