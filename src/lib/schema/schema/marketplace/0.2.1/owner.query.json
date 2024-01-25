@@ -16,6 +16,9 @@
     "version": "0.2.1",
     "classifier": ""
   },
-  "ui-schema": {},
+  "ui-schema": {
+    "owner": {
+    }
+  },
   "form-data": {}
 }

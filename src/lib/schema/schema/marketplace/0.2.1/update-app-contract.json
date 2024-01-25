@@ -18,6 +18,15 @@
     "version": "0.2.1",
     "classifier": ""
   },
-  "ui-schema": {},
+  "ui-schema": {
+    "update_app_contract": {
+      "address": {
+        "ui:widget": "text",
+        "ui:title": "Contract Address",
+        "ui:placeholder": "e.g., andr1...5rj",
+        "ui:description": ""
+      }
+    }
+  },
   "form-data": {}
 }
