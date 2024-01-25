@@ -50,7 +50,7 @@
         "ado_type": {
           "ui:widget": "text",
           "ui:title": "ADO Type",
-          "ui:placeholder": "./cw721"
+          "ui:placeholder": "cw721"
         },
         "instantiate_msg": {
           "ui:widget": "textarea",
@@ -60,6 +60,7 @@
         },
         "name": {
           "ui:widget": "text",
+          "ui:title": "Component Name",
           "ui:placeholder": "Enter Component Name"
         }
       }
