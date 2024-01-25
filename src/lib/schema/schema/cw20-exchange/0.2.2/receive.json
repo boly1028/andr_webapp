@@ -35,6 +35,38 @@
     "version": "0.2.2",
     "classifier": ""
   },
-  "ui-schema": {},
+  "ui-schema": {
+    "receive": {
+      "ui:order": ["sender", "amount", "msg", "*"],
+      "ui:options": {
+        "title": "CW20 Token Reception",
+        "description": "Enter the details required to receive CW20 tokens for purchasing or initiating a sale."
+      },
+      "amount": {
+        "ui:widget": "text",
+        "ui:placeholder": "e.g., 20",
+        "ui:options": {
+          "title": "Enter amount to receive",
+          "description": "The amount of CW20 tokens to be received. Ensure this is in the smallest unit of the token."
+        }
+      },
+      "sender": {
+        "ui:widget": "text",
+        "ui:placeholder": "e.g., andr1...",
+        "ui:options": {
+          "title": "Enter sender's address",
+          "description": "The address of the sender from whom you are receiving the CW20 tokens."
+        }
+      },
+      "msg": {
+        "ui:widget": "Cw20ReceiveMsg",
+        "ui:placeholder": "Enter message in base64 format",
+        "ui:options": {
+          "title": "Associated Message",
+          "description": "An optional base64 encoded message to accompany the CW20 token receipt. This should match the expected format of the receiving smart contract."
+        }
+      }
+    }
+  },  
   "form-data": {}
 }
