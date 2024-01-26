@@ -18,6 +18,20 @@
     "version": "0.2.1",
     "classifier": ""
   },
-  "ui-schema": {},
+  "ui-schema": {
+    "update_owner": {
+      "ui:options": {
+        "title": "Owner Update",
+        "description": "Update the owner address of the contract."
+      },
+      "address": {
+        "ui:options": {
+          "title": "New Owner Address",
+          "description": "Enter the new address to assign as the owner.",
+          "placeholder": "e.g., andr1..."
+        }
+      }
+    }
+  },
   "form-data": {}
 }
