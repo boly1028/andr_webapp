@@ -43,11 +43,17 @@
   "ui-schema": {
     "deposit": {
       "msg": {
+        "ui:options": {
+          "optionNames": ["With Message", "None"]
+        },
         "ui:title": "Message",
-        "ui:placeholder": "This field will autopopulate",
+        "ui:placeholder": "This field will auto-populate",
         "ui:description": "Binary message as a wrapper around Vec<u8>."
       },
       "recipient": {
+        "ui:options": {
+          "optionNames": ["With Recipient", "None"]
+        },
         "ui:title": "Recipient Address",
         "ui:placeholder": "e.g., andr1... or ./componentName",
         "ui:description": "Enter a valid Andromeda recipient address or VFS path. Example: andr1... or ./component"

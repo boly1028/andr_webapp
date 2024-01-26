@@ -28,7 +28,7 @@
         "ui:options": {
           "title": "New Owner Address",
           "description": "Enter the new address to assign as the owner.",
-          "placeholder": "andr1..."
+          "placeholder": "e.g., andr1..."
         }
       }
     }
