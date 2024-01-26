@@ -13,7 +13,7 @@
             "properties": {
               "ado_type": { "type": "string" },
               "instantiate_msg": {
-                "description": "Binary is a wrapper around Vec<u8> to add base64 de/serialization with serde. It also adds some helper methods to help encode inline.\n\nThis is only needed as serde-json-{core,wasm} has a horrible encoding for Vec<u8>. See also <https://github.com/CosmWasm/cosmwasm/blob/main/docs/MESSAGE_TYPES.md>.",
+                "description": "Binary is a wrapper around Vec<u8> to add base64 de/serialization with serde. ",
                 "type": "string",
                 "$original_type": "Binary"
               },
@@ -37,7 +37,24 @@
   },
   "ui-schema": {
     "add_app_component": {
-      "component": { "instantiate_msg": { "ui:widget": "instantiateMsg" } }
+      "component": {
+        "ado_type": {
+          "ui:widget": "text",
+          "ui:title": "ADO Type",
+          "ui:placeholder": "cw721"
+        },
+        "instantiate_msg": {
+          "ui:widget": "textarea",
+          "ui:title": "ADO Selection",
+          "ui:placeholder": "This field will autopopulate as you choose and configure your ADO",
+          "ui:description": "Select an ADO from the dropdown list. Make sure it matches what you entered into the 'ado_type' field above."
+        },
+        "name": {
+          "ui:widget": "text",
+          "ui:title": "Component Name",
+          "ui:placeholder": "NameOfThisComponent"
+        }
+      }
     }
   },
   "form-data": {}

@@ -7,7 +7,7 @@
         "type": "object",
         "required": ["addr", "name"],
         "properties": {
-          "addr": { "type": "string", "title": "Addr" },
+          "addr": { "type": "string", "title": "Address" },
           "name": { "type": "string", "title": "Name" }
         },
         "additionalProperties": false,
@@ -21,6 +21,21 @@
     "version": "0.2.1",
     "classifier": ""
   },
-  "ui-schema": {},
+  "ui-schema": {
+    "update_address": {
+      "addr": {
+        "ui:widget": "text",
+        "ui:title": "New Address",
+        "ui:placeholder": "e.g., andr1...",
+        "ui:description": "Enter the new address to update (required)."
+      },
+      "name": {
+        "ui:widget": "text",
+        "ui:title": "Name",
+        "ui:placeholder": "e.g., NameOfYourChoice",
+        "ui:description": "Enter the name associated with the new address."
+      }
+    }
+  },
   "form-data": {}
 }

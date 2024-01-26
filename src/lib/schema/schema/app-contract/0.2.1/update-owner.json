@@ -18,6 +18,15 @@
     "version": "0.2.1",
     "classifier": ""
   },
-  "ui-schema": {},
+  "ui-schema": {
+    "update_owner": {
+      "address": {
+        "ui:widget": "text",
+        "ui:title": "New Owner Address",
+        "ui:placeholder": "e.g., andr1...",
+        "ui:description": "Enter the new owner's address (required)."
+      }
+    }
+  },
   "form-data": {}
 }

@@ -19,6 +19,15 @@
     "version": "0.2.1",
     "classifier": ""
   },
-  "ui-schema": {},
+  "ui-schema": {
+    "claim_ownership": {
+      "name": {
+        "ui:widget": "text",
+        "ui:title": "Owner's Name",
+        "ui:placeholder": "e.g., andr1...",
+        "ui:description": "Enter the address of the new owner (optional)."
+      }
+    }
+  },
   "form-data": {}
 }
