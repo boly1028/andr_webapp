@@ -35,22 +35,22 @@
   "ui-schema": {
     "coinDenom": {
       "ui:widget": "text",
-      "ui:placeholder": "Enter Coin Denom",
-      "ui:description": "Enter the denomination of coin you require buyers to use."
+      "ui:placeholder": "e.g., uandr",
+      "ui:description": "Enter the denomination of coin you require buyers to use. It should be in microdenominations, so ANDR will be uandr."
     },
     "name": {
       "ui:widget": "text",
-      "ui:placeholder": "Enter App Name",
+      "ui:placeholder": "e.g., MyAppName",
       "ui:description": "Assign a name to this embaddable App. This will be visible to viewers of your embeddable app."
     },
     "twitter": {
       "ui:widget": "text",
-      "ui:placeholder": "Enter Twitter URL",
+      "ui:placeholder": "e.g., https://twitter...",
       "ui:description": "(Optional) Twitter url for this embeddable. Must begin with https://"
     },
     "banner": {
       "ui:widget": "text",
-      "ui:placeholder": "Enter Banner Image URL",
+      "ui:placeholder": "e.g., https://yourbannerimg...",
       "ui:description": "Enter a URL pointing at a banner image which will display on your embeddable. Must start with https://"
     }
   },
