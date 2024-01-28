@@ -35,19 +35,24 @@
               "required": ["address"],
               "properties": {
                 "address": {
-                  "description": "An address that can be used within the Andromeda ecosystem. Inspired by the cosmwasm-std `Addr` type. https://github.com/CosmWasm/cosmwasm/blob/2a1c698520a1aacedfe3f4803b0d7d653892217a/packages/std/src/addresses.rs#L33\n\nThis address can be one of two things: 1. A valid human readable address e.g. `cosmos1...` 2. A valid Andromeda VFS path e.g. `/home/user/app/component`\n\nVFS paths can be local in the case of an app and can be done by referencing `./component` they can also contain protocols for cross chain communication. A VFS path is usually structured as so:\n\n`<protocol>://<chain (required if ibc used)>/<path>` or `ibc://cosmoshub-4/user/app/component`",
+                  "description": "An address that can be used within the Andromeda ecosystem. Inspired by the cosmwasm-std `Addr` type.nThis address can be one of two things: 1. A valid human readable address e.g. `andr1...` 2. A valid Andromeda VFS path e.g. `./componentNamw`",
                   "type": "string",
                   "$original_type": "AndrAddr"
                 },
                 "ibc_recovery_address": {
                   "anyOf": [
                     {
-                      "description": "An address that can be used within the Andromeda ecosystem. Inspired by the cosmwasm-std `Addr` type. https://github.com/CosmWasm/cosmwasm/blob/2a1c698520a1aacedfe3f4803b0d7d653892217a/packages/std/src/addresses.rs#L33\n\nThis address can be one of two things: 1. A valid human readable address e.g. `cosmos1...` 2. A valid Andromeda VFS path e.g. `/home/user/app/component`\n\nVFS paths can be local in the case of an app and can be done by referencing `./component` they can also contain protocols for cross chain communication. A VFS path is usually structured as so:\n\n`<protocol>://<chain (required if ibc used)>/<path>` or `ibc://cosmoshub-4/user/app/component`",
+                      "description": "An address that can be used within the Andromeda ecosystem. Inspired by the cosmwasm-std `Addr` type...",
                       "type": "string",
                       "$original_type": "AndrAddr"
                     },
                     { "type": "null" }
-                  ]
+                  ],
+                  "ui:options": {
+                    "title": "IBC Recovery Address",
+                    "description": "An Andromeda ecosystem address.",
+                    "placeholder": "e.g, andr1... "
+                  }
                 },
                 "msg": {
                   "anyOf": [
@@ -57,7 +62,12 @@
                       "$original_type": "Binary"
                     },
                     { "type": "null" }
-                  ]
+                  ],
+                  "ui:options": {
+                    "title": "Message",
+                    "description": "(Optional) Add a message.",
+                    "placeholder": "This field will autopopulate as you enter data for your choices from the dropdown menu. "
+                  }
                 }
               },
               "additionalProperties": false,
@@ -81,7 +91,7 @@
     "lock_time": {
       "ui:options": {
         "title": "Lock Time",
-        "description": "Recipients cannot be changed for this duration of time selected. Minimum is 1 day and Maximum is 1 year."
+        "description": "(Optional) Recipients cannot be changed for this duration of time selected. Minimum is 1 day and Maximum is 1 year."
       },
       "ui:widget": "duration"
     },
@@ -99,12 +109,14 @@
             "description": "",
             "alerts": [
               { "text": "Allowed modules: \"address_list\"", "type": "error" }
-            ]
+            ],
+            "placeholder": "e.g, andr1... or ./componentName"
           },
           "identifier": {
             "ui:options": {
               "title": "Identifier",
-              "description": "Can be either an address or app component name of a specific ADO within an app"
+              "description": "Can be either an address or app component name of a specific ADO within an app",
+              "placeholder": "e.g, andr1... or ./componentName"
             }
           }
         },
@@ -125,25 +137,30 @@
     "recipients": {
       "ui:options": {
         "title": "Recipients",
-        "description": "A list of one to many recipients that can be changed as you build.",
+        "description": "A list of recipients that can be changed as you build.",
         "alerts": [
           {
-            "text": "To be a valid recipient and required inputs include the following:<ul><li>Be non-empty</li><li>Have percentage amounts less than or equaling 1</li><li>A maximum of <b>100</b> recipients can be set.</li></ul>",
+            "text": "To be a valid recipient and required inputs include the following:<ul><li>All fields marked with an * are mandatory.</li><li>Percentages are decimalized (e.g. 0.05 = 5%)</li><li>The total amounts of all recipients cannot exceed 1 (100%)</li><li>A maximum of <b>100</b> recipients can be set.</li></ul>",
             "type": "warning"
           }
         ]
       },
       "items": {
-        "ui:options": { "title": "Distribution Percentage" },
+        "ui:options": { "title": "Distribution Percentage", "description": "This is ONLY ONE recipient. To add more, click '+Add Item' below.", "placeholder": "" },
         "percent": {
-          "ui:options": { "title": "Percentage", "description": " " }
+          "ui:options": { "title": "Percentage", "description": " The percentage to take as rate. This must be as decimal, formatted like this '0.05' (which would be 5%) ", "placeholder": "e.g., 0.05" }
         },
         "recipient": {
-          "ui:options": {},
+          "ui:options": {
+            "title": "Recipient",
+            "description": "Enter the address or component name of the recipient for this portion of the split.",
+            "placeholder": "e.g, andr1... or ./componentName"
+          },
           "address": {
             "ui:options": {
               "title": "Address",
-              "description": "Addr can also be a human-readable identifier used in a app contract."
+              "placeholder": "e.g, andr1... or ./componentName",
+              "description": "An Andromeda ecosystem address, or a verifiable VFS address."
             },
             "identifier": {
               "ui:options": {
@@ -152,7 +169,22 @@
               }
             }
           },
-          "msg": { "ui:options": { "optionNames": ["Attach Message", "None"] } }
+          "ibc_recovery_address": {
+            "ui:options": {
+              "optionNames": ["IBC Recovery Address", "None"],
+              "title": "IBC Recovery Address",
+              "description": "Designate an Andromeda ecosystem address, or a verifiable VFS address, as an IBC recovery address.",
+              "placeholder": "e.g, andr1... or ./componentName"
+            }
+          },
+          "msg": {
+            "ui:options": {
+              "title": "Message (Optional)",
+              "description": "Include an optional message for the recipient.",
+              "placeholder": "This field will autopopulate as you attach a message.",
+              "optionNames": ["Attach Message", "None"]
+            }
+          }
         }
       }
     },

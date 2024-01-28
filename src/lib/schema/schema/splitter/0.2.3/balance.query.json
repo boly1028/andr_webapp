@@ -25,6 +25,16 @@
     "version": "0.2.3",
     "classifier": ""
   },
-  "ui-schema": {},
+  "ui-schema": {
+    "balance": {
+      "address": {
+        "ui:options": {
+          "title": "ADO Address",
+          "description": "Enter the address or identifier of a specific ADO within the app. This can be either an Andromeda address or an app component name.",
+          "placeholder": "e.g., andr1... or ./componentName"
+        }
+      }
+    }
+  },
   "form-data": {}
 }
