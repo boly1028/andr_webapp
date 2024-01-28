@@ -38,7 +38,7 @@
     }
   },
   "ui-schema": {
-    "auction": {
+    "marketplace": {
       "ui:widget": "text",
       "ui:placeholder": "e.g., andr1... or ./auctionName",
       "ui:description": "Enter the address of the Marketplace component you wish to display in your embeddable."

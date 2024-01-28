@@ -38,7 +38,7 @@
     }
   },
   "ui-schema": {
-    "auction": {
+    "crowdfund": {
       "ui:widget": "text",
       "ui:placeholder": "e.g., andr1... or ./auctionName",
       "ui:description": "Enter the address of the Crowdfund component you wish to display in your embeddable."
