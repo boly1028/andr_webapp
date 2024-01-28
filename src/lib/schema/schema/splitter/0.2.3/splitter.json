@@ -140,7 +140,7 @@
         "description": "A list of recipients that can be changed as you build.",
         "alerts": [
           {
-            "text": "To be a valid recipient and required inputs include the following:<ul><li>All fields marked with an * are mandatory.</li><li>Percentages are decimalized (e.g. 0.05 = 5%)</li><li>A maximum of <b>100</b> recipients can be set.</li></ul>",
+            "text": "To be a valid recipient and required inputs include the following:<ul><li>All fields marked with an * are mandatory.</li><li>Percentages are decimalized (e.g. 0.05 = 5%)</li><li>The total amounts of all recipients cannot exceed 1 (100%)</li><li>A maximum of <b>100</b> recipients can be set.</li></ul>",
             "type": "warning"
           }
         ]
