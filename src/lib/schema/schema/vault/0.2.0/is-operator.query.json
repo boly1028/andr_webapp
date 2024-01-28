@@ -18,6 +18,19 @@
     "version": "0.2.0",
     "classifier": ""
   },
-  "ui-schema": {},
+  "ui-schema": {
+    "is_operator": {
+      "address": {
+        "ui:widget": "text",
+        "ui:description": "Enter contract address",
+        "ui:placeholder": "e.g., andr1... or ./componentName",
+        "ui:help": "Enter a valid address to check its balance. The address should be in the format recognized by the Andromeda ecosystem.",
+        "ui:options": {
+          "inputType": "text"
+        }
+      }
+    }
+  },
   "form-data": {}
 }
+ 
