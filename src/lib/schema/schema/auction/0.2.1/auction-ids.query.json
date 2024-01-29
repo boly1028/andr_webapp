@@ -22,6 +22,30 @@
     "version": "0.2.1",
     "classifier": ""
   },
-  "ui-schema": {},
+  "ui-schema": {
+    "auction_ids": {
+      "ui:order": ["token_address", "token_id", "*"],
+      "ui:options": {
+        "title": "Auction IDs",
+        "description": "Retrieve the auction IDs associated with a specific token."
+      },
+      "token_address": {
+        "ui:widget": "text",
+        "ui:placeholder": "e.g., andr1fl48v...0eh",
+        "ui:options": {
+          "title": "Token Address",
+          "description": "The blockchain address of the token."
+        }
+      },
+      "token_id": {
+        "ui:widget": "text",
+        "ui:placeholder": "e.g., 101",
+        "ui:options": {
+          "title": "Token ID",
+          "description": "The unique identifier for the token."
+        }
+      }
+    }
+  },
   "form-data": {}
 }

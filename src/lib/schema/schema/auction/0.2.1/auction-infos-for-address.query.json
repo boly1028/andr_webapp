@@ -28,6 +28,39 @@
     "version": "0.2.1",
     "classifier": ""
   },
-  "ui-schema": {},
+  "ui-schema": {
+    "auction_infos_for_address": {
+      "ui:order": ["token_address", "limit", "start_after", "*"],
+      "ui:options": {
+        "title": "Auction Infos for Address",
+        "description": "Retrieve detailed information for auctions associated with a given token address."
+      },
+      "token_address": {
+        "ui:widget": "text",
+        "ui:placeholder": "e.g., andr1fl48v...0eh",
+        "ui:options": {
+          "title": "Token Address",
+          "description": "The blockchain address of the token to retrieve auction information for."
+        }
+      },
+      "limit": {
+        "ui:widget": "text",
+        "ui:placeholder": "e.g., 10",
+        "ui:options": {
+          "title": "Result Limit",
+          "description": "(Optional) Maximum number of auction info entries to retrieve.",
+          "help" : "If no value is specified a default limit of 10 is used. The maximum limit is 30."
+        }
+      },
+      "start_after": {
+        "ui:widget": "text",
+        "ui:placeholder": "e.g., lastAuctionIdSeen",
+        "ui:options": {
+          "title": "Start After",
+          "description": "(Optional) Auction ID after which to start listing auction info."
+        }
+      }
+    }
+  },
   "form-data": {}
 }

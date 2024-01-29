@@ -16,6 +16,13 @@
     "version": "0.2.1",
     "classifier": ""
   },
-  "ui-schema": {},
+  "ui-schema": {
+    "original_publisher": {
+      "ui:options": {
+        "title": "Original Publisher",
+        "description": "Retrieve the original publisher's information for a given contract or token."
+      }
+    }
+  },
   "form-data": {}
 }

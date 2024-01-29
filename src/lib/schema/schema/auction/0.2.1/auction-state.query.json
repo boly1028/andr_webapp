@@ -26,6 +26,22 @@
     "version": "0.2.1",
     "classifier": ""
   },
-  "ui-schema": {},
+  "ui-schema": {
+    "auction_state": {
+      "ui:order": ["auction_id", "*"],
+      "ui:options": {
+        "title": "Auction State",
+        "description": "Query the current state of an auction using the auction ID."
+      },
+      "auction_id": {
+        "ui:widget": "text",
+        "ui:placeholder": "e.g., 1234567890",
+        "ui:options": {
+          "title": "Auction ID",
+          "description": "The unique identifier of the auction to query."
+        }
+      }
+    }
+  },
   "form-data": {}
 }
