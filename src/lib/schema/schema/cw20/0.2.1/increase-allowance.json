@@ -83,6 +83,55 @@
     "version": "0.2.1",
     "classifier": ""
   },
-  "ui-schema": {},
+  "ui-schema": {
+    "increase_allowance": {
+      "ui:options": {
+        "title": "Increase Allowance Operation",
+        "description": "Allows a spender to access an additional amount of tokens from the owner's (env.sender) account. Optionally, set an expiration for this allowance."
+      },
+      "amount": {
+        "ui:options": {
+          "title": "Amount",
+          "description": "The amount of tokens the spender is allowed to access. This should be a string representing a number to accommodate large values.",
+          "placeholder": "e.g., 1000000"
+        }
+      },
+      "expires": {
+        "ui:options": {
+          "title": "Expiration",
+          "description": "Set an optional expiration for the allowance. The allowance can expire at a certain height, time, or never expire.",
+          "optionNames": ["Expiration by Block Height", "Expiration by Time", "Never Expire"]
+        },
+        "at_height": {
+          "ui:options": {
+            "title": "Expiration by Block Height",
+            "description": "Set the allowance to expire when a specific block height is reached.",
+            "placeholder": "e.g., 500000"
+          }
+        },
+        "at_time": {
+          "ui:options": {
+            "title": "Expiration by Time",
+            "widget": "dateTime",
+            "description": "Set the allowance to expire at a specific time. Time is in nanosecond precision.",
+            "placeholder": "Enter the time (in nanoseconds)"
+          }
+        },
+        "never": {
+          "ui:options": {
+            "title": "Never Expire",
+            "description": "Select this option if the allowance should never expire."
+          }
+        }
+      },
+      "spender": {
+        "ui:options": {
+          "title": "Spender",
+          "description": "The address of the spender who is allowed to access the additional tokens.",
+          "placeholder": "e.g., andr1..."
+        }
+      }
+    }
+  },
   "form-data": {}
 }
