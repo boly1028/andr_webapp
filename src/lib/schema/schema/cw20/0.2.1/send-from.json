@@ -34,6 +34,45 @@
     "version": "0.2.1",
     "classifier": ""
   },
-  "ui-schema": {},
+  "ui-schema": {
+    "send_from": {
+      "ui:options": {
+        "title": "Send Tokens Operation",
+        "description": "Sends a specified amount of tokens from the owner to the contract, provided that the `env.sender` has sufficient pre-approval."
+      },
+      "amount": {
+        "ui:widget": "text",
+        "ui:placeholder": "e.g., 10000",
+        "ui:options": {
+          "title": "Amount Being Sent",
+          "description": "Specify the amount of tokens to send. Ensure the format aligns with Uint128 standards."
+        }
+      },
+      "contract": {
+        "ui:widget": "text",
+        "ui:placeholder": "e.g., andr1...",
+        "ui:options": {
+          "title": "Contract Address",
+          "description": "Enter the address of the contract that will receive the tokens."
+        }
+      },
+      "msg": {
+        "ui:widget": "textArea",
+        "ui:placeholder": "Enter base64 encoded message",
+        "ui:options": {
+          "title": "Message",
+          "description": "Base64 encoded message that specifies the details or conditions for the token transfer."
+        }
+      },
+      "owner": {
+        "ui:widget": "text",
+        "ui:placeholder": "e.g., andr1...",
+        "ui:options": {
+          "title": "Owner Address",
+          "description": "The address of the owner from whom the tokens are being sent."
+        }
+      }
+    }
+  },
   "form-data": {}
 }
