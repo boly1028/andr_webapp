@@ -245,7 +245,7 @@ const APP_TEMPLATES: PartialTemplateType[] = [
     adoType: "app-contract",
     name: "CW20 Exchange",
     icon: "/app-templates/icons/cw20-staking.png",
-    description: "CW20 Exchange creates a unique digital asset to be sold on an independent exchange with support for configuring transactions to be split and distributed to multiple destinations. Buyers can easily purchase fractional shares of the CW20 token, allowing for greater accessibility and liquidity. This simple and efficient exchange platform supports purchase options for both native and non-native token.",
+    description: "CW20 Exchange creates a unique digital asset to be sold on an independent exchange. Buyers can easily purchase CW20 tokens, for use in things like accessibility and liquidity. This simple and efficient exchange platform supports purchase options for both native and non-native tokens.",
     opts: ["CW20", "cw20 exchange"],
     ados: [
       {
