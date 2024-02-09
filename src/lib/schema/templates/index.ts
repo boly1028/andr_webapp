@@ -189,7 +189,7 @@ const APP_TEMPLATES: PartialTemplateType[] = [
         "required": true,
         "enabled": true,
         "pos": {
-          "x": 1280,
+          "x": 1248,
           "y": 160
         }
       },
@@ -207,22 +207,11 @@ const APP_TEMPLATES: PartialTemplateType[] = [
         "id": "vault",
         "path": "vault/latest/vault",
         "required": false,
-        "removable": false,
+        "removable": true,
         "enabled": true,
         "pos": {
-          "x": 160,
-          "y": 432
-        }
-      },
-      {
-        "id": "rates",
-        "path": "rates/latest/rates",
-        "required": false,
-        "removable": false,
-        "enabled": true,
-        "pos": {
-          "x": 160,
-          "y": 192
+          "x": 720,
+          "y": 384 
         }
       }
     ],
@@ -242,13 +231,6 @@ const APP_TEMPLATES: PartialTemplateType[] = [
       "crowdfund": {
         "can_mint_after_sale": false,
         "kernel_address": "",
-        "modules": [
-          {
-            "is_mutable": true,
-            "address": "./rates",
-            "name": "rates"
-          }
-        ],
         "token_address": "./tokens"
       },
       "vault": {
@@ -295,8 +277,6 @@ const APP_TEMPLATES: PartialTemplateType[] = [
     modules: [
       { path: "cw20/latest/cw20" },
       { path: "cw20-exchange/latest/cw20-exchange" },
-      { path: "rates/latest/rates" },
-      { path: "splitter/latest/splitter" },
     ],
     system: false,
     installed: true,
@@ -312,48 +292,11 @@ const APP_TEMPLATES: PartialTemplateType[] = [
         "kernel_address": "",
         "token_address": "./tokens"
       },
-      "rates": {
-        "kernel_address": "",
-        "rates": []
-      },
-      "splitter": {
-        "kernel_address": "",
-        "recipients": []
-      },
       "publish-settings": {
         "name": ""
       }
     },
   },
-  // {
-  //   id: "cw20-staking",
-  //   adoType: "app-contract",
-  //   name: "CW20 Token Staking",
-  //   description:
-  //     " Setup a means of offering the ability to stake a specific coin and have associated rewards that are aligned to duration of the time of staking. Multiple staking timeframes can be set up with varying percentages of staking reward benefits. The ability to unstake or lock users in is also present.",
-  //   opts: ["CW20", "CW20 Staking"],
-  //   ados: [
-  //     {
-  //       path: IImportantAdoKeys.PUBLISH_SETTING.keyS,
-  //       id: IImportantAdoKeys.PUBLISH_SETTING.keyS,
-  //       required: true,
-  //     },
-  //     { path: "cw20/latest/cw20", id: "tokens", required: true },
-  //     {
-  //       path: "cw20-staking/latest/cw20-staking",
-  //       id: "staking",
-  //       required: true,
-  //     },
-  //   ],
-  //   modules: [
-  //     { path: "cw20/latest/cw20" },
-  //     { path: "cw20-staking/latest/cw20-staking" },
-  //     { path: "address-list/latest/address-list" },
-  //   ],
-  //   icon: "/app-templates/icons/cw20-staking.png",
-  //   installed: true,
-  //   starter: true,
-  // },
   {
     id: 'admin-panel',
     adoType: "app-contract",
