@@ -34,6 +34,51 @@
     "version": "0.2.1",
     "classifier": ""
   },
-  "ui-schema": {},
+  "ui-schema": {
+    "ui:description": "Sends a specified amount of tokens from the sender's allowance.",
+    "send_from": {
+      "ui:options": {
+        "title": "Send Tokens From",
+        "alerts": [
+          {
+            "text": "Sender's allowance must be greater than or equal to the amount being sent.",
+            "type": "warning"
+          }
+        ]
+      },
+      "amount": {
+        "ui:widget": "text",
+        "ui:placeholder": "e.g., 10000",
+        "ui:options": {
+          "title": "Amount Being Sent",
+          "description": "Specify the amount of tokens to send.",
+          "help":"Must be numeric only."
+        }
+      },
+      "contract": {
+        "ui:widget": "text",
+        "ui:placeholder": "e.g., andr1...",
+        "ui:options": {
+          "title": "Contract Address",
+          "description": "Enter the address of the contract that will receive the tokens."
+        }
+      },
+      "msg": {
+        "ui:widget": "cw20ReceiveMsg",
+        "ui:options": {
+          "title": "Message",
+          "description": "Select an option from the dropdowns, then enter data or details for the sale."
+        }
+      },
+      "owner": {
+        "ui:widget": "text",
+        "ui:placeholder": "e.g., andr1...",
+        "ui:options": {
+          "title": "Owner Address",
+          "description": "The address of the owner from whom the tokens are being sent."
+        }
+      }
+    }
+  },
   "form-data": {}
 }

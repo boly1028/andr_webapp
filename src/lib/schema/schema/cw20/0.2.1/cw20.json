@@ -196,8 +196,8 @@
     "decimals": {
       "ui:options": {
         "title": "Number of Decimals in Token",
-        "description": "The number of decimals for the token. (12 is common)",
-        "placeholder": "e.g., 12"
+        "description": "The number of decimals for the token. (6 is common)",
+        "placeholder": "e.g., '6'"
       }
     },
     "initial_balances": {
@@ -216,7 +216,7 @@
           "ui:options": {
             "title": "Address",
             "description": "The address to receive tokens.",
-            "placeholder": "e.g., andr1fl48v...0eh or ./componentName"
+            "placeholder": "e.g., andr1....  or ./componentName"
           }
         },
         "amount": {
@@ -288,7 +288,7 @@
         "ui:options": {
           "title": "Authorized Marketing Address",
           "description": "The address (if any) who can update this data structure.",
-          "placeholder": "e.g., andr1fl48v...0eh or ./componentName"
+          "placeholder": "e.g., andr1... or ./componentName"
         }
       },
       "project": {
@@ -307,7 +307,7 @@
         "ui:options": {
           "title": "Minting Address",
           "description": "The address to assign as a minter.",
-          "placeholder": "e.g., andr1fl48v...0eh or ./componentName"
+          "placeholder": "e.g., andr1... or ./componentName"
         }
       }
     },
