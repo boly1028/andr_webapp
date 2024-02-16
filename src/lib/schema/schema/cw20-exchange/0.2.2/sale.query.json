@@ -45,6 +45,36 @@
     "version": "0.2.2",
     "classifier": ""
   },
-  "ui-schema": {},
+  "ui-schema": {
+    "ui:description": "Retrieve information about a current sale for a certain asset type.",
+    "sale": {
+      "ui:options": {
+        "title": "Sale Information",
+        "description": "Provide details about the exchange's accepted asset you want to get sale information about."
+      },
+      "asset": {
+        "ui:options": {            
+          "optionNames": ["Native", "CW20"],
+          "title": "Asset Type",
+          "description": "Select the type of asset for the sale and provide the required details. Can be either chain native coins or CW20 tokens."
+        },
+        "native": {
+          "ui:options": {
+            "title": "Native Asset",
+            "description": "Enter the micro-denomination of the chain native coin.",
+            "placeholder": "e.g., uandr",
+            "help":"Must be all lowercase."
+          }
+        },
+        "cw20": {
+          "ui:options": {
+            "title": "CW20 Token",
+            "description": "Enter the contract address of the CW20 token to accept in exchange for the CW20 being sold.",
+            "placeholder": "e.g., andr1..."
+          }
+        }
+      }
+    }
+  },
   "form-data": {}
 }
