@@ -1,1 +1,0 @@
-{"schema":{"$schema":"http://json-schema.org/draft-07/schema#","title":"Number of nfts","type":"object","required":["number"],"properties":{"number":{"type":"integer","format":"uint","minimum":0,"title":"Number"}},"additionalProperties":false,"$id":"number_of_nfts","version":"0.1.0","classifier":"response","class":"response"},"ui-schema":{},"form-data":{}}

@@ -1,1 +1,0 @@
-{"schema":{"type":"object","required":["allowed_contracts"],"properties":{"allowed_contracts":{"type":"object","additionalProperties":false,"title":"Allowed contracts"}},"additionalProperties":false,"title":"Allowed contracts","$id":"allowed-contracts","class":"query","version":"0.1.0","classifier":""},"ui-schema":{},"form-data":{}}

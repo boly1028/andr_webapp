@@ -5,21 +5,22 @@
  */
 
 import { useGetSchemaJson } from "@/lib/schema/hooks";
-import { ALL_ADOS, BASE_ADOS, MODULES } from "@/lib/schema/utils/list";
 import { ChevronDownIcon } from "@/modules/common";
 import { WidgetProps } from "@andromedarjsf/utils";
 import { Button, Flex, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
 import { FC, useState } from "react";
 import Base from "./Base";
 import { useAndromedaClient } from "@/lib/andrjs";
-import { MASTER_ADOENABLE, MASTER_ALLADO } from "@/lib/schema/utils/masterList";
 import { IImportantAdoKeys } from "@/lib/schema/types";
+import { ADO_LIST_FILES, useGetAdoList, useGetFilteredAllAdoList } from "@/lib/schema/hooks/useGetAdoList";
 
 interface InstantiateMsgWidgetProps extends WidgetProps { }
 export const InstantiateMsgWidget: FC<InstantiateMsgWidgetProps> = (props) => {
   const client = useAndromedaClient()
   const [currentSchema, setCurrentSchema] = useState<string>();
   const { data: schemaFile } = useGetSchemaJson(currentSchema ?? "");
+  const { data: MASTER_ALLADO = [] } = useGetAdoList(ADO_LIST_FILES.ALL_ADO);
+  const { data: ALL_ADOS = [] } = useGetFilteredAllAdoList();
   const reset = () => {
     setCurrentSchema(undefined)
   }

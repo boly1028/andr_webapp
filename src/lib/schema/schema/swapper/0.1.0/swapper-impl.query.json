@@ -1,1 +1,0 @@
-{"schema":{"type":"object","required":["swapper_impl"],"properties":{"swapper_impl":{"type":"object","additionalProperties":false,"title":"Swapper impl"}},"additionalProperties":false,"title":"Swapper impl","$id":"swapper-impl","class":"query","version":"0.1.0","classifier":""},"ui-schema":{},"form-data":{}}

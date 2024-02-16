@@ -1,1 +1,0 @@
-{"schema":{"type":"object","required":["all_keys"],"properties":{"all_keys":{"type":"object","additionalProperties":false,"title":"All keys"}},"additionalProperties":false,"title":"All keys","$id":"all-keys","class":"query","version":"0.2.0","classifier":""},"ui-schema":{},"form-data":{}}

@@ -1,1 +1,0 @@
-{"schema":{"type":"object","required":["current_target"],"properties":{"current_target":{"type":"object","additionalProperties":false,"title":"Current target"}},"additionalProperties":false,"title":"Current target","$id":"current-target","class":"query","version":"0.1.0","classifier":""},"ui-schema":{},"form-data":{}}

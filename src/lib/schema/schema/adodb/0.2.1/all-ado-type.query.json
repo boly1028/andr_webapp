@@ -1,1 +1,0 @@
-{"schema":{"type":"object","required":["all_ado_type"],"properties":{"all_ado_type":{"type":"object","additionalProperties":false,"title":"All ado type"}},"additionalProperties":false,"title":"All ado type","$id":"all-ado-type","class":"query","version":"0.2.1","classifier":""},"ui-schema":{},"form-data":{}}

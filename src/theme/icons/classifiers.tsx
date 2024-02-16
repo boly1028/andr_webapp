@@ -29,7 +29,7 @@ import { Icon } from "@/theme/ui-elements";
 import { BackgroundProps, Flex, IconProps, useToken } from "@chakra-ui/react";
 import { SplitterIcon } from "@/modules/common";
 import { IAdoType } from "@/lib/schema/types";
-import { getSchemaMeta } from "@/lib/schema/utils";
+import { useGetSchemaMeta } from "@/lib/schema/hooks/useGetSchemaMeta";
 
 export const DEFAULT_CLASS_ICON = {
   system: Settings,
@@ -91,16 +91,16 @@ interface ClassifierIconProps extends IconProps {
 }
 
 export const useGetClassColor = (props: { adoType?: IAdoType, _class?: string }, variant: 'default' | 'low' = 'default') => {
+  const { data: meta } = useGetSchemaMeta(props.adoType);
   const adoColor = useMemo(() => {
     if (!props._class && props.adoType) {
-      const meta = getSchemaMeta(props.adoType);
-      props._class = meta.class.toLowerCase();
+      props._class = meta?.class.toLowerCase();
     }
     const _class = props._class || 'module';
     let tokenCategory = 'category';
     if (variant === 'low') tokenCategory = tokenCategory + 'Low'
     return `${tokenCategory}.${_class}` as BackgroundProps['bg'];
-  }, [props, variant]
+  }, [props, variant, meta]
   )
   return useToken('colors', adoColor as any)
 }
@@ -114,11 +114,12 @@ const ClassifierIcon: FC<ClassifierIconProps> = (props) => {
     h,
     ...iconProps
   } = props;
-  const meta = getSchemaMeta(adoType as IAdoType);
+
+  const { data: meta } = useGetSchemaMeta(adoType as IAdoType);
 
   const _classifier =
-    schemaClassifier?.toLocaleLowerCase() || meta.classifier.toLowerCase();
-  const _class = schemaClass?.toLocaleLowerCase() || meta.class.toLowerCase();
+    schemaClassifier?.toLocaleLowerCase() || meta?.classifier.toLowerCase() || '';
+  const _class = schemaClass?.toLocaleLowerCase() || meta?.class.toLowerCase() || '';
   const color = useGetClassColor({ _class: _class });
 
   const icon =

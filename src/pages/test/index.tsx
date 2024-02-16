@@ -1,6 +1,5 @@
 import { NextPage } from "next";
 import { Layout, PageHeader } from "@/modules/common";
-import { BASE_ADOS, MODIFIERS, MODULES, PRIMITIVES, QUERIES, QUERY_RESPONSES } from '@/lib/schema/utils/list'
 import ClassifierIcon from '@/theme/icons/classifiers'
 import { ChevronDownIcon, CloseIcon, SearchIcon } from '@chakra-ui/icons'
 import { Box, Button, ButtonProps, Input, InputGroup, InputLeftElement, List, ListItem, Text, useDisclosure, VStack } from '@chakra-ui/react'
@@ -8,6 +7,8 @@ import React, { FC, useState } from 'react'
 import Link from "next/link";
 import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
 import _ from "lodash";
+import { ADO_LIST_FILES, useGetAdoList } from "@/lib/schema/hooks/useGetAdoList";
+import { IAdoList } from "@/lib/schema/templates/types";
 
 
 const Page: NextPage = ({ }) => {
@@ -32,6 +33,10 @@ const SchemaComponent: FC<SchemaComponentProps> = (props) => {
     const { } = props
     const [searchedText, setSearchedText] = useState<string>('');
     const searchHandler = _.debounce((value) => { setSearchedText(value) }, 500)
+    const { data: ALL_ADOS = [] } = useGetAdoList(ADO_LIST_FILES.ALL_ADO);
+    const { data: MODIFIERS = [] } = useGetAdoList(ADO_LIST_FILES.MODIFIER);
+    const { data: QUERIES = [] } = useGetAdoList(ADO_LIST_FILES.QUERY);
+    const { data: QUERY_RESPONSES = [] } = useGetAdoList(ADO_LIST_FILES.RESPONSE);
     return (
         <VStack alignItems='stretch' gap='2' textColor='dark.500'>
             <InputGroup size='lg'>
@@ -44,10 +49,8 @@ const SchemaComponent: FC<SchemaComponentProps> = (props) => {
             </InputGroup>
             <Text>Schemas</Text>
             <VStack alignItems='stretch'>
-                <SchemaComponentItem name="ADOs" list={BASE_ADOS} leftIcon={<ClassifierIcon adoType='app' boxSize='5' />} searchedText={searchedText} />
-                <SchemaComponentItem name="Modules" list={MODULES} leftIcon={<ClassifierIcon adoType='address-list' schemaClass='module' boxSize='5' />} searchedText={searchedText} />
+                <SchemaComponentItem name="ADOs" list={ALL_ADOS} leftIcon={<ClassifierIcon adoType='app' boxSize='5' />} searchedText={searchedText} />
                 <SchemaComponentItem name="Modifiers" list={MODIFIERS} leftIcon={<ClassifierIcon adoType='address-list' schemaClass='modifier' boxSize='5' />} searchedText={searchedText} />
-                <SchemaComponentItem name="Primitives" list={PRIMITIVES} leftIcon={<ClassifierIcon adoType='address-list' schemaClass='primitives' boxSize='5' />} searchedText={searchedText} />
                 <SchemaComponentItem name="Queries" list={QUERIES} leftIcon={<ClassifierIcon adoType='address-list' schemaClass='query' boxSize='5' />} searchedText={searchedText} />
                 <SchemaComponentItem name="Queries Responses" list={QUERY_RESPONSES} leftIcon={<ClassifierIcon adoType='address-list' schemaClass='query' boxSize='5' />} searchedText={searchedText} />
             </VStack>
@@ -58,7 +61,7 @@ const SchemaComponent: FC<SchemaComponentProps> = (props) => {
 
 interface SchemaComponentItemProps {
     name: string;
-    list: typeof BASE_ADOS
+    list: IAdoList
     leftIcon: ButtonProps['leftIcon']
     searchedText: string
 }

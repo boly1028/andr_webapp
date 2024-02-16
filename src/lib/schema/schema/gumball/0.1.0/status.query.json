@@ -1,1 +1,0 @@
-{"schema":{"type":"object","required":["status"],"properties":{"status":{"type":"object","additionalProperties":false,"title":"Status"}},"additionalProperties":false,"title":"Status","$id":"status","class":"query","version":"0.1.0","classifier":""},"ui-schema":{},"form-data":{}}

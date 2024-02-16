@@ -10,7 +10,7 @@ import InlineStat from '../InlineStat'
 import { useDisclosure } from "@chakra-ui/hooks";
 import { SITE_LINKS } from '@/modules/common/utils/sitelinks'
 import { IEmbeddableCollection, IEmbeddableConfig } from '@/lib/schema/types/embeddables'
-import { MASTER_ADOENABLE } from '@/lib/schema/utils/masterList'
+import { useGetAdoEnabled } from '@/lib/schema/hooks/useGetAdoList'
 
 
 interface TableProps {
@@ -22,6 +22,7 @@ const Table: FC<TableProps> = ({ item, eKey, config }) => {
     const { getButtonProps, getDisclosureProps, isOpen } = useDisclosure();
     const buttonProps = getButtonProps();
     const disclosureProps = getDisclosureProps();
+    const MASTER_ADOENABLE = useGetAdoEnabled();
 
     const previewLink = SITE_LINKS.embeddablePublishedCollection(config.chainId, eKey, item.id);
 

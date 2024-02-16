@@ -1,4 +1,3 @@
-import { XYPosition } from "reactflow";
 import { IAdoType, IAndromedaFormData, IAndromedaSchema, IAndromedaSchemaJSON, IAndromedaUISchema } from "../types";
 
 // Template interface used in flex builder processing
@@ -60,3 +59,17 @@ interface IModule {
     enabled?: boolean;
     disabled?: boolean;
 }
+
+export interface IAdoListItem {
+    "$id": string;
+    "adoType": string;
+    "adopPath": string;
+    "class": string;
+    "classifier": string;
+    "description": string;
+    "source": string;
+    "title": string;
+    "version": string;
+}
+
+export type IAdoList = IAdoListItem[];

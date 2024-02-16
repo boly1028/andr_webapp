@@ -1,1 +1,0 @@
-{"schema":{"type":"object","required":["key_address"],"properties":{"key_address":{"type":"object","required":["key"],"properties":{"key":{"type":"string","title":"Key"}},"additionalProperties":false,"title":"Key address"}},"additionalProperties":false,"title":"Key address","$id":"key-address","class":"query","version":"0.2.15","classifier":""},"ui-schema":{},"form-data":{}}

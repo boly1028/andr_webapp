@@ -1,1 +1,0 @@
-{"modifiers":["store","remove"],"queries":["andr-query.query","task-balancer.query","processes.query","free-space.query","has-process.query"],"responses":["andr-query.response","free-space.response","has-process.response","processes.response","task-balancer.response"]}

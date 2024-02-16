@@ -1,1 +1,0 @@
-{"schema":{"type":"object","required":["get_size"],"properties":{"get_size":{"type":"object","additionalProperties":false,"title":"Get size"}},"additionalProperties":false,"title":"Get size","$id":"get-size","class":"query","version":"0.1.0","classifier":""},"ui-schema":{},"form-data":{}}

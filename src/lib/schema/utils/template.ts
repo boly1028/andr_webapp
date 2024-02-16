@@ -1,6 +1,6 @@
 import { IAdo, ITemplateFormData, ITemplateSchema, ITemplateUiSchema } from "../templates/types";
 import { IAndromedaFormData, ITemplate } from "../types";
-import { getADOVersion, getSchemaFromPath } from "./getters";
+import { getADOVersion, getSchemaFromPath } from "./schema";
 
 /** Process the template by resolving schema paths found in ados and moodules list */
 export const processTemplate = async (template: ITemplate) => {

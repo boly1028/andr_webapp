@@ -10,6 +10,8 @@ export type { ITemplate } from '../templates/types'
 
 export const IImportantTemplateTypes = {
     BLANK_CANVAS: 'app',
+    ADMIN_TEMPLATE: 'admin-panel',
+    ADO_TEMPLATE: 'ado'
 }
 
 export const IImportantAdoKeys = {

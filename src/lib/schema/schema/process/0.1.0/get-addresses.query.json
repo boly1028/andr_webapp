@@ -1,1 +1,0 @@
-{"schema":{"type":"object","required":["get_addresses"],"properties":{"get_addresses":{"type":"object","additionalProperties":false,"title":"Get addresses"}},"additionalProperties":false,"title":"Get addresses","$id":"get-addresses","class":"query","version":"0.1.0","classifier":""},"ui-schema":{},"form-data":{}}

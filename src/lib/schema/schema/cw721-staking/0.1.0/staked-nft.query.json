@@ -1,1 +1,0 @@
-{"schema":{"type":"object","required":["staked_nft"],"properties":{"staked_nft":{"type":"object","required":["key"],"properties":{"key":{"type":"string","title":"Key"}},"additionalProperties":false,"title":"Staked nft"}},"additionalProperties":false,"title":"Staked nft","$id":"staked-nft","class":"query","version":"0.1.0","classifier":""},"ui-schema":{},"form-data":{}}

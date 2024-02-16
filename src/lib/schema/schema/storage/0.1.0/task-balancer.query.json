@@ -1,1 +1,0 @@
-{"schema":{"type":"object","required":["task_balancer"],"properties":{"task_balancer":{"type":"object","additionalProperties":false,"title":"Task balancer"}},"additionalProperties":false,"title":"Task balancer","$id":"task-balancer","class":"query","version":"0.1.0","classifier":""},"ui-schema":{},"form-data":{}}

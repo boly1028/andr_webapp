@@ -1,6 +1,5 @@
 import { cloneDeep } from "@apollo/client/utilities";
-import { IAdoType, IImportantAdoKeys } from "../types";
-import { MASTER_ALLADO } from "../utils/masterList";
+import { IImportantAdoKeys } from "../types";
 import { ITemplate } from "./types";
 import { BLANK_APP_TEMPLATE } from "./blank";
 
@@ -211,7 +210,7 @@ const APP_TEMPLATES: PartialTemplateType[] = [
         "enabled": true,
         "pos": {
           "x": 720,
-          "y": 384 
+          "y": 384
         }
       }
     ],
@@ -297,56 +296,56 @@ const APP_TEMPLATES: PartialTemplateType[] = [
       }
     },
   },
-  {
-    id: 'admin-panel',
-    adoType: "app-contract",
-    name: "Admin Panel",
-    icon: "/app-templates/icons/blank.png",
-    description:
-      "Admin template which contains all ados including those which are in beta phase",
-    opts: [
-      "ADO's are in development phase",
-      "Breaking changes",
-      "Loss of ADO",
-      "Only for admin/testing purpose",
-    ],
-    ados: [
-      {
-        path: IImportantAdoKeys.PUBLISH_SETTING.path,
-        id: IImportantAdoKeys.PUBLISH_SETTING.key,
-        required: true,
-      },
-    ],
+  // {
+  //   id: 'admin-panel',
+  //   adoType: "app-contract",
+  //   name: "Admin Panel",
+  //   icon: "/app-templates/icons/blank.png",
+  //   description:
+  //     "Admin template which contains all ados including those which are in beta phase",
+  //   opts: [
+  //     "ADO's are in development phase",
+  //     "Breaking changes",
+  //     "Loss of ADO",
+  //     "Only for admin/testing purpose",
+  //   ],
+  //   ados: [
+  //     {
+  //       path: IImportantAdoKeys.PUBLISH_SETTING.path,
+  //       id: IImportantAdoKeys.PUBLISH_SETTING.key,
+  //       required: true,
+  //     },
+  //   ],
 
-    modules: [
-      ...MASTER_ALLADO.map((ado) => ({ path: ado.source }))
-    ],
-    system: true,
-    starter: false,
-  },
-  ...MASTER_ALLADO.map(ado => ({
-    id: `ado-${ado.$id}`,
-    adoType: ado.$id as IAdoType,
-    name: ado.title,
-    description: ado.description,
-    opts: [ado.$id],
-    ados: [
-      {
-        path: ado.source,
-        id: ado.$id,
-        required: true,
-      },
-    ],
-    modules: [
-      // { path: "adodb/latest/adodb" },
-    ],
-    icon: "/app-templates/icons/market.png",
-    installed: false,
-    system: true,
-    starter: false,
-    formData: {
-    }
-  }))
+  //   modules: [
+  //     ...MASTER_ALLADO.map((ado) => ({ path: ado.source }))
+  //   ],
+  //   system: true,
+  //   starter: false,
+  // },
+  // ...MASTER_ALLADO.map(ado => ({
+  //   id: `ado-${ado.$id}`,
+  //   adoType: ado.$id as IAdoType,
+  //   name: ado.title,
+  //   description: ado.description,
+  //   opts: [ado.$id],
+  //   ados: [
+  //     {
+  //       path: ado.source,
+  //       id: ado.$id,
+  //       required: true,
+  //     },
+  //   ],
+  //   modules: [
+  //     // { path: "adodb/latest/adodb" },
+  //   ],
+  //   icon: "/app-templates/icons/market.png",
+  //   installed: false,
+  //   system: true,
+  //   starter: false,
+  //   formData: {
+  //   }
+  // }))
 ];
 
 export default APP_TEMPLATES;

@@ -58,7 +58,6 @@ const AdoItem: FC<AdoItemProps> = ({ address, name, proxyAddress, adoType: _adoT
 
   const { data: _version } = useGetSchemaVersions(adoType);
   const version = baseAdo?.andr.version || _version?.latest;
-  const { data: adopData, isLoading } = useGetSchemaADOP(adoType, version);
 
   const open = useAssetInfoModal();
   const { getButtonProps, getDisclosureProps, isOpen } = useDisclosure();

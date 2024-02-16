@@ -1,6 +1,5 @@
 import { ITemplate } from "./types";
 import { IImportantAdoKeys } from "../types";
-import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
 
 
 export const EMBEDDABLE_TEMPLATES: (ITemplate & { preview?: string })[] = [

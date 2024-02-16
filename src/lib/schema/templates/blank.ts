@@ -1,6 +1,5 @@
 import { ITemplate } from "./types";
 import { IImportantAdoKeys, IImportantTemplateTypes } from "../types";
-import { ALL_ADOS } from "../utils/list";
 
 /** Upload template is used as base structure for importing a flex file
  * Flex file contains list of ados and formData, modules are inserted from this template.
@@ -29,7 +28,6 @@ export const BLANK_APP_TEMPLATE: ITemplate = {
     ],
 
     modules: [
-        ...ALL_ADOS.map((ado) => ({ path: ado.source }))
     ],
     system: true,
     starter: true,

@@ -1,5 +1,4 @@
 import { getSchemaFromPath } from "@/lib/schema/utils";
-import { IAdoList } from "@/lib/schema/utils/list";
 import ClassifierIcon, { useGetClassColor } from "@/theme/icons/classifiers";
 import { AspectRatio, Box, Divider, GridItem, HStack, Icon, IconButton, SimpleGrid, Text, Tooltip, VStack } from "@chakra-ui/react";
 import { ChevronLeft } from "lucide-react";
@@ -7,6 +6,7 @@ import React, { FC, useCallback } from "react";
 import { useAppBuilder } from "../canvas/Provider";
 import useAddNode from "../hooks/useAddNode";
 import { IUIComponents, RF_DRAG_KEYS } from "../types";
+import { IAdoList } from "@/lib/schema/templates/types";
 
 export interface AdoListProps {
     name: string;

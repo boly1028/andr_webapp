@@ -7,13 +7,12 @@
 import { useGetSchemaJson } from "@/lib/schema/hooks";
 import { useGetSchemaADOP } from "@/lib/schema/hooks/useGetSchemaADOP";
 import { IAdoType, IImportantAdoKeys } from "@/lib/schema/types";
-import { ALL_ADOS, BASE_ADOS, MODULES } from "@/lib/schema/utils/list";
 import { ChevronDownIcon } from "@/modules/common";
 import { WidgetProps } from "@andromedarjsf/utils";
 import { Button, Flex, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
 import { FC, useState } from "react";
 import Base from "./Base";
-import { MASTER_ALLADO } from "@/lib/schema/utils/masterList";
+import { ADO_LIST_FILES, useGetAdoList, useGetFilteredAllAdoList } from "@/lib/schema/hooks/useGetAdoList";
 
 
 interface QueryMsgWidgetProps extends WidgetProps { }
@@ -23,6 +22,8 @@ export const QueryMsgWidget: FC<QueryMsgWidgetProps> = (props) => {
   const [currentSchema, setCurrentSchema] = useState<string>();
   const { data: adops } = useGetSchemaADOP(currentBaseAdo ?? 'app-contract')
   const { data: schemaFile } = useGetSchemaJson(currentSchema ?? "");
+  const { data: MASTER_ALLADO = [] } = useGetAdoList(ADO_LIST_FILES.ALL_ADO);
+  const { data: ALL_ADOS = [] } = useGetFilteredAllAdoList();
 
   const reset = () => {
     setCurrentSchema(undefined)

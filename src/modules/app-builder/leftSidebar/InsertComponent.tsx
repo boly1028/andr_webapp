@@ -1,6 +1,5 @@
 import APP_TEMPLATES from '@/lib/schema/templates'
 import { ITemplate } from '@/lib/schema/types'
-import { BASE_ADOS, IAdoList, MODIFIERS, MODULES } from '@/lib/schema/utils/list'
 import { ListIcon, SearchBar } from '@/modules/common'
 import ClassifierIcon from '@/theme/icons/classifiers'
 import { ChevronRightIcon, SearchIcon } from '@chakra-ui/icons'
@@ -13,6 +12,8 @@ import { useHotkeysContext } from 'react-hotkeys-hook'
 import { Hotkey } from 'react-hotkeys-hook/dist/types'
 import { Key } from 'ts-key-enum'
 import { PlusIcon } from '@/theme/icons'
+import { ADO_LIST_FILES, useGetFilteredAdoList } from '@/lib/schema/hooks/useGetAdoList'
+import { IAdoList } from '@/lib/schema/templates/types'
 
 export interface InsertComponentProps {
 
@@ -20,6 +21,8 @@ export interface InsertComponentProps {
 const InsertComponent: FC<InsertComponentProps> = (props) => {
     const { } = props
     const { hotkeys } = useHotkeysContext()
+    const { data: BASE_ADOS = [] } = useGetFilteredAdoList(ADO_LIST_FILES.BASE_ADO);
+    const { data: MODULES = [] } = useGetFilteredAdoList(ADO_LIST_FILES.MODULE);
 
     return (
         <VStack alignItems='stretch' spacing='2' textColor='content.' fontSize='xs'>
@@ -33,7 +36,7 @@ const InsertComponent: FC<InsertComponentProps> = (props) => {
             <Divider />
             <Text>Templates</Text>
             <VStack alignItems='stretch'>
-                <TemplateButton list={APP_TEMPLATES.filter(t=>t.starter)} name='Templates' leftIcon={<Icon as={ListIcon} bg='backgroundState.idle' p='2' rounded='lg' boxSize='8' />} />
+                <TemplateButton list={APP_TEMPLATES.filter(t => t.starter)} name='Templates' leftIcon={<Icon as={ListIcon} bg='backgroundState.idle' p='2' rounded='lg' boxSize='8' />} />
             </VStack>
             <Divider />
             <Text>Shortcuts</Text>
@@ -91,7 +94,7 @@ const createKeyList = (key: Hotkey) => {
     if (key.meta) keys.push(Key.Meta);
     if (key.mod) keys.push(Key.ModeChange);
     if (key.shift) keys.push(Key.Shift);
-    if (key.keys) keys.push(...key.keys.filter(k=>!keys.some(_k=>_k.toLowerCase() === k.toLowerCase())));
+    if (key.keys) keys.push(...key.keys.filter(k => !keys.some(_k => _k.toLowerCase() === k.toLowerCase())));
     return keys;
 }
 

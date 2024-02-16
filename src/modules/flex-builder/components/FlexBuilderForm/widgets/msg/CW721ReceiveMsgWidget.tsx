@@ -6,19 +6,23 @@
 import { useGetSchemaJson } from "@/lib/schema/hooks";
 import { useGetSchemaADOP } from "@/lib/schema/hooks/useGetSchemaADOP";
 import { IAdoType, IImportantAdoKeys } from "@/lib/schema/types";
-import { BASE_ADOS, MODULES, RECEIVES } from "@/lib/schema/utils/list";
 import { ChevronDownIcon } from "@/modules/common";
 import { WidgetProps } from "@andromedarjsf/utils";
 import { Button, Flex, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
-import { FC, useState } from "react";
+import { FC, useMemo, useState } from "react";
 import Base from "./Base";
+import { ADO_LIST_FILES, useGetAdoList, useGetFilteredAdoList } from "@/lib/schema/hooks/useGetAdoList";
 
-const CW721_RECEIVES = RECEIVES.filter(r => r.classifier === 'cw721');
-const CW721_RECEIVE_ENABLED_ADO = [...BASE_ADOS, ...MODULES].filter(ado => CW721_RECEIVES.some(rAdo => rAdo.source.split('/')[0] === ado.$id));
 
 interface Cw721ReceiveMsgWidgetProps extends WidgetProps { }
 export const Cw721ReceiveMsgWidget: FC<Cw721ReceiveMsgWidgetProps> = (props) => {
-
+  const { data: RECEIVES = [] } = useGetAdoList(ADO_LIST_FILES.RECEIVE);
+  const { data: BASE_ADOS = [] } = useGetFilteredAdoList(ADO_LIST_FILES.BASE_ADO)
+  const { data: MODULES = [] } = useGetFilteredAdoList(ADO_LIST_FILES.MODULE)
+  const CW721_RECEIVE_ENABLED_ADO = useMemo(() => {
+    const CW721_RECEIVES = RECEIVES.filter(r => r.classifier === 'cw721')
+    return [...BASE_ADOS, ...MODULES].filter(ado => CW721_RECEIVES.some(rAdo => rAdo.adoType === ado.$id));
+  }, [RECEIVES]);
   const [currentBaseAdo, setCurrentBaseAdo] = useState<{ ado: IAdoType, label: string }>();
   const [currentSchema, setCurrentSchema] = useState<string>();
   const { data: adops } = useGetSchemaADOP(currentBaseAdo?.ado ?? 'app-contract')

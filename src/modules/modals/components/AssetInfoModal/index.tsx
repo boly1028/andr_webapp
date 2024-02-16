@@ -45,7 +45,6 @@ const AssetInfoModal: FC<AssetInfoModalProps> = memo(function AssetInfoModal({
     address,
 }) {
     const { close } = useGlobalModalContext();
-    const { data: baseAdo, loading, error } = useQueryBaseAdo(address);
 
     return (
         <Box>

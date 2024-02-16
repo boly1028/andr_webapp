@@ -1,1 +1,0 @@
-{"schema":{"$schema":"http://json-schema.org/draft-07/schema#","title":"Channel info","anyOf":[{"$ref":"#/definitions/ChannelInfoResponse"},{"type":"null"}],"properties":{},"$id":"channel_info","version":"0.2.15","classifier":"response","class":"response"},"ui-schema":{},"form-data":{}}

@@ -1,1 +1,0 @@
-{"schema":{"$schema":"http://json-schema.org/draft-07/schema#","title":"All a d o type","type":"array","items":{"type":"string"},"properties":{},"$id":"all_a_d_o_type","version":"0.2.1","classifier":"response","class":"response"},"ui-schema":{},"form-data":{}}
