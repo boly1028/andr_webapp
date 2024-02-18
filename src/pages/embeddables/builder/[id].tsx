@@ -225,7 +225,11 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
-    paths: EMBEDDABLE_TEMPLATES.map(t => t.id),
+    paths: EMBEDDABLE_TEMPLATES.map(t => ({
+      params: {
+        id: t.id
+      }
+    })),
     fallback: "blocking",
   };
 };

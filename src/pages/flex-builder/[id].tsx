@@ -158,7 +158,6 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
   );
 
   const UPDATE_KEY = useMemo(() => Math.random(), [modifiedTemplate]);
-  console.log(modifiedTemplate);
 
   return (
     <Layout activeLink={ILinkItemKey.ADO_BUILDER}>
@@ -184,7 +183,11 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
-    paths: APP_TEMPLATES.map(t => t.id),
+    paths: APP_TEMPLATES.map(t => ({
+      params: {
+        id: t.id
+      }
+    })),
     fallback: "blocking",
   };
 };

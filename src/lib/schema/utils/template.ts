@@ -86,7 +86,10 @@ export const processTemplateAdo = async (ado: IAdo, formData?: IAndromedaFormDat
 
 
 export const getFlexBuilderTemplateById = async (id: string, templates: ITemplate[]) => {
-    const template = templates.find(t => t.id === id) || id.startsWith(IImportantTemplateTypes.ADO_TEMPLATE) ? await getAdoTemplate(id.replace(`${IImportantTemplateTypes.ADO_TEMPLATE}-`, '') as IAdoType) : undefined;
+    let template = templates.find(t => t.id === id);
+    if (!template) {
+        template = id.startsWith(IImportantTemplateTypes.ADO_TEMPLATE) ? await getAdoTemplate(id.replace(`${IImportantTemplateTypes.ADO_TEMPLATE}-`, '') as IAdoType) : undefined;
+    }
     if (!template || template.disabled) throw new Error(`Template with id: ${id} not found`);
     if (template.id === IImportantTemplateTypes.BLANK_CANVAS) {
         template.modules = await getBlankAppTemplateModules();
