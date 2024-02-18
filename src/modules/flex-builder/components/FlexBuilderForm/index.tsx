@@ -21,7 +21,7 @@ import {
   IAndromedaSchemaJSON,
   ITemplate,
 } from "@/lib/schema/types";
-import { ITemplateUiSchema } from "@/lib/schema/templates/types";
+import { ITemplateUiSchema } from "@/lib/schema/types/templates";
 import Form from "./Form";
 import CopyFlexButton, { CopyFlexProps } from "./CopyFlexButton";
 import CopyCliButton from "./CopyCliButton";

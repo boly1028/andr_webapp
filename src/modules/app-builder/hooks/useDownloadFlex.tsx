@@ -1,4 +1,4 @@
-import { IAdo } from "@/lib/schema/templates/types"
+import { IAdo } from "@/lib/schema/types/templates"
 import { IImportantAdoKeys, IPublishSettingsFormData } from "@/lib/schema/types"
 import { getSchemaFromPath } from "@/lib/schema/utils"
 import { createFlexFileFromADOS, createFlexUrl } from "@/lib/schema/utils/flexFile"

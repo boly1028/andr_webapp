@@ -6,7 +6,7 @@ import { XYPosition } from "reactflow";
 export type ISchemaVersion = (typeof versions)[keyof typeof versions];
 
 
-export type { ITemplate } from '../templates/types'
+export type { ITemplate } from './templates'
 
 export const IImportantTemplateTypes = {
     BLANK_CANVAS: 'app',

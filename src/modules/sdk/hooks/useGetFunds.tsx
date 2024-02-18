@@ -1,4 +1,4 @@
-import { ITemplateFormData } from "@/lib/schema/templates/types";
+import { ITemplateFormData } from "@/lib/schema/types/templates";
 import { IImportantAdoKeys } from "@/lib/schema/types";
 import { coin as createCoin, Coin, addCoins, coins } from "@cosmjs/amino";
 import { useCallback } from "react";

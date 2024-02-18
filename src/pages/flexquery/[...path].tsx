@@ -5,7 +5,6 @@ import { Box } from "@/theme/ui-elements";
 import { CopyButton, FallbackPlaceholder, FilePlusIcon, Layout, PageHeader } from "@/modules/common";
 import { useRouter } from "next/router";
 import { IAndromedaSchemaJSON, ITemplate } from "@/lib/schema/types";
-import { getADOQueryTemplate, getSchemaFromPath } from "@/lib/schema/utils";
 import { useEffect, useMemo, useState } from "react";
 import { Button, Center, HStack, Icon, IconButton, Input, Menu, MenuButton, Tab, TabList, TabPanel, TabPanels, Tabs, Text, Tooltip, VStack, useToast } from "@chakra-ui/react";
 import { cloneDeep } from "@apollo/client/utilities";
@@ -20,6 +19,8 @@ import Form from "@/modules/flex-builder/components/FlexBuilderForm/Form";
 import hljs from "highlight.js";
 import QueryDropdown from "@/modules/assets/components/AdosList/QueryDropdown";
 import { ListIcon } from "lucide-react";
+import { getADOQueryTemplate } from "@/lib/schema/utils/template";
+import { getSchemaFromPath } from "@/lib/schema/utils";
 
 type Props = {
   template: ITemplate;
@@ -290,7 +291,7 @@ export const getStaticProps: GetStaticProps<Props> = async (ctx) => {
       template: JSON.parse(JSON.stringify(queryTemplate)),
       responseSchema: JSON.parse(JSON.stringify(responseSchema))
     },
-    revalidate: 300,
+    revalidate: 3600,
   };
 };
 

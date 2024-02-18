@@ -7,7 +7,7 @@ import {
   ITemplateFormData,
   ITemplateSchema,
   ITemplateUiSchema,
-} from "@/lib/schema/templates/types";
+} from "@/lib/schema/types/templates";
 import { createFlexFile, createFlexUrl } from "@/lib/schema/utils/flexFile";
 
 /**

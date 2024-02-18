@@ -13,7 +13,7 @@ import { Hotkey } from 'react-hotkeys-hook/dist/types'
 import { Key } from 'ts-key-enum'
 import { PlusIcon } from '@/theme/icons'
 import { ADO_LIST_FILES, useGetFilteredAdoList } from '@/lib/schema/hooks/useGetAdoList'
-import { IAdoList } from '@/lib/schema/templates/types'
+import { IAdoList } from '@/lib/schema/types/templates'
 
 export interface InsertComponentProps {
 

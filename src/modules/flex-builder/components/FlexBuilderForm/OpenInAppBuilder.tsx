@@ -6,7 +6,7 @@ import {
   ITemplateFormData,
   ITemplateSchema,
   ITemplateUiSchema,
-} from "@/lib/schema/templates/types";
+} from "@/lib/schema/types/templates";
 import { createFlexFile, createFlexUrl } from "@/lib/schema/utils/flexFile";
 import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
 import { useRouter } from "next/router";

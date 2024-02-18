@@ -1,5 +1,3 @@
-import { ITemplateSchema } from "../templates/types";
-
 const BASE = 16;
 const MAX_BASE_VALUE = 'FFFFFF'
 /** 

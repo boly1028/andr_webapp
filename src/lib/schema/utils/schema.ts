@@ -4,11 +4,9 @@
  */
 
 import { cloneDeep } from "@apollo/client/utilities";
-import APP_TEMPLATES from "../templates";
-import { IAdoList, ITemplate } from "../templates/types";
-import { IAdoType, IAndromedaSchema, IAndromedaSchemaJSON, IImportantAdoKeys, ISchemaVersion } from "../types";
-import { processTemplate } from "./template";
+import { IAdoType, IAndromedaSchema, IAndromedaSchemaJSON, ISchemaVersion } from "../types";
 import { SCHEMA_API_AXIOS } from "@/lib/axios";
+import { IAdoList } from "../types/templates";
 
 export const getAdoList = async <T = IAdoList>(item: string) => {
     const list = await SCHEMA_API_AXIOS.get(`version/${item}`).then(res => res.data) as T;
@@ -167,75 +165,4 @@ export const getSchemaFromPath = async (path: string) => {
     }
 
     return schema;
-}
-
-export const getAppTemplateById = async (id: string, templates = APP_TEMPLATES) => {
-    const template = templates.find(t => t.id === id);
-    if (!template || template.disabled) throw new Error(`Template with id: ${id} not found`);
-    const result = await processTemplate(template);
-    return result;
-}
-
-export const getADOExecuteTemplate = async (path: string) => {
-    // Generate Template
-    const currentTemplate: ITemplate = {
-        id: path,
-        adoType: path.split('/')[0] as any || 'app',
-        name: '',
-        description: '',
-        icon: "",
-        opts: [],
-        ados: [
-            { path: IImportantAdoKeys.PROXY_SETTING.path, id: IImportantAdoKeys.PROXY_SETTING.key, required: false, removable: false, enabled: false },
-            { path: path, id: path.split('/').pop() ?? "Execute", required: true },
-        ],
-        modules: [
-            { 'path': IImportantAdoKeys.FUND.path }
-        ]
-    };
-
-    const template = await processTemplate(currentTemplate);
-    return template;
-}
-
-export const getADOMultiExecuteTemplate = async (path: string) => {
-    const ADOPS = await getADOPFromPath(`${path}/ADOP`);
-    // Generate Template
-    const currentTemplate: ITemplate = {
-        id: path,
-        adoType: path.split('/')[0] as any || 'app',
-        name: '',
-        description: '',
-        icon: "",
-        opts: [],
-        ados: [
-            { path: IImportantAdoKeys.PROXY_SETTING.path, id: IImportantAdoKeys.PROXY_SETTING.key, required: false, removable: false, enabled: false },
-        ],
-        modules: [
-            ...ADOPS.modifiers.map(ado => ({ path: `${path}/${ado}` })),
-            { 'path': IImportantAdoKeys.FUND.path }
-        ]
-    };
-    const template = await processTemplate(currentTemplate);
-    return template;
-}
-
-export const getADOQueryTemplate = async (path: string) => {
-    // Generate Template
-    const currentTemplate: ITemplate = {
-        id: path,
-        adoType: path.split('/')[0] as any || 'app',
-        name: '',
-        description: '',
-        icon: "",
-        opts: [],
-        ados: [
-            { path: path, id: path.split('/').pop() ?? "Query", required: true, removable: false },
-        ],
-        modules: [
-        ]
-    };
-
-    const template = await processTemplate(currentTemplate);
-    return template;
 }

@@ -1,4 +1,4 @@
-import { ITemplateFormData } from "@/lib/schema/templates/types";
+import { ITemplateFormData } from "@/lib/schema/types/templates";
 import { useCallback } from "react";
 import { useAppBuilder, useReactFlow } from "../canvas/Provider";
 

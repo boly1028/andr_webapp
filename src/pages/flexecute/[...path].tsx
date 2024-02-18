@@ -6,7 +6,6 @@ import { FilePlusIcon, Layout, PageHeader } from "@/modules/common";
 import { useRouter } from "next/router";
 import { IImportantAdoKeys, ITemplate } from "@/lib/schema/types";
 import { useExecuteModal } from "@/modules/modals/hooks";
-import { getADOExecuteTemplate } from "@/lib/schema/utils";
 import useConstructADOExecuteMsg from "@/modules/sdk/hooks/useConstructaADOExecuteMsg";
 import { useGetFunds } from "@/modules/sdk/hooks";
 import { useEffect, useMemo, useState } from "react";
@@ -17,11 +16,12 @@ import { parseJsonFromFile } from "@/lib/json";
 import { parseFlexFile } from "@/lib/schema/utils/flexFile";
 import { FlexBuilderFormProps } from "@/modules/flex-builder/components/FlexBuilderForm";
 import { EXECUTE_CLI_QUERY, useAndromedaClient } from "@/lib/andrjs";
-import { ITemplateFormData } from "@/lib/schema/templates/types";
+import { ITemplateFormData } from "@/lib/schema/types/templates";
 import { useGetFlexFileFromSession, useGetFlexFileFromUrl } from "@/modules/flex-builder/hooks/useFlexFile";
 import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
 import { ListIcon } from "lucide-react";
 import ModifierDropdown from "@/modules/assets/components/AdosList/ModifierDropdown";
+import { getADOExecuteTemplate } from "@/lib/schema/utils/template";
 
 type Props = {
   template: ITemplate
@@ -248,7 +248,7 @@ export const getStaticProps: GetStaticProps<Props> = async (ctx) => {
     props: {
       template: JSON.parse(JSON.stringify(executeTemplate)),
     },
-    revalidate: 300,
+    revalidate: 3600,
   };
 };
 

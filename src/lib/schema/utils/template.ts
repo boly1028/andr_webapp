@@ -1,6 +1,9 @@
-import { IAdo, ITemplateFormData, ITemplateSchema, ITemplateUiSchema } from "../templates/types";
-import { IAndromedaFormData, ITemplate } from "../types";
-import { getADOVersion, getSchemaFromPath } from "./schema";
+import { IAdo, ITemplateFormData, ITemplateSchema, ITemplateUiSchema } from "../types/templates";
+import { IAdoType, IAndromedaFormData, IImportantAdoKeys, IImportantTemplateTypes, ITemplate } from "../types";
+import { getADOPFromPath, getADOVersion, getSchemaFromPath } from "./schema";
+import { getBlankAppTemplateModules } from "../templates/blank";
+import { getAdminAppTemplateModules } from "../templates/admin";
+import { getAdoTemplate } from "../templates/ado";
 
 /** Process the template by resolving schema paths found in ados and moodules list */
 export const processTemplate = async (template: ITemplate) => {
@@ -79,4 +82,81 @@ export const processTemplateAdo = async (ado: IAdo, formData?: IAndromedaFormDat
     }
 
     return schemaADO;
+}
+
+
+export const getFlexBuilderTemplateById = async (id: string, templates: ITemplate[]) => {
+    const template = templates.find(t => t.id === id) || id.startsWith(IImportantTemplateTypes.ADO_TEMPLATE) ? await getAdoTemplate(id.replace(`${IImportantTemplateTypes.ADO_TEMPLATE}-`, '') as IAdoType) : undefined;
+    if (!template || template.disabled) throw new Error(`Template with id: ${id} not found`);
+    if (template.id === IImportantTemplateTypes.BLANK_CANVAS) {
+        template.modules = await getBlankAppTemplateModules();
+    } else if (template.id === IImportantTemplateTypes.ADMIN_TEMPLATE) {
+        template.modules = await getAdminAppTemplateModules();
+    }
+    const result = await processTemplate(template);
+    return result;
+}
+
+export const getADOExecuteTemplate = async (path: string) => {
+    // Generate Template
+    const currentTemplate: ITemplate = {
+        id: path,
+        adoType: path.split('/')[0] as any || 'app',
+        name: '',
+        description: '',
+        icon: "",
+        opts: [],
+        ados: [
+            { path: IImportantAdoKeys.PROXY_SETTING.path, id: IImportantAdoKeys.PROXY_SETTING.key, required: false, removable: false, enabled: false },
+            { path: path, id: path.split('/').pop() ?? "Execute", required: true },
+        ],
+        modules: [
+            { 'path': IImportantAdoKeys.FUND.path }
+        ]
+    };
+
+    const template = await processTemplate(currentTemplate);
+    return template;
+}
+
+export const getADOMultiExecuteTemplate = async (path: string) => {
+    const ADOPS = await getADOPFromPath(`${path}/ADOP`);
+    // Generate Template
+    const currentTemplate: ITemplate = {
+        id: path,
+        adoType: path.split('/')[0] as any || 'app',
+        name: '',
+        description: '',
+        icon: "",
+        opts: [],
+        ados: [
+            { path: IImportantAdoKeys.PROXY_SETTING.path, id: IImportantAdoKeys.PROXY_SETTING.key, required: false, removable: false, enabled: false },
+        ],
+        modules: [
+            ...ADOPS.modifiers.map(ado => ({ path: `${path}/${ado}` })),
+            { 'path': IImportantAdoKeys.FUND.path }
+        ]
+    };
+    const template = await processTemplate(currentTemplate);
+    return template;
+}
+
+export const getADOQueryTemplate = async (path: string) => {
+    // Generate Template
+    const currentTemplate: ITemplate = {
+        id: path,
+        adoType: path.split('/')[0] as any || 'app',
+        name: '',
+        description: '',
+        icon: "",
+        opts: [],
+        ados: [
+            { path: path, id: path.split('/').pop() ?? "Query", required: true, removable: false },
+        ],
+        modules: [
+        ]
+    };
+
+    const template = await processTemplate(currentTemplate);
+    return template;
 }

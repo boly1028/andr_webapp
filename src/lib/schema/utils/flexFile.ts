@@ -1,6 +1,6 @@
 import { cloneDeep } from "lodash";
 import JSONCrush from "jsoncrush";
-import { IAdo, ITemplateFormData, ITemplateSchema, ITemplateUiSchema } from "../templates/types";
+import { IAdo, ITemplateFormData, ITemplateSchema, ITemplateUiSchema } from "../types/templates";
 import { ITemplate } from "../types"
 import { processTemplate } from "./template";
 import { BLANK_APP_TEMPLATE } from "../templates/blank";

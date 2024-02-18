@@ -6,7 +6,6 @@ import { FlexBuilderForm } from "@/modules/flex-builder";
 import { useInstantiateModal } from "@/modules/modals/hooks";
 import { useConstructAppMsg } from "@/modules/sdk/hooks";
 import { IImportantAdoKeys, IImportantTemplateTypes, ITemplate } from "@/lib/schema/types";
-import { getAppTemplateById } from "@/lib/schema/utils";
 import { ILinkItemKey } from "@/modules/common/components/sidebar/utils";
 import { FlexBuilderFormProps } from "@/modules/flex-builder/components/FlexBuilderForm";
 import { useCallback, useEffect, useMemo, useState } from "react";
@@ -16,6 +15,8 @@ import useConstructADOMsg from "@/modules/sdk/hooks/useConstructADOMsg";
 import { useAccount } from "@/lib/andrjs/hooks/useAccount";
 import { useGetFlexFileFromSession, useGetFlexFileFromUrl } from "@/modules/flex-builder/hooks/useFlexFile";
 import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
+import { getFlexBuilderTemplateById } from "@/lib/schema/utils/template";
+import APP_TEMPLATES from "@/lib/schema/templates";
 
 type Props = {
   template: ITemplate;
@@ -181,11 +182,9 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
   );
 };
 
-// DIRECTLY CALLING DATABASE FUNCTION IS FASTER THAN CALLING THROUGH API ENDPOINTZ
-
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
-    paths: [],
+    paths: APP_TEMPLATES.map(t => t.id),
     fallback: "blocking",
   };
 };
@@ -193,7 +192,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<Props> = async (ctx) => {
   const { params } = ctx;
   const id = params?.id as string;
-  const data = await getAppTemplateById(id);
+  const data = await getFlexBuilderTemplateById(id, APP_TEMPLATES);
   if (!data) {
     return {
       notFound: true,
@@ -201,7 +200,7 @@ export const getStaticProps: GetStaticProps<Props> = async (ctx) => {
   }
   return {
     props: { template: data },
-    revalidate: 300,
+    revalidate: 3600,
   };
 };
 

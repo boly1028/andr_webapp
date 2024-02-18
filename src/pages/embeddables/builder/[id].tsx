@@ -10,14 +10,15 @@ import { HStack, Icon, IconButton, Input, Tooltip, useToast } from "@chakra-ui/r
 import { parseJsonFromFile } from "@/lib/json";
 import { parseFlexFile } from "@/lib/schema/utils/flexFile";
 import { FlexBuilderFormProps } from "@/modules/flex-builder/components/FlexBuilderForm";
-import { ITemplateFormData } from "@/lib/schema/templates/types";
-import { getEmbeddableTemplateById } from "@/lib/schema/utils/embeddables";
+import { ITemplateFormData } from "@/lib/schema/types/templates";
 import { IEmbeddableConfig } from "@/lib/schema/types/embeddables";
 import { constructMsg } from "@/modules/sdk/utils";
 import useEmbeddableModal from "@/modules/modals/hooks/useEmbeddableModal";
 import { useGetEmbeddabeleConfig } from "@/modules/embeddables/hooks/useGetEmbeddableConfig";
 import { cloneDeep } from "@apollo/client/utilities";
 import { CogIcon } from "lucide-react";
+import { getFlexBuilderTemplateById } from "@/lib/schema/utils/template";
+import { EMBEDDABLE_TEMPLATES } from "@/lib/schema/templates/embeddable";
 
 type Props = {
   template: ITemplate
@@ -224,7 +225,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
-    paths: [],
+    paths: EMBEDDABLE_TEMPLATES.map(t => t.id),
     fallback: "blocking",
   };
 };
@@ -232,7 +233,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<Props> = async (ctx) => {
   const { params } = ctx;
   const id = params?.id as string;
-  const template = await getEmbeddableTemplateById(id);
+  const template = await getFlexBuilderTemplateById(id, EMBEDDABLE_TEMPLATES);
   if (!template) {
     return {
       notFound: true,

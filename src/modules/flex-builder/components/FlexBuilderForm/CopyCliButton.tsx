@@ -4,7 +4,7 @@ import { Button, IconButton, Text, Tooltip, useToast } from "@chakra-ui/react";
 import { CopyButton, CliIcon } from "@/modules/common";
 import {
   ITemplateFormData,
-} from "@/lib/schema/templates/types";
+} from "@/lib/schema/types/templates";
 import { ICliQueryGenerator } from "@/lib/andrjs";
 
 /**

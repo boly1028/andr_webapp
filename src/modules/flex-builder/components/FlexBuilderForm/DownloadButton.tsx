@@ -6,7 +6,7 @@ import {
   ITemplateFormData,
   ITemplateSchema,
   ITemplateUiSchema,
-} from "@/lib/schema/templates/types";
+} from "@/lib/schema/types/templates";
 import { IImportantAdoKeys, ITemplate } from "@/lib/schema/types";
 import { createFlexFile } from "@/lib/schema/utils/flexFile";
 import { downloadBlob } from "@/utils/file";

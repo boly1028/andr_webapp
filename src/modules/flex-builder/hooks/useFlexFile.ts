@@ -1,6 +1,7 @@
+import APP_TEMPLATES from "@/lib/schema/templates";
 import { ITemplate } from "@/lib/schema/types";
-import { getAppTemplateById } from "@/lib/schema/utils";
 import { parseFlexFile, parseFlexUrl } from "@/lib/schema/utils/flexFile";
+import { getFlexBuilderTemplateById } from "@/lib/schema/utils/template";
 import { useRouter } from "next/router"
 import { useCallback, useEffect, useMemo, useState } from "react";
 
@@ -15,7 +16,7 @@ export const useGetFlexFileFromUrl = (key = 'data') => {
     }, [router.query, key])
 
     const process = useCallback(async () => {
-        let template = await getAppTemplateById(templateUri).catch(err => undefined)
+        let template = await getFlexBuilderTemplateById(templateUri, APP_TEMPLATES).catch(err => undefined)
         if (template) return template;
         template = await parseFlexUrl(templateUri);
         return template;

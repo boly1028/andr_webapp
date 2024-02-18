@@ -1,4 +1,4 @@
-import { ITemplateFormData } from "@/lib/schema/templates/types";
+import { ITemplateFormData } from "@/lib/schema/types/templates";
 import type { Msg } from "@andromedaprotocol/andromeda.js";
 import { useCallback } from "react";
 import { constructMsg } from "../utils";

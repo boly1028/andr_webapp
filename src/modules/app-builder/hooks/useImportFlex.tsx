@@ -1,4 +1,4 @@
-import { ITemplate } from "@/lib/schema/templates/types"
+import { ITemplate } from "@/lib/schema/types/templates"
 import { IImportantAdoKeys, IPublishSettingsFormData } from "@/lib/schema/types"
 import { parseFlexUrl } from "@/lib/schema/utils/flexFile"
 import { processTemplateAdo } from "@/lib/schema/utils/template"

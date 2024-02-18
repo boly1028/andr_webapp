@@ -5,7 +5,7 @@ import { FilePlusIcon, Layout, PageHeader } from "@/modules/common";
 import { FlexBuilderForm } from "@/modules/flex-builder";
 import { GetStaticProps } from "next";
 import { processTemplate } from "@/lib/schema/utils/template";
-import { ITemplateFormData } from "@/lib/schema/templates/types";
+import { ITemplateFormData } from "@/lib/schema/types/templates";
 import { useGlobalModalContext } from "@/modules/modals/hooks";
 import { ModalType, MultiTransactionModalProps } from "@/modules/modals/types";
 import { useAndromedaClient } from "@/lib/andrjs";

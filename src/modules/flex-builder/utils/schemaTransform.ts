@@ -1,4 +1,4 @@
-import { ITemplateFormData, ITemplateSchema, ITemplateUiSchema } from "@/lib/schema/templates/types";
+import { ITemplateFormData, ITemplateSchema, ITemplateUiSchema } from "@/lib/schema/types/templates";
 import { IAndromedaSchemaJSON } from "@/lib/schema/types";
 import { cloneDeep } from "lodash";
 

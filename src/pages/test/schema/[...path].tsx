@@ -5,8 +5,8 @@ import { Box } from "@/theme/ui-elements";
 import { Layout, PageHeader } from "@/modules/common";
 import { useRouter } from "next/router";
 import { ITemplate } from "@/lib/schema/types";
-import { getADOExecuteTemplate } from "@/lib/schema/utils";
 import { useAndromedaClient } from "@/lib/andrjs";
+import { getADOExecuteTemplate } from "@/lib/schema/utils/template";
 
 type Props = {
   template: ITemplate;

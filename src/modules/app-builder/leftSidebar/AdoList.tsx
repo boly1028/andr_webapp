@@ -6,7 +6,7 @@ import React, { FC, useCallback } from "react";
 import { useAppBuilder } from "../canvas/Provider";
 import useAddNode from "../hooks/useAddNode";
 import { IUIComponents, RF_DRAG_KEYS } from "../types";
-import { IAdoList } from "@/lib/schema/templates/types";
+import { IAdoList } from "@/lib/schema/types/templates";
 
 export interface AdoListProps {
     name: string;

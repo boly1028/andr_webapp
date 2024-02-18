@@ -7,18 +7,18 @@ import { getAdoList } from "../utils";
  * See flex file processing at ../utils/flexFile
  */
 
-export const BLANK_APP_TEMPLATE: ITemplate = {
-    id: IImportantTemplateTypes.BLANK_CANVAS,
+export const ADMIN_APP_TEMPLATE: ITemplate = {
+    id: IImportantTemplateTypes.ADMIN_TEMPLATE,
     adoType: "app-contract",
-    name: "Empty Project",
+    name: "Admin Panel",
     icon: "/app-templates/icons/blank.png",
     description:
-        "Start from scratch building out your own ADO structure to be just the way you like it.",
+        "Admin template which contains all ados including those which are in beta phase",
     opts: [
-        "Select your Base ADO functionality",
-        "Add on your prefered modules",
-        "Save as a template",
-        "Publish and use!",
+        "ADO's are in development phase",
+        "Breaking changes",
+        "Loss of ADO",
+        "Only for admin/testing purpose",
     ],
     ados: [
         {
@@ -31,13 +31,12 @@ export const BLANK_APP_TEMPLATE: ITemplate = {
     modules: [
     ],
     system: true,
-    starter: true,
+    starter: false,
 };
 
-export const getBlankAppTemplateModules = async () => {
-    const ALL_ADO = await getAdoList(ADO_LIST_FILES.BASE_ADO);
-    const ADO_ENABLED = await getAdoList<Record<string, boolean>>('adoEnable' as any);
-    const modules: NonNullable<ITemplate['modules']> = ALL_ADO.filter(ado => !!ADO_ENABLED[ado.adoType]).map(ado => ({
+export const getAdminAppTemplateModules = async () => {
+    const ALL_ADO = await getAdoList(ADO_LIST_FILES.ALL_ADO);
+    const modules: NonNullable<ITemplate['modules']> = ALL_ADO.map(ado => ({
         'path': ado.source
     }));
     return modules;

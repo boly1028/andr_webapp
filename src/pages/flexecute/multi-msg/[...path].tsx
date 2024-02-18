@@ -5,7 +5,6 @@ import { Box } from "@/theme/ui-elements";
 import { FilePlusIcon, Layout, PageHeader } from "@/modules/common";
 import { useRouter } from "next/router";
 import { IImportantAdoKeys, ITemplate } from "@/lib/schema/types";
-import { getADOMultiExecuteTemplate } from "@/lib/schema/utils";
 import { useGetFunds } from "@/modules/sdk/hooks";
 import { useEffect, useMemo, useState } from "react";
 import { Button, HStack, Icon, IconButton, Input, Menu, MenuButton, Tooltip, useToast } from "@chakra-ui/react";
@@ -14,13 +13,14 @@ import { parseJsonFromFile } from "@/lib/json";
 import { parseFlexFile } from "@/lib/schema/utils/flexFile";
 import { FlexBuilderFormProps } from "@/modules/flex-builder/components/FlexBuilderForm";
 import { EXECUTE_CLI_QUERY, useAndromedaClient } from "@/lib/andrjs";
-import { ITemplateFormData } from "@/lib/schema/templates/types";
+import { ITemplateFormData } from "@/lib/schema/types/templates";
 import useConstructMultiExecuteMsg from "@/modules/sdk/hooks/useConstructMultiExecuteMsg";
 import useMultiExecuteModal from "@/modules/modals/hooks/useMultiExecuteModal";
 import { useGetFlexFileFromSession, useGetFlexFileFromUrl } from "@/modules/flex-builder/hooks/useFlexFile";
 import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
 import { ListIcon } from "lucide-react";
 import ModifierDropdown from "@/modules/assets/components/AdosList/ModifierDropdown";
+import { getADOMultiExecuteTemplate } from "@/lib/schema/utils/template";
 
 type Props = {
   template: ITemplate
@@ -249,7 +249,7 @@ export const getStaticProps: GetStaticProps<Props> = async (ctx) => {
     props: {
       template: JSON.parse(JSON.stringify(template)),
     },
-    revalidate: 300,
+    revalidate: 3600,
   };
 };
 

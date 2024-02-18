@@ -1,4 +1,4 @@
-import { ITemplateFormData } from "@/lib/schema/templates/types";
+import { ITemplateFormData } from "@/lib/schema/types/templates";
 import { IAdoType, IImportantAdoKeys, IPublishSettingsFormData } from "@/lib/schema/types";
 import { useCallback } from "react";
 import { IAppContract } from "../types";

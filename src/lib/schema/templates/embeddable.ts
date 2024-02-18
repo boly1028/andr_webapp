@@ -1,5 +1,4 @@
-import { ITemplate } from "./types";
-import { IImportantAdoKeys } from "../types";
+import { IImportantAdoKeys, ITemplate } from "../types";
 
 
 export const EMBEDDABLE_TEMPLATES: (ITemplate & { preview?: string })[] = [

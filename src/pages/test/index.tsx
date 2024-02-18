@@ -8,7 +8,7 @@ import Link from "next/link";
 import { SITE_LINKS } from "@/modules/common/utils/sitelinks";
 import _ from "lodash";
 import { ADO_LIST_FILES, useGetAdoList } from "@/lib/schema/hooks/useGetAdoList";
-import { IAdoList } from "@/lib/schema/templates/types";
+import { IAdoList } from "@/lib/schema/types/templates";
 
 
 const Page: NextPage = ({ }) => {
