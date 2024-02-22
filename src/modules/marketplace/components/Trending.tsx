@@ -34,7 +34,7 @@ const Trending: FC = () => {
       </Text>
 
       <HStack mb={8} spacing={4}>
-        <InputGroup flex={1} placeholder="Collection, item or user">
+        <InputGroup flex={1}>
           <InputLeftElement pointerEvents="none">
             <SearchIcon />
           </InputLeftElement>

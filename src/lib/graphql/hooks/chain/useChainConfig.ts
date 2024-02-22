@@ -49,4 +49,5 @@ export function useQueryAllChainConfigs() {
 }
 
 // Disable chains that are not currently supported for use
-const DISABLED_CHAIN_IDS: string[] = ['atlantic-1', 'injective-888']
+// const DISABLED_CHAIN_IDS: string[] = ['atlantic-1', 'injective-888']
+const DISABLED_CHAIN_IDS: string[] = []
