@@ -6,13 +6,30 @@ import { IAdoType } from "@/lib/schema/types";
 export interface IAppContract {
     [index: string]: any;
     name: string;
+    owner?: string;
     kernel_address: string;
     app_components: Array<{
         ado_type: string;
-        instantiate_msg: string;
+        component_type: IAppNewComponent | IAppSymlinkComponent | IAppCrossChainComponent;
         name: string;
     }>;
-    target_ados?: string[]
+    chain_info: Array<{
+        chain_name: string;
+        owner: string;
+    }>;
+}
+
+export interface IAppNewComponent {
+    new: string;
+}
+export interface IAppSymlinkComponent {
+    symlink: string;
+}
+export interface IAppCrossChainComponent {
+    cross_chain: {
+        chain: string;
+        instantiate_msg: string;
+    }
 }
 
 /**

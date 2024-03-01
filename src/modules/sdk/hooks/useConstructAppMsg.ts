@@ -1,5 +1,5 @@
 import { ITemplateFormData } from "@/lib/schema/types/templates";
-import { IAdoType, IImportantAdoKeys, IPublishSettingsFormData } from "@/lib/schema/types";
+import { IImportantAdoKeys, IPublishSettingsFormData } from "@/lib/schema/types";
 import { useCallback } from "react";
 import { IAppContract } from "../types";
 import useConstructADOMsg from "./useConstructADOMsg";
@@ -31,6 +31,7 @@ export default function useConstructAppMsg() {
       const appContract: IAppContract = {
         name: appName,
         app_components: [],
+        chain_info: [],
         kernel_address: ''
       };
 
@@ -42,7 +43,7 @@ export default function useConstructAppMsg() {
         if (panel.$enabled === false) return;
 
         // Ado Type of current panel
-        const adoType = panel.$type === 'app-contract' ? 'app' : panel.$type;
+        const adoType = panel.$type;
         const adoVersion = panel.$version;
 
         // Remove hidden fields from panel data
@@ -59,7 +60,9 @@ export default function useConstructAppMsg() {
         appContract.app_components.push({
           'name': id,
           'ado_type': getAdoTypeWithVersion(adoType, adoVersion),
-          'instantiate_msg': instantiateMsg
+          'component_type': {
+            new: instantiateMsg
+          }
         })
       })
 

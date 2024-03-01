@@ -37,6 +37,8 @@ export const KEPLR_AUTOCONNECT_KEY = "keplr_autoconnect";
 export const LAST_CHAIN_KEY = "last_chain_id";
 
 const FIXED_KERNEL_ADDRESSES: string[] = [
+    "stars1j66zm4jp7clv0l7lpdfdy3s9skhdfrgdpqfkma7x2ea7g0n0h9zst0hr4x",
+    "inj1dt6za4af965dwmccjhr5drqmqf60tfvv5pwzuw"
 ]
 
 export const connectAndromedaClient = async (chainId?: string | null) => {

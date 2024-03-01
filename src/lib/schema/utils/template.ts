@@ -21,7 +21,9 @@ export const processTemplate = async (template: ITemplate) => {
 
     for (const ado of template.ados) {
         const schemaADO = await processTemplateAdo(ado, template.formData?.[ado.id])
-
+        if (ado.id === IImportantAdoKeys.PUBLISH_SETTING.key) {
+            schemaADO.schema.version = template.adoVersion || schemaADO.schema.version
+        }
         // Set Definition
         definitions[schemaADO.schema.$id] = schemaADO.schema;
 

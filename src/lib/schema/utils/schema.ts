@@ -14,6 +14,14 @@ export const getAdoList = async <T = IAdoList>(item: string) => {
 }
 
 
+export const getADOVersionFromCodeId = async (codeId: number, chainId: string) => {
+    const version = await SCHEMA_API_AXIOS.get(`version/code_id/${codeId}/${chainId}/version`).then(res => res.data).then(data => cloneDeep(data)) as {
+        createdAt: number;
+        version: string
+    }
+    return version;
+}
+
 export const getADOVersion = async (ado: IAdoType) => {
     if (ado as any === 'app') ado = 'app-contract';
     const version = await SCHEMA_API_AXIOS.get(`version/${ado}/version`).then(res => res.data).then(data => cloneDeep(data)) as {
