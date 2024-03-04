@@ -19,7 +19,7 @@ const WalletModal: FC = () => {
         <VStack spacing={4} mt='10' mb='6'>
             <KeplrWallet >
                 <Text textStyle="main-md-medium">Get started by connecting a chain</Text>
-                <ButtonGroup variant="theme-outline">
+                <ButtonGroup variant="theme-outline" flexWrap='wrap' gap={2} justifyContent="center">
                     {chains ? chains.map(({ chainId, iconUrls, chainName, chainType }) => (
                         <ChainButton
                             key={chainId}

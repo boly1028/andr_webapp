@@ -285,11 +285,11 @@ export const getStaticProps: GetStaticProps<Props> = async (ctx) => {
       notFound: true,
     };
   }
-  const responseSchema = await getSchemaFromPath(queryTemplate.id.replace('.query', '.response')).catch(err => undefined);
+  const responseSchema = await getSchemaFromPath(queryTemplate.id.replace('.query', '.response')).catch(err => null);
   return {
     props: {
       template: JSON.parse(JSON.stringify(queryTemplate)),
-      responseSchema: JSON.parse(JSON.stringify(responseSchema))
+      responseSchema: responseSchema && JSON.parse(JSON.stringify(responseSchema))
     },
     revalidate: 3600,
   };
