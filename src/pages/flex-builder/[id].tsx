@@ -45,7 +45,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
       }).catch(console.error)
     }, 500)
     return () => clearTimeout(tid);
-  }, [importedTemplate])
+  }, [importedTemplate, loading])
 
   const toast = useToast({
     position: "top-right",

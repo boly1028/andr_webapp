@@ -71,7 +71,7 @@ const TemplatePage: NextPage<Props> = ({ template, responseSchema }) => {
       setModifiedTemplate(newTemplate);
     }, 500)
     return () => clearTimeout(tid);
-  }, [importedTemplate]);
+  }, [importedTemplate, loading]);
 
   const constructQueryMsg = useConstructADOQueryMsg()
 

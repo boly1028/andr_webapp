@@ -77,7 +77,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
       setModifiedTemplate(newTemplate);
     }, 500)
     return () => clearTimeout(tid);
-  }, [ADO_DATA, importedTemplate])
+  }, [ADO_DATA, importedTemplate, loading])
 
   const handleFlexInput = async (file: File) => {
     try {

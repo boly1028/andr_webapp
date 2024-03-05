@@ -65,6 +65,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
 
   const isProxy = (formData: ITemplateFormData) => (IImportantAdoKeys.PROXY_SETTING.key in formData && formData[IImportantAdoKeys.PROXY_SETTING.key].$enabled === true)
   const [modifiedTemplate, setModifiedTemplate] = useState(importedTemplate);
+
   useEffect(() => {
     if (loading) return;
     const tid = setTimeout(async () => {
@@ -81,7 +82,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
       setModifiedTemplate(newTemplate);
     }, 500)
     return () => clearTimeout(tid);
-  }, [ADO_DATA, importedTemplate])
+  }, [ADO_DATA, importedTemplate, loading])
 
 
   const handleFlexInput = async (file: File) => {
@@ -117,6 +118,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
     _template.modules = template.modules
     return _template;
   }
+
   const getMsg = (formData: any) => {
     const proxy = isProxy(formData);
     if (proxy) {
@@ -200,7 +202,7 @@ const TemplatePage: NextPage<Props> = ({ template }) => {
     [handleFlexInput],
   );
 
-  const UPDATE_KEY = useMemo(() => Math.random(), [modifiedTemplate]);
+  const UPDATE_KEY = useMemo(() => Math.random(), [modifiedTemplate, ADO_DATA]);
 
   return (
     <Layout>

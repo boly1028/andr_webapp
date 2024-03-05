@@ -91,7 +91,6 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
         uiSchema: uiSchema,
         formData: formData,
       });
-      console.log("deleteModule form.formData:", form.formData);
       updateForm(form);
     },
     [schema, uiSchema, formData],
@@ -102,7 +101,6 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
       setFormData((prev) => {
         const cloneData = cloneDeep(prev);
         cloneData[`${id}`]["$enabled"] = enabled;
-        console.log(cloneData);
         return cloneData;
       });
     },
