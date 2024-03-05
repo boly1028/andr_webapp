@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import {
   Flex,
   Box,
@@ -15,6 +15,8 @@ import Sidebar from "./sidebar";
 import { useAppStateStore } from "@/zustand/appState";
 import ScrollToBottom from "./ScrollToBottom";
 import ScrollToTop from "./ScrollToTop";
+import { useRouter } from "next/router";
+import AnimatedLogo from "./AnimatedLogo";
 
 interface ILayoutProps extends BoxProps {
   activeLink?: ILinkItemKey
@@ -26,6 +28,23 @@ const Layout: FC<ILayoutProps> = ({
   maxW = "container.lg",
   ...props
 }) => {
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    const handleStart = (url) => (url !== router.asPath) && setLoading(true);
+    const handleComplete = (url) => (url === router.asPath) && setLoading(false);
+
+    router.events.on('routeChangeStart', handleStart)
+    router.events.on('routeChangeComplete', handleComplete)
+    router.events.on('routeChangeError', handleComplete)
+
+    return () => {
+      router.events.off('routeChangeStart', handleStart)
+      router.events.off('routeChangeComplete', handleComplete)
+      router.events.off('routeChangeError', handleComplete)
+    }
+  }, [router])
+
   const status = useAndromedaStore(state => state.keplrStatus);
   const isInitializing = status === KeplrConnectionStatus.Connecting;
 
@@ -78,7 +97,9 @@ const Layout: FC<ILayoutProps> = ({
             margin="0 auto"
             position="relative"
           >
-            {children}
+            <AnimatedLogo isLoading={loading} delay={500}>
+              {children}
+            </AnimatedLogo>
             <ScrollToBottom />
             <ScrollToTop />
           </Box>
