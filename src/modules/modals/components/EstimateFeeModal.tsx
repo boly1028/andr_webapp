@@ -4,12 +4,13 @@ import { Coin, coins, StdFee } from "@cosmjs/stargate";
 import { useGlobalModalContext } from "../hooks";
 import { TransactionModalProps } from "../types";
 
-import { GasIcon } from "@/modules/common";
+import { GasIcon, truncate } from "@/modules/common";
 import { Box, Button, Center, Divider, Text } from "@/theme/ui-elements";
 import ModalLoading from "./ModalLoading";
 import { sumCoins } from "@/modules/sdk/hooks/useGetFunds";
 import { useAndromedaClient } from "@/lib/andrjs";
 import { useAndromedaStore } from "@/zustand/andromeda";
+import { HStack, Tooltip } from "@chakra-ui/react";
 // import { useCurrentChainConfig } from "@/lib/andrjs/hooks/useKeplrChainConfig";
 // import { CoinPretty } from "@keplr-wallet/unit";
 
@@ -52,10 +53,16 @@ const FeeAmount: FC<{ coin: Coin; text: string }> = memo(function FeeAmount({
         }}
       >
         <Box>{text}</Box>
-        <Box>
-          {formattedCoin?.amount}{" "}
-          <b>{formattedCoin?.denom} </b>
-        </Box>
+        <HStack>
+          <Text>
+            {formattedCoin?.amount}
+          </Text>
+          <Tooltip label={formattedCoin.denom} openDelay={500}>
+            <Text fontWeight='bold'>
+              {truncate(formattedCoin?.denom)}
+            </Text>
+          </Tooltip>
+        </HStack>
       </Box>
     </>
   );
@@ -195,10 +202,13 @@ const EstimateFeeModal: FC<TransactionModalProps & OptionalProps> = (props) => {
                   text="Funds"
                 />
               ))}
-            {totalFunds && <FeeAmount coin={totalFunds} text="Total Funds" />}
+            {/* <Divider />
+            {totalFunds?.map(coin => (
+              <FeeAmount coin={coin} text={`Total "${truncate(coin.denom)}" funds`} />
+            ))} */}
           </Box>
 
-          <Box
+          <HStack
             mt="40px"
             sx={{
               display: "flex",
@@ -224,7 +234,7 @@ const EstimateFeeModal: FC<TransactionModalProps & OptionalProps> = (props) => {
                 Broadcast
               </Button>
             )}
-          </Box>
+          </HStack>
         </Box>
       )}
     </Box>

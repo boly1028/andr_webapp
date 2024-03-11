@@ -16,7 +16,7 @@ const getMsg = (msg: Msg) => {
 const getFunds = (funds?: Coin[]) => {
     const sum = sumCoins(funds ?? [])
     if (!sum) return undefined;
-    return `${sum.amount}${sum.denom}`
+    return sum.map(coin => `${coin.amount}${coin.denom}`).join(',');
 }
 
 export const EXECUTE_CLI_QUERY: ICliQueryGenerator = ({ msg, address, funds }) => {

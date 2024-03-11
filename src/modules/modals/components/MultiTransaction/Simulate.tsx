@@ -1,7 +1,7 @@
 import { FC, memo, useEffect, useMemo, useState } from "react";
 import { Coin, coins, StdFee } from "@cosmjs/stargate";
 
-import { GasIcon } from "@/modules/common";
+import { GasIcon, truncate } from "@/modules/common";
 import { Box, Button, Center, Divider, Text } from "@/theme/ui-elements";
 import { sumCoins } from "@/modules/sdk/hooks/useGetFunds";
 import { MultiTransactionModalProps } from "../../types";
@@ -182,7 +182,10 @@ const SimulateMultiExecute: FC<MultiTransactionModalProps & OptionalProps> = (pr
                                 text="Funds"
                             />
                         ))}
-                        {totalFunds && <FeeAmount coin={totalFunds} text="Total Funds" />}
+                        {/* <Divider /> */}
+                        {/* {totalFunds?.map(coin => (
+                            <FeeAmount coin={coin} text={`Total "${truncate(coin.denom)}" funds`} />
+                        ))} */}
                     </Box>
 
                     <Box

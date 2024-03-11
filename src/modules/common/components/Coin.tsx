@@ -1,9 +1,8 @@
-import { Box, Flex, HStack, Image, Text } from "@chakra-ui/react";
+import { useQueryAllChainConfigs } from "@/lib/graphql/hooks/chain/useChainConfig";
+import { Box, Flex, HStack, Image, Text, Tooltip } from "@chakra-ui/react";
 import React, { memo } from "react";
+import { truncate } from "..";
 
-const images: Record<string, string> = {
-  ujunox: "https://assets.coingecko.com/coins/images/19249/small/juno.png",
-};
 
 interface CoinProps {
   amount: number | string;
@@ -16,12 +15,16 @@ interface CoinProps {
  * TODO: REPAIR
  */
 const Coin: React.FC<CoinProps> = memo(function Coin({ amount, denom }) {
-  const imgUrl = images[denom] ?? images.ujunox;
+  const { data: chains } = useQueryAllChainConfigs();
+  const chain = chains?.find(c => c.defaultFee.endsWith(denom))
+  const imgUrl = chain?.iconUrls?.sm || chain?.iconUrls?.lg;
   return (
-    <Flex direction='row' gap='4' p="2" border="1px" borderColor="gray.300" rounded="lg">
-      <Image width="6" height="6" src={imgUrl} alt={`Coin - ${denom}`} />
+    <Flex direction='row' gap='4' p="2" border="1px" borderColor="border.main" bg='background.700' rounded="lg">
+      <Image width="6" height="6" src={imgUrl || '/icons/placeholder-coin.png'} />
       <Text fontWeight='bold'>{amount}</Text>
-      <Text ml='auto' textStyle='light' color='dark.500'>{denom}</Text>
+      <Tooltip label={denom} openDelay={500}>
+        <Text ml='auto' textStyle='light' color='dark.500'>{truncate(denom)}</Text>
+      </Tooltip>
     </Flex>
   );
 });
