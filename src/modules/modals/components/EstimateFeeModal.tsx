@@ -1,5 +1,5 @@
 import { FC, memo, useEffect, useMemo, useState } from "react";
-import { Coin, coins, StdFee } from "@cosmjs/stargate";
+import { calculateFee, Coin, coins, StdFee } from "@cosmjs/stargate";
 
 import { useGlobalModalContext } from "../hooks";
 import { TransactionModalProps } from "../types";
@@ -8,7 +8,6 @@ import { GasIcon, truncate } from "@/modules/common";
 import { Box, Button, Center, Divider, Text } from "@/theme/ui-elements";
 import ModalLoading from "./ModalLoading";
 import { sumCoins } from "@/modules/sdk/hooks/useGetFunds";
-import { useAndromedaClient } from "@/lib/andrjs";
 import { useAndromedaStore } from "@/zustand/andromeda";
 import { HStack, Tooltip } from "@chakra-ui/react";
 // import { useCurrentChainConfig } from "@/lib/andrjs/hooks/useKeplrChainConfig";

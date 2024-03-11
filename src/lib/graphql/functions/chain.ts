@@ -16,8 +16,11 @@ export const queryChainConfig = async (chainId: string) => {
         const c = LOCAL_CHAINS_CONFIG.find(c => c.chainId === chainId);
         if (c) return c;
     }
-    const config = await apolloClient.query<IChainConfigQuery>(refetchChainConfigQuery({ 'identifier': chainId }));
-    return config.data.chainConfigs.config;
+    const config = await apolloClient.query<IChainConfigQuery>({
+        ...refetchChainConfigQuery({ 'identifier': chainId }),
+        'fetchPolicy': 'cache-first'
+    });
+    return config?.data?.chainConfigs?.config;
 }
 
 export const LOCAL_CHAINS_CONFIG: Array<IChainConfigQuery['chainConfigs']['config']> = [

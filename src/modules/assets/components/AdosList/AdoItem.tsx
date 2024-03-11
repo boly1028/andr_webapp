@@ -40,12 +40,13 @@ import { useAppComponents } from "@/lib/graphql/hooks/app/useAppComponents";
 import { ButtonGroup, MenuDivider } from "@chakra-ui/react";
 import ModifierDropdown from "./ModifierDropdown";
 import QueryDropdown from "./QueryDropdown";
+import { useGetAppComponents } from "@/lib/andrjs/hooks/app/useGetAppComponents";
 
 interface AdoItemProps {
   address: string;
   name: string;
   proxyAddress?: string;
-  adoType: IAdoType;
+  adoType?: IAdoType;
 }
 
 const AdoItem: FC<AdoItemProps> = ({ address, name, proxyAddress, adoType: _adoType }) => {
@@ -181,7 +182,8 @@ interface ExpandedListProps {
 }
 const ExpandedList: FC<ExpandedListProps> = (props) => {
   const { appAddress } = props;
-  const { data: components, loading, error } = useAppComponents(appAddress)
+  // const { data: components, loading, error } = useAppComponents(appAddress)
+  const { data: components, isLoading: loading, error, isError } = useGetAppComponents(appAddress)
   return (
     <Box>
       {loading && (
@@ -190,18 +192,18 @@ const ExpandedList: FC<ExpandedListProps> = (props) => {
           <Skeleton h="14" rounded="xl" />
         </Stack>
       )}
-      {error && (
+      {isError && (
         <Center pt="4">
           <FallbackPlaceholder
             title="ERROR!"
             desc={
-              error.message ||
+              error as string ||
               "Something went wrong, we were not able to fetch data properly"
             }
           />
         </Center>
       )}
-      {components?.components.length === 0 && (
+      {components?.length === 0 && (
         <Center pt="4">
           <FallbackPlaceholder
             title="Empty list"
@@ -209,13 +211,12 @@ const ExpandedList: FC<ExpandedListProps> = (props) => {
           />
         </Center>
       )}
-      {components?.components.map((ado) => (
+      {components?.map((ado) => (
         <AdoItem
           key={ado.address}
           address={ado.address}
           proxyAddress={appAddress}
           name={ado.name}
-          adoType={ado.ado_type.split('@')[0] as IAdoType}
         />
       ))}
     </Box>
