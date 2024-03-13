@@ -9,7 +9,6 @@ import defaultFields from "./fields";
 interface IFormProps extends Omit<FormProps<any, any>, "validator"> { }
 const Form = (props: IFormProps, ref: any) => {
   const { templates = {}, widgets = {}, fields = {}, ...otherProps } = props;
-
   return (
     <ChakraForm
       // @ts-ignore

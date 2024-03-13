@@ -31,6 +31,7 @@ const TemplatePage: NextPage<Props> = ({ template, responseSchema }) => {
   const router = useRouter();
   const toast = useToast({
     position: "top-right",
+    isClosable: true,
   });
   const address = router.query.address as string;
   const client = useAndromedaClient();
@@ -39,9 +40,14 @@ const TemplatePage: NextPage<Props> = ({ template, responseSchema }) => {
     result: any;
     generatedAt: Date;
   }>();
+  const [errorResponse, setErrorResponse] = useState<{
+    error: string;
+    generatedAt: Date;
+  }>();
 
   useEffect(() => {
     setResponse(undefined);
+    setErrorResponse(undefined);
   }, [template])
 
   const responseJsonHighlight = useMemo(() => {
@@ -111,13 +117,23 @@ const TemplatePage: NextPage<Props> = ({ template, responseSchema }) => {
     try {
       const msg = getMsg(formData);
       const result = await client!.queryContract(address, msg);
-      console.log(result);
+      console.log(result, responseSchema);
       setResponse({
         result,
         generatedAt: new Date()
       });
+      toast({
+        status: 'success',
+        title: "Query Successful!",
+      })
+      setErrorResponse(undefined)
     } catch (err: any) {
       console.error(err);
+      setResponse(undefined);
+      setErrorResponse({
+        error: err?.message ?? "Error executing query",
+        generatedAt: new Date()
+      });
       toast({
         status: 'error',
         title: "Error",
@@ -189,6 +205,7 @@ const TemplatePage: NextPage<Props> = ({ template, responseSchema }) => {
   );
 
   const UPDATE_KEY = useMemo(() => Math.random(), [modifiedTemplate]);
+  const generatedAt = response?.generatedAt || errorResponse?.generatedAt;
 
   return (
     <Layout>
@@ -218,18 +235,21 @@ const TemplatePage: NextPage<Props> = ({ template, responseSchema }) => {
           <HStack gap={3}>
             <Text textStyle="main-xl-medium">Query Response</Text>
             <Text textStyle='main-xs-regular' textColor='content.low' flex={1} mt='1'>
-              {response && (<>
-                Last executed on <b>{response.generatedAt.toLocaleString()}</b>
+              {generatedAt && (<>
+                Last executed on <b>{generatedAt.toLocaleString()}</b>
               </>)}
             </Text>
-            {response && (
-              <CopyButton text={JSON.stringify(response)} variant='theme-low' size='xs'>
+            {(response || errorResponse) && (
+              <CopyButton text={JSON.stringify(response || errorResponse)} variant='theme-low' size='xs'>
                 Copy Response
               </CopyButton>
             )}
             <TabList>
               <Tab>Raw</Tab>
-              <Tab isDisabled>Response</Tab>
+              <Tab
+              // Add a feature toggle here for disabled state
+              // isDisabled
+              >Response</Tab>
             </TabList>
           </HStack>
           {response ? (
@@ -243,18 +263,29 @@ const TemplatePage: NextPage<Props> = ({ template, responseSchema }) => {
               </TabPanel>
               {responseSchema && (
                 <TabPanel px='0'>
-                  <Form
-                    readonly
-                    schema={responseSchema.schema}
-                    uiSchema={responseSchema['ui-schema']}
-                    formData={response}
-                  >
-                    <>
-                    </>
-                  </Form>
+                  <Box bg={responseSchema.schema.type != 'object' ? 'background.800' : undefined}
+                    p={responseSchema.schema.type != 'object' ? '6' : undefined}
+                    rounded='lg'>
+                    <Form
+                      readonly
+                      schema={responseSchema.schema}
+                      uiSchema={responseSchema['ui-schema']}
+                      formData={response.result}
+                    >
+                      <>
+                      </>
+                    </Form>
+                  </Box>
                 </TabPanel>
               )}
             </TabPanels>
+          ) : errorResponse ? (
+            <Center mt='10' bg='dangerLow.idle' p='6' pt='8' rounded='lg'>
+              <FallbackPlaceholder
+                title="Error"
+                desc={errorResponse.error}
+              />
+            </Center>
           ) : (
             <Center mt='10' bg='background.800' p='6' pt='8' rounded='lg'>
               <FallbackPlaceholder
