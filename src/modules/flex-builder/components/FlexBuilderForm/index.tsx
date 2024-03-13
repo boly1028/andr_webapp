@@ -1,7 +1,7 @@
 // Flex-Builder Form container with handling for: schema processing, module management routines
 // updateForm(), addSchemaModule(), removeSchemaModule(), changeSchemaID
 // addModule, removeModule, deleteModule, changePanelName
-import React, { FC, useState, useCallback, useEffect } from "react";
+import React, { FC, useState, useCallback, useEffect, useMemo } from "react";
 import { Button, HStack, Flex, useToast, Switch, Tooltip, VStack, Text, Box } from "@chakra-ui/react";
 import { JSONSchema7 } from "json-schema";
 import { cloneDeep } from "lodash";
@@ -68,6 +68,9 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
     cloneDeep(template.uiSchema ?? ({} as ITemplateUiSchema)),
   );
   const [formData, setFormData] = useState(cloneDeep(template.formData ?? {}));
+  const numModules = useMemo(() => {
+    return Object.values(schema?.properties ?? {}).filter(p => schema?.definitions[p.$ref.split('/').pop() ?? '']?.class !== "system").length
+  }, [schema])
 
   const [dirty, setDirty] = useState(false); // Flag for monitoring if data has been entered which is used to set page exit warnings prior to data loss from leaving page
   const [validate, setValidate] = useState(true);
@@ -109,6 +112,14 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
 
   const addModule = useCallback(
     (module: IAndromedaSchemaJSON) => {
+      if (template.adoLimit && numModules >= template.adoLimit && module.schema.class !== 'system') {
+        toast({
+          title: `Max Limit Exceeded`,
+          description: `Only "${template.adoLimit}" panel is allowed`,
+          status: 'error'
+        })
+        return;
+      }
       const ref = getSchemaRef(module);
       const allPanels = Object.keys(schema?.properties ?? {});
       const minLength = allPanels.filter(panelId => schema?.properties?.[panelId]?.$ref === ref).length;
@@ -118,6 +129,12 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
         schema: schema,
         uiSchema: uiSchema,
         formData: formData,
+      });
+      toast({
+        title: `Added panel`,
+        description: `Added new panel with id: ${newId}`,
+        status: "info",
+        isClosable: true,
       });
       updateForm(form);
     },
@@ -129,6 +146,14 @@ const FlexBuilderForm: FC<FlexBuilderFormProps> = ({
     (panelName: any) => {
       const $id = formData[panelName]?.$type ?? '';
       const ref = schema?.properties[panelName]?.$ref ?? '';
+      if (template.adoLimit && numModules >= template.adoLimit && formData[panelName]?.$class !== 'system') {
+        toast({
+          title: `Max Limit Exceeded`,
+          description: `Only "${template.adoLimit}" panel is allowed`,
+          status: 'error'
+        })
+        return;
+      }
       const allPanels = Object.keys(schema?.properties ?? {});
       const minLength = allPanels.filter(panelId => schema?.properties?.[panelId]?.$ref === ref).length;
       const newId = humanReadableUuid($id, minLength, allPanels)

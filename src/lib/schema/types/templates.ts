@@ -11,6 +11,7 @@ export interface ITemplate {
     description: string;
     opts: string[];
     ados: IAdo[];
+    adoLimit?: number;
     modules?: IModule[];
     disabled?: boolean;
     // Schema, uiSchema is created and inserted after template processing

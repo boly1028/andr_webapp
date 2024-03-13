@@ -1,6 +1,7 @@
 import { cloneDeep } from "@apollo/client/utilities";
 import { IImportantAdoKeys, ITemplate } from "../types";
 import { BLANK_APP_TEMPLATE } from "./blank";
+import { MAX_APP_LIMIT } from "../constants";
 
 type PartialTemplateType = Omit<ITemplate, 'formData'> & {
   formData?: any
@@ -15,6 +16,7 @@ const APP_TEMPLATES: PartialTemplateType[] = [
     description:
       "Setup an auction to sell NFT’s at an initial starting price and allow bidding from many users to get the highest price bid placed and accepted to receive the NFT. The duration of the auction is also configurable as well as the rate/royalty charged per NFT. Other options such as address lists can be added as well.",
     opts: ["Auction", "CW721", "Rates"],
+    adoLimit: MAX_APP_LIMIT,
     ados: [
       {
         path: IImportantAdoKeys.PUBLISH_SETTING.path,
@@ -99,6 +101,7 @@ const APP_TEMPLATES: PartialTemplateType[] = [
     description:
       "Setup a customizable NFT Marketplace/store to sell NFT’s for a specific price point. The rates and address (Whitelist/Blacklist) list are also configurable and can be modified per marketplace instance. Proceeds will be collected and sent to the marketplace owner and NFT sent to the specific recipient of the purchase.",
     opts: ["Marketplace", "CW721", "Rates"],
+    adoLimit: MAX_APP_LIMIT,
     ados: [
       {
         path: IImportantAdoKeys.PUBLISH_SETTING.path,
@@ -175,6 +178,7 @@ const APP_TEMPLATES: PartialTemplateType[] = [
     description:
       "Setup a crowdfund to distribute NFTs representing fractionalized ownership of the goal being funded. Proceeds are able to be divided and distributed to yield vaults to assure direct delivery to the respective manufacturing / distribution / business partnerships.",
     opts: ["Crowdfund", "CW721", "Vault", "Rates"],
+    adoLimit: MAX_APP_LIMIT,
     ados: [
       {
         path: IImportantAdoKeys.PUBLISH_SETTING.path,
@@ -245,6 +249,7 @@ const APP_TEMPLATES: PartialTemplateType[] = [
     icon: "/app-templates/icons/cw20-staking.png",
     description: "CW20 Exchange creates a unique digital asset to be sold on an independent exchange. Buyers can easily purchase CW20 tokens, for use in things like accessibility and liquidity. This simple and efficient exchange platform supports purchase options for both native and non-native tokens.",
     opts: ["CW20", "cw20 exchange"],
+    adoLimit: MAX_APP_LIMIT,
     ados: [
       {
         path: IImportantAdoKeys.PUBLISH_SETTING.path,

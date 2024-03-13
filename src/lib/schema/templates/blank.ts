@@ -1,3 +1,4 @@
+import { MAX_APP_LIMIT } from "../constants";
 import { ADO_LIST_FILES } from "../hooks/useGetAdoList";
 import { IImportantAdoKeys, IImportantTemplateTypes, ITemplate } from "../types";
 import { getAdoList } from "../utils";
@@ -27,7 +28,7 @@ export const BLANK_APP_TEMPLATE: ITemplate = {
             required: true,
         },
     ],
-
+    adoLimit: MAX_APP_LIMIT,
     modules: [
     ],
     system: true,
